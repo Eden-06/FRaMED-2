@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+ 	<extension point="org.eclipse.graphiti.ui.diagramTypes">
+    	<diagramType
+      		description="This is a Compartment Role Object Model Diagram."
+     		id="CROM_Diagram"
+      		name="Compartment Role Object Model Diagram"
+      		type="CROM_Diagram">
+    	</diagramType>
+  	</extension>
+  
+  	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+    	<diagramTypeProvider
+      		class="org.framed.iorm.ui.providers.DiagramTypeProvider"
+      		description="This is the Compartment Role Object Model Diagram Provider."
+      		id="CROM_Diagram_Provider"
+      		name="Compartment Role Object Model Diagram Provider">
+      		<diagramType
+        		id="CROM_Diagram">
+      		</diagramType>
+        	<imageProvider
+              	id="org.framed.iorm.ui.imageProvider">
+        	</imageProvider>
+   		</diagramTypeProvider>
+  	</extension>
+ 
+ 	<extension point="org.eclipse.ui.editors">
+     	<editor
+            class="org.framed.iorm.ui.multipage.MultipageEditor"
+            contributorClass="org.framed.iorm.ui.multipage.MultipageEditorContributor"
+            default="true"
+            extensions="crom_diagram"
+            icon="icons/editors/icon_multipage_editor.png"
+            id="CROM_MultipageEditor"
+            name="Compartment Role Object Model Editor">
+      	</editor>
+   	</extension>
+
+   	
+    
+    <extension point="org.eclipse.ui.newWizards">
+       <category
+             id="org.framed.iorm.ui.wizard_category"
+             name="Compartment Role Object Models">
+       </category>
+       <wizard
+             category="org.framed.iorm.ui.wizard_category"
+             class="org.framed.iorm.ui.wizards.RoleModelWizard"
+             icon="icons/wizard/icon_role_model_wizard.png"
+             id="org.framed.iorm.ui.model_wizard"
+             name="Compartment Role Object Model">
+       </wizard>
+       <wizard
+             category="org.framed.iorm.ui.wizard_category"
+             class="org.framed.iorm.ui.wizards.RoleModelProjectWizard"
+             icon="icons/wizard/icon_role_model_project_wizard.gif"
+             id="org.framed.iorm.ui.project_wizard"
+             name="CROM Project"
+             project="true">
+       </wizard>
+    </extension>
+    
+    <extension point="org.eclipse.graphiti.ui.imageProviders">
+       <imageProvider
+             class="org.framed.iorm.ui.providers.ImageProvider"
+             id="org.framed.iorm.ui.imageProvider">
+       </imageProvider>
+    </extension>
+</plugin>
