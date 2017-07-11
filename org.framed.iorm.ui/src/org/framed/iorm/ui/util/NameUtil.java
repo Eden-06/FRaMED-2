@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern; 
-import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
-import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -13,9 +11,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.exceptions.NoModelFoundException;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.wizards.RoleModelProjectWizard; //*import for javadoc link
+import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
 /**
  * This class is used to check names when direct editing shapes and connection for their validity. 
@@ -29,10 +26,10 @@ public class NameUtil {
 	 * the limit of the suffix for standard names
 	 * <p>
 	 * This means that if the limit is 10 the following standard names are used:<br>
-	 * <em>standard name</em><br>
-	 * <em>standard name1</em><br>
+	 * <em>standardName</em><br>
+	 * <em>standardName1</em><br>
 	 * <em>...</em><br>
-	 * <em>standard name10</em><br>
+	 * <em>standardName10</em><br>
 	 */
 	private final static int STANDART_NAMES_COUNTER_LIMIT = 10;
 	
@@ -144,7 +141,7 @@ public class NameUtil {
 	public static boolean nameAlreadyUsedForClassOrRole(Diagram diagram, Type type, String newName) {
 		List<String> modelElements = new ArrayList<String>();
 		//Step 1
-		Model rootModel = DiagramUtil.getMainDiagramForAnyDiagram(diagram);
+		Model rootModel = DiagramUtil.getRootDiagramForAnyDiagram(diagram);
 		//Step 2
 		getModelElementsNamesRecursive(rootModel, type, modelElements);
 		return modelElements.contains(newName);
@@ -198,7 +195,7 @@ public class NameUtil {
 	 */
 	public static String calculateStandardNameForClassOrRole(Diagram diagram, Type type, String standardName) {
 		List<String> modelElements = new ArrayList<String>();
-		Model rootModel = DiagramUtil.getMainDiagramForAnyDiagram(diagram);
+		Model rootModel = DiagramUtil.getRootDiagramForAnyDiagram(diagram);
 		getModelElementsNamesRecursive(rootModel, type, modelElements);
 		if(!(modelElements.contains(standardName))) return standardName;
 		for(int i=1; i<=STANDART_NAMES_COUNTER_LIMIT; i++) {

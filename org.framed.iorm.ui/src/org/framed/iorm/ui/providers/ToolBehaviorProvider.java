@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -22,6 +21,7 @@ import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.ModelPattern; //*import for javadoc link
+import org.framed.iorm.ui.pattern.shapes.GroupOrCompartmentTypeElementPattern; //*import for javadoc link
 
 /**
  * This class enables context buttons and can manipulate the palette of the editor.
@@ -37,7 +37,10 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME,
 						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
 	
-	//TODO
+	/**
+	 * the value for the property diagram kind to identify diagrams belonging to a group gathered
+	 * from {@link IdentiferLiterals}
+	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
 	
 	/**
@@ -144,8 +147,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * This is done for patterns which dont have a create features or whichs create features should not be used by the user
 	 * manually. Explicitly this patterns are:<br>
 	 * (1) {@link AttributeOperationCommonPattern} and<br>
-	 * (2) {@link ModelPattern}
-	 * TODO.
+	 * (2) {@link ModelPattern} and <br>
+	 * (3) {@link GroupOrCompartmentTypeElementPattern}
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {

@@ -55,9 +55,9 @@ public class IdentifierLiterals {
 							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group";
 	
 	/**
-	 * feature model ID
+	 * feature model identifier
 	 * <p>
-	 * the idenfier of the feature model the {@link FRaMEDFeatureEditor} uses
+	 * the identifier of the feature model the {@link FRaMEDFeatureEditor} uses
 	 */
 	public static final String FEATUREMODEL_ID = "org.framed.iorm.featuremodel";
 	
@@ -75,16 +75,16 @@ public class IdentifierLiterals {
 							   KEY_DIAGRAM_KIND = "diagram kind";
 	
 	/**
-	 * identifers used for the natural type
+	 * identifiers used for natural types
 	 * <p>
-	 * can be:<br>
-	 * (1) typebody rectangle or<br>
-	 * (2) shadow rectangle or<br>
-	 * (3) name rectange or<br>
-	 * (4) first line or<br>
-	 * (5) second line or<br>
-	 * (6) attribute container rectangle or<br>
-	 * (7) operation container rectangle
+	 * can be for:<br>
+	 * (1) type body shape or<br>
+	 * (2) drop shadow shape or<br>
+	 * (3) name shape or<br>
+	 * (4) first line shape or<br>
+	 * (5) second line shape or<br>
+	 * (6) attribute container shape or<br>
+	 * (7) operation container shape
 	 */
 	public static final String SHAPE_ID_NATURALTYPE_CONTAINER = "shape_nt_container",
 							   SHAPE_ID_NATURALTYPE_TYPEBODY = "shape_nt_typebody",
@@ -96,16 +96,16 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = "shape_nt_opcontainer";
 	
 	/**
-	 * identifers used for the data type
+	 * identifiers used for data types
 	 * <p>
-	 * can be:<br>
-	 * (1) typebody polygon or<br>
-	 * (2) shadow polygon or<br>
-	 * (3) name rectange or<br>
-	 * (4) first line or<br>
-	 * (5) second line or<br>
-	 * (6) attribute container rectangle or<br>
-	 * (7) operation container rectangle 
+	 * can be for:<br>
+	 * (1) typebody shape or<br>
+	 * (2) shadow shape or<br>
+	 * (3) name shape or<br>
+	 * (4) first line shape or<br>
+	 * (5) second line shape or<br>
+	 * (6) attribute container shape or<br>
+	 * (7) operation container shape 
 	 */
 	public static final String SHAPE_ID_DATATYPE_CONTAINER = "shape_dt_container",
 							   SHAPE_ID_DATATYPE_TYPEBODY = "shape_dt_typebody",
@@ -117,15 +117,16 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_DATATYPE_OPERATIONCONTAINER = "shape_dt_opcontainer";
 	
 	/**
-	 * identifers used for the group
+	 * identifiers used for the group
 	 * <p>
-	 * can be:<br>
-	 * (1) typebody rectangle or<br>
-	 * (2) shadow rectangle or<br>
-	 * (3) name rectange or<br>
-	 * (4) line or<br>
-	 * (5) model container rectangle 
-	 * TODO
+	 * can be for:<br>
+	 * (1) type body shape or<br>
+	 * (2) shadow shape or<br>
+	 * (3) name shape or<br>
+	 * (4) line shape or<br>
+	 * (5) model container shape or<br>
+	 * (6) model element shape or<br>
+	 * (7) indicator dots if not all model element names fit in to the groups type body shape
 	 */
 	public static final String SHAPE_ID_GROUP_CONTAINER = "shape_group_container",
 							   SHAPE_ID_GROUP_TYPEBODY = "shape_group_typebody",
@@ -137,30 +138,18 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_GROUPS_INDICATOR_DOTS = "shape_group_indicator_dots";
 	
 	/**
-	 * identifers used for attributes
+	 * identifiers used for attributes and operations
 	 * <p>
-	 * the identifier for the attribute rectangle TODO
+	 * can be for:<br>
+	 * (1) the attribute text shape or<br>
+	 * (2) the indicator dots if not all attributes fit in to the class or roles type body shape or<br>
+	 * (3) the operation text shape or<br>
+	 * (4) the indicator dots if not all operations fit in to the class or roles type body shape
 	 */
 	public static final String SHAPE_ID_ATTRIBUTE_TEXT = "shape_att_text",
-							   SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots";
-	
-	/**
-	 * identifers used for operation
-	 * <p>
-	 * the identifier for the operation rectangle TODO
-	 */
-	public static final String SHAPE_ID_OPERATION_TEXT = "shape_op_text",
+							   SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
+							   SHAPE_ID_OPERATION_TEXT = "shape_op_text",
 							   SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
-	
-	/**
-	 * identifers used for the inheritance connection
-	 * <p>
-	 * can be:<br>
-	 * (1) the identifier for the inheritance polyline or<br>
-	 * (2) the identifier for the inheritance decorator polygon
-	 */
-	public static final String SHAPE_ID_INHERITANCE_LINE = "shape_inheritance_con",
-							   SHAPE_ID_INHERITANCE_DECORATOR = "shape_inheritance_dec";
 	
 	/**
 	 * the kinds of diagrams used in the editor

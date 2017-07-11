@@ -217,6 +217,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		directEditingInfo.setPictogramElement(attributeOrOperationShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 	    link(attributeOrOperationShape, addedAttributeOrOperation);
+	    this.layoutPictogramElement(classOrRoleContainer);
 		return attributeOrOperationShape;
 	}
 	

@@ -65,6 +65,11 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 						 SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER, 
 						 SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER,
 						 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE;
+	
+	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
+			 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
+			 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
+		     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
 
 	//layout literals
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
@@ -72,7 +77,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
 					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
-					  HEIGHT_ATTRITBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
+					  HEIGHT_ATTRIBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
 					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE;
 	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
 								 COLOR_LINES = LayoutLiterals.COLOR_LINES,
@@ -350,6 +355,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean layout(ILayoutContext layoutContext) {	
 		boolean layoutChanged = false;
+		Shape indicatorDotsShapeToDelete;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
 		Rectangle typeBodyRectangle = null;
 		//return false is container is overall container that has typeBodyShape and dropShadowShape as children
@@ -408,15 +414,28 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	            	EList<Shape> attributes = attributeContainerShape.getChildren();
 	            			            	
 	            	//set all attributes visible
-	            	for(int j = 0; j<attributes.size(); j++) attributes.get(j).setVisible(true);	   
+	            	indicatorDotsShapeToDelete = null;
+	            	for(int j = 0; j<attributes.size(); j++) {
+	            		attributes.get(j).setVisible(true);	   
+	            		if(PropertyUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
+				    		 indicatorDotsShapeToDelete = attributes.get(j);
+	            	}
+	            	attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
 	            		
 	            	//check if not all attributes fit in the attribute field
-	            	if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRITBUTE_SHAPE>newHeight) {	            		
-	            		int fittingAttributes = (newHeight-HEIGHT_ATTRITBUTE_SHAPE)/HEIGHT_ATTRITBUTE_SHAPE;	   
+	            	if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
+	            		int fittingAttributes = (newHeight-HEIGHT_ATTRIBUTE_SHAPE)/HEIGHT_ATTRIBUTE_SHAPE;	   
 	            		//set not fitting attributes to invisible
 	            		for(int k = fittingAttributes; k<attributes.size(); k++) {
 	            			attributeContainerShape.getChildren().get(k).setVisible(false);
-	            		}	            			
+	            		}	 
+	            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
+			            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+			            indicatorDots.setForeground(manageColor(COLOR_TEXT));
+			            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+			            	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
+			            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+			           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
 	            	}	            			
 	            	layoutChanged=true;
 	            }
@@ -436,17 +455,31 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	            		operationContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
             		}
 	     
-	            	//set all attributes visible
-	            	for(int n = 0; n<operations.size(); n++) operations.get(n).setVisible(true);
-	            	//check if not all attributes fit in the attribute field
-	            	if(operationContainerShape.getChildren().size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
-	            		int fittingAttributes = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
-	            		//set not fitting attributes to invisible
-	            		for(int o = fittingAttributes; o<operations.size(); o++) {
-	            			operationContainerShape.getChildren().get(o).setVisible(false);            				
-	            		}	            			
-	            	}	       
-	            	layoutChanged=true;
+	            	//set all operations visible
+				    indicatorDotsShapeToDelete = null;
+				    for(int n = 0; n<operations.size(); n++) {
+				    	operations.get(n).setVisible(true);
+				    	 if(PropertyUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
+				    		 indicatorDotsShapeToDelete = operations.get(n);
+				    }
+				    operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+				       
+				    //check if not all operations fit in the operations field
+				    if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
+				       	int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
+				       	//set not fitting operations to invisible
+				       	for(int o = fittingOperations; o<operations.size(); o++) {
+				       		operationContainerShape.getChildren().get(o).setVisible(false);            				
+				       	}   	
+				       	Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
+			            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+			            indicatorDots.setForeground(manageColor(COLOR_TEXT));
+			            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+			            	PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*HEIGHT_OPERATION_SHAPE, 
+			            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+			           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
+				    } 	
+				layoutChanged=true;
 	    }	}	}        
         return layoutChanged;
 	}
@@ -504,9 +537,10 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
-							businessAttributeNames.add(attribute.getName());
-		}	}	}	}	}		
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
+								businessAttributeNames.add(attribute.getName());
+		}	}	}	}	}	}	
 		return businessAttributeNames;
 	}
 	
@@ -519,9 +553,10 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
-							businessOperationNames.add(operation.getName());
-		}	}	}	}	}		
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
+								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
+								businessOperationNames.add(operation.getName());
+		}	}	}	}	}	}	
 		return businessOperationNames;
 	}
 	
@@ -558,24 +593,25 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 						newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 							for(Shape attributeShape : innerContainerShape.getChildren()) {
-								Text text = (Text) attributeShape.getGraphicsAlgorithm();
-								text.setValue(businessAttributeNames.get(counter));
-								attributeShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_ATTRITBUTE_SHAPE);
-								changed = true;
-								counter++;
-							}	
-						}
+								if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+									Text text = (Text) attributeShape.getGraphicsAlgorithm();
+									text.setValue(businessAttributeNames.get(counter));
+									attributeShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_ATTRIBUTE_SHAPE);
+									changed = true;
+									counter++;
+						}	}	}
 						//Operations
 						counter = 0;
 						newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
-								Text text = (Text) operationShape.getGraphicsAlgorithm();
-								text.setValue(businessOperationNames.get(counter));									
-								operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
-								changed = true;
-								counter++;
-		}	}	}	}	}	}        
+								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+									Text text = (Text) operationShape.getGraphicsAlgorithm();
+									text.setValue(businessOperationNames.get(counter));									
+									operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
+									changed = true;
+									counter++;
+		}	}	}	}	}	}	}        
         return changed;
 	}	
 	

@@ -6,6 +6,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -45,7 +46,7 @@ public class FRaMEDDiagramEditor extends DiagramEditor  {
 		   mainDiagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 			Model rootModel = (Model) mainDiagram.getLink().getBusinessObjects().get(0);
 			selectedFeatures = rootModel.getFramedConfiguration().getFeatures();
-		} else System.err.println("asd"); //TODO
+		} else throw new NoModelFoundException();
 	}
 	
 	/**

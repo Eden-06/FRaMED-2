@@ -603,24 +603,25 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 						newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 							for(Shape attributeShape : innerContainerShape.getChildren()) {
-								Text text = (Text) attributeShape.getGraphicsAlgorithm();
-								text.setValue(businessAttributeNames.get(counter));
-								attributeShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_ATTRITBUTE_SHAPE);
-								returnValue = true;
-								counter++;
-							}	
-						}
+								if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+									Text text = (Text) attributeShape.getGraphicsAlgorithm();
+									text.setValue(businessAttributeNames.get(counter));
+									attributeShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_ATTRITBUTE_SHAPE);
+									returnValue = true;
+									counter++;
+						}	}	}
 						//Operations
 						counter = 0;
 						newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
-								Text text = (Text) operationShape.getGraphicsAlgorithm();
-								text.setValue(businessOperationNames.get(counter));									
-								operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
-								returnValue = true;
-								counter++;
-		}	}	}	}	}	}
+								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+									Text text = (Text) operationShape.getGraphicsAlgorithm();
+									text.setValue(businessOperationNames.get(counter));									
+									operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
+									returnValue = true;
+									counter++;
+		}	}	}	}	}	}	}
         return returnValue;
 	}
 	

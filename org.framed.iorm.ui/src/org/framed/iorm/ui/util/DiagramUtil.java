@@ -125,13 +125,11 @@ public class DiagramUtil {
 	}
 	
 	/**
-	 * fetches the <em>main diagram</em> of role model which contains the given diagram
-	 * <p>
-	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * @param diagram the diagram to search the main diagram for
-	 * @return the main diagram of a role model
+	 * fetches the root model of role model which contains the given diagram
+	 * @param diagram the diagram to search the root model for
+	 * @return the root model of a role model
 	 */
-	public static Model getMainDiagramForAnyDiagram(Diagram diagram) {
+	public static Model getRootDiagramForAnyDiagram(Diagram diagram) {
 		Model rootModel = null;
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
