@@ -70,7 +70,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				   		 SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME, 
 				   		 SHAPE_ID_GROUP_LINE = IdentifierLiterals.SHAPE_ID_GROUP_LINE,
 				   		 SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_MODEL,
-				   		 SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
+				   		 SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
+				   		 SHAPE_ID_GROUPS_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_GROUPS_INDICATOR_DOTS;
 				   
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;			  
 				   		 
@@ -253,7 +254,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		modelRectangle.setLineVisible(false);
 		modelRectangle.setBackground(manageColor(COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(modelRectangle, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS, 
-												   width-2*PUFFER_BETWEEN_ELEMENTS, height-GROUP_CORNER_RADIUS-2*PUFFER_BETWEEN_ELEMENTS);
+												   width-2*PUFFER_BETWEEN_ELEMENTS, height-GROUP_CORNER_RADIUS);
 		
 		//groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(DIAGRAM_TYPE, addedGroup.getName(), 10, false);
@@ -434,33 +435,46 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	        if (graphicsAlgorithm instanceof Rectangle) {
 	        	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
 		        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_MODEL)) {
-		        	int newHeight = (containerHeight-GROUP_CORNER_RADIUS-2*PUFFER_BETWEEN_ELEMENTS),
+		        	int newHeight = (containerHeight-GROUP_CORNER_RADIUS),
 		            	newWidth = (containerWidth-2*PUFFER_BETWEEN_ELEMENTS);            				
 		        	rectangle.setHeight(newHeight);
 		            rectangle.setWidth(newWidth);
-		              
-		            /*
-		            //TODO needed?
+		            ContainerShape groupElementsShape = (ContainerShape) shape;
+	            	EList<Shape> groupElements = groupElementsShape.getChildren();  
+		     
 		            //set place of group elements
 	            	//for(int i = 0; i<groupElements.size(); i++) {
 	            	//	((ContainerShape) shape).getChildren().get(i).getGraphicsAlgorithm().setY(i*HEIGHT_GROUP_ELEMENT_SHAPE);
             		//}
 	     
-	            	//set all attributes visible //TODO: Blödsinn
-	            	for(int j = 0; j<groupModel.getElements().size(); j++) groupElements.get(j).setVisible(true);
+	            	Shape indicatorDotsShapeToDelete = null;
+	            	for(Shape elementShape : groupElements) {
+	            		elementShape.setVisible(true);
+	            		if(PropertyUtil.isShape_IdValue(elementShape, SHAPE_ID_GROUPS_INDICATOR_DOTS))
+	            			indicatorDotsShapeToDelete = elementShape;
+	            	}
+	            	groupElementsShape.getChildren().remove(indicatorDotsShapeToDelete);
 	            	
 	            	//check if not all attributes fit in the attribute field
-	            	if(groupElements.size()*HEIGHT_GROUP_ELEMENT_SHAPE>newHeight) {	            		
+	            	if(groupElements.size()*HEIGHT_GROUP_ELEMENT_SHAPE > newHeight) {	            		
 	            		int fittingAttributes = (newHeight-HEIGHT_GROUP_ELEMENT_SHAPE)/HEIGHT_GROUP_ELEMENT_SHAPE;	   
 	            		//set not fitting attributes to invisible
 	            		for(int k = fittingAttributes; k<groupElements.size(); k++) {
 	            			groupElements.get(k).setVisible(false);            				
-	            	}	}*/
+	            		}	
+	            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(groupElementsShape, true); 
+	            		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+	            		indicatorDots.setForeground(manageColor(COLOR_TEXT));
+	            		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+	            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_GROUP_ELEMENT_SHAPE, 
+	            				newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
+	            		PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_GROUPS_INDICATOR_DOTS); 
+	            	}
 	            	layoutChanged = true;
 	     }	}	}        
 	     return layoutChanged;
 	}
-	
+
 	//update feature
 	//~~~~~~~~~~~~~~
 	@Override
@@ -487,7 +501,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_GROUP_NAME);
 			//business name and attributes
 			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			//model element names in model
+			//model element names in groups model
 			List<String> modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram());
  			//model element names in model container of shape
 			List<String> modelContainerElementsNames = PatternUtil.getModelContainerElementsNames(pictogramElement);		

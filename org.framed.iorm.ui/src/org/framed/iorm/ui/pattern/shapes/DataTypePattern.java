@@ -67,6 +67,11 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 						 SHAPE_ID_DATATYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER,
 					     IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE;
 	
+	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
+						 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
+						 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
+					     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
+	
 	//layout literals
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
 					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
@@ -361,6 +366,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean layout(ILayoutContext layoutContext) {
 		boolean layoutChanged = false;
+		Shape indicatorDotsShapeToDelete;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
 		Polygon typeBodyPolygon = null;
 		//return false is container is overall container that has typeBodyShape and dropShadowShape as children
@@ -419,14 +425,28 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		           EList<Shape> attributes = attributeContainerShape.getChildren();
 		            			            	
 		           //set all attributes visible
-		           for(int j = 0; j<attributes.size(); j++) attributes.get(j).setVisible(true);	   	
+		           indicatorDotsShapeToDelete = null;
+		           for(int j = 0; j<attributes.size(); j++) {
+		        	   attributes.get(j).setVisible(true);
+		        	   if(PropertyUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
+	            			indicatorDotsShapeToDelete = attributes.get(j);
+		           }
+		           attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+		           
 		           //check if not all attributes fit in the attribute field
 		           if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRITBUTE_SHAPE>newHeight) {	            		
 		        	   int fittingAttributes = (newHeight-HEIGHT_ATTRITBUTE_SHAPE)/HEIGHT_ATTRITBUTE_SHAPE;	   
 		        	   //set not fitting attributes to invisible
 		        	   for(int k = fittingAttributes; k<attributes.size(); k++) {
-		        	   attributeContainerShape.getChildren().get(k).setVisible(false);
-		        	   }	            			
+		        		   attributeContainerShape.getChildren().get(k).setVisible(false);
+		        	   }
+		        	   Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
+	            		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+	            		indicatorDots.setForeground(manageColor(COLOR_TEXT));
+	            		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+	            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_OPERATION_SHAPE, 
+	            				newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+	            		PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS); 	
 		            }	            			
 		            layoutChanged=true;
 		       }
@@ -447,20 +467,33 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			       }
 			       
 			       //set all operations visible
-			       for(int n = 0; n<operations.size(); n++) operations.get(n).setVisible(true);
-			       		//check if not all operations fit in the operations field
-			       		if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
-			       			int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
-			       			//set not fitting operations to invisible
-			       			for(int o = fittingOperations; o<operations.size(); o++) {
-			       				operationContainerShape.getChildren().get(o).setVisible(false);            				
-			       }   	}  	}    
-		           layoutChanged=true;
+			       indicatorDotsShapeToDelete = null;
+			       for(int n = 0; n<operations.size(); n++) {
+			    	   operations.get(n).setVisible(true);
+			    	   if(PropertyUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
+	            			indicatorDotsShapeToDelete = operations.get(n);
+			       }
+			       operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+			       
+			       //check if not all operations fit in the operations field
+			       if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
+			       		int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
+			       		//set not fitting operations to invisible
+			       		for(int o = fittingOperations; o<operations.size(); o++) {
+			       			operationContainerShape.getChildren().get(o).setVisible(false);            				
+			       		}   	
+			       		Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
+		            	Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+		            	indicatorDots.setForeground(manageColor(COLOR_TEXT));
+		            	graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+		            		PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*HEIGHT_OPERATION_SHAPE, 
+		            		newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+		            	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS); 	
+			   }	}    
+		       layoutChanged=true;
 		}	}
 	    return layoutChanged;
 	}
-	
-	
 	
 	//update feature
 	//~~~~~~~~~~~~~~
@@ -515,9 +548,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
-							businessAttributeNames.add(attribute.getName());
-		}	}	}	}	}		
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
+								businessAttributeNames.add(attribute.getName());
+		}	}	}	}	}	}	
 		return businessAttributeNames;
 	}
 	
@@ -530,9 +564,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
-							businessOperationNames.add(operation.getName());
-		}	}	}	}	}		
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
+								businessOperationNames.add(operation.getName());
+		}	}	}	}	}	}	
 		return businessOperationNames;
 	}
 	

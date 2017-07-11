@@ -24,7 +24,11 @@ public class PatternUtil {
 	 */
 	private static final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 								SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME,
-								SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_MODEL;
+								SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_MODEL,
+							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
+	
+	private static final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
+								SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT;
 			
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model container</em> of the group
@@ -42,9 +46,10 @@ public class PatternUtil {
 				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_MODEL)) {
 					ContainerShape modelContainer = (ContainerShape) shape; 
 					for(Shape modelContainterElement : modelContainer.getChildren()) {
-						Text text = (Text) modelContainterElement.getGraphicsAlgorithm();
-						modelContainerElementsNames.add(text.getValue());
-		}	}	}	}	
+						if(PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_GROUP_ELEMENT)) {
+							Text text = (Text) modelContainterElement.getGraphicsAlgorithm();
+							modelContainerElementsNames.add(text.getValue());
+		}	}	}	}	}
 		return modelContainerElementsNames;
 	}
 
@@ -111,9 +116,10 @@ public class PatternUtil {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							Text text = (Text) operationShape.getGraphicsAlgorithm();
-							pictogramOperationNames.add(text.getValue());
-		}	}	}	}	}	
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								Text text = (Text) operationShape.getGraphicsAlgorithm();
+								pictogramOperationNames.add(text.getValue());
+		}	}	}	}	}	}
 		return pictogramOperationNames;
 	}
 
@@ -132,9 +138,10 @@ public class PatternUtil {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							Text text = (Text) attributeShape.getGraphicsAlgorithm();
-							pictogrammAttributeNames.add(text.getValue());
-		}	}	}	}	}	
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+								Text text = (Text) attributeShape.getGraphicsAlgorithm();
+								pictogrammAttributeNames.add(text.getValue());
+		}	}	}	}	}	}
 		return pictogrammAttributeNames;
 	}
 

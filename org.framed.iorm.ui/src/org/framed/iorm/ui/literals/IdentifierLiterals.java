@@ -133,21 +133,24 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_GROUP_NAME = "shape_group_name", 
 						 	   SHAPE_ID_GROUP_LINE = "shape_group_line",
 						 	   SHAPE_ID_GROUP_MODEL = "shape_group_model",
-						 	   SHAPE_ID_GROUP_ELEMENT = "shape_group_element";
+						 	   SHAPE_ID_GROUP_ELEMENT = "shape_group_element",
+						 	   SHAPE_ID_GROUPS_INDICATOR_DOTS = "shape_group_indicator_dots";
 	
 	/**
 	 * identifers used for attributes
 	 * <p>
-	 * the identifier for the attribute rectangle
+	 * the identifier for the attribute rectangle TODO
 	 */
-	public static final String SHAPE_ID_ATTRIBUTE_TEXT = "shape_att_text";
+	public static final String SHAPE_ID_ATTRIBUTE_TEXT = "shape_att_text",
+							   SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots";
 	
 	/**
 	 * identifers used for operation
 	 * <p>
-	 * the identifier for the operation rectangle
+	 * the identifier for the operation rectangle TODO
 	 */
-	public static final String SHAPE_ID_OPERATION_TEXT = "shape_op_text";
+	public static final String SHAPE_ID_OPERATION_TEXT = "shape_op_text",
+							   SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
 	
 	/**
 	 * identifers used for the inheritance connection
