@@ -1,6 +1,15 @@
 package org.framed.iorm.ui.pattern.shapes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.impl.DeleteContext;
+import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractPattern;
@@ -69,4 +78,34 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		ContainerShape groupTypeBodyToUpdate = PatternUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
         updatePictogramElement(groupTypeBodyToUpdate);
 	}
+	
+	/**
+	 * deletes {@link Connection} that are attached to a shape that is getting deleted using the following steps:
+	 * <p>
+	 * Step 1: It gets all attached connections from the anchors of the shape to be deleted.<br>
+	 * Step 2: It creates an {@link IDeleteFeature} for the attached connections to be deleted and disables the 
+	 * "Are you sure?" dialog when deleting a pictogram element.
+	 * TODO reference to typebody shape
+	 * The pictogram element referenced in the {@link IDeleteContext} typically should be a type body shape of a class
+	 * or role, since this shape have the anchors on which connections are hung to.
+	 * @param deleteContext
+	 */
+	protected void deleteAttachedConnections(IDeleteContext deleteContext) {
+		//Step 1
+		if(deleteContext.getPictogramElement() instanceof ContainerShape) {
+			List<Connection> connectionsToDelete = new ArrayList<Connection>();
+			ContainerShape typeBodyShape = (ContainerShape) deleteContext.getPictogramElement();
+			for(Anchor anchor : typeBodyShape.getAnchors()) {
+				for(Connection connection : anchor.getIncomingConnections())
+					connectionsToDelete.add(connection);
+				for(Connection connection : anchor.getOutgoingConnections()) 
+					connectionsToDelete.add(connection);
+			}
+			//Step 2
+			for(Connection connection : connectionsToDelete) {
+				DeleteContext connectionDeleteContext = new DeleteContext(connection);
+				connectionDeleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+				IDeleteFeature deleteFeature = createDeleteFeature(connectionDeleteContext);
+				deleteFeature.delete(connectionDeleteContext);
+	}	}	}	
 }

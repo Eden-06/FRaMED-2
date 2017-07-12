@@ -29,7 +29,7 @@ public class PatternUtil {
 	
 	private static final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
 								SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT;
-			
+				
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model container</em> of the group
 	 * <p>

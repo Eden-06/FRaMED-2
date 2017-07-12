@@ -731,6 +731,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//delete parent container (the one that contains drop shadow shape and type body shape)
 	@Override
 	public void delete(IDeleteContext deleteContext) {
+		deleteAttachedConnections(deleteContext);
 		ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
 		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
