@@ -46,17 +46,42 @@ import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
+/**
+ * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
+ * of the type {@link Type#DATA_TYPE} in the editor.
+ * <p>
+ * It deals with the following aspects of datatypes:<br>
+ * (1) adding a datatype to the diagram, especially its pictogram elements<br>
+ * (2) creating the datatype, especially its business object<br>
+ * (3) direct editing of the datatypes name<br>
+ * (4) layout the datatype, especially setting lines, attributes and operations at the right positions<br>
+ * (5) updating the datatypes names, attributes names/ position and operation/ position<br>
+ * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
+ * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
+ * (8) deleting all the data types pictogram elements and its attached connections, also diables deleting
+ *     the drop shadow manually
+ * <p>
+ * If its not clear what <em>drop shadow shape</em> and <em>type body shape</em> means, see 
+ * {@link #add} for reference. 
+ * @author Kevin Kassin
+ */
 public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	
-	//name literals
+	/**
+	 * name literals gathered from {@link NameLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the name of the create feature in this pattern or<br>
+	 * (2) the standard names for datatypes
+	 */
 	private final String DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 STANDARD_DATATYPE_NAME = NameLiterals.STANDARD_DATATYPE_NAME;
 	
-	//text literals
-	private final String DIRECTEDITING_DATATYPE = TextLiterals.DIRECTEDITING_DATATYPE,
-						 NAME_ALREADY_USED_DATATYPE = TextLiterals.NAME_ALREADY_USED_DATATYPE;
-	
-	//ID literals
+	/**
+	 * identifier literals used as shape ids for the shapes of the datatype
+	 * <p>
+	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
+	 */
 	private final String SHAPE_ID_DATATYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_DATATYPE_CONTAINER,
 						 SHAPE_ID_DATATYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_DATATYPE_TYPEBODY,
 						 SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW,
@@ -64,15 +89,39 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					     SHAPE_ID_DATATYPE_FIRSTLINE = IdentifierLiterals.SHAPE_ID_DATATYPE_FIRSTLINE,
 					 	 SHAPE_ID_DATATYPE_SECONDLINE = IdentifierLiterals.SHAPE_ID_DATATYPE_SECONDLINE,
 						 SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER = IdentifierLiterals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER, 
-						 SHAPE_ID_DATATYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER,
-					     IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE;
+						 SHAPE_ID_DATATYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER;
 	
+	/**
+	 * identifier literals used as shape ids for the shapes the attribute and operation containers
+	 * <p>
+	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
+	 */
 	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
 						 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
 						 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
 					     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
+		
+	/**
+	 * the image identifier for the icon of the create feature in this pattern gathered from
+	 * {@link IdentifierLiterals}
+	 */
+	private final String IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE;
 	
-	//layout literals
+	/**
+	 * text literals gathered from {@link TextLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the message if the form of a chosen datatype name is not correct when direct editing or<br>
+	 * (2) the message if a chosen name for a datatype is already used when direct editing
+	 */
+	private final String DIRECTEDITING_DATATYPE = TextLiterals.DIRECTEDITING_DATATYPE,
+						 NAME_ALREADY_USED_DATATYPE = TextLiterals.NAME_ALREADY_USED_DATATYPE;
+	
+	
+	
+	/**
+	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
+	 */
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
 					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
 					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
@@ -81,6 +130,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					  DATATYPE_CORNER_SIZE = LayoutLiterals.DATATYPE_CORNER_SIZE,
 					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE;
+	
+	/**
+	 * colors gathered from {@link LayoutLiterals}, look there for reference
+	 */
 	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
 								 COLOR_LINES = LayoutLiterals.COLOR_LINES,
 								 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
@@ -146,13 +199,19 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	// add features
 	//~~~~~~~~~~~~~
+	/**
+	 * calculates if the datatype can be added to the diagram
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if the added business object is a data type and <br>
+	 * (2) if the target container is diagram with a model linked
+	 * @return if the datatype can be added
+	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		//new Object is a data type
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.DATA_TYPE) {
-				//target container is diagram with root model
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)

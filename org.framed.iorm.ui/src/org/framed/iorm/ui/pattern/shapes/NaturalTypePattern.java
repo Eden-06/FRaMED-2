@@ -45,17 +45,42 @@ import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
+/**
+ * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
+ * of the type {@link Type#NATURAL_TYPE} in the editor.
+ * <p>
+ * It deals with the following aspects of natural types:<br>
+ * (1) adding a natural types to the diagram, especially its pictogram elements<br>
+ * (2) creating the natural types, especially its business object<br>
+ * (3) direct editing of the natural types name<br>
+ * (4) layout the natural types, especially setting lines, attributes and operations at the right positions<br>
+ * (5) updating the natural types names, attributes names/ position and operation/ position<br>
+ * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
+ * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
+ * (8) deleting all the natural types pictogram elements and its attached connections, also disables deleting
+ *     the drop shadow manually
+ * <p>
+ * If its not clear what <em>drop shadow shape</em> and <em>type body shape</em> means, see 
+ * {@link #add} for reference. 
+ * @author Kevin Kassin
+ */
 public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 
-	//name literals
+	/**
+	 * name literals gathered from {@link NameLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the name of the create feature in this pattern or<br>
+	 * (2) the standard names for natural types
+	 */
 	private final String NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
 						 STANDARD_NATURALTYPE_NAME = NameLiterals.STANDARD_NATURALTYPE_NAME;
 	
-	//text literals
-	private final String DIRECTEDITING_NATURALTYPE = TextLiterals.DIRECTEDITING_NATURALTYPE,
-						 NAME_ALREADY_USED_NATURALTYPE = TextLiterals.NAME_ALREADY_USED_NATURALTYPE;
-	
-	//ID literals
+	/**
+	 * identifier literals used as shape ids for the natural type 
+	 * <p>
+	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
+	 */
 	private final String SHAPE_ID_NATURALTYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_CONTAINER,
 						 SHAPE_ID_NATURALTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_NATURALTYPE_TYPEBODY,
 						 SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
@@ -63,15 +88,37 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 						 SHAPE_ID_NATURALTYPE_FIRSTLINE = IdentifierLiterals.SHAPE_ID_NATURALTYPE_FIRSTLINE,
 						 SHAPE_ID_NATURALTYPE_SECONDLINE = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SECONDLINE,
 						 SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER, 
-						 SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER,
-						 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE;
+						 SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER;
 	
+	/**
+	 * the image identifier for the icon of the create feature in this pattern gathered from
+	 * {@link IdentifierLiterals}
+	 */
+	private final String IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE;
+	
+	/**
+	 * identifier literals used as shape ids for the shapes the attribute and operation containers
+	 * <p>
+	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
+	 */
 	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
 			 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
 			 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
 		     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
+	
+	/**
+	 * text literals gathered from {@link TextLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the message if the form of a chosen natural type name is not correct when direct editing or<br>
+	 * (2) the message if a chosen name for a natural type is already used when direct editing 
+	 */
+	private final String DIRECTEDITING_NATURALTYPE = TextLiterals.DIRECTEDITING_NATURALTYPE,
+						 NAME_ALREADY_USED_NATURALTYPE = TextLiterals.NAME_ALREADY_USED_NATURALTYPE;
 
-	//layout literals
+	/**
+	 * layout integers gathered from {@link LayoutLiterals}, look there for reference
+	 */
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
 					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE, 
 					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
@@ -79,6 +126,10 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
 					  HEIGHT_ATTRIBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
 					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE;
+	
+	/**
+	 * colors gathered from {@link LayoutLiterals}, look there for reference
+	 */
 	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
 								 COLOR_LINES = LayoutLiterals.COLOR_LINES,
 								 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
@@ -144,6 +195,14 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		
 	// add features
 	//~~~~~~~~~~~~~
+	/**
+	 * calculates if the natural type can be added to the diagram
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if the added business object is a natural type and <br>
+	 * (2) if the target container is diagram with a model linked
+	 * @return if the natural type datatype can be added
+	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
 		//new Object is a natural type

@@ -99,13 +99,14 @@ public class IdentifierLiterals {
 	 * identifiers used for data types
 	 * <p>
 	 * can be for:<br>
-	 * (1) typebody shape or<br>
-	 * (2) shadow shape or<br>
-	 * (3) name shape or<br>
-	 * (4) first line shape or<br>
-	 * (5) second line shape or<br>
-	 * (6) attribute container shape or<br>
-	 * (7) operation container shape 
+	 * (1) container shape or<br>
+	 * (2) typebody shape or<br>
+	 * (3) shadow shape or<br>
+	 * (4) name shape or<br>
+	 * (5) first line shape or<br>
+	 * (6) second line shape or<br>
+	 * (7) attribute container shape or<br>
+	 * (8) operation container shape 
 	 */
 	public static final String SHAPE_ID_DATATYPE_CONTAINER = "shape_dt_container",
 							   SHAPE_ID_DATATYPE_TYPEBODY = "shape_dt_typebody",

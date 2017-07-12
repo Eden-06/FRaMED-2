@@ -54,16 +54,44 @@ import org.framed.iorm.ui.wizards.RoleModelWizard;
  * of the type Group in the editor.
  * <p>
  * It deals with the following aspects of Inheritances:<br>
- * TODO
+ * (1) adding a group to the diagram, especially its pictogram elements<br>
+ * (2) creating the group, especially its business object<br>
+ * (3) direct editing of the groups name<br>
+ * (4) layout the group, especially setting lines and group elements at the right positions<br>
+ * (5) updating the group names and its content overview<br>
+ * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
+ * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
+ * (8) deleting all the group pictogram elements and its diagram, also disables deleting the drop 
+ *     shadow manually
  * @author Kevin Kassin
  */
 public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	
-	//names
+	/**
+	 * name literals gathered from {@link NameLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the name of the create feature in this pattern or<br>
+	 * (2) the standard names for group
+	 */
 	private final String GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
 				   		 STANDARD_GROUP_NAME = NameLiterals.STANDARD_GROUP_NAME;
 	
-	//identifier
+	/**
+	 * text literals gathered from {@link TextLiterals}
+	 * <p>
+	 * can be:<br>
+	 * (1) the message if the form of a chosen group name is not correct when direct editing or<br>
+	 * (2) the message if a chosen name for a group is already used when direct editing
+	 */
+	private final String DIRECTEDITING_GROUP = TextLiterals.DIRECTEDITING_GROUP,
+				         NAME_ALREADY_USED_GROUP = TextLiterals.NAME_ALREADY_USED_GROUP;
+	
+	/**
+	 * identifier literals used as shape ids for the group
+	 * <p>
+	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
+	 */
 	private final String SHAPE_ID_GROUP_CONTAINER = IdentifierLiterals.SHAPE_ID_GROUP_CONTAINER,
 				   		 SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 				   		 SHAPE_ID_GROUP_SHADOW = IdentifierLiterals.SHAPE_ID_GROUP_SHADOW,
@@ -73,27 +101,33 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				   		 SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
 				   		 SHAPE_ID_GROUPS_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_GROUPS_INDICATOR_DOTS;
 				   
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;			  
-				   		 
-	private final String IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
-				   		 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
-				   
-	//text
-	private final String DIRECTEDITING_GROUP = TextLiterals.DIRECTEDITING_GROUP,
-				   NAME_ALREADY_USED_GROUP = TextLiterals.NAME_ALREADY_USED_GROUP;
-	
-	//layout
+	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+			 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
+		
+	/**
+	 * the image identifier for the icon of the create feature in this pattern gathered from
+	 * {@link IdentifierLiterals}
+	 */
+	private final String IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP;
+				   		
+	/**
+	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
+	 */
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE,
-				MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
-				HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
-				PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
-				GROUP_CORNER_RADIUS = LayoutLiterals.GROUP_CORNER_RADIUS,
-				SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
-				HEIGHT_GROUP_ELEMENT_SHAPE = LayoutLiterals.HEIGHT_GROUP_ELEMENT_SHAPE;
+					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
+					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
+					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
+					  GROUP_CORNER_RADIUS = LayoutLiterals.GROUP_CORNER_RADIUS,
+					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
+					  HEIGHT_GROUP_ELEMENT_SHAPE = LayoutLiterals.HEIGHT_GROUP_ELEMENT_SHAPE;
+	
+	/**
+	 * colors gathered from {@link LayoutLiterals}, look there for reference
+	 */
 	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
-			   			   COLOR_LINES = LayoutLiterals.COLOR_LINES,
-			   			   COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
-			   	  		   COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
+			   			   		 COLOR_LINES = LayoutLiterals.COLOR_LINES,
+			   			   		 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
+			   			   		 COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
 	
 	/**
 	 * Class constructor
@@ -159,6 +193,14 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	
 	// add features
 	//~~~~~~~~~~~~~
+	/**
+	 * calculates if the group can be added to the diagram
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if the added business object is a group and <br>
+	 * (2) if the target container is diagram with a model linked
+	 * @return if the group can be added
+	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
 		//new Object is a group
