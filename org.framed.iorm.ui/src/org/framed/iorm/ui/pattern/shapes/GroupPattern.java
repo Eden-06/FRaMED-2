@@ -1,9 +1,11 @@
 package org.framed.iorm.ui.pattern.shapes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -32,17 +34,23 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PatternUtil;
@@ -109,6 +117,14 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * {@link IdentifierLiterals}
 	 */
 	private final String IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP;
+	
+	/**
+	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
+	 */
+	private final String REASON_NAME_NULL = TextLiterals.REASON_NAME_NULL,
+					 	 REASON_NAME_OUT_OF_DATE = TextLiterals.REASON_NAME_OUT_OF_DATE,
+					 	 REASON_AMOUNT_GROUP_ELEMENTS = TextLiterals.REASON_AMOUNT_GROUP_ELEMENTS,
+						 REASON_NAMES_GROUP_ELEMENTS = TextLiterals.REASON_NAMES_GROUP_ELEMENTS;
 				   		
 	/**
 	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
@@ -539,18 +555,22 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			//business name and attributes
 			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			//model element names in groups model
-			List<String> modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram());
+			//at creation no diagram is existing so catch this
+			List<String> modelElementsNames = null;
+			try {
+				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram());
+			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			//model element names in model container of shape
 			List<String> modelContainerElementsNames = PatternUtil.getModelContainerElementsNames(pictogramElement);		
 				
 			//check for update: different names, different amount of attibutes/ operations
-			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason("Name is null.");
-			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason("Name is out of date.");
-			if(modelElementsNames.size() != modelContainerElementsNames.size()) return Reason.createTrueReason("Different amount of Group Elements.");
+			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
+			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);
+			if(modelElementsNames.size() != modelContainerElementsNames.size()) return Reason.createTrueReason(REASON_AMOUNT_GROUP_ELEMENTS);
 			for(int i=0; i<modelElementsNames.size(); i++) {
 				modelContainerElementName = modelContainerElementsNames.get(i);
 				rawModelContainerElementName = modelContainerElementName.substring(modelContainerElementName.indexOf(" ")+1);
-				if(!(modelElementsNames.get(i).equals(rawModelContainerElementName))) return Reason.createTrueReason("Different names of Group Elements.");
+				if(!(modelElementsNames.get(i).equals(rawModelContainerElementName))) return Reason.createTrueReason(REASON_NAMES_GROUP_ELEMENTS);
 		}	}
 		return Reason.createFalseReason();
 	}
@@ -670,16 +690,45 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	//
 	@Override
 	public void delete(IDeleteContext deleteContext) {
+		List<ContainerShape> innerGroupsToDelete = new ArrayList<ContainerShape>();
 		//delete groups diagram
 		Diagram groupDiagram = DiagramUtil.getGroupDiagramForGroupShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		if(groupDiagram != null) {	
 		DeleteContext deleteContextForGroupDiagram = new DeleteContext(groupDiagram);
 		deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-		super.delete(deleteContextForGroupDiagram);
+		//delete diagrams of child groups
+		
+			for(Shape shape : groupDiagram.getChildren()) {
+				
+			if(shape instanceof ContainerShape &&
+			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) {
+				innerGroupsToDelete.add(PatternUtil.getGroupTypeBodyForGroupContainer((ContainerShape) shape));
+			}
+		}
+		//close opened editors with the deleted group
+		IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for(IEditorReference editorReference : openEditors) {
+			try {
+				if(editorReference.getEditorInput() instanceof DiagramEditorInput) {
+					Resource resource = EditorInputUtil.getResourceFromEditorInput(editorReference.getEditorInput());
+					Diagram diagramOfEditorInput = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
+					if(diagramOfEditorInput.getName().equals(groupDiagram.getName()))
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorReference.getEditor(false), false);
+				}
+			} catch (PartInitException e) { e.printStackTrace(); }
+		}
 		//delete container shape 
 		ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
 		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+		for(ContainerShape innerGroupToDelete : innerGroupsToDelete) {
+			DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupToDelete);
+			deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+			delete(deleteContextForChildDiagram);
+		}
 		super.delete(deleteContextForAllShapes);
+		super.delete(deleteContextForGroupDiagram);
 		updateContainingGroup();
+		}
 	}
 }

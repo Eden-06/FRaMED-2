@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -85,7 +86,8 @@ public class MultipageEditorSynchronizationService {
 	 * Step 1: It gets the first multipage editor in its register that is dirty to use it as a synchronization base.
 			   If there is no dirty multipage editor return instantly since there is no change to synchronize.<br>
 	 * Step 2: Its calculates an equivalent editor input for all registered multipage editors except the synchronization base.<br>
-	 * Step 3: It closes these multipage editors and uses the equivalent editor inputs to reopen them. 
+	 * Step 3: It closes these multipage editors and uses the equivalent editor inputs to reopen them. Also change focus back to the
+	 * 		   active editor before synchronizing to avoid changing the focus without a user input to do this.
 	 */
 	public static void synchronize() {
 		//Step 1
@@ -101,6 +103,8 @@ public class MultipageEditorSynchronizationService {
 		else {
 			//Step 2
 			List<MultipageEditor> copyOfRegisteredEditors = getCopyOfRegisteredEditors();
+			MultipageEditor activeMultipageEditor = 
+					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			for(MultipageEditor multipageEditor : copyOfRegisteredEditors) {
 				if(multipageEditor.getPartName() != synchronizationBase.getPartName()) {
 					IEditorInput newEditorInput = 
@@ -108,10 +112,14 @@ public class MultipageEditorSynchronizationService {
 					try {
 						//Step 3
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditor, false);
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(newEditorInput, EDITOR_ID, false);
-					} catch (PartInitException e) { e.printStackTrace(); }	
-	}	}	}	}
-	
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(newEditorInput, EDITOR_ID, false);	
+					} catch (PartInitException e) {	e.printStackTrace(); }
+			}	}	
+			try {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(activeMultipageEditor.getEditorInput(), EDITOR_ID, false);
+			} catch (PartInitException e) { e.printStackTrace(); }
+	}	}
+		
     /**
      * creates an equivalent editor input for another editor input depending on the editor input of the synchronization base
      * using the following steps:

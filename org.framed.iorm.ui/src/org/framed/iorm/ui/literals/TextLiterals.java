@@ -7,6 +7,7 @@ import org.framed.iorm.ui.wizards.RoleModelWizardPage; //*import for javadoc lin
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.eclipse.ui.PartInitException; //*import for javadoc link
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
+import org.framed.iorm.ui.pattern.shapes.NaturalTypePattern; //*import for javadoc link
 
 /**
  * This class saves severals static Strings used as messages for the user.
@@ -38,6 +39,20 @@ public class TextLiterals {
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!";
 
+	/**
+	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
+	 * <p>
+	 * see {@link NaturalTypePattern#updateNeeded} for example
+	 */
+	public static final String REASON_NAME_NULL = "Name is null.",
+							   REASON_NAME_OUT_OF_DATE = "Name is out of date.",
+							   REASON_AMOUNT_ATTRIBUTES = "Different amount of Attributes.",
+							   REASON_AMOUNT_OPERATION = "Different amount of Operations.",
+							   REASON_NAMES_ATTRIBUTES = "Different names of Attributes.",
+							   REASON_NAMES_OPERATIONS = "Different names of Operations.",
+							   REASON_AMOUNT_GROUP_ELEMENTS = "Different amount of Group Elements.",
+							   REASON_NAMES_GROUP_ELEMENTS = "Different names of Group Elements.";
+	
 	/**
 	 * messages used in the feature sub editor
 	 * <p>

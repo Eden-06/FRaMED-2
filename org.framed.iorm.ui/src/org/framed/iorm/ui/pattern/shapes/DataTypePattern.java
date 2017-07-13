@@ -117,7 +117,15 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	private final String DIRECTEDITING_DATATYPE = TextLiterals.DIRECTEDITING_DATATYPE,
 						 NAME_ALREADY_USED_DATATYPE = TextLiterals.NAME_ALREADY_USED_DATATYPE;
 	
-	
+	/**
+	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
+	 */
+	private final String REASON_NAME_NULL = TextLiterals.REASON_NAME_NULL,
+						 REASON_NAME_OUT_OF_DATE = TextLiterals.REASON_NAME_OUT_OF_DATE,
+					 	 REASON_AMOUNT_ATTRIBUTES = TextLiterals.REASON_AMOUNT_ATTRIBUTES,
+					 	 REASON_AMOUNT_OPERATION = TextLiterals.REASON_AMOUNT_OPERATION,
+					 	 REASON_NAMES_ATTRIBUTES = TextLiterals.REASON_NAMES_ATTRIBUTES,
+					 	 REASON_NAMES_OPERATIONS = TextLiterals.REASON_NAMES_OPERATIONS;
 	
 	/**
 	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
@@ -568,7 +576,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		}	}
 		return false;
 	}
-	
+		
 	@Override
 	public IReason updateNeeded(IUpdateContext updateContext) {
 		//check for changed names 
@@ -585,15 +593,15 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			List<String> businessOperationNames = getBusinessOperationNames(pictogramElement);
 								
 			//check for update: different names, different amount of attibutes/ operations
-			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason("Name is null.");
-			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason("Name is out of date.");  
-			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason("Different amount of Attributes.");
-			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason("Different amount of Operations.");
+			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
+			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);  
+			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason(REASON_AMOUNT_ATTRIBUTES);
+			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason(REASON_AMOUNT_OPERATION);
 			for(int i=0; i<pictogramAttributeNames.size(); i++) {
-				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason("Different names of Attributes.");
+				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_ATTRIBUTES);
 			}	
 			for(int i=0; i<pictogramOperationNames.size(); i++) {
-				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason("Different names of Operations.");
+				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_OPERATIONS);
 		}	}
 		return Reason.createFalseReason();
 	}

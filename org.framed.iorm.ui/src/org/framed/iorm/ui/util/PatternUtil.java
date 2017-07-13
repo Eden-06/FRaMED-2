@@ -197,7 +197,7 @@ public class PatternUtil {
 	 * @param groupContainer the group container shape of the group to get the type body shape for
 	 * @return the type body shape of group with the given shape
 	 */
-	private static ContainerShape getGroupTypeBodyForGroupContainer(ContainerShape groupContainer) {
+	public static ContainerShape getGroupTypeBodyForGroupContainer(ContainerShape groupContainer) {
 		for(Shape shape : groupContainer.getChildren()) {
 			if(shape instanceof ContainerShape &&
 			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_TYPEBODY))

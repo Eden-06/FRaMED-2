@@ -53,9 +53,8 @@ public class DiagramUtil {
 	 * This operation fetches the groups diagram for a shape that is a part of a groups pictogram 
 	 * representation using the following steps:
 	 * <p>
-	 * Step 1: If the given shape has no graphics Algorithm it returns null.<br>
-	 * Step 2: It gets the name of the group depending on the given shape.<br>
-	 * Step 3: It searches in the list of children of the container diagram for a diagram with the name
+	 * Step 1: It gets the name of the group depending on the given shape.<br>
+	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
 	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
 	 * <p>
 	 * If its not clear what the different shapes are look for the pictogram structure of a group here: 
@@ -68,26 +67,23 @@ public class DiagramUtil {
 	 */
 	public static Diagram getGroupDiagramForGroupShape(Shape groupShape, Diagram diagram) {
 		//Step 1
-		if(groupShape.getGraphicsAlgorithm() == null) return null;
-		else {
-			//Step 2
-			String groupName = null;
-			if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_TYPEBODY)) {
-				Shape groupNameShape = ((ContainerShape) groupShape).getChildren().get(0);
-				if(PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_GROUP_NAME))
-					groupName = ((Text) groupNameShape.getGraphicsAlgorithm()).getValue();
+		String groupName = null;
+		if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_TYPEBODY)) {
+			Shape groupNameShape = ((ContainerShape) groupShape).getChildren().get(0);
+			if(PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_GROUP_NAME))
+				groupName = ((Text) groupNameShape.getGraphicsAlgorithm()).getValue();
 			}	
-			if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_NAME))
-				groupName = ((Text) groupShape.getGraphicsAlgorithm()).getValue();	
-		    //Step 3
-			Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
-			if(containerDiagram == null) throw new NoDiagramFoundException();
+		if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_NAME))
+			groupName = ((Text) groupShape.getGraphicsAlgorithm()).getValue();	
+		//Step 2
+		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
+		if(containerDiagram == null) throw new NoDiagramFoundException();
 			for(Shape shape : containerDiagram.getChildren()) {
 				if(shape instanceof Diagram) {
 					if(((Diagram) shape).getName().equals(groupName))
 						return ((Diagram) shape);
 				}	
-		}	}
+		}	
 		throw new NoDiagramFoundException();	
 	}
 
