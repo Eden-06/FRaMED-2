@@ -46,7 +46,7 @@ public class DiagramUtil {
 				return (Model) diagram.getLink().getBusinessObjects().get(0);
 			}
 		}
-		throw new NoModelFoundException();
+		return null;
 	}
 
 	/**

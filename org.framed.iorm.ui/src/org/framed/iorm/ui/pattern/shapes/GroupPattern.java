@@ -484,11 +484,6 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		            ContainerShape groupElementsShape = (ContainerShape) shape;
 	            	EList<Shape> groupElements = groupElementsShape.getChildren();  
 		     
-		            //set place of group elements
-	            	//for(int i = 0; i<groupElements.size(); i++) {
-	            	//	((ContainerShape) shape).getChildren().get(i).getGraphicsAlgorithm().setY(i*HEIGHT_GROUP_ELEMENT_SHAPE);
-            		//}
-	     
 	            	Shape indicatorDotsShapeToDelete = null;
 	            	for(Shape elementShape : groupElements) {
 	            		elementShape.setVisible(true);
@@ -591,7 +586,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		             
 			            counter = 0;
 		                modelContainerShape.getChildren().clear();
-			            for(ModelElement modelElement : groupModel.getElements()) {		
+			            for(ModelElement modelElement : groupModel.getElements()) {
 			            	Shape groupElementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
 			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
 			            	groupElementText.setForeground(manageColor(COLOR_TEXT));
@@ -601,7 +596,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			            	counter++;		
 			            }
 			            changed = true;
-			            this.layoutPictogramElement(typeBodyShape);
+			            layoutPictogramElement(typeBodyShape);
 	        		} 	
 	        	}	
 	        }

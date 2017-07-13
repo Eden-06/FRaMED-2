@@ -12,6 +12,7 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
+import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
  * This class offers several utility operations used by the graphiti patterns.
@@ -22,7 +23,8 @@ public class PatternUtil {
 	/**
 	 * the identifiers for graphics algorithms of group pictograms gathered from {@link IdentifierLiterals}
 	 */
-	private static final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
+	private static final String SHAPE_ID_GROUP_CONTAINER = IdentifierLiterals.SHAPE_ID_GROUP_CONTAINER,
+								SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 								SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME,
 								SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_MODEL,
 							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
@@ -148,45 +150,61 @@ public class PatternUtil {
 	/**
 	 * fetches the <em>type body shape</em> of group that has the given diagram attached to
 	 * <p>
-	 * If its not clear what <em>type body shape</em> means, see {@link GroupPattern#add} for reference. 
+	 * To do that it basicly searches in all diagram of the <em>container diagram</em> for a <em>group container shape</em>
+	 * and compares the diagram name to the found groups name.
+	 * <p>
+	 * If its not clear what <em>type body shape</em> and <em>group container shape</em> means, 
+	 * see {@link GroupPattern#add} for reference.<br>
+	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for
+	 * reference.
 	 * @param diagram the diagram to find the groups type body shape for
 	 * @return the type body shape of the group that has the given diagram attached
 	 */
 	public static ContainerShape getGroupTypeBodyForGroupsDiagram(Diagram diagram) {
-		String groupName = null,
-			   diagramName = diagram.getName();
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
-		List<ContainerShape> groupTypeBodies = getAllGroupTypeBodiesForContainerDiagram(containerDiagram);
-		for(ContainerShape groupTypeBody : groupTypeBodies) {
-			for(Shape innerShape : groupTypeBody.getChildren()) {
-				if(PropertyUtil.isShape_IdValue(innerShape, SHAPE_ID_GROUP_NAME))
-					groupName = ((Text) innerShape.getGraphicsAlgorithm()).getValue();
-			}
-			if(groupName != null &&
-			   groupName.equals(diagramName))
-				return groupTypeBody;
+		for(Shape containerDiagramChild : containerDiagram.getChildren()) {
+			if(containerDiagramChild instanceof Diagram) {
+				for(Shape diagramChild : ((Diagram) containerDiagramChild).getChildren()) {
+					if(diagramChild instanceof ContainerShape &&
+					   PropertyUtil.isShape_IdValue(diagramChild, SHAPE_ID_GROUP_CONTAINER)) {
+						if(getGroupNameForGroupContainer((ContainerShape) diagramChild).equals(diagram.getName())) {
+							return getGroupTypeBodyForGroupContainer((ContainerShape) diagramChild);
+		}	}	}	}	}
+		return null;
+	}	
+		
+	/**
+	 * fetches the name of a group to thats the <em>group container</em> shape belongs to
+	 * <p>
+	 * If its not clear what <em>group container shape</em> means, see {@link GroupPattern#add} for reference.
+	 * @param groupContainer the group container shape of the group to get the name for
+	 * @return the name of group with the given shape
+	 */
+	private static String getGroupNameForGroupContainer(ContainerShape groupContainer) {
+		ContainerShape typeBodyShape = getGroupTypeBodyForGroupContainer(groupContainer);
+		for(Shape shape : typeBodyShape.getChildren()) {
+			if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME))
+				return ((Text) shape.getGraphicsAlgorithm()).getValue();
 		}
 		return null;
-	}
-	
+	}	
+		
 	/**
-	 * FOR ALL TYPES...
-	 * verallgemeinern
+	 * fetches the <em>type body shape</em> of a group to thats the <em>group container shape</em> belongs to
+	 * <p>
+	 * If its not clear what <em>type body shape</em> and <em>group container shape</em> means, see 
+	 * {@link GroupPattern#add} for reference.
+	 * @param groupContainer the group container shape of the group to get the type body shape for
+	 * @return the type body shape of group with the given shape
 	 */
-	private static List<ContainerShape> getAllGroupTypeBodiesForContainerDiagram(Diagram containerDiagram) {
-		List<ContainerShape> groupTypeBodies = new ArrayList<ContainerShape>();
-		Diagram mainDiagram = (Diagram) containerDiagram.getChildren().get(0);//TODO better
-		for(Shape shape : mainDiagram.getChildren()) {
+	private static ContainerShape getGroupTypeBodyForGroupContainer(ContainerShape groupContainer) {
+		for(Shape shape : groupContainer.getChildren()) {
 			if(shape instanceof ContainerShape &&
-			   ((ContainerShape) shape).getGraphicsAlgorithm() == null) {
-				ContainerShape containershape = (ContainerShape) shape;
-				for(Shape innerShape : containershape.getChildren()) {
-					if(innerShape.getGraphicsAlgorithm() != null &&
-					   PropertyUtil.isShape_IdValue(innerShape, SHAPE_ID_GROUP_TYPEBODY)) {
-						groupTypeBodies.add((ContainerShape) innerShape);
-		}	}	}	}
-		return groupTypeBodies;
-	}
+			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_TYPEBODY))
+				return (ContainerShape) shape; 
+		}	
+		return null;
+	}	
 	
 	/**
 	 * calculate the string for a group or compartment type element that is shown in the group as

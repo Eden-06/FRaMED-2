@@ -6,9 +6,12 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -29,8 +32,10 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 */
 	private final String STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME;
 	
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
+	/**
+	 * the value of the property diagram kind to identify a diagram that belongs to a group
+	 */
+	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
 	
 	/**
 	 * identifiers used to open a new editor for the groups or compartment types diagram gathered from {@link IdentifierLiterals}
@@ -81,61 +86,62 @@ public class StepOutFeature extends AbstractCustomFeature {
 	}
 
 	/**
-	 * This operation opens a new multipage editor with the diagram one level above the groups or compartment types
-	 * diagram and closes the the multipage editor the step out feature was called. It uses {@link #stepOutOfDiagramIfPossible}
-	 * to do that.
+	 * This operation executes the step out itself using the following steps:
 	 * <p>
-	 * It needs to find the diagram that is open at the moment to step out of it.
+	 * Step 1: It gets the model to step out to and tries to get the name of the group or compartment type that 
+	 * 		   contains the model if there is one.<br>
+	 * Step 2: If not, it means that the root model of the file is opened using an {@link IFileEditorInput} on the
+	 * 		   operation {@link #stepOutWithEditorInput}.<br>
+	 * Step 2: If there is one, it means the the diagram with the same name to the group or compartment type is opened.
+	 * 		   Therefore it call {@link #stepOutWithEditorInput} with a {@link DiagramEditorInput}.
 	 * <p>
 	 * There is no check for the size of the list of selected pictograms needed since this check is already done in 
 	 * {@link #canExecute}.<br>
 	 */
 	@Override
 	public void execute(ICustomContext customContext) {
-		if(customContext.getPictogramElements()[0] instanceof Diagram) {
-			stepOutOfDiagramIfPossible((Diagram) customContext.getPictogramElements()[0]);
-		}
-		if(customContext.getPictogramElements()[0] instanceof Shape &&
-		   !(customContext.getPictogramElements()[0] instanceof Diagram)) {
-			Diagram diagramContainingShape = 
-				DiagramUtil.getDiagramForContainedShape((Shape) customContext.getPictogramElements()[0]);
-			if(diagramContainingShape == null) throw new NoDiagramFoundException();
-			stepOutOfDiagramIfPossible(diagramContainingShape);
-		}
-	}
-	
-	/**
-	 * opens a new multipage editor with the diagram one level above the groups or compartment types
-	 * diagram and closes the the multipage editor the step out feature was called.
-	 * <p>
-	 * For the given diagram it searches for the diagram its group or compartmentment type belongs too (Step 1). For that diagram it
-	 * open an new multipage editor and closes the one that called the step out feature (Step 2).
-	 * <p>
-	 * The operation {@link GeneralUtil#closeMultipageEditorWhenPossible} knows how to close the editor when its not used anymore. 
-	 * That why the operation can be called before the end of this operation.
-	 * @param diagram the diagram to step out
-	 * @throws NoDiagramFoundException
-	 */
-	private void stepOutOfDiagramIfPossible(Diagram diagram) {
-		//Step 1
-		if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM)) {
-			Diagram diagramToStepOutTo = null;
-			Diagram containerDiagram = (Diagram) diagram.getContainer();
-			for(Shape shape : containerDiagram.getChildren()) {
-				if(shape instanceof Diagram &&
-				   PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM))
-					diagramToStepOutTo = (Diagram) shape;
-			}
-			if(diagramToStepOutTo == null) throw new NoDiagramFoundException();
-			else {
-				//Step 2
-				MultipageEditor multipageEditorToClose = 
-						(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-				GeneralUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
+		if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM)) {
+			MultipageEditor multipageEditorToClose = 
+					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+			//Step 1
+			Model groupModel = DiagramUtil.getLinkedModelForDiagram(getDiagram());
+			Model modelToStepOutTo = groupModel.getParent().getContainer();
+			org.framed.iorm.model.Shape ShapeToStepOutTo = modelToStepOutTo.getParent();
+			//Step 2
+			if(ShapeToStepOutTo == null) {
 				Resource resource = EditorInputUtil.getResourceFromEditorInput(multipageEditorToClose.getEditorInput());
 				IFileEditorInput fileEditorInput = EditorInputUtil.getIFileEditorInputForResource(resource);
-				try {
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(fileEditorInput, EDITOR_ID);
-				} catch (PartInitException e) { e.printStackTrace(); }
+				stepOutWithEditorInput(fileEditorInput);
+			} else {
+				//Step 3
+				Diagram diagramToStepOutTo = null;
+				String diagramNameToStepOutTo = ShapeToStepOutTo.getName();
+				Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(getDiagram());
+				for(Shape shape : containerDiagram.getChildren()) {
+					if(shape instanceof Diagram) 
+						if(((Diagram) shape).getName().equals(diagramNameToStepOutTo))
+							diagramToStepOutTo = (Diagram) shape;
+				}
+				if(diagramToStepOutTo == null) throw new NoDiagramFoundException();
+				DiagramEditorInput diagramEditorInput = 
+						DiagramEditorInput.createEditorInput(diagramToStepOutTo, DIAGRAM_PROVIDER_ID);
+				stepOutWithEditorInput(diagramEditorInput);
 	}	}	}
+		
+	/**
+	 * closes the editor in which the step out feature is called and opens an multipage editor for the diagram one level 
+	 * above the closed one
+	 * <p>
+	 * The operation {@link GeneralUtil#closeMultipageEditorWhenPossible} knows how to close the editor when its not used anymore. 
+	 * That why the operation can be called at the start of the operation.
+	 * @param editorInput the editor input to open the new multipage editor with
+	 */
+	private void stepOutWithEditorInput(IEditorInput editorInput) {
+		MultipageEditor multipageEditorToClose = 
+				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		GeneralUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, EDITOR_ID);
+		} catch (PartInitException e) { e.printStackTrace(); }
+	}
 }
