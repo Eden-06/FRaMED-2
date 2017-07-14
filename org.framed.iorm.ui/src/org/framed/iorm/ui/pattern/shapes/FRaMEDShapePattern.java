@@ -17,6 +17,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.framed.iorm.ui.util.PatternUtil;
+import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
  * This class is an abstract super class for the graphiti shape patterns.
@@ -85,7 +86,8 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 * Step 1: It gets all attached connections from the anchors of the shape to be deleted.<br>
 	 * Step 2: It creates an {@link IDeleteFeature} for the attached connections to be deleted and disables the 
 	 * "Are you sure?" dialog when deleting a pictogram element.
-	 * TODO reference to typebody shape
+	 * <p>
+	 * If its not clear what <em>type body shape</em> means, see {@link NaturalTypePattern#add} for example.<br>
 	 * The pictogram element referenced in the {@link IDeleteContext} typically should be a type body shape of a class
 	 * or role, since this shape have the anchors on which connections are hung to.
 	 * @param deleteContext

@@ -123,10 +123,5 @@ public class NameLiterals {
 							   TEXT_IORM_PAGE_NAME = "IORM",
 							   TEXT_CROM_PAGE_NAME = "CROM",
 							   FEATURE_PAGE_NAME = "Configuration";
-
-	/**
-	 * the prefix for the multipage editor names if a groups diagram is opened in it
-	 */
-	public static final String MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM = "GROUP";
 }
 

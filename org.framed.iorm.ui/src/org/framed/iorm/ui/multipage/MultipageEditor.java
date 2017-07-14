@@ -65,13 +65,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 						 TEXT_CROM_PAGE_NAME = NameLiterals.TEXT_CROM_PAGE_NAME,
 						 FEATURE_PAGE_NAME = NameLiterals.FEATURE_PAGE_NAME,
 						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
-	
-	/**
-	 * the prefix of the multipage editor name if an groups diagram is opened in the multipage editor gathered
-	 * from {@link NameLiterals} 
-	 */
-	private final String MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM = NameLiterals.MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM;
-	
+		
 	/**
 	 * text literas used for messages
 	 * <p
@@ -199,13 +193,11 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 				if(diagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 					Model model = (Model) diagram.getLink().getBusinessObjects().get(0);
 					groupOrCompartmentType = model.getParent();
-				}
-			if(groupOrCompartmentType == null) throw new NullPointerException("asd");//TODO
+			}	}	
 			setPartName(groupOrCompartmentType.getType().getName().toUpperCase() + " " + 
 						groupOrCompartmentType.getName() + " " + 
 						"(" + DiagramUtil.getMainDiagramForAnyDiagram(diagram).getName() + ")");
 			return;
-			}
 		} 
 		throw new InvalidTypeOfEditorInputException();
 	}

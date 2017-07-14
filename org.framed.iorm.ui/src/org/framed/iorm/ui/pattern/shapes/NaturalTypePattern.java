@@ -210,7 +210,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a natural type and <br>
-	 * (2) if the target container is diagram with a model linked
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the natural type datatype can be added
 	 */
 	@Override
@@ -228,17 +228,51 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * adds the graphical representation of a natural type to the pictogram model
+	 * <p>
+	 * It creates the following structure:<br>
+	 * <ul>
+	 *   <li>container shape</li>
+	 * 	   <ul>
+	 * 	     <li>drop shadow shape</li>
+	 *         <ul><li>drop shadow rectangle</li></ul>
+	 * 		 <li>type body shape</li>
+	 * 		   <ul><li>type body rectangle</li></ul>
+	 * 		   <ul>
+	 * 		     <li>name container</li>
+	 * 			  <ul><li>name text</li></ul>
+	 * 			<li>first line container</li>
+	 * 			  <ul><li>first polyline</li></ul>
+	 * 			<li>attribute container shape</li>
+	 * 			  <ul><li>attribute container rectangle</li></ul>
+	 * 			<li>second line container</li>
+	 * 			  <ul><li>second polyline</li></ul>
+	 * 			<li>operation container shape</li>
+	 * 			  <ul><li>operation container rectangle</li></ul>
+	 * 		   </ul>
+	 * 	   </ul>
+	 * </ul> 
+	 * <p>
+	 * It uses follows this steps:<br>
+	 * Step 1: It gets the new object, the diagram to create the group in and calculates the height and width 
+	 * 		   of the natural types representation.<br>
+	 * Step 2: It creates the structure shown above.<br>
+	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the group.<br>
+	 * Step 4: It links the created shapes of the group to its business objects.<br> 
+	 * Step 5: It enables direct editing, anchors and layouting of the group. It also updates the group in which 
+	 * 		   its created, if any.
+	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {		
-		//get container and new object
+		//Step 1
 		org.framed.iorm.model.Shape addedNaturalType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		ContainerShape targetDiagram = getDiagram();
-		
-		//get width and height
 		int width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < MIN_WIDTH) width = MIN_WIDTH;
 		if(addContext.getHeight() < MIN_HEIGHT) height = MIN_HEIGHT;
 		
+		//Step 2
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 					  
@@ -289,7 +323,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		graphicAlgorithmService.setLocationAndSize(operationRectangle, PUFFER_BETWEEN_ELEMENTS, horizontalCenter+PUFFER_BETWEEN_ELEMENTS, 
 									 			   width-2*PUFFER_BETWEEN_ELEMENTS, horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 		
-		//setProperties
+		//Step 3
 		PropertyUtil.setShape_IdValue(containerShape, SHAPE_ID_NATURALTYPE_CONTAINER);
 		PropertyUtil.setShape_IdValue(typeBodyShape, SHAPE_ID_NATURALTYPE_TYPEBODY);
 		PropertyUtil.setShape_IdValue(dropShadowShape, SHAPE_ID_NATURALTYPE_SHADOW);
@@ -298,7 +332,8 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		PropertyUtil.setShape_IdValue(attributeContainer, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
 		PropertyUtil.setShape_IdValue(secondLineShape, SHAPE_ID_NATURALTYPE_SECONDLINE);
 		PropertyUtil.setShape_IdValue(operationContainer, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
-		//set links
+		
+		//Step 4
 		link(containerShape, addedNaturalType);
 		link(typeBodyShape, addedNaturalType);
 		link(dropShadowShape, addedNaturalType);
@@ -307,14 +342,13 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		link(attributeContainer, addedNaturalType);
 		link(secondLineShape, addedNaturalType);
 		link(operationContainer, addedNaturalType);
-		//directEditing right at creation
+		
+		//Step 5
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
-		//add anchors to the container
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
-		//set container as layout target
 		layoutPictogramElement(containerShape);
 		updateContainingGroup();
 		return containerShape;
@@ -322,29 +356,46 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	//create feature
 	//~~~~~~~~~~~~~~
+	/**
+	 * calculates if a natural type can be created
+	 * <p>
+	 * returns true if the target container is a diagram with a model linked
+	 * @return if an natural type can be created
+	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		//target container is either diagram with model or a group
-		ContainerShape containerShape = getDiagram();
-		if(containerShape instanceof Diagram) {
-			if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
-				return true;
-		}
+		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null)
+			return true;
 		return false;
 	}
 
+	/**
+	 * creates the business objects of the natural type, adds it to model of the diagram in which the natural type is 
+	 * created in and calls the add function for the natural type
+	 * <p>
+	 * It creates the following structure:<br>
+	 * <ul>
+	 *   <li>(org.framed.iorm.model.Shape) natural type</li>
+	 * 	   <ul>
+	 * 	     <li>(Segment) first segment (for attributes)</li> 
+	 *  	 <li>(Segment) second segment (for operations)</li> 
+	 * 	   </ul>
+	 * </ul> 
+	 * <p>
+	 * It uses follows this steps:<br>
+	 * Step 1: It creates the structure shown above.<br>
+	 * Step 2: It adds the new datatype to the elements of the model of the diagram in which its created.<br>
+	 * Step 3: It call the add function to add the pictogram elements of the datatype.
+	 * @return the created business object of the group
+	 */
 	@Override
 	public Object[] create(ICreateContext createContext) {
-		//create new natural type
+		//Step 1
+		//natural type
 		org.framed.iorm.model.Shape newNaturalType = OrmFactory.eINSTANCE.createShape();
 		newNaturalType.setType(Type.NATURAL_TYPE);
 		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.NATURAL_TYPE, STANDARD_NATURALTYPE_NAME);
 		newNaturalType.setName(standardName);
-		//add new natural type to the elements of the model
-		Model model = DiagramUtil.getLinkedModelForDiagram((Diagram) getDiagram());
-		if(newNaturalType.eResource() != null) getDiagram().eResource().getContents().add(newNaturalType);
-		model.getElements().add(newNaturalType);
-		newNaturalType.setContainer(model);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
 				operationSegment = OrmFactory.eINSTANCE.createSegment();
@@ -352,9 +403,14 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		getDiagram().eResource().getContents().add(operationSegment);
 		newNaturalType.setFirstSegment(attributeSegment);
 		newNaturalType.setSecondSegment(operationSegment);
-		//enable direct editing
-		getFeatureProvider().getDirectEditingInfo().setActive(true);
-		//add to graphiti representation
+		
+		//Step 2
+		Model model = DiagramUtil.getLinkedModelForDiagram((Diagram) getDiagram());
+		if(newNaturalType.eResource() != null) getDiagram().eResource().getContents().add(newNaturalType);
+		model.getElements().add(newNaturalType);
+		newNaturalType.setContainer(model);
+	
+		//Step 3
 		addGraphicalRepresentation(createContext, newNaturalType);
 		return new Object[] { newNaturalType };
 	}
@@ -369,6 +425,15 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		return TYPE_TEXT;
 	}
 	
+	/**
+	 * calculates if a pictogram element of a natural type can be direct edited
+	 * <p>
+	 * returns true if:<br>
+	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#NATURAL_TYPE} and<br>
+	 * (2) the graphics algorithm of the pictogram element is a {@link Text}
+	 * @return if the selected pictogram can be direct edited
+	 */
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
 		Object businessObject = getBusinessObject(editingContext);
@@ -381,12 +446,22 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * returns the current natural types name as initial value for direct editing
+	 */
 	@Override
 	public String getInitialValue(IDirectEditingContext editingContext) {
 		org.framed.iorm.model.Shape naturalType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		return naturalType.getName();
 	}
 	
+	/**
+	 * calculates if a chosen value for the natural types name is valid
+	 * <p>
+	 * A valid value is a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
+	 * chosen for another natural type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * @return if a chosen value for the natural types name is valid
+	 */
 	@Override
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
@@ -396,6 +471,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
         return null;
 	}
 	
+	/**
+	 * sets value of the groups name, updates its own pictogram element and a group in which its in, if any
+	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
 		org.framed.iorm.model.Shape naturalType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);

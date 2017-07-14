@@ -11,16 +11,50 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.PropertyUtil;
 
+/**
+ * This graphiti pattern is used to work with text shapes
+ * of the preview of the groups or compartment types content.
+ * <p>
+ * It deals with the following aspect of text shapes for group or compartment type elements:<br>
+ * (1) disables deleting the text shapes<br>
+ * (2) disables moving the text shapes<br>
+ * (3) disables resizing the text shapes
+ * @see GroupPattern
+ * @author Kevin Kassin
+ */
 public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
 
+	/**
+	 * the value of the property shape id for the text shapes of the group elements
+	 */
 	private final String SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
 	
+	/**
+	 * the feature name of the create feature in this pattern gathered from {@link NameLiterals}
+	 */
 	private final String GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
 	
+	/**
+	 * Class constructor
+	 */
 	public GroupOrCompartmentTypeElementPattern() {
 		super();
 	}
 	
+
+	/**
+	 * get method for the create features name
+	 * @return the name of the create feature
+	 */
+	@Override
+	public String getCreateName() {
+		return GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
+	}
+	
+	/**
+	 * checks if pattern is applicable for a given business object
+	 * @return true, if business object is null
+	 */
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
 		if(mainBusinessObject == null) {
@@ -29,6 +63,11 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 		return false;
 	}
 
+	/**
+	 * checks if pattern is applicable for a given pictogram element
+	 * @return true, if the pictogram element is text shape for a group or compartment 
+	 * type element
+	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		if(pictogramElement instanceof Shape) {
@@ -40,6 +79,11 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 		return false;
 	}
 
+	/**
+	 * checks if the pictogram element to edit with the pattern is its root
+	 * @return true, if the pictogram element is text shape for a group or compartment 
+	 * type element
+	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		if(pictogramElement instanceof Shape) {
@@ -50,16 +94,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 		}	
 		return false;
 	}
-	
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
-	}
-	
+
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**TODO

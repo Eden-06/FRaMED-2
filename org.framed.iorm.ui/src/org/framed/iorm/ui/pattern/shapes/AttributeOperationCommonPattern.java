@@ -262,7 +262,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * <p>
 	 * This is done by using the regular expressions and by checking if another attribute or
 	 * operation in the same class or role has the same name. Both checks are done with operations
-	 * in the class {@link DirectUtil}.
+	 * in the class {@link NameUtil}.
 	 * @return if the new value of an attributes or operations name is valid
 	 */
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {

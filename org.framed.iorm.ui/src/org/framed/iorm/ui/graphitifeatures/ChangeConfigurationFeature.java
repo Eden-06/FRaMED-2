@@ -3,6 +3,7 @@ package org.framed.iorm.ui.graphitifeatures;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
@@ -69,7 +70,7 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 	 * Step 1: It creates a new empty {@link FRaMEDConfiguration}.<br>
 	 * Step 2: For every selected feature in the feature editors configuration add an equivalent
 	 *    	   {@link FRaMEDFeature} to the created FRaMEDConfiguration.<br>
-	 * Step 3: Set the created FRaMEDConfiguration as configuration of the edited diagram.
+	 * Step 3: Set the created FRaMEDConfiguration as configuration of the edited role model.
 	 * @throws ConfigurationInconsistentException
 	 */
 	@Override
@@ -87,6 +88,7 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 			framedFeatureConfiguration.getFeatures().add(framedFeature);	
 		}
 		//Step 3
-		DiagramUtil.getLinkedModelForDiagram(getDiagram()).setFramedConfiguration(framedFeatureConfiguration);
+		Diagram mainDiagram = DiagramUtil.getMainDiagramForAnyDiagram(getDiagram());    
+		DiagramUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
 	}
 }

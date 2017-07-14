@@ -214,7 +214,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a group and <br>
-	 * (2) if the target container is diagram with a model linked
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the group can be added
 	 */
 	@Override
@@ -264,7 +264,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * Step 2: It creates the structure shown above.<br>
 	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the group.<br>
 	 * Step 4: It links the created shapes of the group to its business objects.<br> 
-	 * Step 5: It enables direct editing and layouting of the group.
+	 * Step 5: It enables direct editing and layouting of the group. It also updates the group in which its
+	 * 		   created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
@@ -338,6 +339,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		link(modelContainer, addedGroup);
 				
 		//Step 5
+		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
 		directEditingInfo.setPictogramElement(nameShape);
@@ -349,36 +351,58 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 	//create feature
 	//~~~~~~~~~~~~~~
+	/**
+	 * calculates if a group can be created
+	 * <p>
+	 * returns true if the target container is a diagram with a model linked
+	 * @return if an attribute can be created
+	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		//target container is either diagram with model
-		ContainerShape containerShape = getDiagram();
-		if(containerShape instanceof Diagram) {
-			if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
+		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null)
 				return true;
-		}
 		return false;
 	}
 
+	/**
+	 * creates the business objects of the group, adds it to model of the diagram in which the group is 
+	 * created in and calls the add function for the group
+	 * <p>
+	 * It creates the following structure:<br>
+	 * <ul>
+	 *   <li>(org.framed.iorm.model.Shape) group</li>
+	 * 	   <ul>
+	 * 	     <li>(Model) group model</li> 
+	 * 	   </ul>
+	 * </ul> 
+	 * <p>
+	 * It uses follows this steps:<br>
+	 * Step 1: It creates the structure shown above.<br>
+	 * Step 2: It adds the new group to the elements of the model of the diagram in which its created.<br>
+	 * Step 3: It call the add function to add the pictogram elements of the group using a 
+	 * 		   {@link AddGroupOrCompartmentTypeContext}.
+	 * @return the created business object of the group
+	 */
 	@Override
 	public Object[] create(ICreateContext createContext) {
-		//create new natural type
+		//Step 1
+		//group
 		org.framed.iorm.model.Shape newGroup = OrmFactory.eINSTANCE.createShape();
 		newGroup.setType(Type.GROUP);
 		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.GROUP, STANDARD_GROUP_NAME);
 		newGroup.setName(standardName);
-		//add new group to the elements of the model
+		//model
+		Model groupModel = OrmFactory.eINSTANCE.createModel();
+		getDiagram().eResource().getContents().add(groupModel);
+		newGroup.setModel(groupModel);
+		
+		//Step 2
 		Model model = DiagramUtil.getLinkedModelForDiagram((Diagram) getDiagram());
 		if(newGroup.eResource() != null) getDiagram().eResource().getContents().add(newGroup);
 		model.getElements().add(newGroup);
 		newGroup.setContainer(model);
-		//set inner model of the group
-		Model groupModel = OrmFactory.eINSTANCE.createModel();
-		getDiagram().eResource().getContents().add(groupModel);
-		newGroup.setModel(groupModel);
-		//enable direct editing
-		getFeatureProvider().getDirectEditingInfo().setActive(true);
-		//add to graphiti representation
+				
+		//Step 3
 		AddGroupOrCompartmentTypeContext agctc = new AddGroupOrCompartmentTypeContext();
 		GeneralUtil.getAddContextForCreateShapeContext(agctc, createContext);
 		agctc.setNewObject(newGroup);
@@ -397,6 +421,15 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		return TYPE_TEXT;
 	}
 		
+	/**
+	 * calculates if a pictogram element of a group can be direct edited
+	 * <p>
+	 * returns true if:<br>
+	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#GROUP} and<br>
+	 * (2) the graphics algorithm of the pictogram element is a {@link Text}
+	 * @return if the selected pictogram can be direct edited
+	 */
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
 		Object businessObject = getBusinessObject(editingContext);
@@ -409,12 +442,22 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * returns the current groups name as initial value for direct editing
+	 */
 	@Override
 	public String getInitialValue(IDirectEditingContext editingContext) {
 		org.framed.iorm.model.Shape group = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		return group.getName();
 	}
 		
+	/**
+	 * calculates if a chosen value for the groups name is valid
+	 * <p>
+	 * A valid value is a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
+	 * chosen for another group. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * @return if a chosen value for the groups name is valid
+	 */
 	@Override
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
@@ -424,6 +467,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	    return null;
 	}
 		
+	/**
+	 * sets value of the groups name, updates its own pictogram element and a group in which its in, if any
+	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
 		org.framed.iorm.model.Shape group = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
