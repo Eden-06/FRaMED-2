@@ -3,11 +3,11 @@ package org.framed.iorm.ui.multipage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -28,18 +28,18 @@ public class MultipageEditorSynchronizationService {
 	/**
 	 * the identifiers for the {@link MultipageEditor} and the {@link DiagramTypeProvider}
 	 */
-	static private final String EDITOR_ID = IdentifierLiterals.EDITOR_ID,
-								DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
+	private static final String EDITOR_ID = IdentifierLiterals.EDITOR_ID,
+							   DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
 	
 	/**
 	 * the register for the multipage editors to synchronize
 	 */
-	static private List<MultipageEditor> registeredEditors = new ArrayList<MultipageEditor>();
+	private static List<MultipageEditor> registeredEditors = new ArrayList<MultipageEditor>();
 	
 	/**
 	 * a list to save the dirty states of the registered multipage editors
 	 */
-	static private List<Boolean> dirtyStatesOfEditors = new ArrayList<Boolean>();
+	private static List<Boolean> dirtyStatesOfEditors = new ArrayList<Boolean>();
 	
 	/**
 	 * operation to add a multipage editor to the register
@@ -90,6 +90,7 @@ public class MultipageEditorSynchronizationService {
 	 * 		   active editor before synchronizing to avoid changing the focus without a user input to do this.
 	 */
 	public static void synchronize() {
+		System.out.println(registeredEditors.size());
 		//Step 1
 		MultipageEditor synchronizationBase = null;
 		for(int i = 0; i<dirtyStatesOfEditors.size(); i++) {
@@ -106,20 +107,34 @@ public class MultipageEditorSynchronizationService {
 			MultipageEditor activeMultipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			for(MultipageEditor multipageEditor : copyOfRegisteredEditors) {
-				if(multipageEditor.getPartName() != synchronizationBase.getPartName()) {
-					IEditorInput newEditorInput = 
+				if(areTheSameRoleModels(synchronizationBase, multipageEditor)) {	
+					if(multipageEditor.getPartName() != synchronizationBase.getPartName()) {
+						IEditorInput newEditorInput = 
 							getEquivalentEditorInput(synchronizationBase.getEditorInput(), multipageEditor.getEditorInput());
-					try {
-						//Step 3
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditor, false);
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(newEditorInput, EDITOR_ID, false);	
-					} catch (PartInitException e) {	e.printStackTrace(); }
-			}	}	
+						try {
+							//Step 3
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditor, false);
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(newEditorInput, EDITOR_ID, false);	
+						} catch (PartInitException e) {	e.printStackTrace(); }
+			}	}	}
 			try {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(activeMultipageEditor.getEditorInput(), EDITOR_ID, false);
 			} catch (PartInitException e) { e.printStackTrace(); }
 	}	}
-		
+	
+	/**
+	 * calculates of two multipage editors work on the same role model
+	 * @param multipageEditor1 the first to multipage editor to compare
+	 * @param multipageEditor2 the second to multipage editor to compare
+	 * @return if the two multipage editors work on the same role model file
+	 */
+	private static boolean areTheSameRoleModels(MultipageEditor multipageEditor1, MultipageEditor multipageEditor2) {
+		//synchrobase
+		IFile firstFile = EditorInputUtil.getIFileForEditorInput(multipageEditor1.getEditorInput());
+		IFile secondFile = EditorInputUtil.getIFileForEditorInput(multipageEditor2.getEditorInput());
+		return firstFile.equals(secondFile);
+	}
+	
     /**
      * creates an equivalent editor input for another editor input depending on the editor input of the synchronization base
      * using the following steps:

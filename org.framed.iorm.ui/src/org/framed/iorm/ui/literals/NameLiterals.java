@@ -127,6 +127,6 @@ public class NameLiterals {
 	/**
 	 * the prefix for the multipage editor names if a groups diagram is opened in it
 	 */
-	public static final String MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM = "Group";
+	public static final String MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM = "GROUP";
 }
 

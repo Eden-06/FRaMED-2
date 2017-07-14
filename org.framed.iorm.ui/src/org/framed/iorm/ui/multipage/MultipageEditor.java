@@ -14,13 +14,17 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.editor.FormEditor;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -43,7 +47,7 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  * @see FRaMEDTextViewer
  * @author Kevin Kassin
  */
-public class MultipageEditor extends FormEditor implements ISelectionListener {
+public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
 	
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
@@ -141,6 +145,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener {
 	public void init(IEditorSite site, IEditorInput editorInput) throws PartInitException {
 		super.init(site, editorInput);
 		getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(this);
+		PlatformUI.getWorkbench().addWorkbenchListener(this);
 	}
 	
 	/**
@@ -189,12 +194,22 @@ public class MultipageEditor extends FormEditor implements ISelectionListener {
 			} catch (PartInitException e) { e.printStackTrace(); }
 			Resource resource = EditorInputUtil.getResourceFromEditorInput(diagramEditorInput);	
 			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
-			setPartName(MULTIPAGE_EDITOR_NAME_GROUP_DIAGRAM + " " + diagram.getName());
+			org.framed.iorm.model.Shape groupOrCompartmentType = null;
+			if(diagram.getLink().getBusinessObjects().size() == 1) {
+				if(diagram.getLink().getBusinessObjects().get(0) instanceof Model) {
+					Model model = (Model) diagram.getLink().getBusinessObjects().get(0);
+					groupOrCompartmentType = model.getParent();
+				}
+			if(groupOrCompartmentType == null) throw new NullPointerException("asd");//TODO
+			setPartName(groupOrCompartmentType.getType().getName().toUpperCase() + " " + 
+						groupOrCompartmentType.getName() + " " + 
+						"(" + DiagramUtil.getMainDiagramForAnyDiagram(diagram).getName() + ")");
 			return;
+			}
 		} 
 		throw new InvalidTypeOfEditorInputException();
 	}
-	
+
 	/**
 	 * This method add pages to the multipage editor if the editor input is of type {@link IFileEditorInput} 
 	 * by creating an {@link DiagramEditorInput} with the <em>main diagram</em> of the CROM Diagram. Then it call the
@@ -372,6 +387,45 @@ public class MultipageEditor extends FormEditor implements ISelectionListener {
 	}	}	} 	}
 		
 	/**
+	 * closes all multipage editors that have an {@link DiagramEditorInput}
+	 * <p>
+	 * This operation is called by the {@link IWorkbench} when the application is closed. At that moment all multipage
+	 * editor with a diagram editor input has to be closed to ensure the synchronization between multipage editors after the
+	 * restart of the application. It uses the operation {@link #allEditorsWithDiagramEditorInputClosed} to check if all multipage
+	 * editors with a diagram editor input are closed. If yes, this operation returns true to show the workbench that it can be closed 
+	 * completely now.
+	 */
+	@Override
+	public boolean preShutdown(IWorkbench workbench, boolean forced) {
+		IEditorReference[] editorReferences =
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for(IEditorReference editorReference : editorReferences) {
+			try {
+				if(editorReference.getEditorInput() instanceof DiagramEditorInput) {
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorReference.getEditor(false), false);
+				} 	
+			} catch (PartInitException e) { e.printStackTrace(); }
+		}
+		return allEditorsWithDiagramEditorInputClosed();
+	}
+	
+	/**
+	 * checks if all multipage editors with a {@link DiagramEditorInput} are closed
+	 * <p>
+	 * for more documentation check {@link #preShutdown} 
+	 * @return if all multipage editors with a diagram editor are closed
+	 */
+	private boolean allEditorsWithDiagramEditorInputClosed() {
+		IEditorReference[] editorReferences = 
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for(IEditorReference editorReference : editorReferences) {
+			if(editorReference instanceof DiagramEditorInput)
+				return false;
+		}	
+		return true;	
+	}
+
+	/**
 	 * sets the selected page as active page
 	 * <p>
 	 * changes the page to the selected one by the user as long the user don't chooses the status page which 
@@ -397,4 +451,10 @@ public class MultipageEditor extends FormEditor implements ISelectionListener {
 	 */
 	@Override
 	public void doSaveAs() {}
+	
+	/**
+	 * operation not used
+	 */
+	@Override
+	public void postShutdown(IWorkbench workbench) {}
 }

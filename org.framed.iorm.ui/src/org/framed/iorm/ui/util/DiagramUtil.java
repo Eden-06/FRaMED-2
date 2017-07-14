@@ -121,11 +121,29 @@ public class DiagramUtil {
 	}
 	
 	/**
+	 * TODO
+	 * finds the <em>main diagram</em> of a role model
+	 * <p>
+	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
+	 * @param diagram the diagram to search the main diagram for
+	 * @return the container diagram of a role model
+	 */
+	public static Diagram getMainDiagramForAnyDiagram(Diagram diagram) {
+		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram &&
+			   PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM));
+				return (Diagram) shape;
+		}
+		throw new NoDiagramFoundException();
+	}
+	
+	/**
 	 * fetches the root model of role model which contains the given diagram
 	 * @param diagram the diagram to search the root model for
 	 * @return the root model of a role model
 	 */
-	public static Model getRootDiagramForAnyDiagram(Diagram diagram) {
+	public static Model getRootModelForAnyDiagram(Diagram diagram) {
 		Model rootModel = null;
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {

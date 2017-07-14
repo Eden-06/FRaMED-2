@@ -141,7 +141,7 @@ public class NameUtil {
 	public static boolean nameAlreadyUsedForClassOrRole(Diagram diagram, Type type, String newName) {
 		List<String> modelElements = new ArrayList<String>();
 		//Step 1
-		Model rootModel = DiagramUtil.getRootDiagramForAnyDiagram(diagram);
+		Model rootModel = DiagramUtil.getRootModelForAnyDiagram(diagram);
 		//Step 2
 		getModelElementsNamesRecursive(rootModel, type, modelElements);
 		return modelElements.contains(newName);
@@ -195,7 +195,7 @@ public class NameUtil {
 	 */
 	public static String calculateStandardNameForClassOrRole(Diagram diagram, Type type, String standardName) {
 		List<String> modelElements = new ArrayList<String>();
-		Model rootModel = DiagramUtil.getRootDiagramForAnyDiagram(diagram);
+		Model rootModel = DiagramUtil.getRootModelForAnyDiagram(diagram);
 		getModelElementsNamesRecursive(rootModel, type, modelElements);
 		if(!(modelElements.contains(standardName))) return standardName;
 		for(int i=1; i<=STANDART_NAMES_COUNTER_LIMIT; i++) {

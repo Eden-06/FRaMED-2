@@ -58,7 +58,7 @@ public class GeneralUtil {
 	}
 	
 	/**
-	 * manages to close a given multipage editor at the next reasonable opportunity usind the operation 
+	 * manages to close a given multipage editor at the next reasonable opportunity using the operation 
 	 * {@link Display#asyncExec}
 	 * <p>
 	 * It also saves the multipage editor before closing it to clean up the dirty state of the whole workbench.
