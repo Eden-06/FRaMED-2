@@ -11,7 +11,6 @@ import org.framed.iorm.featuremodel.FeaturemodelFactory;
 import org.framed.iorm.ui.contexts.ChangeConfigurationContext;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
-
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link 

@@ -427,7 +427,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//direct editing feature
 	//~~~~~~~~~~~~~~~~~~~~~~~	
 	/**
-	 * sets the editing type as a text field for the direct editing of the attributes or operations name
+	 * sets the editing type as a text field for the direct editing of the datatypes name
 	 */
 	@Override
 	public int getEditingType() {
@@ -481,7 +481,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * sets value of the groups name, updates its own pictogram element and a group in which its in, if any
+	 * sets value of the datatypes name, updates its own pictogram element and a group in which its in, if any
 	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     

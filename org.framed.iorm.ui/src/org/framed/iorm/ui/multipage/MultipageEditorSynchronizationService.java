@@ -90,7 +90,6 @@ public class MultipageEditorSynchronizationService {
 	 * 		   active editor before synchronizing to avoid changing the focus without a user input to do this.
 	 */
 	public static void synchronize() {
-		System.out.println(registeredEditors.size());
 		//Step 1
 		MultipageEditor synchronizationBase = null;
 		for(int i = 0; i<dirtyStatesOfEditors.size(); i++) {

@@ -17,7 +17,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.framed.iorm.ui.util.PatternUtil;
-import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
  * This class is an abstract super class for the graphiti shape patterns.

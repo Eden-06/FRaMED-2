@@ -39,6 +39,28 @@ public class GeneralUtil {
 	}
 	
 	/**
+	 * This operation calculates where the horizontal first third of a class or role is.
+	 * <p>
+	 * This is used for compartment types.
+	 * @param heightOfCompartmentType the height of the compartment type
+	 * @return the horizontal first third of the compartment type
+	 */
+	public static final int calculateHorizontaltFirstThird(int heightOfCompartmentType) {
+		return ((heightOfCompartmentType-HEIGHT_NAME_SHAPE)/3)+HEIGHT_NAME_SHAPE;
+	}
+	
+	/**
+	 * This operation calculates where the horizontal first third of a class or role is.
+	 * <p>
+	 * This is used for compartment types.
+	 * @param heightOfCompartmentType the height of the compartment type
+	 * @return the horizontal first third of the compartment type
+	 */
+	public static final int calculateHorizontaltSecondThird(int heightOfCompartmentType) {
+		return 2*calculateHorizontaltFirstThird(heightOfCompartmentType)-HEIGHT_NAME_SHAPE;
+	}
+	
+	/**
 	 * sets the values of a given {@link AddContext} using a given {@link CreateContext}
 	 * <p>
 	 * This operation only deals with add and create contexts for graphiti shapes since graphiti connections use

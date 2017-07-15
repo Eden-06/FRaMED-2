@@ -47,7 +47,8 @@ public class IdentifierLiterals {
 	 * <p>
 	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for features
 	 */
-	public static final String IMG_ID_FEATURE_NATURALTYPE = IMG_ID_PREFIX + "img_naturaltype",
+	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_naturaltype",
+							   IMG_ID_FEATURE_NATURALTYPE = IMG_ID_PREFIX + "img_naturaltype",
 							   IMG_ID_FEATURE_DATATYPE = IMG_ID_PREFIX + "img_datatype",
 							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
 							   IMG_ID_FEATURE_OPERATION = IMG_ID_PREFIX + "img_operation",
@@ -73,6 +74,31 @@ public class IdentifierLiterals {
 	 */
 	public static final String KEY_SHAPE_ID = "shape id",
 							   KEY_DIAGRAM_KIND = "diagram kind";
+	
+	/**
+	 * identifiers used for natural types
+	 * <p>
+	 * can be for:<br>
+	 * (1) type body shape or<br>
+	 * (2) drop shadow shape or<br>
+	 * (3) name shape or<br>
+	 * (4) first line shape or<br>
+	 * (5) second line shape or<br>
+	 * (6) attribute container shape or<br>
+	 * (7) operation container shape
+	 */
+	public static final String SHAPE_ID_COMPARTMENTTYPE_CONTAINER = "shape_ct_container",
+							   SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = "shape_ct_typebody",
+						 	   SHAPE_ID_COMPARTMENTTYPE_SHADOW = "shape_ct_shadow",
+						 	   SHAPE_ID_COMPARTMENTTYPE_NAME = "shape_ct_name", 
+						 	   SHAPE_ID_COMPARTMENTTYPE_FIRSTLINE = "shape_ct_firstline",
+						 	   SHAPE_ID_COMPARTMENTTYPE_SECONDLINE = "shape_ct_secondline", 
+						 	   SHAPE_ID_COMPARTMENTTYPE_THIRDLINE = "shape_ct_thirdline", 
+						 	   SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER = "shape_ct_attcontainer",
+						 	   SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER = "shape_ct_opcontainer",
+						 	   SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = "shape_ct_contentpreview",
+						 	   SHAPE_ID_COMPARTMENTTYPE_ELEMENT = "shape_ct_element",
+						 	   SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS = "shape_ct_indicator_dots";
 	
 	/**
 	 * identifiers used for natural types
@@ -134,7 +160,7 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_GROUP_SHADOW = "shape_group_shadow",
 						 	   SHAPE_ID_GROUP_NAME = "shape_group_name", 
 						 	   SHAPE_ID_GROUP_LINE = "shape_group_line",
-						 	   SHAPE_ID_GROUP_MODEL = "shape_group_model",
+						 	   SHAPE_ID_GROUP_CONTENT_PREVIEW = "shape_content_preview",
 						 	   SHAPE_ID_GROUP_ELEMENT = "shape_group_element",
 						 	   SHAPE_ID_GROUPS_INDICATOR_DOTS = "shape_group_indicator_dots";
 	
@@ -158,14 +184,16 @@ public class IdentifierLiterals {
 	 * can be:<br>
 	 * (1) the container diagram of the role model or<br>
 	 * (2) the main diagram of the role model or<br>
-	 * (3) a diagram used to save the gaphical content of a group
+	 * (3) a diagram used to save the graphical content of a group or<br>
+	 * (4) a diagram used to save the graphical content of a compartment type
 	 * <p>
 	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
 	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.<br>
 	 * The word <em>kind</em> is chosen to differ this property from the <em>diagram types</em> of the 
 	 * graphiti framework.
 	 */
-	public static final String DIAGRAM_KIND_CONTAINER_DIAGRAM = "auto_diagram_container_diagram",
-							   DIAGRAM_KIND_MAIN_DIAGRAM = "auto_diagram_id_main_diagram",
-							   DIAGRAM_KIND_GROUP_DIAGRAM = "group_diagram";
+	public static final String DIAGRAM_KIND_CONTAINER_DIAGRAM = "container_diagram",
+							   DIAGRAM_KIND_MAIN_DIAGRAM = "main_diagram",
+							   DIAGRAM_KIND_GROUP_DIAGRAM = "group_diagram",
+							   DIAGRAM_KIND_COMPARTMENT_DIAGRAM = "compartment_diagram";
 }

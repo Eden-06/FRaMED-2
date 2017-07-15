@@ -37,8 +37,10 @@ public class TextLiterals {
 							   DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
 							   NAME_ALREADY_USED_NATURALTYPE = "Another natural type already has the same name!",
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
-							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!";
-
+							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",
+							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment already has the same name!";
+							   
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 * <p>

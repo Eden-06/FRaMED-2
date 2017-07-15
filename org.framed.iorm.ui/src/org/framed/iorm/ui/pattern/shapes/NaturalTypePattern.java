@@ -102,9 +102,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
 	 */
 	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
-			 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
-			 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
-		     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
+			 			 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
+			 			 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
+			 			 SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
 	
 	/**
 	 * text literals gathered from {@link TextLiterals}
@@ -211,15 +211,13 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * returns true if:<br>
 	 * (1) if the added business object is a natural type and <br>
 	 * (2) if the target container is a diagram with a model linked
-	 * @return if the natural type datatype can be added
+	 * @return if the natural type can be added
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		//new Object is a natural type
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.NATURAL_TYPE) {
-				//target container is diagram with root model
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
@@ -255,7 +253,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * </ul> 
 	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the group in and calculates the height and width 
+	 * Step 1: It gets the new object, the diagram to create the natural type in and calculates the height and width 
 	 * 		   of the natural types representation.<br>
 	 * Step 2: It creates the structure shown above.<br>
 	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the group.<br>
@@ -309,7 +307,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		attributeRectangle.setBackground(manageColor(COLOR_BACKGROUND));
 		int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, height);
 		graphicAlgorithmService.setLocationAndSize(attributeRectangle, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS, 
-									 			   addContext.getWidth()-2*PUFFER_BETWEEN_ELEMENTS, horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
+												   width-2*PUFFER_BETWEEN_ELEMENTS, horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 		//second line
 		Shape secondLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);	
 		Polyline secondPolyline = graphicAlgorithmService.createPolyline(secondLineShape, new int[] {0, horizontalCenter, width, horizontalCenter});
@@ -344,6 +342,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		link(operationContainer, addedNaturalType);
 		
 		//Step 5
+		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
 		directEditingInfo.setPictogramElement(nameShape);
@@ -418,7 +417,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	//direct editing
 	//~~~~~~~~~~~~~~
 	/**
-	 * sets the editing type as a text field for the direct editing of the attributes or operations name
+	 * sets the editing type as a text field for the direct editing of the natural types name
 	 */
 	@Override
 	public int getEditingType() {
@@ -441,8 +440,10 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == Type.NATURAL_TYPE) {
+				System.out.println("A");
 				return true;
 		}	}
+		System.out.println("B");
 		return false;
 	}
 
@@ -472,7 +473,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 	
 	/**
-	 * sets value of the groups name, updates its own pictogram element and a group in which its in, if any
+	 * sets value of the natural types name, updates its own pictogram element and a group in which its in, if any
 	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
@@ -802,7 +803,6 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+SHADOW_SIZE);
 			super.moveShape(changedMoveContextForTypeBody);
 		}
-		
 	}
 	
 	//resize feature

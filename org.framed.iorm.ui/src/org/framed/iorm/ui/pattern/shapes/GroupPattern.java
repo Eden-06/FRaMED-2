@@ -105,12 +105,15 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				   		 SHAPE_ID_GROUP_SHADOW = IdentifierLiterals.SHAPE_ID_GROUP_SHADOW,
 				   		 SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME, 
 				   		 SHAPE_ID_GROUP_LINE = IdentifierLiterals.SHAPE_ID_GROUP_LINE,
-				   		 SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_MODEL,
+				   		 SHAPE_ID_GROUP_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_GROUP_CONTENT_PREVIEW,
 				   		 SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
 				   		 SHAPE_ID_GROUPS_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_GROUPS_INDICATOR_DOTS;
-				   
+
+	/**
+	 * identifier literals used for the groups content diagram gathered from {@link IdentifierLiterals}
+	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-			 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
+						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
 		
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -219,11 +222,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		//new Object is a group
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.GROUP) {
-				//target container is diagram with root model
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
@@ -307,7 +308,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		Polyline firstPolyline = graphicAlgorithmService.createPolyline(firstLineShape, new int[] {0, HEIGHT_NAME_SHAPE, width, HEIGHT_NAME_SHAPE});
 		firstPolyline.setForeground(manageColor(COLOR_LINES));		
 	
-		//model content container and model content rectangle
+		//model content preview container
 		ContainerShape modelContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
 		Rectangle modelRectangle = graphicAlgorithmService.createRectangle(modelContainer);
 		modelRectangle.setLineVisible(false);
@@ -328,7 +329,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		PropertyUtil.setShape_IdValue(dropShadowShape, SHAPE_ID_GROUP_SHADOW);
 		PropertyUtil.setShape_IdValue(nameShape, SHAPE_ID_GROUP_NAME);
 		PropertyUtil.setShape_IdValue(firstLineShape, SHAPE_ID_GROUP_LINE);
-		PropertyUtil.setShape_IdValue(modelContainer, SHAPE_ID_GROUP_MODEL);
+		PropertyUtil.setShape_IdValue(modelContainer, SHAPE_ID_GROUP_CONTENT_PREVIEW);
 		
 		//Step 4
 		link(containerShape, addedGroup);
@@ -538,7 +539,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	        //model container
 	        if (graphicsAlgorithm instanceof Rectangle) {
 	        	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
-		        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_MODEL)) {
+		        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
 		        	int newHeight = (containerHeight-GROUP_CORNER_RADIUS),
 		            	newWidth = (containerWidth-2*PUFFER_BETWEEN_ELEMENTS);            				
 		        	rectangle.setHeight(newHeight);
@@ -645,7 +646,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	                }
 	        	}    
 	        	if (shape.getGraphicsAlgorithm() instanceof Rectangle) {  
-	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_MODEL)) {
+	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
 		                ContainerShape modelContainerShape = (ContainerShape) shape;
 			            Diagram groupsDiagram = DiagramUtil.getGroupDiagramForGroupShape(typeBodyShape, getDiagram());
 			            Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupsDiagram);

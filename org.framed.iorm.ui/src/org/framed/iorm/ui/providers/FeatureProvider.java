@@ -15,6 +15,7 @@ import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
 import org.framed.iorm.ui.pattern.connections.InheritancePattern;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern;
 import org.framed.iorm.ui.pattern.shapes.AttributePattern;
+import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern;
 import org.framed.iorm.ui.pattern.shapes.DataTypePattern;
 import org.framed.iorm.ui.pattern.shapes.GroupOrCompartmentTypeElementPattern;
 import org.framed.iorm.ui.pattern.shapes.GroupPattern;
@@ -39,6 +40,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       super(diagramTypeProvider);
       //Step 1
       addPattern(new ModelPattern());
+      addPattern(new CompartmentTypePattern());
       addPattern(new NaturalTypePattern());
       addPattern(new DataTypePattern());
       addPattern(new GroupPattern());

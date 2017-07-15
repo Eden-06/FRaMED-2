@@ -35,17 +35,20 @@ public class NameLiterals {
 	 * standard names for graphiti shapes
 	 * <p>
 	 * can be:<br>
-	 * (1) the standard name for attributes or<br>
-	 * (2) the standard name for operations or<br>
-	 * (3) the standard name for naturals types or<br>
-	 * (4) the standard name for data types or<b>
-	 * (5) the standard name for groups
+	 * (1) the standard name for compartment types or<br>
+	 * (2) the standard name for naturals types or<br>
+	 * (3) the standard name for data types or<br>
+	 * (4) the standard name for groups or<br>
+	 * (5) the standard name for attributes or<b>
+	 * (6) the standard name for operations
 	 */
-	public static final String STANDARD_ATTRIBUTE_NAME = "attribute:type",
-							   STANDARD_OPERATION_NAME = "operation():type",
+	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 							   STANDARD_NATURALTYPE_NAME = "naturalType",
-							   STANDARD_DATATYPE_NAME = "dataType",
-							   STANDARD_GROUP_NAME = "group";
+			   				   STANDARD_DATATYPE_NAME = "dataType",
+			   				   STANDARD_GROUP_NAME = "group",
+			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
+			   				   STANDARD_OPERATION_NAME = "operation():type";
+							  
 
 	/**
 	 * name literals for commands
@@ -58,13 +61,15 @@ public class NameLiterals {
 	 * name literals used in the shape patterns for shown create features
 	 * <p>
 	 * can be:<br>
-	 * (1) the name of the natural type create feature or<br>
-	 * (2) the name of the data type create feature or<br>
-	 * (3) the name of the group create feature or<br>
-	 * (4) the name of the attribute create feature or<br>
-	 * (5) the name of the operation create feature 
+	 * (1) the name of the compartment type create feature or<br>
+	 * (2) the name of the natural type create feature or<br>
+	 * (3) the name of the data type create feature or<br>
+	 * (4) the name of the group create feature or<br>
+	 * (5) the name of the attribute create feature or<br>
+	 * (6) the name of the operation create feature 
 	 */
-	public static final String NATURALTYPE_FEATURE_NAME = "Natural Type",
+	public static final String COMPARTMENTTYPE_FEATURE_NAME = "Compartment Type",
+							   NATURALTYPE_FEATURE_NAME = "Natural Type",
 			 				   DATATYPE_FEATURE_NAME = "Data Type",
 			 				   GROUP_FEATURE_NAME = "Group",
 			 				   ATTRIBUTE_FEATURE_NAME = "Attribute",
