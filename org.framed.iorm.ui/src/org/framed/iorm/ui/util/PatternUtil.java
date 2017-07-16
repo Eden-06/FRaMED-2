@@ -26,17 +26,19 @@ public class PatternUtil {
 	private static final String SHAPE_ID_GROUP_CONTAINER = IdentifierLiterals.SHAPE_ID_GROUP_CONTAINER,
 								SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 								SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME,
-								SHAPE_ID_GROUP_MODEL = IdentifierLiterals.SHAPE_ID_GROUP_CONTENT_PREVIEW,
-							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
+								SHAPE_ID_GROUP_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_GROUP_CONTENT_PREVIEW,
+								SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW,
+							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
+							    SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT;
 	
 	private static final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
 								SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT;
 				
 	/**
-	 * fetches all the names of the groups content that are shown in <em>model container</em> of the group
+	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group
 	 * <p>
-	 * If its not clear what <em>model container</em> and <em>type body shape</em> means, see 
-	 * {@link GroupPattern#add} for reference. 
+	 * If its not clear what <em>model content preview container</em> and <em>type body shape</em> means, see 
+	 * {@link GroupPattern#add} for example. 
 	 * @param pictogramElement the type body shape of of a group
 	 * @return a list of the shown names of child elements of a group
 	 */
@@ -45,10 +47,12 @@ public class PatternUtil {
 		if(pictogramElement instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) pictogramElement;
 			for(Shape shape : containerShape.getChildren()) {
-				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_MODEL)) {
+				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW) ||
+				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW)	) {
 					ContainerShape modelContainer = (ContainerShape) shape; 
 					for(Shape modelContainterElement : modelContainer.getChildren()) {
-						if(PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_GROUP_ELEMENT)) {
+						if(PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_GROUP_ELEMENT) ||
+						   PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
 							Text text = (Text) modelContainterElement.getGraphicsAlgorithm();
 							modelContainerElementsNames.add(text.getValue());
 		}	}	}	}	}
@@ -63,7 +67,7 @@ public class PatternUtil {
 	 */
 	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram) {
 		List<String> modelElementsNames = new ArrayList<String>();
-		Diagram groupDiagram = DiagramUtil.getGroupDiagramForGroupShape((ContainerShape) pictogramElement, diagram);
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram);
 		Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupDiagram);
 		for(ModelElement modelElement : groupModel.getElements()) {
 			modelElementsNames.add(modelElement.getName());

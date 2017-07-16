@@ -3,6 +3,7 @@ package org.framed.iorm.ui.pattern.shapes;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
@@ -12,6 +13,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
 import org.framed.iorm.ui.util.NameUtil;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -23,13 +25,21 @@ import org.framed.iorm.ui.util.NameUtil;
  * @author Kevin Kassin
  */
 public class AttributePattern extends FRaMEDShapePattern implements IPattern {
-
+	
 	/**
 	 * the name of the create feature in this pattern and the standard names of attributes 
 	 * gathered from {@link NameLiterals}
 	 */
 	private final String ATTRIBUTE_STANDARD_NAME = NameLiterals.STANDARD_ATTRIBUTE_NAME,
 						 ATTRIBUTE_FEATURE_NAME = NameLiterals.ATTRIBUTE_FEATURE_NAME;
+	
+	/**
+	 * the values of the property shape id for the drop shadows of class or roles gathered form
+	 * {@link IdentifierLiterals}
+	 */
+	private final String SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
+						 SHAPE_ID_COMPARTMENTTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW,
+						 SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW;
 	
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -100,7 +110,9 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * calculates if an attribute can be created
 	 * <p>
-	 * returns true if the attribute is created in a class or role that is a {@link org.framed.iorm.model.Shape} 
+	 * returns true if:<br>
+	 * (1) the attribute is created in a class or role that is a {@link org.framed.iorm.model.Shape} and<br>
+	 * (2) not the drop shadow of a class or role is selected
 	 * of the right type
 	 * @return if an attribute can be created
 	 */
@@ -110,8 +122,13 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		Object businessObject =  getBusinessObjectForPictogramElement(pictogramElement);
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject; 
-			if(shape.getType() == Type.NATURAL_TYPE) return true;
-			if(shape.getType() == Type.DATA_TYPE) return true;
+			if(shape.getType() == Type.NATURAL_TYPE ||
+			   shape.getType() == Type.DATA_TYPE ||
+			   shape.getType() == Type.COMPARTMENT_TYPE)
+				if(!(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_SHADOW)) &&
+				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_SHADOW)) &&
+				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_DATATYPE_SHADOW)))	   
+					return true;
 		}
 		return false;
 	}

@@ -97,7 +97,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	private final String IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE;
 	
 	/**
-	 * identifier literals used as shape ids for the shapes the attribute and operation containers
+	 * identifier literals used as shape ids for the shapes of the attribute and operation containers
 	 * <p>
 	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
 	 */
@@ -440,10 +440,8 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == Type.NATURAL_TYPE) {
-				System.out.println("A");
 				return true;
 		}	}
-		System.out.println("B");
 		return false;
 	}
 
@@ -503,6 +501,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean layout(ILayoutContext layoutContext) {	
 		boolean layoutChanged = false;
+		int newHeight, newWidth, newY;
 		Shape indicatorDotsShapeToDelete;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
 		Rectangle typeBodyRectangle = null;
@@ -518,14 +517,16 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		//ensure the minimal width and height
         if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
 		if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
-		int containerWidth = typeBodyRectangle.getWidth();
-        int containerHeight = typeBodyRectangle.getHeight();
+		int width = typeBodyRectangle.getWidth();
+        int height = typeBodyRectangle.getHeight();
         //set the size of the drop shadow to the new size of the type body
-        dropShadowRectangle.setWidth(containerWidth);
-        dropShadowRectangle.setHeight(containerHeight);
+        dropShadowRectangle.setWidth(width);
+        dropShadowRectangle.setHeight(height);
         //set the x and y value of the drop shadow to the values of the type body
         dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
         dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
+       
+        int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, height);
         
         for (Shape shape : container.getChildren()){
             GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
@@ -533,33 +534,39 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
             if (graphicsAlgorithm instanceof Text) {
             	Text text = (Text) graphicsAlgorithm;	
             	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_NAME)) {
-            		graphicAlgorithmService.setLocationAndSize(text, 0, 0, containerWidth, HEIGHT_NAME_SHAPE);
+            		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, HEIGHT_NAME_SHAPE);
             		layoutChanged=true;
             	}	
             }
             //first and second line
             if (graphicsAlgorithm instanceof Polyline) {	   
 	            Polyline polyline = (Polyline) graphicsAlgorithm;  
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_SECONDLINE)) {   
-	            	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, (((containerHeight)-HEIGHT_NAME_SHAPE)/2)+HEIGHT_NAME_SHAPE));
-	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(containerWidth, (((containerHeight)-HEIGHT_NAME_SHAPE)/2)+HEIGHT_NAME_SHAPE));
-	            	layoutChanged=true;
-	            }
 	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_FIRSTLINE)) {
-	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(containerWidth, polyline.getPoints().get(1).getY()));
+	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, polyline.getPoints().get(1).getY()));
 	            	layoutChanged=true;
 	            }	
+	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_SECONDLINE)) {   
+	            	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalCenter));
+	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalCenter));
+	            	layoutChanged=true;
 	            }
+	        }
             //attribute and operation container
             if (graphicsAlgorithm instanceof Rectangle) {
             	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
 	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
-	            	int newHeight = (((containerHeight)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS,
-	            		newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);            				
+	            	newHeight = (((height)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS;
+	            	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
+	            	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 	            	rectangle.setHeight(newHeight);
 	            	rectangle.setWidth(newWidth);
 	            	ContainerShape attributeContainerShape = (ContainerShape) shape;	       
 	            	EList<Shape> attributes = attributeContainerShape.getChildren();
+	            	
+	            	//set place of attributes
+	            	for(int m = 0; m<attributes.size(); m++) {
+	            		attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+            		}
 	            			            	
 	            	//set all attributes visible
 	            	indicatorDotsShapeToDelete = null;
@@ -588,10 +595,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	            	layoutChanged=true;
 	            }
 	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
-	            	int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, containerHeight);
-	            	int newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
-	            	int newWidth = typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS;		
-	            	int newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;	            	
+	            	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
+	            	newWidth = width-2*PUFFER_BETWEEN_ELEMENTS;		
+	            	newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;	            	
 	            	rectangle.setHeight(newHeight);
 	            	rectangle.setWidth(newWidth);
 	            	rectangle.setY(newY);
@@ -627,7 +633,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 			            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
 			           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
 				    } 	
-				layoutChanged=true;
+				    layoutChanged=true;
 	    }	}	}        
         return layoutChanged;
 	}
@@ -710,7 +716,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	@Override
 	public boolean update(IUpdateContext updateContext) {
-		int counter, newY;
+		int counter;
 		boolean changed = false;
          
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
@@ -723,7 +729,6 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		//set type name in pictogram model
         if (pictogramElement instanceof ContainerShape) {     
             ContainerShape containerShape = (ContainerShape) pictogramElement;
-            int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, containerShape.getGraphicsAlgorithm().getHeight());
             for (Shape shape : containerShape.getChildren()) {
                 if (shape.getGraphicsAlgorithm() instanceof Text) {
                     Text text = (Text) shape.getGraphicsAlgorithm();
@@ -738,25 +743,23 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 					if(innerContainerShape.getGraphicsAlgorithm() instanceof Rectangle) {
 						//Attributes
 						counter = 0;
-						newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 							for(Shape attributeShape : innerContainerShape.getChildren()) {
 								if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
 									Text text = (Text) attributeShape.getGraphicsAlgorithm();
 									text.setValue(businessAttributeNames.get(counter));
-									attributeShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_ATTRIBUTE_SHAPE);
 									changed = true;
 									counter++;
 						}	}	}
 						//Operations
 						counter = 0;
-						newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
+						//newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
 								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
 									Text text = (Text) operationShape.getGraphicsAlgorithm();
 									text.setValue(businessOperationNames.get(counter));									
-									operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
+									//operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
 									changed = true;
 									counter++;
 		}	}	}	}	}	}	}        

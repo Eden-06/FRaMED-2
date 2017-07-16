@@ -126,8 +126,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String REASON_NAME_NULL = TextLiterals.REASON_NAME_NULL,
 					 	 REASON_NAME_OUT_OF_DATE = TextLiterals.REASON_NAME_OUT_OF_DATE,
-					 	 REASON_AMOUNT_GROUP_ELEMENTS = TextLiterals.REASON_AMOUNT_GROUP_ELEMENTS,
-						 REASON_NAMES_GROUP_ELEMENTS = TextLiterals.REASON_NAMES_GROUP_ELEMENTS;
+					 	 REASON_AMOUNT_GROUP_ELEMENTS = TextLiterals.REASON_AMOUNT_ELEMENTS,
+						 REASON_NAMES_GROUP_ELEMENTS = TextLiterals.REASON_NAMES_ELEMENTS;
 				   		
 	/**
 	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
@@ -138,7 +138,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
 					  GROUP_CORNER_RADIUS = LayoutLiterals.GROUP_CORNER_RADIUS,
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
-					  HEIGHT_GROUP_ELEMENT_SHAPE = LayoutLiterals.HEIGHT_GROUP_ELEMENT_SHAPE;
+					  HEIGHT_GROUP_ELEMENT_SHAPE = LayoutLiterals.HEIGHT_ELEMENT_SHAPE;
 	
 	/**
 	 * colors gathered from {@link LayoutLiterals}, look there for reference
@@ -249,8 +249,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * 			  <ul><li>name text</li></ul>
 	 * 			<li>line container</li>
 	 * 			  <ul><li>polyline</li></ul>
-	 * 			<li>model content container</li>
-	 * 			  <ul><li>model content rectangle</li></ul>
+	 * 			<li>model content preview container</li>
+	 * 			  <ul><li>model content preview rectangle</li></ul>
 	 * 		   </ul>
 	 * 	   </ul>
 	 * </ul> 
@@ -638,7 +638,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	        		Text text = (Text) shape.getGraphicsAlgorithm();
 	                if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME)) {
 	                    //change diagram name
-	                	Diagram diagram = DiagramUtil.getGroupDiagramForGroupShape(shape, getDiagram());
+	                	Diagram diagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(shape, getDiagram());
 	                	diagram.setName(businessTypeName);
 	                	//change group name
 	                	text.setValue(businessTypeName);
@@ -648,7 +648,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	        	if (shape.getGraphicsAlgorithm() instanceof Rectangle) {  
 	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
 		                ContainerShape modelContainerShape = (ContainerShape) shape;
-			            Diagram groupsDiagram = DiagramUtil.getGroupDiagramForGroupShape(typeBodyShape, getDiagram());
+			            Diagram groupsDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram());
 			            Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupsDiagram);
 		             
 			            counter = 0;
@@ -739,7 +739,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	public void delete(IDeleteContext deleteContext) {
 		List<ContainerShape> innerGroupsToDelete = new ArrayList<ContainerShape>();
 		//delete groups diagram
-		Diagram groupDiagram = DiagramUtil.getGroupDiagramForGroupShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
 		if(groupDiagram != null) {	
 		DeleteContext deleteContextForGroupDiagram = new DeleteContext(groupDiagram);
 		deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));

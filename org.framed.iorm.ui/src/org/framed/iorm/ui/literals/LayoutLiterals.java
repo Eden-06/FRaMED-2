@@ -82,7 +82,7 @@ public class LayoutLiterals {
 	 * (2) the height of the 
 	 */
 	public static final int GROUP_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE,
-							HEIGHT_GROUP_ELEMENT_SHAPE = 15;
+							HEIGHT_ELEMENT_SHAPE = 15;
 	
 	/**
 	 * color value for connections

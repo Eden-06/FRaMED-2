@@ -61,7 +61,7 @@ public class StepInNewTabFeature extends AbstractStepInFeature {
 				multipageEditorTosave.getDiagramEditor().doSave(new NullProgressMonitor());
 		}	});	
 		ContainerShape typeBodyShape = (ContainerShape) context.getPictogramElements()[0];
-		Diagram groupDiagram = DiagramUtil.getGroupDiagramForGroupShape(typeBodyShape, getDiagram());
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram());
 		IEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(groupDiagram, DIAGRAM_PROVIDER_ID);
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(diagramEditorInput, EDITOR_ID);

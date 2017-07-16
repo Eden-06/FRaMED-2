@@ -27,6 +27,8 @@ public class TextLiterals {
 	 * (6) the message if the name of a natural type is already used when direct editing or<br>	 
 	 * (7) the direct editing message for group names
 	 * (8) the message if the name of a group is already used when direct editing or<br>
+	 * (9) the direct editing message for compartment type names
+	 * (10) the message if the name of a compartment type is already used when direct editing or<br>
 	 */
 	public static final String DIRECTEDITING_ATTRIBUTES = "An attributes name has the form <name>:<type>.",
 							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
@@ -39,7 +41,7 @@ public class TextLiterals {
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",
 							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
-							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment already has the same name!";
+							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!";
 							   
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
@@ -52,8 +54,8 @@ public class TextLiterals {
 							   REASON_AMOUNT_OPERATION = "Different amount of Operations.",
 							   REASON_NAMES_ATTRIBUTES = "Different names of Attributes.",
 							   REASON_NAMES_OPERATIONS = "Different names of Operations.",
-							   REASON_AMOUNT_GROUP_ELEMENTS = "Different amount of Group Elements.",
-							   REASON_NAMES_GROUP_ELEMENTS = "Different names of Group Elements.";
+							   REASON_AMOUNT_ELEMENTS = "Different amount of Group Elements.",
+							   REASON_NAMES_ELEMENTS = "Different names of Group Elements.";
 	
 	/**
 	 * messages used in the feature sub editor

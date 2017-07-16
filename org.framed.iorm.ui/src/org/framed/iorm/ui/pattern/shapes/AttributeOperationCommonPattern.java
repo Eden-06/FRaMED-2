@@ -150,8 +150,10 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 				Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 				if(businessObject instanceof org.framed.iorm.model.Shape) {
 					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-					if(shape.getType() == Type.NATURAL_TYPE) return true;
-					if(shape.getType() == Type.DATA_TYPE) return true;			
+					if(shape.getType() == Type.NATURAL_TYPE ||
+					   shape.getType() == Type.DATA_TYPE ||
+					   shape.getType() == Type.COMPARTMENT_TYPE)	
+						return true;
 		}	}	}	
 		return false;
 	}

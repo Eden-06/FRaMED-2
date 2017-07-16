@@ -12,6 +12,8 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
+import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
+import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for javadoc link
 
 /**
  * This class offers severals utility operations to handle diagrams.
@@ -29,10 +31,12 @@ public class DiagramUtil {
 							    DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM;
 	
 	/**
-	 * the identifiers for graphics algorithms of group pictograms gathered from {@link IdentifierLiterals}
+	 * the identifiers for of groups and compartment types pictograms gathered from {@link IdentifierLiterals}
 	 */
 	static final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
-						SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME;
+						SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY,
+						SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME,
+						SHAPE_ID_COMPARTMENTTYPE_NAME = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_NAME;
 
 	/**
 	 * This operation gets the root {@link Model} for a given {@link Diagram}.
@@ -50,31 +54,37 @@ public class DiagramUtil {
 	}
 
 	/**
-	 * This operation fetches the groups diagram for a shape that is a part of a groups pictogram 
-	 * representation using the following steps:
+	 * This operation fetches a groups or compartment types diagram for a shape that is a part of a groups
+	 * or compartments pictogram representation using the following steps:
 	 * <p>
-	 * Step 1: It gets the name of the group depending on the given shape.<br>
+	 * Step 1: It gets the name of the group or compartment depending on the given shape.<br>
 	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
 	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
 	 * <p>
-	 * If its not clear what the different shapes are look for the pictogram structure of a group here: 
-	 * {@link org.framed.iorm.ui.pattern.shapes.GroupPattern#add}.<br>
+	 * If its not clear what the different shapes are look for the pictogram structure of a group or compartment type here: 
+	 * {@link GroupPattern#add}<br>
+	 * {@link CompartmentTypePattern#add}
+	 * .<br>
+	 *TODO if its not cleat typbe body + name oder auf alle ausweiten?
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * @param groupShape the shape to start the search for the groups diagram 
-	 * @param diagram the diagram the groups pictogram elements are located in
-	 * @return the groups diagram, if the given shape was a name shape or the type body shape of a group
+	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
+	 * @param diagram the diagram the group or compartment type is located in
+	 * @return the groups or compartment types diagram, if the given shape was a name shape or the type body shape
 	 * @throws NoDiagramFoundException
 	 */
-	public static Diagram getGroupDiagramForGroupShape(Shape groupShape, Diagram diagram) {
+	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram) {
 		//Step 1
 		String groupName = null;
-		if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_TYPEBODY)) {
-			Shape groupNameShape = ((ContainerShape) groupShape).getChildren().get(0);
-			if(PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_GROUP_NAME))
+		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_TYPEBODY) ||
+				PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+			Shape groupNameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
+			if(PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_GROUP_NAME) ||
+			   PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
 				groupName = ((Text) groupNameShape.getGraphicsAlgorithm()).getValue();
 			}	
-		if(PropertyUtil.isShape_IdValue(groupShape, SHAPE_ID_GROUP_NAME))
-			groupName = ((Text) groupShape.getGraphicsAlgorithm()).getValue();	
+		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_NAME) ||
+		   PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_NAME)	)
+			groupName = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
 		//Step 2
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		if(containerDiagram == null) throw new NoDiagramFoundException();
@@ -121,11 +131,10 @@ public class DiagramUtil {
 	}
 	
 	/**
-	 * TODO
 	 * finds the <em>main diagram</em> of a role model
 	 * <p>
 	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * @param diagram the diagram to search the main diagram for
+	 * @param diagram the diagram to search the main diagram from
 	 * @return the container diagram of a role model
 	 */
 	public static Diagram getMainDiagramForAnyDiagram(Diagram diagram) {
