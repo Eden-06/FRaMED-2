@@ -22,7 +22,8 @@ public class ImageProvider extends AbstractImageProvider {
      * (3) the image identifier for the create feature of attributes or<br>
      * (4) the image identifier for the create feature of operations or<br>
      * (5) the image identifier for the create feature of inheritances or<br>
-     * (6) the image identifier for the create feature of groups
+     * (6) the image identifier for the create feature of groups or<br>
+     * (7) the image identifier for the create feature of role types
      */
     private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE,
     					 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE,
@@ -30,7 +31,8 @@ public class ImageProvider extends AbstractImageProvider {
     				     IMG_ID_FEATURE_ATTRIBUTE = IdentifierLiterals.IMG_ID_FEATURE_ATTRIBUTE,
  					     IMG_ID_FEATURE_OPERATION = IdentifierLiterals.IMG_ID_FEATURE_OPERATION,
     				     IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE,
-    				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP;
+    				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
+    					 IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
     
     /**
      * the image file paths to icons used for create features
@@ -41,7 +43,8 @@ public class ImageProvider extends AbstractImageProvider {
      * (3) the image file path for the create feature of attributes or<br>
      * (4) the image file path for the create feature of operations or<br>
      * (5) the image file path for the create feature of inheritances or<br>
-     * (6) the image file path for the create feature of groups
+     * (6) the image file path for the create feature of groups or<br>
+     * (7) the image file path for the create feature of role types
      */
     private final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = URLLiterals.IMG_FILEPATH_FEATURE_COMPARTMENTTYPE,
     					 IMG_FILEPATH_FEATURE_NATURALTYPE = URLLiterals.IMG_FILEPATH_FEATURE_NATURALTYPE,
@@ -49,7 +52,8 @@ public class ImageProvider extends AbstractImageProvider {
     				     IMG_FILEPATH_FEATURE_ATTRIBUTE = URLLiterals.IMG_FILEPATH_FEATURE_ATTRIBUTE,
   					     IMG_FILEPATH_FEATURE_OPERATION = URLLiterals.IMG_FILEPATH_FEATURE_OPERATION,
   					     IMG_FILEPATH_FEATURE_INHERITANCE = URLLiterals.IMG_FILEPATH_FEATURE_INHERITANCE,
-  					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP;
+  					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP,
+    					 IMG_FILEPATH_FEATURE_ROLETYPE = URLLiterals.IMG_FILEPATH_FEATURE_ROLETYPE;
     
     /**
      * links the file paths to image identifiers
@@ -66,5 +70,6 @@ public class ImageProvider extends AbstractImageProvider {
         addImageFilePath(IMG_ID_FEATURE_INHERITANCE, IMG_FILEPATH_FEATURE_INHERITANCE);
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
+        addImageFilePath(IMG_ID_FEATURE_ROLETYPE, IMG_FILEPATH_FEATURE_ROLETYPE);
     }
 }

@@ -85,6 +85,13 @@ public class LayoutLiterals {
 							HEIGHT_ELEMENT_SHAPE = 15;
 	
 	/**
+	 * layout integer for role types
+	 * <p>
+	 * the radius of the rounded corners of role types or<br>
+	 */
+	public static final int ROLE_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE;
+	
+	/**
 	 * color value for connections
 	 * <p>
 	 * the color of the line of a connection

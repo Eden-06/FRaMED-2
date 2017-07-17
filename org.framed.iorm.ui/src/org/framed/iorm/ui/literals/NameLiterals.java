@@ -47,9 +47,9 @@ public class NameLiterals {
 			   				   STANDARD_DATATYPE_NAME = "dataType",
 			   				   STANDARD_GROUP_NAME = "group",
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
-			   				   STANDARD_OPERATION_NAME = "operation():type";
+			   				   STANDARD_OPERATION_NAME = "operation():type",
+			   				   STANDARD_ROLETYPE_NAME = "roleType";
 							  
-
 	/**
 	 * name literals for commands
 	 * <p>
@@ -66,14 +66,16 @@ public class NameLiterals {
 	 * (3) the name of the data type create feature or<br>
 	 * (4) the name of the group create feature or<br>
 	 * (5) the name of the attribute create feature or<br>
-	 * (6) the name of the operation create feature 
+	 * (6) the name of the operation create feature or<br>
+	 * (7) the name of the role type create feature
 	 */
 	public static final String COMPARTMENTTYPE_FEATURE_NAME = "Compartment Type",
 							   NATURALTYPE_FEATURE_NAME = "Natural Type",
 			 				   DATATYPE_FEATURE_NAME = "Data Type",
 			 				   GROUP_FEATURE_NAME = "Group",
 			 				   ATTRIBUTE_FEATURE_NAME = "Attribute",
-							   OPERATION_FEATURE_NAME = "Operation";
+							   OPERATION_FEATURE_NAME = "Operation",
+							   ROLETYPE_FEATURE_NAME = "Role Type";
 	
 	/**
 	 * name literals used in the connection patterns for shown create features

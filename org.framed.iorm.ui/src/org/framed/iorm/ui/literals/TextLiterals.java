@@ -22,13 +22,15 @@ public class TextLiterals {
 	 * (1) the direct editing message for attribute names or<br>
 	 * (2) the direct editing message for operation names or<br>
 	 * (3) the direct editing message for data type names or<br>
-	 * (4) the message if the name of a datatype is already used when direct editing or<br>
+	 * (4) the message if the name of a data type is already used when direct editing or<br>
 	 * (5) the direct editing message for natural type names or<br>
 	 * (6) the message if the name of a natural type is already used when direct editing or<br>	 
-	 * (7) the direct editing message for group names
+	 * (7) the direct editing message for group names or<br>
 	 * (8) the message if the name of a group is already used when direct editing or<br>
-	 * (9) the direct editing message for compartment type names
+	 * (9) the direct editing message for compartment type names or<br>
 	 * (10) the message if the name of a compartment type is already used when direct editing or<br>
+	 * (11) the direct editing message for role type names or<br>
+	 * (12) the message if the name of a role type is already used when direct editing
 	 */
 	public static final String DIRECTEDITING_ATTRIBUTES = "An attributes name has the form <name>:<type>.",
 							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
@@ -41,7 +43,9 @@ public class TextLiterals {
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",
 							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
-							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!";
+							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!",
+							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   NAME_ALREADY_USED_ROLETYPE = "Another role type already has the same name!";
 							   
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern

@@ -127,7 +127,13 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					 	 REASON_NAMES_OPERATIONS = TextLiterals.REASON_NAMES_OPERATIONS;
 	
 	/**
-	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
+	 * values for the property diagram kind for the diagrams in which a data type can be created and added in
+	 */
+	private final String DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
+					 	 DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
+	
+	/**
+	 * layout integers gathered from {@link LayoutLiterals}, look there for reference
 	 */
 	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
 					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
@@ -211,7 +217,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a data type and <br>
-	 * (2) if the target container is a diagram with a model linked
+	 * (2) if the target container is a diagram with a model linked and<br>
+	 * (3) the target container is the main diagram or a diagram of group
 	 * @return if the datatype can be added
 	 */
 	@Override
@@ -221,9 +228,11 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			if(shape.getType()==Type.DATA_TYPE) {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
-					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
-						return true;
-		}	}	}
+					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
+						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
+						   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+							return true;	
+		}	}	}	}
 		return false;
 	}
 
@@ -254,11 +263,11 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * </ul> 
 	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the datatype in and calculates the height, width 
-	 * 		   and octagonal shape of the datatypes representation.<br>
+	 * Step 1: It gets the new object, the diagram to create the data type in and calculates the height, width 
+	 * 		   and octagonal shape of the data types representation.<br>
 	 * Step 2: It creates the structure shown above.<br>
-	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the group.<br>
-	 * Step 4: It links the created shapes of the group to its business objects.<br> 
+	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the data type.<br>
+	 * Step 4: It links the created shapes of the data type to its business objects.<br> 
 	 * Step 5: It enables direct editing, anchors and layouting of the group. It also updates the group in which 
 	 * 		   its created, if any.
 	 */
@@ -365,15 +374,20 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//create feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * calculates if a datatype can be created
+	 * calculates if a data type can be created
 	 * <p>
-	 * returns true if the target container is a diagram with a model linked
-	 * @return if a datatype can be created
+	 * returns true if:<br>
+	 * (1) the target container is a diagram with a model linked
+	 * (2) the target container is the main diagram or a diagram of group 
+	 * @return if an data type can be created
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null)
-			return true;
+		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+		   if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
+			  PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+			   return true;
+		}   
 		return false;
 	}
 

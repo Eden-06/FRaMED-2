@@ -156,11 +156,12 @@ public class NameUtil {
 	private static void getModelElementsNamesRecursive(Model model, Type type, List<String> modelElementNames) {
 		for(ModelElement modelElement : model.getElements()) {
 			if(modelElement instanceof org.framed.iorm.model.Shape) {
-				if(modelElement.getType() == Type.NATURAL_TYPE &&
-				   type == Type.NATURAL_TYPE) 
-					modelElementNames.add(modelElement.getName());
-				if(modelElement.getType() == Type.DATA_TYPE &&
-				   type == Type.DATA_TYPE)
+				if((modelElement.getType() == Type.NATURAL_TYPE &&
+				    type == Type.NATURAL_TYPE) ||
+				   (modelElement.getType() == Type.DATA_TYPE &&
+				    type == Type.DATA_TYPE) ||	
+				   (modelElement.getType() == Type.ROLE_TYPE &&
+				    type == Type.ROLE_TYPE))  
 					modelElementNames.add(modelElement.getName());
 				if(modelElement.getType() == Type.COMPARTMENT_TYPE) {
 					if(type == Type.COMPARTMENT_TYPE) modelElementNames.add(modelElement.getName());

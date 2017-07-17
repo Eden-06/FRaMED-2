@@ -22,6 +22,7 @@ import org.framed.iorm.ui.pattern.shapes.GroupPattern;
 import org.framed.iorm.ui.pattern.shapes.ModelPattern;
 import org.framed.iorm.ui.pattern.shapes.NaturalTypePattern;
 import org.framed.iorm.ui.pattern.shapes.OperationPattern;
+import org.framed.iorm.ui.pattern.shapes.RoleTypePattern;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type
@@ -47,7 +48,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new GroupOrCompartmentTypeElementPattern());
       addPattern(new AttributeOperationCommonPattern());
       addPattern(new AttributePattern());
-      addPattern(new OperationPattern()); 
+      addPattern(new OperationPattern());
+      addPattern(new RoleTypePattern()); 
       //Step 2
       addConnectionPattern(new InheritancePattern());
 	}	

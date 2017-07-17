@@ -20,7 +20,8 @@ public class GeneralUtil {
 	 * gathered from {@link LayoutLiterals}
 	 */
 	private static final int HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
-			 		  	 	 DATATYPE_CORNER_SIZE = LayoutLiterals.DATATYPE_CORNER_SIZE;
+			 		  	 	 DATATYPE_CORNER_SIZE = LayoutLiterals.DATATYPE_CORNER_SIZE,
+			 		  	 	 ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS;
 		
 	/**
 	 * This operation calculates where the horizontal center of a class or role is.
@@ -35,6 +36,8 @@ public class GeneralUtil {
 			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE)/2)+HEIGHT_NAME_SHAPE;
 		if(type == Type.DATA_TYPE)	
 			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-DATATYPE_CORNER_SIZE)/2)+HEIGHT_NAME_SHAPE;
+		if(type == Type.ROLE_TYPE)
+			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-ROLE_CORNER_RADIUS/2)/2)+HEIGHT_NAME_SHAPE;
 		return 0;
 	}
 	

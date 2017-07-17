@@ -53,7 +53,8 @@ public class IdentifierLiterals {
 							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
 							   IMG_ID_FEATURE_OPERATION = IMG_ID_PREFIX + "img_operation",
 							   IMG_ID_FEATURE_INHERITANCE = IMG_ID_PREFIX + "img_inheritance",
-							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group";
+							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group",
+							   IMG_ID_FEATURE_ROLETYPE = IMG_ID_PREFIX + "img_roletype";
 	
 	/**
 	 * feature model identifier
@@ -177,6 +178,27 @@ public class IdentifierLiterals {
 							   SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
 							   SHAPE_ID_OPERATION_TEXT = "shape_op_text",
 							   SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
+	
+	/**
+	 * identifiers used for role types
+	 * <p>
+	 * can be for:<br>
+	 * (1) type body shape or<br>
+	 * (2) drop shadow shape or<br>
+	 * (3) name shape or<br>
+	 * (4) first line shape or<br>
+	 * (5) second line shape or<br>
+	 * (6) attribute container shape or<br>
+	 * (7) operation container shape
+	 */
+	public static final String SHAPE_ID_ROLETYPE_CONTAINER = "shape_rt_container",
+							   SHAPE_ID_ROLETYPE_TYPEBODY = "shape_rt_typebody",
+						 	   SHAPE_ID_ROLETYPE_SHADOW = "shape_rt_shadow",
+						 	   SHAPE_ID_ROLETYPE_NAME = "shape_rt_name", 
+						 	   SHAPE_ID_ROLETYPE_FIRSTLINE = "shape_rt_firstline",
+						 	   SHAPE_ID_ROLETYPE_SECONDLINE = "shape_rt_secondline", 
+						 	   SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER = "shape_rt_attcontainer",
+						 	   SHAPE_ID_ROLETYPE_OPERATIONCONTAINER = "shape_rt_opcontainer";
 	
 	/**
 	 * the kinds of diagrams used in the editor

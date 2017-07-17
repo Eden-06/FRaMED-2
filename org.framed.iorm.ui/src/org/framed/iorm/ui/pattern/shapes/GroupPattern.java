@@ -109,9 +109,12 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 
 	/**
 	 * identifier literals used for the groups content diagram gathered from {@link IdentifierLiterals}
+	 * <p>
+	 * Also for the diagrams in which a group type can be created and added in
 	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
+						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID,
+						 DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
 		
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -211,7 +214,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a group and <br>
-	 * (2) if the target container is a diagram with a model linked
+	 * (2) if the target container is a diagram with a model linked and<br>
+	 * (3) the target container is the main diagram or a diagram of group
 	 * @return if the group can be added
 	 */
 	@Override
@@ -221,9 +225,11 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			if(shape.getType()==Type.GROUP) {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
-					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null)
-						return true;
-		}	}	}
+					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
+						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
+						   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+							return true;	
+		}	}	}	}
 		return false;
 	}
 
@@ -349,13 +355,18 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * calculates if a group can be created
 	 * <p>
-	 * returns true if the target container is a diagram with a model linked
-	 * @return if an attribute can be created
+	 * returns true if:<br>
+	 * (1) the target container is a diagram with a model linked
+	 * (2) the target container is the main diagram or a diagram of group 
+	 * @return if an group can be created
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null)
-				return true;
+		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+		   if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
+			  PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+			   return true;
+		}   
 		return false;
 	}
 
@@ -371,7 +382,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * 	   </ul>
 	 * </ul> 
 	 * <p>
-	 * It uses follows this steps:<br>
+	 * It follows this steps:<br>
 	 * Step 1: It creates the structure shown above.<br>
 	 * Step 2: It adds the new group to the elements of the model of the diagram in which its created.<br>
 	 * Step 3: It call the add function to add the pictogram elements of the group using a 
