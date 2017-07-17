@@ -42,6 +42,7 @@ import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
+import org.eclipse.graphiti.pattern.AbstractPattern; //*import for javadoc link
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -347,7 +348,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
 		layoutPictogramElement(containerShape);
-		updateContainingGroup();
+		updateContainingGroupOrCompartmentType();
 		return containerShape;
 	}
 	
@@ -476,11 +477,20 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		org.framed.iorm.model.Shape naturalType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		naturalType.setName(value);
 	    updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-	    updateContainingGroup();
+	    updateContainingGroupOrCompartmentType();
 	}
 	
 	//layout feature
 	//~~~~~~~~~~~~~~
+	/**
+	 * calculates if a pictogram element of a natural type can be layouted
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if exactly one pictogram element is given by the layout context
+	 * (2) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#NATURAL_TYPE} 
+	 * @return if the given pictogram can be layouted
+	 */
 	@Override
 	public boolean canLayout(ILayoutContext layoutContext) {
 		PictogramElement element = layoutContext.getPictogramElement();
@@ -496,144 +506,150 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * layout the whole natural type using the following steps:
+	 * <p>
+	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
+	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
+	 * 		   the size of the type body and drop shadow shape.<br>
+	 * Step 3: It now iterates over all shapes of the natural type:<br>
+	 * (a) It sets the width of the names shape.<br>
+	 * (b) It sets the points of the lines that separate the name, attribute container and operation container shapes.<br>
+	 * (c) It layouts the visualization of the attributes in the attribute container shape.<br>
+	 * (d) It layouts the visualization of the operations in the operation container shape.
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
 	@Override
 	public boolean layout(ILayoutContext layoutContext) {	
 		boolean layoutChanged = false;
 		int newHeight, newWidth, newY;
 		Shape indicatorDotsShapeToDelete;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
-		Rectangle typeBodyRectangle = null;
-		//return false is container is overall container that has typeBodyShape and dropShadowShape as children
-		if(container.getGraphicsAlgorithm() == null)  return false; 
-		//container is typeBodyShape, else return false
-		if(PropertyUtil.isShape_IdValue(container, SHAPE_ID_NATURALTYPE_TYPEBODY))
-			typeBodyRectangle = (Rectangle) container.getGraphicsAlgorithm(); 
-		else return false;
-		//get the drop shadow rectangle to the type body rectangle
-		Rectangle dropShadowRectangle = (Rectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
-		        
-		//ensure the minimal width and height
-        if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
-		if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
-		int width = typeBodyRectangle.getWidth();
-        int height = typeBodyRectangle.getHeight();
-        //set the size of the drop shadow to the new size of the type body
-        dropShadowRectangle.setWidth(width);
-        dropShadowRectangle.setHeight(height);
-        //set the x and y value of the drop shadow to the values of the type body
-        dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
-        dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
-       
-        int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, height);
-        
-        for (Shape shape : container.getChildren()){
-            GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
-            //name
-            if (graphicsAlgorithm instanceof Text) {
-            	Text text = (Text) graphicsAlgorithm;	
-            	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_NAME)) {
-            		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, HEIGHT_NAME_SHAPE);
-            		layoutChanged=true;
-            	}	
-            }
-            //first and second line
-            if (graphicsAlgorithm instanceof Polyline) {	   
-	            Polyline polyline = (Polyline) graphicsAlgorithm;  
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_FIRSTLINE)) {
-	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, polyline.getPoints().get(1).getY()));
-	            	layoutChanged=true;
-	            }	
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_SECONDLINE)) {   
-	            	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalCenter));
-	            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalCenter));
-	            	layoutChanged=true;
+		//Step 1
+		if(!(PropertyUtil.isShape_IdValue(container, SHAPE_ID_NATURALTYPE_TYPEBODY))) return false;
+		else {	
+			Rectangle typeBodyRectangle = (Rectangle) container.getGraphicsAlgorithm(); 
+			Rectangle dropShadowRectangle = (Rectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
+		    //Step 2
+	        if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
+			if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
+			int width = typeBodyRectangle.getWidth();
+	        int height = typeBodyRectangle.getHeight();
+	        int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, height);
+	        dropShadowRectangle.setWidth(width);
+	        dropShadowRectangle.setHeight(height);
+	        dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
+	        dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
+	        
+	        //Step 3
+	        for (Shape shape : container.getChildren()){
+	            GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
+	            //(a) name
+	            if (graphicsAlgorithm instanceof Text) {
+	            	Text text = (Text) graphicsAlgorithm;	
+	            	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_NAME)) {
+	            		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, HEIGHT_NAME_SHAPE);
+	            		layoutChanged=true;
+	            	}	
 	            }
-	        }
-            //attribute and operation container
-            if (graphicsAlgorithm instanceof Rectangle) {
-            	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
-	            	newHeight = (((height)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS;
-	            	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
-	            	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
-	            	rectangle.setHeight(newHeight);
-	            	rectangle.setWidth(newWidth);
-	            	ContainerShape attributeContainerShape = (ContainerShape) shape;	       
-	            	EList<Shape> attributes = attributeContainerShape.getChildren();
-	            	
-	            	//set place of attributes
-	            	for(int m = 0; m<attributes.size(); m++) {
-	            		attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
-            		}
-	            			            	
-	            	//set all attributes visible
-	            	indicatorDotsShapeToDelete = null;
-	            	for(int j = 0; j<attributes.size(); j++) {
-	            		attributes.get(j).setVisible(true);	   
-	            		if(PropertyUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
-				    		 indicatorDotsShapeToDelete = attributes.get(j);
-	            	}
-	            	attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
-	            		
-	            	//check if not all attributes fit in the attribute field
-	            	if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
-	            		int fittingAttributes = (newHeight-HEIGHT_ATTRIBUTE_SHAPE)/HEIGHT_ATTRIBUTE_SHAPE;	   
-	            		//set not fitting attributes to invisible
-	            		for(int k = fittingAttributes; k<attributes.size(); k++) {
-	            			attributeContainerShape.getChildren().get(k).setVisible(false);
-	            		}	 
-	            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
-			            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
-			            indicatorDots.setForeground(manageColor(COLOR_TEXT));
-			            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-			            	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
-			            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
-			           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
-	            	}	            			
-	            	layoutChanged=true;
-	            }
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
-	            	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
-	            	newWidth = width-2*PUFFER_BETWEEN_ELEMENTS;		
-	            	newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;	            	
-	            	rectangle.setHeight(newHeight);
-	            	rectangle.setWidth(newWidth);
-	            	rectangle.setY(newY);
-	            	ContainerShape operationContainerShape = (ContainerShape) shape;
-	            	EList<Shape> operations = operationContainerShape.getChildren();
-	            	
-	            	//set place of attributes
-	            	for(int m = 0; m<operations.size(); m++) {
-	            		operationContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
-            		}
-	     
-	            	//set all operations visible
-				    indicatorDotsShapeToDelete = null;
-				    for(int n = 0; n<operations.size(); n++) {
-				    	operations.get(n).setVisible(true);
-				    	 if(PropertyUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
-				    		 indicatorDotsShapeToDelete = operations.get(n);
-				    }
-				    operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
-				       
-				    //check if not all operations fit in the operations field
-				    if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
-				       	int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
-				       	//set not fitting operations to invisible
-				       	for(int o = fittingOperations; o<operations.size(); o++) {
-				       		operationContainerShape.getChildren().get(o).setVisible(false);            				
-				       	}   	
-				       	Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
-			            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
-			            indicatorDots.setForeground(manageColor(COLOR_TEXT));
-			            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-			            	PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*HEIGHT_OPERATION_SHAPE, 
-			            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
-			           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
-				    } 	
-				    layoutChanged=true;
-	    }	}	}        
-        return layoutChanged;
+	            //(b) first and second line
+	            if (graphicsAlgorithm instanceof Polyline) {	   
+		            Polyline polyline = (Polyline) graphicsAlgorithm;  
+		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_FIRSTLINE)) {
+		            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, polyline.getPoints().get(1).getY()));
+		            	layoutChanged=true;
+		            }	
+		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_SECONDLINE)) {   
+		            	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalCenter));
+		            	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalCenter));
+		            	layoutChanged=true;
+		            }
+		        }
+	            if (graphicsAlgorithm instanceof Rectangle) {
+	            	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
+	            	//(c) attribute container shape
+		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
+		            	//resize and positioning the container
+		            	newHeight = (((height)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS;
+		            	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
+		            	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
+		            	rectangle.setHeight(newHeight);
+		            	rectangle.setWidth(newWidth);
+		            	ContainerShape attributeContainerShape = (ContainerShape) shape;	       
+		            	EList<Shape> attributes = attributeContainerShape.getChildren();
+		            	//set places of attributes
+		            	for(int m = 0; m<attributes.size(); m++) {
+		            		attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+	            		}   	
+		            	//set all attributes visible and delete indicator dots
+		            	indicatorDotsShapeToDelete = null;
+		            	for(int j = 0; j<attributes.size(); j++) {
+		            		attributes.get(j).setVisible(true);	   
+		            		if(PropertyUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
+					    		 indicatorDotsShapeToDelete = attributes.get(j);
+		            	}
+		            	attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+		            	//check if not all attributes fit in the attribute field
+		            	if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
+		            		int fittingAttributes = (newHeight-HEIGHT_ATTRIBUTE_SHAPE)/HEIGHT_ATTRIBUTE_SHAPE;	   
+		            		//set not fitting attributes to invisible
+		            		for(int k = fittingAttributes; k<attributes.size(); k++) {
+		            			attributeContainerShape.getChildren().get(k).setVisible(false);
+		            		}	 
+		            		//add dots to indicate that not all attributes fit
+		            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
+				            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+				            indicatorDots.setForeground(manageColor(COLOR_TEXT));
+				            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+				            	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
+				            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+				           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
+		            	}	            			
+		            	layoutChanged=true;
+		            }
+		            //(d) operation container shape
+		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
+		            	//resize and positioning the container
+		            	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
+		            	newWidth = width-2*PUFFER_BETWEEN_ELEMENTS;		
+		            	newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;	            	
+		            	rectangle.setHeight(newHeight);
+		            	rectangle.setWidth(newWidth);
+		            	rectangle.setY(newY);
+		            	ContainerShape operationContainerShape = (ContainerShape) shape;
+		            	EList<Shape> operations = operationContainerShape.getChildren();
+		            	//set place of operations
+		            	for(int m = 0; m<operations.size(); m++) {
+		            		operationContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+	            		}
+		            	//set all operations visible
+					    indicatorDotsShapeToDelete = null;
+					    for(int n = 0; n<operations.size(); n++) {
+					    	operations.get(n).setVisible(true);
+					    	 if(PropertyUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
+					    		 indicatorDotsShapeToDelete = operations.get(n);
+					    }
+					    operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+					    //check if not all operations fit in the operations field
+					    if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
+					       	int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
+					       	//set not fitting operations to invisible
+					       	for(int o = fittingOperations; o<operations.size(); o++) {
+					       		operationContainerShape.getChildren().get(o).setVisible(false);            				
+					       	}   	
+					       	//add dots to indicate that not all operations fit
+					       	Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
+				            Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+				            indicatorDots.setForeground(manageColor(COLOR_TEXT));
+				            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+				            	PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*HEIGHT_OPERATION_SHAPE, 
+				            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+				           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
+					    } 	
+					    layoutChanged=true;
+		}   }	}	}        
+		return layoutChanged;
 	}
 	
 	//update feature
@@ -734,7 +750,12 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	//move feature
 	//~~~~~~~~~~~~
-	//disable that the user can move the drop shadow manually
+	/**
+	 * disables that the user can move the drop shadow manually
+	 * <p>
+	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
+	 * and expands some code of {@link AbstractPattern#canMoveShape}.
+	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_NATURALTYPE_SHADOW)) {
@@ -742,7 +763,6 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		}
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		//copied and expanded from super.canMoveShape(IMoveShapeContext moveContext)
 		return moveContext.getSourceContainer() != null && 
 			   (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
 				moveContext.getTargetContainer().equals(dropShadowShape)) && 
@@ -776,7 +796,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	//resize feature
 	//~~~~~~~~~~~~~~
-	//disable that the user can resize the drop shadow manually
+	/**
+	 * disables that the user can resize the drop shadow manually
+	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_NATURALTYPE_SHADOW)) {
@@ -787,7 +809,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	//delete feature
 	//~~~~~~~~~~~~~~
-	//disable that the user can delete the drop shadow manually
+	/**
+	 * disables that the user can delete the drop shadow manually
+	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_NATURALTYPE_SHADOW)) {
@@ -796,7 +820,12 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		return super.canDelete(deleteContext);
 	}
 		
-	//delete parent container (the one that contains drop shadow shape and type body shape)
+	/**
+	 * deletes the container shape of the natural type instead of the type body and updates the group the natural type is in,
+	 * if any and deletes attached connection to it
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
 		deleteAttachedConnections(deleteContext);
@@ -804,6 +833,6 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContextForAllShapes);
-		updateContainingGroup();
+		updateContainingGroupOrCompartmentType();
 	}
 }

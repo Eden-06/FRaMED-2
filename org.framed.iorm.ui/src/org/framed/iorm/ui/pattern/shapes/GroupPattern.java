@@ -30,6 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -56,15 +57,15 @@ import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
- * of the type Group in the editor.
+ * of the type {@link Type#GROUP} in the editor.
  * <p>
- * It deals with the following aspects of Inheritances:<br>
+ * It deals with the following aspects of groups:<br>
  * (1) adding a group to the diagram, especially its pictogram elements<br>
  * (2) creating the group, especially its business object<br>
  * (3) direct editing of the groups name<br>
  * (4) layout the group, especially setting lines and group elements at the right positions<br>
- * (5) updating the group names and its content overview<br>
- * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
+ * (5) updating the groups name and its content overview<br>
+ * (6) moves the drop shadow with the type body and disables moving the drop shadow manually<br>
  * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
  * (8) deleting all the group pictogram elements and its diagram, also disables deleting the drop 
  *     shadow manually
@@ -339,7 +340,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		layoutPictogramElement(containerShape);
-		updateContainingGroup();
+		updateContainingGroupOrCompartmentType();
 		return containerShape;
 	}
 		
@@ -469,11 +470,20 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		org.framed.iorm.model.Shape group = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		group.setName(value);
 		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-		updateContainingGroup();
+		updateContainingGroupOrCompartmentType();
 	}
 		
 	//layout feature
 	//~~~~~~~~~~~~~~
+	/**
+	 * calculates if a pictogram element of a group can be layouted
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if exactly one pictogram element is given by the layout context
+	 * (2) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#GROUP} 
+	 * @return if the given pictogram can be layouted
+	 */
 	@Override
 	public boolean canLayout(ILayoutContext layoutContext) {
 		PictogramElement element = layoutContext.getPictogramElement();
@@ -487,90 +497,97 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 
+	/**
+	 * layout the whole group using the following steps:
+	 * <p>
+	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
+	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
+	 * 		   the size of the type body and drop shadow shape.<br>
+	 * Step 3: It now iterates over all shapes of the natural type:<br>
+	 * (a) It sets the width of the names shape.<br>
+	 * (b) It sets the points of the line that separates the name and content preview container.<br>
+	 * (c) It layouts the visualization of the elements in the content preview container.
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
 	@Override
 	public boolean layout(ILayoutContext layoutContext) {	
 		boolean layoutChanged = false;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
-		RoundedRectangle typeBodyRectangle = null;
-		//return false is container is overall container that has typeBodyShape and dropShadowShape as children
-		if(container.getGraphicsAlgorithm() == null)  return false; 
-		//container is typeBodyShape, else return false
-		if(PropertyUtil.isShape_IdValue(container, SHAPE_ID_GROUP_TYPEBODY))
-			typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm(); 
-		else return false;
-		//get the drop shadow rectangle to the type body rectangle
-		RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
-			        
-		//ensure the minimal width and height
-	    if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
-		if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
-		int containerWidth = typeBodyRectangle.getWidth();
-	    int containerHeight = typeBodyRectangle.getHeight();
-	    //set the size of the drop shadow to the new size of the type body
-	    dropShadowRectangle.setWidth(containerWidth);
-	    dropShadowRectangle.setHeight(containerHeight);
-	    //set the x and y value of the drop shadow to the values of the type body
-	    dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
-	    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
-	        
-	    for (Shape shape : container.getChildren()){
-	    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
-	        //name
-	        if (graphicsAlgorithm instanceof Text) {
-	        	Text text = (Text) graphicsAlgorithm;	
-	            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME)) {
-	            	graphicAlgorithmService.setLocationAndSize(text, 0, 0, containerWidth, HEIGHT_NAME_SHAPE);
-	            	layoutChanged=true;
-	        }	}
-	        //first line
-	        if (graphicsAlgorithm instanceof Polyline) {	   
-	        	Polyline polyline = (Polyline) graphicsAlgorithm;  
-	        	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_LINE)) {
-		            polyline.getPoints().set(1, graphicAlgorithmService.createPoint(containerWidth, polyline.getPoints().get(1).getY()));
-		            layoutChanged=true;
-		    }	}
-	        //model container
-	        if (graphicsAlgorithm instanceof Rectangle) {
-	        	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
-		        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
-		        	int newHeight = (containerHeight-GROUP_CORNER_RADIUS),
-		            	newWidth = (containerWidth-2*PUFFER_BETWEEN_ELEMENTS);            				
-		        	rectangle.setHeight(newHeight);
-		            rectangle.setWidth(newWidth);
-		            ContainerShape groupElementsShape = (ContainerShape) shape;
-	            	EList<Shape> groupElements = groupElementsShape.getChildren();  
-		     
-	            	Shape indicatorDotsShapeToDelete = null;
-	            	int counter = 0;
-	            	for(Shape elementShape : groupElements) {
-	            		elementShape.setVisible(true);
-	            		graphicAlgorithmService.setLocationAndSize(elementShape.getGraphicsAlgorithm(), 
-	            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS+HEIGHT_GROUP_ELEMENT_SHAPE*counter, 
-		            			newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
-	            		if(PropertyUtil.isShape_IdValue(elementShape, SHAPE_ID_GROUPS_INDICATOR_DOTS))
-	            			indicatorDotsShapeToDelete = elementShape;
-	            		counter++;
-	            	}
-	            	groupElementsShape.getChildren().remove(indicatorDotsShapeToDelete);
-	            	
-	            	//check if not all attributes fit in the attribute field
-	            	if(groupElements.size()*HEIGHT_GROUP_ELEMENT_SHAPE > newHeight) {	            		
-	            		int fittingAttributes = (newHeight-HEIGHT_GROUP_ELEMENT_SHAPE)/HEIGHT_GROUP_ELEMENT_SHAPE;	   
-	            		//set not fitting attributes to invisible
-	            		for(int k = fittingAttributes; k<groupElements.size(); k++) {
-	            			groupElements.get(k).setVisible(false);            				
-	            		}	
-	            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(groupElementsShape, true); 
-	            		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
-	            		indicatorDots.setForeground(manageColor(COLOR_TEXT));
-	            		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-	            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_GROUP_ELEMENT_SHAPE, 
-	            				newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
-	            		PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_GROUPS_INDICATOR_DOTS); 
-	            	}
-	            	layoutChanged = true;
-	     }	}	}        
-	     return layoutChanged;
+		//Step 1
+		if(!(PropertyUtil.isShape_IdValue(container, SHAPE_ID_GROUP_TYPEBODY))) return false;
+		else {
+			RoundedRectangle typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm(); 
+			RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
+			//Step 2
+			if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
+			if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
+			int containerWidth = typeBodyRectangle.getWidth();
+		    int containerHeight = typeBodyRectangle.getHeight();
+		    dropShadowRectangle.setWidth(containerWidth);
+		    dropShadowRectangle.setHeight(containerHeight);
+		    dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
+		    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
+		    //Step 3    
+		    for (Shape shape : container.getChildren()){
+		    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
+		        //(a) name shape
+		        if (graphicsAlgorithm instanceof Text) {
+		        	Text text = (Text) graphicsAlgorithm;	
+		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME)) {
+		            	graphicAlgorithmService.setLocationAndSize(text, 0, 0, containerWidth, HEIGHT_NAME_SHAPE);
+		            	layoutChanged=true;
+		        }	}
+		        ///(b) line
+		        if (graphicsAlgorithm instanceof Polyline) {	   
+		        	Polyline polyline = (Polyline) graphicsAlgorithm;  
+		        	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_LINE)) {
+			            polyline.getPoints().set(1, graphicAlgorithmService.createPoint(containerWidth, polyline.getPoints().get(1).getY()));
+			            layoutChanged=true;
+			    }	}
+		        if (graphicsAlgorithm instanceof Rectangle) {
+		        	Rectangle rectangle = (Rectangle) graphicsAlgorithm; 
+		        	//(c) content preview container
+			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
+			        	//resize and positioning the container
+			        	int newHeight = (containerHeight-GROUP_CORNER_RADIUS),
+			            	newWidth = (containerWidth-2*PUFFER_BETWEEN_ELEMENTS);            				
+			        	rectangle.setHeight(newHeight);
+			            rectangle.setWidth(newWidth);
+			            ContainerShape groupElementsShape = (ContainerShape) shape;
+		            	EList<Shape> groupElements = groupElementsShape.getChildren();  
+		            	//set all elements visible, delete indicator dots and positions of the elements
+		            	Shape indicatorDotsShapeToDelete = null;
+		            	int counter = 0;
+		            	for(Shape elementShape : groupElements) {
+		            		elementShape.setVisible(true);
+		            		graphicAlgorithmService.setLocationAndSize(elementShape.getGraphicsAlgorithm(), 
+		            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS+HEIGHT_GROUP_ELEMENT_SHAPE*counter, 
+			            			newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
+		            		if(PropertyUtil.isShape_IdValue(elementShape, SHAPE_ID_GROUPS_INDICATOR_DOTS))
+		            			indicatorDotsShapeToDelete = elementShape;
+		            		counter++;
+		            	}
+		            	groupElementsShape.getChildren().remove(indicatorDotsShapeToDelete);
+		            	//check if not all elements fit in the attribute field
+		            	if(groupElements.size()*HEIGHT_GROUP_ELEMENT_SHAPE > newHeight) {	            		
+		            		int fittingAttributes = (newHeight-HEIGHT_GROUP_ELEMENT_SHAPE)/HEIGHT_GROUP_ELEMENT_SHAPE;	   
+		            		//set not fitting elements invisible
+		            		for(int k = fittingAttributes; k<groupElements.size(); k++) {
+		            			groupElements.get(k).setVisible(false);            				
+		            		}	
+		            		//add dots to indicate that not all elements fit
+		            		Shape indicatorDotsShape = pictogramElementCreateService.createShape(groupElementsShape, true); 
+		            		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+		            		indicatorDots.setForeground(manageColor(COLOR_TEXT));
+		            		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+		            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_GROUP_ELEMENT_SHAPE, 
+		            				newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
+		            		PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_GROUPS_INDICATOR_DOTS); 
+		            	}
+		            	layoutChanged = true;
+		}   } 	}	}        
+	    return layoutChanged;
 	}
 
 	//update feature
@@ -662,7 +679,12 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 
 	//move feature
 	//~~~~~~~~~~~~
-	//disable that the user can move the drop shadow manually
+	/**
+	 * disables that the user can move the drop shadow manually
+	 * <p>
+	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
+	 * and expands some code of {@link AbstractPattern#canMoveShape}.
+	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_GROUP_SHADOW)) {
@@ -670,7 +692,6 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		}
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		//copied and expanded from super.canMoveShape(IMoveShapeContext moveContext)
 		return moveContext.getSourceContainer() != null && 
 			  (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
 			   moveContext.getTargetContainer().equals(dropShadowShape)) && 
@@ -703,7 +724,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 	//resize feature
 	//~~~~~~~~~~~~~~
-	//disable that the user can resize the drop shadow manually
+	/**
+	 * disables that the user can resize the drop shadow manually
+	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_GROUP_SHADOW)) {
@@ -714,7 +737,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 	//delete feature
 	//~~~~~~~~~~~~~~
-	//disable that the user can delete the drop shadow and group elements manually
+	/**
+	 * disables that the user can delete the drop shadow manually
+	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
 		if(PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_GROUP_SHADOW)) {
@@ -723,48 +748,58 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		return super.canDelete(deleteContext);
 	}
 			
-	//
+	/**
+	 * deletes the group as cares about all related concerns using the following steps
+	 * <p>
+	 * Step 1: It gets the groups diagram and creates a {@link DeleteContext} for it.<br>
+	 * Step 2: It gets all group that are a child of this group to delete them as well. This is needed to be explicitly
+	 * 		   since otherwise the diagrams of the child groups would not be deleted.<br>
+	 * Step 3: It closes all editors that opened the diagram of this group to delete.<br>
+	 * Step 4: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
+	 * Step 5: It deletes the shapes gathered in Step 1, 2 and 4. It also updates a group in which the group is in, if any.
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
 		List<ContainerShape> innerGroupsToDelete = new ArrayList<ContainerShape>();
-		//delete groups diagram
+		//Step 1
 		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram(), Type.GROUP);
 		if(groupDiagram != null) {	
-		DeleteContext deleteContextForGroupDiagram = new DeleteContext(groupDiagram);
-		deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-		//delete diagrams of child groups
-		
+			DeleteContext deleteContextForGroupDiagram = new DeleteContext(groupDiagram);
+			deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+			//Step 2
 			for(Shape shape : groupDiagram.getChildren()) {
-				
-			if(shape instanceof ContainerShape &&
-			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) {
-				innerGroupsToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
-			}
-		}
-		//close opened editors with the deleted group
-		IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-		for(IEditorReference editorReference : openEditors) {
-			try {
-				if(editorReference.getEditorInput() instanceof DiagramEditorInput) {
-					Resource resource = EditorInputUtil.getResourceFromEditorInput(editorReference.getEditorInput());
-					Diagram diagramOfEditorInput = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
-					if(diagramOfEditorInput.getName().equals(groupDiagram.getName()))
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorReference.getEditor(false), false);
+				if(shape instanceof ContainerShape &&
+					PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) {
+					innerGroupsToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
 				}
-			} catch (PartInitException e) { e.printStackTrace(); }
-		}
-		//delete container shape 
-		ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
-		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
-		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-		for(ContainerShape innerGroupToDelete : innerGroupsToDelete) {
-			DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupToDelete);
-			deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			delete(deleteContextForChildDiagram);
-		}
-		super.delete(deleteContextForAllShapes);
-		super.delete(deleteContextForGroupDiagram);
-		updateContainingGroup();
+			}
+			//Step 3
+			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+			for(IEditorReference editorReference : openEditors) {
+				try {
+					if(editorReference.getEditorInput() instanceof DiagramEditorInput) {
+						Resource resource = EditorInputUtil.getResourceFromEditorInput(editorReference.getEditorInput());
+						Diagram diagramOfEditorInput = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
+						if(diagramOfEditorInput.getName().equals(groupDiagram.getName()))
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorReference.getEditor(false), false);
+					}
+				} catch (PartInitException e) { e.printStackTrace(); }
+			}
+			//Step 4
+			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
+			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
+			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+			//Step 5
+			for(ContainerShape innerGroupToDelete : innerGroupsToDelete) {
+				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupToDelete);
+				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+				delete(deleteContextForChildDiagram);
+			}
+			super.delete(deleteContextForAllShapes);
+			super.delete(deleteContextForGroupDiagram);
+			updateContainingGroupOrCompartmentType();
 		}
 	}
 }

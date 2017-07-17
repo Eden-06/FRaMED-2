@@ -44,7 +44,8 @@ public class URLLiterals {
 	 * (5) the file path to the icon for the inheritance create feature or<br>
 	 * (6) the file path to the icon for the group create feature
 	 */
-	public static final String IMG_FILEPATH_FEATURE_NATURALTYPE = IMG_FILE_PATH_PREFIX + "naturaltype.png",
+	public static final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = IMG_FILE_PATH_PREFIX + "compartmenttype.png",
+							   IMG_FILEPATH_FEATURE_NATURALTYPE = IMG_FILE_PATH_PREFIX + "naturaltype.png",
 							   IMG_FILEPATH_FEATURE_DATATYPE = IMG_FILE_PATH_PREFIX + "datatype.png",
 							   IMG_FILEPATH_FEATURE_ATTRIBUTE = IMG_FILE_PATH_PREFIX + "attribute.gif",
 							   IMG_FILEPATH_FEATURE_OPERATION = IMG_FILE_PATH_PREFIX + "operation.gif",

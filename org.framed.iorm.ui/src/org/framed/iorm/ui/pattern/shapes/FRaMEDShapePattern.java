@@ -72,9 +72,9 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	}
 	
 	/**
-	 * updates the list of the group content of a group in which an element is added, deleted or renamed
+	 * updates the list of the groups or compartment types content of in which an element is added, deleted or renamed
 	 */
-	protected void updateContainingGroup() {
+	protected void updateContainingGroupOrCompartmentType() {
 		ContainerShape groupTypeBodyToUpdate = PatternUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
         updatePictogramElement(groupTypeBodyToUpdate);
 	}

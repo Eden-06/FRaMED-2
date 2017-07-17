@@ -47,7 +47,7 @@ public class IdentifierLiterals {
 	 * <p>
 	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for features
 	 */
-	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_naturaltype",
+	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_compartmenttype",
 							   IMG_ID_FEATURE_NATURALTYPE = IMG_ID_PREFIX + "img_naturaltype",
 							   IMG_ID_FEATURE_DATATYPE = IMG_ID_PREFIX + "img_datatype",
 							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
