@@ -32,7 +32,7 @@ public class DiagramUtil {
 	private static final String DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
 							    DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
 							    DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-							    DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+							    DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the identifiers for of groups and compartment types pictograms gathered from {@link IdentifierLiterals}

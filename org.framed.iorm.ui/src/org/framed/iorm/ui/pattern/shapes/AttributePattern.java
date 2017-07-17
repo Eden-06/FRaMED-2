@@ -39,7 +39,8 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
 						 SHAPE_ID_COMPARTMENTTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW,
-						 SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW;
+						 SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW,
+					     SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW;
 	
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -124,12 +125,14 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject; 
 			if(shape.getType() == Type.NATURAL_TYPE ||
 			   shape.getType() == Type.DATA_TYPE ||
-			   shape.getType() == Type.COMPARTMENT_TYPE)
+			   shape.getType() == Type.COMPARTMENT_TYPE ||
+			   shape.getType() == Type.ROLE_TYPE) {
 				if(!(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_SHADOW)) &&
 				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_SHADOW)) &&
-				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_DATATYPE_SHADOW)))	   
+				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_DATATYPE_SHADOW)) &&
+				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_SHADOW)))	   
 					return true;
-		}
+		}	}
 		return false;
 	}
 

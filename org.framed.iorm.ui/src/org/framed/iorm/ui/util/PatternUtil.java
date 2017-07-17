@@ -52,7 +52,7 @@ public class PatternUtil {
 	 * values for the property diagram kind used to differ between diagrams of groups and compartments
 	 */
 	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-		    					DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+		    					DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 				
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group

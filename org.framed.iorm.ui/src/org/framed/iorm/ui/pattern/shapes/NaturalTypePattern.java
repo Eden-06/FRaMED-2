@@ -585,7 +585,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	            	//(c) attribute container shape
 		            if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 		            	//resize and positioning the container
-		            	newHeight = (((height)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS;
+		            	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
 		            	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
 		            	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 		            	rectangle.setHeight(newHeight);
@@ -617,7 +617,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 				            indicatorDots.setForeground(manageColor(COLOR_TEXT));
 				            graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 				            	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
-				            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+				            	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 				           	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
 		            	}	            			
 		            	layoutChanged=true;
@@ -749,13 +749,11 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 						}	}	}
 						//Operations
 						counter = 0;
-						//newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
 						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
 								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
 									Text text = (Text) operationShape.getGraphicsAlgorithm();
 									text.setValue(businessOperationNames.get(counter));									
-									//operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
 									changed = true;
 									counter++;
 		}	}	}	}	}	}	}        

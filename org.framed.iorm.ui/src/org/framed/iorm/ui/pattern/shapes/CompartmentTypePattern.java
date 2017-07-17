@@ -91,7 +91,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	/**
 	 * identifier literals used for the compartment types content diagram gathered from {@link IdentifierLiterals}
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM,
+	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM,
 						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
 	
 	/**
@@ -685,7 +685,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 					        indicatorDots.setForeground(manageColor(COLOR_TEXT));
 					        graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 					          	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
-					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 					        PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
 			            }	            			
 			            layoutChanged=true;

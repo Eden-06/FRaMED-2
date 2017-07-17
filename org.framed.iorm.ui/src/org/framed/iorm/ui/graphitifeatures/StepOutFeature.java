@@ -37,7 +37,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 * the value of the property diagram kind to identify a diagram that belongs to a group
 	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * identifiers used to open a new editor for the groups or compartment types diagram gathered from {@link IdentifierLiterals}

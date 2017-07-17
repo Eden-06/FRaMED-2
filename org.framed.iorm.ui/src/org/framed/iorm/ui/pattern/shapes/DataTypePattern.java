@@ -49,12 +49,12 @@ import org.framed.iorm.ui.util.PropertyUtil;
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
  * of the type {@link Type#DATA_TYPE} in the editor.
  * <p>
- * It deals with the following aspects of datatypes:<br>
- * (1) adding a datatype to the diagram, especially its pictogram elements<br>
- * (2) creating the datatype, especially its business object<br>
- * (3) direct editing of the datatypes name<br>
- * (4) layout the datatype, especially setting lines, attributes and operations at the right positions<br>
- * (5) updating the datatypes names, attributes names/ position and operation/ position<br>
+ * It deals with the following aspects of data types:<br>
+ * (1) adding a data type to the diagram, especially its pictogram elements<br>
+ * (2) creating the data type, especially its business object<br>
+ * (3) direct editing of the data types name<br>
+ * (4) layout the data type, especially setting lines, attributes and operations at the right positions<br>
+ * (5) updating the data types names, attributes names/ position and operation/ position<br>
  * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
  * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
  * (8) deleting all the data types pictogram elements and its attached connections, also diables deleting
@@ -71,13 +71,13 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * can be:<br>
 	 * (1) the name of the create feature in this pattern or<br>
-	 * (2) the standard names for datatypes
+	 * (2) the standard names for data types
 	 */
 	private final String DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 STANDARD_DATATYPE_NAME = NameLiterals.STANDARD_DATATYPE_NAME;
 	
 	/**
-	 * identifier literals used as shape ids for the shapes of the datatype
+	 * identifier literals used as shape ids for the shapes of the data type
 	 * <p>
 	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
 	 */
@@ -110,8 +110,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * text literals gathered from {@link TextLiterals}
 	 * <p>
 	 * can be:<br>
-	 * (1) the message if the form of a chosen datatype name is not correct when direct editing or<br>
-	 * (2) the message if a chosen name for a datatype is already used when direct editing
+	 * (1) the message if the form of a chosen data type name is not correct when direct editing or<br>
+	 * (2) the message if a chosen name for a data type is already used when direct editing
 	 */
 	private final String DIRECTEDITING_DATATYPE = TextLiterals.DIRECTEDITING_DATATYPE,
 						 NAME_ALREADY_USED_DATATYPE = TextLiterals.NAME_ALREADY_USED_DATATYPE;
@@ -213,13 +213,13 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	// add features
 	//~~~~~~~~~~~~~
 	/**
-	 * calculates if the datatype can be added to the diagram
+	 * calculates if the data type can be added to the diagram
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a data type and <br>
 	 * (2) if the target container is a diagram with a model linked and<br>
 	 * (3) the target container is the main diagram or a diagram of group
-	 * @return if the datatype can be added
+	 * @return if the data type can be added
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
@@ -237,7 +237,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 
 	/**
-	 * adds the graphical representation of a datatype to the pictogram model
+	 * adds the graphical representation of a data type to the pictogram model
 	 * <p>
 	 * It creates the following structure:<br>
 	 * <ul>
@@ -392,12 +392,12 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 
 	/**
-	 * creates the business objects of the datatype, adds it to model of the diagram in which the datatype is 
-	 * created in and calls the add function for the datatype
+	 * creates the business objects of the data type, adds it to model of the diagram in which the data type is 
+	 * created in and calls the add function for the data type
 	 * <p>
 	 * It creates the following structure:<br>
 	 * <ul>
-	 *   <li>(org.framed.iorm.model.Shape) datatype</li>
+	 *   <li>(org.framed.iorm.model.Shape) data type</li>
 	 * 	   <ul>
 	 * 	     <li>(Segment) first segment (for attributes)</li> 
 	 *  	 <li>(Segment) second segment (for operations)</li> 
@@ -406,8 +406,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * It uses follows this steps:<br>
 	 * Step 1: It creates the structure shown above.<br>
-	 * Step 2: It adds the new datatype to the elements of the model of the diagram in which its created.<br>
-	 * Step 3: It call the add function to add the pictogram elements of the datatype.
+	 * Step 2: It adds the new data type to the elements of the model of the diagram in which its created.<br>
+	 * Step 3: It call the add function to add the pictogram elements of the data type.
 	 * @return the created business object of the group
 	 */
 	@Override
@@ -440,7 +440,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//direct editing feature
 	//~~~~~~~~~~~~~~~~~~~~~~~	
 	/**
-	 * sets the editing type as a text field for the direct editing of the datatypes name
+	 * sets the editing type as a text field for the direct editing of the data types name
 	 */
 	@Override
 	public int getEditingType() {
@@ -448,7 +448,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * calculates if a pictogram element of a datatype can be direct edited
+	 * calculates if a pictogram element of a data type can be direct edited
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
@@ -478,11 +478,11 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * calculates if a chosen value for the datatype name is valid
+	 * calculates if a chosen value for the data type name is valid
 	 * <p>
 	 * A valid value is a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
-	 * chosen for another datatype. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
-	 * @return if a chosen value for the datatype name is valid
+	 * chosen for another data type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * @return if a chosen value for the data type name is valid
 	 */
 	@Override
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
@@ -507,7 +507,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//layout feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * calculates if a pictogram element of a datatype can be layouted
+	 * calculates if a pictogram element of a data type can be layouted
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if exactly one pictogram element is given by the layout context
@@ -531,7 +531,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 
 	/**
-	 * layout the whole datatype using the following steps:
+	 * layout the whole data type using the following steps:
 	 * <p>
 	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
 	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
@@ -593,7 +593,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		    	   //(c) attribute container
 			       if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 			    	   //resize and positioning the container
-			    	   newHeight = (((height)-HEIGHT_NAME_SHAPE-DATATYPE_CORNER_SIZE)/2)-PUFFER_BETWEEN_ELEMENTS;
+			    	   newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
 			           newWidth = (typeBodyPolygon.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);        
 			           newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 			           rectangle.setHeight(newHeight);
@@ -625,7 +625,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			        	   indicatorDots.setForeground(manageColor(COLOR_TEXT));
 			        	   graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 			        			PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_OPERATION_SHAPE, 
-		            		    newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+		            		    newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 		            	   PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS); 	
 			           }	            			
 			           layoutChanged=true;
@@ -828,10 +828,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * resizes the type body shape and drop shadow shape together and layouts the body shape to set the postions of its inner
+	 * resizes the type body shape and drop shadow shape together and layouts the body shape to set the positions of its inner
 	 * shapes.
 	 * <p>
-	 * This is needed to be done explicitly for the type body shape too, since the datatype is a polygon.
+	 * This is needed to be done explicitly for the type body shape too, since the data type is a polygon.
 	 */
 	@Override
 	public void resizeShape(IResizeShapeContext resizeContext) {

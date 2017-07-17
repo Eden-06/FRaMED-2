@@ -96,14 +96,11 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	/**
 	 * calculates if a inheritance can be added to the pictogram diagram
 	 * <p>
-	 * returns true if<br>
-	 * (1) context is of type {@link IAddConnectionContext} and<br>
-	 * (2) the business object is a inheritance
-	 * @return if inheritance can be added
+	 * returns true if the business object is a inheritance
+	 * @return if a inheritance can be added
 	 */
 	public boolean canAdd(IAddContext addContext) {
-		if (addContext instanceof IAddConnectionContext &&
-		   addContext.getNewObject() instanceof Relation) {
+		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.INHERITANCE)
 			   return true;
@@ -151,8 +148,9 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * returns true if<br>
 	 * (1) target and source shape are not null and<br>
 	 * (2) target and source shape is of valid type and<br>
-	 * (3) source shapes and targets shapes container are the same and <br>
-	 * (4) target and source shape are of the same type
+	 * (3) source shapes container and targets shapes container are the same and<br>
+	 * (4) the source shape is not equals the target shape and<br>
+	 * (%) target and source shape are of the same type
 	 * @return if inheritance can be added
 	 */
 	public boolean canCreate(ICreateConnectionContext createContext) {
@@ -161,11 +159,14 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
 	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
-		    	if(sourceShape.getType() == Type.NATURAL_TYPE) 
+	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
+	    	   !(sourceShape.equals(targetShape))) {
+	    		if(sourceShape.getType() == Type.NATURAL_TYPE) 
 		    		if(targetShape.getType() == Type.NATURAL_TYPE) return true;
 		    	if(sourceShape.getType() == Type.DATA_TYPE)	
 		    		if(targetShape.getType() == Type.DATA_TYPE) return true;
+		    	if(sourceShape.getType() == Type.COMPARTMENT_TYPE)	
+		    		if(targetShape.getType() == Type.COMPARTMENT_TYPE) return true;
 	    }	}
 	    return false;
 	}
@@ -183,7 +184,8 @@ public class InheritancePattern extends AbstractConnectionPattern {
 		org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.NATURAL_TYPE || 
-			   sourceShape.getType() == Type.DATA_TYPE)
+			   sourceShape.getType() == Type.DATA_TYPE ||
+			   sourceShape.getType() == Type.COMPARTMENT_TYPE)
 				return true;
 		}	
 		return false;

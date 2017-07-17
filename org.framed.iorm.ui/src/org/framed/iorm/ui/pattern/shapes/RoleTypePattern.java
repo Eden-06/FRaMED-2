@@ -90,7 +90,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * values for the property diagram kind for the diagram in which a role type can be created and added in
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * text literals gathered from {@link TextLiterals}
@@ -292,7 +292,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//attribute container
 		ContainerShape attributeContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
 		Rectangle attributeRectangle = graphicAlgorithmService.createRectangle(attributeContainer);
-		//attributeRectangle.setLineVisible(false);
+		attributeRectangle.setLineVisible(false);
 		attributeRectangle.setBackground(manageColor(COLOR_BACKGROUND));
 		int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.ROLE_TYPE, height);
 		graphicAlgorithmService.setLocationAndSize(attributeRectangle, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS, 
@@ -305,7 +305,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//operation container
 		ContainerShape operationContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
 		Rectangle operationRectangle = graphicAlgorithmService.createRectangle(operationContainer);
-		//operationRectangle.setLineVisible(false);
+		operationRectangle.setLineVisible(false);
 		operationRectangle.setBackground(manageColor(COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(operationRectangle, 
 				PUFFER_BETWEEN_ELEMENTS, horizontalCenter+PUFFER_BETWEEN_ELEMENTS, 
@@ -561,7 +561,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		          	//(c) attribute container shape
 			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
 			           	//resize and positioning the container
-			           	newHeight = (((height)-HEIGHT_NAME_SHAPE)/2)-PUFFER_BETWEEN_ELEMENTS;
+			           	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
 			           	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
 			           	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
 			            rectangle.setHeight(newHeight);
@@ -593,7 +593,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 					        indicatorDots.setForeground(manageColor(COLOR_TEXT));
 					        graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 					           	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
-					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
+					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
 					        PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
 			            }	            			
 			            layoutChanged=true;

@@ -37,7 +37,7 @@ public class MultipageEditorSynchronizationService {
 	 * kinds like a group and a compartment type diagram called the same gathered form {@link IdentifierLiterals}
 	 */
 	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the register for the multipage editors to synchronize

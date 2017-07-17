@@ -19,9 +19,9 @@ import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
-import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
-import org.framed.iorm.ui.pattern.shapes.ModelPattern; //*import for javadoc link
-import org.framed.iorm.ui.pattern.shapes.GroupOrCompartmentTypeElementPattern; //*import for javadoc link
+import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
+import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
+import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link
 
 /**
  * This class enables context buttons and can manipulate the palette of the editor.
@@ -35,14 +35,18 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 */
 	private final String ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = NameLiterals.ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME,
 						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME,
-						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
-	
+						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME,
+						 COMPARTMENTTYPE_FEATURE_NAME = NameLiterals.COMPARTMENTTYPE_FEATURE_NAME,
+						 NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
+						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
+						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
+						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME;
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
 	 * from {@link IdentiferLiterals}
 	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
+						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the name literals for features to probaly add to the context menu for the diagram type
@@ -64,11 +68,33 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
 	
 	/**
+	 * identifiers used to differ the types of palettes gathered from {@link IdentifierLiterals}
+	 */
+	private final String PALETTE_TYPE_CLASS = IdentifierLiterals.PALETTE_TYPE_CLASS,
+						 PALETTE_TYPE_ROLE = IdentifierLiterals.PALETTE_TYPE_ROLE;
+	
+	/**
+	 * the current type of the palette of the editor
+	 * <p>
+	 * This attribute is set by the {@link StepInFeature}, {@link StepInNewTabFeature} and {@link StepOutFeature}.
+	 * It is used to calculate the palette element to display depending on the type of diagram the editor is showing.
+	 */
+	private String paletteType = PALETTE_TYPE_CLASS;
+	
+	/**
 	 * Class constructor
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public ToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
+	}
+	
+	/**
+	 * sets the value of the palette type to be shown
+	 * @param paletteType the new palette to be set
+	 */
+	public void setPaletteType(String paletteType) {
+		this.paletteType = paletteType; 
 	}
 	
 	/**
@@ -147,26 +173,43 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	}
 	
 	/**
-	 * removes create features implemented by the pattern from the palette
+	 * removes create features implemented by the pattern from the palette using the following steps:
 	 * <p>
-	 * This is done for patterns which dont have a create features or whichs create features should not be used by the user
-	 * manually. Explicitly this patterns are:<br>
-	 * (1) {@link AttributeOperationCommonPattern} and<br>
-	 * (2) {@link ModelPattern} and <br>
-	 * (3) {@link GroupOrCompartmentTypeElementPattern}
+	 * Step 1: It hides patterns that dont have a create features or whichs create features should not be used by the user
+	 * 		   manually.
+	 * Step 2: It hides patterns that should not be shown if the palette type of the provider is set to class palette.<br>
+	 * Step 3: It hides patterns that should not be shown if the palette type of the provider is set to role palette.
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
 		List<IPaletteCompartmentEntry> paletteCompartmentEntry = new ArrayList<IPaletteCompartmentEntry>();
 		List<IToolEntry> toolEntriesToDelete = new ArrayList<IToolEntry>();
 		IPaletteCompartmentEntry[] superCompartments = super.getPalette();
-	    for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
+	    //Step 1
+		for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 	    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
 	    	if(toolEntry.getLabel().equals(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME) ||
 	    	   toolEntry.getLabel().equals(MODEL_FEATURE_NAME) ||
 	    	   toolEntry.getLabel().equals(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME))
 	    		toolEntriesToDelete.add(toolEntry);
 	    }
+		//Step 2
+		if(paletteType.equals(PALETTE_TYPE_CLASS)) {
+			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
+		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
+		    	if(toolEntry.getLabel().equals(ROLETYPE_FEATURE_NAME))
+		    		toolEntriesToDelete.add(toolEntry);
+		}   }
+		//Step 3
+		if(paletteType.equals(PALETTE_TYPE_ROLE)) {
+			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
+		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
+			   	if(toolEntry.getLabel().equals(COMPARTMENTTYPE_FEATURE_NAME) ||
+			   	   toolEntry.getLabel().equals(NATURALTYPE_FEATURE_NAME) ||
+			   	   toolEntry.getLabel().equals(DATATYPE_FEATURE_NAME) ||
+			   	   toolEntry.getLabel().equals(GROUP_FEATURE_NAME))
+			   		toolEntriesToDelete.add(toolEntry);
+		}   }	
 	    for(IToolEntry toolEntryToDelete : toolEntriesToDelete) {
 	    	superCompartments[1].getToolEntries().remove(toolEntryToDelete);
 	    }	
