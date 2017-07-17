@@ -12,6 +12,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -35,7 +36,8 @@ public class StepOutFeature extends AbstractCustomFeature {
 	/**
 	 * the value of the property diagram kind to identify a diagram that belongs to a group
 	 */
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
+	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
 	
 	/**
 	 * identifiers used to open a new editor for the groups or compartment types diagram gathered from {@link IdentifierLiterals}
@@ -71,17 +73,20 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 * <p>
 	 * It returns true if:<br>
 	 * (1) exactly one pictogram element is selected and<br>
-	 * (2) there are no unsaved changes of the diagram editor in which the pictogram element is shown
+	 * (2) the diagram of the editor to step out of a group or compartment type diagram is and<br>
+	 * (3) there are no unsaved changes of the diagram editor in which the pictogram element is shown
 	 * @return if the feature can be executed
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			MultipageEditor multipageEditor = 
-				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-			if(!(multipageEditor.isDirty()))
-				return true;
-		}	
+			if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM) ||
+			   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) {
+				MultipageEditor multipageEditor = 
+					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				if(!(multipageEditor.isDirty()))
+					return true;
+		}	}
 		return false;
 	}
 
@@ -90,9 +95,9 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 * <p>
 	 * Step 1: It gets the model to step out to and tries to get the name of the group or compartment type that 
 	 * 		   contains the model if there is one.<br>
-	 * Step 2: If not, it means that the root model of the file is opened using an {@link IFileEditorInput} on the
+	 * Step 2: If not, it means that the root model of the file is to open using an {@link IFileEditorInput} on the
 	 * 		   operation {@link #stepOutWithEditorInput}.<br>
-	 * Step 2: If there is one, it means the the diagram with the same name to the group or compartment type is opened.
+	 * Step 3: If there is one, it means the the diagram with the same name to the group or compartment type is to open.
 	 * 		   Therefore it call {@link #stepOutWithEditorInput} with a {@link DiagramEditorInput}.
 	 * <p>
 	 * There is no check for the size of the list of selected pictograms needed since this check is already done in 
@@ -100,7 +105,6 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 */
 	@Override
 	public void execute(ICustomContext customContext) {
-		if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM)) {
 			MultipageEditor multipageEditorToClose = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			//Step 1
@@ -113,20 +117,30 @@ public class StepOutFeature extends AbstractCustomFeature {
 				IFileEditorInput fileEditorInput = EditorInputUtil.getIFileEditorInputForResource(resource);
 				stepOutWithEditorInput(fileEditorInput);
 			} else {
-				//Step 3
+				//Step 3		
 				Diagram diagramToStepOutTo = null;
 				String diagramNameToStepOutTo = ShapeToStepOutTo.getName();
 				Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(getDiagram());
+				Type type = null;
+				if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+					type = Type.GROUP;
+				else if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) 
+						type = Type.COMPARTMENT_TYPE;
+				else return;
 				for(Shape shape : containerDiagram.getChildren()) {
-					if(shape instanceof Diagram) 
-						if(((Diagram) shape).getName().equals(diagramNameToStepOutTo))
-							diagramToStepOutTo = (Diagram) shape;
-				}
+					if(shape instanceof Diagram) {
+						if((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM) &&
+						    type == Type.GROUP) ||
+						   (PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
+						    type == Type.COMPARTMENT_TYPE)) {
+							if(((Diagram) shape).getName().equals(diagramNameToStepOutTo))
+								diagramToStepOutTo = (Diagram) shape;
+				}	}	}
 				if(diagramToStepOutTo == null) throw new NoDiagramFoundException();
 				DiagramEditorInput diagramEditorInput = 
 						DiagramEditorInput.createEditorInput(diagramToStepOutTo, DIAGRAM_PROVIDER_ID);
 				stepOutWithEditorInput(diagramEditorInput);
-	}	}	}
+	}	}	
 		
 	/**
 	 * closes the editor in which the step out feature is called and opens an multipage editor for the diagram one level 

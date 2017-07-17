@@ -11,10 +11,12 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This operation offers a register and a synchronizing functionality for multipage editors.
@@ -29,7 +31,13 @@ public class MultipageEditorSynchronizationService {
 	 * the identifiers for the {@link MultipageEditor} and the {@link DiagramTypeProvider}
 	 */
 	private static final String EDITOR_ID = IdentifierLiterals.EDITOR_ID,
-							   DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
+							    DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;	
+	/**
+	 * the values for the property diagram kind to differ between diagram with the same name, but different
+	 * kinds like a group and a compartment type diagram called the same gathered form {@link IdentifierLiterals}
+	 */
+	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
 	
 	/**
 	 * the register for the multipage editors to synchronize
@@ -164,8 +172,14 @@ public class MultipageEditorSynchronizationService {
 		if(changedEditorInput instanceof DiagramEditorInput) {
 			Resource changedEditorResource = EditorInputUtil.getResourceFromEditorInput(changedEditorInput);
 			Diagram changedEditorDiagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
+			Type type = null;
+			if(PropertyUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_GROUP_DIAGRAM))
+				type = Type.GROUP;
+			else if(PropertyUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+					type = Type.COMPARTMENT_TYPE;
+			else return null;
 			Diagram equivalentDiagramInBaseResource =
-				DiagramUtil.getDiagramFromResourceByName(baseResource, changedEditorDiagram.getName());
+				DiagramUtil.getDiagramFromResourceByName(baseResource, changedEditorDiagram.getName(), type);
 			return DiagramEditorInput.createEditorInput(equivalentDiagramInBaseResource, DIAGRAM_PROVIDER_ID);
 		} 
 		//Step 4

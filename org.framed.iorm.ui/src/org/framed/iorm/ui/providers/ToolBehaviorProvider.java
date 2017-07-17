@@ -38,10 +38,11 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
 	
 	/**
-	 * the value for the property diagram kind to identify diagrams belonging to a group gathered
+	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
 	 * from {@link IdentiferLiterals}
 	 */
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
+	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
 	
 	/**
 	 * the name literals for features to probaly add to the context menu for the diagram type
@@ -59,7 +60,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * (1) the shape identifier of type body rectangle of a group or<br>
 	 * (2) the shape identifier of type body rectangle of a compartment type
 	 */
-	private final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY;
+	private final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
+						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
 	
 	/**
 	 * Class constructor
@@ -92,7 +94,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * 		   the context menu.<br>
 	 * Step 2: If its the change configuration custom feature, never add it to this list.<br>
 	 * Step 3: If its the step in or the step in new tab feature, check if the right clicked pictogram element (exactly one!) 
-	 * 		   has a graphics algorithm that is the type body of a group, compartment type or role group. If yes, add the
+	 * 		   has a graphics algorithm that is the type body of a group or compartment type. If yes, add the
 	 * 		   corresponding context menu entry to the context menu.
 	 * Step 4: If its the step out feature check, show the feature for a diagram only if its one of a group or compartment type.
 	 * 		   If a shape is right clicked, get the diagram that contains the shape first and then check for the same criteria
@@ -114,7 +116,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					if(customContext.getPictogramElements().length == 1) {
 						if(customContext.getPictogramElements()[0].getGraphicsAlgorithm() != null &&
 						   !(customContext.getPictogramElements()[0] instanceof Diagram)) {
-							if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY)) 
+							if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY) ||
+							   PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
 								contextMenuEntries.add(superContextEntries[i]);
 					}	}
 					break;
@@ -123,14 +126,16 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					if(customContext.getPictogramElements().length == 1) {
 						if(customContext.getPictogramElements()[0] instanceof Diagram) {
 							Diagram diagram = (Diagram) customContext.getPictogramElements()[0];
-							if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM))
-							contextMenuEntries.add(superContextEntries[i]);
+							if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
+							   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+								contextMenuEntries.add(superContextEntries[i]);
 						}
 						if(customContext.getPictogramElements()[0] instanceof Shape) {
 							Shape shape = (Shape) customContext.getPictogramElements()[0];
 							Diagram diagram = DiagramUtil.getDiagramForContainedShape(shape);
 							if(diagram != null) {
-								if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM))
+								if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
+								   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 									contextMenuEntries.add(superContextEntries[i]);
 					}	}	}
 					break;

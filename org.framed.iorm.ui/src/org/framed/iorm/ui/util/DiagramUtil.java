@@ -8,6 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
@@ -22,13 +23,16 @@ import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for j
 public class DiagramUtil {
 	
 	/**
-	 * the identifier of the <em>main diagram</em> and <em>container diagram</em> using the property diagram kind
+	 * the identifier of the <em>main diagram</em>, <em>container diagram</em>, group and compartment type
+	 * diagram using the property diagram kind
 	 * <p>
 	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
 	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 */
 	private static final String DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
-							    DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM;
+							    DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
+							    DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+							    DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
 	
 	/**
 	 * the identifiers for of groups and compartment types pictograms gathered from {@link IdentifierLiterals}
@@ -65,35 +69,39 @@ public class DiagramUtil {
 	 * {@link GroupPattern#add}<br>
 	 * {@link CompartmentTypePattern#add}
 	 * .<br>
-	 *TODO if its not cleat typbe body + name oder auf alle ausweiten?
+	 *TODO if its not cleat typbe body
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
 	 * @param diagram the diagram the group or compartment type is located in
+	 * @param the type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
 	 * @return the groups or compartment types diagram, if the given shape was a name shape or the type body shape
 	 * @throws NoDiagramFoundException
 	 */
-	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram) {
+	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram, Type type) {
 		//Step 1
-		String groupName = null;
+		String name = null;
 		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_TYPEBODY) ||
 				PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
-			Shape groupNameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
-			if(PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_GROUP_NAME) ||
-			   PropertyUtil.isShape_IdValue(groupNameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
-				groupName = ((Text) groupNameShape.getGraphicsAlgorithm()).getValue();
+			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
+			if(PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_GROUP_NAME) ||
+			   PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
+				name = ((Text) nameShape.getGraphicsAlgorithm()).getValue();
 			}	
 		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_NAME) ||
-		   PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_NAME)	)
-			groupName = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
+		   PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
+			name = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
 		//Step 2
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		if(containerDiagram == null) throw new NoDiagramFoundException();
-			for(Shape shape : containerDiagram.getChildren()) {
-				if(shape instanceof Diagram) {
-					if(((Diagram) shape).getName().equals(groupName))
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram) {
+				if(((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM)) &&
+				    type == Type.GROUP) ||
+				   ((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) &&
+					type == Type.COMPARTMENT_TYPE)) {
+					if(((Diagram) shape).getName().equals(name))
 						return ((Diagram) shape);
-				}	
-		}	
+		}	}	}	
 		throw new NoDiagramFoundException();	
 	}
 
@@ -141,7 +149,7 @@ public class DiagramUtil {
 		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram &&
-			   PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM));
+			    PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM));
 				return (Diagram) shape;
 		}
 		throw new NoDiagramFoundException();
@@ -204,19 +212,24 @@ public class DiagramUtil {
 	 * <p>
 	 * @param resource the resource to search the diagram in
 	 * @param diagramName the name to search the diagram with
+	 * @param type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
 	 * @return the diagram with the specific name in the resource
 	 * @throws NoDiagramFoundException
 	 */
-	public static Diagram getDiagramFromResourceByName(Resource resource, String diagramName) {
+	public static Diagram getDiagramFromResourceByName(Resource resource, String diagramName, Type type) {
 		if(resource.getContents().get(0) instanceof Diagram) {
 			if(((Diagram) resource.getContents().get(0)).getContainer() == null) {
 				Diagram containerDiagram = (Diagram) resource.getContents().get(0);
 				for(Shape shape : containerDiagram.getChildren()) {
 					if(shape instanceof Diagram) {
 						Diagram diagram = (Diagram) shape;
-						if(diagram.getName().equals(diagramName)) 
-							return diagram;
-		}	}	}	}
+						if((PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) &&
+							type == Type.GROUP) ||
+						   (PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
+						    type == Type.COMPARTMENT_TYPE)) {	
+							if(diagram.getName().equals(diagramName)) 
+								return diagram;
+		}	}	}	}	}
 		throw new NoDiagramFoundException();
 	}
 }

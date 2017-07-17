@@ -1,6 +1,5 @@
 package org.framed.iorm.ui.pattern.shapes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -32,7 +31,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.Model;
-import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
@@ -675,8 +673,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			List<String> pictogramOperationNames = PatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_DATATYPE_OPERATIONCONTAINER);
 			//business name and attributes
 			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			List<String> businessAttributeNames = getBusinessAttributeNames(pictogramElement);
-			List<String> businessOperationNames = getBusinessOperationNames(pictogramElement);
+			List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER);
+			List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_DATATYPE_OPERATIONCONTAINER);
 								
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
@@ -692,38 +690,6 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		return Reason.createFalseReason();
 	}
 	
-	private List<String> getBusinessAttributeNames(PictogramElement pictogramElement) {
-		List<String> businessAttributeNames = new ArrayList<String>();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) pictogramElement;
-			for (Shape shape : containerShape.getChildren()) {
-				if(shape instanceof ContainerShape) {
-					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
-						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
-								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
-								businessAttributeNames.add(attribute.getName());
-		}	}	}	}	}	}	
-		return businessAttributeNames;
-	}
-	
-	private List<String> getBusinessOperationNames(PictogramElement pictogramElement) {
-		List<String> businessOperationNames = new ArrayList<String>();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) pictogramElement;
-			for (Shape shape : containerShape.getChildren()) {
-				if(shape instanceof ContainerShape) {
-					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
-						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
-								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
-								businessOperationNames.add(operation.getName());
-		}	}	}	}	}	}	
-		return businessOperationNames;
-	}
-	
 	@Override
 	public boolean update(IUpdateContext updateContext) {
 		int counter;
@@ -732,8 +698,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 		//business names of natural type, attributes and operations
 		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-		List<String> businessAttributeNames = getBusinessAttributeNames(pictogramElement);
-		List<String> businessOperationNames = getBusinessOperationNames(pictogramElement);
+		List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER);
+		List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_DATATYPE_OPERATIONCONTAINER);
 		
 		//set type name in pictogram model
         if (pictogramElement instanceof ContainerShape) {     

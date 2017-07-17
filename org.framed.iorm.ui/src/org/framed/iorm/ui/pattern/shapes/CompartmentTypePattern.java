@@ -1,6 +1,5 @@
 package org.framed.iorm.ui.pattern.shapes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -36,11 +35,12 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
-import org.framed.iorm.model.NamedElement;
+import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -81,7 +81,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 						 SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER, 
 						 SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER,
 						 SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW,
-						 SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW,
+						 SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT,
 						 SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS;
 			
 	/**
@@ -679,29 +679,34 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			        rectangle.setHeight(newHeight);
 			        rectangle.setWidth(newWidth);
 			        rectangle.setY(newY);
-			        ContainerShape groupElementsShape = (ContainerShape) shape;
-		          	EList<Shape> groupElements = groupElementsShape.getChildren();  
+			        ContainerShape elementsShape = (ContainerShape) shape;
+		          	EList<Shape> elements = elementsShape.getChildren();  
 			     
 	            	indicatorDotsShapeToDelete = null;
-	            	for(Shape elementShape : groupElements) {
+	            	int counter = 0;
+	            	for(Shape elementShape : elements) {
 		           		elementShape.setVisible(true);
+		           		graphicAlgorithmService.setLocationAndSize(elementShape.getGraphicsAlgorithm(), 
+		           				PUFFER_BETWEEN_ELEMENTS, newY+HEIGHT_ELEMENT_SHAPE*counter, 
+		            			newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_ELEMENT_SHAPE);
 		           		if(PropertyUtil.isShape_IdValue(elementShape, SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS))
 		           			indicatorDotsShapeToDelete = elementShape;
+		           		counter++;
 		           	}
-		           	groupElementsShape.getChildren().remove(indicatorDotsShapeToDelete);
+		           	elementsShape.getChildren().remove(indicatorDotsShapeToDelete);
 		            	
 		           	//check if not all attributes fit in the attribute field
-		           	if(groupElements.size()*HEIGHT_ELEMENT_SHAPE > newHeight) {	            		
+		           	if(elements.size()*HEIGHT_ELEMENT_SHAPE > newHeight) {	            		
 		           		int fittingAttributes = (newHeight-HEIGHT_ELEMENT_SHAPE)/HEIGHT_ELEMENT_SHAPE;	   
 		           		//set not fitting attributes to invisible
-		           		for(int k = fittingAttributes; k<groupElements.size(); k++) {
-		           			groupElements.get(k).setVisible(false);            				
+		           		for(int k = fittingAttributes; k<elements.size(); k++) {
+		           			elements.get(k).setVisible(false);            				
 		           		}	
-		           		Shape indicatorDotsShape = pictogramElementCreateService.createShape(groupElementsShape, true); 
+		           		Shape indicatorDotsShape = pictogramElementCreateService.createShape(elementsShape, true); 
 		           		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
 		           		indicatorDots.setForeground(manageColor(COLOR_TEXT));
 		           		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-		         			PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+fittingAttributes*HEIGHT_ELEMENT_SHAPE, 
+		         			PUFFER_BETWEEN_ELEMENTS, newY+fittingAttributes*HEIGHT_ELEMENT_SHAPE, 
 		            		newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_ELEMENT_SHAPE);
 		            	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS); 
 		           	}
@@ -727,21 +732,27 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 
 	@Override
 	public IReason updateNeeded(IUpdateContext updateContext) {
+		String rawModelContainerElementName,
+		       modelContainerElementName;
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
-			
-		if(pictogramElement.getGraphicsAlgorithm() != null &&
-		   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+	
+		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
 			//pictogram name, attributes, operations and elements
 			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_NAME);
 			List<String> pictogramAttributeNames = PatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
 			List<String> pictogramOperationNames = PatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
-			//TODO elments
+			//model element names in model container of shape
+			List<String> pictogramElementsNames = PatternUtil.getContentPreviewElementsNames(pictogramElement);
 			//business name and attributes
 			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			List<String> businessAttributeNames = getBusinessAttributeNames(pictogramElement);
-			List<String> businessOperationNames = getBusinessOperationNames(pictogramElement);
-			//TODO elements
-			
+			List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
+			List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
+			//at creation no diagram is existing so catch this
+			List<String> modelElementsNames = null;
+			try {
+				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.COMPARTMENT_TYPE);
+			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
+ 			
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
 			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);  
@@ -752,44 +763,18 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			}	
 			for(int i=0; i<pictogramOperationNames.size(); i++) {
 				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_OPERATIONS);
-			}	
-			//TODO elements
-		}
+			}
+			if(modelElementsNames.size() != pictogramElementsNames.size()) {
+				return Reason.createTrueReason(REASON_AMOUNT_ELEMENTS);
+			}
+			for(int i=0; i<modelElementsNames.size(); i++) {
+				modelContainerElementName = pictogramElementsNames.get(i);
+				rawModelContainerElementName = modelContainerElementName.substring(modelContainerElementName.indexOf(" ")+1);
+				if(!(modelElementsNames.get(i).equals(rawModelContainerElementName))) return Reason.createTrueReason(REASON_NAMES_ELEMENTS);
+		}	}
 		return Reason.createFalseReason();
 	}
-		
-	private List<String> getBusinessAttributeNames(PictogramElement pictogramElement) {
-		List<String> businessAttributeNames = new ArrayList<String>();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) pictogramElement;
-			for (Shape shape : containerShape.getChildren()) {
-				if(shape instanceof ContainerShape) {
-					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER)) {
-						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
-								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
-								businessAttributeNames.add(attribute.getName());
-		}	}	}	}	}	}	
-		return businessAttributeNames;
-	}
-		
-	private List<String> getBusinessOperationNames(PictogramElement pictogramElement) {
-		List<String> businessOperationNames = new ArrayList<String>();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) pictogramElement;
-			for (Shape shape : containerShape.getChildren()) {
-				if(shape instanceof ContainerShape) {
-					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER)) {
-						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
-								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
-								businessOperationNames.add(operation.getName());
-		}	}	}	}	}	}	
-		return businessOperationNames;
-	}
-		
+			
 	@Override
 	public boolean update(IUpdateContext updateContext) {
 		int counter;
@@ -799,47 +784,63 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			
 		//business names of natural type, attributes and operations
 		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-		List<String> businessAttributeNames = getBusinessAttributeNames(pictogramElement);
-		List<String> businessOperationNames = getBusinessOperationNames(pictogramElement);
+		List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
+		List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
 			
 		//set type name in pictogram model
 	    if (pictogramElement instanceof ContainerShape) {     
 	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+        	Diagram diagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram(), Type.COMPARTMENT_TYPE);
 	        for (Shape shape : typeBodyShape.getChildren()) {
 	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
 	        		Text text = (Text) shape.getGraphicsAlgorithm();
 	                if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_NAME)) {
-	                	Diagram diagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(shape, getDiagram());
 	                	diagram.setName(businessTypeName);
 	                	//change group name
 	                	text.setValue(businessTypeName);
 	                	changed = true;
 	                }           
 	            }
-	        //set attribute and operation names and thier places in pictogram model
-	        if(shape instanceof ContainerShape) {
-	        	ContainerShape innerContainerShape = (ContainerShape) shape;
-	        	if(innerContainerShape.getGraphicsAlgorithm() instanceof Rectangle) {
-					//Attributes
-					counter = 0;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER)) {
-						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
-								Text text = (Text) attributeShape.getGraphicsAlgorithm();
-								text.setValue(businessAttributeNames.get(counter));
-								changed = true;
-								counter++;
-					}	}	}
-					//Operations
-					counter = 0;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER)) {
-						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
-								Text text = (Text) operationShape.getGraphicsAlgorithm();
-								text.setValue(businessOperationNames.get(counter));									
-								changed = true;
-								counter++;
-		}	}	}	}	}	}	}       
+		        //set attribute and operation names and thier places in pictogram model
+		        if(shape instanceof ContainerShape) {
+		        	ContainerShape innerContainerShape = (ContainerShape) shape;
+		        	if(innerContainerShape.getGraphicsAlgorithm() instanceof Rectangle) {
+						//Attributes
+						counter = 0;
+						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER)) {
+							for(Shape attributeShape : innerContainerShape.getChildren()) {
+								if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+									Text text = (Text) attributeShape.getGraphicsAlgorithm();
+									text.setValue(businessAttributeNames.get(counter));
+									changed = true;
+									counter++;
+						}	}	}
+						//Operations
+						counter = 0;
+						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER)) {
+							for(Shape operationShape : innerContainerShape.getChildren()) {
+								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+									Text text = (Text) operationShape.getGraphicsAlgorithm();
+									text.setValue(businessOperationNames.get(counter));									
+									changed = true;
+									counter++;
+						}	}	}	
+						if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW)) {
+			                ContainerShape modelContainerShape = (ContainerShape) shape;
+				            Model compartmentModel = DiagramUtil.getLinkedModelForDiagram(diagram);
+			             
+				            counter = 0;
+			                modelContainerShape.getChildren().clear();
+				            for(ModelElement modelElement : compartmentModel.getElements()) {
+				            	Shape elementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
+				            	Text elementText = graphicAlgorithmService.createText(elementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
+				            	elementText.setForeground(manageColor(COLOR_TEXT));
+				            	PropertyUtil.setShape_IdValue(elementShape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT);
+				            	counter++;		
+				            }
+				            changed = true;
+				            layoutPictogramElement(typeBodyShape);
+		} 	}	}	}	}       
 	    return changed;
 	}	
 	
@@ -913,7 +914,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		//connection
 		deleteAttachedConnections(deleteContext);
 		//delete compartments diagram
-		Diagram compartmentDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		Diagram compartmentDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram(), Type.COMPARTMENT_TYPE);
 		if(compartmentDiagram != null) {	
 			DeleteContext deleteContextForGroupDiagram = new DeleteContext(compartmentDiagram);
 			deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));

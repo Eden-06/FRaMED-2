@@ -162,9 +162,10 @@ public class NameUtil {
 				if(modelElement.getType() == Type.DATA_TYPE &&
 				   type == Type.DATA_TYPE)
 					modelElementNames.add(modelElement.getName());
-				if(modelElement.getType() == Type.COMPARTMENT_TYPE &&
-				   type == Type.COMPARTMENT_TYPE)
-					modelElementNames.add(modelElement.getName());
+				if(modelElement.getType() == Type.COMPARTMENT_TYPE) {
+					if(type == Type.COMPARTMENT_TYPE) modelElementNames.add(modelElement.getName());
+					getModelElementsNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), type, modelElementNames);
+				}	
 				if(modelElement.getType() == Type.GROUP) {
 					if(type == Type.GROUP) modelElementNames.add(modelElement.getName());
 					getModelElementsNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), type, modelElementNames);

@@ -1,19 +1,16 @@
 package org.framed.iorm.ui.util;
 
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 
 /**
- * This class delivers operations to change and access specific properties graphiti model elements.
- * <p>
- * It can change and access the property "shape-id" for {@link GraphicsAlgorithm}s. 
+ * This class delivers operations to change and access specific properties of grphiti {@link Shape}s and {@link Diagram}s. 
  * @author Kevin Kassin
  */
 public class PropertyUtil {
-	
+
 	//Shape Identifier
 	//~~~~~~~~~~~~~~~~
 	/**

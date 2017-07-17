@@ -3,6 +3,7 @@ package org.framed.iorm.ui.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -10,9 +11,12 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
+import org.framed.iorm.model.NamedElement;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
-import org.framed.iorm.ui.wizards.RoleModelWizard;
+import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 
 /**
  * This class offers several utility operations used by the graphiti patterns.
@@ -21,18 +25,34 @@ import org.framed.iorm.ui.wizards.RoleModelWizard;
 public class PatternUtil {
 	
 	/**
-	 * the identifiers for graphics algorithms of group pictograms gathered from {@link IdentifierLiterals}
+	 * the identifiers for groups pictogram elements gathered from {@link IdentifierLiterals}
 	 */
 	private static final String SHAPE_ID_GROUP_CONTAINER = IdentifierLiterals.SHAPE_ID_GROUP_CONTAINER,
 								SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 								SHAPE_ID_GROUP_NAME = IdentifierLiterals.SHAPE_ID_GROUP_NAME,
 								SHAPE_ID_GROUP_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_GROUP_CONTENT_PREVIEW,
-								SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW,
-							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
-							    SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT;
+							    SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
+							    
+	/**
+	 * the identifiers for compartment types pictogram elements gathered from {@link IdentifierLiterals}
+	 */
+	private static final String SHAPE_ID_COMPARTMENTTYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER,
+								SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY,
+								SHAPE_ID_COMPARTMENTTYPE_NAME = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_NAME,
+							    SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW,
+								SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT;
 	
+	/**
+	 * the identifiers for pictogram elements of attributes and operations gathered from {@link IdentifierLiterals}
+	 */
 	private static final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
 								SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT;
+	
+	/**
+	 * values for the property diagram kind used to differ between diagrams of groups and compartments
+	 */
+	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+		    					DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENT_DIAGRAM;
 				
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group
@@ -42,18 +62,18 @@ public class PatternUtil {
 	 * @param pictogramElement the type body shape of of a group
 	 * @return a list of the shown names of child elements of a group
 	 */
-	public static List<String> getModelContainerElementsNames(PictogramElement pictogramElement) {
+	public static List<String> getContentPreviewElementsNames(PictogramElement pictogramElement) {
 		List<String> modelContainerElementsNames = new ArrayList<String>();
 		if(pictogramElement instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) pictogramElement;
 			for(Shape shape : containerShape.getChildren()) {
 				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW) ||
-				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW)	) {
-					ContainerShape modelContainer = (ContainerShape) shape; 
-					for(Shape modelContainterElement : modelContainer.getChildren()) {
-						if(PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_GROUP_ELEMENT) ||
-						   PropertyUtil.isShape_IdValue(modelContainterElement, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
-							Text text = (Text) modelContainterElement.getGraphicsAlgorithm();
+				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW)) {
+					ContainerShape previewContentContainer = (ContainerShape) shape; 
+					for(Shape previewContentContainerElement : previewContentContainer.getChildren()) {
+						if(PropertyUtil.isShape_IdValue(previewContentContainerElement, SHAPE_ID_GROUP_ELEMENT) ||
+						   PropertyUtil.isShape_IdValue(previewContentContainerElement, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
+							Text text = (Text) previewContentContainerElement.getGraphicsAlgorithm();
 							modelContainerElementsNames.add(text.getValue());
 		}	}	}	}	}
 		return modelContainerElementsNames;
@@ -63,11 +83,12 @@ public class PatternUtil {
 	 * fetches all the names of the actual direct child elements in a groups model
 	 * @param pictogramElement the pictogram/ shape element of the group
 	 * @param diagram the diagram the pattern that called this operation works in
+	 * @param the type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
 	 * @return a list of names of all direct child elements in a groups model
 	 */
-	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram) {
+	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram, Type type) {
 		List<String> modelElementsNames = new ArrayList<String>();
-		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram);
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram, type);
 		Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupDiagram);
 		for(ModelElement modelElement : groupModel.getElements()) {
 			modelElementsNames.add(modelElement.getName());
@@ -106,29 +127,7 @@ public class PatternUtil {
 		}
 		return null;
 	}
-
-	/**
-	 * This method gets the names of the operations of a pictogram element that has an operation container shape.
-	 * @param pictogramElement the pictogram element to get the operation names of
-	 * @param SHAPE_ID_OPERATIONCONTAINER the identifier of the operation container shape
-	 * @return the operation names of the pictogram element if it has an operation container shape and returns null else
-	 */
-	public static List<String> getpictogramOperationNames(PictogramElement pictogramElement, String SHAPE_ID_OPERATIONCONTAINER) {
-		List<String> pictogramOperationNames = new ArrayList<String>();
-		if (pictogramElement instanceof ContainerShape) {
-			ContainerShape containerShape = (ContainerShape) pictogramElement;
-			for (Shape shape : containerShape.getChildren()) {
-				if(shape instanceof ContainerShape) {
-					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
-						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
-								Text text = (Text) operationShape.getGraphicsAlgorithm();
-								pictogramOperationNames.add(text.getValue());
-		}	}	}	}	}	}
-		return pictogramOperationNames;
-	}
-
+	
 	/**
 	 * This operation gets the names of the attributes of a pictogram element that has an attribute container shape.
 	 * @param pictogramElement the pictogram element to get the attribute names of
@@ -150,63 +149,158 @@ public class PatternUtil {
 		}	}	}	}	}	}
 		return pictogrammAttributeNames;
 	}
+	
+	/**
+	 * This operation gets the names of the attributes in a model of a pictogram element that has an attribute container shape.
+	 * @param pictogramElement the pictogram element to get the attribute names of
+	 * @param SHAPE_ID_ATTRIBUTECONTAINER the identifier of the attribute container shape
+	 * @return the attribute names in a model of the pictogram element if it has an attribute container shape and returns null else
+	 */
+	public static List<String> getBusinessAttributeNames(PictogramElement pictogramElement, String SHAPE_ID_ATTRIBUTECONTAINER) {
+		List<String> businessAttributeNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
+						for(Shape attributeShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
+								businessAttributeNames.add(attribute.getName());
+		}	}	}	}	}	}	
+		return businessAttributeNames;
+	}
+	
+	/**
+	 * This method gets the names of the operations of a pictogram element that has an operation container shape.
+	 * @param pictogramElement the pictogram element to get the operation names of
+	 * @param SHAPE_ID_OPERATIONCONTAINER the identifier of the operation container shape
+	 * @return the operation names of the pictogram element if it has an operation container shape and returns null else
+	 */
+	public static List<String> getpictogramOperationNames(PictogramElement pictogramElement, String SHAPE_ID_OPERATIONCONTAINER) {
+		List<String> pictogramOperationNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+						for(Shape operationShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								Text text = (Text) operationShape.getGraphicsAlgorithm();
+								pictogramOperationNames.add(text.getValue());
+		}	}	}	}	}	}
+		return pictogramOperationNames;
+	}
+	
+	/**
+	 * This method gets the names of the operations in a model of pictogram element that has an operation container shape.
+	 * @param pictogramElement the pictogram element to get the operation names of
+	 * @param SHAPE_ID_OPERATIONCONTAINER the identifier of the operation container shape
+	 * @return the operation names in a model of the pictogram element if it has an operation container shape and returns null else
+	 */
+	public static List<String> getBusinessOperationNames(PictogramElement pictogramElement, String SHAPE_ID_OPERATIONCONTAINER) {
+		List<String> businessOperationNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+						for(Shape operationShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
+								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
+								businessOperationNames.add(operation.getName());
+		}	}	}	}	}	}	
+		return businessOperationNames;
+	}
+		
+		/**
+		 * returns the first linked business object of a pictogram
+		 * <p>
+		 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
+		 * an dependency.<br>
+		 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
+		 * usecases only a single business object is linked.
+		 * @param pictogramElement
+		 * @return
+		 */
+		private static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
+			return pictogramElement.getLink().getBusinessObjects().get(0);
+		}
 
 	/**
-	 * fetches the <em>type body shape</em> of group that has the given diagram attached to
+	 * fetches the <em>type body shape</em> of group or compartment type that has the given diagram attached to
 	 * <p>
 	 * To do that it basicly searches in all diagram of the <em>container diagram</em> for a <em>group container shape</em>
-	 * and compares the diagram name to the found groups name.
+	 * or a <em>compartment container shape and compares the diagram name to the found groups or compartment types name.
 	 * <p>
-	 * If its not clear what <em>type body shape</em> and <em>group container shape</em> means, 
-	 * see {@link GroupPattern#add} for reference.<br>
+	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, 
+	 * see {@link GroupPattern#add} for example.<br>
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for
 	 * reference.
-	 * @param diagram the diagram to find the groups type body shape for
-	 * @return the type body shape of the group that has the given diagram attached
+	 * @param diagram the diagram to find the groups or compartment types type body shape for
+	 * @return the type body shape of the group or compartment type that has the given diagram attached to
 	 */
 	public static ContainerShape getGroupTypeBodyForGroupsDiagram(Diagram diagram) {
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape containerDiagramChild : containerDiagram.getChildren()) {
 			if(containerDiagramChild instanceof Diagram) {
 				for(Shape diagramChild : ((Diagram) containerDiagramChild).getChildren()) {
-					if(diagramChild instanceof ContainerShape &&
-					   PropertyUtil.isShape_IdValue(diagramChild, SHAPE_ID_GROUP_CONTAINER)) {
-						if(getGroupNameForGroupContainer((ContainerShape) diagramChild).equals(diagram.getName())) {
-							return getGroupTypeBodyForGroupContainer((ContainerShape) diagramChild);
-		}	}	}	}	}
+					if(diagramChild instanceof ContainerShape) {
+						if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) &&
+						   PropertyUtil.isShape_IdValue(diagramChild, SHAPE_ID_GROUP_CONTAINER)) {
+							if(getNameForGroupOrCompartmentTypeContainer((ContainerShape) diagramChild, Type.GROUP).equals(diagram.getName())) {
+								return getTypeBodyForGroupOrCompartmentContainer((ContainerShape) diagramChild, Type.GROUP);
+						}	}	}	
+						if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) && 		
+						   PropertyUtil.isShape_IdValue(diagramChild, SHAPE_ID_COMPARTMENTTYPE_CONTAINER)) {
+							if(getNameForGroupOrCompartmentTypeContainer((ContainerShape) diagramChild, Type.COMPARTMENT_TYPE).equals(diagram.getName())) {
+								return getTypeBodyForGroupOrCompartmentContainer((ContainerShape) diagramChild, Type.COMPARTMENT_TYPE);
+		}	}	}	}	}		
 		return null;
 	}	
 		
 	/**
-	 * fetches the name of a group to thats the <em>group container</em> shape belongs to
+	 * fetches the name of a group or compartment type to thats the given <em>container shape</em> shape belongs to
 	 * <p>
-	 * If its not clear what <em>group container shape</em> means, see {@link GroupPattern#add} for reference.
-	 * @param groupContainer the group container shape of the group to get the name for
-	 * @return the name of group with the given shape
+	 * If its not clear what <em>container shape</em> means, see {@link GroupPattern#add} for example.
+	 * @param container the groups or compartment types container shape of the group to get the name for
+	 * @return the name of group or compartment type with the given shape
 	 */
-	private static String getGroupNameForGroupContainer(ContainerShape groupContainer) {
-		ContainerShape typeBodyShape = getGroupTypeBodyForGroupContainer(groupContainer);
+	private static String getNameForGroupOrCompartmentTypeContainer(ContainerShape container, Type type) {
+		ContainerShape typeBodyShape = getTypeBodyForGroupOrCompartmentContainer(container, type);
 		for(Shape shape : typeBodyShape.getChildren()) {
-			if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME))
+			if((PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME) &&
+			    type == Type.GROUP) ||
+			   (PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_NAME) &&
+		        type == Type.COMPARTMENT_TYPE))
 				return ((Text) shape.getGraphicsAlgorithm()).getValue();
 		}
 		return null;
 	}	
 		
 	/**
-	 * fetches the <em>type body shape</em> of a group to thats the <em>group container shape</em> belongs to
+	 * fetches the <em>type body shape</em> of a group or compartment type to thats the givem <em>container shape</em> belongs to
 	 * <p>
-	 * If its not clear what <em>type body shape</em> and <em>group container shape</em> means, see 
-	 * {@link GroupPattern#add} for reference.
-	 * @param groupContainer the group container shape of the group to get the type body shape for
-	 * @return the type body shape of group with the given shape
+	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, see 
+	 * {@link GroupPattern#add} for example.
+	 * @param groupContainer the container shape of the group or compartment type to get the type body shape for
+	 * @return the type body shape of group or compartment type with the given shape
 	 */
-	public static ContainerShape getGroupTypeBodyForGroupContainer(ContainerShape groupContainer) {
+	public static ContainerShape getTypeBodyForGroupOrCompartmentContainer(ContainerShape groupContainer, Type type) {
 		for(Shape shape : groupContainer.getChildren()) {
-			if(shape instanceof ContainerShape &&
-			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_TYPEBODY))
-				return (ContainerShape) shape; 
-		}	
+			if(shape instanceof ContainerShape) {
+			   if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_TYPEBODY)) {
+				   if(type == Type.GROUP)
+					   return (ContainerShape) shape; 
+			   }	   
+			   if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+				   if(type == Type.COMPARTMENT_TYPE) 
+		        	   return (ContainerShape) shape; 
+			   }    
+	    }	}  
 		return null;
 	}	
 	

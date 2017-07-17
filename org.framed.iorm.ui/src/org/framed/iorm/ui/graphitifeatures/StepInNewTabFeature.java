@@ -10,6 +10,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.framed.iorm.model.Shape;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -61,7 +63,12 @@ public class StepInNewTabFeature extends AbstractStepInFeature {
 				multipageEditorTosave.getDiagramEditor().doSave(new NullProgressMonitor());
 		}	});	
 		ContainerShape typeBodyShape = (ContainerShape) context.getPictogramElements()[0];
-		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram());
+		Type type = null;
+		if(getBusinessObjectForPictogramElement(typeBodyShape) instanceof org.framed.iorm.model.Shape) {
+			Shape businessobject = (Shape) getBusinessObjectForPictogramElement(typeBodyShape);
+			type = businessobject.getType();
+		} else return;
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram(), type);
 		IEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(groupDiagram, DIAGRAM_PROVIDER_ID);
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(diagramEditorInput, EDITOR_ID);

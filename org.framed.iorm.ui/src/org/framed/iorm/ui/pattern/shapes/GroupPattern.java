@@ -31,9 +31,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.ui.IEditorReference;
@@ -205,11 +202,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 		return isMainBusinessObjectApplicable(businessObject);
 	}
-	
-	//services
-	private static final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
-	private static final IGaService graphicAlgorithmService = Graphiti.getGaService();
-	
+
 	// add features
 	//~~~~~~~~~~~~~
 	/**
@@ -548,10 +541,15 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	            	EList<Shape> groupElements = groupElementsShape.getChildren();  
 		     
 	            	Shape indicatorDotsShapeToDelete = null;
+	            	int counter = 0;
 	            	for(Shape elementShape : groupElements) {
 	            		elementShape.setVisible(true);
+	            		graphicAlgorithmService.setLocationAndSize(elementShape.getGraphicsAlgorithm(), 
+	            				PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS+HEIGHT_GROUP_ELEMENT_SHAPE*counter, 
+		            			newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
 	            		if(PropertyUtil.isShape_IdValue(elementShape, SHAPE_ID_GROUPS_INDICATOR_DOTS))
 	            			indicatorDotsShapeToDelete = elementShape;
+	            		counter++;
 	            	}
 	            	groupElementsShape.getChildren().remove(indicatorDotsShapeToDelete);
 	            	
@@ -605,17 +603,17 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			//at creation no diagram is existing so catch this
 			List<String> modelElementsNames = null;
 			try {
-				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram());
+				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.GROUP);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			//model element names in model container of shape
-			List<String> modelContainerElementsNames = PatternUtil.getModelContainerElementsNames(pictogramElement);		
+			List<String> pictogramElementsNames = PatternUtil.getContentPreviewElementsNames(pictogramElement);		
 				
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
 			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);
-			if(modelElementsNames.size() != modelContainerElementsNames.size()) return Reason.createTrueReason(REASON_AMOUNT_GROUP_ELEMENTS);
+			if(modelElementsNames.size() != pictogramElementsNames.size()) return Reason.createTrueReason(REASON_AMOUNT_GROUP_ELEMENTS);
 			for(int i=0; i<modelElementsNames.size(); i++) {
-				modelContainerElementName = modelContainerElementsNames.get(i);
+				modelContainerElementName = pictogramElementsNames.get(i);
 				rawModelContainerElementName = modelContainerElementName.substring(modelContainerElementName.indexOf(" ")+1);
 				if(!(modelElementsNames.get(i).equals(rawModelContainerElementName))) return Reason.createTrueReason(REASON_NAMES_GROUP_ELEMENTS);
 		}	}
@@ -624,7 +622,6 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 	@Override
 	public boolean update(IUpdateContext updateContext) {
-		int counter;
 		boolean changed = false;
 	         
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
@@ -633,12 +630,12 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		//set type name in pictogram model
 	    if (pictogramElement instanceof ContainerShape) {     
 	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+        	Diagram diagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram(), Type.GROUP);
 	        for (Shape shape : typeBodyShape.getChildren()) {
 	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
 	        		Text text = (Text) shape.getGraphicsAlgorithm();
 	                if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_NAME)) {
 	                    //change diagram name
-	                	Diagram diagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(shape, getDiagram());
 	                	diagram.setName(businessTypeName);
 	                	//change group name
 	                	text.setValue(businessTypeName);
@@ -648,26 +645,18 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	        	if (shape.getGraphicsAlgorithm() instanceof Rectangle) {  
 	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTENT_PREVIEW)) {
 		                ContainerShape modelContainerShape = (ContainerShape) shape;
-			            Diagram groupsDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram());
-			            Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupsDiagram);
+			            Model groupModel = DiagramUtil.getLinkedModelForDiagram(diagram);
 		             
-			            counter = 0;
 		                modelContainerShape.getChildren().clear();
 			            for(ModelElement modelElement : groupModel.getElements()) {
 			            	Shape groupElementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
 			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
 			            	groupElementText.setForeground(manageColor(COLOR_TEXT));
-			            	graphicAlgorithmService.setLocationAndSize(groupElementText, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS+HEIGHT_GROUP_ELEMENT_SHAPE*counter, 
-			            			modelContainerShape.getGraphicsAlgorithm().getWidth()-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_GROUP_ELEMENT_SHAPE);
 			            	PropertyUtil.setShape_IdValue(groupElementShape, SHAPE_ID_GROUP_ELEMENT);
-			            	counter++;		
 			            }
 			            changed = true;
 			            layoutPictogramElement(typeBodyShape);
-	        		} 	
-	        	}	
-	        }
-	   }     
+	   }	}	}	}     
 	return changed;
 	}	
 	 
@@ -739,7 +728,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	public void delete(IDeleteContext deleteContext) {
 		List<ContainerShape> innerGroupsToDelete = new ArrayList<ContainerShape>();
 		//delete groups diagram
-		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram(), Type.GROUP);
 		if(groupDiagram != null) {	
 		DeleteContext deleteContextForGroupDiagram = new DeleteContext(groupDiagram);
 		deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
@@ -749,7 +738,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				
 			if(shape instanceof ContainerShape &&
 			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) {
-				innerGroupsToDelete.add(PatternUtil.getGroupTypeBodyForGroupContainer((ContainerShape) shape));
+				innerGroupsToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
 			}
 		}
 		//close opened editors with the deleted group

@@ -50,12 +50,12 @@ public class TextLiterals {
 	 */
 	public static final String REASON_NAME_NULL = "Name is null.",
 							   REASON_NAME_OUT_OF_DATE = "Name is out of date.",
-							   REASON_AMOUNT_ATTRIBUTES = "Different amount of Attributes.",
-							   REASON_AMOUNT_OPERATION = "Different amount of Operations.",
-							   REASON_NAMES_ATTRIBUTES = "Different names of Attributes.",
-							   REASON_NAMES_OPERATIONS = "Different names of Operations.",
-							   REASON_AMOUNT_ELEMENTS = "Different amount of Group Elements.",
-							   REASON_NAMES_ELEMENTS = "Different names of Group Elements.";
+							   REASON_AMOUNT_ATTRIBUTES = "Different amount of attributes.",
+							   REASON_AMOUNT_OPERATION = "Different amount of operations.",
+							   REASON_NAMES_ATTRIBUTES = "Different names of attributes.",
+							   REASON_NAMES_OPERATIONS = "Different names of operations.",
+							   REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
+							   REASON_NAMES_ELEMENTS = "Different names of elements.";
 	
 	/**
 	 * messages used in the feature sub editor

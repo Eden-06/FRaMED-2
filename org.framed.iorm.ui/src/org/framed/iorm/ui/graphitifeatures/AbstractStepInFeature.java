@@ -29,7 +29,8 @@ public abstract class AbstractStepInFeature extends AbstractCustomFeature {
 	 * (1) the shape identifier of type body rectangle of a group or<br>
 	 * (2) the shape identifier of type body rectangle of a compartment type or<br>
 	 */
-	protected final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY;
+	protected final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
+						   SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
 	
 	/**
 	 * identifiers used to open a new editor for the groups or compartment types diagram gathered from {@link IdentifierLiterals}
@@ -56,15 +57,15 @@ public abstract class AbstractStepInFeature extends AbstractCustomFeature {
 	 * <p>
 	 * It returns true if<br>
 	 * (1) exactly one pictogram element is selected and<br>
-	 * (2) this pictogram element has a graphics algorithm that is the type body of a 
-	 * group, compartment type or role group and<br>
+	 * (2) this pictogram element is the type body of a group, compartment and<br>
 	 * (3) there are no unsaved changes of the diagram editor in which the pictogram element is shown
 	 * @return if the feature can be executed
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY)) { 
+			if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY) ||
+			   PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) { 
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))
