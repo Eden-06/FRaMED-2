@@ -32,7 +32,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	public boolean canAddRoleConstraint(IAddContext addContext, Type type) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation.getType() == Type.ROLE_IMPLICATION)
+		   if(relation.getType() == type)
 			   return true;
 		}
 		return false;
@@ -93,28 +93,29 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 * Step 1: get source and target shapes<br>
 	 * Step 2: get new role constraint and add it to the resource of the diagram<br>
 	 * Step 3: set source, target and container of role constraint<br>
-	 * Step 4: call add operation of the pattern
+	 * @param type the type to create a role constraint of
+	 * @param arcp the sub class calling this operation
 	 */
-	public Connection createRoleConstraint(ICreateConnectionContext createContext, Type type) {
+	public Connection createRoleConstraint(ICreateConnectionContext createContext, Type type, AbstractRoleConstraintPattern arcp) {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
 	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
 	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
-		Connection newConnection = null;
 		//Step 2
-		Relation newRoleImplication = OrmFactory.eINSTANCE.createRelation();
-	    newRoleImplication.setType(type); 
-	    if(newRoleImplication.eResource() != null) getDiagram().eResource().getContents().add(newRoleImplication);
+		Relation newRoleConstraint = OrmFactory.eINSTANCE.createRelation();
+	    newRoleConstraint.setType(type); 
+	    if(newRoleConstraint.eResource() != null) getDiagram().eResource().getContents().add(newRoleConstraint);
 	    //Step 3
-	    newRoleImplication.setContainer(sourceShape.getContainer());
-	    sourceShape.getContainer().getElements().add(newRoleImplication);
-		newRoleImplication.setSource(sourceShape);
-		newRoleImplication.setTarget(targetShape);
+	    newRoleConstraint.setContainer(sourceShape.getContainer());
+	    sourceShape.getContainer().getElements().add(newRoleConstraint);
+		newRoleConstraint.setSource(sourceShape);
+		newRoleConstraint.setTarget(targetShape);
 	    //Step 4
 	    AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
-	    addContext.setNewObject(newRoleImplication);
-	    if(canAdd(addContext)) add(addContext); 	        
+	    addContext.setNewObject(newRoleConstraint);
+	    Connection newConnection = null;
+	    if(arcp.canAdd(addContext)) newConnection = (Connection) arcp.add(addContext); 	        
 	    return newConnection;
 	}
 }

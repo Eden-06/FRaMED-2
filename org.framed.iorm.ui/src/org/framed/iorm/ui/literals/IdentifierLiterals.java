@@ -61,7 +61,9 @@ public class IdentifierLiterals {
 	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for connection create features
 	 */
 	public static final String IMG_ID_FEATURE_INHERITANCE = IMG_ID_PREFIX + "img_inheritance",
-							   IMG_ID_FEATURE_ROLEIMPLICATION = IMG_ID_PREFIX + "img_roleimplication";
+							   IMG_ID_FEATURE_ROLEIMPLICATION = IMG_ID_PREFIX + "img_roleimplication",
+							   IMG_ID_FEATURE_ROLEEQUIVALENCE = IMG_ID_PREFIX + "img_roleequivalence",
+							   IMG_ID_FEATURE_ROLEPROHIBITION = IMG_ID_PREFIX + "img_roleprohibition";
 	
 	/**
 	 * feature model identifier

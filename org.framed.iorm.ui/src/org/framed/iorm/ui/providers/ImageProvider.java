@@ -32,7 +32,9 @@ public class ImageProvider extends AbstractImageProvider {
      * See {@link IdentifierLiterals} for further explanations.
      */
     private final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE,
-    					 IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION;
+    					 IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION,
+    					 IMG_ID_FEATURE_ROLEEQUIVALENCE = IdentifierLiterals.IMG_ID_FEATURE_ROLEEQUIVALENCE,
+  					     IMG_ID_FEATURE_ROLEPROHIBITION = IdentifierLiterals.IMG_ID_FEATURE_ROLEPROHIBITION;
     
     /**
      * the image file paths to icons used for shape create features gathered from {@link URLLiterals}
@@ -53,7 +55,9 @@ public class ImageProvider extends AbstractImageProvider {
      * See {@link URLLiterals} for further explanations.
      */
     private final String IMG_FILEPATH_FEATURE_INHERITANCE = URLLiterals.IMG_FILEPATH_FEATURE_INHERITANCE,
-    					 IMG_FILEPATH_FEATURE_ROLEIMPLICATION = URLLiterals.IMG_FILEPATH_FEATURE_INHERITANCE;
+    					 IMG_FILEPATH_FEATURE_ROLEIMPLICATION = URLLiterals.IMG_FILEPATH_FEATURE_ROLEIMPLICATION,
+    					 IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE = URLLiterals.IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE,
+    					 IMG_FILEPATH_FEATURE_ROLEPROHIBITION = URLLiterals.IMG_FILEPATH_FEATURE_ROLEPROHIBITION;
     
     /**
      * links the file paths to image identifiers
@@ -73,5 +77,7 @@ public class ImageProvider extends AbstractImageProvider {
         
         addImageFilePath(IMG_ID_FEATURE_INHERITANCE, IMG_FILEPATH_FEATURE_INHERITANCE);
         addImageFilePath(IMG_ID_FEATURE_ROLEIMPLICATION, IMG_FILEPATH_FEATURE_ROLEIMPLICATION);
+        addImageFilePath(IMG_ID_FEATURE_ROLEEQUIVALENCE, IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE);
+        addImageFilePath(IMG_ID_FEATURE_ROLEPROHIBITION, IMG_FILEPATH_FEATURE_ROLEPROHIBITION);
     }
 }

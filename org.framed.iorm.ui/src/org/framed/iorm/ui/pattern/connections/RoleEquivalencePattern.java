@@ -19,26 +19,26 @@ import org.framed.iorm.ui.literals.NameLiterals;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
- * of the type {@link Type#ROLE_IMPLICATION} in the editor.
+ * of the type {@link Type#ROLE_EQUIVALENCEE} in the editor.
  * <p>
- * It deals with the following aspects of role implications:<br>
- * (1) creating role implications, especially their business object<br>
- * (2) adding role implications to the diagram, especially their pictogram elements<br>
+ * It deals with the following aspects of role equivalences:<br>
+ * (1) creating role equivalences, especially their business object<br>
+ * (2) adding role equivalences to the diagram, especially their pictogram elements<br>
  * <p>
  * It is a subclass of {@link AbstractRoleConstraintPattern} and several operations used here are implemented there.
  * @author Kevin Kassin
  */
-public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
+public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
-	private static final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME;
+	private static final String ROLEEQUIVALENCE_FEATURE_NAME = NameLiterals.ROLEEQUIVALENCE_FEATURE_NAME;
 	
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
-	private static final String IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION;
+	private static final String IMG_ID_FEATURE_ROLEEQUIVALENCE = IdentifierLiterals.IMG_ID_FEATURE_ROLEEQUIVALENCE;
 	
 	/**
 	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
@@ -55,7 +55,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	/**
 	 * Class constructor
 	 */
-	public RoleImplicationPattern() {
+	public RoleEquivalencePattern() {
 		super();
 	}
 	
@@ -65,7 +65,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	 */
 	@Override
 	public String getCreateName() {
-		return ROLEIMPLICATION_FEATURE_NAME;
+		return ROLEEQUIVALENCE_FEATURE_NAME;
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	 */
 	@Override
 	public String getCreateImageId() {
-		return IMG_ID_FEATURE_ROLEIMPLICATION;
+		return IMG_ID_FEATURE_ROLEEQUIVALENCE;
 	}
 	
 	
@@ -82,18 +82,18 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	//~~~~~~~~~~~
 	/**
 	 * uses the operation {@link AbstractRoleConstraintPattern#canAddRoleConstraint} of the super type to calculate if
-	 * the role implication can be added
+	 * the role equivalences can be added
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		return canAddRoleConstraint(addContext, Type.ROLE_IMPLICATION);
+		return canAddRoleConstraint(addContext, Type.ROLE_EQUIVALENCE);
 	}
 	
 	/**
-	 * adds the role implication to the pictogram diagram using the following steps:
+	 * adds the role equivalences to the pictogram diagram using the following steps:
 	 * <p>
 	 * Step 1: create a connection shape and dashed polyline as its graphic algorithm
-	 * Step 2: create the a connection decorator and a arrowhead as its graphic algorithm 
+	 * Step 2: create the two connection decorators and arrowheads as their graphics algorithms 
 	 * Step 3: link the pictogram elements and the business objects
 	 */
 	@Override
@@ -110,14 +110,22 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    //Step2
-	    ConnectionDecorator connectionDecorator;
-	    connectionDecorator = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 		//Point 1
-	    						   0, 0, 										//P2
-	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 
-	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
-	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
+	    ConnectionDecorator connectionDecoratorTarget;
+	    connectionDecoratorTarget = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
+	    int pointsTarget[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT,     //Point 1
+	    								 0, 0, 										//P2
+	    								 -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };//P3						 
+	    Polygon arrowheadTarget = graphicAlgorithmService.createPolygon(connectionDecoratorTarget, pointsTarget);
+	    arrowheadTarget.setForeground(manageColor(COLOR_CONNECTIONS));
+	    arrowheadTarget.setBackground(manageColor(COLOR_ARROWHEAD));
+	    ConnectionDecorator connectionDecoratorSource;
+	    connectionDecoratorSource = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0, true);
+	    int pointsSource[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 	//Point 1
+	    						   		 0, 0, 									  	 //P2
+	    						   		 -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT }; //P3						 
+	    Polygon arrowheadSource = graphicAlgorithmService.createPolygon(connectionDecoratorSource, pointsSource);
+	    arrowheadSource.setForeground(manageColor(COLOR_CONNECTIONS));
+	    arrowheadSource.setBackground(manageColor(COLOR_ARROWHEAD));
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;
@@ -126,10 +134,10 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	//create feature
 	//~~~~~~~~~~~~~~  
 	/**
-	 * uses the operation {@link AbstractRoleConstraintPattern#createRoleConstraint} of the super type to create the role implication
+	 * uses the operation {@link AbstractRoleConstraintPattern#createRoleConstraint} of the super type to create the role equivalences
 	 */
 	@Override
 	public Connection create(ICreateConnectionContext createContext) {
-		return super.createRoleConstraint(createContext, Type.ROLE_IMPLICATION, this);
+		return super.createRoleConstraint(createContext, Type.ROLE_EQUIVALENCE, this);
 	}
 }

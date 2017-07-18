@@ -13,7 +13,9 @@ import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
 import org.framed.iorm.ui.pattern.connections.InheritancePattern;
+import org.framed.iorm.ui.pattern.connections.RoleEquivalencePattern;
 import org.framed.iorm.ui.pattern.connections.RoleImplicationPattern;
+import org.framed.iorm.ui.pattern.connections.RoleProhibitionPattern;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern;
 import org.framed.iorm.ui.pattern.shapes.AttributePattern;
 import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern;
@@ -55,6 +57,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       //Step 2
       addConnectionPattern(new InheritancePattern());
       addConnectionPattern(new RoleImplicationPattern());
+      addConnectionPattern(new RoleEquivalencePattern());
+      addConnectionPattern(new RoleProhibitionPattern());
 	}	
 	
 	/**

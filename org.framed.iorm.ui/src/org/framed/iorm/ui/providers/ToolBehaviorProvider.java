@@ -46,7 +46,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * the name literals for connection create features to remove from the editor palette for the diagram type
 	 * gathered from {@link NameLiterals}
 	 */					 
-	private final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME;
+	private final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME,
+						 ROLEEQUIVALENCE_FEATURE_NAME = NameLiterals.ROLEEQUIVALENCE_FEATURE_NAME,
+						 ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME;
 						 
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
@@ -205,7 +207,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		if(paletteType.equals(PALETTE_TYPE_CLASS)) {
 			for(int i = 0; i < superCompartments[0].getToolEntries().size(); i++) {
 				IToolEntry toolEntry = superCompartments[0].getToolEntries().get(i);
-				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME))
+				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME) ||
+				   toolEntry.getLabel().equals(ROLEEQUIVALENCE_FEATURE_NAME) ||
+				   toolEntry.getLabel().equals(ROLEPROHIBITION_FEATURE_NAME))
 					toolEntriesConnectionToDelete.add(toolEntry);
 			}
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {

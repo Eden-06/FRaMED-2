@@ -61,6 +61,8 @@ public class URLLiterals {
 	 * 
 	 */
 	public static final String IMG_FILEPATH_FEATURE_INHERITANCE = IMG_FILE_PATH_PREFIX + "inheritance.png",
-							   IMG_FILEPATH_FEATURE_ROLEIMPLICATION = IMG_FILE_PATH_PREFIX + "roleimplication.png";
+							   IMG_FILEPATH_FEATURE_ROLEIMPLICATION = IMG_FILE_PATH_PREFIX + "roleimplication.png",
+							   IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE = IMG_FILE_PATH_PREFIX + "roleequivalence.png",
+							   IMG_FILEPATH_FEATURE_ROLEPROHIBITION = IMG_FILE_PATH_PREFIX + "roleprohibition.png";
 	
 }
