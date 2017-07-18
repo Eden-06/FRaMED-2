@@ -4,6 +4,8 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
@@ -25,9 +27,10 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
 
 	/**
-	 * the value of the property shape id for the text shapes of the group elements
+	 * the value of the property shape id for the text shapes of the group and compartment types elements
 	 */
-	private final String SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT;
+	private final String SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
+						 SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT;
 	
 	/**
 	 * the feature name of the create feature in this pattern gathered from {@link NameLiterals}
@@ -70,11 +73,13 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
-		if(pictogramElement instanceof Shape) {
+		if(pictogramElement instanceof Shape &&
+		   !(pictogramElement instanceof ConnectionDecorator)) {
 			Shape shape = (Shape) pictogramElement;
-			if(shape.getGraphicsAlgorithm() instanceof Text &&
-			   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT)) 
-				return true;
+			if(shape.getGraphicsAlgorithm() instanceof Text)
+				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
+				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+					return true;
 		}	
 		return false;
 	}
@@ -86,18 +91,20 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		if(pictogramElement instanceof Shape) {
+		if(pictogramElement instanceof Shape &&
+		   !(pictogramElement instanceof ConnectionDecorator)) {
 			Shape shape = (Shape) pictogramElement;
-			if(shape.getGraphicsAlgorithm() instanceof Text
-			   && PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT)) 
-				return true;
+			if(shape.getGraphicsAlgorithm() instanceof Text)
+				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
+				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+					return true;
 		}	
 		return false;
 	}
 
 	//delete feature
 	//~~~~~~~~~~~~~~
-	/**TODO
+	/**
 	 * disables the move feature for attributes and operations
 	 */
 	@Override

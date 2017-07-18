@@ -47,7 +47,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
 							 
 	/**
-	 * the color values used for the polyline and the arrowhead of inheritances gathered from {@link LayoutLiterals}
+	 * the color values used for the polyline and the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
 										COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;		

@@ -41,13 +41,13 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	private static final String IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION;
 	
 	/**
-	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
+	 * the layout integers used to layout the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
 	 */
 	private static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
 							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
 							 
 	/**
-	 * the color values used for the polyline and the arrowhead of inheritances gathered from {@link LayoutLiterals}
+	 * the color values used for the polyline and the arrowhead of role equivalences gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
 										COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;		

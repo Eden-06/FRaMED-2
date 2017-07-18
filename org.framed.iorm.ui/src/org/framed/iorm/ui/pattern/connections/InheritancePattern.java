@@ -196,7 +196,6 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Anchor targetAnchor = createContext.getTargetAnchor();
 	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
 	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
-		Connection newConnection = null;
 		//Step 2
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
 	    newInheritance.setType(Type.INHERITANCE); 
@@ -209,7 +208,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    //Step 4
 	    AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
 	    addContext.setNewObject(newInheritance);
-	    if(canAdd(addContext)) add(addContext); 	        
+	    Connection newConnection = null;
+	    if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	        
 	    return newConnection;
 	}
 }

@@ -63,8 +63,8 @@ public class IdentifierLiterals {
 	public static final String IMG_ID_FEATURE_INHERITANCE = IMG_ID_PREFIX + "img_inheritance",
 							   IMG_ID_FEATURE_ROLEIMPLICATION = IMG_ID_PREFIX + "img_roleimplication",
 							   IMG_ID_FEATURE_ROLEEQUIVALENCE = IMG_ID_PREFIX + "img_roleequivalence",
-							   IMG_ID_FEATURE_ROLEPROHIBITION = IMG_ID_PREFIX + "img_roleprohibition";
-	
+							   IMG_ID_FEATURE_ROLEPROHIBITION = IMG_ID_PREFIX + "img_roleprohibition",
+							   IMG_ID_FEATURE_RELATIONSHIP = IMG_ID_PREFIX + "img_relationship";
 	/**
 	 * feature model identifier
 	 * <p>

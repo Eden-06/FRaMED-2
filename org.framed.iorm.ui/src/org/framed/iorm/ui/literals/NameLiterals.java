@@ -39,8 +39,9 @@ public class NameLiterals {
 	 * (2) the standard name for naturals types or<br>
 	 * (3) the standard name for data types or<br>
 	 * (4) the standard name for groups or<br>
-	 * (5) the standard name for attributes or<b>
-	 * (6) the standard name for operations
+	 * (5) the standard name for attributes or<br>
+	 * (6) the standard name for operations or<br>
+	 * (7) the standard name for relationships
 	 */
 	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 							   STANDARD_NATURALTYPE_NAME = "naturalType",
@@ -48,7 +49,8 @@ public class NameLiterals {
 			   				   STANDARD_GROUP_NAME = "group",
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
 			   				   STANDARD_OPERATION_NAME = "operation():type",
-			   				   STANDARD_ROLETYPE_NAME = "roleType";
+			   				   STANDARD_ROLETYPE_NAME = "roleType",
+			   				   STANDARD_RELATIONSHIP_NAME = "relationship";
 							  
 	/**
 	 * name literals for commands
@@ -89,7 +91,8 @@ public class NameLiterals {
 	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
 							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication",
 							   ROLEEQUIVALENCE_FEATURE_NAME = "Role Eqivalence",
-						       ROLEPROHIBITION_FEATURE_NAME = "Role Prohibition";
+						       ROLEPROHIBITION_FEATURE_NAME = "Role Prohibition",
+						       RELATIONSHIP_FEATURE_NAME = "Relationship";
 	
 	/**
 	 * name literals used in the patterns to be identified by the ToolBehaviorProvider 

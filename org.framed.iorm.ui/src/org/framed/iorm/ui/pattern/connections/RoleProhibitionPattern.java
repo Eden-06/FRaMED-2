@@ -3,7 +3,6 @@ package org.framed.iorm.ui.pattern.connections;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
-import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -41,13 +40,13 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	private static final String IMG_ID_FEATURE_ROLEPROHIBITION = IdentifierLiterals.IMG_ID_FEATURE_ROLEPROHIBITION;
 	
 	/**
-	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
+	 * the layout integers used to layout the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
 	 */
 	private static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
 							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
 	
 	/**
-	 * the color values used for the polyline and the arrowhead of inheritances gathered from {@link LayoutLiterals}
+	 * the color values used for the polyline gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS;		
 	
@@ -91,7 +90,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	 * adds the role prohibition to the pictogram diagram using the following steps:
 	 * <p>
 	 * Step 1: create a connection shape and dashed polyline as its graphic algorithm
-	 * Step 2: create the a connection decorator and TODO
+	 * Step 2: create the a connection decorator and two polyline as its graphics algorithms
 	 * Step 3: link the pictogram elements and the business objects
 	 */
 	@Override

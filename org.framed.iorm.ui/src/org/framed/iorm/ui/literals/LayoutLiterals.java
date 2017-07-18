@@ -111,4 +111,10 @@ public class LayoutLiterals {
 	public static final int ARROWHEAD_LENGTH = 15,	
 							ARROWHEAD_HEIGHT = 10;
 	
+	/**
+	 * layout integers especially for relationships
+	 * <p>
+	 * the height of the texts for the name and its cardinalities
+	 */
+	public static final int HIGHT_RELATIONSHIP_TEXT = 15;
 }
