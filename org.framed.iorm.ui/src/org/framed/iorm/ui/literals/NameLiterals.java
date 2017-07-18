@@ -81,9 +81,11 @@ public class NameLiterals {
 	 * name literals used in the connection patterns for shown create features
 	 * <p>
 	 * can be:<br>
-	 * (1) the name of the inheritance create feature
+	 * (1) the name of the inheritance create feature or<br>>
+	 * (2) the name of the role implication create feature
 	 */
-	public static final String INHERITANCE_FEATURE_NAME = "Inheritance";
+	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
+							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication";
 	
 	/**
 	 * name literals used in the patterns to be identified by the ToolBehaviorProvider 

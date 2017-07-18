@@ -30,7 +30,7 @@ import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc
 public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	
 	/**
-	 * the name literals for features to remove from the editor palette for the diagram type
+	 * the name literals for shape create features to remove from the editor palette for the diagram type
 	 * gathered from {@link NameLiterals}
 	 */
 	private final String ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = NameLiterals.ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME,
@@ -41,6 +41,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
 						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME;
+	
+	/**
+	 * the name literals for connection create features to remove from the editor palette for the diagram type
+	 * gathered from {@link NameLiterals}
+	 */					 
+	private final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME;
+						 
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
 	 * from {@link IdentiferLiterals}
@@ -183,7 +190,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
 		List<IPaletteCompartmentEntry> paletteCompartmentEntry = new ArrayList<IPaletteCompartmentEntry>();
-		List<IToolEntry> toolEntriesToDelete = new ArrayList<IToolEntry>();
+		List<IToolEntry> toolEntriesShapesToDelete = new ArrayList<IToolEntry>();
+		List<IToolEntry> toolEntriesConnectionToDelete = new ArrayList<IToolEntry>();
 		IPaletteCompartmentEntry[] superCompartments = super.getPalette();
 	    //Step 1
 		for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
@@ -191,14 +199,19 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    	if(toolEntry.getLabel().equals(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME) ||
 	    	   toolEntry.getLabel().equals(MODEL_FEATURE_NAME) ||
 	    	   toolEntry.getLabel().equals(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME))
-	    		toolEntriesToDelete.add(toolEntry);
+	    		toolEntriesShapesToDelete.add(toolEntry);
 	    }
 		//Step 2
 		if(paletteType.equals(PALETTE_TYPE_CLASS)) {
+			for(int i = 0; i < superCompartments[0].getToolEntries().size(); i++) {
+				IToolEntry toolEntry = superCompartments[0].getToolEntries().get(i);
+				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME))
+					toolEntriesConnectionToDelete.add(toolEntry);
+			}
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
 		    	if(toolEntry.getLabel().equals(ROLETYPE_FEATURE_NAME))
-		    		toolEntriesToDelete.add(toolEntry);
+		    		toolEntriesShapesToDelete.add(toolEntry);
 		}   }
 		//Step 3
 		if(paletteType.equals(PALETTE_TYPE_ROLE)) {
@@ -208,10 +221,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			   	   toolEntry.getLabel().equals(NATURALTYPE_FEATURE_NAME) ||
 			   	   toolEntry.getLabel().equals(DATATYPE_FEATURE_NAME) ||
 			   	   toolEntry.getLabel().equals(GROUP_FEATURE_NAME))
-			   		toolEntriesToDelete.add(toolEntry);
+			   		toolEntriesShapesToDelete.add(toolEntry);
 		}   }	
-	    for(IToolEntry toolEntryToDelete : toolEntriesToDelete) {
-	    	superCompartments[1].getToolEntries().remove(toolEntryToDelete);
+		for(IToolEntry toolEntryConnectionToDelete : toolEntriesConnectionToDelete) {
+	    	superCompartments[0].getToolEntries().remove(toolEntryConnectionToDelete);
+	    }
+	    for(IToolEntry toolEntryShapeToDelete : toolEntriesShapesToDelete) {
+	    	superCompartments[1].getToolEntries().remove(toolEntryShapeToDelete);
 	    }	
 	    for (int j = 0; j < superCompartments.length; j++) {
 	    	paletteCompartmentEntry.add(superCompartments[j]);

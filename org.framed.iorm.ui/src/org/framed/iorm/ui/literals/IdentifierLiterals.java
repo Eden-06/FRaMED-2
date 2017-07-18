@@ -45,16 +45,23 @@ public class IdentifierLiterals {
 	/**
 	 * image IDs
 	 * <p>
-	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for features
+	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for shape create features
 	 */
 	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_compartmenttype",
 							   IMG_ID_FEATURE_NATURALTYPE = IMG_ID_PREFIX + "img_naturaltype",
 							   IMG_ID_FEATURE_DATATYPE = IMG_ID_PREFIX + "img_datatype",
 							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
 							   IMG_ID_FEATURE_OPERATION = IMG_ID_PREFIX + "img_operation",
-							   IMG_ID_FEATURE_INHERITANCE = IMG_ID_PREFIX + "img_inheritance",
 							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group",
 							   IMG_ID_FEATURE_ROLETYPE = IMG_ID_PREFIX + "img_roletype";
+	
+	/**
+	 * image IDs
+	 * <p>
+	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for connection create features
+	 */
+	public static final String IMG_ID_FEATURE_INHERITANCE = IMG_ID_PREFIX + "img_inheritance",
+							   IMG_ID_FEATURE_ROLEIMPLICATION = IMG_ID_PREFIX + "img_roleimplication";
 	
 	/**
 	 * feature model identifier

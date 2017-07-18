@@ -88,10 +88,11 @@ public class PatternUtil {
 	 */
 	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram, Type type) {
 		List<String> modelElementsNames = new ArrayList<String>();
-		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram, type);
-		Model groupModel = DiagramUtil.getLinkedModelForDiagram(groupDiagram);
-		for(ModelElement modelElement : groupModel.getElements()) {
-			modelElementsNames.add(modelElement.getName());
+		Diagram groupOrCompartmentTypeDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram, type);
+		Model groupOrCompartmentTypeModel = DiagramUtil.getLinkedModelForDiagram(groupOrCompartmentTypeDiagram);
+		for(ModelElement modelElement : groupOrCompartmentTypeModel.getElements()) {
+			if(modelElement instanceof org.framed.iorm.model.Shape)
+				modelElementsNames.add(modelElement.getName());
 		}
 		return modelElementsNames;
 	}

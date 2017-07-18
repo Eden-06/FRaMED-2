@@ -10,10 +10,6 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
@@ -21,10 +17,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.model.Shape; //*import for javadoc link
 
 /**
- * This graphiti pattern is used to work with {@link Shape}s
+ * This graphiti pattern is used to work with {@link Relation}s
  * of the type {@link Type#INHERITANCE} in the editor.
  * <p>
  * It deals with the following aspects of Inheritances:<br>
@@ -32,7 +27,7 @@ import org.framed.iorm.model.Shape; //*import for javadoc link
  * (2) adding inheritances to the diagram, especially their pictogram elements<br>
  * @author Kevin Kassin
  */
-public class InheritancePattern extends AbstractConnectionPattern {
+public class InheritancePattern extends FRaMEDConnectionPattern {
 	
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
@@ -47,25 +42,15 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	/**
 	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
 	 */
-	private static final int INHERITANCE_ARROWHEAD_LENGTH = LayoutLiterals.INHERITANCE_ARROWHEAD_LENGTH,
-							 INHERITANCE_ARROWHEAD_HEIGHT = LayoutLiterals.INHERITANCE_ARROWHEAD_HEIGHT;
+	private static final int INHERITANCE_ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
+							 INHERITANCE_ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
 							 
 	/**
 	 * the color values used for the polyline and the arrowhead of inheritances gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-										COLOR_INHERITANCE_ARROWHEAD = LayoutLiterals.COLOR_INHERITANCE_ARROWHEAD;		
-
-	/**
-	 * the pictogramm service used to create free form connections and decorators for the inheritances
-	 */
-	private static final IPeCreateService pictogramElementCreateSerive = Graphiti.getPeCreateService();
+										COLOR_INHERITANCE_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;		
 	
-	/**
-	 * the graphic algorithm service used to create polylines and polygons for the inheritances
-	 */
-	private static final IGaService graphicAlgorithmService = Graphiti.getGaService();
-		
 	/**
 	 * Class constructor
 	 */
@@ -99,6 +84,7 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * returns true if the business object is a inheritance
 	 * @return if a inheritance can be added
 	 */
+	@Override
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
@@ -115,6 +101,7 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * Step 2: create the a connection decorator and a arrowhead as its graphic algorithm 
 	 * Step 3: link the pictogram elements and the business objects
 	 */
+	@Override
 	public PictogramElement add(IAddContext addContext) {
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) addContext;
 	    Relation addedInheritance = (Relation) addContext.getNewObject();
@@ -153,6 +140,7 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * (%) target and source shape are of the same type
 	 * @return if inheritance can be added
 	 */
+	@Override
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
@@ -161,12 +149,12 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
-	    		if(sourceShape.getType() == Type.NATURAL_TYPE) 
-		    		if(targetShape.getType() == Type.NATURAL_TYPE) return true;
-		    	if(sourceShape.getType() == Type.DATA_TYPE)	
-		    		if(targetShape.getType() == Type.DATA_TYPE) return true;
-		    	if(sourceShape.getType() == Type.COMPARTMENT_TYPE)	
-		    		if(targetShape.getType() == Type.COMPARTMENT_TYPE) return true;
+	    		if(sourceShape.getType() == Type.NATURAL_TYPE ||
+	    		   sourceShape.getType() == Type.DATA_TYPE ||
+	    		   sourceShape.getType() == Type.COMPARTMENT_TYPE ||
+	    		   sourceShape.getType() == Type.ROLE_TYPE)
+	    			if(targetShape.getType() == sourceShape.getType())
+	    				return true;
 	    }	}
 	    return false;
 	}
@@ -179,13 +167,15 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * (2) source shape is of valid type 
 	 * @return if inheritance can be started
 	 */
+	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.NATURAL_TYPE || 
 			   sourceShape.getType() == Type.DATA_TYPE ||
-			   sourceShape.getType() == Type.COMPARTMENT_TYPE)
+			   sourceShape.getType() == Type.COMPARTMENT_TYPE ||
+			   sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
 		}	
 		return false;
@@ -195,10 +185,11 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	 * creates the business object of an inheritance using the following steps:
 	 * <p>
 	 * Step 1: get source and target shapes<br>
-	 * Step 2: get new inheritance from iorm model and add it to the resource of the diagram<br>
+	 * Step 2: get new inheritance and add it to the resource of the diagram<br>
 	 * Step 3: set source, target and container of inheritance<br>
 	 * Step 4: call add operation of this pattern
 	 */
+	@Override
 	public Connection create(ICreateConnectionContext createContext) {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
@@ -221,19 +212,4 @@ public class InheritancePattern extends AbstractConnectionPattern {
 	    if(canAdd(addContext)) add(addContext); 	        
 	    return newConnection;
 	}
-	
-	/**
-	 * helper method to get the iorm model shape for a given anchor
-	 * @param anchor the anchor that belongs to the shape to get
-	 * @return the shape that has the give anchor
-	 */
-	private org.framed.iorm.model.Shape getShapeForAnchor(Anchor anchor) {
-		Object object = null;
-		if (anchor != null) { object = getBusinessObjectForPictogramElement(anchor.getParent()); }
-		if (object != null) {
-			if (object instanceof org.framed.iorm.model.Shape)
-				return (org.framed.iorm.model.Shape) object;
-		}
-		return null;
-	}	
 }

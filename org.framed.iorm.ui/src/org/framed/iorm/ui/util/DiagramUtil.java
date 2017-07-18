@@ -81,7 +81,7 @@ public class DiagramUtil {
 		//Step 1
 		String name = null;
 		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_TYPEBODY) ||
-				PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+	       PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
 			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
 			if(PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_GROUP_NAME) ||
 			   PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))

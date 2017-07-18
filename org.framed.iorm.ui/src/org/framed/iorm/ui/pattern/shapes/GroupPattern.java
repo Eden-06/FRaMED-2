@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -106,6 +107,12 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				   		 SHAPE_ID_GROUP_CONTENT_PREVIEW = IdentifierLiterals.SHAPE_ID_GROUP_CONTENT_PREVIEW,
 				   		 SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
 				   		 SHAPE_ID_GROUPS_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_GROUPS_INDICATOR_DOTS;
+	
+	/**
+	 * value of the property shape id for a container shape and a type body shape of a compartment type
+	 */
+	private final String SHAPE_ID_COMPARTMENTTYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER,
+						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
 
 	/**
 	 * identifier literals used for the groups content diagram gathered from {@link IdentifierLiterals}
@@ -763,8 +770,8 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * deletes the group as cares about all related concerns using the following steps
 	 * <p>
 	 * Step 1: It gets the groups diagram and creates a {@link DeleteContext} for it.<br>
-	 * Step 2: It gets all group that are a child of this group to delete them as well. This is needed to be explicitly
-	 * 		   since otherwise the diagrams of the child groups would not be deleted.<br>
+	 * Step 2: It gets all groups and compartment types that are a child of this group to delete them as well. This is needed to be 
+	 * 		   explicitly since otherwise the diagrams of the child groups would not be deleted.<br>
 	 * Step 3: It closes all editors that opened the diagram of this group to delete.<br>
 	 * Step 4: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
 	 * Step 5: It deletes the shapes gathered in Step 1, 2 and 4. It also updates a group in which the group is in, if any.
@@ -773,7 +780,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
-		List<ContainerShape> innerGroupsToDelete = new ArrayList<ContainerShape>();
+		List<ContainerShape> innerGroupsOrCompartmentTypesToDelete = new ArrayList<ContainerShape>();
 		//Step 1
 		Diagram groupDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram(), Type.GROUP);
 		if(groupDiagram != null) {	
@@ -781,11 +788,12 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 			//Step 2
 			for(Shape shape : groupDiagram.getChildren()) {
-				if(shape instanceof ContainerShape &&
-					PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) {
-					innerGroupsToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
-				}
-			}
+				if(shape instanceof ContainerShape) {
+					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) 
+						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
+					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTAINER))
+						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
+			}	}
 			//Step 3
 			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 			for(IEditorReference editorReference : openEditors) {
@@ -803,11 +811,18 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 			//Step 5
-			for(ContainerShape innerGroupToDelete : innerGroupsToDelete) {
-				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupToDelete);
-				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-				delete(deleteContextForChildDiagram);
-			}
+			for(ContainerShape innerGroupOrCompartmentTypeToDelete : innerGroupsOrCompartmentTypesToDelete) {
+				if(PropertyUtil.isShape_IdValue(innerGroupOrCompartmentTypeToDelete, SHAPE_ID_GROUP_TYPEBODY)) {
+					DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
+					deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+					delete(deleteContextForChildDiagram);
+				} else {
+					if(PropertyUtil.isShape_IdValue(innerGroupOrCompartmentTypeToDelete, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+						DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
+						deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+						IDeleteFeature deleteFeatureForCompartmentDiagram = getFeatureProvider().getDeleteFeature(deleteContextForChildDiagram);
+						deleteFeatureForCompartmentDiagram.delete(deleteContextForChildDiagram);	
+			}	}	}
 			super.delete(deleteContextForAllShapes);
 			super.delete(deleteContextForGroupDiagram);
 			updateContainingGroupOrCompartmentType();

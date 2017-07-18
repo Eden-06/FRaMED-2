@@ -94,25 +94,21 @@ public class LayoutLiterals {
 	/**
 	 * color value for connections
 	 * <p>
-	 * the color of the line of a connection
+	 * can be:<br>
+	 * (1) the color of the line of a connection or<br>
+	 * (2) the color of arrowheads of connections
 	 */
-	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK;
+	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK,
+									   COLOR_ARROWHEAD = IColorConstant.WHITE;
 	
 	/**
-	 * layout integers for inhertances
+	 * layout integers for connections
 	 * <p>
 	 * can be:<br>
-	 * (1) the length of the arrowhead of an inheritance
-	 * (2) the height of the arrowhead of an inheritance 
+	 * (1) the lenght of the arrowheads of connections or<br>
+	 * (2) the height of the arrowheads of connections 
 	 */
-	public static final int INHERITANCE_ARROWHEAD_LENGTH = 15,	
-							INHERITANCE_ARROWHEAD_HEIGHT = 10;
-	
-	/**
-	 * color values for inheritances
-	 * <p>
-	 * the color of the inner place of the arrowhead of an inheritance
-	 */
-	public static final IColorConstant COLOR_INHERITANCE_ARROWHEAD = IColorConstant.WHITE;
+	public static final int ARROWHEAD_LENGTH = 15,	
+							ARROWHEAD_HEIGHT = 10;
 	
 }

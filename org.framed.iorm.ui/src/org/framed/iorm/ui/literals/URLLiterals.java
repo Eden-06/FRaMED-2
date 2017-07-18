@@ -34,23 +34,33 @@ public class URLLiterals {
 	private static final String IMG_FILE_PATH_PREFIX = "icons/features/icon_";
 	
 	/**
-	 * file paths to icons used for create features
+	 * file paths to icons used for shape create features
 	 * <p>
 	 * can be:<br>
 	 * (1) the file path to the icon for the natural type create feature or<br>
 	 * (2) the file path to the icon for the data type create feature or<br>
 	 * (3) the file path to the icon for the attribute create feature or<br>
 	 * (4) the file path to the icon for the operation create feature or<br>
-	 * (5) the file path to the icon for the inheritance create feature or<br>
-	 * (6) the file path to the icon for the group create feature or<br>
-	 * (7) the file path to the icon for the role type create feature
+	 * (5) the file path to the icon for the group create feature or<br>
+	 * (6) the file path to the icon for the role type create feature
 	 */
 	public static final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = IMG_FILE_PATH_PREFIX + "compartmenttype.png",
 							   IMG_FILEPATH_FEATURE_NATURALTYPE = IMG_FILE_PATH_PREFIX + "naturaltype.png",
 							   IMG_FILEPATH_FEATURE_DATATYPE = IMG_FILE_PATH_PREFIX + "datatype.png",
 							   IMG_FILEPATH_FEATURE_ATTRIBUTE = IMG_FILE_PATH_PREFIX + "attribute.gif",
 							   IMG_FILEPATH_FEATURE_OPERATION = IMG_FILE_PATH_PREFIX + "operation.gif",
-							   IMG_FILEPATH_FEATURE_INHERITANCE = IMG_FILE_PATH_PREFIX + "inheritance.png",
 							   IMG_FILEPATH_FEATURE_GROUP = IMG_FILE_PATH_PREFIX + "group.png",
 							   IMG_FILEPATH_FEATURE_ROLETYPE = IMG_FILE_PATH_PREFIX + "roletype.png";
+	
+	/**
+	 * file paths to icons used for connection create features
+	 * <p>
+	 * can be:<br>
+	 * (1) the file path to the icon for the inheritance create feature or<br>
+	 * (2) the file path to the icon for the role implication create feature
+	 * 
+	 */
+	public static final String IMG_FILEPATH_FEATURE_INHERITANCE = IMG_FILE_PATH_PREFIX + "inheritance.png",
+							   IMG_FILEPATH_FEATURE_ROLEIMPLICATION = IMG_FILE_PATH_PREFIX + "roleimplication.png";
+	
 }
