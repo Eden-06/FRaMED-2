@@ -34,7 +34,9 @@ import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
+import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
+import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
 /**
@@ -55,6 +57,16 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	private final String DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
 	
 	/**
+	 * the palette type for a editor showing a compartments diagram gathered from {@link IdentifierLiterals}
+	 */
+	private final String PALETTE_TYPE_COMPARTMENTVIEW = IdentifierLiterals.PALETTE_TYPE_COMPARTMENTVIEW;
+	
+	/**
+	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
+	 */
+	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	
+	/**
 	 * name literals for the pages of the multipage editor and the model feature
 	 * <p>
 	 * for reference check the Strings in {@link NameLiterals}
@@ -65,6 +77,11 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 						 TEXT_CROM_PAGE_NAME = NameLiterals.TEXT_CROM_PAGE_NAME,
 						 FEATURE_PAGE_NAME = NameLiterals.FEATURE_PAGE_NAME,
 						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
+	
+	/**
+	 * the file extension for role model files gathered from {@link NameLiterals}
+	 */
+	private final String FILE_EXTENSION_FOR_DIAGRAMS = NameLiterals.FILE_EXTENSION_FOR_DIAGRAMS;
 		
 	/**
 	 * text literas used for messages
@@ -166,9 +183,9 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * <p>
 	 * also sets the name of the multipage editor
 	 * (1) If the editor input is of type {@link IFileEditorInput} it calls {@link #addPageWithIFileEditorInput}
-	 * 	   and sets the multipage editors name.<br>
+	 * 	   and sets the multipage editors name and its palette type.<br>
 	 * (2) If the editor input is of type {@link DiagramEditorInput} it calls {@link #addPagesWithDiagramEditorInput},
-	 *     gets the referenced diagram of the editor input to set the multipage editors name.<br>
+	 *     gets the referenced diagram of the editor input to set the multipage editors name and its palette type.<br>
 	 * (3) else throw {@link InvalidTypeOfEditorInputException}
 	 * @throws InvalidTypeOfEditorInputException
 	 */
@@ -178,30 +195,59 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			try {
 				addPageWithIFileEditorInput();
 			} catch (PartInitException e) { e.printStackTrace(); }
+			setEditorsName();
+		} else {
+			if(getEditorInput() instanceof DiagramEditorInput) {
+				DiagramEditorInput diagramEditorInput = (DiagramEditorInput) getEditorInput();
+				try {
+					addPagesWithDiagramEditorInput(diagramEditorInput, null);
+				} catch (PartInitException e) { e.printStackTrace(); }
+			} else	throw new InvalidTypeOfEditorInputException();
+		}
+		setEditorsName();
+		setPaletteType();
+	}
+	
+	/**
+	 * sets the multipage editors name depending on the editor input
+	 */
+	private void setEditorsName() {
+		if(getEditorInput() instanceof IFileEditorInput) {
 			setPartName(getEditorInput().getName());
-			return;
-		}	
+		}
 		if(getEditorInput() instanceof DiagramEditorInput) {
-			DiagramEditorInput diagramEditorInput = (DiagramEditorInput) getEditorInput();
-			try {
-				addPagesWithDiagramEditorInput(diagramEditorInput, null);
-			} catch (PartInitException e) { e.printStackTrace(); }
-			Resource resource = EditorInputUtil.getResourceFromEditorInput(diagramEditorInput);	
+			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
 			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
 			org.framed.iorm.model.Shape groupOrCompartmentType = null;
 			if(diagram.getLink().getBusinessObjects().size() == 1) {
 				if(diagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 					Model model = (Model) diagram.getLink().getBusinessObjects().get(0);
 					groupOrCompartmentType = model.getParent();
-			}	}	
-			setPartName(groupOrCompartmentType.getType().getName().toUpperCase() + " " + 
-						groupOrCompartmentType.getName() + " " + 
-						"(" + DiagramUtil.getMainDiagramForAnyDiagram(diagram).getName() + ")");
-			return;
-		} 
-		throw new InvalidTypeOfEditorInputException();
-	}
-
+			}	}
+			setPartName(DiagramUtil.getMainDiagramForAnyDiagram(diagram).getName() + FILE_EXTENSION_FOR_DIAGRAMS + " " +
+						groupOrCompartmentType.getType().getName() + " " +
+						groupOrCompartmentType.getName());
+	}	}
+	
+	/**
+	 * set the palette type of the multipage editor
+	 * <p>
+	 * only sets a new palette type if diagram of the editor is compartments type diagram, since the other palette type
+	 * existing is set as standard value
+	 */
+	private void setPaletteType() {
+		if(getEditorInput() instanceof DiagramEditorInput) {
+			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
+			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
+			if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
+				ToolBehaviorProvider toolBehaviorProvider = 
+					(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+				toolBehaviorProvider.setPaletteType(PALETTE_TYPE_COMPARTMENTVIEW);	
+				editorDiagram.getDiagramBehavior().refreshPalette();
+			}	
+		}
+	} 
+	
 	/**
 	 * This method add pages to the multipage editor if the editor input is of type {@link IFileEditorInput} 
 	 * by creating an {@link DiagramEditorInput} with the <em>main diagram</em> of the CROM Diagram. Then it call the

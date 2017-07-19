@@ -235,6 +235,6 @@ public class IdentifierLiterals {
 	 * (1) the palette type used outside a stepped in compartment type or<br>
 	 * (2) the pallete type used in a editor of a diagram of a compartment type
 	 */
-	public static final String PALETTE_TYPE_CLASS = "palette_type_class",
-							   PALETTE_TYPE_ROLE = "palette_type_role";
+	public static final String PALETTE_TYPE_TOPLEVELVIEW = "palette_type_toplevel",
+							   PALETTE_TYPE_COMPARTMENTVIEW = "palette_type_compartment";
 }

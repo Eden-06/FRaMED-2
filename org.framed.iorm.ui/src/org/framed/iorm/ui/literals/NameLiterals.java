@@ -50,7 +50,7 @@ public class NameLiterals {
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
 			   				   STANDARD_OPERATION_NAME = "operation():type",
 			   				   STANDARD_ROLETYPE_NAME = "roleType",
-			   				   STANDARD_RELATIONSHIP_NAME = "relationship";
+			   				   STANDARD_RELATIONSHIP_NAME = "relationshipType";
 							  
 	/**
 	 * name literals for commands

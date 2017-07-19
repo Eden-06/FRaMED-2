@@ -7,6 +7,7 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -110,7 +111,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    ConnectionDecorator connectionDecoratorForName = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.5, true);   
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
-	    nameText.setForeground(manageColor(COLOR_TEXT));  
+	    nameText.setForeground(manageColor(COLOR_TEXT)); 
+	    nameText.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.1, true);

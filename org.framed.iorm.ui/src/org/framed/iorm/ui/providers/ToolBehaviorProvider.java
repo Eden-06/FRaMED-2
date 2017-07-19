@@ -80,8 +80,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	/**
 	 * identifiers used to differ the types of palettes gathered from {@link IdentifierLiterals}
 	 */
-	private final String PALETTE_TYPE_CLASS = IdentifierLiterals.PALETTE_TYPE_CLASS,
-						 PALETTE_TYPE_ROLE = IdentifierLiterals.PALETTE_TYPE_ROLE;
+	private final String PALETTE_TYPE_TOPLEVELVIEW = IdentifierLiterals.PALETTE_TYPE_TOPLEVELVIEW,
+						 PALETTE_TYPE_COMPARTMENTVIEW = IdentifierLiterals.PALETTE_TYPE_COMPARTMENTVIEW;
 	
 	/**
 	 * the current type of the palette of the editor
@@ -89,7 +89,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * This attribute is set by the {@link StepInFeature}, {@link StepInNewTabFeature} and {@link StepOutFeature}.
 	 * It is used to calculate the palette element to display depending on the type of diagram the editor is showing.
 	 */
-	private String paletteType = PALETTE_TYPE_CLASS;
+	private String paletteType = PALETTE_TYPE_TOPLEVELVIEW;
 	
 	/**
 	 * Class constructor
@@ -195,7 +195,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		List<IPaletteCompartmentEntry> paletteCompartmentEntry = new ArrayList<IPaletteCompartmentEntry>();
 		List<IToolEntry> toolEntriesShapesToDelete = new ArrayList<IToolEntry>();
 		List<IToolEntry> toolEntriesConnectionToDelete = new ArrayList<IToolEntry>();
-		IPaletteCompartmentEntry[] superCompartments = super.getPalette();
+		IPaletteCompartmentEntry[] superCompartments = super.getPalette();		
 	    //Step 1
 		for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 	    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
@@ -205,7 +205,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    		toolEntriesShapesToDelete.add(toolEntry);
 	    }
 		//Step 2
-		if(paletteType.equals(PALETTE_TYPE_CLASS)) {
+		if(paletteType.equals(PALETTE_TYPE_TOPLEVELVIEW)) {
 			for(int i = 0; i < superCompartments[0].getToolEntries().size(); i++) {
 				IToolEntry toolEntry = superCompartments[0].getToolEntries().get(i);
 				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME) ||
@@ -220,11 +220,10 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		    		toolEntriesShapesToDelete.add(toolEntry);
 		}   }
 		//Step 3
-		if(paletteType.equals(PALETTE_TYPE_ROLE)) {
+		if(paletteType.equals(PALETTE_TYPE_COMPARTMENTVIEW)) {
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-			   	if(toolEntry.getLabel().equals(COMPARTMENTTYPE_FEATURE_NAME) ||
-			   	   toolEntry.getLabel().equals(NATURALTYPE_FEATURE_NAME) ||
+			   	if(toolEntry.getLabel().equals(NATURALTYPE_FEATURE_NAME) ||
 			   	   toolEntry.getLabel().equals(DATATYPE_FEATURE_NAME) ||
 			   	   toolEntry.getLabel().equals(GROUP_FEATURE_NAME))
 			   		toolEntriesShapesToDelete.add(toolEntry);

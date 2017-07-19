@@ -312,7 +312,7 @@ public class PatternUtil {
 	 * @return the value of preview string of group or compartment type content for the given modelElement
 	 */
 	public static String getGroupOrCompartmentTypeElementText(ModelElement modelElement) {
-		return modelElement.getType().toString().toUpperCase() + ": " + modelElement.getName();
+		return modelElement.getType().toString() + " " + modelElement.getName();
 	}
 
 }

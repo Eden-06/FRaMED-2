@@ -1,10 +1,12 @@
 package org.framed.iorm.ui.pattern.shapes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -93,13 +95,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */
 	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM,
 						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
-	
-	/**
-	 * values for the property diagram kind for the diagrams in which a compartment type can be created and added in
-	 */
-	private final String DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
-					 	 DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM;
-	
+		
 	/**
 	 * identifier literals used as shape ids for the natural type 
 	 * <p>
@@ -235,8 +231,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a compartment type and <br>
-	 * (2) if the target container is a diagram with a model linked and<br>
-	 * (3) the target container is the main diagram or a diagram of group
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the compartment type can be added
 	 */
 	@Override
@@ -244,13 +239,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.COMPARTMENT_TYPE) {
-				ContainerShape containerShape = getDiagram();
-				if(containerShape instanceof Diagram) {
-					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
-						   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-							return true;	
-		}	}	}	}
+				if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+					return true;	
+		}	}	}
 		return false;
 	}
 	
@@ -421,15 +412,12 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the target container is a diagram with a model linked
-	 * (2) the target container is the main diagram or a diagram of group 
 	 * @return if an compartment type can be created
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-		   if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
-			  PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-			   return true;
+			return true;
 		}   
 		return false;
 	}
@@ -983,14 +971,16 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * Step 1: It deletes attached connection to it.<br>
 	 * Step 2: It gets the groups diagram and creates a {@link DeleteContext} for it.<br>
-	 * Step 3: It closes all editors that opened the diagram of this group to delete.<br>
-	 * Step 4: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
-	 * Step 5: It deletes the shapes gathered in Step 1, 2 and 4. It also updates a group in which the group is in, if any.
+	 * TODO
+	 * Step 4: It closes all editors that opened the diagram of this group to delete.<br>
+	 * Step 5: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
+	 * Step 6: It deletes the shapes gathered in Step 1, 2 and 4. It also updates a group in which the group is in, if any.
 	 * <p>
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
+		List<ContainerShape> innerGroupsOrCompartmentTypesToDelete = new ArrayList<ContainerShape>();
 		//Step 1
 		deleteAttachedConnections(deleteContext);
 		//Step 2
@@ -998,7 +988,13 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		if(compartmentDiagram != null) {	
 			DeleteContext deleteContextForGroupDiagram = new DeleteContext(compartmentDiagram);
 			deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			//Step 3
+			//Step 3 TODO
+			for(Shape shape : compartmentDiagram.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTAINER))
+						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
+			}	}
+			//Step 4
 			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 			for(IEditorReference editorReference : openEditors) {
 				try {
@@ -1010,11 +1006,18 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 					}
 				} catch (PartInitException e) { e.printStackTrace(); }
 			}
-			//Step 4 
+			//Step 5 
 			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
 			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			//Step 5
+			//Step 6 TODO
+			for(ContainerShape innerGroupOrCompartmentTypeToDelete : innerGroupsOrCompartmentTypesToDelete) {
+				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
+				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+				IDeleteFeature deleteFeatureForCompartmentDiagram = getFeatureProvider().getDeleteFeature(deleteContextForChildDiagram);
+				deleteFeatureForCompartmentDiagram.delete(deleteContextForChildDiagram);
+			}
+			//Step 7
 			super.delete(deleteContextForAllShapes);
 			super.delete(deleteContextForGroupDiagram);
 			updateContainingGroupOrCompartmentType();
