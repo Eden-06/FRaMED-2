@@ -9,12 +9,15 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
 import org.framed.iorm.featuremodel.FeaturemodelFactory;
 import org.framed.iorm.featuremodel.FeaturemodelPackage;
+
 import org.framed.iorm.model.OrmPackage;
+
 import org.framed.iorm.model.impl.OrmPackageImpl;
 
 /**

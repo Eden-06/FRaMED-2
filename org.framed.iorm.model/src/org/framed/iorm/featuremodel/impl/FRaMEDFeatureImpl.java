@@ -5,6 +5,7 @@ package org.framed.iorm.featuremodel.impl;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
 import org.framed.iorm.featuremodel.FeaturemodelPackage;

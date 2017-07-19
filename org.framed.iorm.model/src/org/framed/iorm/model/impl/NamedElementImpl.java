@@ -5,6 +5,7 @@ package org.framed.iorm.model.impl;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmPackage;
 

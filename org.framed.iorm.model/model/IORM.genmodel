@@ -29,7 +29,6 @@
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/Group"/>
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/Fulfillment"/>
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/RelationshipImplication"/>
-      <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/RelationshipShapeChild"/>
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/Acyclic"/>
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/Reflexive"/>
       <genEnumLiterals ecoreEnumLiteral="IORM.ecore#//Type/RelationshipExclusion"/>

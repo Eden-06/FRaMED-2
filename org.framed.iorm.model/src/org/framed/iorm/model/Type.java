@@ -179,16 +179,6 @@ public enum Type implements Enumerator {
 	RELATIONSHIP_IMPLICATION(15, "RelationshipImplication", "RelationshipImplication"),
 
 	/**
-	 * The '<em><b>Relationship Shape Child</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #RELATIONSHIP_SHAPE_CHILD_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	RELATIONSHIP_SHAPE_CHILD(16, "RelationshipShapeChild", "RelationshipShapeChild"),
-
-	/**
 	 * The '<em><b>Acyclic</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -196,7 +186,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ACYCLIC(17, "Acyclic", "Acyclic"),
+	ACYCLIC(16, "Acyclic", "Acyclic"),
 
 	/**
 	 * The '<em><b>Reflexive</b></em>' literal object.
@@ -206,7 +196,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REFLEXIVE(18, "Reflexive", "Reflexive"),
+	REFLEXIVE(17, "Reflexive", "Reflexive"),
 
 	/**
 	 * The '<em><b>Relationship Exclusion</b></em>' literal object.
@@ -216,7 +206,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELATIONSHIP_EXCLUSION(19, "RelationshipExclusion", "RelationshipExclusion");
+	RELATIONSHIP_EXCLUSION(18, "RelationshipExclusion", "RelationshipExclusion");
 
 	/**
 	 * The '<em><b>Compartment Type</b></em>' literal value.
@@ -459,21 +449,6 @@ public enum Type implements Enumerator {
 	public static final int RELATIONSHIP_IMPLICATION_VALUE = 15;
 
 	/**
-	 * The '<em><b>Relationship Shape Child</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Relationship Shape Child</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #RELATIONSHIP_SHAPE_CHILD
-	 * @model name="RelationshipShapeChild"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int RELATIONSHIP_SHAPE_CHILD_VALUE = 16;
-
-	/**
 	 * The '<em><b>Acyclic</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -486,7 +461,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ACYCLIC_VALUE = 17;
+	public static final int ACYCLIC_VALUE = 16;
 
 	/**
 	 * The '<em><b>Reflexive</b></em>' literal value.
@@ -501,7 +476,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int REFLEXIVE_VALUE = 18;
+	public static final int REFLEXIVE_VALUE = 17;
 
 	/**
 	 * The '<em><b>Relationship Exclusion</b></em>' literal value.
@@ -516,7 +491,7 @@ public enum Type implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RELATIONSHIP_EXCLUSION_VALUE = 19;
+	public static final int RELATIONSHIP_EXCLUSION_VALUE = 18;
 
 	/**
 	 * An array of all the '<em><b>Type</b></em>' enumerators.
@@ -526,8 +501,7 @@ public enum Type implements Enumerator {
 	 */
 	private static final Type[] VALUES_ARRAY = new Type[] { COMPARTMENT_TYPE, NATURAL_TYPE, ROLE_TYPE, DATA_TYPE,
 			ROLE_IMPLICATION, ROLE_EQUIVALENCE, INHERITANCE, RELATIONSHIP, TOTAL, CYCLIC, IRREFLEXIVE, ROLE_PROHIBITION,
-			ROLE_GROUP, GROUP, FULFILLMENT, RELATIONSHIP_IMPLICATION, RELATIONSHIP_SHAPE_CHILD, ACYCLIC, REFLEXIVE,
-			RELATIONSHIP_EXCLUSION, };
+			ROLE_GROUP, GROUP, FULFILLMENT, RELATIONSHIP_IMPLICATION, ACYCLIC, REFLEXIVE, RELATIONSHIP_EXCLUSION, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Type</b></em>' enumerators.
@@ -615,8 +589,6 @@ public enum Type implements Enumerator {
 			return FULFILLMENT;
 		case RELATIONSHIP_IMPLICATION_VALUE:
 			return RELATIONSHIP_IMPLICATION;
-		case RELATIONSHIP_SHAPE_CHILD_VALUE:
-			return RELATIONSHIP_SHAPE_CHILD;
 		case ACYCLIC_VALUE:
 			return ACYCLIC;
 		case REFLEXIVE_VALUE:

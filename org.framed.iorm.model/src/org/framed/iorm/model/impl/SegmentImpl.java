@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmPackage;
 import org.framed.iorm.model.Segment;

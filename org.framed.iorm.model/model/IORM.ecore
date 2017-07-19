@@ -67,10 +67,9 @@
     <eLiterals name="Group" value="13"/>
     <eLiterals name="Fulfillment" value="14"/>
     <eLiterals name="RelationshipImplication" value="15" literal="RelationshipImplication"/>
-    <eLiterals name="RelationshipShapeChild" value="16"/>
-    <eLiterals name="Acyclic" value="17"/>
-    <eLiterals name="Reflexive" value="18"/>
-    <eLiterals name="RelationshipExclusion" value="19" literal="RelationshipExclusion"/>
+    <eLiterals name="Acyclic" value="16"/>
+    <eLiterals name="Reflexive" value="17"/>
+    <eLiterals name="RelationshipExclusion" value="18" literal="RelationshipExclusion"/>
   </eClassifiers>
   <eSubpackages name="featuremodel" nsURI="http://iorm.featuremodel/1.0" nsPrefix="org.framed.iorm.model.featuremodel">
     <eClassifiers xsi:type="ecore:EClass" name="FRaMEDFeature">

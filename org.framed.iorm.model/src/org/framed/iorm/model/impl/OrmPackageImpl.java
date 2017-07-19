@@ -9,8 +9,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.framed.iorm.featuremodel.FeaturemodelPackage;
+
 import org.framed.iorm.featuremodel.impl.FeaturemodelPackageImpl;
+
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
@@ -588,7 +591,6 @@ public class OrmPackageImpl extends EPackageImpl implements OrmPackage {
 		addEEnumLiteral(typeEEnum, Type.GROUP);
 		addEEnumLiteral(typeEEnum, Type.FULFILLMENT);
 		addEEnumLiteral(typeEEnum, Type.RELATIONSHIP_IMPLICATION);
-		addEEnumLiteral(typeEEnum, Type.RELATIONSHIP_SHAPE_CHILD);
 		addEEnumLiteral(typeEEnum, Type.ACYCLIC);
 		addEEnumLiteral(typeEEnum, Type.REFLEXIVE);
 		addEEnumLiteral(typeEEnum, Type.RELATIONSHIP_EXCLUSION);
