@@ -1,14 +1,18 @@
 package org.framed.iorm.ui.providers;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.framed.iorm.ui.graphitifeatures.ChangeConfigurationFeature;
+import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
+import org.framed.iorm.ui.graphitifeatures.FRaMEDMoveConnectionDecoratorFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
@@ -61,7 +65,25 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());
-	}	
+	}
+	
+	/**
+	 * sets the graphiti custom features that are used by editor for the diagram type
+	 * <p>
+	 * It makes the following features available:<br>
+	 * (1) the feature to change the configuration of the diagram 
+	 * (2) the feature to step in a group or compartment type 
+	 * (3) the feature to step in a group or compartment type in a new tab
+	 * (4) the feature to step out of a group or compartment type
+	 */
+	@Override
+	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
+	    return new ICustomFeature[] { new ChangeConfigurationFeature(this),
+	    							  new EditRelationshipFeature(this),
+	    						 	  new StepInFeature(this),
+	    							  new StepInNewTabFeature(this),
+	    						 	  new StepOutFeature(this)};
+	} 
 	
 	/**
 	 * disables the remove feature
@@ -78,19 +100,11 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}	};	}
 	
 	/**
-	 * sets the graphiti custom features that are used by editor for the diagram type
-	 * <p>
-	 * It makes the following features available:<br>
-	 * (1) the feature to change the configuration of the diagram 
-	 * (2) the feature to step in a group or compartment type 
-	 * (3) the feature to step in a group or compartment type in a new tab
-	 * (4) the feature to step out of a group or compartment type
+	 * replaces the the default feature that moves connection decorators with one that differs between different types
+	 * of decorators and disables moving some of these
 	 */
 	@Override
-	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
-	    return new ICustomFeature[] { new ChangeConfigurationFeature(this),
-	    						 	  new StepInFeature(this),
-	    							  new StepInNewTabFeature(this),
-	    						 	  new StepOutFeature(this)};
-	} 
+	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
+		return new FRaMEDMoveConnectionDecoratorFeature(this);
+	}
 }

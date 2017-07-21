@@ -17,6 +17,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -38,6 +39,11 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
 	private static final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE;
+	
+	/**
+	 * the value for the property shape id  for the connection decorator of the inheritance
+	 */
+	private static final String SHAPE_ID_INHERITANCE_DECORATOR = IdentifierLiterals.SHAPE_ID_INHERITANCE_DECORATOR;
 	
 	/**
 	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
@@ -122,6 +128,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
 	    arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
 	    arrowhead.setBackground(manageColor(COLOR_INHERITANCE_ARROWHEAD));
+	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_INHERITANCE_DECORATOR);
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;

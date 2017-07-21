@@ -16,6 +16,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -118,6 +119,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
 	    arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
 	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
+	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;

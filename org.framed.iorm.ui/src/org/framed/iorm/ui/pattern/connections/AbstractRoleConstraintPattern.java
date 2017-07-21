@@ -8,6 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.literals.IdentifierLiterals;
 
 /**
  * This is the abstract sub class of the pattern for role constraint. It collects similiar operations
@@ -16,6 +17,11 @@ import org.framed.iorm.model.Type;
  * @author Kevin Kassin
  */
 public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPattern{
+	
+	/**
+	 * value for the property shape id for the decorator of role constraints gathered form {@link IdentifierLiterals}
+	 */
+	protected final String SHAPE_ID_ROLE_CONSTRAINT_DECORATOR = IdentifierLiterals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR;
 	
 	public AbstractRoleConstraintPattern() {
 		super();

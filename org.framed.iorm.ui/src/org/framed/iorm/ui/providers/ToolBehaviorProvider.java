@@ -3,10 +3,13 @@ package org.framed.iorm.ui.providers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
@@ -19,6 +22,8 @@ import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
+import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link
@@ -36,7 +41,6 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	private final String ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = NameLiterals.ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME,
 						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME,
 						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME,
-						 COMPARTMENTTYPE_FEATURE_NAME = NameLiterals.COMPARTMENTTYPE_FEATURE_NAME,
 						 NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
 						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
@@ -49,7 +53,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	private final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME,
 						 ROLEEQUIVALENCE_FEATURE_NAME = NameLiterals.ROLEEQUIVALENCE_FEATURE_NAME,
 						 ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME,
-					     RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME;
+					     RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME,
+					     RELATIONSHIP_DECORATOR_FEATURE_NAME = NameLiterals.RELATIONSHIP_DECORATOR_FEATURE_NAME;
 						 
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
@@ -62,7 +67,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * the name literals for features to probaly add to the context menu for the diagram type
 	 * gathered from {@link NameLiterals}
 	 */
-	private final String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGECONFIGURATION_FEATURE_NAME,
+	private final String CHANGE_CONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME,
+						 EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
 						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME,
 						 STEP_IN_NEW_TAB_FEATURE_NAME = NameLiterals.STEP_IN_NEW_TAB_FEATURE_NAME,
 						 STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME;
@@ -126,13 +132,16 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * <p>
 	 * This operation controls which custom features are shown in the context menu depending on the
 	 * right clicked pictogram element. It does this using the following steps:<br>
-	 * Step 1: It iterates over all custom feature to probably add to the list of custom feature to show in
+	 * Step 1: It gathers the selected pictogram element and its business object.
+	 * Step 2: It iterates over all custom feature to probably add to the list of custom feature to show in
 	 * 		   the context menu.<br>
-	 * Step 2: If its the change configuration custom feature, never add it to this list.<br>
-	 * Step 3: If its the step in or the step in new tab feature, check if the right clicked pictogram element (exactly one!) 
+	 * Step 3: If its the change configuration custom feature, never add it to this list.<br>
+	 * Step 4: If its the edit relationship custom feature, only add it to the list if a connection or decorator of
+	 * 		   a relationship is right clicked.<br>
+	 * Step 5: If its the step in or the step in new tab feature, check if the right clicked pictogram element 
 	 * 		   has a graphics algorithm that is the type body of a group or compartment type. If yes, add the
-	 * 		   corresponding context menu entry to the context menu.
-	 * Step 4: If its the step out feature check, show the feature for a diagram only if its one of a group or compartment type.
+	 * 		   corresponding context menu entry to the context menu.<br>
+	 * Step 6: If its the step out feature check, show the feature for a diagram only if its one of a group or compartment type.
 	 * 		   If a shape is right clicked, get the diagram that contains the shape first and then check for the same criteria
 	 * 		   for this diagram.
 	 */
@@ -141,44 +150,52 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		IContextMenuEntry[] superContextEntries = super.getContextMenu(customContext);
 		List<IContextMenuEntry> contextMenuEntries = new ArrayList<IContextMenuEntry>();
 		//Step 1
-		for(int i = 0; i < superContextEntries.length; i++) {
-			switch(superContextEntries[i].getText()) {
+		if(customContext.getPictogramElements().length == 1) {
+			PictogramElement pictogramElement = customContext.getPictogramElements()[0];
+			if(pictogramElement.getLink().getBusinessObjects().size() == 1) {
+				EObject businessObject = pictogramElement.getLink().getBusinessObjects().get(0);
 				//Step 2
-				case CHANGECONFIGURATION_FEATURE_NAME: 
-					break;
-				//Step 3	
-				case STEP_IN_FEATURE_NAME :
-				case STEP_IN_NEW_TAB_FEATURE_NAME:	
-					if(customContext.getPictogramElements().length == 1) {
-						if(customContext.getPictogramElements()[0].getGraphicsAlgorithm() != null &&
-						   !(customContext.getPictogramElements()[0] instanceof Diagram)) {
-							if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY) ||
-							   PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
-								contextMenuEntries.add(superContextEntries[i]);
-					}	}
-					break;
-				//Step 4	
-				case STEP_OUT_FEATURE_NAME:	
-					if(customContext.getPictogramElements().length == 1) {
-						if(customContext.getPictogramElements()[0] instanceof Diagram) {
-							Diagram diagram = (Diagram) customContext.getPictogramElements()[0];
-							if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
-							   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
-								contextMenuEntries.add(superContextEntries[i]);
-						}
-						if(customContext.getPictogramElements()[0] instanceof Shape) {
-							Shape shape = (Shape) customContext.getPictogramElements()[0];
-							Diagram diagram = DiagramUtil.getDiagramForContainedShape(shape);
-							if(diagram != null) {
+				for(int i = 0; i < superContextEntries.length; i++) {
+					switch(superContextEntries[i].getText()) {
+						//Step 3
+						case CHANGE_CONFIGURATION_FEATURE_NAME: 
+							break;
+						//Step 4	
+						case EDIT_RELATIONSHIP_FEATURE_NAME: 
+							if(pictogramElement instanceof FreeFormConnection ||
+							   pictogramElement instanceof ConnectionDecorator) {
+								if(businessObject instanceof Relation) {
+									Relation relation = (Relation) businessObject;
+									if(relation.getType() == Type.RELATIONSHIP)
+										contextMenuEntries.add(superContextEntries[i]);
+							}	} break;
+						//Step 5	
+						case STEP_IN_FEATURE_NAME :
+						case STEP_IN_NEW_TAB_FEATURE_NAME:	
+							if(pictogramElement instanceof Shape &&
+							   !(pictogramElement instanceof Diagram)) {
+								if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_GROUP_TYPEBODY) ||
+								   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
+									contextMenuEntries.add(superContextEntries[i]);
+							} break;
+						//Step 6	
+						case STEP_OUT_FEATURE_NAME:	
+							if(pictogramElement instanceof Diagram) {
+								Diagram diagram = (Diagram) pictogramElement;
 								if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
 								   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 									contextMenuEntries.add(superContextEntries[i]);
-					}	}	}
-					break;
-				default: 
-					break;	
-			}
-		}
+							} else {
+								if(pictogramElement instanceof Shape) {
+									Diagram diagram = DiagramUtil.getDiagramForContainedShape((Shape) pictogramElement);
+									if(diagram != null) {
+										if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
+										   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+											contextMenuEntries.add(superContextEntries[i]);
+							}	}	} break;
+						default: 
+							break;	
+		}	}	}	}
 		return contextMenuEntries.toArray(new IContextMenuEntry[contextMenuEntries.size()]);
 	}
 	
@@ -201,7 +218,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
 	    	if(toolEntry.getLabel().equals(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME) ||
 	    	   toolEntry.getLabel().equals(MODEL_FEATURE_NAME) ||
-	    	   toolEntry.getLabel().equals(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME))
+	    	   toolEntry.getLabel().equals(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME) ||
+	    	   toolEntry.getLabel().equals(RELATIONSHIP_DECORATOR_FEATURE_NAME))
 	    		toolEntriesShapesToDelete.add(toolEntry);
 	    }
 		//Step 2

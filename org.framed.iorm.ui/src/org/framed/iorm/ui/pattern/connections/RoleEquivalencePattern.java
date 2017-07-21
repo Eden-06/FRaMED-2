@@ -16,6 +16,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -118,6 +119,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    Polygon arrowheadTarget = graphicAlgorithmService.createPolygon(connectionDecoratorTarget, pointsTarget);
 	    arrowheadTarget.setForeground(manageColor(COLOR_CONNECTIONS));
 	    arrowheadTarget.setBackground(manageColor(COLOR_ARROWHEAD));
+	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource;
 	    connectionDecoratorSource = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0, true);
 	    int pointsSource[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 	//Point 1
@@ -126,6 +128,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    Polygon arrowheadSource = graphicAlgorithmService.createPolygon(connectionDecoratorSource, pointsSource);
 	    arrowheadSource.setForeground(manageColor(COLOR_CONNECTIONS));
 	    arrowheadSource.setBackground(manageColor(COLOR_ARROWHEAD));
+	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;

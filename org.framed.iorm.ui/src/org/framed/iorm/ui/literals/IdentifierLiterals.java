@@ -189,6 +189,22 @@ public class IdentifierLiterals {
 							   SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
 	
 	/**
+	 * identifier used for role constraint connection decorators
+	 */
+	public static final String SHAPE_ID_ROLE_CONSTRAINT_DECORATOR = "shape_rc_decorator";
+	
+	/**
+	 * identifier used for the connection decorator of the inheritance relation
+	 */
+	public static final String SHAPE_ID_INHERITANCE_DECORATOR = "shape_inheritance_decorator";
+	
+	/**
+	 * identifiers used for the connection decoratos of the  name and cardinalities of relationships
+	 */
+	public static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = "shape_rst_name",
+							   SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR = "shape_rst_cardinality";
+	
+	/**
 	 * identifiers used for role types
 	 * <p>
 	 * can be for:<br>

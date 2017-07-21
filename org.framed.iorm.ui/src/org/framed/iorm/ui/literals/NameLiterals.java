@@ -86,7 +86,8 @@ public class NameLiterals {
 	 * (1) the name of the inheritance create feature or<br>
 	 * (2) the name of the role implication create feature or<br>
 	 * (3) the name of the role equivalence create feature or<br>
-	 * (4) the name of the role prohibition create feature 
+	 * (4) the name of the role prohibition create feature or<br>
+	 * (5) the name of the relationship create feature
 	 */
 	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
 							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication",
@@ -102,26 +103,30 @@ public class NameLiterals {
 	 * can be:<br>
 	 * (1) the name of the model create feature or<br>
 	 * (2) the name of the common pattern for group and compartment type elements or<br>
-	 * (3) the name of the common pattern for attributes and operations
+	 * (3) the name of the common pattern for attributes and operations or<br>
+	 * (4) the name of the pattern for the decorator of relationships
 	 * <p>
 	 * <em>Group and compartment type elements</em> are just text fields which show the content of a group or
-	 * compartment type in this case. Here are not the actual elements ment, which are saved in the groups or
+	 * compartment type in this case. Here are not the actual elements meant, which are saved in the groups or
 	 * compartment types diagram.
 	 */
 	public static final String MODEL_FEATURE_NAME = "Model", 
 							   GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = "GroupOrCompartmentTypeElementPattern",
-			                   ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = "AttributeOperationCommonPattern";
+			                   ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = "AttributeOperationCommonPattern",
+			                   RELATIONSHIP_DECORATOR_FEATURE_NAME = "Relationship Decorator";
 	
 	/**
 	 * name literals used as names for the graphiti custom features
 	 * <p>
 	 * can be:<br>
 	 * (1) the name of the {@link ChangeConfigurationFeature} or<br>
-	 * (2) the name of the {@link StepInFeature} or<br>
-	 * (3) the name of the {@link StepInNewTabeFeature} or<br>
-	 * (4) the name of the {@link StepOutFeature}
+	 * (2) the name of the {@link EditRelationshipFeature} or<br>
+	 * (3) the name of the {@link StepInFeature} or<br>
+	 * (4) the name of the {@link StepInNewTabeFeature} or<br>
+	 * (5) the name of the {@link StepOutFeature}
 	 */
-	public static final String CHANGECONFIGURATION_FEATURE_NAME = "Change Feature Model",
+	public static final String CHANGE_CONFIGURATION_FEATURE_NAME = "Change Feature Model",
+							   EDIT_RELATIONSHIP_FEATURE_NAME = "Edit Relationship",
 							   STEP_IN_FEATURE_NAME = "Step In",
 							   STEP_IN_NEW_TAB_FEATURE_NAME = "Step In New Tab",
 							   STEP_OUT_FEATURE_NAME = "Step out";

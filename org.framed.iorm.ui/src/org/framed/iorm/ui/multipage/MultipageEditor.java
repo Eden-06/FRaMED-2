@@ -232,8 +232,8 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * set the palette type of the multipage editor
 	 * <p>
-	 * only sets a new palette type if diagram of the editor is compartments type diagram, since the other palette type
-	 * existing is set as standard value
+	 * only sets a new palette type if diagram of the editor is compartments type diagram, since the palette type for
+	 * the toplevel view is set as standard value
 	 */
 	private void setPaletteType() {
 		if(getEditorInput() instanceof DiagramEditorInput) {

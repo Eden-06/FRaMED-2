@@ -26,7 +26,7 @@ public class ConfigurationEditorChangeCommand extends Command {
 	/**
 	 * name literals for features and commands name gather from {@link NameLiterals}. 
 	 */
-	private final String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGECONFIGURATION_FEATURE_NAME,
+	private final String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME,
 				   		 CONFIGURATION_CHANGE_COMMAND_NAME = NameLiterals.CONFIGURATION_CHANGE_COMMAND_NAME;
 	
 	/**

@@ -15,6 +15,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -115,6 +116,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, pointsTarget);
 	    polylineTarget.setLineWidth(3); 
 	    polylineTarget.setForeground(manageColor(COLOR_CONNECTIONS));
+	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource;
 	    connectionDecoratorSource = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0, true);
 	    int pointsSource[] = new int[] { 0, ARROWHEAD_HEIGHT, 	//Point 1
@@ -123,6 +125,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, pointsSource);
 	    polylineSource.setLineWidth(3); 
 	    polylineSource.setForeground(manageColor(COLOR_CONNECTIONS));
+	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;

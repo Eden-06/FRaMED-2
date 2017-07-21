@@ -4,7 +4,6 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
@@ -72,14 +71,13 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
-		if(pictogramElement instanceof Shape &&
-		   !(pictogramElement instanceof ConnectionDecorator)) {
+		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
 				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
-				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
 					return true;
-		}	
+		}	}	
 		return false;
 	}
 
@@ -90,8 +88,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		if(pictogramElement instanceof Shape &&
-		   !(pictogramElement instanceof ConnectionDecorator)) {
+		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
 				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||

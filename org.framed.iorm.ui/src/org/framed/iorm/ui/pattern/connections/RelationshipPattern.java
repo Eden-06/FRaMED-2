@@ -1,13 +1,12 @@
 package org.framed.iorm.ui.pattern.connections;
 
+import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -20,8 +19,17 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.PropertyUtil;
 
-//TODO
+/**
+ * This graphiti pattern is used to work with {@link Relation}s
+ * of the type {@link Type#RELATIONSHIP} in the editor.
+ * <p>
+ * It deals with the following aspects of Relationships:<br>
+ * (1) creating relationships, especially their business object<br>
+ * (2) adding relationships to the diagram, especially their pictogram elements<br>
+ * @author Kevin Kassin
+ */
 public class RelationshipPattern extends FRaMEDConnectionPattern {
 	
 	/**
@@ -36,13 +44,21 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	private static final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
 	
 	/**
-	 * the color values used for the polyline and the text of the relationship gathered from {@link LayoutLiterals}
+	 * values for property shape id of the connection decorators of the relationship
+	 */
+	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
+			   					SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR;
+	
+	/**
+	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
 									    COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
 	
-	//TODO
-	private static final int HIGHT_RELATIONSHIP_TEXT = LayoutLiterals.HIGHT_RELATIONSHIP_TEXT;
+	/**
+	 * layout integers gathered from {@link LayoutLiterals}
+	 */
+	private static final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
 	
 	/**
 	 * Class constructor
@@ -81,19 +97,20 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation.getType() == Type.RELATIONSHIP)
+		   if(relation.getType() == Type.RELATIONSHIP) {
 			   return true;
-		}
+		}	}
 		return false;
 	}
 		
 	/**
 	 * adds the relationship to the pictogram diagram using the following steps:
 	 * <p>
-	 * Step 1: create a connection shape and polyline as its graphic algorithm
-	 * Step 2: create the a connection decorator for the relationships name
-	 * Step 3: create the a connection decorators for the cardinalities
-	 * Step 4: link the pictogram elements and the business objects
+	 * Step 1: create a connection shape and polyline as its graphic algorithm<br>
+	 * Step 2: create the a connection decorator for the relationships name<br>
+	 * Step 3: create the a connection decorators for the cardinalities<br>
+	 * Step 4: link the pictogram elements and the business objects<br>
+	 * Step 5: opens the wizard to edit the relationships name and cardinalities
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
@@ -111,22 +128,30 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    ConnectionDecorator connectionDecoratorForName = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.5, true);   
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
+	    graphicAlgorithmService.setLocation(nameText, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    nameText.setForeground(manageColor(COLOR_TEXT)); 
-	    nameText.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+	    PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
-	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.1, true);
+	    	pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
-	    graphicAlgorithmService.setLocation(sourceLabel, sourceLabel.getX(), -1*HIGHT_RELATIONSHIP_TEXT);
+	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
+	    PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
-	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*HIGHT_RELATIONSHIP_TEXT);
+	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
-		//Step 4
+	    PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR);
+		//Step 4 
 		link(connection, addedRelationship);
+		link(connectionDecoratorForName, addedRelationship);
+		link(connectionDecoratorForSourceLabel, addedRelationship);
+		link(connectionDecoratorForTargetLabel, addedRelationship);
+		//Step 5
+		//TODO call wizard
 		return connection;
 	}
 	
@@ -177,13 +202,12 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	}
 		  
 	/**
-	 * TODO
 	 * creates the business object of a relationship using the following steps:
 	 * <p>
 	 * Step 1: get source and target shapes<br>
 	 * Step 2: get new relationship and add it to the resource of the diagram<br>
 	 * Step 3: set source, target and container of inheritance<br>
-	 * TODO
+	 * Step 4: sets the cardinalities of the relationship to the standard value <b>*</b><br>
 	 * Step 5: call add operation of this pattern
 	 */
 	@Override
@@ -212,10 +236,10 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    newRelationship.setSourceLabel(sourceLabel);
 	    newRelationship.setTargetLabel(targetLabel);
 	    //Step 5
+	    Connection newConnection = null;
 	    AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
 	    addContext.setNewObject(newRelationship);
-	    Connection newConnection = null;
-		if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	        
+		if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	
 	    return newConnection;
 	}
 }

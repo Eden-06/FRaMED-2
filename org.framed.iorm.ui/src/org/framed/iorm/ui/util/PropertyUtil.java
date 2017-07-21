@@ -10,7 +10,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
  * @author Kevin Kassin
  */
 public class PropertyUtil {
-
+	
 	//Shape Identifier
 	//~~~~~~~~~~~~~~~~
 	/**

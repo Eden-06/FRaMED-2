@@ -106,15 +106,10 @@ public class LayoutLiterals {
 	 * <p>
 	 * can be:<br>
 	 * (1) the lenght of the arrowheads of connections or<br>
-	 * (2) the height of the arrowheads of connections 
+	 * (2) the height of the arrowheads of connections or<br>
+	 * (3) the distance of connection decorators from the connections line
 	 */
 	public static final int ARROWHEAD_LENGTH = 15,	
-							ARROWHEAD_HEIGHT = 10;
-	
-	/**
-	 * layout integers especially for relationships
-	 * <p>
-	 * the height of the texts for the name and its cardinalities
-	 */
-	public static final int HIGHT_RELATIONSHIP_TEXT = 15;
+							ARROWHEAD_HEIGHT = 10,
+						    DISTANCE_FROM_CONNECTION_LINE = 15;
 }

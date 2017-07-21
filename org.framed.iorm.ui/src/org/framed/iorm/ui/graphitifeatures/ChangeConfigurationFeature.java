@@ -16,7 +16,7 @@ import de.ovgu.featureide.fm.core.configuration.Configuration;
 import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link 
 
 /**
- * This graphiti custom feature is used change the role models configuration.
+ * This graphiti custom feature is used to change the role models configuration.
  * <p>
  * It is called by {@link ConfigurationEditorChangeCommand} and uses the {@link ChangeConfigurationContext}.
  * @see ConfigurationEditorChangeCommand
@@ -28,11 +28,11 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
-	private String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGECONFIGURATION_FEATURE_NAME; 
+	private String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME; 
 	
 	/**
 	 * Class constructor
-	 * @param featureProvider the feature provider the feature belogs to
+	 * @param featureProvider the feature provider the feature belongs to
 	 */
 	public ChangeConfigurationFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);

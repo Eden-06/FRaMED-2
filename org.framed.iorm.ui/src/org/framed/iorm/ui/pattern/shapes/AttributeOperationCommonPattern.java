@@ -116,7 +116,12 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(businessObject);
+		if(isMainBusinessObjectApplicable(businessObject)) {
+			if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ATTRIBUTE_TEXT) ||
+			   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_OPERATION_TEXT))
+				return true;
+		}
+		return false;  
 	}
 
 	/**
@@ -126,8 +131,13 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(businessObject);
+		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);	
+		if(isMainBusinessObjectApplicable(businessObject)) {
+			if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ATTRIBUTE_TEXT) ||
+			   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_OPERATION_TEXT))
+				return true;
+		}	
+		return false; 
 	}
 	
 	//add feature
@@ -245,8 +255,11 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
 		Object businessObject = getBusinessObject(editingContext);
 		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
-		if(businessObject instanceof NamedElement && graphicsAlgorithm instanceof Text)
-			return true;
+		if(businessObject instanceof NamedElement && graphicsAlgorithm instanceof Text) {
+			Shape shape = (Shape) editingContext.getPictogramElement();
+			return (PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ATTRIBUTE_TEXT) ||
+					PropertyUtil.isShape_IdValue(shape, SHAPE_ID_OPERATION_TEXT));
+		}	
 		return false;
 	}
 
