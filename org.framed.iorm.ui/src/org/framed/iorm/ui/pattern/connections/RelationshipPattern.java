@@ -4,6 +4,8 @@ import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -15,6 +17,7 @@ import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -36,6 +39,11 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	private static final String RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME,
 								STANDARD_RELATIONSHIP_NAME = NameLiterals.STANDARD_RELATIONSHIP_NAME;
+	
+	/**
+	 * the name of the edit relationship feature gathered from {@link NameLiterals}
+	 */
+	private String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
 	
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
@@ -151,8 +159,22 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		link(connectionDecoratorForSourceLabel, addedRelationship);
 		link(connectionDecoratorForTargetLabel, addedRelationship);
 		//Step 5
-		//TODO call wizard
+		CustomContext customContext = new CustomContext();
+		PictogramElement[] pictogramElement = new PictogramElement[1];
+		pictogramElement[0] = connection;
+		customContext.setPictogramElements(pictogramElement);
+		EditRelationshipFeature editRelationshipFeature = getEditRelationshipFeature(customContext);
+		if(editRelationshipFeature.canExecute(customContext))
+			editRelationshipFeature.execute(customContext);
 		return connection;
+	}
+	
+	private EditRelationshipFeature getEditRelationshipFeature(CustomContext customContext) {
+		for(ICustomFeature customFeature : getFeatureProvider().getCustomFeatures(customContext)) {
+			if(customFeature.getName().equals(EDIT_RELATIONSHIP_FEATURE_NAME))
+				return (EditRelationshipFeature) customFeature;
+		}
+		return null;
 	}
 	
 	//create feature

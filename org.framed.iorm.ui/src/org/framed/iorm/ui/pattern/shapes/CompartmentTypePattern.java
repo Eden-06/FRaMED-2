@@ -881,12 +881,13 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 				            counter = 0;
 			                modelContainerShape.getChildren().clear();
 				            for(ModelElement modelElement : compartmentModel.getElements()) {
-				            	Shape elementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
-				            	Text elementText = graphicAlgorithmService.createText(elementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
-				            	elementText.setForeground(manageColor(COLOR_TEXT));
-				            	PropertyUtil.setShape_IdValue(elementShape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT);
-				            	counter++;		
-				            }
+					            if(modelElement instanceof org.framed.iorm.model.Shape) {	
+				            		Shape elementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
+					            	Text elementText = graphicAlgorithmService.createText(elementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
+					            	elementText.setForeground(manageColor(COLOR_TEXT));
+					            	PropertyUtil.setShape_IdValue(elementShape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT);
+					            	counter++;		
+				            }	}
 				            changed = true;
 				            layoutPictogramElement(typeBodyShape);
 		} 	}	}	}	}       

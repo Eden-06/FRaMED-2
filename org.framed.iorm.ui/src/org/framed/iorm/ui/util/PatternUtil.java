@@ -80,7 +80,7 @@ public class PatternUtil {
 	}
 
 	/**
-	 * fetches all the names of the actual direct child elements in a groups model
+	 * fetches all the names of the actual direct child elements in a groups model except {@link Relation}s
 	 * @param pictogramElement the pictogram/ shape element of the group
 	 * @param diagram the diagram the pattern that called this operation works in
 	 * @param the type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
