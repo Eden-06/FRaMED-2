@@ -2,6 +2,7 @@ package org.framed.iorm.ui.wizards;
 
 import java.util.List;
 
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -13,6 +14,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
@@ -33,8 +35,10 @@ public class EditRelationshipDialog extends Dialog {
 	/**
 	 * messages and titles used as tips when invalid inputs happen gathered from {@link TextLiterals}
 	 */
-	private final String EDITING_RELATIONSHIPS_NAME_TITLE = TextLiterals.EDITING_RELATIONSHIPS_NAME_TITLE,
-						 EDITING_RELATIONSHIPS_NAME = TextLiterals.EDITING_RELATIONSHIPS_NAME,
+	private final String EDITING_RELATIONSHIPS_NAME_INVALID_TITLE = TextLiterals.EDITING_RELATIONSHIPS_NAME_INVALID_TITLE,
+						 EDITING_RELATIONSHIPS_NAME_INVALID = TextLiterals.EDITING_RELATIONSHIPS_NAME_INVALID,
+						 EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = TextLiterals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE,
+						 EDITING_RELATIONSHIPS_NAME_ALREADY_USED = TextLiterals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED,
 						 EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = TextLiterals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE,
 						 EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = TextLiterals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY,
 						 EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = TextLiterals.EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE,
@@ -47,6 +51,11 @@ public class EditRelationshipDialog extends Dialog {
 					  WIDTH_EDIT_CONNECTION_DIALOG = LayoutLiterals.WIDTH_EDIT_CONNECTION_DIALOG;
 
 	/**
+	 * the diagram of the compartment type the relation is created in
+	 */
+	private Diagram diagram;
+	
+	/**
 	 * the business object of the edited relationship 
 	 */
 	private Relation businessObject;
@@ -56,7 +65,7 @@ public class EditRelationshipDialog extends Dialog {
 	 * the {@link EditRelationshipFeature}
 	 */
 	private List<String> relationshipValues;
-	
+		
 	/**
 	 * the text fields used in the dialog
 	 */
@@ -81,8 +90,9 @@ public class EditRelationshipDialog extends Dialog {
 	 * @param businessObject the relationship to edit
 	 * @param the commonly used list of the name and the cardinalities of the relationship
 	 */
-	public EditRelationshipDialog(Shell parentShell, Relation businessObject, List<String> relationshipValues) {
+	public EditRelationshipDialog(Shell parentShell, Diagram diagram, Relation businessObject, List<String> relationshipValues) {
 		super(parentShell);
+		this.diagram = diagram;
 		this.businessObject = businessObject;
 		this.relationshipValues = relationshipValues;
 	}
@@ -153,6 +163,7 @@ public class EditRelationshipDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		if(isValid(TextfieldType.RELATIONSHIP_NAME) &&
+		   !(NameAlreadyUsed()) &&
 		   isValid(TextfieldType.SOURCE_CARDINALITY) &&
 		   isValid(TextfieldType.TARGET_CARDINALITY)) {
 			relationshipValues.add(relationshipNameTextField.getText());
@@ -162,7 +173,11 @@ public class EditRelationshipDialog extends Dialog {
 		}
 		else {
 			if(!(isValid(TextfieldType.RELATIONSHIP_NAME))) {
-				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_NAME_TITLE, EDITING_RELATIONSHIPS_NAME);
+				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_NAME_INVALID_TITLE, EDITING_RELATIONSHIPS_NAME_INVALID);
+				return;
+			}
+			if(NameAlreadyUsed()) {
+				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE, EDITING_RELATIONSHIPS_NAME_ALREADY_USED);
 				return;
 			}
 			if(!(isValid(TextfieldType.SOURCE_CARDINALITY))) {
@@ -193,5 +208,16 @@ public class EditRelationshipDialog extends Dialog {
 	    		return NameUtil.matchesCardinality(targetCardinality);
 		}
 		return false;
+	}
+	
+	/**
+	 * checks if a relationships name is already used by another relationship of the same compartment type when editing
+	 * a relationship
+	 * @return if a newly chosen relationships name is already used
+	 */
+	private boolean NameAlreadyUsed() {
+		String newName = relationshipNameTextField.getText();
+		if(newName.equals(businessObject.getName())) return false;
+		return NameUtil.nameAlreadyUsedForCompartmentTypeElements(diagram, Type.RELATIONSHIP, newName);
 	}
 }

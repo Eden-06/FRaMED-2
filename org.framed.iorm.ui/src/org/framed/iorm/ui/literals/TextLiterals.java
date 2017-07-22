@@ -46,17 +46,19 @@ public class TextLiterals {
 							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!",
 							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
-							   NAME_ALREADY_USED_ROLETYPE = "Another role type already has the same name!";
+							   NAME_ALREADY_USED_ROLETYPE = "Another role type in this compartment type already has the same name!";
 	
 	/**
 	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen
 	 */
-	public static final String EDITING_RELATIONSHIPS_NAME_TITLE = "Relationships name is invalid!",
-							   EDITING_RELATIONSHIPS_NAME = "A relationships name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+	public static final String EDITING_RELATIONSHIPS_NAME_INVALID_TITLE = "Relationships name is invalid!",
+							   EDITING_RELATIONSHIPS_NAME_INVALID = "A relationships name cant be empty and cant contains spaces. Numbers are allowed but as first symbol!",
+							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = "Relationships name is already used!",
+							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED = "Another relationship already in this compartment type already has the same name!",
 							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = "Relationships source cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number> or <number>..<number>",
+							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number> or <number>..<number>!",
 							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = "Relationships target cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number> or <number>..<number>";
+							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number> or <number>..<number>!";
 			
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern

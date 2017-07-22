@@ -21,6 +21,7 @@ import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
@@ -242,8 +243,9 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();
-		newRelationship.setName(STANDARD_RELATIONSHIP_NAME);
-	    newRelationship.setType(Type.RELATIONSHIP); 
+		String standardName = NameUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.RELATIONSHIP, STANDARD_RELATIONSHIP_NAME);
+		newRelationship.setName(standardName);
+		newRelationship.setType(Type.RELATIONSHIP); 
 	    if(newRelationship.eResource() != null) getDiagram().eResource().getContents().add(newRelationship);
 	    //Step 3
 	    newRelationship.setContainer(sourceShape.getContainer());

@@ -88,7 +88,7 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 		Relation businessObject = (Relation) getBusinessObjectForPictogramElement(connection);
 				
 		EditRelationshipDialog editDialog = new EditRelationshipDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-													businessObject, relationshipValues);
+													getDiagram(), businessObject, relationshipValues);
 		int returnCode = editDialog.open();
 		if(returnCode == Window.OK) {
 			for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {

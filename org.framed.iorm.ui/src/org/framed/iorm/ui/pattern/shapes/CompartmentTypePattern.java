@@ -449,7 +449,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		//compartment type
 		org.framed.iorm.model.Shape newCompartmentType = OrmFactory.eINSTANCE.createShape();
 		newCompartmentType.setType(Type.COMPARTMENT_TYPE);
-		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.COMPARTMENT_TYPE, STANDARD_COMPARTMENTTYPE_NAME);
+		String standardName = NameUtil.calculateStandardNameForClass(getDiagram(), Type.COMPARTMENT_TYPE, STANDARD_COMPARTMENTTYPE_NAME);
 		newCompartmentType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -529,7 +529,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(NameUtil.matchesIdentifier(newName))) return DIRECTEDITING_COMPARTMENTTYPE;
-		if(NameUtil.nameAlreadyUsedForClassOrRole(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
+		if(NameUtil.nameAlreadyUsedForClass(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
 			return NAME_ALREADY_USED_COMPARTMENTTYPE;
 		return null;
 	}

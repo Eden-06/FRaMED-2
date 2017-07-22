@@ -406,7 +406,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newNaturalType = OrmFactory.eINSTANCE.createShape();
 		newNaturalType.setType(Type.NATURAL_TYPE);
-		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.NATURAL_TYPE, STANDARD_NATURALTYPE_NAME);
+		String standardName = NameUtil.calculateStandardNameForClass(getDiagram(), Type.NATURAL_TYPE, STANDARD_NATURALTYPE_NAME);
 		newNaturalType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -478,7 +478,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(NameUtil.matchesIdentifier(newName))) return DIRECTEDITING_NATURALTYPE;
-		if(NameUtil.nameAlreadyUsedForClassOrRole(getDiagram(), Type.NATURAL_TYPE, newName)) 
+		if(NameUtil.nameAlreadyUsedForClass(getDiagram(), Type.NATURAL_TYPE, newName)) 
 			return NAME_ALREADY_USED_NATURALTYPE;
         return null;
 	}

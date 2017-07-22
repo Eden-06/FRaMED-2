@@ -416,7 +416,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		//data type
 		org.framed.iorm.model.Shape newDataType = OrmFactory.eINSTANCE.createShape();
 		newDataType.setType(Type.DATA_TYPE);
-		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.DATA_TYPE, STANDARD_DATATYPE_NAME);
+		String standardName = NameUtil.calculateStandardNameForClass(getDiagram(), Type.DATA_TYPE, STANDARD_DATATYPE_NAME);
 		newDataType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -488,7 +488,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(NameUtil.matchesIdentifier(newName))) return DIRECTEDITING_DATATYPE;
-		if(NameUtil.nameAlreadyUsedForClassOrRole(getDiagram(), Type.DATA_TYPE, newName)) 
+		if(NameUtil.nameAlreadyUsedForClass(getDiagram(), Type.DATA_TYPE, newName)) 
 			return NAME_ALREADY_USED_DATATYPE;
 	    return null;
 	}

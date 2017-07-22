@@ -43,7 +43,7 @@ public class LayoutLiterals {
 	 * (3) the width of the dialog to edit connections
 	 */
 	public static final int LENGHT_TEXTFIELD_WIZARD = 250,
-							HEIGHT_EDIT_CONNECTION_DIALOG = 300,
+							HEIGHT_EDIT_CONNECTION_DIALOG = 185,
 							WIDTH_EDIT_CONNECTION_DIALOG = 400;
 	
 	/**

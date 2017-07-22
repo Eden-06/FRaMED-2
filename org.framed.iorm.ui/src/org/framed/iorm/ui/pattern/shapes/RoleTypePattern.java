@@ -386,7 +386,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newRoleType = OrmFactory.eINSTANCE.createShape();
 		newRoleType.setType(Type.ROLE_TYPE);
-		String standardName = NameUtil.calculateStandardNameForClassOrRole(getDiagram(), Type.ROLE_TYPE, STANDARD_ROLETYPE_NAME);
+		String standardName = NameUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.ROLE_TYPE, STANDARD_ROLETYPE_NAME);
 		newRoleType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -458,7 +458,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(NameUtil.matchesIdentifier(newName))) return DIRECTEDITING_ROLETYPE;
-		if(NameUtil.nameAlreadyUsedForClassOrRole(getDiagram(), Type.ROLE_TYPE, newName)) 
+		if(NameUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newName)) 
 			return NAME_ALREADY_USED_ROLETYPE;
 	    return null;
 	}	
