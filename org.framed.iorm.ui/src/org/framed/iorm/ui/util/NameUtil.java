@@ -88,11 +88,13 @@ public class NameUtil {
 	 * can be:<br>
 	 * (1) the pattern for identifiers or<br>
 	 * (2) the pattern for attributes or<br>
-	 * (3) the pattern for operations
+	 * (3) the pattern for operations or<br>
+	 * (4) the pattern for cardinalities
 	 */
 	private static final Pattern identifierPattern = Pattern.compile(identifier),
 								 attributePattern = Pattern.compile(attribute),
-								 operationPattern = Pattern.compile(operation);
+								 operationPattern = Pattern.compile(operation),
+								 cardinalityPattern = Pattern.compile(cardinality);
 	
 	/**
 	 * matching operation for the regular expression of identifiers
@@ -122,6 +124,16 @@ public class NameUtil {
 	public static final boolean matchesOperation(String operationName) {
 		Matcher operationMatcher = operationPattern.matcher(operationName);
 		return operationMatcher.matches();
+	}
+	
+	/**
+	 * matching operation for the regular expression of cardinalities
+	 * @param identifier the string to check against
+	 * @return if the given string input matches the regular expression
+	 */
+	public static final boolean matchesCardinality(String cardinality) {
+		Matcher cardinalityMatcher = cardinalityPattern.matcher(cardinality);
+		return cardinalityMatcher.matches();
 	}
 	
 	/**

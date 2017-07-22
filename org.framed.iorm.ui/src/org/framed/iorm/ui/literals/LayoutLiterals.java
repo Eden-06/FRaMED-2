@@ -35,11 +35,16 @@ public class LayoutLiterals {
 			   						   COLOR_SHADOW = IColorConstant.GRAY;
 		
 	/**
-	 * layout integer for wizard
+	 * layout integer for wizards
 	 * <p>
-	 * the length of the textfield in the role model wizard and role model project wizard
+	 * can be:<br>
+	 * (1) the length of the textfield in the role model wizard and role model project wizard or<br>
+	 * (2) the height of the dialog to edit connections or<br>
+	 * (3) the width of the dialog to edit connections
 	 */
-	public static final int LENGHT_TEXTFIELD_WIZARD = 250;
+	public static final int LENGHT_TEXTFIELD_WIZARD = 250,
+							HEIGHT_EDIT_CONNECTION_DIALOG = 300,
+							WIDTH_EDIT_CONNECTION_DIALOG = 400;
 	
 	/**
 	 * color values for the feature editor

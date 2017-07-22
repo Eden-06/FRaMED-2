@@ -1,6 +1,5 @@
 package org.framed.iorm.ui.pattern.connections;
 
-import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -47,7 +46,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 * values for property shape id of the connection decorators of the relationship
 	 */
 	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
-			   					SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR;
+			   					SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
+			   					SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR;
 	
 	/**
 	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
@@ -133,18 +133,18 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
-	    	pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0.1, true);
+	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
 	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR);
+	    PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
 	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR);
+	    PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
 		//Step 4 
 		link(connection, addedRelationship);
 		link(connectionDecoratorForName, addedRelationship);

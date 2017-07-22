@@ -152,7 +152,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		//Step 1
 		if(customContext.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = customContext.getPictogramElements()[0];
-			if(pictogramElement.getLink().getBusinessObjects().size() == 1) {
+			if(pictogramElement.getLink() != null &&
+			   pictogramElement.getLink().getBusinessObjects().size() == 1) {
 				EObject businessObject = pictogramElement.getLink().getBusinessObjects().get(0);
 				//Step 2
 				for(int i = 0; i < superContextEntries.length; i++) {

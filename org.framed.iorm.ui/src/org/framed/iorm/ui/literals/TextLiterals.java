@@ -8,6 +8,7 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.eclipse.ui.PartInitException; //*import for javadoc link
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.NaturalTypePattern; //*import for javadoc link
+import org.framed.iorm.ui.wizards.EditRelationshipDialog; //*import for javadoc link
 
 /**
  * This class saves severals static Strings used as messages for the user.
@@ -36,17 +37,27 @@ public class TextLiterals {
 							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
 							   DIRECTEDITING_OPERATIONS = "An operations name has the form <name>(<parameters>):<type>.",
 							   NAME_ALREADY_USED_OPERATIONS = "Another operation already has the same name!",
-							   DIRECTEDITING_DATATYPE = "A data types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   DIRECTEDITING_DATATYPE = "A data types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_DATATYPE = "Another data type already has the same name!",
-							   DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_NATURALTYPE = "Another natural type already has the same name!",
-							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",
-							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!",
-							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_ROLETYPE = "Another role type already has the same name!";
-							   
+	
+	/**
+	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen
+	 */
+	public static final String EDITING_RELATIONSHIPS_NAME_TITLE = "Relationships name is invalid!",
+							   EDITING_RELATIONSHIPS_NAME = "A relationships name cant be empty and cant contains spaces. Numbers are allowed but as first symbol.",
+							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = "Relationships source cardinality is invalid!",
+							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number> or <number>..<number>",
+							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = "Relationships target cardinality is invalid!",
+							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number> or <number>..<number>";
+			
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 * <p>

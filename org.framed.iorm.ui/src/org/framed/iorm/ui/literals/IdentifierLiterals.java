@@ -202,7 +202,8 @@ public class IdentifierLiterals {
 	 * identifiers used for the connection decoratos of the  name and cardinalities of relationships
 	 */
 	public static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = "shape_rst_name",
-							   SHAPE_ID_RELATIONSHIP_CARDINALITY_DECORATOR = "shape_rst_cardinality";
+							   SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = "shape_rst_source_cardinality",
+							   SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = "shape_rst_target_cardinality";
 	
 	/**
 	 * identifiers used for role types
