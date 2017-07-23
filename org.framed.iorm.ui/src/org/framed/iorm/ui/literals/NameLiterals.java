@@ -32,7 +32,7 @@ public class NameLiterals {
 							   CONTAINER_DIAGRAM_NAME = "Container";
 							  
 	/**
-	 * standard names for graphiti shapes
+	 * standard values for graphiti shape names and cardinalities
 	 * <p>
 	 * can be:<br>
 	 * (1) the standard name for compartment types or<br>
@@ -41,7 +41,8 @@ public class NameLiterals {
 	 * (4) the standard name for groups or<br>
 	 * (5) the standard name for attributes or<br>
 	 * (6) the standard name for operations or<br>
-	 * (7) the standard name for relationships
+	 * (7) the standard name for relationships or<br>
+	 * (8) the standard value for cardinalities
 	 */
 	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 							   STANDARD_NATURALTYPE_NAME = "naturalType",
@@ -50,7 +51,8 @@ public class NameLiterals {
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
 			   				   STANDARD_OPERATION_NAME = "operation():type",
 			   				   STANDARD_ROLETYPE_NAME = "roleType",
-			   				   STANDARD_RELATIONSHIP_NAME = "relationshipType";
+			   				   STANDARD_RELATIONSHIP_NAME = "relationshipType",
+			   				   STANDARD_CARDINALITY = "*";
 							  
 	/**
 	 * name literals for commands

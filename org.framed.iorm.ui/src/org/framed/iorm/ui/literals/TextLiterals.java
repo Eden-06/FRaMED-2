@@ -56,9 +56,9 @@ public class TextLiterals {
 							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = "Relationships name is already used!",
 							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED = "Another relationship already in this compartment type already has the same name!",
 							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = "Relationships source cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number> or <number>..<number>!",
+							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number/star> or <number>..<number/star>!",
 							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = "Relationships target cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number> or <number>..<number>!";
+							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number/star> or <number>..<number/star>!";
 			
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern

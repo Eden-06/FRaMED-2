@@ -42,6 +42,11 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 								STANDARD_RELATIONSHIP_NAME = NameLiterals.STANDARD_RELATIONSHIP_NAME;
 	
 	/**
+	 * the standard value of cardinalities gathered from {@link NameLiterals}
+	 */
+	private static final String STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
+	
+	/**
 	 * the name of the edit relationship feature gathered from {@link NameLiterals}
 	 */
 	private String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
@@ -255,8 +260,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    //Step 4
 	    NamedElement sourceLabel = OrmFactory.eINSTANCE.createNamedElement();
 	    NamedElement targetLabel = OrmFactory.eINSTANCE.createNamedElement();
-	    sourceLabel.setName("*");
-	    targetLabel.setName("*");
+	    sourceLabel.setName(STANDARD_CARDINALITY);
+	    targetLabel.setName(STANDARD_CARDINALITY);
 	    newRelationship.setSourceLabel(sourceLabel);
 	    newRelationship.setTargetLabel(targetLabel);
 	    //Step 5

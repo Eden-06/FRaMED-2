@@ -144,7 +144,7 @@ public class EditRelationshipDialog extends Dialog {
         	case SOURCE_CARDINALITY:
         		sourceCardinalityTextField = new Text(container, SWT.BORDER);
         		sourceCardinalityTextField.setLayoutData(layoutData);
-        		label.setText("Source cardinality (" +businessObject.getSource().getName() + "):");
+        		label.setText("Source cardinality (" + businessObject.getSource().getName() + "):");
         		sourceCardinalityTextField.setText(businessObject.getSourceLabel().getName());
 	        	break;
         	case TARGET_CARDINALITY:

@@ -177,7 +177,7 @@ public class NameUtil {
 		//Step 1
 		Model compartmentsModel = DiagramUtil.getLinkedModelForDiagram(diagram);
 		//Step 2
-		getModelElementsNamesRecursive(compartmentsModel, type, compartmentsElements);
+		getModelElementsNames(compartmentsModel, type, compartmentsElements);
 		return compartmentsElements.contains(newName);
 	}
 			
@@ -231,7 +231,7 @@ public class NameUtil {
 	public static String calculateStandardNameForCompartmentsTypeElement(Diagram diagram, Type type, String standardName) {
 		List<String> compartmentsElements = new ArrayList<String>();
 		Model compartmentModel = DiagramUtil.getLinkedModelForDiagram(diagram);
-		getModelElementsNamesRecursive(compartmentModel, type, compartmentsElements);
+		getModelElementsNames(compartmentModel, type, compartmentsElements);
 		return calcluateStandardNameForGivenCollection(compartmentsElements, standardName);
  	}
 	
@@ -254,7 +254,20 @@ public class NameUtil {
 	}
 	
 	/**
-	 * fetches all names of model elements of a given type in a recursive manner
+	 * fetches all names of model elements only of the given model of a given type in a recursive manner
+	 * @param model the model to fetch the model elements names from
+	 * @param type the type of the model elements to get the names from
+	 * @param modelElementNames the list of model element names to fill
+	 */
+	private static void getModelElementsNames(Model model, Type type, List<String> modelElementNames) {
+		for(ModelElement modelElement : model.getElements()) {
+			if(modelElement.getType() == type)  
+				modelElementNames.add(modelElement.getName());
+		}	
+	}
+	
+	/**
+	 * fetches all names of model elements of the given model and its sub models of a given type in a recursive manner
 	 * @param model the model to fetch the model elements names from
 	 * @param type the type of the model elements to get the names from
 	 * @param modelElementNames the list of model element names to fill while using recursion
