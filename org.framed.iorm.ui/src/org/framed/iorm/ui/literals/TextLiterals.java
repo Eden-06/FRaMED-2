@@ -33,7 +33,7 @@ public class TextLiterals {
 							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!",
 							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_ROLETYPE = "Another role type in this compartment type already has the same name!",
-							   DIRECTEDITING_OCCURRENCE_CONSTRAINT = "The Occurrence Constraint has to be in the form <number/star> or <number>..<number/star>!";
+							   DIRECTEDITING_OCCURRENCE_CONSTRAINT = "The Occurrence Constraint has to be in the form <number/asterisk> or <number>..<number/asterisk>!";
 	
 	/**
 	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen
@@ -43,9 +43,9 @@ public class TextLiterals {
 							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = "Relationships name is already used!",
 							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED = "Another relationship already in this compartment type already has the same name!",
 							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = "Relationships source cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number/star> or <number>..<number/star>!",
+							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <number/asterisk> or <number>..<number/asterisk>!",
 							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = "Relationships target cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number/star> or <number>..<number/star>!";
+							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <number/asterisk> or <number>..<number/asterisk>!";
 			
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern

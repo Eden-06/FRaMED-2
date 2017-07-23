@@ -44,7 +44,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
 						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
-						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME;
+						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME,
+						 CYCLIC_FEATURE_NAME = NameLiterals.CYCLIC_FEATURE_NAME;
 	
 	/**
 	 * the name literals for connection create features to remove from the editor palette for the diagram type
@@ -230,7 +231,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME) ||
 				   toolEntry.getLabel().equals(ROLEEQUIVALENCE_FEATURE_NAME) ||
 				   toolEntry.getLabel().equals(ROLEPROHIBITION_FEATURE_NAME) || 
-				   toolEntry.getLabel().equals(RELATIONSHIP_FEATURE_NAME))
+				   toolEntry.getLabel().equals(RELATIONSHIP_FEATURE_NAME) || 
+				   toolEntry.getLabel().equals(CYCLIC_FEATURE_NAME))
 					toolEntriesConnectionToDelete.add(toolEntry);
 			}
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {

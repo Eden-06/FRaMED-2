@@ -145,7 +145,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 * (2) target and source shape is of valid type and<br>
 	 * (3) source shapes container and targets shapes container are the same and<br>
 	 * (4) the source shape is not equals the target shape and<br>
-	 * (%) target and source shape are of the same type
+	 * (5) target and source shape are of the same type
 	 * @return if inheritance can be added
 	 */
 	@Override

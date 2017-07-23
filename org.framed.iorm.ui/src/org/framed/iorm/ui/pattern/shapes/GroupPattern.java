@@ -52,7 +52,7 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PatternUtil;
+import org.framed.iorm.ui.util.ShapePatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
@@ -631,17 +631,17 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_GROUP_TYPEBODY)) {
 			//pictogram name of natural type, attributes and operations
-			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_GROUP_NAME);
+			String pictogramTypeName = ShapePatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_GROUP_NAME);
 			//business name and attributes
-			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			//model element names in groups model
 			//at creation no diagram is existing so catch this
 			List<String> modelElementsNames = null;
 			try {
-				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.GROUP);
+				modelElementsNames = ShapePatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.GROUP);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			//model element names in model container of shape
-			List<String> pictogramElementsNames = PatternUtil.getContentPreviewElementsNames(pictogramElement);		
+			List<String> pictogramElementsNames = ShapePatternUtil.getContentPreviewElementsNames(pictogramElement);		
 				
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
@@ -660,7 +660,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		boolean changed = false;
 	         
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
-		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			
 		//set type name in pictogram model
 	    if (pictogramElement instanceof ContainerShape) {     
@@ -685,7 +685,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		                modelContainerShape.getChildren().clear();
 			            for(ModelElement modelElement : groupModel.getElements()) {
 			            	Shape groupElementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
-			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
+			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, ShapePatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
 			            	groupElementText.setForeground(manageColor(COLOR_TEXT));
 			            	PropertyUtil.setShape_IdValue(groupElementShape, SHAPE_ID_GROUP_ELEMENT);
 			            }
@@ -790,9 +790,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			for(Shape shape : groupDiagram.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_CONTAINER)) 
-						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
+						innerGroupsOrCompartmentTypesToDelete.add(ShapePatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.GROUP));
 					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTAINER))
-						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
+						innerGroupsOrCompartmentTypesToDelete.add(ShapePatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
 			}	}
 			//Step 3
 			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();

@@ -52,7 +52,7 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.NameUtil;
-import org.framed.iorm.ui.util.PatternUtil;
+import org.framed.iorm.ui.util.ShapePatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
@@ -787,19 +787,19 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	
 		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
 			//pictogram name, attributes, operations and elements
-			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_NAME);
-			List<String> pictogramAttributeNames = PatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
-			List<String> pictogramOperationNames = PatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
+			String pictogramTypeName = ShapePatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_NAME);
+			List<String> pictogramAttributeNames = ShapePatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
+			List<String> pictogramOperationNames = ShapePatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
 			//model element names in model container of shape
-			List<String> pictogramElementsNames = PatternUtil.getContentPreviewElementsNames(pictogramElement);
+			List<String> pictogramElementsNames = ShapePatternUtil.getContentPreviewElementsNames(pictogramElement);
 			//business name and attributes
-			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
-			List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
+			String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
+			List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
 			//at creation no diagram is existing so catch this
 			List<String> modelElementsNames = null;
 			try {
-				modelElementsNames = PatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.COMPARTMENT_TYPE);
+				modelElementsNames = ShapePatternUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.COMPARTMENT_TYPE);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			
 			//check for update: different names, different amount of attibutes/ operations
@@ -832,9 +832,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 			
 		//business names of natural type, attributes and operations
-		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-		List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
-		List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
+		String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
+		List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
 			
 		//set type name in pictogram model
 	    if (pictogramElement instanceof ContainerShape) {     
@@ -883,7 +883,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 				            for(ModelElement modelElement : compartmentModel.getElements()) {
 					            if(modelElement instanceof org.framed.iorm.model.Shape) {	
 				            		Shape elementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
-					            	Text elementText = graphicAlgorithmService.createText(elementShape, PatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
+					            	Text elementText = graphicAlgorithmService.createText(elementShape, ShapePatternUtil.getGroupOrCompartmentTypeElementText(modelElement));
 					            	elementText.setForeground(manageColor(COLOR_TEXT));
 					            	PropertyUtil.setShape_IdValue(elementShape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT);
 					            	counter++;		
@@ -994,7 +994,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			for(Shape shape : compartmentDiagram.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTAINER))
-						innerGroupsOrCompartmentTypesToDelete.add(PatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
+						innerGroupsOrCompartmentTypesToDelete.add(ShapePatternUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, Type.COMPARTMENT_TYPE));
 			}	}
 			//Step 4
 			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();

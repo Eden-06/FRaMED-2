@@ -60,11 +60,13 @@ public class URLLiterals {
 	 * (2) the file path to the icon for the role implication create feature or<br>
 	 * (3) the file path to the icon for the role equivalence create feature or<br>
 	 * (4) the file path to the icon for the role prohibtion create feature or<br>
-	 * (5) the file path to the icon for the relationship create feature
+	 * (5) the file path to the icon for the relationship create feature or<br>
+	 * (6) the file path to the icon for the intra realtionship constraints creation features
 	 */
 	public static final String IMG_FILEPATH_FEATURE_INHERITANCE = IMG_FILE_PATH_PREFIX + "inheritance.png",
 							   IMG_FILEPATH_FEATURE_ROLEIMPLICATION = IMG_FILE_PATH_PREFIX + "roleimplication.png",
 							   IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE = IMG_FILE_PATH_PREFIX + "roleequivalence.png",
 							   IMG_FILEPATH_FEATURE_ROLEPROHIBITION = IMG_FILE_PATH_PREFIX + "roleprohibition.png",
-							   IMG_FILEPATH_FEATURE_RELATIONSHIP = IMG_FILE_PATH_PREFIX + "relationship.png";
+							   IMG_FILEPATH_FEATURE_RELATIONSHIP = IMG_FILE_PATH_PREFIX + "relationship.png",
+							   IMG_FILEPATH_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IMG_FILE_PATH_PREFIX + "intrarelationship_constraint.png";
 }

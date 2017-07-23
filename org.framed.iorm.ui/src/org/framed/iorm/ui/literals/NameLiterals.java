@@ -89,13 +89,15 @@ public class NameLiterals {
 	 * (2) the name of the role implication create feature or<br>
 	 * (3) the name of the role equivalence create feature or<br>
 	 * (4) the name of the role prohibition create feature or<br>
-	 * (5) the name of the relationship create feature
+	 * (5) the name of the relationship create feature or<br>
+	 * (6) the name of the cyclic constraint create feature
 	 */
 	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
 							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication",
 							   ROLEEQUIVALENCE_FEATURE_NAME = "Role Eqivalence",
 						       ROLEPROHIBITION_FEATURE_NAME = "Role Prohibition",
-						       RELATIONSHIP_FEATURE_NAME = "Relationship";
+						       RELATIONSHIP_FEATURE_NAME = "Relationship",
+						       CYCLIC_FEATURE_NAME = "Cyclic";
 	
 	/**
 	 * name literals used in the patterns to be identified by the ToolBehaviorProvider 

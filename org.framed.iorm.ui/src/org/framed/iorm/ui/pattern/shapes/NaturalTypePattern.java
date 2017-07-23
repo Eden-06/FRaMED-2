@@ -40,7 +40,7 @@ import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PatternUtil;
+import org.framed.iorm.ui.util.ShapePatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.eclipse.graphiti.pattern.AbstractPattern; //*import for javadoc link
 
@@ -688,13 +688,13 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(pictogramElement.getGraphicsAlgorithm() != null &&
 		   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_TYPEBODY)) {
 			//pictogram name of natural type, attributes and operations
-			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_NATURALTYPE_NAME);
-			List<String> pictogramAttributeNames = PatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
-			List<String> pictogramOperationNames = PatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
+			String pictogramTypeName = ShapePatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_NATURALTYPE_NAME);
+			List<String> pictogramAttributeNames = ShapePatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
+			List<String> pictogramOperationNames = ShapePatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
 			//business name and attributes
-			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
-			List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
+			String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
+			List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
 								
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
@@ -718,9 +718,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 		
 		//business names of natural type, attributes and operations
-		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-		List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
-		List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
+		String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER);
+		List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER);
 		
 		//set type name in pictogram model
         if (pictogramElement instanceof ContainerShape) {     

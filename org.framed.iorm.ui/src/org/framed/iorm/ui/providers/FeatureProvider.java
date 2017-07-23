@@ -19,6 +19,7 @@ import org.framed.iorm.ui.graphitifeatures.FRaMEDMoveConnectionDecoratorFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
+import org.framed.iorm.ui.pattern.connections.CyclicConstraintPattern;
 import org.framed.iorm.ui.pattern.connections.InheritancePattern;
 import org.framed.iorm.ui.pattern.connections.RelationshipPattern;
 import org.framed.iorm.ui.pattern.connections.RoleEquivalencePattern;
@@ -68,6 +69,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());
+      addConnectionPattern(new CyclicConstraintPattern());
 	}
 	
 	/**

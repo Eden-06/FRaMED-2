@@ -64,7 +64,9 @@ public class IdentifierLiterals {
 							   IMG_ID_FEATURE_ROLEIMPLICATION = IMG_ID_PREFIX + "img_roleimplication",
 							   IMG_ID_FEATURE_ROLEEQUIVALENCE = IMG_ID_PREFIX + "img_roleequivalence",
 							   IMG_ID_FEATURE_ROLEPROHIBITION = IMG_ID_PREFIX + "img_roleprohibition",
-							   IMG_ID_FEATURE_RELATIONSHIP = IMG_ID_PREFIX + "img_relationship";
+							   IMG_ID_FEATURE_RELATIONSHIP = IMG_ID_PREFIX + "img_relationship",
+							   IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IMG_ID_PREFIX + "img_intrarelationship_constraint";
+	
 	/**
 	 * feature model identifier
 	 * <p>

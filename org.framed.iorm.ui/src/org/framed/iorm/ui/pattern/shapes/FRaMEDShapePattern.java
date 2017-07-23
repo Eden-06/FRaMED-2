@@ -16,7 +16,7 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.framed.iorm.ui.util.PatternUtil;
+import org.framed.iorm.ui.util.ShapePatternUtil;
 
 /**
  * This class is an abstract super class for the graphiti shape patterns.
@@ -75,7 +75,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 * updates the list of the groups or compartment types content of in which an element is added, deleted or renamed
 	 */
 	protected void updateContainingGroupOrCompartmentType() {
-		ContainerShape groupTypeBodyToUpdate = PatternUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
+		ContainerShape groupTypeBodyToUpdate = ShapePatternUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
         updatePictogramElement(groupTypeBodyToUpdate);
 	}
 	

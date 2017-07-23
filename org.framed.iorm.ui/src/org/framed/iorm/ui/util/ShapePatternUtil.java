@@ -22,7 +22,7 @@ import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc lin
  * This class offers several utility operations used by the graphiti patterns.
  * @author Kevin Kassin
  */
-public class PatternUtil {
+public class ShapePatternUtil {
 	
 	/**
 	 * the identifiers for groups pictogram elements gathered from {@link IdentifierLiterals}
