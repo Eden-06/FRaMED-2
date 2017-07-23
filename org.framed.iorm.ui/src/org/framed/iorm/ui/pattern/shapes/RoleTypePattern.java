@@ -32,6 +32,7 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
@@ -52,10 +53,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * can be:<br>
 	 * (1) the name of the create feature in this pattern or<br>
-	 * (2) the standard names for role types
+	 * (2) the standard names for role types or<br>
+	 * (3) the standard value for cardinalities
 	 */
 	private final String ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME,
-						 STANDARD_ROLETYPE_NAME = NameLiterals.STANDARD_ROLETYPE_NAME;
+						 STANDARD_ROLETYPE_NAME = NameLiterals.STANDARD_ROLETYPE_NAME,
+						 STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
 	
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -64,11 +67,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	private final String IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
 	
 	/**
-	 * identifier literals used as shape ids for the natural type 
+	 * identifier literals used as shape ids for the role type 
 	 * <p>
 	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
 	 */
 	private final String SHAPE_ID_ROLETYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_ROLETYPE_CONTAINER,
+						 SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT,
 						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
 						 SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW,
 						 SHAPE_ID_ROLETYPE_NAME = IdentifierLiterals.SHAPE_ID_ROLETYPE_NAME,
@@ -97,10 +101,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * can be:<br>
 	 * (1) the message if the form of a chosen role type name is not correct when direct editing or<br>
-	 * (2) the message if a chosen name for a role type is already used when direct editing 
+	 * (2) the message if a chosen name for a role type is already used when direct editing or<br>
+	 * (3) the message if the form of a chosen occurrence constraint is not correct when direct editing 
 	 */
 	private final String DIRECTEDITING_ROLETYPE = TextLiterals.DIRECTEDITING_ROLETYPE,
-						 NAME_ALREADY_USED_ROLETYPE = TextLiterals.NAME_ALREADY_USED_ROLETYPE;
+						 NAME_ALREADY_USED_ROLETYPE = TextLiterals.NAME_ALREADY_USED_ROLETYPE,
+						 DIRECTEDITING_OCCURRENCE_CONSTRAINT = TextLiterals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
 	
 	/**
 	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
@@ -110,7 +116,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 					 	 REASON_AMOUNT_ATTRIBUTES = TextLiterals.REASON_AMOUNT_ATTRIBUTES,
 					 	 REASON_AMOUNT_OPERATION = TextLiterals.REASON_AMOUNT_OPERATION,
 					 	 REASON_NAMES_ATTRIBUTES = TextLiterals.REASON_NAMES_ATTRIBUTES,
-					 	 REASON_NAMES_OPERATIONS = TextLiterals.REASON_NAMES_OPERATIONS;
+					 	 REASON_NAMES_OPERATIONS = TextLiterals.REASON_NAMES_OPERATIONS,
+					 	 REASON_OCCURRENCE_CONSTRAINTS = TextLiterals.REASON_OCCURRENCE_CONSTRAINTS;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}, look there for reference
@@ -122,7 +129,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 					  ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS,
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
 					  HEIGHT_ATTRIBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
-					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE;
+					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE,
+					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_OCCURRENCE_CONSTRAINT,
+					  WIDTH_OCCURRENCE_CONSTRAINT = LayoutLiterals.WIDTH_OCCURRENCE_CONSTRAINT;
 	
 	/**
 	 * colors gathered from {@link LayoutLiterals}, look there for reference
@@ -224,7 +233,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * 	   <ul>
 	 * 	     <li>drop shadow shape</li>
 	 *         <ul><li>drop shadow rectangle</li></ul>
-	 * 		 <li>type body shape</li>
+	 * 		<li>occurence costraints shape</li>
+	 *         <ul><li>occurence costraints rectangle</li></ul>
+	 * 		<li>type body shape</li>
 	 * 		   <ul><li>type body rectangle</li></ul>
 	 * 		   <ul>
 	 * 		     <li>name container</li>
@@ -269,14 +280,21 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		dropShadowRectangle.setForeground(manageColor(COLOR_SHADOW));
 		dropShadowRectangle.setBackground(manageColor(COLOR_SHADOW));
 		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+SHADOW_SIZE, addContext.getY()+SHADOW_SIZE, width, height);
-				
+			
+		//occurence costraint
+		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
+		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
+		cardinalityText.setForeground(manageColor(COLOR_TEXT));													
+		graphicAlgorithmService.setLocationAndSize(cardinalityText, addContext.getX(), addContext.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS, 
+									WIDTH_OCCURRENCE_CONSTRAINT, HEIGHT_OCCURRENCE_CONSTRAINT);
+		
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
 		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, ROLE_CORNER_RADIUS, ROLE_CORNER_RADIUS);
 		typeBodyRectangle.setForeground(manageColor(COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
-				
+
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
 		Text text = graphicAlgorithmService.createText(nameShape, addedRoleType.getName());	
@@ -313,6 +331,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				
 		//Step 3
 		PropertyUtil.setShape_IdValue(containerShape, SHAPE_ID_ROLETYPE_CONTAINER);
+		PropertyUtil.setShape_IdValue(cardinalityShape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
 		PropertyUtil.setShape_IdValue(typeBodyShape, SHAPE_ID_ROLETYPE_TYPEBODY);
 		PropertyUtil.setShape_IdValue(dropShadowShape, SHAPE_ID_ROLETYPE_SHADOW);
 		PropertyUtil.setShape_IdValue(nameShape, SHAPE_ID_ROLETYPE_NAME);
@@ -323,6 +342,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				
 		//Step 4
 		link(containerShape, addedRoleType);
+		link(cardinalityShape, addedRoleType);
 		link(typeBodyShape, addedRoleType);
 		link(dropShadowShape, addedRoleType);
 		link(nameShape, addedRoleType);
@@ -338,7 +358,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
-		layoutPictogramElement(containerShape);
+		layoutPictogramElement(typeBodyShape);
 		updateContainingGroupOrCompartmentType();
 		return containerShape;
 	}
@@ -371,6 +391,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * 	   <ul>
 	 * 	     <li>(Segment) first segment (for attributes)</li> 
 	 *  	 <li>(Segment) second segment (for operations)</li> 
+	 *  	 <li>(NamedElement) description (for occurence constraint)</li> 
 	 * 	   </ul>
 	 * </ul> 
 	 * <p>
@@ -395,6 +416,11 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		getDiagram().eResource().getContents().add(operationSegment);
 		newRoleType.setFirstSegment(attributeSegment);
 		newRoleType.setSecondSegment(operationSegment);
+		//occurence constraint
+		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
+		occurenceConstraint.setName(STANDARD_CARDINALITY);
+		getDiagram().eResource().getContents().add(occurenceConstraint);
+		newRoleType.setDescription(occurenceConstraint);
 		
 		//Step 2
 		Model model = DiagramUtil.getLinkedModelForDiagram((Diagram) getDiagram());
@@ -410,7 +436,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//direct editing
 	//~~~~~~~~~~~~~~
 	/**
-	 * sets the editing type as a text field for the direct editing of the role types name
+	 * sets the editing type as a text field for the direct editing of the role types name or
+	 * its occurrence constraint
 	 */
 	@Override
 	public int getEditingType() {
@@ -420,59 +447,78 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * calculates if a pictogram element of a role type can be direct edited
 	 * <p>
-	 * returns true if:<br>
-	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
-	 * 	   of the type {@link Type#ROLE_TYPE} and<br>
-	 * (2) the graphics algorithm of the pictogram element is a {@link Text}
-	 * @return if the selected pictogram can be direct edited
+	 * returns true if the clicked shape is the role type name shape or the shape for the occurrence constraint
+	 * @return if the clicked pictogram can be direct edited
 	 */
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
-		Object businessObject = getBusinessObject(editingContext);
-		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
-		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
-			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == Type.ROLE_TYPE) {
-				return true;
-		}	}
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(pictogramElement instanceof Shape) {
+		   if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME) ||
+			  PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+			  return true;
+		}   
 		return false;
 	}
 
 	/**
-	 * returns the current role types name as initial value for direct editing
+	 * returns the current role types name or occurrence constraint value as initial value for direct editing
 	 */
 	@Override
 	public String getInitialValue(IDirectEditingContext editingContext) {
 		org.framed.iorm.model.Shape roleType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
-		return roleType.getName();
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME)) 
+			return roleType.getName();
+		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+			return roleType.getDescription().getName();
+		return null;
 	}
 		
 	/**
-	 * calculates if a chosen value for the role types name is valid
+	 * calculates if a chosen value for the role types name or the occurrence constraint is valid
 	 * <p>
-	 * A valid value is a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
-	 * chosen for another natural type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * A valid value for the role type name is in a specific form checked by {@link NameUtil#matchesIdentifier} 
+	 * and is not already chosen for another natural type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.<br>
+	 * A valid value for the occurrence constraint is in a specific form checked by  {@link NameUtil#matchesCardinality}.
 	 * @return if a chosen value for the role types name is valid
 	 */
 	@Override
-	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
-		if(getInitialValue(editingContext).contentEquals(newName)) return null;
-		if(!(NameUtil.matchesIdentifier(newName))) return DIRECTEDITING_ROLETYPE;
-		if(NameUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newName)) 
-			return NAME_ALREADY_USED_ROLETYPE;
+	public String checkValueValid(String newValue, IDirectEditingContext editingContext) {
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(getInitialValue(editingContext).contentEquals(newValue)) return null;
+		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME)) {
+			if(!(NameUtil.matchesIdentifier(newValue))) return DIRECTEDITING_ROLETYPE;
+			if(NameUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newValue)) 
+				return NAME_ALREADY_USED_ROLETYPE;
+		}	
+		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+			if(!(NameUtil.matchesCardinality(newValue))) return DIRECTEDITING_OCCURRENCE_CONSTRAINT;
+		}
 	    return null;
 	}	
 		
 	/**
-	 * sets value of the role types name, updates its own pictogram element and a compartment in which its in, if any
+	 * sets value of the role types name or the occurrence constraint, updates its own pictogram element and a 
+	 * compartment in which its in, if any.
+	 * <p>
+	 * When direct editing the occurrence constraint it is not needed to update a containing compartment type
 	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
 		org.framed.iorm.model.Shape roleType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
-		roleType.setName(value);
-		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-		updateContainingGroupOrCompartmentType();
-	}
+		Shape shape = (Shape) editingContext.getPictogramElement();
+		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_NAME)) {
+			roleType.setName(value);
+			updatePictogramElement(shape.getContainer());
+			updateContainingGroupOrCompartmentType();
+		}	
+		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+			roleType.getDescription().setName(value);
+			for(Shape containerChild : shape.getContainer().getChildren()) {
+	    		if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_ROLETYPE_TYPEBODY)) {
+	    			updatePictogramElement(containerChild);
+	}	}	}	}
 	
 	//layout feature
 	//~~~~~~~~~~~~~~
@@ -504,7 +550,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
 	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
 	 * 		   the size of the type body and drop shadow shape.<br>
-	 * Step 3: It now iterates over all shapes of the role type:<br>
+	 * Step 3: It sets the location of the role occurence costraint.<br>
+	 * Step 4: It now iterates over all shapes of the role type:<br>
 	 * (a) It sets the width of the names shape.<br>
 	 * (b) It sets the points of the lines that separate the name, attribute container and operation container shapes.<br>
 	 * (c) It layouts the visualization of the attributes in the attribute container shape.<br>
@@ -533,8 +580,13 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		    dropShadowRectangle.setHeight(height);
 		    dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
 		    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
-		        
 		    //Step 3
+            Text cardinalityText = (Text) container.getContainer().getChildren().get(1).getGraphicsAlgorithm();        		
+            graphicAlgorithmService.setLocation(cardinalityText, 
+            		typeBodyRectangle.getX()+width/2-cardinalityText.getWidth()/2, 
+            		typeBodyRectangle.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS);
+	        
+		    //Step 4
 		    for(Shape shape : container.getChildren()){
 		    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
 		        //(a) name
@@ -638,7 +690,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 					       	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
 					    } 	
 					    layoutChanged=true;
-		}   }	}	}        
+		}  }	}	}        
 		return layoutChanged;
 	}
 	
@@ -662,15 +714,17 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 			
 		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY)) {
-			//pictogram name of natural type, attributes and operations
+			//pictogram name of natural type, attributes and operations, occurrence constraint
 			String pictogramTypeName = PatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_ROLETYPE_NAME);
 			List<String> pictogramAttributeNames = PatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
 			List<String> pictogramOperationNames = PatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
+			String pictogramOccurrenceConstraint = PatternUtil.getOccurenceConstraintOfPictogramElement(pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
 			//business name and attributes
 			String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
 			List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-									
+			String businessTypeOccurrenceConstraint = PatternUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
 			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);  
@@ -681,7 +735,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			}	
 			for(int i=0; i<pictogramOperationNames.size(); i++) {
 				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_OPERATIONS);
-		}	}
+			}	
+			if(!pictogramOccurrenceConstraint.equals(businessTypeOccurrenceConstraint)) return Reason.createTrueReason(REASON_OCCURRENCE_CONSTRAINTS);
+		}
 		return Reason.createFalseReason();
 	}
 		
@@ -696,11 +752,20 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		String businessTypeName = PatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 		List<String> businessAttributeNames = PatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
 		List<String> businessOperationNames = PatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-			
+		String businessTypeOccurrenceConstraint = PatternUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
+		
 		//set type name in pictogram model
-	    if (pictogramElement instanceof ContainerShape) {     
-	    	ContainerShape containerShape = (ContainerShape) pictogramElement;
-	        for(Shape shape : containerShape.getChildren()) {
+	    if (pictogramElement instanceof ContainerShape &&
+	    	PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY)) {     
+	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+	    	//occurrence
+	    	for(Shape containerChild : typeBodyShape.getContainer().getChildren()) {
+	    		if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+	    			((Text) containerChild.getGraphicsAlgorithm()).setValue(businessTypeOccurrenceConstraint);
+	    		}	
+	    	}
+	    	//iterate
+	        for(Shape shape : typeBodyShape.getChildren()) {
 	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
 	        		Text text = (Text) shape.getGraphicsAlgorithm();
 	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_NAME)) {
@@ -739,14 +804,15 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//move feature
 	//~~~~~~~~~~~~
 	/**
-	 * disables that the user can move the drop shadow manually
+	 * disables that the user can move the drop shadow and the cardinality manually
 	 * <p>
 	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
 	 * and expands some code of {@link AbstractPattern#canMoveShape}.
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW)) {
+		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
+		   PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
@@ -780,16 +846,18 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+SHADOW_SIZE);
 			super.moveShape(changedMoveContextForTypeBody);
 		}
+		this.layoutPictogramElement(typeBodyShape);
 	}
 		
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can resize the drop shadow manually
+	 * disables that the user can resize the drop shadow and the cardinality manually
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW)) {
+		if(PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
+		   PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
@@ -798,11 +866,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can delete the drop shadow manually
+	 * disables that the user can delete the drop shadow and the cardinality manually
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW)) {
+		if(PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
+		   PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canDelete(deleteContext);

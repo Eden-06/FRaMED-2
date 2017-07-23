@@ -119,6 +119,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecorator;
 	    connectionDecorator = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);

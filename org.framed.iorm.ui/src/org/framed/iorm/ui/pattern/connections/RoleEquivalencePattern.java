@@ -110,6 +110,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
+	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget;
 	    connectionDecoratorTarget = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);

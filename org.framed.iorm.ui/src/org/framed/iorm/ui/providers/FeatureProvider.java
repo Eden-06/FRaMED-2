@@ -1,10 +1,12 @@
 package org.framed.iorm.ui.providers;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -12,6 +14,7 @@ import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.framed.iorm.ui.graphitifeatures.ChangeConfigurationFeature;
 import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
+import org.framed.iorm.ui.graphitifeatures.FRaMEDDeleteConnectionFeature;
 import org.framed.iorm.ui.graphitifeatures.FRaMEDMoveConnectionDecoratorFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
@@ -100,11 +103,20 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}	};	}
 	
 	/**
-	 * replaces the the default feature that moves connection decorators with one that differs between different types
+	 * replaces the default feature that moves connection decorators with one that differs between different types
 	 * of decorators and disables moving some of these
 	 */
 	@Override
 	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
 		return new FRaMEDMoveConnectionDecoratorFeature(this);
+	}
+	
+	/**
+	 * replaces the default feature that deletes connection decorator and connections with one that disables deleting connection
+	 * decorators and changes the deletion of connections 
+	 */
+	@Override
+	public IDeleteFeature getDeleteFeatureAdditional(IDeleteContext Context) {
+		return new FRaMEDDeleteConnectionFeature(this);
 	}
 }

@@ -210,14 +210,16 @@ public class IdentifierLiterals {
 	 * <p>
 	 * can be for:<br>
 	 * (1) type body shape or<br>
-	 * (2) drop shadow shape or<br>
-	 * (3) name shape or<br>
-	 * (4) first line shape or<br>
-	 * (5) second line shape or<br>
-	 * (6) attribute container shape or<br>
-	 * (7) operation container shape
+	 * (2) occurrence constraint shape or<br>
+	 * (3) drop shadow shape or<br>
+	 * (4) name shape or<br>
+	 * (5) first line shape or<br>
+	 * (6) second line shape or<br>
+	 * (7) attribute container shape or<br>
+	 * (8) operation container shape
 	 */
 	public static final String SHAPE_ID_ROLETYPE_CONTAINER = "shape_rt_container",
+							   SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = "shape_rt_cardinality",
 							   SHAPE_ID_ROLETYPE_TYPEBODY = "shape_rt_typebody",
 						 	   SHAPE_ID_ROLETYPE_SHADOW = "shape_rt_shadow",
 						 	   SHAPE_ID_ROLETYPE_NAME = "shape_rt_name", 

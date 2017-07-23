@@ -356,7 +356,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
-		layoutPictogramElement(containerShape);
+		layoutPictogramElement(typeBodyShape);
 		updateContainingGroupOrCompartmentType();
 		return containerShape;
 	}

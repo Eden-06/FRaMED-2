@@ -107,23 +107,24 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
+	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget;
 	    connectionDecoratorTarget = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
-	    int pointsTarget[] = new int[] { 0, ARROWHEAD_HEIGHT, 	//Point 1
-				 						 -1*ARROWHEAD_LENGTH, 0, 					//P2
+	    int pointsTarget[] = new int[] { 0, ARROWHEAD_HEIGHT, 		//Point 1
+				 						 -1*ARROWHEAD_LENGTH, 0, 	//P2
 				 						 0, -1*ARROWHEAD_HEIGHT };	//P3						 
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, pointsTarget);
-	    polylineTarget.setLineWidth(3); 
+	    polylineTarget.setLineWidth(2); 
 	    polylineTarget.setForeground(manageColor(COLOR_CONNECTIONS));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource;
 	    connectionDecoratorSource = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0, true);
-	    int pointsSource[] = new int[] { 0, ARROWHEAD_HEIGHT, 	//Point 1
-	    								 -1*ARROWHEAD_LENGTH, 0, 					//P2
-	    						   		 0, -1*ARROWHEAD_HEIGHT };//P3						 
+	    int pointsSource[] = new int[] { 0, ARROWHEAD_HEIGHT, 		//Point 1
+	    								 -1*ARROWHEAD_LENGTH, 0, 	//P2
+	    						   		 0, -1*ARROWHEAD_HEIGHT };	//P3						 
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, pointsSource);
-	    polylineSource.setLineWidth(3); 
+	    polylineSource.setLineWidth(2); 
 	    polylineSource.setForeground(manageColor(COLOR_CONNECTIONS));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3

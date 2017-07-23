@@ -18,20 +18,6 @@ public class TextLiterals {
 
 	/**
 	 * messages used as direct editing tips
-	 * <p>
-	 * can be:<br>
-	 * (1) the direct editing message for attribute names or<br>
-	 * (2) the direct editing message for operation names or<br>
-	 * (3) the direct editing message for data type names or<br>
-	 * (4) the message if the name of a data type is already used when direct editing or<br>
-	 * (5) the direct editing message for natural type names or<br>
-	 * (6) the message if the name of a natural type is already used when direct editing or<br>	 
-	 * (7) the direct editing message for group names or<br>
-	 * (8) the message if the name of a group is already used when direct editing or<br>
-	 * (9) the direct editing message for compartment type names or<br>
-	 * (10) the message if the name of a compartment type is already used when direct editing or<br>
-	 * (11) the direct editing message for role type names or<br>
-	 * (12) the message if the name of a role type is already used when direct editing
 	 */
 	public static final String DIRECTEDITING_ATTRIBUTES = "An attributes name has the form <name>:<type>.",
 							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
@@ -46,7 +32,8 @@ public class TextLiterals {
 							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!",
 							   DIRECTEDITING_ROLETYPE = "A role types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
-							   NAME_ALREADY_USED_ROLETYPE = "Another role type in this compartment type already has the same name!";
+							   NAME_ALREADY_USED_ROLETYPE = "Another role type in this compartment type already has the same name!",
+							   DIRECTEDITING_OCCURRENCE_CONSTRAINT = "The Occurrence Constraint has to be in the form <number/star> or <number>..<number/star>!";
 	
 	/**
 	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen
@@ -72,7 +59,8 @@ public class TextLiterals {
 							   REASON_NAMES_ATTRIBUTES = "Different names of attributes.",
 							   REASON_NAMES_OPERATIONS = "Different names of operations.",
 							   REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
-							   REASON_NAMES_ELEMENTS = "Different names of elements.";
+							   REASON_NAMES_ELEMENTS = "Different names of elements.",
+							   REASON_OCCURRENCE_CONSTRAINTS = "Occurrence Constraint is out of date.";
 	
 	/**
 	 * messages used in the feature sub editor

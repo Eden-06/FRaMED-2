@@ -97,6 +97,12 @@ public class LayoutLiterals {
 	public static final int ROLE_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE;
 	
 	/**
+	 * layout integers for the text of occurrence constraints
+	 */
+	public static final int HEIGHT_OCCURRENCE_CONSTRAINT = 15,
+							WIDTH_OCCURRENCE_CONSTRAINT = 30;
+		
+	/**
 	 * color value for connections
 	 * <p>
 	 * can be:<br>

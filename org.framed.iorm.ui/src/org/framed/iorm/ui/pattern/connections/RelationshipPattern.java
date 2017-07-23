@@ -138,6 +138,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setLineWidth(2);
 	    //Step 2
 	    ConnectionDecorator connectionDecoratorForName = 
 	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.5, true);   

@@ -971,11 +971,12 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * deletes the group as cares about all related concerns using the following steps
 	 * <p>
 	 * Step 1: It deletes attached connection to it.<br>
-	 * Step 2: It gets the groups diagram and creates a {@link DeleteContext} for it.<br>
-	 * TODO
+	 * Step 2: It gets the compartment types diagram and creates a {@link DeleteContext} for it.<br>
+	 * Step 3: It gets all compartment types that are a child of this compartment type to delete them as well. This is needed to be 
+	 * 		   explicitly since otherwise the diagrams of the child compartments would not be deleted.<br>
 	 * Step 4: It closes all editors that opened the diagram of this group to delete.<br>
 	 * Step 5: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
-	 * Step 6: It deletes the shapes gathered in Step 1, 2 and 4. It also updates a group in which the group is in, if any.
+	 * Step 6: It deletes the shapes gathered in Step 2, 3 and 5. It also updates a group in which the group is in, if any.
 	 * <p>
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
@@ -989,7 +990,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		if(compartmentDiagram != null) {	
 			DeleteContext deleteContextForGroupDiagram = new DeleteContext(compartmentDiagram);
 			deleteContextForGroupDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			//Step 3 TODO
+			//Step 3 
 			for(Shape shape : compartmentDiagram.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_CONTAINER))
@@ -1011,14 +1012,13 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
 			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			//Step 6 TODO
+			//Step 6 
 			for(ContainerShape innerGroupOrCompartmentTypeToDelete : innerGroupsOrCompartmentTypesToDelete) {
 				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
 				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 				IDeleteFeature deleteFeatureForCompartmentDiagram = getFeatureProvider().getDeleteFeature(deleteContextForChildDiagram);
 				deleteFeatureForCompartmentDiagram.delete(deleteContextForChildDiagram);
 			}
-			//Step 7
 			super.delete(deleteContextForAllShapes);
 			super.delete(deleteContextForGroupDiagram);
 			updateContainingGroupOrCompartmentType();

@@ -226,7 +226,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	    }	
 		//Step 4
 	    IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
-		directEditingInfo.setMainPictogramElement(classOrRoleContainer);
+		directEditingInfo.setMainPictogramElement(attributeOrOperationShape);
 		directEditingInfo.setPictogramElement(attributeOrOperationShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 	    link(attributeOrOperationShape, addedAttributeOrOperation);

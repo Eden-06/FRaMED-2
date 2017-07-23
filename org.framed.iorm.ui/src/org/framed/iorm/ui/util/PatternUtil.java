@@ -217,19 +217,48 @@ public class PatternUtil {
 		return businessOperationNames;
 	}
 		
-		/**
-		 * returns the first linked business object of a pictogram
-		 * <p>
-		 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
-		 * an dependency.<br>
-		 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
-		 * usecases only a single business object is linked.
-		 * @param pictogramElement
-		 * @return
-		 */
-		private static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
-			return pictogramElement.getLink().getBusinessObjects().get(0);
+	/**
+	 * returns the first linked business object of a pictogram
+	 * <p>
+	 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
+	 * a dependency.<br>
+	 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
+	 * usecases only a single business object is linked.
+	 * @param pictogramElement the pictogram element to get business object for
+	 * @return the first business object of a pictogram element
+	 */
+	private static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
+		return pictogramElement.getLink().getBusinessObjects().get(0);
+	}
+	
+	/**
+	 * fetches the shown occurrence constraint of a role type or role group by its given type body shape
+	 * @param pictogramElement the pictogram element to get the shown occurrence constraint for 
+	 * @param SHAPE_ID_OCCURRENCE_CONSTRAINT the identifier of the occurrence constraint shape
+	 * @return the value of the occurrence constraint if it can be found
+	 */
+	public static String getOccurenceConstraintOfPictogramElement(PictogramElement pictogramElement, String SHAPE_ID_OCCURRENCE_CONSTRAINT) {
+		if(pictogramElement instanceof Shape) {
+			Shape shape = (Shape) pictogramElement;
+			for(Shape containerChild : shape.getContainer().getChildren()) {
+				if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_OCCURRENCE_CONSTRAINT))
+					return ((Text) containerChild.getGraphicsAlgorithm()).getValue();
+		}	}
+		return null;
+	}
+	
+	/**
+	 * get the occurrence constraint of a role type or role group in the business model
+	 * @param businessObject the business object to get occurrence constraint for
+	 * @return the occurrence constraint value
+	 */
+	public static String getOccurrenceConstraintOfBusinessObject(Object businessObject) {
+		if (businessObject instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			return shape.getDescription().getName();
 		}
+		return null;
+	}	
 
 	/**
 	 * fetches the <em>type body shape</em> of group or compartment type that has the given diagram attached to
