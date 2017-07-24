@@ -100,7 +100,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	@Override
 	public PictogramElement add(IAddContext addContext) {
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) addContext;
-	    Relation addedInheritance = (Relation) addContext.getNewObject();
+	    Relation addedRoleEquivalence = (Relation) addContext.getNewObject();
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
@@ -131,7 +131,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    arrowheadSource.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
-	    link(connection, addedInheritance);
+	    link(connection, addedRoleEquivalence);
 	    return connection;
 	}
 	 

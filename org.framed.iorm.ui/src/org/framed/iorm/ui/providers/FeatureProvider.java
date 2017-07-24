@@ -69,7 +69,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());
-      addConnectionPattern(new CyclicConstraintPattern());
+      addPattern(new CyclicConstraintPattern());
 	}
 	
 	/**

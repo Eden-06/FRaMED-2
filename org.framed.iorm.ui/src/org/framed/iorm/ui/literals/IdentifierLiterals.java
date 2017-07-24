@@ -201,11 +201,16 @@ public class IdentifierLiterals {
 	public static final String SHAPE_ID_INHERITANCE_DECORATOR = "shape_inheritance_decorator";
 	
 	/**
-	 * identifiers used for the connection decoratos of the  name and cardinalities of relationships
+	 * identifiers used for the connection decorators of the  name and cardinalities of relationships
 	 */
 	public static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = "shape_rst_name",
 							   SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = "shape_rst_source_cardinality",
 							   SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = "shape_rst_target_cardinality";
+	
+	/**
+	 * identifier used for the connection decorators of the intra relationship constraints
+	 */
+	public static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = "shape_irc_name";
 	
 	/**
 	 * identifiers used for role types

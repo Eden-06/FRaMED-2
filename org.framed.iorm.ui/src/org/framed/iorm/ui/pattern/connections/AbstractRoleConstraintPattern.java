@@ -9,6 +9,7 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.util.ConnectionPatternUtil;
 
 /**
  * This is the abstract sub class of the pattern for role constraint. It collects similiar operations
@@ -61,8 +62,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
@@ -84,7 +85,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
+		org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
@@ -106,8 +107,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
 		//Step 2
 		Relation newRoleConstraint = OrmFactory.eINSTANCE.createRelation();
 	    newRoleConstraint.setType(type); 

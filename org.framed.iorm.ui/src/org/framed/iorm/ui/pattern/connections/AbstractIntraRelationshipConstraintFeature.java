@@ -4,22 +4,41 @@ import java.util.List;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.util.IColorConstant;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.literals.LayoutLiterals;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
+import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.PropertyUtil;
 
-//TODO
-public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDConnectionPattern {
+//TODO implemented as shapePattern since it should be clicked on a relationship
+public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDShapePattern {
 
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
 	private static final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
+	
+	//TODO
+	protected static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
+	
+	/**
+	 * the color values gathered from {@link LayoutLiterals}
+	 */
+	protected static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
+										  COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
 	
 	public AbstractIntraRelationshipConstraintFeature() {
 		super();
@@ -35,92 +54,88 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDC
 		return IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
 	}
 	
+	@Override
+	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
+		if(mainBusinessObject instanceof Relation) {
+			Relation relation = (Relation) mainBusinessObject;
+			if(relation.getType() == Type.ACYCLIC ||
+			   relation.getType() == Type.CYCLIC ||
+			   relation.getType() == Type.REFLEXIVE ||
+			   relation.getType() == Type.IRREFLEXIVE ||
+			   relation.getType() == Type.TOTAL)
+			return true;	
+		}
+		return false;
+	}
+
+	@Override
+	protected boolean isPatternControlled(PictogramElement pictogramElement) {
+		return isMainBusinessObjectApplicable(this.getBusinessObjectForPictogramElement(pictogramElement));
+	}
+
+	@Override
+	protected boolean isPatternRoot(PictogramElement pictogramElement) {
+		return isMainBusinessObjectApplicable(this.getBusinessObjectForPictogramElement(pictogramElement));
+	}
+	
 	//add feature
 	//~~~~~~~~~~~
 	//TODO
 	public boolean canAddIntraRelationshipConstraint(IAddContext addContext, Type type) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation.getType() == type)
+		   if(relation.getType() == type) {
 			   return true;
-		}
+		}	}
 		return false;
 	}
 	
+	//TODO
+	public PictogramElement addIntraRelationshipConstraint(IAddContext addContext, Type type) {
+		Connection targetConnection = addContext.getTargetConnection();
+		ConnectionDecorator constraintName = 
+			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
+		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
+		nameText.setForeground(manageColor(COLOR_TEXT)); 
+		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
+		link(constraintName, addContext.getNewObject());
+		return constraintName;
+	}	
+		
 	//create feature
 	//~~~~~~~~~~~~~~
 	/**
 	 * calculates if a intra relationship constraint can be created
 	 * <p>
 	 * returns true if<br>
-	 * (1) target and source shape are not null and<br>
-	 * (2) target and source shape is of valid type and<br>
-	 * (3) source shapes container and targets shapes container are the same and<br>
-	 * (4) the source shape is not equals the target shape and<br>
-	 * (5) target and source shape are of the same type
+	 * TODO
 	 * @return if inheritance can be added
 	 */
-	//TODO auftrennen, übersichtlicher
-	public boolean canCreate(ICreateConnectionContext createContext) {
-		Anchor sourceAnchor = createContext.getSourceAnchor();
-	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
-	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
-	    	   !(sourceShape.equals(targetShape))) {
-	    		if(sourceShape.getType() == Type.ROLE_TYPE && 
-	    		   targetShape.getType() == sourceShape.getType()) {
-	    			List<Relation> commonRelationships =
-	    				ConnectionPatternUtil.getRelationsBetweenClassesOrRoles(sourceShape, targetShape, Type.RELATIONSHIP);
-	    			if(commonRelationships.size() == 1) 
-	    				return true;
-	    }	}	}
+	@Override
+	public boolean canCreate(ICreateContext createContext) {
+		Connection targetConnection = createContext.getTargetConnection();
+		if(targetConnection != null &&
+		   getBusinessObjectForPictogramElement(targetConnection) instanceof Relation) {
+			Relation relation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
+			return (relation.getType() == Type.RELATIONSHIP);
+		}
 	    return false;
 	}
-	
-	/**
-	 * checks if a intra relationship constraint can be started from a given source shape
-	 * <p>
-	 * returns true if<br>
-	 * (1) source shape is not null and<br>
-	 * (2) source shape is of valid type and<br>
-	 * (3) source shape has at least one relationship
-	 * @return if a intra relationship constraint can be started
-	 */
-	@Override
-	public boolean canStartConnection(ICreateConnectionContext createContext) {
-		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-		if(sourceShape != null){	
-			if(sourceShape.getType() == Type.ROLE_TYPE) {
-				List<Relation> relationships = 
-						ConnectionPatternUtil.getRelationForClassOrRole(sourceShape, Type.RELATIONSHIP);
-				if(relationships.size() >0) return true;
-		}	}
-		return false;
-	}
-	
-	public Connection createIntraRelationshipConstraint(ICreateConnectionContext createContext, Type type) {
-		//Step 1
-		Anchor sourceAnchor = createContext.getSourceAnchor();
-	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
-		//Step 2
+		
+	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type) {
+		Connection targetConnection = createContext.getTargetConnection();
+		Anchor sourceAnchor = targetConnection.getStart(),
+			   targetAnchor = targetConnection.getEnd();
+		//Step 1...
 		Relation newIntraRelCon = OrmFactory.eINSTANCE.createRelation();
 	    newIntraRelCon.setType(type); 
-	    if(newIntraRelCon.eResource() != null) getDiagram().eResource().getContents().add(newIntraRelCon);
-	    //Step 3
-	    newIntraRelCon.setContainer(sourceShape.getContainer());
-		sourceShape.getContainer().getElements().add(newIntraRelCon);
-		newIntraRelCon.setSource(sourceShape);
-		newIntraRelCon.setTarget(targetShape);
-		//Step 4
-		AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
-		addContext.setNewObject(newIntraRelCon);
-		Connection newConnection = null;
-	    //if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	        
-	    return newConnection;
+	    Model model = DiagramUtil.getLinkedModelForDiagram(getDiagram());
+		if(newIntraRelCon.eResource() != null) getDiagram().eResource().getContents().add(newIntraRelCon);
+		model.getElements().add(newIntraRelCon);
+		newIntraRelCon.setContainer(model);
+		newIntraRelCon.setSource(ConnectionPatternUtil.getShapeForAnchor(sourceAnchor));
+		newIntraRelCon.setTarget(ConnectionPatternUtil.getShapeForAnchor(targetAnchor));    
+		addGraphicalRepresentation(createContext, newIntraRelCon);
+		return new Object[] { newIntraRelCon };
 	}
 }

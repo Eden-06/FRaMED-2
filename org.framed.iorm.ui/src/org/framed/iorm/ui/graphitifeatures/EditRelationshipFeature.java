@@ -75,7 +75,7 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 	 * {@link ToolBehaviorProvider}.
 	 */
 	@Override
-	public void execute(ICustomContext context) {
+	public void execute(ICustomContext context) {	
 		List<String> relationshipValues = new ArrayList<String>();
 		Connection connection = null;
 		if(context.getPictogramElements()[0] instanceof Connection) {

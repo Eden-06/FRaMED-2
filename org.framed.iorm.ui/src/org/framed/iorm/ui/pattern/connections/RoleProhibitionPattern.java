@@ -97,7 +97,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	@Override
 	public PictogramElement add(IAddContext addContext) {
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) addContext;
-	    Relation addedInheritance = (Relation) addContext.getNewObject();
+	    Relation addedRoleProhibtion = (Relation) addContext.getNewObject();
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
@@ -128,7 +128,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    polylineSource.setForeground(manageColor(COLOR_CONNECTIONS));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
-	    link(connection, addedInheritance);
+	    link(connection, addedRoleProhibtion);
 	    return connection;
 	}
 	 

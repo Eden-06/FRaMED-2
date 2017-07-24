@@ -100,7 +100,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	@Override
 	public PictogramElement add(IAddContext addContext) {
 		IAddConnectionContext addConnectionContext = (IAddConnectionContext) addContext;
-	    Relation addedInheritance = (Relation) addContext.getNewObject();
+	    Relation addedRoleImplication = (Relation) addContext.getNewObject();
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
@@ -122,7 +122,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
-	    link(connection, addedInheritance);
+	    link(connection, addedRoleImplication);
 	    return connection;
 	}
 	 

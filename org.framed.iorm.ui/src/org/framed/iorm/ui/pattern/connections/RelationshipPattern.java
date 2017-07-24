@@ -21,6 +21,7 @@ import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -200,8 +201,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
@@ -222,7 +223,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
+		org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
@@ -244,8 +245,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();
