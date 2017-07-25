@@ -23,7 +23,7 @@ public class FRaMEDConnectionPattern extends AbstractConnectionPattern {
 	/**
 	 * the pictogram elements service used to creates pictogram elements in the subclasses
 	 */
-	protected final IPeCreateService pictogramElementCreateSerive = Graphiti.getPeCreateService();
+	protected final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
 	
 	/**
 	 * the graphics algorithm service used to create graphics algorithms in the subclasses

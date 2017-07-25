@@ -101,7 +101,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
-	    Connection connection = pictogramElementCreateSerive.createFreeFormConnection(getDiagram());
+	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
@@ -110,7 +110,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget;
-	    connectionDecoratorTarget = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
+	    connectionDecoratorTarget = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
 	    int pointsTarget[] = new int[] { 0, ARROWHEAD_HEIGHT, 		//Point 1
 				 						 -1*ARROWHEAD_LENGTH, 0, 	//P2
 				 						 0, -1*ARROWHEAD_HEIGHT };	//P3						 
@@ -119,7 +119,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    polylineTarget.setForeground(manageColor(COLOR_CONNECTIONS));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource;
-	    connectionDecoratorSource = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 0, true);
+	    connectionDecoratorSource = pictogramElementCreateService.createConnectionDecorator(connection, false, 0, true);
 	    int pointsSource[] = new int[] { 0, ARROWHEAD_HEIGHT, 		//Point 1
 	    								 -1*ARROWHEAD_LENGTH, 0, 	//P2
 	    						   		 0, -1*ARROWHEAD_HEIGHT };	//P3						 

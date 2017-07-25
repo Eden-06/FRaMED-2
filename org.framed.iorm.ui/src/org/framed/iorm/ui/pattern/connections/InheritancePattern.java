@@ -115,7 +115,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
-	    Connection connection = pictogramElementCreateSerive.createFreeFormConnection(getDiagram());
+	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
@@ -123,7 +123,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecorator;
-	    connectionDecorator = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
+	    connectionDecorator = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
 	    int points[] = new int[] { -1*INHERITANCE_ARROWHEAD_LENGTH, INHERITANCE_ARROWHEAD_HEIGHT, 		//Point 1
 	    						   0, 0, 																//P2
 	    						   -1*INHERITANCE_ARROWHEAD_LENGTH, -1*INHERITANCE_ARROWHEAD_HEIGHT };	//P3						 
@@ -153,8 +153,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
@@ -179,7 +179,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.NATURAL_TYPE || 
 			   sourceShape.getType() == Type.DATA_TYPE ||
@@ -203,8 +203,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
 	    newInheritance.setType(Type.INHERITANCE); 

@@ -94,7 +94,9 @@ public class NameLiterals {
 	 * (7) the name of the cyclic constraint create feature or<br>
 	 * (8) the name of the irreflexive constraint create feature or<br>
 	 * (9) the name of the reflexive constraint create feature or<br>
-	 * (10) the name of the total constraint create feature 
+	 * (10) the name of the total constraint create feature or<br>
+	 * (11) the name of the relationship implication create feature or<br>
+	 * (12) the name of the relationship exclusion create feature
 	 */
 	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
 							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication",
@@ -105,7 +107,9 @@ public class NameLiterals {
 						       CYCLIC_FEATURE_NAME = "Cyclic",
 						       IRREFLEXIVE_FEATURE_NAME = "Irreflexve",
 						       REFLEXIVE_FEATURE_NAME = "Reflexive",
-						       TOTAL_FEATURE_NAME = "Total";
+						       TOTAL_FEATURE_NAME = "Total",
+						       RELATIONSHIP_IMPLICATION_FEATURE_NAME = "Relationship Implication",
+						       RELATIONSHIP_EXCLUSION_FEATURE_NAME = "Relationship Exclusion";
 	
 	/**
 	 * name literals used in the patterns to be identified by the ToolBehaviorProvider 

@@ -104,7 +104,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
-	    Connection connection = pictogramElementCreateSerive.createFreeFormConnection(getDiagram());
+	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
@@ -113,7 +113,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecorator;
-	    connectionDecorator = pictogramElementCreateSerive.createConnectionDecorator(connection, false, 1.0, true);
+	    connectionDecorator = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
 	    int points[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 		//Point 1
 	    						   0, 0, 										//P2
 	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 

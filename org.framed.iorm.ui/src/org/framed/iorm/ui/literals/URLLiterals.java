@@ -68,5 +68,7 @@ public class URLLiterals {
 							   IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE = IMG_FILE_PATH_PREFIX + "roleequivalence.png",
 							   IMG_FILEPATH_FEATURE_ROLEPROHIBITION = IMG_FILE_PATH_PREFIX + "roleprohibition.png",
 							   IMG_FILEPATH_FEATURE_RELATIONSHIP = IMG_FILE_PATH_PREFIX + "relationship.png",
-							   IMG_FILEPATH_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IMG_FILE_PATH_PREFIX + "intrarelationship_constraint.png";
-}
+							   IMG_FILEPATH_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IMG_FILE_PATH_PREFIX + "intrarelationship_constraint.png",
+							   IMG_FILEPATH_FEATURE_RELATIONSHIP_IMPLICATION = IMG_FILE_PATH_PREFIX + "relationship_implication.png",
+							   IMG_FILEPATH_FEATURE_RELATIONSHIP_EXCLUSION = IMG_FILE_PATH_PREFIX + "relationship_exclusion.png";
+}	

@@ -134,7 +134,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    Anchor sourceAnchor = addConnectionContext.getSourceAnchor();
 	    Anchor targetAnchor = addConnectionContext.getTargetAnchor();
 	    //Step 1
-	    Connection connection = pictogramElementCreateSerive.createFreeFormConnection(getDiagram());
+	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
@@ -142,21 +142,21 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    polyline.setLineWidth(2);
 	    //Step 2
 	    ConnectionDecorator connectionDecoratorForName = 
-	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.5, true);   
+	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);   
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
 	    graphicAlgorithmService.setLocation(nameText, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    nameText.setForeground(manageColor(COLOR_TEXT)); 
 	    PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
-	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.1, true);
+	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
 	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
-	    	pictogramElementCreateSerive.createConnectionDecorator(connection, true, 0.9, true);
+	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
 	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
@@ -174,6 +174,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		EditRelationshipFeature editRelationshipFeature = getEditRelationshipFeature(customContext);
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);
+		pictogramElementCreateService.createChopboxAnchor(connection);
 		return connection;
 	}
 	
@@ -201,8 +202,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
@@ -223,7 +224,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
@@ -245,8 +246,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();

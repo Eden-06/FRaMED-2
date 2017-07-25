@@ -66,8 +66,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
@@ -89,7 +89,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
@@ -111,8 +111,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.Shape sourceShape = ConnectionPatternUtil.getShapeForAnchor(sourceAnchor);
-	    org.framed.iorm.model.Shape targetShape = ConnectionPatternUtil.getShapeForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newRoleConstraint = OrmFactory.eINSTANCE.createRelation();
 	    newRoleConstraint.setType(type); 

@@ -168,7 +168,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	}
 	
 	/**
-	 * creates the business object of an intra relationship constraint of the given type using the following steps:
+	 * creates the business object of an intra relationship constraint of the given type 
 	 * @param createContext the context which has a reference to the relationship to add the constraint to 
 	 * @param type the type of the constraint to add to
 	 * @param aircp the sub class calling this operation
@@ -184,8 +184,8 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		if(newIntraRelCon.eResource() != null) getDiagram().eResource().getContents().add(newIntraRelCon);
 		model.getElements().add(newIntraRelCon);
 		newIntraRelCon.setContainer(model);
-		newIntraRelCon.setSource(ConnectionPatternUtil.getShapeForAnchor(sourceAnchor));
-		newIntraRelCon.setTarget(ConnectionPatternUtil.getShapeForAnchor(targetAnchor));    
+		newIntraRelCon.setSource(ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor));
+		newIntraRelCon.setTarget(ConnectionPatternUtil.getModelElementForAnchor(targetAnchor));    
 		AddContext addContext = new AddContext();
 	    addContext.setNewObject(newIntraRelCon);
 	    addContext.setTargetConnection(targetConnection);

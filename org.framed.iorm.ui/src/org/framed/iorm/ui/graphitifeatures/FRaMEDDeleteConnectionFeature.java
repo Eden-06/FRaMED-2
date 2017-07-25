@@ -3,7 +3,6 @@ package org.framed.iorm.ui.graphitifeatures;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
