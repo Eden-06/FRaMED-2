@@ -1,8 +1,13 @@
 package org.framed.iorm.ui.util;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
@@ -98,5 +103,32 @@ public class GeneralUtil {
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditorToClose, false);
 			}
 		});
+	}
+	
+	/**
+	 * Similiar to the contains operation of lists this method offers a comparison using the equal operation
+	 * of strings to search for equal string in a list of strings.
+	 * @param list the list to search an equal string in
+	 * @param stringToCheckAgainst the string to search an equal one for
+	 * @return if an equal string is found in a given list
+	 */
+	public static boolean containsEqual(List<String> list, String stringToCheckAgainst) {
+		for(String string : list)
+			if(string.equals(stringToCheckAgainst)) return true;
+		return false;
+	}
+	
+	/**
+	 * returns the first linked business object of a pictogram
+	 * <p>
+	 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
+	 * a dependency.<br>
+	 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
+	 * usecases only a single business object is linked.
+	 * @param pictogramElement the pictogram element to get business object for
+	 * @return the first business object of a pictogram element
+	 */
+	public static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
+		return pictogramElement.getLink().getBusinessObjects().get(0);
 	}
 }

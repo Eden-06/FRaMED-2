@@ -20,6 +20,7 @@ import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.model.Relation;
@@ -44,9 +45,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
 						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
 						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
-						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME,
-						 CYCLIC_FEATURE_NAME = NameLiterals.CYCLIC_FEATURE_NAME;
-	
+						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME;
+						 
 	/**
 	 * the name literals for connection create features to remove from the editor palette for the diagram type
 	 * gathered from {@link NameLiterals}
@@ -55,7 +55,12 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 ROLEEQUIVALENCE_FEATURE_NAME = NameLiterals.ROLEEQUIVALENCE_FEATURE_NAME,
 						 ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME,
 					     RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME,
-					     RELATIONSHIP_DECORATOR_FEATURE_NAME = NameLiterals.RELATIONSHIP_DECORATOR_FEATURE_NAME;
+					     RELATIONSHIP_DECORATOR_FEATURE_NAME = NameLiterals.RELATIONSHIP_DECORATOR_FEATURE_NAME,
+					     ACYCLIC_FEATURE_NAME = NameLiterals.ACYCLIC_FEATURE_NAME,
+					     CYCLIC_FEATURE_NAME = NameLiterals.CYCLIC_FEATURE_NAME,
+					     IRREFLEXIVE_FEATURE_NAME = NameLiterals.IRREFLEXIVE_FEATURE_NAME,
+			 		 	 REFLEXIVE_FEATURE_NAME = NameLiterals.REFLEXIVE_FEATURE_NAME,
+					 	 TOTAL_FEATURE_NAME = NameLiterals.TOTAL_FEATURE_NAME;
 						 
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
@@ -98,12 +103,38 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 */
 	private String paletteType = PALETTE_TYPE_TOPLEVELVIEW;
 	
+	private List<String> createFeaturesToHideInEveryView = new ArrayList<String>(),
+						 createFeaturesToHideInTopLevelView = new ArrayList<String>(),
+						 createFeaturesToHideInCompartmentView = new ArrayList<String>();
+	
 	/**
 	 * Class constructor
+	 * <p>
+	 * fills the list of features to hide 
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public ToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
+		//features to hide in every view
+		createFeaturesToHideInEveryView.add(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME);
+		createFeaturesToHideInEveryView.add(MODEL_FEATURE_NAME);
+		createFeaturesToHideInEveryView.add(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME);
+		createFeaturesToHideInEveryView.add(RELATIONSHIP_DECORATOR_FEATURE_NAME);
+		//features to hide in the top level view
+		createFeaturesToHideInTopLevelView.add(ROLEIMPLICATION_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(ROLEEQUIVALENCE_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(ROLEPROHIBITION_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(ROLETYPE_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(ACYCLIC_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(CYCLIC_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(IRREFLEXIVE_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(REFLEXIVE_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(TOTAL_FEATURE_NAME);
+		//feature to hide in the compartment view
+		createFeaturesToHideInCompartmentView.add(NATURALTYPE_FEATURE_NAME);
+		createFeaturesToHideInCompartmentView.add(DATATYPE_FEATURE_NAME);
+		createFeaturesToHideInCompartmentView.add(GROUP_FEATURE_NAME);
 	}
 	
 	/**
@@ -218,35 +249,26 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    //Step 1
 		for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 	    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-	    	if(toolEntry.getLabel().equals(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME) ||
-	    	   toolEntry.getLabel().equals(MODEL_FEATURE_NAME) ||
-	    	   toolEntry.getLabel().equals(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME) ||
-	    	   toolEntry.getLabel().equals(RELATIONSHIP_DECORATOR_FEATURE_NAME))
+	    	if(GeneralUtil.containsEqual(createFeaturesToHideInEveryView, toolEntry.getLabel()))
 	    		toolEntriesShapesToDelete.add(toolEntry);
 	    }
 		//Step 2
 		if(paletteType.equals(PALETTE_TYPE_TOPLEVELVIEW)) {
 			for(int i = 0; i < superCompartments[0].getToolEntries().size(); i++) {
 				IToolEntry toolEntry = superCompartments[0].getToolEntries().get(i);
-				if(toolEntry.getLabel().equals(ROLEIMPLICATION_FEATURE_NAME) ||
-				   toolEntry.getLabel().equals(ROLEEQUIVALENCE_FEATURE_NAME) ||
-				   toolEntry.getLabel().equals(ROLEPROHIBITION_FEATURE_NAME) || 
-				   toolEntry.getLabel().equals(RELATIONSHIP_FEATURE_NAME) || 
-				   toolEntry.getLabel().equals(CYCLIC_FEATURE_NAME))
+				if(GeneralUtil.containsEqual(createFeaturesToHideInTopLevelView, toolEntry.getLabel()))
 					toolEntriesConnectionToDelete.add(toolEntry);
 			}
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-		    	if(toolEntry.getLabel().equals(ROLETYPE_FEATURE_NAME))
+		    	if(GeneralUtil.containsEqual(createFeaturesToHideInTopLevelView, toolEntry.getLabel()))
 		    		toolEntriesShapesToDelete.add(toolEntry);
 		}   }
 		//Step 3
 		if(paletteType.equals(PALETTE_TYPE_COMPARTMENTVIEW)) {
 			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
 		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-			   	if(toolEntry.getLabel().equals(NATURALTYPE_FEATURE_NAME) ||
-			   	   toolEntry.getLabel().equals(DATATYPE_FEATURE_NAME) ||
-			   	   toolEntry.getLabel().equals(GROUP_FEATURE_NAME))
+		    	if(GeneralUtil.containsEqual(createFeaturesToHideInCompartmentView, toolEntry.getLabel()))
 			   		toolEntriesShapesToDelete.add(toolEntry);
 		}   }	
 		for(IToolEntry toolEntryConnectionToDelete : toolEntriesConnectionToDelete) {
@@ -259,5 +281,5 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    	paletteCompartmentEntry.add(superCompartments[j]);
 	    }
 	    return paletteCompartmentEntry.toArray(new IPaletteCompartmentEntry[paletteCompartmentEntry.size()]);
-	}	    
+	}	 
 }

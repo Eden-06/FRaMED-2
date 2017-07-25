@@ -18,7 +18,8 @@ public class FRaMEDMoveConnectionDecoratorFeature extends DefaultMoveConnectionD
 	/**
 	 * values for property shape id of the connection decorators that should be moveable
 	 */
-	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR;
+	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
+								SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
 	
 	/**
 	 * Class constructor
@@ -32,7 +33,8 @@ public class FRaMEDMoveConnectionDecoratorFeature extends DefaultMoveConnectionD
 	 * calculates if a connection decorator can be moved 
 	 */
 	public boolean canMoveConnectionDecorator(IMoveConnectionDecoratorContext context) {
-		if(PropertyUtil.isShape_IdValue(context.getConnectionDecorator(), SHAPE_ID_RELATIONSHIP_NAME_DECORATOR))
+		if(PropertyUtil.isShape_IdValue(context.getConnectionDecorator(), SHAPE_ID_RELATIONSHIP_NAME_DECORATOR) ||
+		   PropertyUtil.isShape_IdValue(context.getConnectionDecorator(), SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR))
 			return true;
 		return false;
 	}

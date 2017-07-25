@@ -19,22 +19,8 @@ import org.framed.iorm.ui.graphitifeatures.FRaMEDMoveConnectionDecoratorFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
-import org.framed.iorm.ui.pattern.connections.CyclicConstraintPattern;
-import org.framed.iorm.ui.pattern.connections.InheritancePattern;
-import org.framed.iorm.ui.pattern.connections.RelationshipPattern;
-import org.framed.iorm.ui.pattern.connections.RoleEquivalencePattern;
-import org.framed.iorm.ui.pattern.connections.RoleImplicationPattern;
-import org.framed.iorm.ui.pattern.connections.RoleProhibitionPattern;
-import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern;
-import org.framed.iorm.ui.pattern.shapes.AttributePattern;
-import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern;
-import org.framed.iorm.ui.pattern.shapes.DataTypePattern;
-import org.framed.iorm.ui.pattern.shapes.GroupOrCompartmentTypeElementPattern;
-import org.framed.iorm.ui.pattern.shapes.GroupPattern;
-import org.framed.iorm.ui.pattern.shapes.ModelPattern;
-import org.framed.iorm.ui.pattern.shapes.NaturalTypePattern;
-import org.framed.iorm.ui.pattern.shapes.OperationPattern;
-import org.framed.iorm.ui.pattern.shapes.RoleTypePattern;
+import org.framed.iorm.ui.pattern.connections.*;
+import org.framed.iorm.ui.pattern.shapes.*;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type
@@ -47,6 +33,9 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * <p>
 	 * It sets the pattern that are used to created, edit and delete shape (Step 1) and 
 	 * connections (Step 2) in the editor for the diagram type.
+	 * <p>
+	 * For the reason the intra relationship constraints are implemented as shape pattern see 
+	 * {@link AbstractIntraRelationshipConstraintPattern}.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -69,7 +58,11 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());
+      addPattern(new AcyclicConstraintPattern());
       addPattern(new CyclicConstraintPattern());
+      addPattern(new IrreflexiveConstraintPattern());
+      addPattern(new ReflexiveConstraintPattern());
+      addPattern(new TotalConstraintPattern());
 	}
 	
 	/**

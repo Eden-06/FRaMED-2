@@ -3,7 +3,6 @@ package org.framed.iorm.ui.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -16,10 +15,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
-import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 
 /**
- * This class offers several utility operations used by the graphiti patterns.
+ * This class offers several utility operations mostly used by the graphiti shape patterns.
  * @author Kevin Kassin
  */
 public class ShapePatternUtil {
@@ -167,7 +165,7 @@ public class ShapePatternUtil {
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
 							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
-								NamedElement attribute = (NamedElement) getBusinessObjectForPictogramElement(attributeShape);
+								NamedElement attribute = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(attributeShape);
 								businessAttributeNames.add(attribute.getName());
 		}	}	}	}	}	}	
 		return businessAttributeNames;
@@ -211,26 +209,12 @@ public class ShapePatternUtil {
 					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
 							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
-								NamedElement operation = (NamedElement) getBusinessObjectForPictogramElement(operationShape);
+								NamedElement operation = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(operationShape);
 								businessOperationNames.add(operation.getName());
 		}	}	}	}	}	}	
 		return businessOperationNames;
 	}
 		
-	/**
-	 * returns the first linked business object of a pictogram
-	 * <p>
-	 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
-	 * a dependency.<br>
-	 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
-	 * usecases only a single business object is linked.
-	 * @param pictogramElement the pictogram element to get business object for
-	 * @return the first business object of a pictogram element
-	 */
-	private static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
-		return pictogramElement.getLink().getBusinessObjects().get(0);
-	}
-	
 	/**
 	 * fetches the shown occurrence constraint of a role type or role group by its given type body shape
 	 * @param pictogramElement the pictogram element to get the shown occurrence constraint for 

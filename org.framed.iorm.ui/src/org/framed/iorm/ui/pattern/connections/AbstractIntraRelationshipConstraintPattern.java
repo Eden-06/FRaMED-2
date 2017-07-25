@@ -1,11 +1,8 @@
 package org.framed.iorm.ui.pattern.connections;
 
-import java.util.List;
-
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -23,15 +20,28 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
-//TODO implemented as shapePattern since it should be clicked on a relationship
-public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDShapePattern {
+/**
+ * This is the abstract super class of the patterns for intra relationship contraints. It collects similiar operations
+ * of the patterns {@link AcyclicConstraintPattern}, {@link CyclicConstraintPattern}, {@link IrreflexiveConstraintPattern}, 
+ * {@link ReflexiveConstraintPattern} and {@link TotalConstraintPattern}.
+ * <p>
+ * This is implemented as shape pattern instead of a connection pattern since its easier for the user to click on a relationship to
+ * add a constraint. This would not be able if a connection pattern would be used. As a developer this solution is also preferred as
+ * this way already provides the relationship to add the constraint to. Otherwise the relationship has to be searched and more code
+ * would be needed.
+ * @author Kevin Kassin
+ */
+public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDShapePattern {
 
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
 	private static final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
 	
-	//TODO
+	/**
+	 * the value of the property shape id for the decorators added to the relationship by the intra relationship constraint gathered
+	 * from {@link IdentifierLiterals}
+	 */
 	protected static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
 	
 	/**
@@ -40,7 +50,15 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 	protected static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
 										  COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
 	
-	public AbstractIntraRelationshipConstraintFeature() {
+	/**
+	 * layout integers gathered from {@link LayoutLiterals}
+	 */
+	protected static final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
+	
+	/**
+	 * Class constructor
+	 */
+	public AbstractIntraRelationshipConstraintPattern() {
 		super();
 	}
 	
@@ -54,6 +72,10 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 		return IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
 	}
 	
+	/**
+	 * checks if pattern is applicable for a given business object
+	 * @return true, if the business object is a {@link org.framed.iorm.model.Relation} of the right type 
+	 */
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
 		if(mainBusinessObject instanceof Relation) {
@@ -68,11 +90,19 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 		return false;
 	}
 
+	/**
+	 * checks if pattern is applicable for a given pictogram element
+	 * @return true, if business object of the pictogram element is a {@link org.framed.iorm.model.Relation} of the right type 
+	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		return isMainBusinessObjectApplicable(this.getBusinessObjectForPictogramElement(pictogramElement));
 	}
-
+	
+	/**
+	 * checks if pattern is applicable for a given pictogram element
+	 * @return true, if the business object of the pictogram element is a {@link org.framed.iorm.model.Relation} of the right type
+	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		return isMainBusinessObjectApplicable(this.getBusinessObjectForPictogramElement(pictogramElement));
@@ -80,7 +110,13 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 	
 	//add feature
 	//~~~~~~~~~~~
-	//TODO
+	/**
+	 * calculates if the intra relationship constraint can be added to the relationship
+	 * <p>
+	 * returns true if:<br>
+	 * (1) the new business object is a {@link org.framed.iorm.model.Relation} of the right type 
+	 * @return if the intra relationship constraint can be added
+	 */
 	public boolean canAddIntraRelationshipConstraint(IAddContext addContext, Type type) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
@@ -90,13 +126,21 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 		return false;
 	}
 	
-	//TODO
+	/**
+	 * adds the graphical representation of an intra relationship constraint in the relationship
+	 * <p>
+	 * @param addContext the context which has a reference to the relationship to add the constraint to
+	 * @param type the type of the constraint to add
+	 * @return the connection decorator with the constraints name added
+	 */
 	public PictogramElement addIntraRelationshipConstraint(IAddContext addContext, Type type) {
 		Connection targetConnection = addContext.getTargetConnection();
 		ConnectionDecorator constraintName = 
 			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
-		nameText.setForeground(manageColor(COLOR_TEXT)); 
+		nameText.setForeground(manageColor(COLOR_TEXT));
+		nameText.setFont(manageFont("Arial", 10, false, true));
+		graphicAlgorithmService.setLocation(nameText, 0, DISTANCE_FROM_CONNECTION_LINE);
 		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;
@@ -107,8 +151,7 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 	/**
 	 * calculates if a intra relationship constraint can be created
 	 * <p>
-	 * returns true if<br>
-	 * TODO
+	 * returns true if the clicked on pictogram element belongs to a relationship
 	 * @return if inheritance can be added
 	 */
 	@Override
@@ -121,8 +164,15 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 		}
 	    return false;
 	}
-		
-	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type) {
+	
+	/**
+	 * creates the business object of an intra relationship constraint of the given type using the following steps:
+	 * @param createContext the context which has a reference to the relationship to add the constraint to 
+	 * @param type the type of the constraint to add to
+	 * @param aircp the sub class calling this operation
+	 * @return the created business object
+	 */
+	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type, AbstractIntraRelationshipConstraintPattern aircp) {
 		Connection targetConnection = createContext.getTargetConnection();
 		Anchor sourceAnchor = targetConnection.getStart(),
 			   targetAnchor = targetConnection.getEnd();
@@ -135,7 +185,11 @@ public abstract class AbstractIntraRelationshipConstraintFeature extends FRaMEDS
 		newIntraRelCon.setContainer(model);
 		newIntraRelCon.setSource(ConnectionPatternUtil.getShapeForAnchor(sourceAnchor));
 		newIntraRelCon.setTarget(ConnectionPatternUtil.getShapeForAnchor(targetAnchor));    
-		addGraphicalRepresentation(createContext, newIntraRelCon);
+		
+		AddContext addContext = new AddContext();
+	    addContext.setNewObject(newIntraRelCon);
+	    addContext.setTargetConnection(targetConnection);
+	    if(aircp.canAdd(addContext)) aircp.add(addContext);
 		return new Object[] { newIntraRelCon };
 	}
 }

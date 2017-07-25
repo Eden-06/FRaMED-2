@@ -9,26 +9,26 @@ import org.framed.iorm.ui.literals.NameLiterals;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
- *	of the type {@link Type#CYCLIC} in the editor.
+ * of the type {@link Type#REFLEXIVE} in the editor.
  * <p>
- * It deals with the following aspects of cyclic intra relationship constraints:<br>
- * (1) creating cyclic constraints, especially their business object<br>
- * (2) adding cyclic constraints to the diagram, especially their pictogram elements<br>
+ * It deals with the following aspects of irreflexive intra relationship constraints:<br>
+ * (1) creating reflexive constraints, especially their business object<br>
+ * (2) adding reflexive constraints to the diagram, especially their pictogram elements<br>
  * <p>
  * It is a subclass of {@link AbstractIntraRelationshipConstraintPattern} and several operations used here are implemented there.
  * @author Kevin Kassin
  */
-public class CyclicConstraintPattern extends AbstractIntraRelationshipConstraintPattern {
+public class ReflexiveConstraintPattern extends AbstractIntraRelationshipConstraintPattern {
 
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
-	private static final String CYCLIC_FEATURE_NAME = NameLiterals.CYCLIC_FEATURE_NAME;
+	private static final String REFLEXIVE_FEATURE_NAME = NameLiterals.REFLEXIVE_FEATURE_NAME;
 	
 	/**
 	 * Class constructor
 	 */
-	public CyclicConstraintPattern() {
+	public ReflexiveConstraintPattern() {
 		super();
 	}
 	
@@ -38,34 +38,34 @@ public class CyclicConstraintPattern extends AbstractIntraRelationshipConstraint
 	 */
 	@Override
 	public String getCreateName() {
-		return CYCLIC_FEATURE_NAME;
+		return REFLEXIVE_FEATURE_NAME;
 	}
 	
 	//add feature
 	//~~~~~~~~~~~
 	/**
-	 * calls its equivalent super class operation to calculate if a cyclic constraint can be added
+	 * calls its equivalent super class operation to calculate if a reflexive constraint can be added
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		return canAddIntraRelationshipConstraint(addContext, Type.CYCLIC);
+		return canAddIntraRelationshipConstraint(addContext, Type.REFLEXIVE);
 	}
 		
 	/**
-	 * calls its equivalent super class operation to add a cyclic constraint
+	 * calls its equivalent super class operation to add a reflexive constraint
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		return addIntraRelationshipConstraint(addContext, Type.CYCLIC);
+		return addIntraRelationshipConstraint(addContext, Type.REFLEXIVE);
 	}
 	
 	//create feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * calls its equivalent super class operation to create a cyclic constraint
+	 * calls its equivalent super class operation to create a reflexive constraint
 	 */
 	@Override
 	public Object[] create(ICreateContext createContext) {
-		return createIntraRelationshipConstraint(createContext, Type.CYCLIC, this);
+		return createIntraRelationshipConstraint(createContext, Type.REFLEXIVE, this);
 	}
 }
