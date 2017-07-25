@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package org.framed.iorm.ui.pattern.connections.intrarelationship;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;

@@ -20,6 +20,15 @@ import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
 import org.framed.iorm.ui.pattern.connections.*;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.AbstractIntraRelationshipConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.AcyclicConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.CyclicConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.IrreflexiveConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.ReflexiveConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.intrarelationship.TotalConstraintPattern;
+import org.framed.iorm.ui.pattern.connections.roleconstraint.RoleEquivalencePattern;
+import org.framed.iorm.ui.pattern.connections.roleconstraint.RoleImplicationPattern;
+import org.framed.iorm.ui.pattern.connections.roleconstraint.RoleProhibitionPattern;
 import org.framed.iorm.ui.pattern.shapes.*;
 
 /**

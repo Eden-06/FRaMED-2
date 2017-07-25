@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package org.framed.iorm.ui.pattern.connections.roleconstraint;
 
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;

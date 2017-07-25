@@ -1,8 +1,11 @@
-package org.framed.iorm.ui.pattern.connections;
+package org.framed.iorm.ui.pattern.connections.intrarelationship;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.DeleteContext;
+import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -140,7 +143,6 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
 		nameText.setForeground(manageColor(COLOR_TEXT));
 		nameText.setFont(manageFont("Arial", 10, false, true));
-		graphicAlgorithmService.setLocation(nameText, 0, DISTANCE_FROM_CONNECTION_LINE);
 		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;
@@ -176,7 +178,6 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		Connection targetConnection = createContext.getTargetConnection();
 		Anchor sourceAnchor = targetConnection.getStart(),
 			   targetAnchor = targetConnection.getEnd();
-		//Step 1...
 		Relation newIntraRelCon = OrmFactory.eINSTANCE.createRelation();
 	    newIntraRelCon.setType(type); 
 	    Model model = DiagramUtil.getLinkedModelForDiagram(getDiagram());
@@ -185,11 +186,21 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		newIntraRelCon.setContainer(model);
 		newIntraRelCon.setSource(ConnectionPatternUtil.getShapeForAnchor(sourceAnchor));
 		newIntraRelCon.setTarget(ConnectionPatternUtil.getShapeForAnchor(targetAnchor));    
-		
 		AddContext addContext = new AddContext();
 	    addContext.setNewObject(newIntraRelCon);
 	    addContext.setTargetConnection(targetConnection);
 	    if(aircp.canAdd(addContext)) aircp.add(addContext);
 		return new Object[] { newIntraRelCon };
+	}
+	
+	//delete feature
+	//~~~~~~~~~~~~~~
+	/**
+	 * disables the "Are you sure?" message when intra relationship constraints
+	 */
+	@Override
+	public void delete(IDeleteContext deleteContext) {
+		((DeleteContext) deleteContext).setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+		super.delete(deleteContext);
 	}
 }

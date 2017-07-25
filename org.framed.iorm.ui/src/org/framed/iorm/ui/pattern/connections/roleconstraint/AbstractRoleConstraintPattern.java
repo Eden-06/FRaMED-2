@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package org.framed.iorm.ui.pattern.connections.roleconstraint;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -9,6 +9,7 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 
 /**
@@ -24,6 +25,9 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 */
 	protected final String SHAPE_ID_ROLE_CONSTRAINT_DECORATOR = IdentifierLiterals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR;
 	
+	/**
+	 * Class constructor
+	 */
 	public AbstractRoleConstraintPattern() {
 		super();
 	}
