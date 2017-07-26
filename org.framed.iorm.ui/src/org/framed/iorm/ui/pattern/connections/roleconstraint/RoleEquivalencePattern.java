@@ -10,11 +10,9 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -40,19 +38,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
 	private static final String IMG_ID_FEATURE_ROLEEQUIVALENCE = IdentifierLiterals.IMG_ID_FEATURE_ROLEEQUIVALENCE;
-	
-	/**
-	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
-	 */
-	private static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
-							 
-	/**
-	 * the color values used for the polyline and the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
-	 */
-	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-										COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;		
-	
+		
 	/**
 	 * Class constructor
 	 */
@@ -77,7 +63,6 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	public String getCreateImageId() {
 		return IMG_ID_FEATURE_ROLEEQUIVALENCE;
 	}
-	
 	
 	//add feature
 	//~~~~~~~~~~~
@@ -109,7 +94,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
 	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
-	    polyline.setLineStyle(LineStyle.DASH);
+	    polyline.setLineStyle(LineStyle.DASHDOT);
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget;

@@ -92,20 +92,18 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 		int returnCode = editDialog.open();
 		if(returnCode == Window.OK) {
 			for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-				Text text = (Text) decorator.getGraphicsAlgorithm();
-				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR)) {
-					text.setValue(relationshipValues.get(0));
-					businessObject.setName(relationshipValues.get(0));
-				}
-				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR)) {
-					text.setValue(relationshipValues.get(1));
-					businessObject.getSourceLabel().setName(relationshipValues.get(1));
-				}
-				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR)) {
-					text.setValue(relationshipValues.get(2));
-					businessObject.getTargetLabel().setName(relationshipValues.get(2));
-				}
-			}
-		}
-	}
+				if(decorator.getGraphicsAlgorithm() instanceof Text) {
+					Text text = (Text) decorator.getGraphicsAlgorithm();
+					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR)) {
+						text.setValue(relationshipValues.get(0));
+						businessObject.setName(relationshipValues.get(0));
+					}
+					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR)) {
+						text.setValue(relationshipValues.get(1));
+						businessObject.getSourceLabel().setName(relationshipValues.get(1));
+					}
+					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR)) {
+						text.setValue(relationshipValues.get(2));
+						businessObject.getTargetLabel().setName(relationshipValues.get(2));
+	}	}	}	}	}
 }

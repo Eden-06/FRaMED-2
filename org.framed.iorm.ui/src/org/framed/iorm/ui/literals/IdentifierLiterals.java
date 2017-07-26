@@ -207,12 +207,18 @@ public class IdentifierLiterals {
 	 */
 	public static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = "shape_rst_name",
 							   SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = "shape_rst_source_cardinality",
-							   SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = "shape_rst_target_cardinality";
+							   SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = "shape_rst_target_cardinality",
+							   SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = "shape_rst_anchor";
 	
 	/**
 	 * identifier used for the connection decorators of the intra relationship constraints
 	 */
 	public static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = "shape_irc_name";
+	
+	/**
+	 * identifier used for role constraint connection decorators
+	 */
+	public static final String SHAPE_ID_INTER_REL_CON = "shape_inter_rel_con";
 	
 	/**
 	 * identifiers used for role types

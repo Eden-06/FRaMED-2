@@ -1,12 +1,16 @@
 package org.framed.iorm.ui.pattern.connections.interrelationship;
 
+import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
@@ -14,17 +18,45 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
 //TODO
 public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
 	
+	//TODO
+	protected final String SHAPE_ID_INTER_REL_CON = IdentifierLiterals.SHAPE_ID_INTER_REL_CON,
+					       SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
+	
 	/**
 	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
 	 */
-	private static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
+	protected final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
+					    ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
+	
+	/**
+	 * the color values used for the polyline and the arrowhead gathered from {@link LayoutLiterals}
+	 */
+	protected final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
+								   COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;
 	
 	/**
 	 * Class constructor
 	 */
 	public AbstractInterRelationshipConstraintPattern() {
 		super();
+	}
+	
+	//add feature
+	//~~~~~~~~~~~
+	/**
+	 * calculates if a inter relationship constraint can be added to the pictogram diagram
+	 * <p>
+	 * returns true if the business object is a inter relationship constraint of the given type
+	 * @return if an inter relationship constraint can be added
+	 */
+	public boolean canAddInterRelationshipConstraint(IAddContext addContext, Type type) {
+		if(addContext.getNewObject() instanceof Relation) {
+			Relation relation = (Relation) addContext.getNewObject();
+			if(relation.getType() == type) {
+				return true; 
+			}   
+		}
+		return false;
 	}
 	
 	//create feature

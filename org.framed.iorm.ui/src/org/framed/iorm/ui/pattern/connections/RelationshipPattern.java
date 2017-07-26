@@ -7,10 +7,14 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
+import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.NamedElement;
@@ -62,7 +66,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
 			   					SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
-			   					SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR;
+			   					SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR,
+			   					SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
 	
 	/**
 	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
@@ -124,6 +129,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 * Step 1: create a connection shape and polyline as its graphic algorithm<br>
 	 * Step 2: create the a connection decorator for the relationships name<br>
 	 * Step 3: create the a connection decorators for the cardinalities<br>
+	 * TODO
 	 * Step 4: link the pictogram elements and the business objects<br>
 	 * Step 5: opens the wizard to edit the relationships name and cardinalities
 	 */
@@ -146,35 +152,47 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
 	    graphicAlgorithmService.setLocation(nameText, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    nameText.setForeground(manageColor(COLOR_TEXT)); 
-	    PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
 	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
-	    //Step 3
+	    
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
 	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
-		//Step 4 
+	   
+	    //Step 4
+	    ConnectionDecorator connectionDecoratorForAnchor = 
+	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);
+	    Rectangle rectangle = graphicAlgorithmService.createRectangle(connectionDecoratorForAnchor);
+	    graphicAlgorithmService.setSize(rectangle, 1, 1);
+	    //TODO erklären addAnchor graphical model
+	    pictogramElementCreateService.createChopboxAnchor(connectionDecoratorForAnchor);
+	    //Step 4 
 		link(connection, addedRelationship);
 		link(connectionDecoratorForName, addedRelationship);
 		link(connectionDecoratorForSourceLabel, addedRelationship);
 		link(connectionDecoratorForTargetLabel, addedRelationship);
+		link(connectionDecoratorForAnchor, addedRelationship);
+		//TODO
+		PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
+		PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
+		PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
+		PropertyUtil.setShape_IdValue(connectionDecoratorForAnchor, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR);
 		//Step 5
 		CustomContext customContext = new CustomContext();
 		PictogramElement[] pictogramElement = new PictogramElement[1];
 		pictogramElement[0] = connection;
 		customContext.setPictogramElements(pictogramElement);
+		//TODO erklären CreateAnchor businessmodel
+		pictogramElementCreateService.createChopboxAnchor(connection);
 		EditRelationshipFeature editRelationshipFeature = getEditRelationshipFeature(customContext);
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);
-		pictogramElementCreateService.createChopboxAnchor(connection);
 		return connection;
 	}
 	
