@@ -62,7 +62,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			 		 	 REFLEXIVE_FEATURE_NAME = NameLiterals.REFLEXIVE_FEATURE_NAME,
 					 	 TOTAL_FEATURE_NAME = NameLiterals.TOTAL_FEATURE_NAME,
 					 	 RELATIONSHIP_IMPLICATION_FEATURE_NAME = NameLiterals.RELATIONSHIP_IMPLICATION_FEATURE_NAME,
-					 	 RELATIONSHIP_PROHIBITION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
+					 	 RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
 	 * from {@link IdentiferLiterals}
@@ -133,7 +133,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		createFeaturesToHideInTopLevelView.add(REFLEXIVE_FEATURE_NAME);
 		createFeaturesToHideInTopLevelView.add(TOTAL_FEATURE_NAME);
 		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_IMPLICATION_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_PROHIBITION_FEATURE_NAME);
+		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_EXCLUSION_FEATURE_NAME);
 		//feature to hide in the compartment view
 		createFeaturesToHideInCompartmentView.add(NATURALTYPE_FEATURE_NAME);
 		createFeaturesToHideInCompartmentView.add(DATATYPE_FEATURE_NAME);

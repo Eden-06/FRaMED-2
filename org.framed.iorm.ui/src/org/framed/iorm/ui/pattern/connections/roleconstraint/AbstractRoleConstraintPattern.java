@@ -16,7 +16,7 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
 
 /**
  * This is the abstract super class of the patterns for role constraint. It collects similiar operations
- * of the patterns {@link RoleImplicationPattern}, {@link RoleEquivalencePattern} and 
+ * and attributes of the patterns {@link RoleImplicationPattern}, {@link RoleEquivalencePattern} and 
  * {@link RoleProhibitionPattern}.
  * @author Kevin Kassin
  */

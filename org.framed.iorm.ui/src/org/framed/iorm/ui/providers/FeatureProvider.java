@@ -20,6 +20,7 @@ import org.framed.iorm.ui.graphitifeatures.StepInFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature;
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature;
 import org.framed.iorm.ui.pattern.connections.*;
+import org.framed.iorm.ui.pattern.connections.interrelationship.RelationshipExclusionConstraintPattern;
 import org.framed.iorm.ui.pattern.connections.interrelationship.RelationshipImplicationConstraintPattern;
 import org.framed.iorm.ui.pattern.connections.intrarelationship.AbstractIntraRelationshipConstraintPattern;
 import org.framed.iorm.ui.pattern.connections.intrarelationship.AcyclicConstraintPattern;
@@ -74,7 +75,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new ReflexiveConstraintPattern());
       addPattern(new TotalConstraintPattern());
       addConnectionPattern(new RelationshipImplicationConstraintPattern());
-      //addConnectionPattern(new RelationshipProhibitionConstraintPattern());
+      addConnectionPattern(new RelationshipExclusionConstraintPattern());
 	}
 	
 	/**

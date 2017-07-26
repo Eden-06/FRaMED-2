@@ -25,8 +25,8 @@ import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This is the abstract super class of the patterns for intra relationship contraints. It collects similiar operations
- * of the patterns {@link AcyclicConstraintPattern}, {@link CyclicConstraintPattern}, {@link IrreflexiveConstraintPattern}, 
- * {@link ReflexiveConstraintPattern} and {@link TotalConstraintPattern}.
+ * and attributes of the patterns {@link AcyclicConstraintPattern}, {@link CyclicConstraintPattern}, 
+ * {@link IrreflexiveConstraintPattern}, {@link ReflexiveConstraintPattern} and {@link TotalConstraintPattern}.
  * <p>
  * This is implemented as shape pattern instead of a connection pattern since its easier for the user to click on a relationship to
  * add a constraint. This would not be able if a connection pattern would be used. As a developer this solution is also preferred as
@@ -176,6 +176,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 */
 	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type, AbstractIntraRelationshipConstraintPattern aircp) {
 		Connection targetConnection = createContext.getTargetConnection();
+		Relation targetRelation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
 		Anchor sourceAnchor = targetConnection.getStart(),
 			   targetAnchor = targetConnection.getEnd();
 		Relation newIntraRelCon = OrmFactory.eINSTANCE.createRelation();
@@ -185,7 +186,8 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		model.getElements().add(newIntraRelCon);
 		newIntraRelCon.setContainer(model);
 		newIntraRelCon.setSource(ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor));
-		newIntraRelCon.setTarget(ConnectionPatternUtil.getModelElementForAnchor(targetAnchor));    
+		newIntraRelCon.setTarget(ConnectionPatternUtil.getModelElementForAnchor(targetAnchor)); 
+		targetRelation.getReferencedRelation().add(newIntraRelCon);
 		AddContext addContext = new AddContext();
 	    addContext.setNewObject(newIntraRelCon);
 	    addContext.setTargetConnection(targetConnection);

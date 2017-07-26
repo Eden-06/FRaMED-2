@@ -16,6 +16,7 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.util.ShapePatternUtil;
 
 /**
@@ -106,7 +107,8 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 			for(Connection connection : connectionsToDelete) {
 				DeleteContext connectionDeleteContext = new DeleteContext(connection);
 				connectionDeleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-				IDeleteFeature deleteFeature = createDeleteFeature(connectionDeleteContext);
+				IDeleteFeature deleteFeature = 
+						((FeatureProvider) getFeatureProvider()).getDeleteFeatureAdditional(connectionDeleteContext);
 				deleteFeature.delete(connectionDeleteContext);
 	}	}	}	
 }

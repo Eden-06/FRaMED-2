@@ -10,11 +10,8 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
-import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.NamedElement;
@@ -126,12 +123,20 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	/**
 	 * adds the relationship to the pictogram diagram using the following steps:
 	 * <p>
-	 * Step 1: create a connection shape and polyline as its graphic algorithm<br>
-	 * Step 2: create the a connection decorator for the relationships name<br>
-	 * Step 3: create the a connection decorators for the cardinalities<br>
-	 * TODO
-	 * Step 4: link the pictogram elements and the business objects<br>
-	 * Step 5: opens the wizard to edit the relationships name and cardinalities
+	 * Step 1: creates the connection shape and polyline as its graphic algorithm<br>
+	 * Step 2: creates a connection decorator for the relationships name<br>
+	 * Step 3: creates the connection decorators for the cardinalities<br>
+	 * Step 4: creates a connection decorator for the anchor for inter relationship constraints
+	 * 		   in the visual model
+	 * Step 5: link the pictogram elements and the business objects<br>
+	 * Step 6: set the values for the property shape id of all connection decorators
+	 * Step 7: adds the anchor for inter relationship constraints in the business model
+	 * Step 8: opens the wizard to edit the relationships name and cardinalities
+	 * <p>
+	 * Relationships have two different anchors attached to them. One for the inter relationship
+	 * constraint to hook in the pictogram model. This anchor is used in the operation {@link #add}.
+	 * The other is hooked in by inter relationship constraints in business model and is used in the 
+	 * operation {@link #create}.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
@@ -158,38 +163,35 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
 	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
-	    
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
 	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
-	   
 	    //Step 4
 	    ConnectionDecorator connectionDecoratorForAnchor = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);
 	    Rectangle rectangle = graphicAlgorithmService.createRectangle(connectionDecoratorForAnchor);
 	    graphicAlgorithmService.setSize(rectangle, 1, 1);
-	    //TODO erklären addAnchor graphical model
 	    pictogramElementCreateService.createChopboxAnchor(connectionDecoratorForAnchor);
-	    //Step 4 
+	    //Step 5
 		link(connection, addedRelationship);
 		link(connectionDecoratorForName, addedRelationship);
 		link(connectionDecoratorForSourceLabel, addedRelationship);
 		link(connectionDecoratorForTargetLabel, addedRelationship);
 		link(connectionDecoratorForAnchor, addedRelationship);
-		//TODO
+		//Step 6
 		PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
 		PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
 		PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
 		PropertyUtil.setShape_IdValue(connectionDecoratorForAnchor, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR);
-		//Step 5
+		//Step 7
+		pictogramElementCreateService.createChopboxAnchor(connection);
+		//Step 8
 		CustomContext customContext = new CustomContext();
 		PictogramElement[] pictogramElement = new PictogramElement[1];
 		pictogramElement[0] = connection;
 		customContext.setPictogramElements(pictogramElement);
-		//TODO erklären CreateAnchor businessmodel
-		pictogramElementCreateService.createChopboxAnchor(connection);
 		EditRelationshipFeature editRelationshipFeature = getEditRelationshipFeature(customContext);
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);

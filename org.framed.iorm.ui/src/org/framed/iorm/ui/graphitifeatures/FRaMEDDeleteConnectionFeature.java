@@ -10,8 +10,11 @@ import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
+import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.providers.FeatureProvider;
+import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -27,7 +30,8 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 	/**
 	 * the identifiers for the connection decorators to delete with when deleting a connection
 	 */
-	protected static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
+	protected static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR,
+								  SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
 	
 	/**
 	 * Class constructor
@@ -53,7 +57,8 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
-		deleteAttachedConstraints(deleteContext);
+		Relation relation = (Relation) getBusinessObjectForPictogramElement(deleteContext.getPictogramElement());
+		if(relation.getType() == Type.RELATIONSHIP) deleteAttachedConstraints(deleteContext);
 		((DeleteContext) deleteContext).setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContext);
 	}
@@ -62,26 +67,31 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 	 * deletes intra and inter relationship constraints when deleting a relationship using the
 	 * following steps:
 	 * <p>
-	 * Step 1: find intra relationship constraints by iterating over the connection decorators of the 
-	 * 		   relationship to delete<br>
-	 * Step 2: TODO
-	 * Step 3: delete the business objects of all found intra and inter relationship constraints
+	 * Step 1: find intra relationship constraints business elements by checking the referenced relations of the relationship
+	 * 		   to delete<br>
+	 * Step 2: find inter relationship constraints pictogram elements by checking the anchor for the pictogram model 
+	 * 		   of the relationship to delete
+	 * Step 3: delete the business objects and pictogram elements of all found intra and inter relationship constraints
 	 * @param deleteContext the context with a reference to the relationship to delete
 	 */
 	private void deleteAttachedConstraints(IDeleteContext deleteContext) {
-		List<ConnectionDecorator> decoratorsToDelete = new ArrayList<ConnectionDecorator>();
 		Connection connection = (Connection) deleteContext.getPictogramElement();
+		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);
+		List<Relation> relationsToDeleteAlso = new ArrayList<Relation>();
+		List<Connection> connectionsToDeleteAlso = new ArrayList<Connection>();
 		//Step 1
-		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR))
-				decoratorsToDelete.add(decorator);
-		}
+		relationsToDeleteAlso.addAll(relation.getReferencedRelation());
 		//Step 2
-		//TODO
-		//Step 3
-		for(ConnectionDecorator decorator : decoratorsToDelete) {
-			deleteBusinessObject(GeneralUtil.getBusinessObjectForPictogramElement(decorator));
+		ConnectionDecorator anchorDecorator = 
+			ConnectionPatternUtil.getConnectionDecoratorByShapeId(connection, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR);
+		connectionsToDeleteAlso.addAll(anchorDecorator.getAnchors().get(0).getIncomingConnections());
+		connectionsToDeleteAlso.addAll(anchorDecorator.getAnchors().get(0).getOutgoingConnections());
+		//Step 4
+		for(Relation relationToDeleteAlso : relationsToDeleteAlso) {
+			deleteBusinessObject(relationToDeleteAlso);
 		}
-	}
-	
+		for(Connection connectionToDeleteAlso : connectionsToDeleteAlso) {
+			DeleteContext deleteContextForInterRelCon = new DeleteContext(connectionToDeleteAlso);
+			delete(deleteContextForInterRelCon);
+	}	}		
 }
