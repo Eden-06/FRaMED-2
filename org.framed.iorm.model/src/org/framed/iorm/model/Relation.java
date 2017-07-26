@@ -19,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.framed.iorm.model.Relation#getTargetLabel <em>Target Label</em>}</li>
  *   <li>{@link org.framed.iorm.model.Relation#getReferencedRelation <em>Referenced Relation</em>}</li>
  *   <li>{@link org.framed.iorm.model.Relation#getReferencedRoles <em>Referenced Roles</em>}</li>
- *   <li>{@link org.framed.iorm.model.Relation#getConnectionAnchor <em>Connection Anchor</em>}</li>
  * </ul>
  *
  * @see org.framed.iorm.model.OrmPackage#getRelation()
@@ -166,31 +165,5 @@ public interface Relation extends ModelElement {
 	 * @generated
 	 */
 	EList<Shape> getReferencedRoles();
-
-	/**
-	 * Returns the value of the '<em><b>Connection Anchor</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Connection Anchor</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connection Anchor</em>' reference.
-	 * @see #setConnectionAnchor(Shape)
-	 * @see org.framed.iorm.model.OrmPackage#getRelation_ConnectionAnchor()
-	 * @model
-	 * @generated
-	 */
-	Shape getConnectionAnchor();
-
-	/**
-	 * Sets the value of the '{@link org.framed.iorm.model.Relation#getConnectionAnchor <em>Connection Anchor</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Connection Anchor</em>' reference.
-	 * @see #getConnectionAnchor()
-	 * @generated
-	 */
-	void setConnectionAnchor(Shape value);
 
 } // Relation

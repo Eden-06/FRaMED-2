@@ -26,7 +26,6 @@ import org.framed.iorm.model.Shape;
  *   <li>{@link org.framed.iorm.model.impl.RelationImpl#getTargetLabel <em>Target Label</em>}</li>
  *   <li>{@link org.framed.iorm.model.impl.RelationImpl#getReferencedRelation <em>Referenced Relation</em>}</li>
  *   <li>{@link org.framed.iorm.model.impl.RelationImpl#getReferencedRoles <em>Referenced Roles</em>}</li>
- *   <li>{@link org.framed.iorm.model.impl.RelationImpl#getConnectionAnchor <em>Connection Anchor</em>}</li>
  * </ul>
  *
  * @generated
@@ -141,24 +140,6 @@ public class RelationImpl extends ModelElementImpl implements Relation {
 	@SuppressWarnings("unchecked")
 	public EList<Shape> getReferencedRoles() {
 		return (EList<Shape>) eGet(OrmPackage.Literals.RELATION__REFERENCED_ROLES, true);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Shape getConnectionAnchor() {
-		return (Shape) eGet(OrmPackage.Literals.RELATION__CONNECTION_ANCHOR, true);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setConnectionAnchor(Shape newConnectionAnchor) {
-		eSet(OrmPackage.Literals.RELATION__CONNECTION_ANCHOR, newConnectionAnchor);
 	}
 
 } //RelationImpl

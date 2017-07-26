@@ -15,8 +15,6 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti custom feature is used to disabling the possibility of deleting connection decorators and the 
