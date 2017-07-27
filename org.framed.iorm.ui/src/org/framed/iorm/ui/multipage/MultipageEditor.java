@@ -29,6 +29,7 @@ import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
@@ -55,12 +56,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
 	 */
 	private final String DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
-	
-	/**
-	 * the palette type for a editor showing a compartments diagram gathered from {@link IdentifierLiterals}
-	 */
-	private final String PALETTE_TYPE_COMPARTMENTVIEW = IdentifierLiterals.PALETTE_TYPE_COMPARTMENTVIEW;
-	
+		
 	/**
 	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
 	 */
@@ -242,7 +238,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
 				ToolBehaviorProvider toolBehaviorProvider = 
 					(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-				toolBehaviorProvider.setPaletteType(PALETTE_TYPE_COMPARTMENTVIEW);	
+				toolBehaviorProvider.setPaletteType(PaletteView.COMPARTMENT_VIEW);	
 				editorDiagram.getDiagramBehavior().refreshPalette();
 			}	
 		}

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -13,18 +15,24 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
-import org.eclipse.graphiti.palette.IToolEntry;
+import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeatureManager;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteView;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link
@@ -34,35 +42,15 @@ import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc
  * @author Kevin Kassin
  */
 public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
-	
+		
 	/**
-	 * the name literals for shape create features to remove from the editor palette for the diagram type
-	 * gathered from {@link NameLiterals}
+	 * names for the palette categories gathered from {@link NameLiterals}
 	 */
-	private final String ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = NameLiterals.ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME,
-						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME,
-						 GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME,
-						 NATURALTYPE_FEATURE_NAME = NameLiterals.NATURALTYPE_FEATURE_NAME,
-						 DATATYPE_FEATURE_NAME = NameLiterals.DATATYPE_FEATURE_NAME,
-						 GROUP_FEATURE_NAME = NameLiterals.GROUP_FEATURE_NAME,
-						 ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME;
-						 
-	/**
-	 * the name literals for connection create features to remove from the editor palette for the diagram type
-	 * gathered from {@link NameLiterals}
-	 */					 
-	private final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME,
-						 ROLEEQUIVALENCE_FEATURE_NAME = NameLiterals.ROLEEQUIVALENCE_FEATURE_NAME,
-						 ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME,
-					     RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME,
-					     RELATIONSHIP_DECORATOR_FEATURE_NAME = NameLiterals.RELATIONSHIP_DECORATOR_FEATURE_NAME,
-					     ACYCLIC_FEATURE_NAME = NameLiterals.ACYCLIC_FEATURE_NAME,
-					     CYCLIC_FEATURE_NAME = NameLiterals.CYCLIC_FEATURE_NAME,
-					     IRREFLEXIVE_FEATURE_NAME = NameLiterals.IRREFLEXIVE_FEATURE_NAME,
-			 		 	 REFLEXIVE_FEATURE_NAME = NameLiterals.REFLEXIVE_FEATURE_NAME,
-					 	 TOTAL_FEATURE_NAME = NameLiterals.TOTAL_FEATURE_NAME,
-					 	 RELATIONSHIP_IMPLICATION_FEATURE_NAME = NameLiterals.RELATIONSHIP_IMPLICATION_FEATURE_NAME,
-					 	 RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
+	private final String ENTITIES_PALETTE_CATEGORY_NAME = NameLiterals.ENTITIES_PALETTE_CATEGORY_NAME,
+						 PROPERTIES_PALETTE_CATEGORY_NAME = NameLiterals.PROPERTIES_PALETTE_CATEGORY_NAME,
+						 RELATIONS_PALETTE_CATEGORY_NAME = NameLiterals.RELATIONS_PALETTE_CATEGORY_NAME,
+						 CONSTRAINTS_PALETTE_CATEGORY_NAME = NameLiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME;
+	
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
 	 * from {@link IdentiferLiterals}
@@ -91,61 +79,33 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
 	
 	/**
-	 * identifiers used to differ the types of palettes gathered from {@link IdentifierLiterals}
-	 */
-	private final String PALETTE_TYPE_TOPLEVELVIEW = IdentifierLiterals.PALETTE_TYPE_TOPLEVELVIEW,
-						 PALETTE_TYPE_COMPARTMENTVIEW = IdentifierLiterals.PALETTE_TYPE_COMPARTMENTVIEW;
-	
-	/**
 	 * the current type of the palette of the editor
 	 * <p>
 	 * This attribute is set by the {@link StepInFeature}, {@link StepInNewTabFeature} and {@link StepOutFeature}.
 	 * It is used to calculate the palette element to display depending on the type of diagram the editor is showing.
 	 */
-	private String paletteType = PALETTE_TYPE_TOPLEVELVIEW;
+	private PaletteView paletteView = PaletteView.TOPLEVEL_VIEW;
 	
-	private List<String> createFeaturesToHideInEveryView = new ArrayList<String>(),
-						 createFeaturesToHideInTopLevelView = new ArrayList<String>(),
-						 createFeaturesToHideInCompartmentView = new ArrayList<String>();
-	
+	//TODO
+	PaletteCompartmentEntry entityCategory = new PaletteCompartmentEntry(ENTITIES_PALETTE_CATEGORY_NAME, null);
+	PaletteCompartmentEntry propertiesCategory = new PaletteCompartmentEntry(PROPERTIES_PALETTE_CATEGORY_NAME, null);
+	PaletteCompartmentEntry relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
+	PaletteCompartmentEntry constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
+		
 	/**
 	 * Class constructor
-	 * <p>
-	 * fills the list of features to hide 
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public ToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
-		//features to hide in every view
-		createFeaturesToHideInEveryView.add(ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME);
-		createFeaturesToHideInEveryView.add(MODEL_FEATURE_NAME);
-		createFeaturesToHideInEveryView.add(GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME);
-		createFeaturesToHideInEveryView.add(RELATIONSHIP_DECORATOR_FEATURE_NAME);
-		//features to hide in the top level view
-		createFeaturesToHideInTopLevelView.add(ROLEIMPLICATION_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(ROLEEQUIVALENCE_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(ROLEPROHIBITION_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(ROLETYPE_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(ACYCLIC_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(CYCLIC_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(IRREFLEXIVE_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(REFLEXIVE_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(TOTAL_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_IMPLICATION_FEATURE_NAME);
-		createFeaturesToHideInTopLevelView.add(RELATIONSHIP_EXCLUSION_FEATURE_NAME);
-		//feature to hide in the compartment view
-		createFeaturesToHideInCompartmentView.add(NATURALTYPE_FEATURE_NAME);
-		createFeaturesToHideInCompartmentView.add(DATATYPE_FEATURE_NAME);
-		createFeaturesToHideInCompartmentView.add(GROUP_FEATURE_NAME);
 	}
 	
 	/**
-	 * sets the value of the palette type to be shown
-	 * @param paletteType the new palette to be set
+	 * sets the value of the palette view to be shown
+	 * @param paletteType the new palette view to be set
 	 */
-	public void setPaletteType(String paletteType) {
-		this.paletteType = paletteType; 
+	public void setPaletteType(PaletteView paletteView) {
+		this.paletteView = paletteView; 
 	}
 	
 	/**
@@ -236,53 +196,89 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	}
 	
 	/**
-	 * removes create features implemented by the pattern from the palette using the following steps:
+	 * builds the palette of the editor using the following steps
 	 * <p>
-	 * Step 1: It hides patterns that dont have a create features or whichs create features should not be used by the user
-	 * 		   manually.
-	 * Step 2: It hides patterns that should not be shown if the palette type of the provider is set to class palette.<br>
-	 * Step 3: It hides patterns that should not be shown if the palette type of the provider is set to role palette.
+	 * Step 1: It creates the different palette categories.<br>
+	 * Step 2: It add create shape features to the correct categories according to the {@link FeatureManager}
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
-		List<IPaletteCompartmentEntry> paletteCompartmentEntry = new ArrayList<IPaletteCompartmentEntry>();
-		List<IToolEntry> toolEntriesShapesToDelete = new ArrayList<IToolEntry>();
-		List<IToolEntry> toolEntriesConnectionToDelete = new ArrayList<IToolEntry>();
-		IPaletteCompartmentEntry[] superCompartments = super.getPalette();		
-	    //Step 1
-		for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
-	    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-	    	if(GeneralUtil.containsEqual(createFeaturesToHideInEveryView, toolEntry.getLabel()))
-	    		toolEntriesShapesToDelete.add(toolEntry);
-	    }
-		//Step 2
-		if(paletteType.equals(PALETTE_TYPE_TOPLEVELVIEW)) {
-			for(int i = 0; i < superCompartments[0].getToolEntries().size(); i++) {
-				IToolEntry toolEntry = superCompartments[0].getToolEntries().get(i);
-				if(GeneralUtil.containsEqual(createFeaturesToHideInTopLevelView, toolEntry.getLabel()))
-					toolEntriesConnectionToDelete.add(toolEntry);
-			}
-			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
-		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-		    	if(GeneralUtil.containsEqual(createFeaturesToHideInTopLevelView, toolEntry.getLabel()))
-		    		toolEntriesShapesToDelete.add(toolEntry);
-		}   }
-		//Step 3
-		if(paletteType.equals(PALETTE_TYPE_COMPARTMENTVIEW)) {
-			for(int i = 0; i < superCompartments[1].getToolEntries().size(); i++) {
-		    	IToolEntry toolEntry = superCompartments[1].getToolEntries().get(i);
-		    	if(GeneralUtil.containsEqual(createFeaturesToHideInCompartmentView, toolEntry.getLabel()))
-			   		toolEntriesShapesToDelete.add(toolEntry);
-		}   }	
-		for(IToolEntry toolEntryConnectionToDelete : toolEntriesConnectionToDelete) {
-	    	superCompartments[0].getToolEntries().remove(toolEntryConnectionToDelete);
-	    }
-	    for(IToolEntry toolEntryShapeToDelete : toolEntriesShapesToDelete) {
-	    	superCompartments[1].getToolEntries().remove(toolEntryShapeToDelete);
-	    }	
-	    for (int j = 0; j < superCompartments.length; j++) {
-	    	paletteCompartmentEntry.add(superCompartments[j]);
-	    }
-	    return paletteCompartmentEntry.toArray(new IPaletteCompartmentEntry[paletteCompartmentEntry.size()]);
+		List<IPaletteCompartmentEntry> pallete = new ArrayList<IPaletteCompartmentEntry>();
+		//Step 1
+		entityCategory = new PaletteCompartmentEntry(ENTITIES_PALETTE_CATEGORY_NAME, null);
+		propertiesCategory = new PaletteCompartmentEntry(PROPERTIES_PALETTE_CATEGORY_NAME, null);
+		relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
+		constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
+		for(ICreateFeature feature :  getFeatureProvider().getCreateFeatures()) {
+			addShapeFeature(feature);
+		}
+		for(ICreateConnectionFeature feature :  getFeatureProvider().getCreateConnectionFeatures()) {
+			addConnectionFeature(feature);
+		}
+		pallete.add(entityCategory); 
+		pallete.add(propertiesCategory); 
+		pallete.add(relationsCategory); 
+		pallete.add(constraintsCategory);
+	    return pallete.toArray(new IPaletteCompartmentEntry[pallete.size()]);
 	}	 
+	
+	private void addShapeFeature(ICreateFeature feature) {
+		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
+		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());
+		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
+		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
+		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
+		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
+		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
+			ObjectCreationToolEntry objectCreationToolEntry = 
+				new ObjectCreationToolEntry( feature.getCreateName(), 
+					feature.getCreateDescription(), feature.getCreateImageId(), 
+					feature.getCreateLargeImageId(), feature);
+			switch(fpd.paletteCategory) {
+				case ENTITIES_CATEGORY: 
+					entityCategory.addToolEntry(objectCreationToolEntry);
+					break;
+				case PROPERTIES_CATEGORY: 
+					propertiesCategory.addToolEntry(objectCreationToolEntry);
+					break;
+				case RELATIONS_CATEGORY: 
+					relationsCategory.addToolEntry(objectCreationToolEntry);
+					break;
+				case CONSTRAINTS_CATEGORY: 
+					constraintsCategory.addToolEntry(objectCreationToolEntry);
+					break;
+			default:
+				break;
+	}	}	}	
+	
+	private void addConnectionFeature(ICreateConnectionFeature feature) {
+		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
+		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());
+		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
+		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
+		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
+		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
+		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
+			ConnectionCreationToolEntry connectionCreationToolEntry = 
+				new ConnectionCreationToolEntry(feature.getCreateName(), 
+					feature.getCreateDescription(), feature.getCreateImageId(),
+					feature.getCreateLargeImageId());
+			    connectionCreationToolEntry.addCreateConnectionFeature(feature);
+			switch(fpd.paletteCategory) {
+				case ENTITIES_CATEGORY: 
+					entityCategory.addToolEntry(connectionCreationToolEntry);
+					break;
+				case PROPERTIES_CATEGORY: 
+					propertiesCategory.addToolEntry(connectionCreationToolEntry);
+					break;
+				case RELATIONS_CATEGORY: 
+					relationsCategory.addToolEntry(connectionCreationToolEntry);
+					break;
+				case CONSTRAINTS_CATEGORY: 
+					constraintsCategory.addToolEntry(connectionCreationToolEntry);
+					break;
+			default:
+				break;
+	}	}	}
 }
+

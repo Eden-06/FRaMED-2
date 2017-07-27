@@ -1,8 +1,6 @@
 package org.framed.iorm.ui.literals;
 
-import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException; //*import for javadoc link
-import org.framed.iorm.ui.exceptions.NoDiagramFoundException; //*import for javadoc link
-import org.framed.iorm.ui.exceptions.NoModelFoundException; //*import for javadoc link
+import org.framed.iorm.ui.exceptions.*; //*import for javadoc link
 import org.framed.iorm.ui.wizards.RoleModelWizardPage; //*import for javadoc link
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.eclipse.ui.PartInitException; //*import for javadoc link
@@ -78,6 +76,11 @@ public class TextLiterals {
 	 * the error message for the {@link NoModelFoundException}
 	 */
 	public static final String ERROR_NO_MODEL_FOUND = "A model could not be found!";
+	
+	/**
+	 * the message for the {@link FeatureHasNoPaletteDescriptorException}
+	 */
+	public static final String FEATURE_HAS_NO_DESCRIPTOR_MESSAGE = "A Feature has no palette descriptor: ";
 	
 	/**
 	 * messages used in the Eclipse wizards

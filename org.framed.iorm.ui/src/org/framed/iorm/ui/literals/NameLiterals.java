@@ -30,6 +30,20 @@ public class NameLiterals {
 							   WIZARD_PAGE_NAME = "Role Model",
 							   STANDARD_DIAGRAM_NAME = "newDiagram",
 							   CONTAINER_DIAGRAM_NAME = "Container";
+	
+	/**
+	 * name literals used for the palette categories
+	 * <p>
+	 * can be:<br>
+	 * (1) the name of the palette category of entities (classes and roles)<br>
+	 * (2) the name of the palette category of properties (attributes and operations)<br>
+	 * (3) the name of the palette category of relations (inheritances and relationships)<br>
+	 * (4) the name of the palette category of constraints (role, intra and inter relationship constraints)
+	 */
+	public static final String ENTITIES_PALETTE_CATEGORY_NAME = "Entities",
+							   PROPERTIES_PALETTE_CATEGORY_NAME = "Properties",
+							   RELATIONS_PALETTE_CATEGORY_NAME = "Relations",
+							   CONSTRAINTS_PALETTE_CATEGORY_NAME = "Constraints";
 							  
 	/**
 	 * standard values for graphiti shape names and cardinalities

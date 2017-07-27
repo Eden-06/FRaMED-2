@@ -261,14 +261,4 @@ public class IdentifierLiterals {
 							   DIAGRAM_KIND_MAIN_DIAGRAM = "main_diagram",
 							   DIAGRAM_KIND_GROUP_DIAGRAM = "group_diagram",
 							   DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = "compartment_diagram";
-	
-	/**
-	 * identifiers to differ between the editor palettes
-	 * <p>
-	 * can be:<br>
-	 * (1) the palette type used outside a stepped in compartment type or<br>
-	 * (2) the pallete type used in a editor of a diagram of a compartment type
-	 */
-	public static final String PALETTE_TYPE_TOPLEVELVIEW = "palette_type_toplevel",
-							   PALETTE_TYPE_COMPARTMENTVIEW = "palette_type_compartment";
 }
