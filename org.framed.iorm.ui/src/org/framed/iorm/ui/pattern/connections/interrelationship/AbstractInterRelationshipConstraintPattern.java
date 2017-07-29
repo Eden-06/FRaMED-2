@@ -43,7 +43,7 @@ public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnection
 	/**
 	 * the color values used for the polyline and the arrowhead gathered from {@link LayoutLiterals}
 	 */
-	protected final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
+	protected final IColorConstant COLOR_CONSTRAINTS = LayoutLiterals.COLOR_CONSTRAINTS,
 								   COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;
 	
 	/**
@@ -92,7 +92,7 @@ public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnection
 	    connection.setStart(graphicalSourceAnchor);
 	    connection.setEnd(graphicalTargetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setForeground(manageColor(COLOR_CONSTRAINTS));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    return connection;

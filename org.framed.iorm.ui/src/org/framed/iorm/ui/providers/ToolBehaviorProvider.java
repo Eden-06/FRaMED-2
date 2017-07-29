@@ -86,11 +86,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 */
 	private PaletteView paletteView = PaletteView.TOPLEVEL_VIEW;
 	
-	//TODO
-	PaletteCompartmentEntry entityCategory = new PaletteCompartmentEntry(ENTITIES_PALETTE_CATEGORY_NAME, null);
-	PaletteCompartmentEntry propertiesCategory = new PaletteCompartmentEntry(PROPERTIES_PALETTE_CATEGORY_NAME, null);
-	PaletteCompartmentEntry relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
-	PaletteCompartmentEntry constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
+	/**
+	 * the categories of the palette
+	 */
+	PaletteCompartmentEntry entityCategory,
+							propertiesCategory, 
+							relationsCategory,
+							constraintsCategory;
 		
 	/**
 	 * Class constructor
@@ -199,7 +201,11 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * builds the palette of the editor using the following steps
 	 * <p>
 	 * Step 1: It creates the different palette categories.<br>
-	 * Step 2: It add create shape features to the correct categories according to the {@link FeatureManager}
+	 * Step 2: It adds create shape features to the correct categories according to the {@link FeatureManager}
+	 * 		   using the operation {@link #addShapeFeature}.<br>
+	 * Step 3: It adds create connection features to the correct categories according to the {@link FeatureManager}
+	 * 		   using the operation {@link #addConnectionFeature}.<br>
+	 * Step 4: It adds the categories with the added features to the palette.
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
@@ -209,12 +215,15 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		propertiesCategory = new PaletteCompartmentEntry(PROPERTIES_PALETTE_CATEGORY_NAME, null);
 		relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
 		constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
+		//Step 2
 		for(ICreateFeature feature :  getFeatureProvider().getCreateFeatures()) {
 			addShapeFeature(feature);
 		}
+		//Step 3
 		for(ICreateConnectionFeature feature :  getFeatureProvider().getCreateConnectionFeatures()) {
 			addConnectionFeature(feature);
 		}
+		//Step 4
 		pallete.add(entityCategory); 
 		pallete.add(propertiesCategory); 
 		pallete.add(relationsCategory); 
@@ -222,6 +231,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    return pallete.toArray(new IPaletteCompartmentEntry[pallete.size()]);
 	}	 
 	
+	/**
+	 * adds a shape feature to a palette category if wanted
+	 * <p>
+	 * It uses the {@link FeaturePaletteDescriptor} of the feature to calculate if and where to add the
+	 * feature. 
+	 * @param feature the feature to probably add to the palette
+	 */
 	private void addShapeFeature(ICreateFeature feature) {
 		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());
@@ -251,6 +267,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 				break;
 	}	}	}	
 	
+	/**
+	 * adds a connection feature to a palette category if wanted
+	 * <p>
+	 * It uses the {@link FeaturePaletteDescriptor} of the feature to calculate if and where to add the
+	 * feature. 
+	 * @param feature the feature to probably add to the palette
+	 */
 	private void addConnectionFeature(ICreateConnectionFeature feature) {
 		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());

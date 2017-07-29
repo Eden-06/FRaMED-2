@@ -5,6 +5,11 @@ import java.util.Map;
 
 import org.framed.iorm.ui.literals.NameLiterals;
 
+/**
+ * This static class is used to get information about when and where a feature with a specific name 
+ * is shown in the palette.
+ * @author Kevin Kassin
+ */
 public class FeatureManager {
 	
 	/**
@@ -37,25 +42,36 @@ public class FeatureManager {
 		     			 		RELATIONSHIP_IMPLICATION_FEATURE_NAME = NameLiterals.RELATIONSHIP_IMPLICATION_FEATURE_NAME,
 		     			 		RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
 
-	//TODO kürzel
+	/**
+	 * simple short forms of the palette categories to make code more readable
+	 */
 	private static PaletteCategory entities = PaletteCategory.ENTITIES_CATEGORY,
 								   properties = PaletteCategory.PROPERTIES_CATEGORY,
 								   relations = PaletteCategory.RELATIONS_CATEGORY,
 								   constraints = PaletteCategory.CONSTRAINTS_CATEGORY,
 								   none = PaletteCategory.NONE;
-	
+	/**
+	 * simple short forms of the view visibility to make code more readable
+	 */
 	private static ViewVisibility all = ViewVisibility.ALL_VIEWS,
 								  top = ViewVisibility.TOPLEVEL_VIEW,
 								  compartment = ViewVisibility.COMPARTMENT_VIEW,
 								  no_view = ViewVisibility.NO_VIEW;
 	
-	
-	//TODO
+	/**
+	 * the map that saves when and where a feature with a specific name is shown in the palette
+	 */
 	public static Map<String, FeaturePaletteDescriptor> features = createFeatureCategoryMap();
 	
 	/**
-	 * TODO
-	 * Step 1  features in none of the categories
+	 * creates the map that saves when and where a feature with a specific name is shown in the palette
+	 * using the following steps:
+	 * <p>
+	 * Step 1: features shown in none of the categories<br>
+	 * Step 2: features shown in the category "Entities"<br>
+	 * Step 3: features shown in the category "Properties"<br>
+	 * Step 4: features shown in the category "Relations"<br>
+	 * Step 5: features shown in the category "Constraints"<br>
 	 * @return
 	 */
 	private static Map<String, FeaturePaletteDescriptor> createFeatureCategoryMap() {

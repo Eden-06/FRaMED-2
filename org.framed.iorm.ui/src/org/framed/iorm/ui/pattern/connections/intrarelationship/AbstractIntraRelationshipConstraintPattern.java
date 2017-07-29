@@ -51,7 +51,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 * the color values gathered from {@link LayoutLiterals}
 	 */
 	protected static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-										  COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
+										  COLOR_CONSTRAINTS = LayoutLiterals.COLOR_CONSTRAINTS;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}
@@ -141,8 +141,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		ConnectionDecorator constraintName = 
 			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
-		nameText.setForeground(manageColor(COLOR_TEXT));
-		nameText.setFont(manageFont("Arial", 10, false, true));
+		nameText.setForeground(manageColor(COLOR_CONSTRAINTS));
 		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;

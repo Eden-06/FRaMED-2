@@ -27,12 +27,14 @@ public class LayoutLiterals {
 	 * (1) the color of text or<br>
 	 * (2) the color of lines or<br>
 	 * (3) the color of backgrounds or<br>
-	 * (4) the color of graphiti shapes shadows
+	 * (4) the color of graphiti shapes shadows or<br>
+	 * (5) the color of constraint texts and connections
 	 */
 	public static final IColorConstant COLOR_TEXT = IColorConstant.BLACK,
 			   						   COLOR_LINES = IColorConstant.BLACK,
 			   						   COLOR_BACKGROUND = IColorConstant.WHITE,
-			   						   COLOR_SHADOW = IColorConstant.GRAY;
+			   						   COLOR_SHADOW = IColorConstant.GRAY,
+			   						   COLOR_CONSTRAINTS = IColorConstant.DARK_GRAY;
 		
 	/**
 	 * layout integer for wizards
