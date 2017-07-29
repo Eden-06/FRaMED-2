@@ -50,9 +50,10 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	private final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
 	
 	/**
-	 * height of the text shape for the intra relationship constraint
+	 * layout integers gathered from {@link LayoutLiterals}
 	 */
-	private final int HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT;
+	private final int HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT,
+					  DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
 	
 	/**
 	 * the color values gathered from {@link LayoutLiterals}
@@ -148,7 +149,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
 		nameText.setForeground(manageColor(COLOR_CONSTRAINT_TEXT));
-		graphicAlgorithmService.setLocation(nameText, 0, (numberOfReferencedRelations-1)*HEIGHT_CONSTRAINT);
+		graphicAlgorithmService.setLocation(nameText, DISTANCE_FROM_CONNECTION_LINE, (numberOfReferencedRelations-1)*HEIGHT_CONSTRAINT);
 		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;

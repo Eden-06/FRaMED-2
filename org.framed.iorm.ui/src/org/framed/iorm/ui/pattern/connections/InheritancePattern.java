@@ -13,6 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -195,7 +196,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 * <p>
 	 * Step 1: get source and target shapes<br>
 	 * Step 2: get new inheritance and add it to the resource of the diagram<br>
-	 * Step 3: set source, target and container of inheritance<br>
+	 * Step 3: set source, target, referenced roles and container of inheritance<br>
 	 * Step 4: call add operation of this pattern
 	 */
 	@Override
@@ -214,6 +215,10 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    sourceShape.getContainer().getElements().add(newInheritance);
 	    newInheritance.setSource(sourceShape);
 	    newInheritance.setTarget(targetShape);
+	    if(sourceShape.getType() == Type.ROLE_TYPE) {	
+	    	newInheritance.getReferencedRoles().add((Shape) sourceShape);
+	    	newInheritance.getReferencedRoles().add((Shape) targetShape);
+	    }	
 	    //Step 4
 	    AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
 	    addContext.setNewObject(newInheritance);

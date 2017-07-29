@@ -33,18 +33,19 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	private final String RESET_LAYOUT_FEATURE_NAME = NameLiterals.RESET_LAYOUT_FEATURE_NAME;
 	
 	/**
-	 * the values for the property shape id of the roles shapes needed to execute this feature
+	 * the values for the property shape id needed to execute this feature
 	 * gathered from {@link IdentifierLiterals}
 	 */
 	private final String SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT,
-						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY;
+						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
+						 SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}
 	 */
 	private final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE,
 					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
-					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT;
+					  HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT;
 
 	/**
 	 * the graphics algorithm service used to edit graphics algorithms
@@ -107,10 +108,14 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		}
 		if(connection == null) return;
 		connection.getBendpoints().clear();
+		int intraRelConsAdded = 0;
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
-		}
-	}
+			if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR)) {
+				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, intraRelConsAdded*HEIGHT_CONSTRAINT);
+				intraRelConsAdded++;
+			} else {
+				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
+	}	}	}
 	
 	/**
 	 * executes the feature for the role types
@@ -126,10 +131,10 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		}
 		if(typeBodyShape != null && occurenceConstraintShape != null) {
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
-			System.out.println(typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_OCCURRENCE_CONSTRAINT/2);
+			System.out.println(typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_CONSTRAINT/2);
 			graphicAlgorithmService.setLocation(occurenceConstraintShape.getGraphicsAlgorithm(),
-				typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-				typeBodyRectangle.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS);
+				typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_CONSTRAINT/2, 
+				typeBodyRectangle.getY()-HEIGHT_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS);
 		}
 	}
 }
