@@ -155,18 +155,18 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    ConnectionDecorator connectionDecoratorForName = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);   
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
-	    graphicAlgorithmService.setLocation(nameText, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
+	    graphicAlgorithmService.setLocation(nameText, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    nameText.setForeground(manageColor(COLOR_TEXT)); 
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
-	    graphicAlgorithmService.setLocation(sourceLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
+	    graphicAlgorithmService.setLocation(sourceLabel, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
-	    graphicAlgorithmService.setLocation(targetLabel, 0, -1*DISTANCE_FROM_CONNECTION_LINE);
+	    graphicAlgorithmService.setLocation(targetLabel, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(COLOR_TEXT));
 	    //Step 4
 	    ConnectionDecorator connectionDecoratorForAnchor = 

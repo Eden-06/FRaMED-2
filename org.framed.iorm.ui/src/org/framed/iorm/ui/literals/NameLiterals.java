@@ -65,7 +65,7 @@ public class NameLiterals {
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
 			   				   STANDARD_OPERATION_NAME = "operation():type",
 			   				   STANDARD_ROLETYPE_NAME = "roleType",
-			   				   STANDARD_RELATIONSHIP_NAME = "relationshipType",
+			   				   STANDARD_RELATIONSHIP_NAME = "rst",
 			   				   STANDARD_CARDINALITY = "*";
 							  
 	/**
@@ -153,14 +153,15 @@ public class NameLiterals {
 	 * (2) the name of the {@link EditRelationshipFeature} or<br>
 	 * (3) the name of the {@link StepInFeature} or<br>
 	 * (4) the name of the {@link StepInNewTabeFeature} or<br>
-	 * (5) the name of the {@link StepOutFeature}
+	 * (5) the name of the {@link StepOutFeature} or<br>
+	 * (6) the name of the {@link ResetLayoutForElementFeature}
 	 */
 	public static final String CHANGE_CONFIGURATION_FEATURE_NAME = "Change Feature Model",
 							   EDIT_RELATIONSHIP_FEATURE_NAME = "Edit Relationship",
 							   STEP_IN_FEATURE_NAME = "Step In",
 							   STEP_IN_NEW_TAB_FEATURE_NAME = "Step In New Tab",
-							   STEP_OUT_FEATURE_NAME = "Step out";
-	
+							   STEP_OUT_FEATURE_NAME = "Step out",
+							   RESET_LAYOUT_FEATURE_NAME = "Reset Layout of Element";
 	/**
 	 * name literals for editors/ pages
 	 * <p>

@@ -136,7 +136,6 @@ public class MultipageEditorSynchronizationService {
 	 * @return if the two multipage editors work on the same role model file
 	 */
 	private static boolean areTheSameRoleModels(MultipageEditor multipageEditor1, MultipageEditor multipageEditor2) {
-		//synchrobase
 		IFile firstFile = EditorInputUtil.getIFileForEditorInput(multipageEditor1.getEditorInput());
 		IFile secondFile = EditorInputUtil.getIFileForEditorInput(multipageEditor2.getEditorInput());
 		return firstFile.equals(secondFile);

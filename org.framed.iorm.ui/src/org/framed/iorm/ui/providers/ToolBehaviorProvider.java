@@ -66,7 +66,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
 						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME,
 						 STEP_IN_NEW_TAB_FEATURE_NAME = NameLiterals.STEP_IN_NEW_TAB_FEATURE_NAME,
-						 STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME;
+						 STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME,
+						 RESET_LAYOUT_FEATURE_NAME = NameLiterals.RESET_LAYOUT_FEATURE_NAME;
 	
 	/**
 	 * the shape identifiers of the shapes the step in feature can be used on gathered from {@link IdentifierLiterals}
@@ -77,6 +78,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 */
 	private final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
 						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
+	
+	private final String SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
+						 SHAPE_ID_ROLETYPE_OC = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT;
 	
 	/**
 	 * the current type of the palette of the editor
@@ -132,15 +136,17 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * Step 1: It gathers the selected pictogram element and its business object.
 	 * Step 2: It iterates over all custom feature to probably add to the list of custom feature to show in
 	 * 		   the context menu.<br>
-	 * Step 3: If its the change configuration custom feature, never add it to this list.<br>
-	 * Step 4: If its the edit relationship custom feature, only add it to the list if a connection or decorator of
+	 * Step 3: If its the {@link ChangeConfigurationFeature}, never add it to this list.<br>
+	 * Step 4: If its the {@link EditRelationshipFeature}, only add it to the list if a connection or decorator of
 	 * 		   a relationship is right clicked.<br>
-	 * Step 5: If its the step in or the step in new tab feature, check if the right clicked pictogram element 
-	 * 		   has a graphics algorithm that is the type body of a group or compartment type. If yes, add the
-	 * 		   corresponding context menu entry to the context menu.<br>
-	 * Step 6: If its the step out feature check, show the feature for a diagram only if its one of a group or compartment type.
+	 * Step 5: If its the {@link StepInFeature} or the {@link StepInNewTabFeature} feature, check if the right clicked 
+	 * 		   pictogram element has a graphics algorithm that is the type body of a group or compartment type. If yes, 
+	 * 		   add the corresponding context menu entry to the context menu.<br>
+	 * Step 6: If its the {@link StepOutFeature} feature check, show the feature for a diagram only if its one of a group or compartment type.
 	 * 		   If a shape is right clicked, get the diagram that contains the shape first and then check for the same criteria
-	 * 		   for this diagram.
+	 * 		   for this diagram.<br>
+	 * Step 7: If its the {@link ResetLayoutForElementFeature} add it to the context menu if a relationships connection or
+	 * 		   connection decorator is right clicked. Also add it if a role types body shape or occurence constraint is selected.
 	 */
 	@Override
 	public IContextMenuEntry[] getContextMenu(ICustomContext customContext) {
@@ -191,6 +197,22 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 										   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 											contextMenuEntries.add(superContextEntries[i]);
 							}	}	} break;
+						//Step 7	
+						case RESET_LAYOUT_FEATURE_NAME:
+							if(pictogramElement instanceof FreeFormConnection ||
+							   pictogramElement instanceof ConnectionDecorator) {
+								if(businessObject instanceof Relation) {
+									Relation relation = (Relation) businessObject;
+									if(relation.getType() == Type.RELATIONSHIP)
+										contextMenuEntries.add(superContextEntries[i]);
+								}	}					
+							if(pictogramElement instanceof Shape &&
+							   !(pictogramElement instanceof Diagram)) {
+								if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY) ||
+								   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OC)) 
+									contextMenuEntries.add(superContextEntries[i]);
+							}
+							break;
 						default: 
 							break;	
 		}	}	}	}

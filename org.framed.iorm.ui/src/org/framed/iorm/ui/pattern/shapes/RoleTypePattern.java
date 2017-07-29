@@ -285,8 +285,11 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
 		cardinalityText.setForeground(manageColor(COLOR_TEXT));													
-		graphicAlgorithmService.setLocationAndSize(cardinalityText, addContext.getX(), addContext.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS, 
-									WIDTH_OCCURRENCE_CONSTRAINT, HEIGHT_OCCURRENCE_CONSTRAINT);
+		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
+				addContext.getX()+width/2-HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+				addContext.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS, 
+				WIDTH_OCCURRENCE_CONSTRAINT, 
+				HEIGHT_OCCURRENCE_CONSTRAINT);
 		
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
@@ -550,8 +553,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
 	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
 	 * 		   the size of the type body and drop shadow shape.<br>
-	 * Step 3: It sets the location of the role occurence costraint.<br>
-	 * Step 4: It now iterates over all shapes of the role type:<br>
+	 * Step 3: It now iterates over all shapes of the role type:<br>
 	 * (a) It sets the width of the names shape.<br>
 	 * (b) It sets the points of the lines that separate the name, attribute container and operation container shapes.<br>
 	 * (c) It layouts the visualization of the attributes in the attribute container shape.<br>
@@ -579,13 +581,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		    dropShadowRectangle.setWidth(width);
 		    dropShadowRectangle.setHeight(height);
 		    dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
-		    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);
-		    //Step 3
-            Text cardinalityText = (Text) container.getContainer().getChildren().get(1).getGraphicsAlgorithm();        		
-            graphicAlgorithmService.setLocation(cardinalityText, 
-            		typeBodyRectangle.getX()+width/2-cardinalityText.getWidth()/2, 
-            		typeBodyRectangle.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS);
-	        
+		    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);    
 		    //Step 4
 		    for(Shape shape : container.getChildren()){
 		    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
@@ -804,49 +800,63 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//move feature
 	//~~~~~~~~~~~~
 	/**
-	 * disables that the user can move the drop shadow and the cardinality manually
+	 * disables that the user can move the drop shadow manually
 	 * <p>
 	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
 	 * and expands some code of {@link AbstractPattern#canMoveShape}.
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
-		   PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW)) {
 			return false;
 		}
-		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
-		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		return moveContext.getSourceContainer() != null && 
-			  (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
-			   moveContext.getTargetContainer().equals(dropShadowShape)) && 
-			   isPatternRoot(moveContext.getPictogramElement());
+		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_TYPEBODY)) {
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
+			ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
+			return moveContext.getSourceContainer() != null && 
+				  (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
+				   moveContext.getTargetContainer().equals(dropShadowShape)) && 
+				   isPatternRoot(moveContext.getPictogramElement());
+		}
+		return super.canMoveShape(moveContext);
 	}
 		
 	//move the type body and the drop shadow 
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
-		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
-		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
-		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
-			
-		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
-			dropShadowRectangle.setX(moveContext.getX()+SHADOW_SIZE);
-			dropShadowRectangle.setY(moveContext.getY()+SHADOW_SIZE);
+		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
 			super.moveShape(moveContext);
-		} else {
-			//targetContainer of moveContext is dropShadowShape
-			//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
-			dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*SHADOW_SIZE);
-			dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*SHADOW_SIZE);
-			MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
-			changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
-			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+SHADOW_SIZE);
-			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+SHADOW_SIZE);
-			super.moveShape(changedMoveContextForTypeBody);
-		}
+		else {
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
+			RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
+			ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
+			RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
+			Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
+			Text OCText = (Text) OCShape.getGraphicsAlgorithm();
+				
+			
+			
+			if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
+				dropShadowRectangle.setX(moveContext.getX()+SHADOW_SIZE);
+				dropShadowRectangle.setY(moveContext.getY()+SHADOW_SIZE);
+				OCText.setX(OCText.getX() + moveContext.getDeltaX());
+				OCText.setY(OCText.getY() + moveContext.getDeltaY());
+				super.moveShape(moveContext);
+			} else {
+				//targetContainer of moveContext is dropShadowShape
+				//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
+				dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*SHADOW_SIZE);
+				dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*SHADOW_SIZE);
+				OCText.setX(OCText.getX() + moveContext.getX()+SHADOW_SIZE);
+				OCText.setY(OCText.getY() + moveContext.getY()+SHADOW_SIZE);
+				MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
+				changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
+				changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+SHADOW_SIZE);
+				changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+SHADOW_SIZE);
+				super.moveShape(changedMoveContextForTypeBody);
+			}	
 		this.layoutPictogramElement(typeBodyShape);
+		}
 	}
 		
 	//resize feature

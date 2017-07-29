@@ -3,6 +3,8 @@ package org.framed.iorm.ui.subeditors;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
@@ -19,6 +21,11 @@ import org.framed.iorm.ui.util.DiagramUtil;
  * @author Kevin Kassin
  */
 public class FRaMEDDiagramEditor extends DiagramEditor  {
+	
+	/**
+	 * the graphics algorithm service used to create graphics algorithms in the subclasses
+	 */
+	protected final IGaService graphicAlgorithmService = Graphiti.getGaService();
 	
 	/**
 	 * the list of selected features in the diagram
@@ -40,7 +47,6 @@ public class FRaMEDDiagramEditor extends DiagramEditor  {
 	 * updates the value of the class variable {@link #selectedFeatures}
 	 */
 	public void updateSelectedFeatures() {
-		//Model rootModel = GeneralUtil.getRootModelForDiagram(this.getDiagramTypeProvider().getDiagram());
 		Diagram mainDiagram = DiagramUtil.getMainDiagramForIEditorInput(getEditorInput());
 		if(mainDiagram.getLink().getBusinessObjects().size() == 1 &&
 		   mainDiagram.getLink().getBusinessObjects().get(0) instanceof Model) {
