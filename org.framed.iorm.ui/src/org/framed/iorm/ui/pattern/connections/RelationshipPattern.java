@@ -17,7 +17,6 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
-import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
@@ -280,9 +279,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    newRelationship.setContainer(sourceShape.getContainer());
 	    sourceShape.getContainer().getElements().add(newRelationship);
 	    newRelationship.setSource(sourceShape);
-	    newRelationship.getReferencedRoles().add((Shape) sourceShape);
 	    newRelationship.setTarget(targetShape);
-	    newRelationship.getReferencedRoles().add((Shape) targetShape);
 	    //Step 4
 	    NamedElement sourceLabel = OrmFactory.eINSTANCE.createNamedElement();
 	    NamedElement targetLabel = OrmFactory.eINSTANCE.createNamedElement();

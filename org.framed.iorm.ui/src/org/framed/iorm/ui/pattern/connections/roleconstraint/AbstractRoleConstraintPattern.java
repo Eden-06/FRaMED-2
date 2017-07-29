@@ -8,7 +8,6 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
-import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -136,9 +135,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    newRoleConstraint.setContainer(sourceShape.getContainer());
 	    sourceShape.getContainer().getElements().add(newRoleConstraint);
 		newRoleConstraint.setSource(sourceShape);
-		newRoleConstraint.getReferencedRoles().add((Shape) sourceShape);
 		newRoleConstraint.setTarget(targetShape);
-		newRoleConstraint.getReferencedRoles().add((Shape) targetShape);
 	    //Step 4
 	    AddConnectionContext addContext = new AddConnectionContext(sourceAnchor, targetAnchor);
 	    addContext.setNewObject(newRoleConstraint);
