@@ -92,7 +92,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    //Step2
@@ -103,13 +103,13 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 				 						 0, -1*ARROWHEAD_HEIGHT };	//P3						 
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, points);
 	    polylineTarget.setLineWidth(2); 
-	    polylineTarget.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polylineTarget.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 0, true);					 
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, points);
 	    polylineSource.setLineWidth(2); 
-	    polylineSource.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polylineSource.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedRoleProhibtion);

@@ -6,7 +6,9 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -39,24 +41,23 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
-	private static final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
+	private final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
 	
 	/**
 	 * the value of the property shape id for the decorators added to the relationship by the intra relationship constraint gathered
 	 * from {@link IdentifierLiterals}
 	 */
-	protected static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
+	private final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
+	
+	/**
+	 * height of the text shape for the intra relationship constraint
+	 */
+	private final int HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT;
 	
 	/**
 	 * the color values gathered from {@link LayoutLiterals}
 	 */
-	protected static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-										  COLOR_CONSTRAINTS = LayoutLiterals.COLOR_CONSTRAINTS;
-	
-	/**
-	 * layout integers gathered from {@link LayoutLiterals}
-	 */
-	protected static final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
+	private final IColorConstant COLOR_CONSTRAINT_TEXT = LayoutLiterals.COLOR_CONSTRAINT_TEXT;
 	
 	/**
 	 * Class constructor
@@ -130,7 +131,8 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	}
 	
 	/**
-	 * adds the graphical representation of an intra relationship constraint in the relationship
+	 * adds the graphical representation of an intra relationship constraint in the relationship and changes the visual
+	 * appearance of the relationship if it didn't had an intra relationship constraint before 
 	 * <p>
 	 * @param addContext the context which has a reference to the relationship to add the constraint to
 	 * @param type the type of the constraint to add
@@ -138,10 +140,15 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 */
 	public PictogramElement addIntraRelationshipConstraint(IAddContext addContext, Type type) {
 		Connection targetConnection = addContext.getTargetConnection();
+		Relation targetRelation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
+		Polyline poyline = (Polyline) targetConnection.getGraphicsAlgorithm();
+		int numberOfReferencedRelations = targetRelation.getReferencedRelation().size();
+		poyline.setLineStyle(LineStyle.DASH);
 		ConnectionDecorator constraintName = 
 			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
-		nameText.setForeground(manageColor(COLOR_CONSTRAINTS));
+		nameText.setForeground(manageColor(COLOR_CONSTRAINT_TEXT));
+		graphicAlgorithmService.setLocation(nameText, 0, (numberOfReferencedRelations-1)*HEIGHT_CONSTRAINT);
 		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;
@@ -197,10 +204,17 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables the "Are you sure?" message when intra relationship constraints
+	 * disables the "Are you sure?" message when intra relationship constraints and changes the visual appearance of the 
+	 * relation if it does not longer has a intra relationship constraint after the execution of delete
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
+		Connection targetConnection = ((ConnectionDecorator) deleteContext.getPictogramElement()).getConnection();
+		Relation targetRelation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
+		if(targetRelation.getReferencedRelation().size() == 1) {
+			Polyline poyline = (Polyline) targetConnection.getGraphicsAlgorithm();
+			poyline.setLineStyle(LineStyle.SOLID);
+		}	
 		((DeleteContext) deleteContext).setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContext);
 	}

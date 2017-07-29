@@ -38,12 +38,12 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 * the layout integers used to layout the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
 	 */
 	protected static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-							 ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
+							   ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
 	
 	/**
 	 * the color values used for the polyline and the arrowhead gathered from {@link LayoutLiterals}
 	 */
-	protected static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
+	protected static final IColorConstant COLOR_CONSTRAINT_CONNECTION = LayoutLiterals.COLOR_CONSTRAINT_CONNECTION,
 										  COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;
 	
 	//add feature

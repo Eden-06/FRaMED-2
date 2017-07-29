@@ -95,13 +95,13 @@ public class RelationshipExclusionConstraintPattern extends AbstractInterRelatio
 				 				   0, -1*ARROWHEAD_HEIGHT };//P3						 
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, points);
 	    polylineTarget.setLineWidth(2); 
-	    polylineTarget.setForeground(manageColor(COLOR_CONSTRAINTS));
+	    polylineTarget.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_INTER_REL_CON);
 	    ConnectionDecorator connectionDecoratorSource = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 0, true);					 
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, points);
 	    polylineSource.setLineWidth(2); 
-	    polylineSource.setForeground(manageColor(COLOR_CONSTRAINTS));
+	    polylineSource.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_INTER_REL_CON);
 	    //Step 4
 	    link(connection, addedRoleImplication);

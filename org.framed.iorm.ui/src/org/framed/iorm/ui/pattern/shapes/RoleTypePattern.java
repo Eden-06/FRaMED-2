@@ -130,8 +130,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
 					  HEIGHT_ATTRIBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
 					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE,
-					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_OCCURRENCE_CONSTRAINT,
-					  WIDTH_OCCURRENCE_CONSTRAINT = LayoutLiterals.WIDTH_OCCURRENCE_CONSTRAINT;
+					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT,
+					  WIDTH_OCCURRENCE_CONSTRAINT = LayoutLiterals.WIDTH_CONSTRAINT;
 	
 	/**
 	 * colors gathered from {@link LayoutLiterals}, look there for reference

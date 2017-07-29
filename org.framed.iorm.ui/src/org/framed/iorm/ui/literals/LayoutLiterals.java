@@ -27,14 +27,22 @@ public class LayoutLiterals {
 	 * (1) the color of text or<br>
 	 * (2) the color of lines or<br>
 	 * (3) the color of backgrounds or<br>
-	 * (4) the color of graphiti shapes shadows or<br>
-	 * (5) the color of constraint texts and connections
+	 * (4) the color of graphiti shapes shadows
 	 */
 	public static final IColorConstant COLOR_TEXT = IColorConstant.BLACK,
 			   						   COLOR_LINES = IColorConstant.BLACK,
 			   						   COLOR_BACKGROUND = IColorConstant.WHITE,
-			   						   COLOR_SHADOW = IColorConstant.GRAY,
-			   						   COLOR_CONSTRAINTS = IColorConstant.DARK_GRAY;
+			   						   COLOR_SHADOW = IColorConstant.GRAY;
+	
+	/**
+	 * color values related to constraints
+	 * <p>
+	 * can be:<br>
+	 * (1) the color of constraint texts or<br>
+	 * (2) the color of constraint connections
+	 */
+	public static final IColorConstant COLOR_CONSTRAINT_TEXT = IColorConstant.DARK_GRAY,
+									   COLOR_CONSTRAINT_CONNECTION = IColorConstant.GRAY;
 		
 	/**
 	 * layout integer for wizards
@@ -55,8 +63,8 @@ public class LayoutLiterals {
 	 * (1) the color for a label showing a valid configuration or<br>
 	 * (2) the color for a label showing an invalid configuration
 	 */
-	public static Color COLOR_VALID_CONFIGURATION = new Color(Display.getCurrent(), 0, 0, 255),
-						COLOR_INVALID_CONFIGURATION = new Color(Display.getCurrent(), 255, 0, 0);
+	public static final Color COLOR_VALID_CONFIGURATION = new Color(Display.getCurrent(), 0, 0, 255),
+							  COLOR_INVALID_CONFIGURATION = new Color(Display.getCurrent(), 255, 0, 0);
 	
 	/**
 	 * layout integers for graphiti shapes 
@@ -101,8 +109,8 @@ public class LayoutLiterals {
 	/**
 	 * layout integers for the text of occurrence constraints
 	 */
-	public static final int HEIGHT_OCCURRENCE_CONSTRAINT = 15,
-							WIDTH_OCCURRENCE_CONSTRAINT = 30;
+	public static final int HEIGHT_CONSTRAINT = 15,
+							WIDTH_CONSTRAINT = 30;
 		
 	/**
 	 * color value for connections

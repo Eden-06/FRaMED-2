@@ -94,7 +94,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    //Step2
@@ -104,7 +104,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    						   0, 0, 										//P2
 	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
+	    arrowhead.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3

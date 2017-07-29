@@ -94,7 +94,7 @@ public class RelationshipImplicationConstraintPattern extends AbstractInterRelat
 	    						   0, 0, 										//P2
 	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONSTRAINTS));
+	    arrowhead.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_INTER_REL_CON);
 	    //Step 4

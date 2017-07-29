@@ -93,8 +93,8 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
-	    polyline.setLineStyle(LineStyle.DASHDOT);
+	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
+	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget;
@@ -103,7 +103,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    								 0, 0, 										//P2
 	    								 -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };//P3						 
 	    Polygon arrowheadTarget = graphicAlgorithmService.createPolygon(connectionDecoratorTarget, pointsTarget);
-	    arrowheadTarget.setForeground(manageColor(COLOR_CONNECTIONS));
+	    arrowheadTarget.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    arrowheadTarget.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource;
@@ -112,7 +112,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	    						   		 0, 0, 									  	 //P2
 	    						   		 -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT }; //P3						 
 	    Polygon arrowheadSource = graphicAlgorithmService.createPolygon(connectionDecoratorSource, pointsSource);
-	    arrowheadSource.setForeground(manageColor(COLOR_CONNECTIONS));
+	    arrowheadSource.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
 	    arrowheadSource.setBackground(manageColor(COLOR_ARROWHEAD));
 	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
