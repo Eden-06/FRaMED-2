@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
@@ -106,7 +107,7 @@ public class GeneralUtil {
 	}
 	
 	/**
-	 * Similiar to the contains operation of lists this method offers a comparison using the equal operation
+	 * Similar to the contains operation of lists this method offers a comparison using the equal operation
 	 * of strings to search for equal string in a list of strings.
 	 * @param list the list to search an equal string in
 	 * @param stringToCheckAgainst the string to search an equal one for
@@ -117,7 +118,7 @@ public class GeneralUtil {
 			if(string.equals(stringToCheckAgainst)) return true;
 		return false;
 	}
-	
+		
 	/**
 	 * returns the first linked business object of a pictogram
 	 * <p>
@@ -131,4 +132,31 @@ public class GeneralUtil {
 	public static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		return pictogramElement.getLink().getBusinessObjects().get(0);
 	}
+	
+	/**
+	 * return a linked business object for a pictogram element if there is exactly one business object linked 
+	 * @param pictogramElement the element to get the linked business object for
+	 * @return the one linked business object if or null 
+	 */
+	public static EObject getBusinessObjectIfExactlyOne(PictogramElement pictogramElement) {
+		if(pictogramElement.getLink() != null &&
+		   pictogramElement.getLink().getBusinessObjects().size() == 1) {
+			return getBusinessObjectForPictogramElement(pictogramElement);
+		}	
+		return null;
+	}		
+	
+	/**
+	 * find the a feature by its name in an array of features
+	 * @param array the array with features to search in
+	 * @param featureName the name of the feature to find
+	 * @return the found feature or null if it was not found
+	 */
+	public static IFeature findFeatureByName(IFeature[] array, String featureName) {
+		for(int i = 0; i<array.length; i++) {
+			if(array[i].getName().equals(featureName)) 
+				return array[i];
+		}	
+		return null;
+	}	
 }

@@ -35,6 +35,7 @@ import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
+import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
@@ -298,10 +299,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		//Step 4 
 		ICreateFeature createModelFeature = null;
 		ICreateFeature[] createFeatures = editorDiagram.getDiagramTypeProvider().getFeatureProvider().getCreateFeatures();
-		for(int i = 0; i<createFeatures.length; i++) {
-			if(createFeatures[i].getCreateName().equals(MODEL_FEATURE_NAME)) 
-				createModelFeature = createFeatures[i];
-		}
+		createModelFeature = (ICreateFeature) GeneralUtil.findFeatureByName(createFeatures, MODEL_FEATURE_NAME);
 		if(createModelFeature != null) {
 			CreateContext createContext = new CreateContext();
 			if(createModelFeature.canCreate(createContext)) createModelFeature.create(createContext);

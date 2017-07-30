@@ -8,7 +8,9 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -28,11 +30,13 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
+import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link
@@ -155,9 +159,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		//Step 1
 		if(customContext.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = customContext.getPictogramElements()[0];
-			if(pictogramElement.getLink() != null &&
-			   pictogramElement.getLink().getBusinessObjects().size() == 1) {
-				EObject businessObject = pictogramElement.getLink().getBusinessObjects().get(0);
+			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			if(businessObject != null) {
 				//Step 2
 				for(int i = 0; i < superContextEntries.length; i++) {
 					switch(superContextEntries[i].getText()) {
@@ -325,5 +328,21 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			default:
 				break;
 	}	}	}
+	
+	/**
+	 * enables the edit features for relationships and fulfillments when double clicking such a relation
+	 */
+	@Override
+	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
+		if(context.getPictogramElements().length == 1) {
+			PictogramElement pictogramElement = context.getPictogramElements()[0];
+			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			if(businessObject instanceof Relation &&
+			   ((Relation) businessObject).getType() == Type.RELATIONSHIP) {
+				ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
+				return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
+		}	}
+		return null;
+	}	
 }
 
