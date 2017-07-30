@@ -67,7 +67,8 @@ public class IdentifierLiterals {
 							   IMG_ID_FEATURE_RELATIONSHIP = IMG_ID_PREFIX + "img_relationship",
 							   IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IMG_ID_PREFIX + "img_intrarelationship_constraint",
 							   IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION = IMG_ID_PREFIX + "img_relationship_implication",
-							   IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION = IMG_ID_PREFIX + "img_relationship_exclusion";
+							   IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION = IMG_ID_PREFIX + "img_relationship_exclusion",
+							   IMG_ID_FEATURE_FULFILLMENT = IMG_ID_PREFIX + "img_fulfillment";
 	
 	/**
 	 * feature model identifier
@@ -201,6 +202,12 @@ public class IdentifierLiterals {
 	 * identifier used for the connection decorator of the inheritance relation
 	 */
 	public static final String SHAPE_ID_INHERITANCE_DECORATOR = "shape_inheritance_decorator";
+	
+	/**
+	 * identifier used for the connection decorators of the fulfillment relation
+	 */
+	public static final String SHAPE_ID_FULFILLMENT_ARROWHEAD = "shape_fulfillment_arrowhead",
+							   SHAPE_ID_FULFILLMENT_ROLES = "shape_fulfillment_roles";
 	
 	/**
 	 * identifiers used for the connection decorators of the  name and cardinalities of relationships

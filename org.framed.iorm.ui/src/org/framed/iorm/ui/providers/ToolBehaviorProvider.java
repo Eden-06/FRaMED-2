@@ -68,6 +68,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 */
 	private final String CHANGE_CONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME,
 						 EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
+					     EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME,
 						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME,
 						 STEP_IN_NEW_TAB_FEATURE_NAME = NameLiterals.STEP_IN_NEW_TAB_FEATURE_NAME,
 						 STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME,
@@ -143,13 +144,15 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * Step 3: If its the {@link ChangeConfigurationFeature}, never add it to this list.<br>
 	 * Step 4: If its the {@link EditRelationshipFeature}, only add it to the list if a connection or decorator of
 	 * 		   a relationship is right clicked.<br>
-	 * Step 5: If its the {@link StepInFeature} or the {@link StepInNewTabFeature} feature, check if the right clicked 
+	 * Step 5: If its the {@link EditFulfillmentFeature}, only add it to the list if a connection or decorator of a
+	 * 		   fulfillment is right clicked.<br>
+	 * Step 6: If its the {@link StepInFeature} or the {@link StepInNewTabFeature} feature, check if the right clicked 
 	 * 		   pictogram element has a graphics algorithm that is the type body of a group or compartment type. If yes, 
 	 * 		   add the corresponding context menu entry to the context menu.<br>
-	 * Step 6: If its the {@link StepOutFeature} feature check, show the feature for a diagram only if its one of a group or compartment type.
+	 * Step 7: If its the {@link StepOutFeature} feature check, show the feature for a diagram only if its one of a group or compartment type.
 	 * 		   If a shape is right clicked, get the diagram that contains the shape first and then check for the same criteria
 	 * 		   for this diagram.<br>
-	 * Step 7: If its the {@link ResetLayoutForElementFeature} add it to the context menu if a relationships connection or
+	 * Step 8: If its the {@link ResetLayoutForElementFeature} add it to the context menu if a relationships connection or
 	 * 		   connection decorator is right clicked. Also add it if a role types body shape or occurence constraint is selected.
 	 */
 	@Override
@@ -176,7 +179,16 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 									if(relation.getType() == Type.RELATIONSHIP)
 										contextMenuEntries.add(superContextEntries[i]);
 							}	} break;
-						//Step 5	
+						//Step 5
+						case EDIT_FULFILLMENT_FEATURE_NAME:
+							if(pictogramElement instanceof FreeFormConnection ||
+							   pictogramElement instanceof ConnectionDecorator) {
+								if(businessObject instanceof Relation) {
+									Relation relation = (Relation) businessObject;
+									if(relation.getType() == Type.FULFILLMENT)
+										contextMenuEntries.add(superContextEntries[i]);
+							}	} break;
+						//Step 6
 						case STEP_IN_FEATURE_NAME :
 						case STEP_IN_NEW_TAB_FEATURE_NAME:	
 							if(pictogramElement instanceof Shape &&
@@ -185,7 +197,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 								   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
 									contextMenuEntries.add(superContextEntries[i]);
 							} break;
-						//Step 6	
+						//Step 7	
 						case STEP_OUT_FEATURE_NAME:	
 							if(pictogramElement instanceof Diagram) {
 								Diagram diagram = (Diagram) pictogramElement;
@@ -200,7 +212,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 										   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 											contextMenuEntries.add(superContextEntries[i]);
 							}	}	} break;
-						//Step 7	
+						//Step 8	
 						case RESET_LAYOUT_FEATURE_NAME:
 							if(pictogramElement instanceof FreeFormConnection ||
 							   pictogramElement instanceof ConnectionDecorator) {

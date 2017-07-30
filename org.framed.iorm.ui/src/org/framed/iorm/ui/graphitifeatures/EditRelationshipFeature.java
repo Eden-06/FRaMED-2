@@ -29,12 +29,12 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
-	private String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
+	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
 	
 	/**
 	 * values for property shape id of the connection decorators of the relationship
 	 */
-	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
+	private final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
 			   					SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
 			   					SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR;
 	

@@ -42,7 +42,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	private static final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE;
 	
 	/**
-	 * the value for the property shape id  for the connection decorator of the inheritance
+	 * the value for the property shape id for the connection decorator of the inheritance
 	 */
 	private static final String SHAPE_ID_INHERITANCE_DECORATOR = IdentifierLiterals.SHAPE_ID_INHERITANCE_DECORATOR;
 	

@@ -110,7 +110,8 @@ public class NameLiterals {
 	 * (9) the name of the reflexive constraint create feature or<br>
 	 * (10) the name of the total constraint create feature or<br>
 	 * (11) the name of the relationship implication create feature or<br>
-	 * (12) the name of the relationship exclusion create feature
+	 * (12) the name of the relationship exclusion create feature or<br>
+	 * (13) the name of the fulfillment create feature
 	 */
 	public static final String INHERITANCE_FEATURE_NAME = "Inheritance",
 							   ROLEIMPLICATION_FEATURE_NAME = "Role Implication",
@@ -123,7 +124,8 @@ public class NameLiterals {
 						       REFLEXIVE_FEATURE_NAME = "Reflexive",
 						       TOTAL_FEATURE_NAME = "Total",
 						       RELATIONSHIP_IMPLICATION_FEATURE_NAME = "Relationship Implication",
-						       RELATIONSHIP_EXCLUSION_FEATURE_NAME = "Relationship Exclusion";
+						       RELATIONSHIP_EXCLUSION_FEATURE_NAME = "Relationship Exclusion",
+						       FULFILLMENT_FEATURE_NAME = "Fulfillment";
 	
 	/**
 	 * name literals used in the patterns to be identified by the ToolBehaviorProvider 
@@ -151,13 +153,15 @@ public class NameLiterals {
 	 * can be:<br>
 	 * (1) the name of the {@link ChangeConfigurationFeature} or<br>
 	 * (2) the name of the {@link EditRelationshipFeature} or<br>
-	 * (3) the name of the {@link StepInFeature} or<br>
-	 * (4) the name of the {@link StepInNewTabeFeature} or<br>
-	 * (5) the name of the {@link StepOutFeature} or<br>
-	 * (6) the name of the {@link ResetLayoutForElementFeature}
+	 * (3) the name of the {@link EditFulfillmentFeature} or<br>
+	 * (4) the name of the {@link StepInFeature} or<br>
+	 * (5) the name of the {@link StepInNewTabeFeature} or<br>
+	 * (6) the name of the {@link StepOutFeature} or<br>
+	 * (7) the name of the {@link ResetLayoutForElementFeature}
 	 */
 	public static final String CHANGE_CONFIGURATION_FEATURE_NAME = "Change Feature Model",
 							   EDIT_RELATIONSHIP_FEATURE_NAME = "Edit Relationship",
+							   EDIT_FULFILLMENT_FEATURE_NAME = "Edit Fulfillment",
 							   STEP_IN_FEATURE_NAME = "Step In",
 							   STEP_IN_NEW_TAB_FEATURE_NAME = "Step In New Tab",
 							   STEP_OUT_FEATURE_NAME = "Step out",

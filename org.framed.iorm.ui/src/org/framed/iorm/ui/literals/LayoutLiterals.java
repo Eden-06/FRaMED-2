@@ -49,12 +49,16 @@ public class LayoutLiterals {
 	 * <p>
 	 * can be:<br>
 	 * (1) the length of the textfield in the role model wizard and role model project wizard or<br>
-	 * (2) the height of the dialog to edit connections or<br>
-	 * (3) the width of the dialog to edit connections
+	 * (2) the height of the dialog to edit relationships or<br>
+	 * (3) the width of the dialog to edit relationships or<br>
+	 * (4) the height of the dialog to edit fulfillments or<br>
+	 * (5) the width of the dialog to edit fulfillments
 	 */
 	public static final int LENGHT_TEXTFIELD_WIZARD = 250,
-							HEIGHT_EDIT_CONNECTION_DIALOG = 185,
-							WIDTH_EDIT_CONNECTION_DIALOG = 400;
+							HEIGHT_EDIT_RELATIONSHIP_DIALOG = 185,
+							WIDTH_EDIT_RELATIONSHIP_DIALOG = 400,
+						    HEIGHT_EDIT_FULFILLMENT_DIALOG = 300,
+						    WIDTH_EDIT_FULFILLMENT_DIALOG = 400;
 	
 	/**
 	 * color values for the feature editor

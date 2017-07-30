@@ -60,6 +60,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new TotalConstraintPattern());
       addConnectionPattern(new RelationshipImplicationConstraintPattern());
       addConnectionPattern(new RelationshipExclusionConstraintPattern());
+      addConnectionPattern(new FulfillmentPattern());
 	}
 	
 	/**
@@ -69,6 +70,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
 	    return new ICustomFeature[] { new ChangeConfigurationFeature(this),
 	    							  new EditRelationshipFeature(this),
+	    							  new EditFulfillmentFeature(this),
 	    						 	  new StepInFeature(this),
 	    							  new StepInNewTabFeature(this),
 	    						 	  new StepOutFeature(this), 

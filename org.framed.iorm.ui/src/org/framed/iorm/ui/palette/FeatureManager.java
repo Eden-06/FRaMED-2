@@ -40,7 +40,8 @@ public class FeatureManager {
 		     			 		REFLEXIVE_FEATURE_NAME = NameLiterals.REFLEXIVE_FEATURE_NAME,
 		     			 		TOTAL_FEATURE_NAME = NameLiterals.TOTAL_FEATURE_NAME,
 		     			 		RELATIONSHIP_IMPLICATION_FEATURE_NAME = NameLiterals.RELATIONSHIP_IMPLICATION_FEATURE_NAME,
-		     			 		RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
+		     			 		RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME,
+		     			 		FULFILLMENT_FEATURE_NAME = NameLiterals.FULFILLMENT_FEATURE_NAME;
 
 	/**
 	 * simple short forms of the palette categories to make code more readable
@@ -92,6 +93,7 @@ public class FeatureManager {
 		//Step 4
 		features.put(INHERITANCE_FEATURE_NAME, new FeaturePaletteDescriptor(relations, all));
 		features.put(RELATIONSHIP_FEATURE_NAME, new FeaturePaletteDescriptor(relations, compartment));
+		features.put(FULFILLMENT_FEATURE_NAME, new FeaturePaletteDescriptor(relations, all));
 		//Step 5
 		features.put(ROLEIMPLICATION_FEATURE_NAME, new FeaturePaletteDescriptor(constraints, compartment));
 		features.put(ROLEEQUIVALENCE_FEATURE_NAME, new FeaturePaletteDescriptor(constraints, compartment));

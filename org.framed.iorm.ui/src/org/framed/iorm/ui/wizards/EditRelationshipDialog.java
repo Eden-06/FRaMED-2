@@ -47,8 +47,8 @@ public class EditRelationshipDialog extends Dialog {
 	/**
 	 * the height and width of the dialog gathered from {@link LayoutLiterals}
 	 */
-	private final int HEIGHT_EDIT_CONNECTION_DIALOG = LayoutLiterals.HEIGHT_EDIT_CONNECTION_DIALOG,
-					  WIDTH_EDIT_CONNECTION_DIALOG = LayoutLiterals.WIDTH_EDIT_CONNECTION_DIALOG;
+	private final int HEIGHT_EDIT_RELATIONSHIP_DIALOG = LayoutLiterals.HEIGHT_EDIT_RELATIONSHIP_DIALOG,
+					  WIDTH_EDIT_RELATIONSHIP_DIALOG = LayoutLiterals.WIDTH_EDIT_RELATIONSHIP_DIALOG;
 
 	/**
 	 * the diagram of the compartment type the relation is created in
@@ -104,7 +104,7 @@ public class EditRelationshipDialog extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText(EDIT_RELATIONSHIP_FEATURE_NAME + " " + businessObject.getName());
-		newShell.setSize(WIDTH_EDIT_CONNECTION_DIALOG, HEIGHT_EDIT_CONNECTION_DIALOG);
+		newShell.setSize(HEIGHT_EDIT_RELATIONSHIP_DIALOG, WIDTH_EDIT_RELATIONSHIP_DIALOG);
 	}
 	
 	/**

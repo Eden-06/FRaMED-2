@@ -23,6 +23,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
+import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -46,31 +47,31 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	/**
 	 * the standard value of cardinalities gathered from {@link NameLiterals}
 	 */
-	private static final String STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
+	private final String STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
 	
 	/**
 	 * the name of the edit relationship feature gathered from {@link NameLiterals}
 	 */
-	private String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
+	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
 	
 	/**
 	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
 	 */
-	private static final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
+	private final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
 	
 	/**
 	 * values for property shape id of the connection decorators of the relationship
 	 */
-	private static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
-			   					SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
-			   					SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR,
-			   					SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
+	private final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
+			   			 SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
+			   		  	 SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR,
+			   		   	 SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
 	
 	/**
 	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
 	 */
-	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-									    COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
+	private final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
+								 COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}
@@ -192,18 +193,12 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		PictogramElement[] pictogramElement = new PictogramElement[1];
 		pictogramElement[0] = connection;
 		customContext.setPictogramElements(pictogramElement);
-		EditRelationshipFeature editRelationshipFeature = getEditRelationshipFeature(customContext);
+		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
+		EditRelationshipFeature editRelationshipFeature = 
+				(EditRelationshipFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);
 		return connection;
-	}
-	
-	private EditRelationshipFeature getEditRelationshipFeature(CustomContext customContext) {
-		for(ICustomFeature customFeature : getFeatureProvider().getCustomFeatures(customContext)) {
-			if(customFeature.getName().equals(EDIT_RELATIONSHIP_FEATURE_NAME))
-				return (EditRelationshipFeature) customFeature;
-		}
-		return null;
 	}
 	
 	//create feature
