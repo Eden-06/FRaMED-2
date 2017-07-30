@@ -11,6 +11,8 @@ import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -38,7 +40,8 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	 */
 	private final String SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT,
 						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
-						 SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
+						 SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR,
+						 SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}
@@ -81,31 +84,34 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	}
 	
 	/**
-	 * differs between relationships and role type to call operations which executes the feature more specialized	 
+	 * differs between relationships, fulfillments and role type to call operations which executes the feature 
+	 * more specialized	 
 	 * <p> 
 	 * there hardly no checks for sizes of collections and types when casting since these checks are done
 	 * {@link ToolBehaviorProvider}.
 	 */
 	@Override 
 	public void execute(ICustomContext customContext) {	
-		if(customContext.getPictogramElements()[0] instanceof Connection ||
-		   customContext.getPictogramElements()[0] instanceof ConnectionDecorator)
-			executeForConnectionOrDecorator(customContext);
-		else
-			executeForRoleType(customContext);
+		Object businessObject = getBusinessObjectForPictogramElement(customContext.getPictogramElements()[0]);
+		if(businessObject instanceof Relation) {
+			Relation relation = (Relation) businessObject;
+			if(relation.getType() == Type.RELATIONSHIP)
+				executeForRelationship(customContext);
+			if(relation.getType() == Type.FULFILLMENT)
+				executeForFulfillment(customContext);
+		}
+		if(businessObject instanceof Shape) {	
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			if(shape.getType() == Type.ROLE_TYPE)
+				executeForRoleType(customContext);
+		}	
 	}
 	
 	/**
 	 * executes the feature for the relationships
 	 */
-	private void executeForConnectionOrDecorator(ICustomContext customContext) {
-		FreeFormConnection connection = null;
-		if(customContext.getPictogramElements()[0] instanceof Connection) {
-			connection = (FreeFormConnection) customContext.getPictogramElements()[0];
-		}
-		if(customContext.getPictogramElements()[0] instanceof ConnectionDecorator) {
-			connection = (FreeFormConnection) ((ConnectionDecorator) customContext.getPictogramElements()[0]).getConnection();
-		}
+	private void executeForRelationship(ICustomContext customContext) {
+		FreeFormConnection connection = getConnectionForContext(customContext);
 		if(connection == null) return;
 		connection.getBendpoints().clear();
 		int intraRelConsAdded = 0;
@@ -116,6 +122,33 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 			} else {
 				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 	}	}	}
+	
+	/**
+	 * executes the feature for the fulfillments
+	 */
+	private void executeForFulfillment(ICustomContext customContext) {
+		FreeFormConnection connection = getConnectionForContext(customContext);
+		if(connection == null) return;
+		connection.getBendpoints().clear();
+		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
+			if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_FULFILLMENT_ROLES)) {
+				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
+	}	}	}
+	
+	/**
+	 * gets the connection for custom context with either a connection or a connection decorator as pictogram element
+	 * @return the connection for the custom context or null if there is no connection for the context
+	 */
+	private FreeFormConnection getConnectionForContext(ICustomContext customContext) {
+		FreeFormConnection connection = null;
+		if(customContext.getPictogramElements()[0] instanceof Connection) {
+			connection = (FreeFormConnection) customContext.getPictogramElements()[0];
+		}
+		if(customContext.getPictogramElements()[0] instanceof ConnectionDecorator) {
+			connection = (FreeFormConnection) ((ConnectionDecorator) customContext.getPictogramElements()[0]).getConnection();
+		}
+		return connection;
+	}
 	
 	/**
 	 * executes the feature for the role types

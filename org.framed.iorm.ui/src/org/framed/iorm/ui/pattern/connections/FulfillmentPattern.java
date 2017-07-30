@@ -18,7 +18,6 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature;
-import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -53,7 +52,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	private static final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
 	
 	/**
-	 * the value for the property shape id  for the connection decorator of the inheritance
+	 * the value for the property shape id  for the connection decorator of the fulfillment
 	 */
 	private static final String SHAPE_ID_FULFILLMENT_ARROWHEAD = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ARROWHEAD,
 								SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
@@ -146,8 +145,8 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		arrowhead.setBackground(manageColor(COLOR_CONNECTIONS));
 		PropertyUtil.setShape_IdValue(arrowheadShape, SHAPE_ID_FULFILLMENT_ARROWHEAD);
 		//Step 3
-		ConnectionDecorator rolesShape = pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
-		Text roles = graphicAlgorithmService.createText(rolesShape, "TEST");
+		ConnectionDecorator rolesShape = pictogramElementCreateService.createConnectionDecorator(connection, true, 0.8, true);
+		Text roles = graphicAlgorithmService.createText(rolesShape, "");
 		graphicAlgorithmService.setLocation(roles, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 		roles.setForeground(manageColor(COLOR_TEXT));
 		PropertyUtil.setShape_IdValue(rolesShape, SHAPE_ID_FULFILLMENT_ROLES);
@@ -221,8 +220,8 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * creates the business object of a fulfillment using the following steps:
 	 * <p>
 	 * Step 1: get source and target shapes<br>
-	 * Step 2: get new inheritance and add it to the resource of the diagram<br>
-	 * Step 3: set source, target, referenced roles and container of the fulfillment<br>
+	 * Step 2: get new fulfillments and add it to the resource of the diagram<br>
+	 * Step 3: set source, target and container of the fulfillment<br>
 	 * Step 4: call add operation of this pattern
 	 */
 	@Override

@@ -6,17 +6,25 @@ import java.util.List;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Shape;
+import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.EditFulfillmentDialog;
-import org.framed.iorm.ui.wizards.EditRelationshipDialog;
 
+/**
+ * This graphiti custom feature is used to edit the referenced role types of fulfillments.
+ * <p>
+ * It is uses the {@link EditFulfillmentDialog}.
+ * @author Kevin Kassin
+ */
 public class EditFulfillmentFeature extends AbstractCustomFeature {
 
 	/**
@@ -24,6 +32,15 @@ public class EditFulfillmentFeature extends AbstractCustomFeature {
 	 */
 	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
 	
+	/**
+	 * the value for the property shape id for the connection decorator for the roles of the fulfillment
+	 */
+	private static final String SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
+	
+	/**
+	 * Class constructor
+	 * @param featureProvider the feature provider the feature belongs to
+	 */
 	public EditFulfillmentFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
 	}
@@ -50,7 +67,7 @@ public class EditFulfillmentFeature extends AbstractCustomFeature {
 	}
 
 	/**
-	 * opens an TODO {@link } to take the user input for the edit of the fulfillment
+	 * opens an {@link EditFulfillmentDialog} to take the user input for the edit of the fulfillment
 	 * and propagates the edits to the pictogram and business model	 
 	 * <p> 
 	 * there hardly no checks for sizes of collections and types when casting since these checks are done
@@ -76,7 +93,22 @@ public class EditFulfillmentFeature extends AbstractCustomFeature {
 			businessObject.getReferencedRoles().clear();
 			for(Shape role : newReferencedRoles)
 				businessObject.getReferencedRoles().add(role);
-		}
-	}
+			for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
+				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_FULFILLMENT_ROLES))
+					setDecoratorTextForFulfilledRoles((Text) decorator.getGraphicsAlgorithm(), newReferencedRoles);
+	}	}	}
 	
+	/**
+	 * builds and sets the string of the referenced roles label of the fulfillment connection
+	 * @param decoratorText the referenced roles label
+	 * @param newReferencedRoles the newly chosen role types to reference
+	 */
+	private void setDecoratorTextForFulfilledRoles(Text decoratorText, List<Shape> newReferencedRoles) {
+		String newLabelText = "";
+		for(int i=0; i<newReferencedRoles.size(); i++) {
+			if(i == 0) newLabelText = newLabelText + newReferencedRoles.get(i).getName();
+			else newLabelText = newLabelText + ", " + newReferencedRoles.get(i).getName();
+		}	
+		decoratorText.setValue(newLabelText);		
+	}
 }

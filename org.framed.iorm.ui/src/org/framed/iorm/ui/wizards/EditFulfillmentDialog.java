@@ -10,7 +10,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -20,9 +19,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Shape;
@@ -30,13 +27,13 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.model.provider.OrmItemProviderAdapterFactory;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
-import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature; //*import for javadox link
 
 /**
- * This class represents a dialog to edit relationships name and cardinalities.
- * @author Kevin Kassin
+ * This class represents a dialog to edit the referenced roles of fulfillments.
+ * <p>
+ * Large parts of the code in this class is taken and modified from the original implementation of
+ * FRaMED by authors Kay Bierzynski and Lars Schuetze.
  */
 public class EditFulfillmentDialog extends Dialog {
 	
@@ -46,18 +43,13 @@ public class EditFulfillmentDialog extends Dialog {
 	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
 	
 	/**
-	 * messages and titles used as tips when invalid inputs happen gathered from {@link TextLiterals}
-	 */
-	//TODO
-	
-	/**
 	 * the height and width of the dialog gathered from {@link LayoutLiterals}
 	 */
 	private final int HEIGHT_EDIT_CONNECTION_DIALOG = LayoutLiterals.HEIGHT_EDIT_FULFILLMENT_DIALOG,
 					  WIDTH_EDIT_CONNECTION_DIALOG = LayoutLiterals.WIDTH_EDIT_FULFILLMENT_DIALOG;
 	
 	/**
-	 * the business object of the edited relationship 
+	 * the business object of the edited fulfillment 
 	 */
 	private Relation businessObject;
 	
@@ -65,11 +57,11 @@ public class EditFulfillmentDialog extends Dialog {
 	 * a reference to a list filled with the referenced roles of the fulfillment commonly used by this dialog and 
 	 * the {@link EditFulfillmentFeature}
 	 */
-	private List<Shape> newReferencedRoles;
+	private List<Shape> newReferencedRoleTypes;
 	
 	/**
-	 * The viewer for listing the RoleTypes and the RoleGroups.
-	 * 
+	 * The checkbox viewer for listing the role types and the role groups of the fulfillments target
+	 * shape.
 	 */
 	private CheckboxTableViewer checkboxViewer;
 			
@@ -82,7 +74,7 @@ public class EditFulfillmentDialog extends Dialog {
 	public EditFulfillmentDialog(Shell parentShell, Diagram diagram, Relation businessObject, List<org.framed.iorm.model.Shape> newReferencedRoles) {
 		super(parentShell);
 		this.businessObject = businessObject;
-		this.newReferencedRoles = newReferencedRoles;
+		this.newReferencedRoleTypes = newReferencedRoles;
 	}
 	
 	/**
@@ -91,19 +83,19 @@ public class EditFulfillmentDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(EDIT_FULFILLMENT_FEATURE_NAME + " " + businessObject.getName());
+		newShell.setText(EDIT_FULFILLMENT_FEATURE_NAME);
 		newShell.setSize(WIDTH_EDIT_CONNECTION_DIALOG, HEIGHT_EDIT_CONNECTION_DIALOG);
 	}
 	
-	//TODO
+	/**
+	 * creates a checkbox list with all role types in the fulfillments target shapes model (Step 1)
+	 * and checks all already fulfilled role types (Step 2)
+	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 	    Composite composite = (Composite) super.createDialogArea(parent);
-	    
-	    List<Shape> allRoles = getAllRolesofTarget();
-	    EList<Shape> fulfilledRoles = businessObject.getReferencedRoles();
-	    
-	    //create checkbox 
+	    //Step 1
+	    List<Shape> allRoleTypes = getAllRolesofTarget();
 	    checkboxViewer = CheckboxTableViewer.newCheckList(composite, SWT.CHECK);
 	    checkboxViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	    AdapterFactoryLabelProvider labelProvider =
@@ -112,17 +104,21 @@ public class EditFulfillmentDialog extends Dialog {
 	        new AdapterFactoryContentProvider(new OrmItemProviderAdapterFactory());
 	    checkboxViewer.setLabelProvider(labelProvider);
 	    checkboxViewer.setContentProvider(contentProvider);
-	    checkboxViewer.setInput(new ItemProvider(new OrmItemProviderAdapterFactory(), allRoles));
-	    // check all the role types and the role groups, which already fulfilled thorugh the fulfillment
-	    for (Shape role :  allRoles) {
-	    	if (fulfilledRoles.contains(role)) {
+	    checkboxViewer.setInput(new ItemProvider(new OrmItemProviderAdapterFactory(), allRoleTypes));
+	    //Step 2
+	    EList<Shape> fulfilledRoleTypes = businessObject.getReferencedRoles();
+	    for (Shape role :  allRoleTypes) {
+	    	if (fulfilledRoleTypes.contains(role)) {
 	    		checkboxViewer.setChecked(role, true);
 	    }	}
 	    addSelectionButtons(composite);
 	    return composite;
 	}
 	
-	//TODO
+	/**
+	 * interates through all of the fulfillments target model elements and return all role types of these
+	 * @return all role types of the fulfillments target shape 
+	 */
 	private List<Shape> getAllRolesofTarget() {
 		List<Shape> allRoles = new ArrayList<Shape>();
 		EList<ModelElement> elementsOfTarget = 
@@ -135,14 +131,13 @@ public class EditFulfillmentDialog extends Dialog {
 		return allRoles;
 	}
 	
-	//TODO
+	/**
+	 * add the <em>select all</em> and <em>deselect all</em> button to the wizard 
+	 * @param composite the composite to the buttons in
+	 */
 	private void addSelectionButtons(Composite composite) {
-
 		initializeDialogUnits(composite);
-
 		Composite buttonComposite = new Composite(composite, SWT.NONE);
-
-		// setup the button layout
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 0;
 		layout.marginWidth = 0;
@@ -152,33 +147,28 @@ public class EditFulfillmentDialog extends Dialog {
 		
 		Button selectButton =
 			createButton(buttonComposite, IDialogConstants.SELECT_ALL_ID, "Select All", false);
-	
-		 // set the functionallity of the select all button
 		 selectButton.addSelectionListener(new SelectionAdapter() {
 			 @Override
 		     public void widgetSelected(SelectionEvent event) {
 		    	  checkboxViewer.setAllChecked(true);
-		      }
-		 });
+		 }	});
 	
 		 Button deselectButton =
 			createButton(buttonComposite, IDialogConstants.DESELECT_ALL_ID, "Deselect All", false);
-	
-		 // set the functionallity of the deselect all button
 		 deselectButton.addSelectionListener(new SelectionAdapter() {
 			 @Override
 			 public void widgetSelected(SelectionEvent event) {
 				 checkboxViewer.setAllChecked(false);
-			 }
-	 	 });
-	}
+	}	});	}
 
 	
-	//TODO
+	/**
+	 * saves the changes in the list of references role types and closes the dialog
+	 */
 	@Override
 	protected void okPressed() {
 		for (Object object : checkboxViewer.getCheckedElements()) 
-			newReferencedRoles.add((Shape) object);
+			newReferencedRoleTypes.add((Shape) object);
 		close();
 	}
 }

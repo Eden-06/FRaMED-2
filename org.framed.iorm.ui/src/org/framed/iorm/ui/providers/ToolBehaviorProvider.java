@@ -218,7 +218,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 							   pictogramElement instanceof ConnectionDecorator) {
 								if(businessObject instanceof Relation) {
 									Relation relation = (Relation) businessObject;
-									if(relation.getType() == Type.RELATIONSHIP)
+									if(relation.getType() == Type.RELATIONSHIP ||
+									   relation.getType() == Type.FULFILLMENT)
 										contextMenuEntries.add(superContextEntries[i]);
 								}	}					
 							if(pictogramElement instanceof Shape &&
@@ -349,10 +350,12 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		if(context.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = context.getPictogramElements()[0];
 			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
-			if(businessObject instanceof Relation &&
-			   ((Relation) businessObject).getType() == Type.RELATIONSHIP) {
+			if(businessObject instanceof Relation) {
 				ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
-				return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
+				if(((Relation) businessObject).getType() == Type.RELATIONSHIP)
+					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
+				if(((Relation) businessObject).getType() == Type.FULFILLMENT)
+					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
 		}	}
 		return null;
 	}	

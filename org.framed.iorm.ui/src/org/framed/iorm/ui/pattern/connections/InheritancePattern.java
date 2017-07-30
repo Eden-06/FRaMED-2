@@ -195,7 +195,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 * <p>
 	 * Step 1: get source and target shapes<br>
 	 * Step 2: get new inheritance and add it to the resource of the diagram<br>
-	 * Step 3: set source, target, referenced roles and container of inheritance<br>
+	 * Step 3: set source, target and container of inheritance<br>
 	 * Step 4: call add operation of this pattern
 	 */
 	@Override

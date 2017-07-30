@@ -252,7 +252,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 * <p>
 	 * Step 1: get source and target shapes<br>
 	 * Step 2: get new relationship and add it to the resource of the diagram<br>
-	 * Step 3: set source, target, referenced roles and container of inheritance<br>
+	 * Step 3: set source, target and container of inheritance<br>
 	 * Step 4: sets the cardinalities of the relationship to the standard value <b>*</b><br>
 	 * Step 5: call add operation of this pattern
 	 */
