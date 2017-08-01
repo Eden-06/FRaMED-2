@@ -587,7 +587,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
 	@Override
-	public boolean layout(ILayoutContext layoutContext) {	
+	public boolean layout(ILayoutContext layoutContext) {
 		boolean layoutChanged = false;
 		int newHeight, newWidth, newY;
 		Shape indicatorDotsShapeToDelete;
@@ -650,7 +650,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			           	EList<Shape> attributes = attributeContainerShape.getChildren();
 			            //set place of attributes
 			            for(int m = 0; m<attributes.size(); m++) {
-			            	attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	Text attributeText = (Text) attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+			            	attributeText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	attributeText.setWidth(newWidth);
 		            	}
 			            //set all attributes visible
 			            indicatorDotsShapeToDelete = null;
@@ -691,7 +693,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			        	EList<Shape> operations = operationContainerShape.getChildren();
 			            //set place of attributes
 			            for(int m = 0; m<operations.size(); m++) {
-			            	operationContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	Text operationText = (Text) operationContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+			            	operationText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	operationText.setWidth(newWidth);
 		            	}
 			            //set all operations visible
 						indicatorDotsShapeToDelete = null;
@@ -760,7 +764,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			            	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS); 
 			           	}
 			           	layoutChanged = true; 
-		}	}	}	}        
+		}	}	}	}  
 	    return layoutChanged;
 	}
 	
@@ -953,7 +957,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		}
 		return super.canResizeShape(resizeContext);
 	}
-		
+			
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**

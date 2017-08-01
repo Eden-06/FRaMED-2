@@ -62,7 +62,7 @@ public class StepInFeature extends AbstractStepInFeature {
 		//Step 1
 		MultipageEditor multipageEditorToClose = 
 				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		closeMultipageEditorWhenPossible(multipageEditorToClose);
+		GeneralUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
 		//Step 2
 		ContainerShape typeBodyShape = (ContainerShape) context.getPictogramElements()[0];
 		Type type = null;

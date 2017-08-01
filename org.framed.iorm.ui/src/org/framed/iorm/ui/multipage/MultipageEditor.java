@@ -11,6 +11,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
@@ -413,8 +414,18 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 					}
 					if(unsavedChangesInOtherMultipageEditors) {	
 						Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-						MessageDialog.openInformation(shell, MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE, MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT);
-					}	
+						MessageDialog dialog = new MessageDialog(shell, 
+								MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE, null,
+								MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT, MessageDialog.ERROR, 
+								new String[] {"Save All", "OK"}, 0);
+						int result = dialog.open();
+						if(result == 0) {
+							Display display = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay();
+							display.asyncExec(new Runnable() {
+								@Override
+								public void run() {
+									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().saveAllEditors(false);
+					}	});	}	}	
 					activeWorkbenchPart = (MultipageEditor) part;
 	}	}	} 	}
 		

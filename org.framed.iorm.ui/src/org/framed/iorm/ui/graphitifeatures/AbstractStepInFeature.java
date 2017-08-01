@@ -1,11 +1,9 @@
 package org.framed.iorm.ui.graphitifeatures;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
@@ -74,24 +72,6 @@ public abstract class AbstractStepInFeature extends AbstractCustomFeature {
 		return false;
 	}
 	
-	/**
-	 * manages to close a given multipage editor at the next reasonable opportunity usind the operation 
-	 * {@link Display#asyncExec}
-	 * <p>
-	 * It also saves the multipage editor before closing it to clean up the dirty state of the whole workbench.
-	 * @param multipageEditorToClose
-	 */
-	public static void closeMultipageEditorWhenPossible(MultipageEditor multipageEditorToClose) {
-		Display display = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay();
-		display.asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				multipageEditorToClose.getDiagramEditor().doSave(new NullProgressMonitor());
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditorToClose, false);
-			}
-		});
-	}
-
 	/**
 	 * to be overriden in subclasses
 	 */

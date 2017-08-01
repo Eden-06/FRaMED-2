@@ -618,7 +618,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			            EList<Shape> attributes = attributeContainerShape.getChildren();
 			            //set places of attributes
 			            for(int m = 0; m<attributes.size(); m++) {
-			            	attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	Text attributeText = (Text) attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+			            	attributeText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	attributeText.setWidth(newWidth);
 		            	}   	
 			            //set all attributes visible and delete indicator dots
 			            indicatorDotsShapeToDelete = null;
@@ -659,7 +661,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			            EList<Shape> operations = operationContainerShape.getChildren();
 			            //set place of operations
 			            for(int m = 0; m<operations.size(); m++) {
-			            	operationContainerShape.getChildren().get(m).getGraphicsAlgorithm().setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	Text operationText = (Text) operationContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+			            	operationText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
+			            	operationText.setWidth(newWidth);
 		            	}
 			            //set all operations visible
 						indicatorDotsShapeToDelete = null;
