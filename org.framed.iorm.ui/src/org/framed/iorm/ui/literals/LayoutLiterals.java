@@ -1,5 +1,6 @@
 package org.framed.iorm.ui.literals;
 
+import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -41,7 +42,7 @@ public class LayoutLiterals {
 	 * (1) the color of constraint texts or<br>
 	 * (2) the color of constraint connections
 	 */
-	public static final IColorConstant COLOR_CONSTRAINT_TEXT = IColorConstant.DARK_GRAY,
+	public static final IColorConstant COLOR_CONSTRAINT_TEXT = new ColorConstant(48, 48, 48),
 									   COLOR_CONSTRAINT_CONNECTION = IColorConstant.GRAY;
 		
 	/**

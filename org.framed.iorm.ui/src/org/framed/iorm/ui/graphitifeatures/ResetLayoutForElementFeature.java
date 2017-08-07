@@ -41,6 +41,7 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	private final String SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT,
 						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
 						 SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR,
+					     SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR,
 						 SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
 	
 	/**
@@ -100,7 +101,7 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 			if(relation.getType() == Type.FULFILLMENT)
 				executeForFulfillment(customContext);
 		}
-		if(businessObject instanceof Shape) {	
+		if(businessObject instanceof org.framed.iorm.model.Shape) {	
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == Type.ROLE_TYPE)
 				executeForRoleType(customContext);
@@ -120,8 +121,11 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, intraRelConsAdded*HEIGHT_CONSTRAINT);
 				intraRelConsAdded++;
 			} else {
-				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
-	}	}	}
+				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR)) {
+					graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), 0, 0);
+				} else {
+					graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
+	}	}	}	}
 	
 	/**
 	 * executes the feature for the fulfillments
@@ -154,6 +158,7 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	 * executes the feature for the role types
 	 */
 	private void executeForRoleType(ICustomContext customContext) {
+		System.out.println("AS");
 		ContainerShape containerShape = ((Shape) customContext.getPictogramElements()[0]).getContainer();
 		Shape typeBodyShape = null, occurenceConstraintShape = null;
 		for(Shape shape : containerShape.getChildren()) {
@@ -164,7 +169,6 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		}
 		if(typeBodyShape != null && occurenceConstraintShape != null) {
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
-			System.out.println(typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_CONSTRAINT/2);
 			graphicAlgorithmService.setLocation(occurenceConstraintShape.getGraphicsAlgorithm(),
 				typeBodyRectangle.getX()+typeBodyRectangle.getWidth()/2-HEIGHT_CONSTRAINT/2, 
 				typeBodyRectangle.getY()-HEIGHT_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS);

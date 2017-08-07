@@ -33,6 +33,7 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
+import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
@@ -350,12 +351,17 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		if(context.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = context.getPictogramElements()[0];
 			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 			if(businessObject instanceof Relation) {
-				ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 				if(((Relation) businessObject).getType() == Type.RELATIONSHIP)
 					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
 				if(((Relation) businessObject).getType() == Type.FULFILLMENT)
 					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
+			}	
+			if(businessObject instanceof org.framed.iorm.model.Shape) {
+				if(((ModelElement) businessObject).getType() == Type.COMPARTMENT_TYPE ||
+				  ((ModelElement) businessObject).getType() == Type.GROUP)
+					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, STEP_IN_FEATURE_NAME);
 		}	}
 		return null;
 	}	
