@@ -56,7 +56,7 @@ public class LayoutLiterals {
 	 * (5) the width of the dialog to edit fulfillments
 	 */
 	public static final int LENGHT_TEXTFIELD_WIZARD = 250,
-							HEIGHT_EDIT_RELATIONSHIP_DIALOG = 185,
+							HEIGHT_EDIT_RELATIONSHIP_DIALOG = 250,//185,
 							WIDTH_EDIT_RELATIONSHIP_DIALOG = 400,
 						    HEIGHT_EDIT_FULFILLMENT_DIALOG = 300,
 						    WIDTH_EDIT_FULFILLMENT_DIALOG = 400;
