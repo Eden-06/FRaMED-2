@@ -12,8 +12,6 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
@@ -24,7 +22,6 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -56,6 +53,12 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * {@link IdentifierLiterals}
 	 */
 	private static final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
+	
+	/**
+	 * the identifier for a diagram of a stepped in compartment view gathered from
+	 * {@link IdentifierLiterals}
+	 */
+	private static final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 
 	/**
 	 * the value for the property shape id for the connection decorator of the
@@ -200,9 +203,8 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
-				//if (sourceShape.getType() == Type.NATURAL_TYPE || sourceShape.getType() == Type.DATA_TYPE	|| sourceShape.getType() == Type.COMPARTMENT_TYPE)
-					if (targetShape.getType() == Type.COMPARTMENT_TYPE)
-						return true;
+				if (targetShape.getType() == Type.COMPARTMENT_TYPE)
+					return true;
 			}
 		}
 		return false;
@@ -224,8 +226,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (sourceShape != null) {
 			if (sourceShape.getType() == Type.NATURAL_TYPE || sourceShape.getType() == Type.DATA_TYPE
 					|| sourceShape.getType() == Type.COMPARTMENT_TYPE
-					|| (sourceShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(),
-							IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)))
+					|| (sourceShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)))
 				return true;
 		}
 		return false;
