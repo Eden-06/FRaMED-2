@@ -62,7 +62,7 @@ public class TransformationExecutor extends EpsilonStandalone {
     List<IModel> models = new ArrayList<IModel>();
 
     EmfModel emfModel = new EmfModel();
-    emfModel.setMetamodelUri("http://orm/1.0");
+    emfModel.setMetamodelUri("http://iorm/1.0");
     emfModel.setModelFileUri(sourceModelFile.getURI());
     emfModel.setReadOnLoad(true);
     emfModel.setStoredOnDisposal(true);

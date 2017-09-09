@@ -29,4 +29,5 @@ Import-Package: de.ovgu.featureide.fm.ui.editors.configuration,
  org.eclipse.graphiti.features;version="0.13.2",
  org.framed.iorm.featuremodel,
  org.framed.iorm.model,
- org.framed.iorm.model.provider
+ org.framed.iorm.model.provider,
+ org.framed.orm.transformation

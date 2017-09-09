@@ -1,10 +1,19 @@
 package org.framed.iorm.ui.multipage;
 
+import java.io.IOException;
+import java.util.Collections;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -41,6 +50,7 @@ import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
+import org.framed.orm.transformation.TransformationExecutor;
 
 /**
  * This class is creates the overall editor to edit the role model. 
@@ -362,6 +372,9 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			if(editorFeatures != null)
 				editorFeatures.synchronizeConfigurationEditorAndModelConfiguration();
 			refreshFile();
+			//TEST AREA
+			transformModel();
+			//TEST AREA
 			MultipageEditorSynchronizationService.synchronize();
 		}
 	}	
@@ -387,6 +400,26 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 				fileEditorInput.getFile().refreshLocal(IResource.DEPTH_ZERO, new NullProgressMonitor());
 			} catch (CoreException e) { e.printStackTrace(); }
 		} else throw new NullPointerException(MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT);
+	}
+	
+	//TODO
+	public void transformModel() {
+		Resource diagram_resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());
+		URI sourceURI = diagram_resource.getURI();
+		sourceURI = sourceURI.trimFileExtension();
+		sourceURI = sourceURI.appendFileExtension("crom");
+		Path path = new Path(sourceURI.toFileString());
+		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+		URI targetURI =	URI.createPlatformResourceURI(iFile.getFullPath().toString(), true);
+		ResourceSet set = new ResourceSetImpl();
+		Resource crom_resource = set.createResource(targetURI);
+		TransformationExecutor exe = new TransformationExecutor();
+		exe.setSourceModelFile(diagram_resource);
+		exe.setTargetModelFile(crom_resource);
+		try {
+			crom_resource.save(Collections.EMPTY_MAP);
+			exe.execute();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	/**
