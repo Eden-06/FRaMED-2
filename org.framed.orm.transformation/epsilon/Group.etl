@@ -1,0 +1,18 @@
+@lazy 
+rule Group
+	transform s : source!Shape
+	to t : target!Group {	
+	guard : s.getType.value == 13	// GROUP
+	
+	t.name = s.name;	
+	
+	var children = s.`model`;
+	if (not (children == null)) {
+		for(e in children.elements) e.~features=s.~features;
+		for (elem : source!ModelElement in children.elements) {
+			var e = elem.equivalent();
+			if(not(e==null))t.getElements().add(e);
+		}
+	}
+	
+}

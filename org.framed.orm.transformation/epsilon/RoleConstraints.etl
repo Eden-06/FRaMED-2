@@ -1,0 +1,38 @@
+@abstract
+@lazy 
+rule RoleConstraint
+	transform t : source!Relation
+	to n : target!RoleConstraint {	
+	n.first ::= t.source;
+	n.second ::= t.target;	
+}
+
+// RoleImplication
+@lazy 
+rule RoleImplication
+	transform t : source!Relation
+	to n : target!RoleImplication 
+	extends RoleConstraint {
+	guard : t.getType.getValue == 4 // enum value RoleImplication
+		and t.~features.get("Role_Implication") //feature
+}
+
+// RoleProhibition
+@lazy 
+rule RoleProhibition
+	transform t : source!Relation
+	to n : target!RoleProhibition 
+	extends RoleConstraint {
+	guard : t.getType.getValue == 11 // enum value RoleImplication
+		and t.~features.get("Role_Prohibition") //feature
+}
+
+// RoleEquivalence
+@lazy 
+rule RoleEquivalence
+	transform t : source!Relation
+	to n : target!RoleEquivalence 
+	extends RoleConstraint {
+	guard : t.getType.getValue == 5 // enum value RoleEquivalence
+		and t.~features.get("Role_Equivalence") //feature
+}
