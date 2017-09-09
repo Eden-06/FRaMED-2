@@ -78,7 +78,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * the color values gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-			COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
+									    COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
 
 	/**
 	 * Class constructor
