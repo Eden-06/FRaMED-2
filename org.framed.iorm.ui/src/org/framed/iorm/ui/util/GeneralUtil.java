@@ -2,8 +2,13 @@ package org.framed.iorm.ui.util;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -147,7 +152,7 @@ public class GeneralUtil {
 	}		
 	
 	/**
-	 * find the a feature by its name in an array of features
+	 * finds the a feature by its name in an array of features
 	 * @param array the array with features to search in
 	 * @param featureName the name of the feature to find
 	 * @return the found feature or null if it was not found
@@ -159,4 +164,17 @@ public class GeneralUtil {
 		}	
 		return null;
 	}	
+	
+	/**
+	 * gets the {@link IFile} of the CROM for a diagram
+	 * @param diagram_resource the resource of the diagram to get the CROM file for
+	 * @return the file of the CROM
+	 */
+	public static IFile getCROMFileForDiagramResource(Resource diagram_resource) {
+		URI sourceURI = diagram_resource.getURI();
+		sourceURI = sourceURI.trimFileExtension();
+		sourceURI = sourceURI.appendFileExtension("crom");
+		Path path = new Path(sourceURI.toFileString());
+		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+	}
 }

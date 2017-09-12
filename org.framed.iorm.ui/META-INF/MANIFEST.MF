@@ -4,8 +4,10 @@ Bundle-Name: Ui
 Bundle-SymbolicName: org.framed.iorm.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.framed.iorm.model.edit;visibility:=reexport,
+Require-Bundle: org.framed.iorm.featuremodel;bundle-version="1.0.0",
+ org.framed.iorm.model.edit;visibility:=reexport,
  de.ovgu.featureide.fm.core;bundle-version="3.3.1",
+ de.ovgu.featureide.fm.ui;bundle-version="3.3.2",
  org.eclipse.graphiti;bundle-version="0.13.2",
  org.eclipse.graphiti.mm;bundle-version="0.13.2",
  org.eclipse.graphiti.pattern;bundle-version="0.13.2",
@@ -25,9 +27,7 @@ Require-Bundle: org.framed.iorm.model.edit;visibility:=reexport,
  org.eclipse.core.resources;bundle-version="3.11.1";visibility:=reexport,
  org.eclipse.ui.workbench,
  org.eclipse.emf.ecore
-Import-Package: de.ovgu.featureide.fm.ui.editors.configuration,
- org.eclipse.graphiti.features;version="0.13.2",
- org.framed.iorm.featuremodel,
+Import-Package: org.eclipse.graphiti.features;version="0.13.2",
  org.framed.iorm.model,
  org.framed.iorm.model.provider,
  org.framed.orm.transformation

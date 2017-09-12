@@ -1,15 +1,12 @@
 package org.framed.iorm.ui.multipage;
 
-import java.io.IOException;
 import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -34,8 +31,10 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.part.FileEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
+import org.framed.iorm.ui.exceptions.TransformationFailedException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
@@ -286,11 +285,13 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * 		   the operation {@link #getIFileEditorInputForResource}.<br>
 	 * Step 3: It creates the diagram subeditor and adds the diagram page. The pages use the subeditors and the editor 
 	 * 		   input.<br>
-	 * Step 4 : It creates a linked root model for the <em>main diagram</em> if it does not already have on linked. If so it
+	 * Step 4: It creates a linked root model for the <em>main diagram</em> if it does not already have on linked. If so it
 	 * 			also saves the role model file.<br>
-	 * Step 5: It creates the feature editor and adds the page. To do that the created root model is needed.
-	 * 		   It also creates the editores and add the pages for the iorm and crom text viewers.<br>  
-	 * Step 6: It add its object to the register of multipage editors of the {@link MultipageEditorSynchronizationService}. 
+	 * Step 5: It gets an editor input for the crom text file.<br>
+	 * Step 6: It creates the feature editor and adds the page. To do that the created root model is needed.
+	 * 		   It also creates the editores and add the pages for the iorm and crom text viewers.<br> 
+	 * Step 7: It sets the names of the pages. <br>
+	 * Step 8: It add its object to the register of multipage editors of the {@link MultipageEditorSynchronizationService}. 
 	 * <p>
 	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.<br>
 	 * @throws PartInitException 
@@ -307,7 +308,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		try { 
 			editorDiagramIndex = addPage(editorDiagram, diagramEditorInput);		
 		} catch (PartInitException e) { e.printStackTrace(); }
-		//Step 4 
+		//Step 4
 		ICreateFeature createModelFeature = null;
 		ICreateFeature[] createFeatures = editorDiagram.getDiagramTypeProvider().getFeatureProvider().getCreateFeatures();
 		createModelFeature = (ICreateFeature) GeneralUtil.findFeatureByName(createFeatures, MODEL_FEATURE_NAME);
@@ -315,22 +316,25 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			CreateContext createContext = new CreateContext();
 			if(createModelFeature.canCreate(createContext)) createModelFeature.create(createContext);
 			doSave(new NullProgressMonitor()); 
-		}	
-		//Step 4
+		}
+		//Step 5
+		IFile CROMFile = GeneralUtil.getCROMFileForDiagramResource(resource);
+		IFileEditorInput fileEditorForCROM = new FileEditorInput(CROMFile);
+		//Step 6
 		editorFeatures = new FRaMEDFeatureEditor(diagramEditorInput, this);
 		textViewerIORM = new FRaMEDTextViewer();
 		textViewerCROM = new FRaMEDTextViewer();
 		try {
 			editorFeaturesIndex = addPage(editorFeatures, diagramEditorInput);
 			textViewerIORMIndex = addPage(textViewerIORM, fileEditorInput);
-			textViewerCROMIndex = addPage(textViewerCROM, fileEditorInput);
+			textViewerCROMIndex = addPage(textViewerCROM, fileEditorForCROM);
 		} catch (PartInitException e) { e.printStackTrace(); }
-		//Step 5
+		//Step 7
 		setPageText(editorDiagramIndex, DIAGRAM_PAGE_NAME);
 		setPageText(textViewerIORMIndex, TEXT_IORM_PAGE_NAME);
 		setPageText(textViewerCROMIndex, TEXT_CROM_PAGE_NAME);	
 		setPageText(editorFeaturesIndex, FEATURE_PAGE_NAME);
-		//Step 6
+		//Step 8
 		MultipageEditorSynchronizationService.registerEditor(this);
 	}
 		
@@ -357,7 +361,8 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * This operation calls the save methods of the subeditors and synchronizes the feature configuration
 	 * in the feature editor with the one in the role model. This is needed because there can be inconsistencies
 	 * after undoing and redoing an feature configuration change.<br>
-	 * It also synchronizes between multiple opened multipage editors using the {@link MultipageEditorSynchronizationService}.
+	 * It also synchronizes between multiple opened multipage editors using the {@link MultipageEditorSynchronizationService},
+	 * refreshes the used files and triggers the transformation of the IORM to the CROM.<br>
 	 * The check in this operation is needed because the first save of an multipage editor at its creation is done 
 	 * before the feature editor even exists.
 	 * @param monitor the monitor used for the save activity
@@ -372,15 +377,14 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			if(editorFeatures != null)
 				editorFeatures.synchronizeConfigurationEditorAndModelConfiguration();
 			refreshFile();
-			//TEST AREA
-			transformModel();
-			//TEST AREA
+			boolean transformationSuccessful = transformModel();
+			if(!transformationSuccessful) throw new TransformationFailedException();
 			MultipageEditorSynchronizationService.synchronize();
 		}
 	}	
 	
 	/**
-	 * refreshes the file which is edited by the multipage editor
+	 * refreshes the files which are used by the multipage editor
 	 * <p>
 	 * This is needed since the text files use different editor inputs from diagram and the feature editor.
 	 * Therefore Graphiti does not synchronize them automatically.
@@ -402,24 +406,29 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		} else throw new NullPointerException(MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT);
 	}
 	
-	//TODO
-	public void transformModel() {
-		Resource diagram_resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());
-		URI sourceURI = diagram_resource.getURI();
-		sourceURI = sourceURI.trimFileExtension();
-		sourceURI = sourceURI.appendFileExtension("crom");
-		Path path = new Path(sourceURI.toFileString());
-		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
-		URI targetURI =	URI.createPlatformResourceURI(iFile.getFullPath().toString(), true);
+	/**
+	 * executes the transformation of the IORM to the CROM using the following steps:
+	 * <p>
+	 * Step 1: It gets the resource of the CROM for a diagram.<br>
+	 * Step 2: It executes the transformation using the resources gathered in step 1.
+	 */
+	private boolean transformModel() {
+		//Step 1
+		Resource diagramResource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());
+		IFile CROMFile = GeneralUtil.getCROMFileForDiagramResource(diagramResource);	
+		URI targetURI =	URI.createPlatformResourceURI(CROMFile.getFullPath().toString(), true);
 		ResourceSet set = new ResourceSetImpl();
-		Resource crom_resource = set.createResource(targetURI);
+		Resource CROMResource = set.createResource(targetURI);
+		//Step 2
 		TransformationExecutor exe = new TransformationExecutor();
-		exe.setSourceModelFile(diagram_resource);
-		exe.setTargetModelFile(crom_resource);
+		exe.setSourceModelFile(diagramResource);
+		exe.setTargetModelFile(CROMResource);
 		try {
-			crom_resource.save(Collections.EMPTY_MAP);
+			CROMResource.save(Collections.EMPTY_MAP);
 			exe.execute();
+			return true;
 		} catch (Exception e) { e.printStackTrace(); }
+		return false;
 	}
 	
 	/**

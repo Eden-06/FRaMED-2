@@ -83,6 +83,11 @@ public class TextLiterals {
 	public static final String FEATURE_HAS_NO_DESCRIPTOR_MESSAGE = "A Feature has no palette descriptor: ";
 	
 	/**
+	 * the message for the {@link TransformationFailedException}
+	 */
+	public static final String ERROR_TRANSFORMATION_FAILED = "The transformation of the IORM to the CROM failed!";
+	
+	/**
 	 * messages used in the Eclipse wizards
 	 * <p>
 	 * can be:<br>

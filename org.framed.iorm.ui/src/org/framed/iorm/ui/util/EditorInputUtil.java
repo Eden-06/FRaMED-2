@@ -29,6 +29,7 @@ public class EditorInputUtil {
 	 * @return the generated editor input
 	 */
 	public static IFileEditorInput getIFileEditorInputForResource(Resource resource) {
+		System.out.println(resource);
 		IPath path = new Path(resource.getURI().toFileString());
 		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
 		return new FileEditorInput(file);
