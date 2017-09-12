@@ -4,4 +4,6 @@ Bundle-Name: Featuremodel
 Bundle-SymbolicName: org.framed.iorm.featuremodel
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.framed.iorm.model;bundle-version="1.0.0"
+Require-Bundle: org.eclipse.ui;bundle-version="3.109.0",
+ org.eclipse.core.runtime;bundle-version="3.13.0"
+Import-Package: org.osgi.framework
