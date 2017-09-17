@@ -82,8 +82,6 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 			//Step 2
 			FRaMEDFeature framedFeature = FeaturemodelFactory.eINSTANCE.createFRaMEDFeature();
 			framedFeature.setName(FeatureName.getByName(editorFeature.getName()));
-			if(editorFeatureConfiguration.getManualFeatures().contains(editorFeature))
-				framedFeature.setManuallySelected(true);
 			framedFeatureConfiguration.getFeatures().add(framedFeature);	
 		}
 		//Step 3

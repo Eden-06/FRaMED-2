@@ -376,10 +376,10 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			//check
 			if(editorFeatures != null)
 				editorFeatures.synchronizeConfigurationEditorAndModelConfiguration();
-			refreshFile();
 			boolean transformationSuccessful = transformModel();
 			if(!transformationSuccessful) throw new TransformationFailedException();
 			MultipageEditorSynchronizationService.synchronize();
+			refreshFile();
 		}
 	}	
 	

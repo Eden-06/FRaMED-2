@@ -8,10 +8,15 @@ rule Group
 	
 	var children = s.`model`;
 	if (not (children == null)) {
-		for(e in children.elements) e.~features=s.~features;
+		for (e in children.elements) e.~features=s.~features;
 		for (elem : source!ModelElement in children.elements) {
 			var e = elem.equivalent();
-			if(not(e==null))t.getElements().add(e);
+			if(e.instanceOf(target!Inheritance) or
+			   e.instanceOf(target!Fulfillment)) {
+				if(not(e==null)) t.getRelations().add(e);	
+			} else {
+				if(not(e==null)) t.getElements().add(e);
+			}
 		}
 	}
 	
