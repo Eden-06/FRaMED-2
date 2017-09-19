@@ -6,7 +6,7 @@ operation toTransform(t : source!Relation) : Boolean {
 					if((t.source==t.target and t.~features.get("Playable_by_Defining_Compartment"))) return true;
 				}
 		case 1: return true;
-		//case 2: if(t.~features.get("Roles")) return true;
+		case 2: if(t.~features.get("Roles")) return true;
 		case 3: if(t.~features.get("Dates")) return true;
 	}
 	return false;

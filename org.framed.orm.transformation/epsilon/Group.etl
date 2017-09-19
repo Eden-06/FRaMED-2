@@ -11,8 +11,7 @@ rule Group
 		for (e in children.elements) e.~features=s.~features;
 		for (elem : source!ModelElement in children.elements) {
 			var e = elem.equivalent();
-			if(e.instanceOf(target!Inheritance) or
-			   e.instanceOf(target!Fulfillment)) {
+			if(e.instanceOf(target!Relation)) {
 				if(not(e==null)) t.getRelations().add(e);	
 			} else {
 				if(not(e==null)) t.getElements().add(e);

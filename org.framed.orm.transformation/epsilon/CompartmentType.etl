@@ -23,8 +23,9 @@ rule CompartmentType
 	
 		// iterate over all children of the compartment type	
 		for (elem : source!ModelElement in children.elements) {
-			
+			elem.println();
 			var e = elem.equivalent();
+			e.println();
 			
 			if (e == null) { continue; }
 			if (e.instanceOf(target!AbstractRole)) { 			// ROLE
@@ -51,14 +52,18 @@ rule CompartmentType
 				n.getContains.add(e);
 				if(not(t.~features.get("Contains_Compartments"))) n.getContains.remove(e);
 			} else if (e.instanceOf(target!RelationshipImplication) or e.instanceOf(target!RelationshipExclusion)) { // INTER_RELATIONSHIP_CONSTRAINT
-				n.getConstraints().add(e);	//add CONSTRAINTS as well			
+				n.getConstraints().add(e);				
 			} else if ( e.instanceOf(target!Constraint)) {		// CONSTRAINT
 				n.getConstraints().add(e);
 			} else if ( e.instanceOf(target!Relationship)) {	// RELATIONSHIP
 				n.getRelationships().add(e);
-			} else if ( e.instanceOf(target!RoleInheritance)) {
+			} else if ( e.instanceOf(target!RoleInheritance)) { //INHERITANCE
 				t.~parent.relations.add(e);
-			} 
+			} else if ( e.instanceOf(Sequence)) {		//FULFILLMENT
+				for(ob in e) {	
+					n.getFulfillments.add(ob);
+				}	
+			}
 		}
 	}
 	
