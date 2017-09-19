@@ -31,3 +31,5 @@ Import-Package: org.eclipse.graphiti.features;version="0.13.2",
  org.framed.iorm.model,
  org.framed.iorm.model.provider,
  org.framed.orm.transformation
+Export-Package: org.framed.iorm.ui.exceptions,
+ org.framed.iorm.ui.literals

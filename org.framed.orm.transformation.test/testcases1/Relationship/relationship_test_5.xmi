@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.orm.model="http://orm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="TestCase for acyclic relationships"
+    description="TestCase for Acyclic relationships where one RoleType is referenced by an Acyclic relationship to another RoleType">
+  <framedModel>
+		<elements xsi:type="org.framed.orm.model:Shape" name="NT"
+			outgoingRelations="//@framedModel/@elements.2" type="NaturalType">
+			<firstSegment />
+			<secondSegment />
+		</elements>
+		<elements xsi:type="org.framed.orm.model:Shape" name="CT"
+			incomingRelations="//@framedModel/@elements.2">
+			<firstSegment />
+			<secondSegment />
+			<model>
+				<elements xsi:type="org.framed.orm.model:Shape" name="RT1"
+					incomingRelations="//@framedModel/@elements.1/@model/@elements.3"
+					type="RoleType">
+					<firstSegment />
+					<secondSegment />
+					<description name="*" />
+				</elements>
+				<elements xsi:type="org.framed.orm.model:Shape" name="RT2"
+					outgoingRelations="//@framedModel/@elements.1/@model/@elements.3"
+					type="RoleType">
+					<firstSegment />
+					<secondSegment />
+					<description name="*" />
+				</elements>
+				<elements xsi:type="org.framed.orm.model:Shape" name=""
+					type="RelationshipShapeChild">
+				</elements>
+				<elements xsi:type="org.framed.orm.model:Relation" name="rst"
+					type="Relationship" target="//@framedModel/@elements.1/@model/@elements.0"
+					source="//@framedModel/@elements.1/@model/@elements.1" 
+					referencedRelation="//@framedModel/@elements.1/@model/@elements.4"
+					connectionAnchor="//@framedModel/@elements.1/@model/@elements.2">
+					<sourceLabel name="*" />
+					<targetLabel name="*" />
+				</elements>
+				<elements xsi:type="org.framed.orm.model:Relation" name="Acyclic"
+					type="Acyclic" target="//@elements.1/@model/@elements.0"
+					source="//@framedModel/@elements.1/@model/@elements.1">
+				</elements>
+			</model>
+		</elements>
+		<elements xsi:type="org.framed.orm.model:Relation" type="Fulfillment"
+			target="//@framedModel/@elements.1" source="//@framedModel/@elements.0"
+			referencedRoles="//@framedModel/@elements.1/@model/@elements.0 //@framedModel/@elements.1/@model/@elements.1" />
+		<framedConfiguration>
+    		<features/>
+   			<features name="Role_Types"/>
+    		<features name="Role_Structure"/>
+    		<features name="Role_Properties" manuallySelected="true"/>
+			<features name="Role_Behavior"/>
+			<features name="Role_Inheritance" manuallySelected="true"/>
+		    <features name="Playable"/>
+			<features name="Players"/>
+			<features name="Naturals"/>
+			<features name="Roles"/>
+			<features name="Compartments" manuallySelected="true"/>
+			<features name="Dates" manuallySelected="true"/>
+		    <features name="Dependent"/>
+		    <features name="On_Compartments"/>
+		    <features name="On_Relationships"/>
+		    <features name="Role_Constraints"/>
+		    <features name="Role_Implication" manuallySelected="true"/>
+		    <features name="Role_Prohibition" manuallySelected="true"/>
+		    <features name="Role_Equivalence"/>
+		    <features name="Group_Constraints" manuallySelected="true"/>
+		    <features name="Occurrence_Constraints" manuallySelected="true"/>
+		    <features name="Relationships"/>
+		    <features name="Relationship_Constraints"/>
+		    <features name="Relationship_Cardinality" manuallySelected="true"/>
+		    <features name="Intra_Relationship_Constraints"/>
+		    <features name="Parthood_Constraints" manuallySelected="true"/>
+		    <features name="Inter_Relationship_Constraints" manuallySelected="true"/>
+		    <features name="Compartment_Types"/>
+		    <features name="Compartment_Structure"/>
+		    <features name="Compartment_Properties" manuallySelected="true"/>
+		    <features name="Compartment_Behavior"/>
+		    <features name="Compartment_Inheritance" manuallySelected="true"/>
+		    <features name="Participants"/>
+		    <features name="Contains_Compartments" manuallySelected="true"/>
+		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
+		    <features name="Data_Types"/>
+		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
+  		</framedConfiguration> 	
+	</framedModel>
+	<cromModel>
+		<elements xsi:type="crom_l1_composed:NaturalType" name="NT" />
+		<elements xsi:type="crom_l1_composed:CompartmentType" name="CT">
+			<parts>
+				<role xsi:type="crom_l1_composed:RoleType" name="RT1"
+					incoming="//@cromModel/@elements.1/@relationships.0" />
+			</parts>
+			<parts>
+				<role xsi:type="crom_l1_composed:RoleType" name="RT2"
+					outgoing="//@cromModel/@elements.1/@relationships.0" />
+			</parts>
+			<relationships name="rst">
+				<first holder="//@cromModel/@elements.1/@parts.1/@role" />
+				<second holder="//@cromModel/@elements.1/@parts.0/@role" />
+			</relationships>
+			<constraints xsi:type="crom_l1_composed:Acyclic"
+				relation="//@cromModel/@elements.1/@relationships.0" />
+		</elements>
+		<relations xsi:type="crom_l1_composed:Fulfillment"
+			filled="//@cromModel/@elements.1/@parts.0/@role" filler="//@cromModel/@elements.0" />
+		<relations xsi:type="crom_l1_composed:Fulfillment"
+			filled="//@cromModel/@elements.1/@parts.1/@role" filler="//@cromModel/@elements.0" />
+	</cromModel>
+</ts:TestCase>
