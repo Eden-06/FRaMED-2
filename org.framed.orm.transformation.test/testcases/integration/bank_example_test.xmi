@@ -258,7 +258,7 @@
 		</elements>
 		<elements xsi:type="crom_l1_composed:NaturalType" name="Company">
 			<attributes name="name" type="//@cromModel/@elements.3" />
-			<attributes name="legalFiorm" type="//@cromModel/@elements.3" />
+			<attributes name="legalForm" type="//@cromModel/@elements.3" />
 			<attributes name="addresses" type="//@cromModel/@elements.3" />
 			<attributes name="POBox" type="//@cromModel/@elements.3" />
 		</elements>

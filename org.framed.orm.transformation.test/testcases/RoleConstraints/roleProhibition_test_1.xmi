@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.iorm.model="http://iorm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="Simple TestCase for RoleImplications"
+    description="Simple TestCase for RoleImplications">
+  <framedModel>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="compType1">
+      <model>
+        <elements
+            xsi:type="org.framed.iorm.model:Shape"
+            name="roleType1"
+            outgoingRelations="//@framedModel/@elements.0/@model/@elements.2"
+            type="RoleType"/>
+        <elements
+            xsi:type="org.framed.iorm.model:Shape"
+            name="roleType2"
+            incomingRelations="//@framedModel/@elements.0/@model/@elements.2"
+            type="RoleType"/>
+        <elements
+            xsi:type="org.framed.iorm.model:Relation"
+            name=""
+            type="RoleProhibition"
+            target="//@framedModel/@elements.0/@model/@elements.1"
+            source="//@framedModel/@elements.0/@model/@elements.0"/>
+      </model>
+    </elements>
+    <framedConfiguration>
+    		<features/>
+   			<features name="Role_Types"/>
+    		<features name="Role_Structure"/>
+    		<features name="Role_Properties" manuallySelected="true"/>
+			<features name="Role_Behavior"/>
+			<features name="Role_Inheritance" manuallySelected="true"/>
+		    <features name="Playable"/>
+			<features name="Players"/>
+			<features name="Naturals"/>
+			<features name="Roles"/>
+			<features name="Compartments" manuallySelected="true"/>
+			<features name="Dates" manuallySelected="true"/>
+		    <features name="Dependent"/>
+		    <features name="On_Compartments"/>
+		    <features name="On_Relationships"/>
+		    <features name="Role_Constraints"/>
+		    <features name="Role_Implication" manuallySelected="true"/>
+		    <features name="Role_Prohibition" manuallySelected="true"/>
+		    <features name="Role_Equivalence"/>
+		    <features name="Group_Constraints" manuallySelected="true"/>
+		    <features name="Occurrence_Constraints" manuallySelected="true"/>
+		    <features name="Relationships"/>
+		    <features name="Relationship_Constraints"/>
+		    <features name="Relationship_Cardinality" manuallySelected="true"/>
+		    <features name="Intra_Relationship_Constraints"/>
+		    <features name="Parthood_Constraints" manuallySelected="true"/>
+		    <features name="Inter_Relationship_Constraints" manuallySelected="true"/>
+		    <features name="Compartment_Types"/>
+		    <features name="Compartment_Structure"/>
+		    <features name="Compartment_Properties" manuallySelected="true"/>
+		    <features name="Compartment_Behavior"/>
+		    <features name="Compartment_Inheritance" manuallySelected="true"/>
+		    <features name="Participants"/>
+		    <features name="Contains_Compartments" manuallySelected="true"/>
+		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
+		    <features name="Data_Types"/>
+		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
+  		</framedConfiguration> 
+  </framedModel>
+  <cromModel>
+    <elements
+        xsi:type="crom_l1_composed:CompartmentType"
+        name="compType1">
+      <parts>
+        <role
+            xsi:type="crom_l1_composed:RoleType"
+            name="roleType1"/>
+      </parts>
+      <parts>
+        <role
+            xsi:type="crom_l1_composed:RoleType"
+            name="roleType2"/>
+      </parts>
+      <constraints
+          xsi:type="crom_l1_composed:RoleProhibition"
+          first="//@cromModel/@elements.0/@parts.0/@role"
+          second="//@cromModel/@elements.0/@parts.1/@role"/>
+    </elements>
+  </cromModel>
+</ts:TestCase>
