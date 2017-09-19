@@ -4,19 +4,21 @@
 	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
 	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
 	<title>
-		Simple TestCase for CompartmentTypes
+		Test for a simple Group shape with one contained NaturalType.
 	</title>
 	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
+		This test verifies that Groups and contained elements are transformed correctly.
 	</description>
 	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
-		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
-		<framedConfiguration>
+		<elements xsi:type="org.framed.iorm.model:Shape" name="GroupTest" type="Group">
+		    <model>
+		      <elements xsi:type="org.framed.iorm.model:Shape" name="NaturalType1" type="NaturalType">
+		        <firstSegment/>
+		        <secondSegment/>		        
+		      </elements>
+		    </model>    
+  		</elements>
+  		<framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
     		<features name="Role_Structure"/>
@@ -54,11 +56,11 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
+  		</framedConfiguration>
 	</framedModel>
 	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
-		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
+		<elements xsi:type="crom_l1_composed:Group" name="GroupTest">			
+			<elements xsi:type="crom_l1_composed:NaturalType" name="NaturalType1"/>			
+      	</elements>
 	</cromModel>
 </ts:TestCase>

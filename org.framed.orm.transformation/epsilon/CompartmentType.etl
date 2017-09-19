@@ -23,9 +23,8 @@ rule CompartmentType
 	
 		// iterate over all children of the compartment type	
 		for (elem : source!ModelElement in children.elements) {
-			elem.println();
+		
 			var e = elem.equivalent();
-			e.println();
 			
 			if (e == null) { continue; }
 			if (e.instanceOf(target!AbstractRole)) { 			// ROLE

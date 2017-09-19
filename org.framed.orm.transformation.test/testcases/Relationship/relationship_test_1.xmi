@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ts:TestCase xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
-	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
-	<title>
-		Simple TestCase for CompartmentTypes
-	</title>
-	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
-	</description>
-	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.iorm.model="http://iorm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="Simple TestCase for Relationships"
+    description="Simple TestCase for Relationships">
+<framedModel>
+		<elements xsi:type="org.framed.iorm.model:Shape" name="CT">
+			<firstSegment />
+			<secondSegment />
+			<model>
+				<elements xsi:type="org.framed.iorm.model:Shape" name="RT1"
+					incomingRelations="//@framedModel/@elements.0/@model/@elements.2"
+					type="RoleType">
+					<firstSegment />
+					<secondSegment />
+					<description name="*" />
+				</elements>
+				<elements xsi:type="org.framed.iorm.model:Shape" name="RT2"
+					outgoingRelations="//@framedModel/@elements.0/@model/@elements.2"
+					type="RoleType">
+					<firstSegment />
+					<secondSegment />
+					<description name="*" />
+				</elements>
+				<elements xsi:type="org.framed.iorm.model:Relation" name="rst"
+					type="Relationship" target="//@framedModel/@elements.0/@model/@elements.0"
+					source="//@framedModel/@elements.0/@model/@elements.1">
+					<sourceLabel name="*" />
+					<targetLabel name="*" />
+				</elements>
+			</model>
 		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
 		<framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
@@ -54,11 +73,22 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
+  		</framedConfiguration> 
 	</framedModel>
 	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
+		<elements xsi:type="crom_l1_composed:CompartmentType" name="CT">
+			<parts>
+				<role xsi:type="crom_l1_composed:RoleType" name="RT1"
+					incoming="//@cromModel/@elements.0/@relationships.0" />
+			</parts>
+			<parts>
+				<role xsi:type="crom_l1_composed:RoleType" name="RT2"
+					outgoing="//@cromModel/@elements.0/@relationships.0" />
+			</parts>
+			<relationships name="rst">
+				<first holder="//@cromModel/@elements.0/@parts.1/@role" />
+				<second holder="//@cromModel/@elements.0/@parts.0/@role" />
+			</relationships>
 		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
 	</cromModel>
 </ts:TestCase>

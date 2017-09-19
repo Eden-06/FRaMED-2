@@ -4,19 +4,21 @@
 	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
 	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
 	<title>
-		Simple TestCase for CompartmentTypes
+		Test for CompartmentType with a child model containing one RoleType.
 	</title>
 	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
+		This test verifies that Shapes of type CompartmentType are converted correctly, and 
+		that referenced child elements are inserted in the CROM model as expected.
 	</description>
 	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
-		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
-		<framedConfiguration>
+		<elements xsi:type="org.framed.iorm.model:Shape" type="CompartmentType" name="Bank">
+      		<model>
+        		<elements xsi:type="org.framed.iorm.model:Shape" type="RoleType" name="Consultant">          
+          			<description name="1..*"/>
+        		</elements>
+      		</model>
+    	</elements>
+    	<framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
     		<features name="Role_Structure"/>
@@ -54,11 +56,14 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
+  		</framedConfiguration>
 	</framedModel>
 	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
-		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
+		<elements xsi:type="crom_l1_composed:CompartmentType" name="Bank">      
+      		<parts lower="1">
+        		<role xsi:type="crom_l1_composed:RoleType" name="Consultant">
+        		</role>
+      		</parts>
+      	</elements>
 	</cromModel>
 </ts:TestCase>

@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ts:TestCase xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
-	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
-	<title>
-		Simple TestCase for CompartmentTypes
-	</title>
-	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
-	</description>
-	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
-		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
-		<framedConfiguration>
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.iorm.model="http://iorm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="Simple TestCase for Inheritance Relation"
+    description="Simple TestCase for Inheritance Relation">
+  <framedModel>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="CompType1"
+        outgoingRelations="//@framedModel/@elements.2"/>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="CompType2"
+        incomingRelations="//@framedModel/@elements.2"/>
+    <elements
+        xsi:type="org.framed.iorm.model:Relation"
+        type="Inheritance"
+        target="//@framedModel/@elements.1"
+        source="//@framedModel/@elements.0"/>
+    <framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
     		<features name="Role_Structure"/>
@@ -54,11 +60,20 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
-	</framedModel>
-	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
-		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
-	</cromModel>
+  		</framedConfiguration>   
+  </framedModel>
+  <cromModel>
+    <elements
+        xsi:type="crom_l1_composed:CompartmentType"
+        name="CompType1"
+        outgoing="//@cromModel/@relations.0"/>
+    <elements
+        xsi:type="crom_l1_composed:CompartmentType"
+        name="CompType2"
+        incoming="//@cromModel/@relations.0"/>
+    <relations
+        xsi:type="crom_l1_composed:CompartmentInheritance"
+        super="//@cromModel/@elements.1"
+        sub="//@cromModel/@elements.0"/>
+  </cromModel>
 </ts:TestCase>

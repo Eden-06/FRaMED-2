@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ts:TestCase xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
-	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
-	<title>
-		Simple TestCase for CompartmentTypes
-	</title>
-	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
-	</description>
-	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
-		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
-		<framedConfiguration>
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.iorm.model="http://iorm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="Simple TestCase for Fulfillments"
+    description="Simple TestCase for Fulfillments">
+  <framedModel>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="NaturalType1"
+        outgoingRelations="//@framedModel/@elements.1"
+        type="NaturalType"/>
+    <elements
+        xsi:type="org.framed.iorm.model:Relation"
+        name="testFulfillment"
+        type="Fulfillment"
+        target="//@framedModel/@elements.2"
+        source="//@framedModel/@elements.0"
+        referencedRoles="//@framedModel/@elements.2/@model/@elements.0"/>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="compType1"
+        incomingRelations="//@framedModel/@elements.1">
+      <model>
+        <elements
+            xsi:type="org.framed.iorm.model:Shape"
+            name="roleType1"
+            type="RoleType"/>
+      </model>
+    </elements>
+    <framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
     		<features name="Role_Structure"/>
@@ -54,11 +70,24 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
-	</framedModel>
-	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
-		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
-	</cromModel>
+  		</framedConfiguration>
+  </framedModel>
+  <cromModel>
+    <elements
+        xsi:type="crom_l1_composed:NaturalType"
+        name="NaturalType1"/>
+    <elements
+        xsi:type="crom_l1_composed:CompartmentType"
+        name="compType1">
+      <parts>
+        <role
+            xsi:type="crom_l1_composed:RoleType"
+            name="roleType1"/>
+      </parts>
+    </elements>
+    <relations
+        xsi:type="crom_l1_composed:Fulfillment"
+        filled="//@cromModel/@elements.1/@parts.0/@role"
+        filler="//@cromModel/@elements.0"/>
+  </cromModel>
 </ts:TestCase>

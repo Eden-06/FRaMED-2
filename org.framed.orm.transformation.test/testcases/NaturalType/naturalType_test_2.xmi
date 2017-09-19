@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ts:TestCase xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
-	xmlns:org.framed.iorm.model="http://iorm/1.0" xmlns:ts="http://org.framed/testmodel">
-	<title>
-		Simple TestCase for CompartmentTypes
-	</title>
-	<description>
-		This test verifies that Shapes of type CompartmentType are
-		converted to CompartmentTypes and still have the same name
-	</description>
-	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType1"
-			type="CompartmentType">
-		</elements>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="CompType2"
-			type="CompartmentType" />
-		<framedConfiguration>
+<ts:TestCase
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:crom_l1_composed="platform:/resource/org.rosi.crom.metamodel/"
+    xmlns:org.framed.iorm.model="http://iorm/1.0"
+    xmlns:ts="http://org.framed/testmodel"
+    title="&#xA;&#x9;&#x9;Simple TestCase for Natural Types with attributes&#xA;&#x9;"
+    description="&#xA;&#x9;&#x9;This test verifies that Shapes of type NaturalType are&#xA;&#x9;&#x9;converted to NaturalTypes with their attributes which are contained in&#xA;&#x9;&#x9;the first segment of a shape.&#xA;&#x9;">
+  <framedModel>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="NaturalType1"
+        type="NaturalType">
+      <firstSegment>
+        <elements
+            name="NamedElement0 : NaturalType1"/>
+        <elements
+            name="NamedElement1 : NaturalType2"/>        
+      </firstSegment>
+    </elements>
+    <elements
+        xsi:type="org.framed.iorm.model:Shape"
+        name="NaturalType2"
+        type="NaturalType"/>
+    <framedConfiguration>
     		<features/>
    			<features name="Role_Types"/>
     		<features name="Role_Structure"/>
@@ -54,11 +62,19 @@
 		    <features name="Playable_by_Defining_Compartment" manuallySelected="true"/>
 		    <features name="Data_Types"/>
 		    <features name="Data_Type_Inheritance" manuallySelected="true"/>
-  		</framedConfiguration>	
-	</framedModel>
-	<cromModel>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType1">
-		</elements>
-		<elements xsi:type="crom_l1_composed:CompartmentType" name="CompType2" />
-	</cromModel>
+  		</framedConfiguration>     
+  </framedModel>
+  <cromModel>
+    <elements
+        xsi:type="crom_l1_composed:NaturalType"
+        name="NaturalType1">
+      <attributes
+          name="NamedElement0" type="//@cromModel/@elements.0"/>
+      <attributes
+          name="NamedElement1" type="//@cromModel/@elements.1"/>      
+    </elements>
+    <elements
+        xsi:type="crom_l1_composed:NaturalType"
+        name="NaturalType2"/>
+  </cromModel>
 </ts:TestCase>
