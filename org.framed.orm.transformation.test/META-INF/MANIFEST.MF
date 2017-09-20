@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.framed.orm.transformation.test;singleton:=true
+Bundle-SymbolicName: org.framed.iorm.transformation.test;singleton:=true
 Bundle-Version: 2.0.3
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.framed.orm.transformation;bundle-version="1.0.0",
+ org.framed.iorm.transformation;bundle-version="1.0.0",
  org.junit,
  org.rosi.crom.metamodel;visibility:=reexport,
  org.framed.iorm.model;bundle-version="0.1.0";visibility:=reexport,
@@ -16,11 +16,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.compare;bundle-version="3.5.501",
  org.eclipse.emf.compare;bundle-version="3.1.0",
  de.ovgu.featureide.fm.core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.framed.orm.transformation.test.model.test,
- org.framed.orm.transformation.test.model.test.impl,
- org.framed.orm.transformation.test.model.test.testgeneration,
- org.framed.orm.transformation.test.model.test.util
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.framed.iorm.transformation.test.model.test,
+ org.framed.iorm.transformation.test.model.test.impl,
+ org.framed.iorm.transformation.test.model.test.testgeneration,
+ org.framed.iorm.transformation.test.model.test.util
 Bundle-ActivationPolicy: lazy
 Import-Package: de.ovgu.featureide.fm.core,
  de.ovgu.featureide.fm.core.configuration,

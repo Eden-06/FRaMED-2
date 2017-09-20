@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Transformation
-Bundle-SymbolicName: org.framed.orm.transformation;singleton:=true
+Bundle-SymbolicName: org.framed.iorm.transformation;singleton:=true
 Bundle-Version: 2.0.3
-Bundle-Activator: org.framed.orm.transformation.Activator
+Bundle-Activator: org.framed.iorm.transformation.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.epsilon.eol.engine,
@@ -13,4 +13,4 @@ Require-Bundle: org.eclipse.ui,
  org.rosi.crom.metamodel;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: org.framed.orm.transformation
+Export-Package: org.framed.iorm.transformation

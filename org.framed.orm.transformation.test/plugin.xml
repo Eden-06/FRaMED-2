@@ -10,7 +10,7 @@
       <!-- @generated testmodel -->
       <package
             uri="http://org.framed/testmodel"
-            class="org.framed.orm.transformation.test.model.test.TestPackage"
+            class="org.framed.iorm.transformation.test.model.test.TestPackage"
             genModel="model/testmodel.genmodel"/>
    </extension>
 

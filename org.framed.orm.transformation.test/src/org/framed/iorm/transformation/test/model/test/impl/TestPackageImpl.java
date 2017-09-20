@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test.impl;
+package org.framed.iorm.transformation.test.model.test.impl;
 
 import crom_l1_composed.Crom_l1_composedPackage;
 
@@ -12,10 +12,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.framed.iorm.model.OrmPackage;
-
-import org.framed.orm.transformation.test.model.test.TestCase;
-import org.framed.orm.transformation.test.model.test.TestFactory;
-import org.framed.orm.transformation.test.model.test.TestPackage;
+import org.framed.iorm.transformation.test.model.test.TestCase;
+import org.framed.iorm.transformation.test.model.test.TestFactory;
+import org.framed.iorm.transformation.test.model.test.TestPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -40,7 +39,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
    * if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.framed.orm.transformation.test.model.test.TestPackage#eNS_URI
+   * @see org.framed.iorm.transformation.test.model.test.TestPackage#eNS_URI
    * @see #init()
    * @generated
    */

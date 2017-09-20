@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test.impl;
+package org.framed.iorm.transformation.test.model.test.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -12,9 +12,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.framed.iorm.model.Model;
-
-import org.framed.orm.transformation.test.model.test.TestCase;
-import org.framed.orm.transformation.test.model.test.TestPackage;
+import org.framed.iorm.transformation.test.model.test.TestCase;
+import org.framed.iorm.transformation.test.model.test.TestPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Case</b></em>'. <!--
@@ -22,13 +21,13 @@ import org.framed.orm.transformation.test.model.test.TestPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl#getTitle <em>Title
+ * <li>{@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl#getTitle <em>Title
  * </em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl#getDescription <em>
+ * <li>{@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl#getDescription <em>
  * Description</em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl#getFramedModel <em>
+ * <li>{@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl#getFramedModel <em>
  * Framed Model</em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl#getCromModel <em>Crom
+ * <li>{@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl#getCromModel <em>Crom
  * Model</em>}</li>
  * </ul>
  * </p>

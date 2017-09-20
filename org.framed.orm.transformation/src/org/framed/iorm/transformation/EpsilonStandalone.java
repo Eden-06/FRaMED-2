@@ -1,4 +1,4 @@
-package org.framed.orm.transformation;
+package org.framed.iorm.transformation;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -57,7 +57,7 @@ public abstract class EpsilonStandalone {
   }
 
   private URI getTransformationFile() {
-    Bundle bundle = Platform.getBundle("org.framed.orm.transformation");
+    Bundle bundle = Platform.getBundle("org.framed.iorm.transformation");
     URL fileURL = bundle.getEntry(getSource());
 
     try {

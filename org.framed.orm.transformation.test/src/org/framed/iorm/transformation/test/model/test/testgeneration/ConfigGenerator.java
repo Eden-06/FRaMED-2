@@ -1,26 +1,12 @@
-package org.framed.orm.transformation.test.model.test.testgeneration;
+package org.framed.iorm.transformation.test.model.test.testgeneration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
-import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
-import org.framed.iorm.ui.literals.URLLiterals;
-import org.osgi.framework.Bundle;
-
-import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.configuration.Configuration;
-import de.ovgu.featureide.fm.core.configuration.SelectableFeature;
-import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
-import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 
 /**
  * @author Kevin Kassin<br>
@@ -68,17 +54,7 @@ public class ConfigGenerator {
 	* the file of the corresponding feature model.
 	*/
 	File featureModelFile = null;
-	
-	/**
-	* the actual feature model used for the configuration
-	*/
-	private IFeatureModel featureModel;
-	
-	/**
-	 * URLs to the feature model and its standard configuration gathered from {@link URLLiterals}
-	 */
-	private final URL URL_TO_FEATUREMODEL = URLLiterals.URL_TO_FEATUREMODEL;
-	
+		
 	/**
 	 * Constructor
 	 */
@@ -118,24 +94,6 @@ public class ConfigGenerator {
 			j--;
 		}
 		return bitSetCopy;
-	}
-	
-	/**
-	* Reads the included Feature Model from the bundle org.framed.orm.featuremodel
-	* 
-	* @throws FileNotFoundException
-	* @throws UnsupportedModelException
-	*/
-	public void readFeatureModel() throws FileNotFoundException, UnsupportedModelException {
-		File featureModelFile = null;
-	  	try {
-	    	featureModelFile = new File(FileLocator.resolve(URL_TO_FEATUREMODEL).toURI());
-	    } catch (URISyntaxException | IOException e) { e.printStackTrace(); }
-	  	FeatureModelManager featureModelManager = FeatureModelManager.getInstance(featureModelFile.toPath());
-	  	if(featureModelManager.getLastProblems().containsError()) {
-	  		throw new FeatureModelNotReadableException();
-	  	}
-	  	featureModel = featureModelManager.getObject();
 	}
 	
 	/**

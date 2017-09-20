@@ -1,4 +1,4 @@
-package org.framed.orm.transformation.test.model.test.testgeneration;
+package org.framed.iorm.transformation.test.model.test.testgeneration;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
-import org.framed.orm.transformation.test.model.test.TestCase;
+import org.framed.iorm.transformation.test.model.test.TestCase;
 import org.osgi.framework.Bundle;
 
 import crom_l1_composed.*;
@@ -46,7 +46,7 @@ public class TestGenerator {
 	public void generateTestCases() throws IOException, URISyntaxException, UnsupportedModelException {
 		List<BitSet> configList = new ArrayList<BitSet>();
 		configGenerator = new ConfigGenerator();
-		Bundle bundle = Platform.getBundle("org.framed.orm.transformation.test");
+		Bundle bundle = Platform.getBundle("org.framed.iorm.transformation.test");
 	    URL fileURL = bundle.getEntry("testcases/Generated/baseTest.xmi");
 		File file = new File(FileLocator.resolve(fileURL).toURI());
 		String str_config;

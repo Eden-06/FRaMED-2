@@ -363,7 +363,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 												   width-2*PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);	
 		
 		//groups diagram
-		Diagram contentDiagram = pictogramElementCreateService.createDiagram(DIAGRAM_TYPE, addedCompartmentType.getName(), 10, false);
+		Diagram contentDiagram = pictogramElementCreateService.createDiagram(DIAGRAM_TYPE, addedCompartmentType.getName(), 10, true);
 		PropertyUtil.setDiagram_KindValue(contentDiagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM);
 		AddGroupOrCompartmentTypeContext agctc = (AddGroupOrCompartmentTypeContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());

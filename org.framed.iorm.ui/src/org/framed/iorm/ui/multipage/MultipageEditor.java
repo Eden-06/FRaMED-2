@@ -33,6 +33,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.transformation.TransformationExecutor;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.TransformationFailedException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
@@ -49,7 +50,6 @@ import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
-import org.framed.orm.transformation.TransformationExecutor;
 
 /**
  * This class is creates the overall editor to edit the role model. 

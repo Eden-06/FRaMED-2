@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test;
+package org.framed.iorm.transformation.test.model.test;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.framed.orm.transformation.test.model.test.TestFactory
+ * @see org.framed.iorm.transformation.test.model.test.TestFactory
  * @model kind="package"
  * @generated
  */
@@ -50,15 +50,15 @@ public interface TestPackage extends EPackage {
    * 
    * @generated
    */
-  TestPackage eINSTANCE = org.framed.orm.transformation.test.model.test.impl.TestPackageImpl.init();
+  TestPackage eINSTANCE = org.framed.iorm.transformation.test.model.test.impl.TestPackageImpl.init();
 
   /**
    * The meta object id for the '
-   * {@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl <em>Case</em>}' class.
+   * {@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl <em>Case</em>}' class.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
-   * @see org.framed.orm.transformation.test.model.test.impl.TestCaseImpl
-   * @see org.framed.orm.transformation.test.model.test.impl.TestPackageImpl#getTestCase()
+   * @see org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl
+   * @see org.framed.iorm.transformation.test.model.test.impl.TestPackageImpl#getTestCase()
    * @generated
    */
   int TEST_CASE = 0;
@@ -120,22 +120,22 @@ public interface TestPackage extends EPackage {
 
   /**
    * Returns the meta object for class '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase <em>Case</em>}'. <!--
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase <em>Case</em>}'. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    * 
    * @return the meta object for class '<em>Case</em>'.
-   * @see org.framed.orm.transformation.test.model.test.TestCase
+   * @see org.framed.iorm.transformation.test.model.test.TestCase
    * @generated
    */
   EClass getTestCase();
 
   /**
    * Returns the meta object for the attribute '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getTitle <em>Title</em>}'. <!--
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getTitle <em>Title</em>}'. <!--
    * begin-user-doc --> <!-- end-user-doc -->
    * 
    * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.framed.orm.transformation.test.model.test.TestCase#getTitle()
+   * @see org.framed.iorm.transformation.test.model.test.TestCase#getTitle()
    * @see #getTestCase()
    * @generated
    */
@@ -143,11 +143,11 @@ public interface TestPackage extends EPackage {
 
   /**
    * Returns the meta object for the attribute '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getDescription
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getDescription
    * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @return the meta object for the attribute '<em>Description</em>'.
-   * @see org.framed.orm.transformation.test.model.test.TestCase#getDescription()
+   * @see org.framed.iorm.transformation.test.model.test.TestCase#getDescription()
    * @see #getTestCase()
    * @generated
    */
@@ -155,11 +155,11 @@ public interface TestPackage extends EPackage {
 
   /**
    * Returns the meta object for the containment reference '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getFramedModel
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getFramedModel
    * <em>Framed Model</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @return the meta object for the containment reference '<em>Framed Model</em>'.
-   * @see org.framed.orm.transformation.test.model.test.TestCase#getFramedModel()
+   * @see org.framed.iorm.transformation.test.model.test.TestCase#getFramedModel()
    * @see #getTestCase()
    * @generated
    */
@@ -167,11 +167,11 @@ public interface TestPackage extends EPackage {
 
   /**
    * Returns the meta object for the containment reference '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model</em>}
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model</em>}
    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @return the meta object for the containment reference '<em>Crom Model</em>'.
-   * @see org.framed.orm.transformation.test.model.test.TestCase#getCromModel()
+   * @see org.framed.iorm.transformation.test.model.test.TestCase#getCromModel()
    * @see #getTestCase()
    * @generated
    */
@@ -202,11 +202,11 @@ public interface TestPackage extends EPackage {
   interface Literals {
     /**
      * The meta object literal for the '
-     * {@link org.framed.orm.transformation.test.model.test.impl.TestCaseImpl <em>Case</em>}' class.
+     * {@link org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl <em>Case</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @see org.framed.orm.transformation.test.model.test.impl.TestCaseImpl
-     * @see org.framed.orm.transformation.test.model.test.impl.TestPackageImpl#getTestCase()
+     * @see org.framed.iorm.transformation.test.model.test.impl.TestCaseImpl
+     * @see org.framed.iorm.transformation.test.model.test.impl.TestPackageImpl#getTestCase()
      * @generated
      */
     EClass TEST_CASE = eINSTANCE.getTestCase();

@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test.impl;
+package org.framed.iorm.transformation.test.model.test.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -9,8 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.framed.orm.transformation.test.model.test.*;
+import org.framed.iorm.transformation.test.model.test.*;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->

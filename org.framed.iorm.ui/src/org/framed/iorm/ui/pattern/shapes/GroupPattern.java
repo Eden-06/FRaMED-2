@@ -324,7 +324,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 												   width-2*PUFFER_BETWEEN_ELEMENTS, height-GROUP_CORNER_RADIUS);
 		
 		//groups diagram
-		Diagram contentDiagram = pictogramElementCreateService.createDiagram(DIAGRAM_TYPE, addedGroup.getName(), 10, false);
+		Diagram contentDiagram = pictogramElementCreateService.createDiagram(DIAGRAM_TYPE, addedGroup.getName(), 10, true);
 		PropertyUtil.setDiagram_KindValue(contentDiagram, DIAGRAM_KIND_GROUP_DIAGRAM);
 		AddGroupOrCompartmentTypeContext agctc = (AddGroupOrCompartmentTypeContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());

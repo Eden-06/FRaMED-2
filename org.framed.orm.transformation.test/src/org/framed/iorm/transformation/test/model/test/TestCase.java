@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test;
+package org.framed.iorm.transformation.test.model.test;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -13,17 +13,17 @@ import org.framed.iorm.model.Model;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.framed.orm.transformation.test.model.test.TestCase#getTitle <em>Title</em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.TestCase#getDescription <em>Description
+ * <li>{@link org.framed.iorm.transformation.test.model.test.TestCase#getTitle <em>Title</em>}</li>
+ * <li>{@link org.framed.iorm.transformation.test.model.test.TestCase#getDescription <em>Description
  * </em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.TestCase#getFramedModel <em>Framed Model
+ * <li>{@link org.framed.iorm.transformation.test.model.test.TestCase#getFramedModel <em>Framed Model
  * </em>}</li>
- * <li>{@link org.framed.orm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model
+ * <li>{@link org.framed.iorm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model
  * </em>}</li>
  * </ul>
  * </p>
  *
- * @see org.framed.orm.transformation.test.model.test.TestPackage#getTestCase()
+ * @see org.framed.iorm.transformation.test.model.test.TestPackage#getTestCase()
  * @model
  * @generated
  */
@@ -38,14 +38,14 @@ public interface TestCase extends EObject {
    * 
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
-   * @see org.framed.orm.transformation.test.model.test.TestPackage#getTestCase_Title()
+   * @see org.framed.iorm.transformation.test.model.test.TestPackage#getTestCase_Title()
    * @model
    * @generated
    */
   String getTitle();
 
   /**
-   * Sets the value of the '{@link org.framed.orm.transformation.test.model.test.TestCase#getTitle
+   * Sets the value of the '{@link org.framed.iorm.transformation.test.model.test.TestCase#getTitle
    * <em>Title</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @param value the new value of the '<em>Title</em>' attribute.
@@ -64,7 +64,7 @@ public interface TestCase extends EObject {
    * 
    * @return the value of the '<em>Description</em>' attribute.
    * @see #setDescription(String)
-   * @see org.framed.orm.transformation.test.model.test.TestPackage#getTestCase_Description()
+   * @see org.framed.iorm.transformation.test.model.test.TestPackage#getTestCase_Description()
    * @model
    * @generated
    */
@@ -72,7 +72,7 @@ public interface TestCase extends EObject {
 
   /**
    * Sets the value of the '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getDescription
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getDescription
    * <em>Description</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @param value the new value of the '<em>Description</em>' attribute.
@@ -92,7 +92,7 @@ public interface TestCase extends EObject {
    * 
    * @return the value of the '<em>Framed Model</em>' containment reference.
    * @see #setFramedModel(Model)
-   * @see org.framed.orm.transformation.test.model.test.TestPackage#getTestCase_FramedModel()
+   * @see org.framed.iorm.transformation.test.model.test.TestPackage#getTestCase_FramedModel()
    * @model containment="true"
    * @generated
    */
@@ -100,7 +100,7 @@ public interface TestCase extends EObject {
 
   /**
    * Sets the value of the '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getFramedModel
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getFramedModel
    * <em>Framed Model</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @param value the new value of the '<em>Framed Model</em>' containment reference.
@@ -120,7 +120,7 @@ public interface TestCase extends EObject {
    * 
    * @return the value of the '<em>Crom Model</em>' containment reference.
    * @see #setCromModel(crom_l1_composed.Model)
-   * @see org.framed.orm.transformation.test.model.test.TestPackage#getTestCase_CromModel()
+   * @see org.framed.iorm.transformation.test.model.test.TestPackage#getTestCase_CromModel()
    * @model containment="true"
    * @generated
    */
@@ -128,7 +128,7 @@ public interface TestCase extends EObject {
 
   /**
    * Sets the value of the '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model</em>}
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase#getCromModel <em>Crom Model</em>}
    * ' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @param value the new value of the '<em>Crom Model</em>' containment reference.

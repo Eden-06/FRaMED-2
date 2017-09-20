@@ -1,13 +1,12 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test.util;
+package org.framed.iorm.transformation.test.model.test.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
-
-import org.framed.orm.transformation.test.model.test.*;
+import org.framed.iorm.transformation.test.model.test.*;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance hierarchy. It supports the
@@ -16,7 +15,7 @@ import org.framed.orm.transformation.test.model.test.*;
  * inheritance hierarchy until a non-null result is returned, which is the result of the switch.
  * <!-- end-user-doc -->
  * 
- * @see org.framed.orm.transformation.test.model.test.TestPackage
+ * @see org.framed.iorm.transformation.test.model.test.TestPackage
  * @generated
  */
 public class TestSwitch<T> extends Switch<T> {

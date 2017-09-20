@@ -1,4 +1,4 @@
-package org.framed.orm.transformation.test;
+package org.framed.iorm.transformation.test;
 
 import static org.junit.Assert.fail;
 
@@ -36,9 +36,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.framed.orm.transformation.TransformationExecutor;
-import org.framed.orm.transformation.test.model.test.TestCase;
-import org.framed.orm.transformation.test.model.test.testgeneration.TestGenerator;
+import org.framed.iorm.transformation.TransformationExecutor;
+import org.framed.iorm.transformation.test.model.test.TestCase;
+import org.framed.iorm.transformation.test.model.test.testgeneration.TestGenerator;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -323,7 +323,7 @@ public class TransformationTestSuite {
    */
   public void deleteGeneratedTestCase() {
 	  String filename = testCase.getTitle().substring(15);
-	  Bundle bundle = Platform.getBundle("org.framed.orm.transformation.test");
+	  Bundle bundle = Platform.getBundle("org.framed.iorm.transformation.test");
 	  URL fileURL = bundle.getEntry("testcases/Generated/" + filename + ".xmi");
 	  try {
 		File file = new File(FileLocator.resolve(fileURL).toURI());

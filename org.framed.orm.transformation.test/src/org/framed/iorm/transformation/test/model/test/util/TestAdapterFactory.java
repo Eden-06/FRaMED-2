@@ -1,6 +1,6 @@
 /**
  */
-package org.framed.orm.transformation.test.model.test.util;
+package org.framed.iorm.transformation.test.model.test.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -8,14 +8,13 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
-
-import org.framed.orm.transformation.test.model.test.*;
+import org.framed.iorm.transformation.test.model.test.*;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter
  * <code>createXXX</code> method for each class of the model. <!-- end-user-doc -->
  * 
- * @see org.framed.orm.transformation.test.model.test.TestPackage
+ * @see org.framed.iorm.transformation.test.model.test.TestPackage
  * @generated
  */
 public class TestAdapterFactory extends AdapterFactoryImpl {
@@ -89,13 +88,13 @@ public class TestAdapterFactory extends AdapterFactoryImpl {
 
   /**
    * Creates a new adapter for an object of class '
-   * {@link org.framed.orm.transformation.test.model.test.TestCase <em>Case</em>}'. <!--
+   * {@link org.framed.iorm.transformation.test.model.test.TestCase <em>Case</em>}'. <!--
    * begin-user-doc --> This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
    * end-user-doc -->
    * 
    * @return the new adapter.
-   * @see org.framed.orm.transformation.test.model.test.TestCase
+   * @see org.framed.iorm.transformation.test.model.test.TestCase
    * @generated
    */
   public Adapter createTestCaseAdapter() {
