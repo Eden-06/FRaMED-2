@@ -13,6 +13,8 @@ rule Group
 			var e = elem.equivalent();
 			if(e.instanceOf(target!Relation)) {
 				if(not(e==null)) t.getRelations().add(e);	
+			} else if(e.isKindOf(Sequence)) {
+				for(ob in e) t.getRelations().add(ob);
 			} else {
 				if(not(e==null)) t.getElements().add(e);
 			}

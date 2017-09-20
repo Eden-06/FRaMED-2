@@ -46,6 +46,7 @@ import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 	config[16] = Playable_By_Defining_Compartment<br>
 	config[17] = Data_Types<br>
 	config[18] = Data_Type_Inheritance
+	config[19] = Roles/ Contains_Compartments
  */
 public class ConfigGenerator {
 	/**
@@ -169,64 +170,66 @@ public class ConfigGenerator {
 		rCT = new ArrayList<String>();//rCT = requirementConfigTuple
 		
 		//set requirements and their relevant feature configuration
-		rCT.add("1******************"); //Requirement 1: role properties and operations are transformed
-		rCT.add("0******************"); //R2: role properties and operations are not transformed
-		rCT.add("*1*****************"); //R3: role inheritances are transformed
-		rCT.add("*0*****************"); //R4: role inheritances are not transformed
-		rCT.add("**1**********1*****"); //R5: fulfillments with compartment types as player are transformed
-		rCT.add("**0**********0*****"); //R6_1: fulfillments with compartment types as player are not transformed
-		rCT.add("**0**********1*****"); //R6_2
-		rCT.add("***1**********1****"); //R7: fulfillments with data types as player are transformed
-		rCT.add("***0**********0****"); //R8_1: fulfillments with data types as player are not transformed
-		rCT.add("***0**********1****"); //R8_2 
-		rCT.add("****1*1************"); //R9: role implications are transformed
-		rCT.add("****0*0************"); //R10_1: role implications are not transformed
-		rCT.add("****0*1************"); //R10_2
-		rCT.add("*****1*************"); //R11: role prohibitions are transformed
-		rCT.add("*****0*************"); //R12: role prohibitions are not transformed
+		rCT.add("1*******************"); //Requirement 1: role properties and operations are transformed
+		rCT.add("0*******************"); //R2: role properties and operations are not transformed
+		rCT.add("*1******************"); //R3: role inheritances are transformed
+		rCT.add("*0******************"); //R4: role inheritances are not transformed
+		rCT.add("**1**********1******"); //R5: fulfillments with compartment types as player are transformed
+		rCT.add("**0**********0******"); //R6_1: fulfillments with compartment types as player are not transformed
+		rCT.add("**0**********1******"); //R6_2
+		rCT.add("***1**********1*****"); //R7: fulfillments with data types as player are transformed
+		rCT.add("***0**********0*****"); //R8_1: fulfillments with data types as player are not transformed
+		rCT.add("***0**********1*****"); //R8_2 
+		rCT.add("****1*1*************"); //R9: role implications are transformed
+		rCT.add("****0*0*************"); //R10_1: role implications are not transformed
+		rCT.add("****0*1*************"); //R10_2
+		rCT.add("*****1**************"); //R11: role prohibitions are transformed
+		rCT.add("*****0**************"); //R12: role prohibitions are not transformed
 		//R13_1: role equivalences are transformed = R9
 		//R13_2 = R10_2
 		//R14: role equivalences are not transformed = R10_1
-		rCT.add("*******1***********"); //R15: group constraints are transformed
-		rCT.add("*******0***********"); //R16: group constraints are not transformed
-		rCT.add("********1**********"); //R17: occurrence constraints are transformed
-		rCT.add("********0**********"); //R18: occurrence constraints are not transformed
-		rCT.add("*********1000******"); //R19_1: relationships are transformed
-		rCT.add("*********1001******"); //R19_2		connected to its child
-		rCT.add("*********1010******"); //R19_3     features, every combination
-		rCT.add("*********1011******"); //R19_4     of child features used
-		rCT.add("*********1100******"); //R19_5     
-		rCT.add("*********1101******"); //R19_6
-		rCT.add("*********1110******"); //R19_7
-		rCT.add("*********1111******"); //R19_8
-		rCT.add("*********0000******"); //R20: relationships are not transformed
-		rCT.add("*********11********"); //R21: relationship cardinalities are transformed
-		rCT.add("*********00********"); //R22_1: relationship cardinalities are not transformed
-		rCT.add("*********10********"); //R22_2
-		rCT.add("*********1*1*******"); //R23: relationship cardinalities are transformed
-		rCT.add("*********0*0*******"); //R24_1: relationship cardinalities are not transformed
-		rCT.add("*********1*0*******"); //R24_2
-		rCT.add("*********1**1******"); //R25: relationship cardinalities are transformed
-		rCT.add("*********0**0******"); //R26_1: relationship cardinalities are not transformed
-		rCT.add("*********1**0******"); //R26_2
-		rCT.add("*************11****"); //R27: compartment type attributes and operations are transformed
-		rCT.add("*************00****"); //R28_1: compartment type attributes and operations are not transformed
-		rCT.add("*************10****"); //R28_2
-		rCT.add("*************1*1***"); //R29: compartment inheritance are transformed
-		rCT.add("*************0*0***"); //R30_1: compartment inheritance are not transformed
-		rCT.add("*************1*0***"); //R30_2
-		rCT.add("**1**********1**1**"); //R31: fulfillments of compartment to its self are transformed 
-		rCT.add("**0**********0**0**"); //R32_1: fulfillments of compartment to its self are not transformed
-		rCT.add("**0**********1**0**"); //R32_2
-		rCT.add("**1**********1**0**"); //R32_3
-		rCT.add("*****************11"); //R33_1: data types are transformed
-		rCT.add("*****************10"); //R33_2 
-		rCT.add("*****************00"); //R34: data types are not transformed
+		rCT.add("*******1************"); //R15: group constraints are transformed
+		rCT.add("*******0************"); //R16: group constraints are not transformed
+		rCT.add("********1***********"); //R17: occurrence constraints are transformed
+		rCT.add("********0***********"); //R18: occurrence constraints are not transformed
+		rCT.add("*********1000*******"); //R19_1: relationships are transformed
+		rCT.add("*********1001*******"); //R19_2		connected to its child
+		rCT.add("*********1010*******"); //R19_3     features, every combination
+		rCT.add("*********1011*******"); //R19_4     of child features used
+		rCT.add("*********1100*******"); //R19_5     
+		rCT.add("*********1101*******"); //R19_6
+		rCT.add("*********1110*******"); //R19_7
+		rCT.add("*********1111*******"); //R19_8
+		rCT.add("*********0000*******"); //R20: relationships are not transformed
+		rCT.add("*********11*********"); //R21: relationship cardinalities are transformed
+		rCT.add("*********00*********"); //R22_1: relationship cardinalities are not transformed
+		rCT.add("*********10*********"); //R22_2
+		rCT.add("*********1*1********"); //R23: relationship cardinalities are transformed
+		rCT.add("*********0*0********"); //R24_1: relationship cardinalities are not transformed
+		rCT.add("*********1*0********"); //R24_2
+		rCT.add("*********1**1*******"); //R25: relationship cardinalities are transformed
+		rCT.add("*********0**0*******"); //R26_1: relationship cardinalities are not transformed
+		rCT.add("*********1**0*******"); //R26_2
+		rCT.add("*************11*****"); //R27: compartment type attributes and operations are transformed
+		rCT.add("*************00*****"); //R28_1: compartment type attributes and operations are not transformed
+		rCT.add("*************10*****"); //R28_2
+		rCT.add("*************1*1****"); //R29: compartment inheritance are transformed
+		rCT.add("*************0*0****"); //R30_1: compartment inheritance are not transformed
+		rCT.add("*************1*0****"); //R30_2
+		rCT.add("**1**********1**1***"); //R31: fulfillments of compartment to its self are transformed 
+		rCT.add("**0**********0**0***"); //R32_1: fulfillments of compartment to its self are not transformed
+		rCT.add("**0**********1**0***"); //R32_2
+		rCT.add("**1**********1**0***"); //R32_3
+		rCT.add("*****************11*"); //R33_1: data types are transformed
+		rCT.add("*****************10*"); //R33_2 
+		rCT.add("*****************00*"); //R34: data types are not transformed
 		//R35: data type inheritance are transformed = R33_1
 		//R36_1: data type inheritance are not transformed = R34
 		//R36_2 = R33_2
-		rCT.add("0000000000000000000"); //R37_1: Corner case empty configuration
-		rCT.add("1111111111111111111"); //R37_2: Corner case full configuration
+		rCT.add("*******************1"); //R37_1 roles can play roles
+		rCT.add("*******************0"); //R37_2 roles can not play roles
+		rCT.add("00000000000000000000"); //R38_1: Corner case empty configuration
+		rCT.add("11111111111111111111"); //R38_2: Corner case full configuration
 
 		return rCT;
 	}

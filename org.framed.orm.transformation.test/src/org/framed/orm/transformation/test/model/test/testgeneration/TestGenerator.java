@@ -44,7 +44,7 @@ public class TestGenerator {
 	 * @throws UnsupportedModelException 
 	 */
 	public void generateTestCases() throws IOException, URISyntaxException, UnsupportedModelException {
-		/*List<BitSet> configList = new ArrayList<BitSet>();
+		List<BitSet> configList = new ArrayList<BitSet>();
 		configGenerator = new ConfigGenerator();
 		Bundle bundle = Platform.getBundle("org.framed.orm.transformation.test");
 	    URL fileURL = bundle.getEntry("testcases/Generated/baseTest.xmi");
@@ -68,7 +68,7 @@ public class TestGenerator {
 		
 			URI fileURI = URI.createFileURI("testcases/Generated/" + str_config + ".xmi");
 			createTestFile(testCase, fileURI);
-		}*/      
+		}
 	}
 	
 	/**
@@ -151,6 +151,9 @@ public class TestGenerator {
 			featureList.remove(getFeatureNumber("Playable_by_Defining_Compartment", featureList));}
 		if(!config.get(17)) featureList.remove(getFeatureNumber("Data_Types", featureList));
 		if(!config.get(18)) featureList.remove(getFeatureNumber("Data_Type_Inheritance", featureList));
+		if(!config.get(19)) {
+			featureList.remove(getFeatureNumber("Roles", featureList));
+			featureList.remove(getFeatureNumber("Contains_Compartments", featureList));}
 		return testCase;
 	}
 	
@@ -244,11 +247,14 @@ public class TestGenerator {
 			//find all relationships, delete them
 			for(crom_l1_composed.ModelElement element : cromElements) {	
 				if(element instanceof crom_l1_composed.CompartmentType) {
-					for(Relationship relationship : ((crom_l1_composed.CompartmentType) element).getRelationships())		
+					crom_l1_composed.CompartmentType compartmentType = (crom_l1_composed.CompartmentType) element;
+					for(Relationship relationship : (compartmentType.getRelationships()))		
 						RelationshipsToDelete.add(relationship);	
 					for(Relationship relation : RelationshipsToDelete)
-						((crom_l1_composed.CompartmentType) element).getRelationships().remove(relation);
-			}}}
+						compartmentType.getRelationships().remove(relation);
+					for(crom_l1_composed.CompartmentType innerCT : compartmentType.getContains()) {
+						TraverseInCompartmentType(innerCT);
+		}}}}
 			
 		//Relationship_Cardinality
 		if(!config.get(10)) {
@@ -256,7 +262,7 @@ public class TestGenerator {
 			for(crom_l1_composed.ModelElement element : cromElements) {
 				if(element instanceof crom_l1_composed.CompartmentType) {
 					for(Relationship relationship : ((crom_l1_composed.CompartmentType) element).getRelationships()) { 	
-							//get place, set place generic
+						//get place, set place generic
 						relationship.getFirst().setLower(0);
 						relationship.getFirst().setUpper(-1);
 						relationship.getSecond().setLower(0);
@@ -343,12 +349,12 @@ public class TestGenerator {
 							if(part.getRole() instanceof crom_l1_composed.RoleGroup) {
 								if(RoleGroupChildContainsRole((crom_l1_composed.RoleGroup) part.getRole(), filled))
 									RelationsToDelete.add(relation);
-		}}}}}		
-					for(Relation relation : RelationsToDelete) 
-						testCase.getCromModel().getRelations().remove(relation);
-					RelationsToDelete.clear();
+			}}}}}		
+			for(Relation relation : RelationsToDelete) 
+				testCase.getCromModel().getRelations().remove(relation);
+			RelationsToDelete.clear();
 		}
-	
+		
 	//Inheritances	
 	//------------	
 		//Role_Inheritance
@@ -406,7 +412,17 @@ public class TestGenerator {
 			}
 			for(crom_l1_composed.ModelElement element : ElementsToDelete) 
 				cromElements.remove(element);		
+			ElementsToDelete.clear();
 		}
+		
+		//compartment types in compartment types/ roles fulfill roles
+		if(!config.get(19)) {
+			for(crom_l1_composed.ModelElement element : cromElements) {
+				if(element instanceof crom_l1_composed.CompartmentType) {
+					crom_l1_composed.CompartmentType compartmentType = (crom_l1_composed.CompartmentType) element;
+					compartmentType.getContains().clear();
+					compartmentType.getFulfillments().clear();
+		}	}	}	
 		
 		return testCase;
 	}
@@ -416,7 +432,7 @@ public class TestGenerator {
 	 * @param constraintType
 	 * @param cromElements
 	 */
-	public static void changeRoleConstraints(String constraintType, EList<crom_l1_composed.ModelElement> cromElements) {
+	public void changeRoleConstraints(String constraintType, EList<crom_l1_composed.ModelElement> cromElements) {
 		EList<Constraint> constraints;
 		ArrayList<Constraint> toDelete;
 		
@@ -443,7 +459,7 @@ public class TestGenerator {
 	 * Deletes attributes and operations of a given role
 	 * @param role
 	 */
-	public static void DeleteAttributesAndOperationFromRole(crom_l1_composed.RoleType role) {
+	public void DeleteAttributesAndOperationFromRole(crom_l1_composed.RoleType role) {
 		role.getAttributes().clear();
 		role.getOperations().clear();
 	}
@@ -452,7 +468,7 @@ public class TestGenerator {
 	 * Traverses in a given Rolegroup: delete attributes and operations in role, call method recursive for other role groups
 	 * @param roleGroup
 	 */
-	public static void TraverseInRoleGroups(crom_l1_composed.RoleGroup roleGroup) {
+	public void TraverseInRoleGroups(crom_l1_composed.RoleGroup roleGroup) {
 		for(RoleGroupElement roleGroupElement : roleGroup.getElements()) {
 			if(roleGroupElement instanceof crom_l1_composed.RoleType)
 				DeleteAttributesAndOperationFromRole((crom_l1_composed.RoleType) roleGroupElement);
@@ -465,7 +481,7 @@ public class TestGenerator {
 	 * Traverses in a given Group: delete data types, call method recursive for other groups
 	 * @param group
 	 */
-	public static void TraverseInGroup(crom_l1_composed.Group group) {
+	public void TraverseInGroup(crom_l1_composed.Group group) {
 		List<crom_l1_composed.ModelElement> ElementsToDelete = new ArrayList<crom_l1_composed.ModelElement>();
 		for(crom_l1_composed.ModelElement groupElement : group.getElements()) {
 			if(groupElement instanceof crom_l1_composed.DataType) {
@@ -478,6 +494,19 @@ public class TestGenerator {
 			group.getElements().remove(element);
 		}
 	}
+	
+	/**
+	 * Traverses in a given Compartment Type: deletes relationships and calls method recursive for other groups
+	 */
+	public void TraverseInCompartmentType(crom_l1_composed.CompartmentType compartmentType) {
+		List<Relationship> RelationshipsToDelete = new ArrayList<Relationship>();
+		for(Relationship relationship : (compartmentType.getRelationships()))		
+			RelationshipsToDelete.add(relationship);	
+		for(Relationship relation : RelationshipsToDelete)
+			compartmentType.getRelationships().remove(relation);
+		for(crom_l1_composed.CompartmentType innerCT : compartmentType.getContains()) {
+			TraverseInCompartmentType(innerCT);
+	}	}
 	
 	/**
 	 * Checks if a played role is part of a role group of the playing compartment type itself
