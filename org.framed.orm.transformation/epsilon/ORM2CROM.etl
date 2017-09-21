@@ -52,6 +52,7 @@ rule ORM2CROM
 			if(not(r.isKindOf(Sequence))) {
 				crom.relations.add(r);
 			} else {
+				//check wether return type is limited to Sequence(target!Fulfillment)
 				for(ob in r) {
 					crom.relations.add(ob);
 				}
