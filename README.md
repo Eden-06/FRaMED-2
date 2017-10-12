@@ -1,4 +1,4 @@
-# FRaMED^2.0^
+# FRaMED (2.0)
 
 
 FRaMED-2 is the reimplementation of the  Full-fledged Role Modeling EDitor allowing the graphical specification of Role-based Software Systems
