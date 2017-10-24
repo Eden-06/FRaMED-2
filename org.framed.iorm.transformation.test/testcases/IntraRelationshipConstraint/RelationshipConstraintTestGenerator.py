@@ -20,6 +20,10 @@ types = ['RoleType']
 constraints = ['Irreflexive', 'Reflexive', 'Cyclic', 'Acyclic', 'Total']
 
 def write(filename, content, mode):
+	#stop the script and print a message since this script doesn't work anymore in FRaMED 2
+	print "Warning: This script doesn't work for FRaMED 2.0!"
+	sys.exit(0)
+	
 	#0 = create relationship tests
 	#1 = create relationshipconstraint tests
 	if mode == 0:
