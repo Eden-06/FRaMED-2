@@ -11,7 +11,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
  * It collects common attributes and operations of these classes.
  * @author Kevin Kassin
  */
-public class FRaMEDConnectionPattern extends AbstractConnectionPattern {
+public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern {
 	
 	/**
 	 * Class constructor

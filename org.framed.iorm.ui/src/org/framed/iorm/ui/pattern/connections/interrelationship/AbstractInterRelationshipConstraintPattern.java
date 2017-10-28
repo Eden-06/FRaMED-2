@@ -26,7 +26,7 @@ import org.framed.iorm.ui.pattern.connections.RelationshipPattern; //*import for
  * {@link RelationshipExclusionConstraintPattern}.
  * @author Kevin Kassin
  */
-public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
+public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
 	
 	/**
 	 * values for the property shape id gathered from {@link IdentifierLiterals}
