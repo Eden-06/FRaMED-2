@@ -3,12 +3,16 @@ package org.framed.iorm.ui.util;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.pattern.connections.RelationshipPattern; //*import for javadoc link
 
 /**
  * This class offers several utility operations mostly used by the graphiti connection patterns.
  * @author Kevin Kassin
  */
 public class ConnectionPatternUtil {
+	
+	static String SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
 
 	/**
 	 * helper method to get the {@link ModelElement} for a given anchor
@@ -33,6 +37,23 @@ public class ConnectionPatternUtil {
 			if(PropertyUtil.isShape_IdValue(decorator,SHAPE_ID))
 				return decorator;
 		}
+		return null;
+	}
+	
+	/**
+	 * fetches the anchor used for the pictogram model for a given anchor that is used by a business model element
+	 * of a inter relationship constraint uses
+	 * <p>
+	 * See {@link RelationshipPattern#add} for further informations.
+	 * @param businessModelAnchor the anchor a business model element of a inter relationship constraint uses
+	 * @return the equivalent anchor for the pictogram element of the inter relationship constraint
+	 */
+	public static Anchor getGraphicalAnchorForBusinessModelAnchor(Anchor businessModelAnchor) {
+		Connection connection = (Connection) businessModelAnchor.getParent();
+		for(ConnectionDecorator connectionDecorator : connection.getConnectionDecorators()) {
+	    	if(PropertyUtil.isShape_IdValue(connectionDecorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR))
+	    		return connectionDecorator.getAnchors().get(0);
+	    }
 		return null;
 	}
 }

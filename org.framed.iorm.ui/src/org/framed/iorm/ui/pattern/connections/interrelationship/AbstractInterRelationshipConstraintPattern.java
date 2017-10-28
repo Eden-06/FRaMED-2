@@ -8,7 +8,6 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
@@ -17,8 +16,6 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
-import org.framed.iorm.ui.pattern.connections.RelationshipPattern; //*import for javadoc link
 
 /**
  * This is the abstract super class of the patterns for inter relationship contraints. It collects similiar operations
@@ -84,8 +81,8 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    //Step 1
 	    Anchor graphicalSourceAnchor = null, 
 	    	   graphicalTargetAnchor = null;
-	    graphicalSourceAnchor = this.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getSourceAnchor());
-	    graphicalTargetAnchor = this.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getTargetAnchor());
+	    graphicalSourceAnchor = ConnectionPatternUtil.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getSourceAnchor());
+	    graphicalTargetAnchor = ConnectionPatternUtil.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getTargetAnchor());
 	    if(graphicalSourceAnchor == null || graphicalTargetAnchor == null) return null;
 	    //Step 2
 	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
@@ -176,22 +173,5 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    Connection newConnection = null;
 	    if(aircp.canAdd(addContext)) newConnection = (Connection) aircp.add(addContext); 	        
 	    return newConnection;
-	}
-		
-	/**
-	 * fetches the anchor used for the pictogram model for a given anchor that is used by a business model element
-	 * of a inter relationship constraint uses
-	 * <p>
-	 * See {@link RelationshipPattern#add} for further informations.
-	 * @param businessModelAnchor the anchor a business model element of a inter relationship constraint uses
-	 * @return the equivalent anchor for the pictogram element of the inter relationship constraint
-	 */
-	protected Anchor getGraphicalAnchorForBusinessModelAnchor(Anchor businessModelAnchor) {
-		Connection connection = (Connection) businessModelAnchor.getParent();
-		for(ConnectionDecorator connectionDecorator : connection.getConnectionDecorators()) {
-	    	if(PropertyUtil.isShape_IdValue(connectionDecorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR))
-	    		return connectionDecorator.getAnchors().get(0);
-	    }
-		return null;
 	}
 }

@@ -224,9 +224,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
-			if (sourceShape.getType() == Type.NATURAL_TYPE || sourceShape.getType() == Type.DATA_TYPE
-					|| sourceShape.getType() == Type.COMPARTMENT_TYPE
-					|| (sourceShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)))
+			if (sourceShape.getType() == Type.NATURAL_TYPE || sourceShape.getType() == Type.DATA_TYPE || 
+				sourceShape.getType() == Type.COMPARTMENT_TYPE || 
+				(sourceShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)))
 				return true;
 		}
 		return false;
