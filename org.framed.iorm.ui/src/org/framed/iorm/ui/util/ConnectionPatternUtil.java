@@ -12,6 +12,9 @@ import org.framed.iorm.ui.pattern.connections.RelationshipPattern; //*import for
  */
 public class ConnectionPatternUtil {
 	
+	/**
+	 * values for the property shape id gathered from {@link IdentifierLiterals}
+	 */
 	static String SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
 
 	/**
@@ -31,7 +34,12 @@ public class ConnectionPatternUtil {
 		return null;
 	}
 	
-	//TODO
+	/**
+	 * searches over all connection decorators of a given connection to find a specific one by its shape id
+	 * @param connection the connection with the decorators to search over
+	 * @param SHAPE_ID identifies the searched connection decorators
+	 * @return the connection decorator with the given shape id or null if none was found
+	 */
 	public static ConnectionDecorator getConnectionDecoratorByShapeId(Connection connection, String SHAPE_ID) {
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
 			if(PropertyUtil.isShape_IdValue(decorator,SHAPE_ID))

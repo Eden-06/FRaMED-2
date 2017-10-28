@@ -13,11 +13,15 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.pattern.connections.RelationshipPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
-//TODO
+/**
+ * This class adds checks and needed changes to the business model when reconnecting relations 
+ * @author Kevin Kassin
+ */
 public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 
 	/**
@@ -31,12 +35,18 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	 */
 	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
 	
-	//TODO
+	/**
+	 * Class constructor
+	 * @param featureProvider the feature provider the feature belongs to
+	 */
 	public FRaMEDReconnectFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
 	}
 	
-	//TODO
+	/**
+	 * decides if a reconnect can be executed by delegating the decision depending in the type of the relation to
+	 * reconnect
+	 */
 	@Override
     public boolean canReconnect(IReconnectionContext context) {
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(context.getConnection());
@@ -48,7 +58,11 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		return false;
     }	
 	
-	//TODO
+	/**
+	 * decides if a {@link Type#INHERITANCE} can be reconnected
+	 * @param context the context object holding all the reconnection information
+	 * @return if a {@link Type#INHERITANCE} can be reconnected 
+	 */
 	private boolean canReconnectInheritance(IReconnectionContext context) {
 		Anchor oldAnchor = context.getOldAnchor();
 	    Anchor newAnchor = context.getNewAnchor();
@@ -62,7 +76,11 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	    return false;
 	}
 	
-	//TODO
+	/**
+	 * decides if a {@link Type#RELATIONSHIP} can be reconnected
+	 * @param context the context object holding all the reconnection information
+	 * @return if a {@link Type#RELATIONSHIP} can be reconnected 
+	 */
 	private boolean canReconnectRelationship(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = ConnectionPatternUtil.getModelElementForAnchor(newAnchor);
@@ -71,7 +89,11 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		return false;
 	}
 	
-	//TODO
+	/**
+	 * decides if a inter relationship constraint can be reconnected
+	 * @param context the context object holding all the reconnection information
+	 * @return if a inter relationship constraint can be reconnected 
+	 */
 	private boolean canReconnectInterRelCon(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newRelation = ConnectionPatternUtil.getModelElementForAnchor(newAnchor);
@@ -80,7 +102,11 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		return false;
 	}
 	
-	//TODO
+	/**
+	 * decides if a {@link Type#FULFILLMENT} can be reconnected
+	 * @param context the context object holding all the reconnection information
+	 * @return if a {@link Type#FULFILLMENT} can be reconnected 
+	 */
 	private boolean canReconnectFulfillment(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = ConnectionPatternUtil.getModelElementForAnchor(newAnchor);
@@ -95,15 +121,26 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		return false;
 	}
 	
-	//TODO
+	/**
+	 * Executes needed action after a reconnect was succesful using the following steps:
+	 * <p>
+	 * Step 1: For every reconnect the source or target of the relations business object has to be changed
+	 * 		   using {@link #changeSourceOrTargetOfRelation}.<br>
+	 * Step 2: Depending on the type of the reconnected relation there can be additional needed actions to do.
+	 * 		   <ul>
+	 * 			<li>If a inter relationship constraint was reconnected the connection need to be connected to the anchor
+	 * 		   		used in the graphiti pictogram model which is another than used in the business model. See 
+	 * 		   		{@link RelationshipPattern#add} for further informations.</li>
+	 * 			<li>If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>  
+	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {
-		//Step 1 TODO
+		//Step 1
 		changeSourceOrTargetOfRelation(context);
-		//Step 2 TODO
+		//Step 2
 		Connection connection = context.getConnection();
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);			
-		//Option 1
+		//inter relationship constraint
 		if(relation.getType() == Type.RELATIONSHIP_EXCLUSION ||
 		   relation.getType() == Type.RELATIONSHIP_IMPLICATION) {
 			Anchor graphicalNewAnchor = null;
@@ -114,7 +151,7 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 			else     
 				connection.setEnd(graphicalNewAnchor);
 		}
-		//Option 2 TODO
+		//fulfillment
 		if(relation.getType() == Type.FULFILLMENT) {
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_TARGET) {
 				changeSourceOrTargetOfRelation(context);
@@ -131,6 +168,11 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		}
 	}
 	
+	/**
+	 * Changes the source or target reference of the business object relation depending which node of the
+	 * relation was changed
+	 * @param context the context object holding all the reconnection information
+	 */
 	private void changeSourceOrTargetOfRelation(IReconnectionContext context) {
 		Connection connection = context.getConnection();
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);

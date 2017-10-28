@@ -96,13 +96,19 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	/**
 	 * replaces the default feature that deletes connection decorator and connections with one that disables deleting connection
 	 * decorators and changes the deletion of connections 
+	 * <p>
+	 * See {@link FRaMEDDeleteConnectionFeature} for reference
 	 */
 	@Override
 	public IDeleteFeature getDeleteFeatureAdditional(IDeleteContext Context) {
 		return new FRaMEDDeleteConnectionFeature(this);
 	}
 	
-	//TODO
+	/**
+	 * replaces the default feature to reconnect connections
+	 * <p>
+	 * See {@link FRaMEDReconnectFeature} for reference
+	 */
 	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 	    return new FRaMEDReconnectFeature(this);
