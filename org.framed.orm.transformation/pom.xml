@@ -4,7 +4,7 @@
   <artifactId>org.framed.orm.transformation</artifactId>
   
   <parent>
-    <relativePath>../org.framed.orm.build/pom.xml</relativePath>
+    <relativePath>../org.framed.iorm.build/pom.xml</relativePath>
     <groupId>org.framed</groupId>
     <artifactId>parent</artifactId>
     <version>2.0.3</version>
