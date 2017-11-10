@@ -131,7 +131,9 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	 * 			<li>If a inter relationship constraint was reconnected the connection need to be connected to the anchor
 	 * 		   		used in the graphiti pictogram model which is another than used in the business model. See 
 	 * 		   		{@link RelationshipPattern#add} for further informations.</li>
-	 * 			<li>If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>  
+	 * 			<li>If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>
+	 *   	   	<li>If a relationship was reconnected its intra relationship constraints need to be reconnected to.</li> 
+	 *   	   </ul>
 	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {
@@ -154,7 +156,6 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		//fulfillment
 		if(relation.getType() == Type.FULFILLMENT) {
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_TARGET) {
-				changeSourceOrTargetOfRelation(context);
 				CustomContext customContext = new CustomContext();
 				PictogramElement[] pictogramElement = new PictogramElement[1];
 				pictogramElement[0] = connection;
@@ -164,6 +165,16 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 						.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
 				if (editFulfillmentFeature.canExecute(customContext))
 					editFulfillmentFeature.execute(customContext);
+			}
+		}
+		//relationship
+		if(relation.getType() == Type.RELATIONSHIP) {
+			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE) {
+				for(Relation intraRelCon : relation.getReferencedRelation()) 
+					intraRelCon.setSource(relation.getSource());
+			} else {
+				for(Relation intraRelCon : relation.getReferencedRelation()) 
+					intraRelCon.setTarget(relation.getTarget());
 			}
 		}
 	}
