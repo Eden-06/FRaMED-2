@@ -4,17 +4,24 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.naming.Context;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.model.*;
 import model.*;;
-
-
 
 /**
  * This class provides canExecute(Command cmd) which checks whether a given command may execute according to editPolicies
@@ -22,13 +29,12 @@ import model.*;;
  * @author Christian Deussen
  *
  */
-public class EditPolicyHandler {
+public class EditPolicyHandler{
 
 	/**
 	 * current configuration
 	 */
 	private FRaMEDConfiguration configuration;
-
 
 	/**
 	 * xmi model
@@ -52,10 +58,9 @@ public class EditPolicyHandler {
 	 */
 	private void loadPolicyRules()
 	{
-
-		/*
 		  System.out.println("-------------------------------");
-		  for (FRaMEDFeature feature : this.configuration.getFeatures()) {
+		  System.out.println("---Loading editPolicy rules----");
+		 /* for (FRaMEDFeature feature : this.configuration.getFeatures()) {
 			  System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
 		  }
 		  System.out.println("-------------------------------");
@@ -71,6 +76,32 @@ public class EditPolicyHandler {
 		}
 		 */
 	}
+	public static boolean canAdd(IAddContext context, Diagram diagram) {
+		  System.out.println("---can add check----");
+
+		return true;
+	}
+	
+	public static boolean canCreate(ICreateConnectionContext context, Diagram diagram) {
+		  System.out.println("---can create check----");
+
+		return true;
+	}
+	
+	public static boolean canCreate(ICreateContext context, Diagram diagram) {
+		
+		FRaMEDConfiguration configuration = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
+
+		  System.out.println("---can create check----");
+
+		for (FRaMEDFeature feature : configuration.getFeatures()) {
+		  System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
+	  }
+	  System.out.println("-------------------------------");
+
+		
+		return true;
+	} 
 
 	/**
 	 * canExecute is called to check whether a command is allowed to execute in a given situation
@@ -80,7 +111,7 @@ public class EditPolicyHandler {
 	 * @param cmd
 	 * @return Boolean
 	 */
-	public boolean canExecute(Command cmd)
+	public boolean canExecute( FRaMEDConfiguration configuration)
 	{
 		/*
 		EditPolicyRuleVisitor editPolicyRuleVisitor = new EditPolicyRuleVisitor(cmd, this.isStepOut);

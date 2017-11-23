@@ -11,9 +11,11 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -96,7 +98,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.INHERITANCE)
-			   return true;
+			   return true && EditPolicyHandler.canAdd(addContext, this.getDiagram());
 		}
 		return false;
 	}
@@ -153,8 +155,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+	    ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
@@ -163,7 +165,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    		   sourceShape.getType() == Type.COMPARTMENT_TYPE ||
 	    		   sourceShape.getType() == Type.ROLE_TYPE)
 	    			if(targetShape.getType() == sourceShape.getType())
-	    				return true;
+						   return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
 	    }	}
 	    return false;
 	}
@@ -179,7 +181,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.NATURAL_TYPE || 
 			   sourceShape.getType() == Type.DATA_TYPE ||

@@ -30,15 +30,21 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.multipage.MultipageEditor;
+import org.framed.iorm.ui.multipage.MultipageEditorSynchronizationService;
+import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -152,6 +158,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 								 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
 								 COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
 	
+	private EditPolicyHandler editPolicyHandler = null;
+	
 	/**
 	 * Class constructor
 	 */
@@ -231,7 +239,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
 						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
 						   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-							return true;	
+							   return true && EditPolicyHandler.canAdd(addContext, this.getDiagram());
 		}	}	}	}
 		return false;
 	}
@@ -375,7 +383,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	//~~~~~~~~~~~~~~
 	/**
 	 * calculates if a data type can be created
-	 * <p>
+	 * <p>Diagram
 	 * returns true if:<br>
 	 * (1) the target container is a diagram with a model linked
 	 * (2) the target container is the main diagram or a diagram of group 
@@ -383,10 +391,13 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
+		Diagram diagram = DiagramUtil.getMainDiagramForAnyDiagram(this.getDiagram());
+		this.editPolicyHandler = MultipageEditorSynchronizationService.getEditPolicyHandlerForDiagram(diagram);
+
 		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
 		   if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
 			  PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-			   return true;
+			   return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

@@ -43,6 +43,7 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
+import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -240,7 +241,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.COMPARTMENT_TYPE) {
 				if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					return true;	
+					   return true && EditPolicyHandler.canAdd(addContext, this.getDiagram());
 		}	}	}
 		return false;
 	}
@@ -417,7 +418,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-			return true;
+			return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

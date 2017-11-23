@@ -1,14 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.framed.orm.transformation</groupId>
-  <artifactId>org.framed.orm.transformation</artifactId>
-  
-  <parent>
-    <relativePath>../org.framed.iorm.build/pom.xml</relativePath>
-    <groupId>org.framed</groupId>
-    <artifactId>parent</artifactId>
-    <version>2.0.3</version>
-  </parent>
+  <groupId>org.framed.iorm.transformation</groupId>
+  <artifactId>org.framed.iorm.transformation</artifactId>
   
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -24,5 +17,4 @@
     </plugins>
   </build>
   
-  <packaging>eclipse-plugin</packaging>
 </project>

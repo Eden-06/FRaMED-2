@@ -5,6 +5,7 @@ import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
 import org.framed.iorm.ui.literals.NameLiterals;
 
 /**

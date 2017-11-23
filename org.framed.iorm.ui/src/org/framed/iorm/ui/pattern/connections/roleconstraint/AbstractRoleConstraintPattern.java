@@ -9,6 +9,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
@@ -58,7 +59,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == type)
-			   return true;
+				return EditPolicyHandler.canAdd(addContext, this.getDiagram());
 		}
 		return false;
 	}
@@ -87,7 +88,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
 	    			if(targetShape.getType() == sourceShape.getType())
-		   				return true;
+	    				return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
 		}	}
 	    return false;
 	}

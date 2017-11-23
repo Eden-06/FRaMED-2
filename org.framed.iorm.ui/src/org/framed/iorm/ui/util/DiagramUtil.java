@@ -203,7 +203,8 @@ public class DiagramUtil {
 			Diagram containerDiagram = (Diagram) resource.getContents().get(0);
 			if(containerDiagram.getChildren().get(0) instanceof Diagram) {
 				return (Diagram) containerDiagram.getChildren().get(0);
-			}	}	
+			}	
+		}	
 		throw new NoDiagramFoundException();
 	}
 
