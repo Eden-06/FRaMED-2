@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.framed.iorm.editPolicy.model;singleton:=true
 Bundle-Version: 2.0.3
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ model/
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

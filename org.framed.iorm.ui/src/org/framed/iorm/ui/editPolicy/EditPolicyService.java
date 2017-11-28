@@ -80,13 +80,13 @@ public class EditPolicyService {
 	}
 
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
-		  System.out.println("---can add check----");
+		 // System.out.println("---can add check----");
 
 		return true;
 	}
 	
 	public static boolean canCreate(ICreateConnectionContext context, Diagram diagram) {
-		  System.out.println("---can create check----");
+		 // System.out.println("---can create check----");
 
 		return true;
 	}
@@ -101,7 +101,7 @@ public class EditPolicyService {
 	 */
 	public static boolean canCreate(ICreateContext context, Diagram diagram) 
 	{	
-		  System.out.println("---can create check----");
+		  //System.out.println("---can create check----");
 		  
 			EditPolicyRuleVisitor editPolicyRuleVisitor = new EditPolicyRuleVisitor(context, false);
 			for (Policy policy : getPolicies(diagram)) {
@@ -110,7 +110,7 @@ public class EditPolicyService {
 					return false;
 				}
 			}
-			System.out.println("-------------------------------");
+			//System.out.println("-------------------------------");
 
 		
 		return true;
@@ -122,10 +122,10 @@ public class EditPolicyService {
 	private static Model loadModel()
 	{
 		
-		//String("platform:/plugin/org.framed.orm.editPolicy.model/model/noRules.xmi");
-		//String filename = new String("platform:/plugin/org.framed.orm.editPolicy.model/model/basicRules.xmi");
-		//String filename = new String("platform:/plugin/org.framed.orm.editPolicy.model/model/featureRules.xmi");
-		String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/allRules.xmi");
+		String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/noRules.xmi");
+		//String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/basicRules.xmi");
+		//String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/featureRules.xmi");
+		//String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/allRules.xmi");
 		
 		try {
 			ResourceSet set = new ResourceSetImpl();
