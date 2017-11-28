@@ -36,7 +36,7 @@ import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -220,7 +220,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				if(containerShape instanceof Diagram) {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
 						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
-							return EditPolicyHandler.canAdd(addContext, this.getDiagram());
+							return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	}
 		return false;
 	}
@@ -381,7 +381,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canCreate(ICreateContext createContext) {
 		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null &&
 		   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM))	
-			return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
+			return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		return false;
 	}
 	

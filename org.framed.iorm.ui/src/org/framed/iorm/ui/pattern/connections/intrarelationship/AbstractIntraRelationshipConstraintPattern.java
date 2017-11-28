@@ -18,7 +18,7 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
@@ -127,7 +127,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == type) {
-				return EditPolicyHandler.canAdd(addContext, this.getDiagram());
+				return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}
 		return false;
 	}
@@ -170,7 +170,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		if(targetConnection != null &&
 		   getBusinessObjectForPictogramElement(targetConnection) instanceof Relation) {
 			Relation relation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
-			return (relation.getType() == Type.RELATIONSHIP) && EditPolicyHandler.canCreate(createContext, this.getDiagram());
+			return (relation.getType() == Type.RELATIONSHIP) && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}
 	    return false;
 	}

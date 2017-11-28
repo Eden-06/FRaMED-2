@@ -20,7 +20,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -58,16 +58,16 @@ public class MultipageEditorSynchronizationService {
 	 */
 	private static List<Boolean> dirtyStatesOfEditors = new ArrayList<Boolean>();
 	
-	private static Map<String, EditPolicyHandler> diagramEditPolicyHandlers= new HashMap<>();
+	//private static Map<String, EditPolicyHandler> diagramEditPolicyHandlers= new HashMap<>();
 
-	public static EditPolicyHandler getEditPolicyHandlerForDiagram(Diagram diagram) {
+	//public static EditPolicyHandler getEditPolicyHandlerForDiagram(Diagram diagram) {
 	//	System.out.println("Model1: " + diagram.getName());
 	//	System.out.println("Model2: " + ((Diagram)diagramEditPolicyHandlers.keySet().toArray()[0]).getName());
 
 		//System.out.println("getting: " + diagram.toString());
 	//	System.out.println("map: " + diagramEditPolicyHandlers.keySet().toString());
-		return diagramEditPolicyHandlers.get(diagram.getName());
-	}
+	//	return diagramEditPolicyHandlers.get(diagram.getName());
+	//}
 	/**
 	 * operation to add a multipage editor to the register
 	 * @param multipageEditor the multipage editor to add
@@ -76,9 +76,9 @@ public class MultipageEditorSynchronizationService {
 		
 		//Resource resource = EditorInputUtil.getResourceFromEditorInput(multipageEditor.getEditorInput());
 		//Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
-		Diagram diagram = DiagramUtil.getMainDiagramForIEditorInput(multipageEditor.getEditorInput());
-		FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
-		diagramEditPolicyHandlers.put(diagram.getName(), new EditPolicyHandler(config));
+		//Diagram diagram = DiagramUtil.getMainDiagramForIEditorInput(multipageEditor.getEditorInput());
+		//FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
+		//diagramEditPolicyHandlers.put(diagram.getName(), new EditPolicyHandler(config));
 		registeredEditors.add(multipageEditor);
 	}
 	

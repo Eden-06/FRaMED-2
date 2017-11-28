@@ -13,7 +13,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
@@ -66,7 +66,7 @@ public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnection
 		if(addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if(relation.getType() == type) {
-				return EditPolicyHandler.canAdd(addContext, this.getDiagram());
+				return EditPolicyService.canAdd(addContext, this.getDiagram());
 			}   
 		}
 		return false;
@@ -123,7 +123,7 @@ public class AbstractInterRelationshipConstraintPattern extends FRaMEDConnection
 	    	   !(sourceConnection.equals(targetConnection))) {
 	    		if(sourceConnection.getType() == Type.RELATIONSHIP)
 	    			if(targetConnection.getType() == sourceConnection.getType())
-						   return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
+						   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 	    return false;
 	}

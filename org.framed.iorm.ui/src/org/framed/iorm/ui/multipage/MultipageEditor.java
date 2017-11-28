@@ -34,7 +34,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.transformation.TransformationExecutor;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.TransformationFailedException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
@@ -152,6 +152,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 */
 	public MultipageEditor() {
 		super();
+		EditPolicyService.initEditPolicyService();
 	}
 	
 	/**

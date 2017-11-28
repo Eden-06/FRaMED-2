@@ -14,7 +14,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -100,7 +100,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Model) {
 			return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null)
-					&& EditPolicyHandler.canAdd(addContext, this.getDiagram());
+					&& EditPolicyService.canAdd(addContext, this.getDiagram());
 		}  
 		return false;
 	}
@@ -128,7 +128,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null) 
-				&& EditPolicyHandler.canCreate(createContext, this.getDiagram());
+				&& EditPolicyService.canCreate(createContext, this.getDiagram());
 	}
 	
 	/**

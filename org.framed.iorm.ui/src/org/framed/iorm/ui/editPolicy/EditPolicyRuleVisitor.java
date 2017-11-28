@@ -20,15 +20,15 @@ public class EditPolicyRuleVisitor {
 	/**
 	 * command to check rules against
 	 */
-	private Command cmd;
+	private Object context;
 
 	/**
 	 * whether editor is in StepIn/StepOut-View
 	 */
 	private boolean isStepOut;
 
-	public EditPolicyRuleVisitor(Command cmd, boolean isStepOut) {
-		this.cmd = cmd;
+	public EditPolicyRuleVisitor(Object context, boolean isStepOut) {
+		this.context = context;
 		this.isStepOut = isStepOut;
 	}
 

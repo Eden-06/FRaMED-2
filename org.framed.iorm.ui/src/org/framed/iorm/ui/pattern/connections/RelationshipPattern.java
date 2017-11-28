@@ -18,7 +18,7 @@ import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -117,7 +117,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.RELATIONSHIP) {
-			   return true && EditPolicyHandler.canAdd(addContext, this.getDiagram());
+			   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}
 		return false;
 	}
@@ -224,7 +224,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
 		    		if(targetShape.getType() == sourceShape.getType())
-						   return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
+						   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 		return false;
 	}

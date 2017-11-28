@@ -17,7 +17,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.editPolicy.EditPolicyHandler;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -122,7 +122,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if (relation.getType() == Type.FULFILLMENT)
-				   return true && EditPolicyHandler.canAdd(addContext, this.getDiagram());
+				   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
 		}
 		return false;
 	}
@@ -205,7 +205,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
 				if (targetShape.getType() == Type.COMPARTMENT_TYPE)
-					   return true && EditPolicyHandler.canCreate(createContext, this.getDiagram());
+					   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 			}
 		}
 		return false;

@@ -1,7 +1,9 @@
 package org.framed.iorm.ui.editPolicy;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.naming.Context;
@@ -18,10 +20,10 @@ import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
-import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.model.*;
-import model.*;;
+import model.*;
+import model.Model;;
 
 /**
  * This class provides canExecute(Command cmd) which checks whether a given command may execute according to editPolicies
@@ -29,53 +31,54 @@ import model.*;;
  * @author Christian Deussen
  *
  */
-public class EditPolicyHandler{
+public class EditPolicyService {
 
 	/**
 	 * current configuration
 	 */
-	private FRaMEDConfiguration configuration;
+	private static Map<String, FRaMEDConfiguration> configurations;
 
 	/**
 	 * xmi model
 	 */
-	private Model model;
+	private static Model model;
 	/**
 	 * list of Policy-Rules which need to be evaluated
 	 */
-	private Set<Policy> policies;
+	private static Map<String, Set<Policy>> policies;
 
-	public EditPolicyHandler(FRaMEDConfiguration configuration)
+	public static void initEditPolicyService()
 	{
-		this.configuration = configuration;
-		model = this.loadModel();
-
-		this.loadPolicyRules();
+		configurations = new HashMap<>();
+		policies = new HashMap<>();
+		System.out.println("loading model: ...");
+		model = loadModel();
 	}
-
-	/**
-	 * loads all Policies which are activated by current configuration
-	 */
-	private void loadPolicyRules()
+	
+	private static Set<Policy> getPolicies(Diagram diagram)
 	{
-		  System.out.println("-------------------------------");
-		  System.out.println("---Loading editPolicy rules----");
-		 /* for (FRaMEDFeature feature : this.configuration.getFeatures()) {
-			  System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
-		  }
-		  System.out.println("-------------------------------");
+		Diagram mainDiagram = DiagramUtil.getMainDiagramForAnyDiagram(diagram);
 		
+		if(!configurations.containsKey(mainDiagram.getName())) {
+			//get config from diagram
+			FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
+			configurations.put(diagram.getName(), config);
+			
+			//load all rules which are activated by current configuration
+			Set<Policy> policySet = new HashSet<>();
 
-		policies = new HashSet<>();
-
-		EditPolicyConfigurationVisitor editPolicyConfigurationVisitor = new EditPolicyConfigurationVisitor(configuration);
-		for (Mapping mapping : (Mapping[]) model.getConfiguration()
-				.getMappings().toArray()) {
-			if (editPolicyConfigurationVisitor.abstractMappingRuleVisitor(mapping.getRule()))
-				policies.add(mapping.getPolicy());
+			EditPolicyConfigurationVisitor editPolicyConfigurationVisitor = new EditPolicyConfigurationVisitor(config);
+			for (Mapping mapping : (Mapping[])  model.getConfiguration().getMappings().toArray()) {
+				if (editPolicyConfigurationVisitor.abstractMappingRuleVisitor(mapping.getRule()))
+					policySet.add(mapping.getPolicy());
+			}
+			
+			policies.put(diagram.getName(), policySet);
 		}
-		 */
+
+		return policies.get(diagram.getName());
 	}
+
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
 		  System.out.println("---can add check----");
 
@@ -88,57 +91,42 @@ public class EditPolicyHandler{
 		return true;
 	}
 	
-	public static boolean canCreate(ICreateContext context, Diagram diagram) {
-		
-		FRaMEDConfiguration configuration = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
-
-		  System.out.println("---can create check----");
-
-		for (FRaMEDFeature feature : configuration.getFeatures()) {
-		  System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
-	  }
-	  System.out.println("-------------------------------");
-
-		
-		return true;
-	} 
-
 	/**
-	 * canExecute is called to check whether a command is allowed to execute in a given situation
+	 * canCreate is called to check whether a command is allowed to execute in a given situation
 	 * checks each policy
 	 *
 	 * this function
 	 * @param cmd
 	 * @return Boolean
 	 */
-	public boolean canExecute( FRaMEDConfiguration configuration)
-	{
-		/*
-		EditPolicyRuleVisitor editPolicyRuleVisitor = new EditPolicyRuleVisitor(cmd, this.isStepOut);
-
-		for (Policy policy : policies) {
-			if (!editPolicyRuleVisitor.abstractRuleVisitor(policy.getRule())) {
-				System.out.println("Not Allowed because of: " + policy.getName());
-				return false;
+	public static boolean canCreate(ICreateContext context, Diagram diagram) 
+	{	
+		  System.out.println("---can create check----");
+		  
+			EditPolicyRuleVisitor editPolicyRuleVisitor = new EditPolicyRuleVisitor(context, false);
+			for (Policy policy : getPolicies(diagram)) {
+				if (!editPolicyRuleVisitor.abstractRuleVisitor(policy.getRule())) {
+					System.out.println("Not Allowed because of: " + policy.getName());
+					return false;
+				}
 			}
-		}
-				*/
+			System.out.println("-------------------------------");
 
+		
 		return true;
-	}
-
+	} 
 
 	/*
 	 * Load editPolicy ecore Model from file.
 	 */
-	private Model loadModel()
+	private static Model loadModel()
 	{
-		/*
+		
 		//String("platform:/plugin/org.framed.orm.editPolicy.model/model/noRules.xmi");
 		//String filename = new String("platform:/plugin/org.framed.orm.editPolicy.model/model/basicRules.xmi");
 		//String filename = new String("platform:/plugin/org.framed.orm.editPolicy.model/model/featureRules.xmi");
-		String filename = new String("platform:/plugin/org.framed.orm.editPolicy.model/model/allRules.xmi");
-
+		String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/allRules.xmi");
+		
 		try {
 			ResourceSet set = new ResourceSetImpl();
 			Resource res = set.createResource(URI.createURI(filename));
@@ -155,8 +143,8 @@ public class EditPolicyHandler{
 			for (StackTraceElement el : e.getStackTrace())
 				System.err.println(el.toString());
 		}
-				*/
-
+		
+		System.err.println("Was not able to load xmi:  \"" + filename + "\" due : null");
 		return null;
 	}
 
