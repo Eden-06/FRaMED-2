@@ -8,6 +8,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
@@ -35,7 +36,7 @@ public class FRaMEDDiagramEditor extends DiagramEditor  {
 	 * needed to implement undo and redo for configuration changes.
 	 */
 	private EList<FRaMEDFeature> selectedFeatures = null;
-			
+				
 	/**
 	 * Class constructor
 	 */

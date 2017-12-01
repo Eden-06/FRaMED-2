@@ -43,6 +43,7 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
@@ -235,7 +236,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
 						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
 						   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-							return true;	
+							   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	}
 		return false;
 	}
@@ -372,7 +373,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null) {
 		   if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_MAIN_DIAGRAM) ||
 			  PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-			   return true;
+				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

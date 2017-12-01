@@ -18,6 +18,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
@@ -164,7 +165,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 					   shape.getType() == Type.DATA_TYPE ||
 					   shape.getType() == Type.COMPARTMENT_TYPE ||
 					   shape.getType() == Type.ROLE_TYPE)	
-						return true;
+						   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	
 		return false;
 	}
