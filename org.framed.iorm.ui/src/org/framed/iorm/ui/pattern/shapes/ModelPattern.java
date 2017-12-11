@@ -127,8 +127,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null) 
-				&& EditPolicyService.canCreate(createContext, this.getDiagram());
+		return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null);
 	}
 	
 	/**
