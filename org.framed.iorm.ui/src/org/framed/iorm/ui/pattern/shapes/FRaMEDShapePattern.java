@@ -28,10 +28,19 @@ import org.framed.iorm.ui.util.ShapePatternUtil;
  */
 public abstract class FRaMEDShapePattern extends AbstractPattern {
 	
+	/**
+	 * the name of the feature
+	 */
 	protected String FEATURE_NAME;
 	
+	/**
+	 * the identifier for the icon of the create feature
+	 */
 	protected String ICON_IMG_ID;
 	
+	/**
+	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	protected FeaturePaletteDescriptor FPD;
 	
 	/**
@@ -52,6 +61,10 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return ICON_IMG_ID;
 	}
 	
+	/**
+	 * get method for the fpd
+	 * @return the feature palette descriptor
+	 */
 	public FeaturePaletteDescriptor getFeaturePaletteDescriptor() {
 		return FPD;
 	}

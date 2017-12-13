@@ -2,7 +2,7 @@ package org.framed.iorm.ui.exceptions;
 
 import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
-import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
 /**
  * This exception is thrown when a feature has no {@link FeaturePaletteDescriptor} when the 

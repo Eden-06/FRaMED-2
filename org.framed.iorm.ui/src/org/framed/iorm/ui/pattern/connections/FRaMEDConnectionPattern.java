@@ -4,8 +4,6 @@ import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 
 /**
@@ -26,6 +24,9 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	 */
 	protected String ICON_IMG_ID;
 	
+	/**
+	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	protected FeaturePaletteDescriptor FPD;
 	
 	/**
@@ -48,6 +49,10 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 		return ICON_IMG_ID;
 	}
 	
+	/**
+	 * get method for the fpd
+	 * @return the feature palette descriptor
+	 */
 	public FeaturePaletteDescriptor getFeaturePaletteDescriptor() {
 		return FPD;
 	}

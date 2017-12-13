@@ -118,11 +118,16 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	    return new FRaMEDReconnectFeature(this);
 	}
 	
-	//TODO
+	/**
+	 * publish the getPatterns() operation of its super type
+	 */
 	public List<IPattern> getPatterns() {
 		return super.getPatterns();
 	}
 	
+	/**
+	 * publish the getConnectionPatterns() operation of its super type
+	 */
 	public List<IConnectionPattern> getConnectionPatterns() {
 		return super.getConnectionPatterns();
 	}

@@ -94,6 +94,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */
 	private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */	
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
 			ViewVisibility.ALL_VIEWS);

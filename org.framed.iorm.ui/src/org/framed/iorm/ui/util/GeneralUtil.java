@@ -154,7 +154,7 @@ public class GeneralUtil {
 	}		
 	
 	/**
-	 * finds the a feature by its name in an array of general create features
+	 * finds a feature by its name in an array of general create features
 	 * @param array the array with features to search in
 	 * @param featureName the name of the feature to find
 	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found
@@ -167,7 +167,12 @@ public class GeneralUtil {
 		throw new NoFeatureForPatternFound(featureName);
 	}	
 	
-	//TODO
+	/**
+	 * finds a feature by its name in an array of connection create features
+	 * @param array the array with features to search in
+	 * @param featureName the name of the feature to find
+	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found
+	 */
 	public static ICreateConnectionFeature findCreateConnectionFeatureByName(ICreateConnectionFeature[] array, String featureName) {
 		for(int i = 0; i<array.length; i++) {
 			if(array[i].getCreateName().equals(featureName)) 

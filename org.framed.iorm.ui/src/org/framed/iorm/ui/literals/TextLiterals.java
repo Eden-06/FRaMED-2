@@ -83,7 +83,7 @@ public class TextLiterals {
 	public static final String FEATURE_HAS_NO_DESCRIPTOR_MESSAGE = "A Feature has no palette descriptor: ";
 	
 	/**
-	 * the message for the TODO
+	 * the message for the {@link NoFeatureForPatternFound} 
 	 */
 	public static final String NO_FEATURE_FOR_PATTERN_FOUND = "No feature could found for the pattern: ";
 	

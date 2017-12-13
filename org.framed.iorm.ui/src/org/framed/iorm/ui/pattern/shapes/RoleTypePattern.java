@@ -70,6 +70,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW);

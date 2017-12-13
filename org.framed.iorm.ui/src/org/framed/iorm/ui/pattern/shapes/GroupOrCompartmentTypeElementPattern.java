@@ -27,6 +27,9 @@ import org.framed.iorm.ui.util.PropertyUtil;
  */
 public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
 
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.NONE,
 			ViewVisibility.NO_VIEW);

@@ -109,7 +109,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * {@link IdentifierLiterals}
 	 */
 	private final String IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE;
-	
+
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
 			ViewVisibility.TOPLEVEL_VIEW);

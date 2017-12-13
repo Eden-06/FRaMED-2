@@ -52,6 +52,9 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String IMG_ID_FEATURE_OPERATION = IdentifierLiterals.IMG_ID_FEATURE_OPERATION;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.PROPERTIES_CATEGORY,
 			ViewVisibility.ALL_VIEWS);

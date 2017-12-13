@@ -29,6 +29,9 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
  */
 public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW);

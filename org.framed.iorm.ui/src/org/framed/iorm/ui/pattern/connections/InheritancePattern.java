@@ -46,6 +46,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 */
 	private static final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
 			ViewVisibility.ALL_VIEWS);

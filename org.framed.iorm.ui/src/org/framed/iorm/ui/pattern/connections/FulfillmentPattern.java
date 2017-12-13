@@ -58,6 +58,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 */
 	private final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
 			ViewVisibility.ALL_VIEWS);

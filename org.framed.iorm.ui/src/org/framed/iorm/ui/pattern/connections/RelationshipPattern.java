@@ -63,6 +63,9 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	private final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW);

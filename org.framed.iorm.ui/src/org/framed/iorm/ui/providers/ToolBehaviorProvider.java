@@ -245,9 +245,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * builds the palette of the editor using the following steps
 	 * <p>
 	 * Step 1: It creates the different palette categories.<br>
-	 * Step 2: It adds create shape features to the correct categories according to the {@link FeatureManager}
+	 * Step 2: It adds create features of shape patterns to the correct categories according to the {@link FeatureManager}
 	 * 		   using the operation {@link #addShapeFeature}.<br>
-	 * Step 3: It adds create connection features to the correct categories according to the {@link FeatureManager}
+	 * Step 3: It adds create features of connection patterns to the correct categories according to the {@link FeatureManager}
 	 * 		   using the operation {@link #addConnectionFeature}.<br>
 	 * Step 4: It adds the categories with the added features to the palette.
 	 */
@@ -280,7 +280,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	/**
 	 * adds a shape feature to a palette category if wanted
 	 * <p>
-	 * It uses the {@link FeaturePaletteDescriptor} of the feature to calculate if and where to add the
+	 * It uses the {@link FeaturePaletteDescriptor} of the pattern to calculate if and where to add its
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */
@@ -317,7 +317,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	/**
 	 * adds a connection feature to a palette category if wanted
 	 * <p>
-	 * It uses the {@link FeaturePaletteDescriptor} of the feature to calculate if and where to add the
+	 * It uses the {@link FeaturePaletteDescriptor} of the pattern to calculate if and where to add its
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */

@@ -1,8 +1,13 @@
 package org.framed.iorm.ui.exceptions;
 
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
-//TODO
+/**
+ * This exception is thrown when no feature if found for a pattern when 
+ * {@link ToolBehaviorProvider} builds the palette.
+ * @author Kevin Kassin
+ */
 public class NoFeatureForPatternFound extends RuntimeException {
 
 	/**

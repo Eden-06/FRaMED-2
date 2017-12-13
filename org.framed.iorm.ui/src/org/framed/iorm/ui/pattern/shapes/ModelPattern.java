@@ -39,6 +39,9 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
 	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.NONE,
 			ViewVisibility.NO_VIEW);
