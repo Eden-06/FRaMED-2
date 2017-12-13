@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider; //*import for javadoc link
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -17,6 +18,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 
@@ -152,18 +154,28 @@ public class GeneralUtil {
 	}		
 	
 	/**
-	 * finds the a feature by its name in an array of features
+	 * finds the a feature by its name in an array of general create features
 	 * @param array the array with features to search in
 	 * @param featureName the name of the feature to find
-	 * @return the found feature or null if it was not found
+	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found
 	 */
 	public static IFeature findFeatureByName(IFeature[] array, String featureName) {
 		for(int i = 0; i<array.length; i++) {
 			if(array[i].getName().equals(featureName)) 
 				return array[i];
 		}	
-		return null;
+		throw new NoFeatureForPatternFound(featureName);
 	}	
+	
+	//TODO
+	public static ICreateConnectionFeature findCreateConnectionFeatureByName(ICreateConnectionFeature[] array, String featureName) {
+		for(int i = 0; i<array.length; i++) {
+			if(array[i].getCreateName().equals(featureName)) 
+				return array[i];
+		}	
+		throw new NoFeatureForPatternFound(featureName);
+	}	
+	
 	
 	/**
 	 * gets the {@link IFile} of the CROM for a diagram

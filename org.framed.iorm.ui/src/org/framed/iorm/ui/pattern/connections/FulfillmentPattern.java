@@ -22,6 +22,9 @@ import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -42,7 +45,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
-	private static final String FULFILLMENT_FEATURE_NAME = NameLiterals.FULFILLMENT_FEATURE_NAME;
+	private final String FULFILLMENT_FEATURE_NAME = NameLiterals.FULFILLMENT_FEATURE_NAME;
 
 	/**
 	 * the name of the edit relationship feature gathered from {@link NameLiterals}
@@ -53,13 +56,17 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * the identifier for the icon of the create feature gathered from
 	 * {@link IdentifierLiterals}
 	 */
-	private static final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
+	private final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
+	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.RELATIONS_CATEGORY,
+			ViewVisibility.ALL_VIEWS);
 	
 	/**
 	 * the identifier for a diagram of a stepped in compartment view gathered from
 	 * {@link IdentifierLiterals}
 	 */
-	private static final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 
 	/**
 	 * the value for the property shape id for the connection decorator of the
@@ -86,6 +93,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 */
 	public FulfillmentPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 
 	/**

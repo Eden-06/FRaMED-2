@@ -23,6 +23,9 @@ import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.NameUtil;
@@ -60,6 +63,10 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	private final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.RELATIONS_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW);
+	
 	/**
 	 * values for property shape id of the connection decorators of the relationship
 	 */
@@ -84,6 +91,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	public RelationshipPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

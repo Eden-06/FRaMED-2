@@ -15,6 +15,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 
@@ -25,6 +28,10 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
  * @author Kevin Kassin
  */
 public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
+	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.RELATIONS_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW);
 	
 	/**
 	 * values for the property shape id gathered from {@link IdentifierLiterals}
@@ -49,6 +56,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	 */
 	public AbstractInterRelationshipConstraintPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	//add feature

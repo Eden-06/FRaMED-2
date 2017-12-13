@@ -22,16 +22,17 @@ import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.palette.FeatureManager;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -264,8 +265,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 				addShapeFeature((FRaMEDShapePattern) iPattern);
 		}
 		//Step 3
-		for(ICreateConnectionFeature feature :  getFeatureProvider().getCreateConnectionFeatures()) {
-			addConnectionFeature(feature);
+		for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
+			if(iConPattern instanceof FRaMEDConnectionPattern)
+				addConnectionFeature((FRaMEDConnectionPattern) iConPattern);
 		}
 		//Step 4
 		pallete.add(entityCategory); 
@@ -319,19 +321,20 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */
-	private void addConnectionFeature(ICreateConnectionFeature feature) {
-		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
-		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());
+	private void addConnectionFeature(FRaMEDConnectionPattern iConPattern) {
+		FeaturePaletteDescriptor fpd = iConPattern.getFeaturePaletteDescriptor();
+		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(iConPattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
 		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
 			ConnectionCreationToolEntry connectionCreationToolEntry = 
-				new ConnectionCreationToolEntry(feature.getCreateName(), 
-					feature.getCreateDescription(), feature.getCreateImageId(),
-					feature.getCreateLargeImageId());
-			    connectionCreationToolEntry.addCreateConnectionFeature(feature);
+				new ConnectionCreationToolEntry(iConPattern.getCreateName(), 
+					iConPattern.getCreateDescription(), iConPattern.getCreateImageId(),
+					iConPattern.getCreateLargeImageId());			
+			ICreateConnectionFeature feature = GeneralUtil.findCreateConnectionFeatureByName(getFeatureProvider().getCreateConnectionFeatures(), iConPattern.getCreateName());
+			connectionCreationToolEntry.addCreateConnectionFeature(feature);
 			switch(fpd.paletteCategory) {
 				case ENTITIES_CATEGORY: 
 					entityCategory.addToolEntry(connectionCreationToolEntry);
