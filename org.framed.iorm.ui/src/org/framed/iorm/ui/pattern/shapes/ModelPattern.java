@@ -17,6 +17,9 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 
 /**
@@ -36,6 +39,10 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.NONE,
+			ViewVisibility.NO_VIEW);
+	
 	/**
 	 * the URL leading to the standard configuration gathered from {@link URLLiterals}
 	 */
@@ -46,6 +53,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	public ModelPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

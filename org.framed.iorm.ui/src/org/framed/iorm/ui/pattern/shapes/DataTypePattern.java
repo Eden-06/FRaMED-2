@@ -30,9 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
@@ -42,9 +40,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
-import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.multipage.MultipageEditorSynchronizationService;
-import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -112,6 +110,10 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.ENTITIES_CATEGORY,
+			ViewVisibility.TOPLEVEL_VIEW);
+	
 	/**
 	 * text literals gathered from {@link TextLiterals}
 	 * <p>
@@ -158,13 +160,12 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 								 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
 								 COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
 	
-	private EditPolicyService editPolicyHandler = null;
-	
 	/**
 	 * Class constructor
 	 */
 	public DataTypePattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

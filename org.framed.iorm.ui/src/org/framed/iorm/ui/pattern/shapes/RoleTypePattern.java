@@ -41,6 +41,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.NameUtil;
@@ -66,6 +69,10 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * {@link IdentifierLiterals}
 	 */
 	private final String IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
+	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.ENTITIES_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW);
 	
 	/**
 	 * identifier literals used as shape ids for the role type 
@@ -147,6 +154,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	public RoleTypePattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

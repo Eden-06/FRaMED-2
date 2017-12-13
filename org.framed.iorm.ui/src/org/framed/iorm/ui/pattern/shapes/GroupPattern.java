@@ -49,6 +49,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.NameUtil;
@@ -130,6 +133,10 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.ENTITIES_CATEGORY,
+			ViewVisibility.TOPLEVEL_VIEW);
+	
 	/**
 	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
 	 */
@@ -162,6 +169,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	public GroupPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

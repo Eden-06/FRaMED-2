@@ -21,6 +21,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -44,6 +47,10 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 */
 	private final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.CONSTRAINTS_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW);
+	
 	/**
 	 * the value of the property shape id for the decorators added to the relationship by the intra relationship constraint gathered
 	 * from {@link IdentifierLiterals}
@@ -66,6 +73,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 */
 	public AbstractIntraRelationshipConstraintPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

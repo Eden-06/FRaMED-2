@@ -1,3 +1,4 @@
+
 package org.framed.iorm.ui.providers;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
@@ -20,6 +22,7 @@ import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
@@ -29,6 +32,7 @@ import org.framed.iorm.ui.palette.FeatureManager;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -255,8 +259,9 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
 		constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
 		//Step 2
-		for(ICreateFeature feature :  getFeatureProvider().getCreateFeatures()) {
-			addShapeFeature(feature);
+		for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
+			if(iPattern instanceof FRaMEDShapePattern)
+				addShapeFeature((FRaMEDShapePattern) iPattern);
 		}
 		//Step 3
 		for(ICreateConnectionFeature feature :  getFeatureProvider().getCreateConnectionFeatures()) {
@@ -277,18 +282,19 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */
-	private void addShapeFeature(ICreateFeature feature) {
-		FeaturePaletteDescriptor fpd = FeatureManager.features.get(feature.getCreateName());
-		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(feature.getCreateName());
+	private void addShapeFeature(FRaMEDShapePattern pattern) {
+		FeaturePaletteDescriptor fpd = pattern.getFeaturePaletteDescriptor();
+		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(pattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
 		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
+			IFeature featureForPattern = GeneralUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
 			ObjectCreationToolEntry objectCreationToolEntry = 
-				new ObjectCreationToolEntry( feature.getCreateName(), 
-					feature.getCreateDescription(), feature.getCreateImageId(), 
-					feature.getCreateLargeImageId(), feature);
+				new ObjectCreationToolEntry( pattern.getCreateName(), 
+					pattern.getCreateDescription(), pattern.getCreateImageId(), 
+					pattern.getCreateLargeImageId(), (ICreateFeature) featureForPattern);
 			switch(fpd.paletteCategory) {
 				case ENTITIES_CATEGORY: 
 					entityCategory.addToolEntry(objectCreationToolEntry);

@@ -9,6 +9,9 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
@@ -24,6 +27,10 @@ import org.framed.iorm.ui.util.PropertyUtil;
  */
 public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
 
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.NONE,
+			ViewVisibility.NO_VIEW);
+	
 	/**
 	 * the value of the property shape id for the text shapes of the group and compartment types elements
 	 */
@@ -40,6 +47,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	 */
 	public GroupOrCompartmentTypeElementPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 

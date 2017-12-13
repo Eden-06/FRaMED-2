@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.providers;
 
+import java.util.List;
+
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
@@ -12,6 +14,8 @@ import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
+import org.eclipse.graphiti.pattern.IConnectionPattern;
+import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.pattern.connections.*;
 import org.framed.iorm.ui.pattern.connections.interrelationship.*;
@@ -24,7 +28,7 @@ import org.framed.iorm.ui.pattern.shapes.*;
  * @author Kevin Kassin
  */
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
-	
+
 	/**
 	 * Class constructor
 	 * <p>
@@ -112,5 +116,14 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
 	    return new FRaMEDReconnectFeature(this);
+	}
+	
+	//TODO
+	public List<IPattern> getPatterns() {
+		return super.getPatterns();
+	}
+	
+	public List<IConnectionPattern> getConnectionPatterns() {
+		return super.getConnectionPatterns();
 	}
 }

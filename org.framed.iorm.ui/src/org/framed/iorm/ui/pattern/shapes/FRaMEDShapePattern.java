@@ -16,6 +16,7 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.util.ShapePatternUtil;
 
@@ -26,6 +27,34 @@ import org.framed.iorm.ui.util.ShapePatternUtil;
  * @author Kevin Kassin
  */
 public abstract class FRaMEDShapePattern extends AbstractPattern {
+	
+	protected String FEATURE_NAME;
+	
+	protected String ICON_IMG_ID;
+	
+	protected FeaturePaletteDescriptor FPD;
+	
+	/**
+	 * get method for the create features name
+	 * @return the name of the create feature
+	 */
+	@Override
+	public String getCreateName() {
+		return FEATURE_NAME;
+	}
+	
+	/**
+	 * enables the icon for the create feature in this pattern
+	 * @return the image identifier for the icon of the create feature in this pattern
+	 */
+	@Override
+	public String getCreateImageId() {
+		return ICON_IMG_ID;
+	}
+	
+	public FeaturePaletteDescriptor getFeaturePaletteDescriptor() {
+		return FPD;
+	}
 	
 	/**
 	 * Class constructor

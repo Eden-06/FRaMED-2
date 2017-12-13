@@ -105,6 +105,7 @@ public class FeatureManager {
 		features.put(TOTAL_FEATURE_NAME, new FeaturePaletteDescriptor(constraints, compartment));
 		features.put(RELATIONSHIP_IMPLICATION_FEATURE_NAME, new FeaturePaletteDescriptor(constraints, compartment));
 		features.put(RELATIONSHIP_EXCLUSION_FEATURE_NAME, new FeaturePaletteDescriptor(constraints, compartment));
+		//features.put("Role Group", )
 		return features;
 	}
 }

@@ -12,6 +12,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -49,11 +52,16 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final String IMG_ID_FEATURE_OPERATION = IdentifierLiterals.IMG_ID_FEATURE_OPERATION;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.PROPERTIES_CATEGORY,
+			ViewVisibility.ALL_VIEWS);
+	
 	/**
 	 * Class constructor
 	 */
 	public OperationPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

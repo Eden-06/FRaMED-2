@@ -23,6 +23,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -40,7 +43,11 @@ import org.framed.iorm.ui.util.PropertyUtil;
  * @author Kevin Kassin
  */
 public class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
-	
+		
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.NONE,
+			ViewVisibility.NO_VIEW);
+		
 	/**
 	 * the identifiers for the text rectangle of attributes or operations gathered from {@link IdentifierLiterals}
 	 */
@@ -87,6 +94,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 */
 	public AttributeOperationCommonPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

@@ -12,6 +12,9 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -34,6 +37,10 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	private final String ATTRIBUTE_STANDARD_NAME = NameLiterals.STANDARD_ATTRIBUTE_NAME,
 						 ATTRIBUTE_FEATURE_NAME = NameLiterals.ATTRIBUTE_FEATURE_NAME;
 	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.PROPERTIES_CATEGORY,
+			ViewVisibility.ALL_VIEWS);
+	
 	/**
 	 * the values of the property shape id for the drop shadows of class or roles gathered form
 	 * {@link IdentifierLiterals}
@@ -54,6 +61,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	public AttributePattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

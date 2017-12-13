@@ -38,6 +38,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.NameUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -95,6 +98,10 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * {@link IdentifierLiterals}
 	 */
 	private final String IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE;
+	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.ENTITIES_CATEGORY,
+			ViewVisibility.TOPLEVEL_VIEW);
 	
 	/**
 	 * identifier literals used as shape ids for the shapes of the attribute and operation containers
@@ -156,6 +163,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	public NaturalTypePattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

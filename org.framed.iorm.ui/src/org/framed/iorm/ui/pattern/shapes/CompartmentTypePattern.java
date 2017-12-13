@@ -49,6 +49,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -90,6 +93,10 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * {@link IdentifierLiterals}
 	 */
 	private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE;
+	
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.ENTITIES_CATEGORY,
+			ViewVisibility.ALL_VIEWS);
 	
 	/**
 	 * identifier literals used for the compartment types content diagram gathered from {@link IdentifierLiterals}
@@ -172,6 +179,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */
 	public CompartmentTypePattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**
