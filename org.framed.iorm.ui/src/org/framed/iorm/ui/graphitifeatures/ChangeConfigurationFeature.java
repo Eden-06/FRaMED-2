@@ -14,6 +14,7 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link 
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 
 /**
  * This graphiti custom feature is used to change the role models configuration.
@@ -70,6 +71,8 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 	 * Step 2: For every selected feature in the feature editors configuration add an equivalent
 	 *    	   {@link FRaMEDFeature} to the created FRaMEDConfiguration.<br>
 	 * Step 3: Set the created FRaMEDConfiguration as configuration of the edited role model.
+	 * Step 4: Refresh the palette to change the shown palette entries according to their feature expressions. 
+	 * 	       See {@link FeaturePaletteDescriptor} for further informations.
 	 * @throws ConfigurationInconsistentException
 	 */
 	@Override
@@ -87,5 +90,7 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 		//Step 3
 		Diagram mainDiagram = DiagramUtil.getMainDiagramForAnyDiagram(getDiagram());    
 		DiagramUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
+		//Step 4 
+		this.getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refreshPalette();
 	}
 }

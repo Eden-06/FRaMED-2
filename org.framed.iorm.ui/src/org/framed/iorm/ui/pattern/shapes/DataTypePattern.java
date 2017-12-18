@@ -115,7 +115,12 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
-			ViewVisibility.TOPLEVEL_VIEW);
+			ViewVisibility.TOPLEVEL_VIEW) {
+			@Override
+			public boolean featureExpression(List<String> featureNames) {
+				return featureNames.contains("Data_Types");		
+			}
+	};
 	
 	/**
 	 * text literals gathered from {@link TextLiterals}

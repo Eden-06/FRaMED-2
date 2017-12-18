@@ -17,6 +17,7 @@ import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.graphitifeatures.*;
+import org.framed.iorm.ui.modules.rolegroup.RoleGroupPattern;
 import org.framed.iorm.ui.pattern.connections.*;
 import org.framed.iorm.ui.pattern.connections.interrelationship.*;
 import org.framed.iorm.ui.pattern.connections.intrarelationship.*;
@@ -52,7 +53,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new AttributeOperationCommonPattern());
       addPattern(new AttributePattern());
       addPattern(new OperationPattern());
-      
+      addPattern(new RoleGroupPattern());
       //Step 2
       addConnectionPattern(new RelationshipPattern());
       addConnectionPattern(new InheritancePattern());

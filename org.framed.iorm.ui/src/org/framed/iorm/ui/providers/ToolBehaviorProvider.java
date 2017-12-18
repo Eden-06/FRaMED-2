@@ -38,6 +38,8 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
@@ -245,11 +247,12 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * builds the palette of the editor using the following steps
 	 * <p>
 	 * Step 1: It creates the different palette categories.<br>
-	 * Step 2: It adds create features of shape patterns to the correct categories according to the {@link FeatureManager}
+	 * Step 2: See {@link #getListOfFramedFeatureNames()}.<br>
+	 * Step 3: It adds create features of shape patterns to the correct categories according to the {@link FeatureManager}
 	 * 		   using the operation {@link #addShapeFeature}.<br>
-	 * Step 3: It adds create features of connection patterns to the correct categories according to the {@link FeatureManager}
+	 * Step 4: It adds create features of connection patterns to the correct categories according to the {@link FeatureManager}
 	 * 		   using the operation {@link #addConnectionFeature}.<br>
-	 * Step 4: It adds the categories with the added features to the palette.
+	 * Step 5: It adds the categories with the added features to the palette.
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
@@ -260,16 +263,18 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
 		constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
 		//Step 2
+		List<String> framedFeatureNames = getListOfFramedFeatureNames();
+		//Step 3 
 		for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
 			if(iPattern instanceof FRaMEDShapePattern)
-				addShapeFeature((FRaMEDShapePattern) iPattern);
+				addShapeFeature((FRaMEDShapePattern) iPattern, framedFeatureNames);
 		}
-		//Step 3
+		//Step 4
 		for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 			if(iConPattern instanceof FRaMEDConnectionPattern)
 				addConnectionFeature((FRaMEDConnectionPattern) iConPattern);
 		}
-		//Step 4
+		//Step 5
 		pallete.add(entityCategory); 
 		pallete.add(propertiesCategory); 
 		pallete.add(relationsCategory); 
@@ -278,13 +283,27 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	}	 
 	
 	/**
+	 * Gets the current feature configuration of the edited diagram and transforms it into a list of the chosen features' names.
+	 * @return a list of chosen features' names in the current feature configuration
+	 */
+	private List<String> getListOfFramedFeatureNames() {
+		Diagram diagram = getDiagramTypeProvider().getDiagram();
+		FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
+		List<String> framedFeatureNames = new ArrayList<String>();
+		for(FRaMEDFeature framedFeature : config.getFeatures()) {
+			framedFeatureNames.add(framedFeature.getName().getLiteral());
+		}
+		return framedFeatureNames;
+	}
+	
+	/**
 	 * adds a shape feature to a palette category if wanted
 	 * <p>
 	 * It uses the {@link FeaturePaletteDescriptor} of the pattern to calculate if and where to add its
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */
-	private void addShapeFeature(FRaMEDShapePattern pattern) {
+	private void addShapeFeature(FRaMEDShapePattern pattern, List<String> framedFeatureNames) {
 		FeaturePaletteDescriptor fpd = pattern.getFeaturePaletteDescriptor();
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(pattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
@@ -292,27 +311,28 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
-			IFeature featureForPattern = GeneralUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
-			ObjectCreationToolEntry objectCreationToolEntry = 
-				new ObjectCreationToolEntry( pattern.getCreateName(), 
-					pattern.getCreateDescription(), pattern.getCreateImageId(), 
-					pattern.getCreateLargeImageId(), (ICreateFeature) featureForPattern);
-			switch(fpd.paletteCategory) {
-				case ENTITIES_CATEGORY: 
-					entityCategory.addToolEntry(objectCreationToolEntry);
+			if(fpd.featureExpression(framedFeatureNames)) {
+				IFeature featureForPattern = GeneralUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
+				ObjectCreationToolEntry objectCreationToolEntry = 
+					new ObjectCreationToolEntry( pattern.getCreateName(), 
+						pattern.getCreateDescription(), pattern.getCreateImageId(), 
+						pattern.getCreateLargeImageId(), (ICreateFeature) featureForPattern);
+				switch(fpd.paletteCategory) {
+					case ENTITIES_CATEGORY: 
+						entityCategory.addToolEntry(objectCreationToolEntry);
+						break;
+					case PROPERTIES_CATEGORY: 
+						propertiesCategory.addToolEntry(objectCreationToolEntry);
+						break;
+					case RELATIONS_CATEGORY: 
+						relationsCategory.addToolEntry(objectCreationToolEntry);
+						break;
+					case CONSTRAINTS_CATEGORY: 
+						constraintsCategory.addToolEntry(objectCreationToolEntry);
+						break;
+				default:
 					break;
-				case PROPERTIES_CATEGORY: 
-					propertiesCategory.addToolEntry(objectCreationToolEntry);
-					break;
-				case RELATIONS_CATEGORY: 
-					relationsCategory.addToolEntry(objectCreationToolEntry);
-					break;
-				case CONSTRAINTS_CATEGORY: 
-					constraintsCategory.addToolEntry(objectCreationToolEntry);
-					break;
-			default:
-				break;
-	}	}	}	
+	}	}	}	}
 	
 	/**
 	 * adds a connection feature to a palette category if wanted
