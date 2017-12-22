@@ -36,7 +36,7 @@ public class FeaturePaletteDescriptor {
 	 * @param featureNames list of the names of the chosen features in the current feature configuration
 	 * @return true
 	 */
-	public boolean featureExpression(List<String> featureNames) {
+	public boolean featureExpression(List<String> featureNames, PaletteView paletteView) {
 		return true;
 	}
 

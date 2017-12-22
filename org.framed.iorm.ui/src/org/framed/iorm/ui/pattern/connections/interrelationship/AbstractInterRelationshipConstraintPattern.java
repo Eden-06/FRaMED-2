@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.pattern.connections.interrelationship;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -17,6 +19,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
@@ -33,8 +36,12 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-			PaletteCategory.RELATIONS_CATEGORY,
-			ViewVisibility.COMPARTMENT_VIEW);
+			PaletteCategory.CONSTRAINTS_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					return framedFeatureNames.contains("Inter_Relationship_Constraints");
+			}	};
 	
 	/**
 	 * values for the property shape id gathered from {@link IdentifierLiterals}

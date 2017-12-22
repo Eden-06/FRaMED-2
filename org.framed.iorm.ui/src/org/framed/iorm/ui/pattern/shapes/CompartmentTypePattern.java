@@ -51,6 +51,7 @@ import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
@@ -99,7 +100,14 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */	
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
-			ViewVisibility.ALL_VIEWS);
+			ViewVisibility.ALL_VIEWS) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					switch(paletteView) {
+						case TOPLEVEL_VIEW: return framedFeatureNames.contains("Compartment_Types");
+						case COMPARTMENT_VIEW: return framedFeatureNames.contains("Contains_Compartments");
+						default: return false;
+			}	}	};
 	
 	/**
 	 * identifier literals used for the compartment types content diagram gathered from {@link IdentifierLiterals}

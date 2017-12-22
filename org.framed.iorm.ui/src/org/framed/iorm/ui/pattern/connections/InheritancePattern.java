@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.pattern.connections;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -21,6 +23,7 @@ import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -51,7 +54,17 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
-			ViewVisibility.ALL_VIEWS);
+			ViewVisibility.ALL_VIEWS) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					switch(paletteView) {
+						case TOPLEVEL_VIEW: return true;
+						case COMPARTMENT_VIEW: 
+							return (framedFeatureNames.contains("Role_Inheritance") ||
+								    (framedFeatureNames.contains("Compartment_Inheritance") &&
+								     framedFeatureNames.contains("Contains_Compartments")));
+						default: return false;
+				}	}	};
 	
 	/**
 	 * the value for the property shape id for the connection decorator of the inheritance

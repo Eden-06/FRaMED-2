@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.pattern.connections.roleconstraint;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -13,6 +15,10 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
+import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
+import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
@@ -29,6 +35,17 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	
 	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
+	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+			PaletteCategory.CONSTRAINTS_CATEGORY,
+			ViewVisibility.COMPARTMENT_VIEW) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					return framedFeatureNames.contains("Role_Prohibition");
+			}	};
+	
+	/**
 	 * the name of the feature gathered from {@link NameLiterals}
 	 */
 	private static final String ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME;
@@ -43,6 +60,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	 */
 	public RoleProhibitionPattern() {
 		super();
+		FPD = spec_FPD;
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.pattern.shapes;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -14,6 +16,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
 import org.framed.iorm.ui.util.NameUtil;
@@ -42,7 +45,16 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.PROPERTIES_CATEGORY,
-			ViewVisibility.ALL_VIEWS);
+			ViewVisibility.ALL_VIEWS) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					switch(paletteView) {
+					case TOPLEVEL_VIEW: return true;
+					case COMPARTMENT_VIEW: 
+						return (framedFeatureNames.contains("Role_Properties") ||
+								framedFeatureNames.contains("Compartment_Properties"));
+					default: return false;
+			}	}	};
 	
 	/**
 	 * the values of the property shape id for the drop shadows of class or roles gathered form

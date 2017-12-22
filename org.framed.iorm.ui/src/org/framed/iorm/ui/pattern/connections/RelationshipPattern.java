@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.pattern.connections;
 
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -25,6 +27,7 @@ import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -68,7 +71,11 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
-			ViewVisibility.COMPARTMENT_VIEW);
+			ViewVisibility.COMPARTMENT_VIEW) {
+				@Override
+				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+					return framedFeatureNames.contains("Relationships");
+			}	};
 	
 	/**
 	 * values for property shape id of the connection decorators of the relationship

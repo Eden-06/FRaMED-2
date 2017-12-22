@@ -272,7 +272,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		//Step 4
 		for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 			if(iConPattern instanceof FRaMEDConnectionPattern)
-				addConnectionFeature((FRaMEDConnectionPattern) iConPattern);
+				addConnectionFeature((FRaMEDConnectionPattern) iConPattern, framedFeatureNames);
 		}
 		//Step 5
 		pallete.add(entityCategory); 
@@ -311,7 +311,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
-			if(fpd.featureExpression(framedFeatureNames)) {
+			if(fpd.featureExpression(framedFeatureNames, paletteView)) {
 				IFeature featureForPattern = GeneralUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
 				ObjectCreationToolEntry objectCreationToolEntry = 
 					new ObjectCreationToolEntry( pattern.getCreateName(), 
@@ -341,7 +341,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * feature. 
 	 * @param feature the feature to probably add to the palette
 	 */
-	private void addConnectionFeature(FRaMEDConnectionPattern iConPattern) {
+	private void addConnectionFeature(FRaMEDConnectionPattern iConPattern, List<String> framedFeatureNames) {
 		FeaturePaletteDescriptor fpd = iConPattern.getFeaturePaletteDescriptor();
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(iConPattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
@@ -349,28 +349,29 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
-			ConnectionCreationToolEntry connectionCreationToolEntry = 
-				new ConnectionCreationToolEntry(iConPattern.getCreateName(), 
-					iConPattern.getCreateDescription(), iConPattern.getCreateImageId(),
-					iConPattern.getCreateLargeImageId());			
-			ICreateConnectionFeature feature = GeneralUtil.findCreateConnectionFeatureByName(getFeatureProvider().getCreateConnectionFeatures(), iConPattern.getCreateName());
-			connectionCreationToolEntry.addCreateConnectionFeature(feature);
-			switch(fpd.paletteCategory) {
-				case ENTITIES_CATEGORY: 
-					entityCategory.addToolEntry(connectionCreationToolEntry);
+			if(fpd.featureExpression(framedFeatureNames, paletteView)) {
+				ConnectionCreationToolEntry connectionCreationToolEntry = 
+					new ConnectionCreationToolEntry(iConPattern.getCreateName(), 
+						iConPattern.getCreateDescription(), iConPattern.getCreateImageId(),
+						iConPattern.getCreateLargeImageId());			
+				ICreateConnectionFeature feature = GeneralUtil.findCreateConnectionFeatureByName(getFeatureProvider().getCreateConnectionFeatures(), iConPattern.getCreateName());
+				connectionCreationToolEntry.addCreateConnectionFeature(feature);
+				switch(fpd.paletteCategory) {
+					case ENTITIES_CATEGORY: 
+						entityCategory.addToolEntry(connectionCreationToolEntry);
+						break;
+					case PROPERTIES_CATEGORY: 
+						propertiesCategory.addToolEntry(connectionCreationToolEntry);
+						break;
+					case RELATIONS_CATEGORY: 
+						relationsCategory.addToolEntry(connectionCreationToolEntry);
+						break;
+					case CONSTRAINTS_CATEGORY: 
+						constraintsCategory.addToolEntry(connectionCreationToolEntry);
+						break;
+				default:
 					break;
-				case PROPERTIES_CATEGORY: 
-					propertiesCategory.addToolEntry(connectionCreationToolEntry);
-					break;
-				case RELATIONS_CATEGORY: 
-					relationsCategory.addToolEntry(connectionCreationToolEntry);
-					break;
-				case CONSTRAINTS_CATEGORY: 
-					constraintsCategory.addToolEntry(connectionCreationToolEntry);
-					break;
-			default:
-				break;
-	}	}	}
+	}	}	}	}
 	
 	/**
 	 * enables the edit features for relationships and fulfillments when double clicking such a relation
