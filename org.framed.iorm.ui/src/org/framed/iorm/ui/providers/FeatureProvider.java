@@ -1,7 +1,34 @@
 package org.framed.iorm.ui.providers;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.DiagnosticListener;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.SimpleJavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
@@ -13,6 +40,7 @@ import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.eclipse.graphiti.func.IAdd;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
@@ -23,6 +51,7 @@ import org.framed.iorm.ui.pattern.connections.interrelationship.*;
 import org.framed.iorm.ui.pattern.connections.intrarelationship.*;
 import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
+import org.osgi.framework.Bundle;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type
@@ -30,6 +59,32 @@ import org.framed.iorm.ui.pattern.shapes.*;
  */
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 
+	private final Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+	
+	private final String classOutputFolder = "C:/Users/Medion/Desktop/eclipse-modeling-oxygen-R-win32-x86_64/eclipse/github/FRaMED-2a/org.framed.iorm.ui//modules/classes";
+	
+	private static final class ResourceSourceJavaFileObject extends SimpleJavaFileObject {
+		Path completePath; 	
+		
+		protected ResourceSourceJavaFileObject(URI resourceUri, Path path) {
+			super(resourceUri, deduceKind(resourceUri));
+			this.completePath = path;
+		}
+		    
+		@Override
+		public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
+			return new String(Files.readAllBytes(completePath));
+		}
+		    
+		private static Kind deduceKind(URI uri) {
+		    String path = uri.getPath();
+		    for (Kind kind : Kind.values()) {
+		    	if (path.endsWith(kind.extension)) {
+		    		return kind;
+		    }	}
+		    return Kind.OTHER;
+	}	}   
+	
 	/**
 	 * Class constructor
 	 * <p>
@@ -42,6 +97,14 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
       super(diagramTypeProvider);
+      //TODO Step 1
+      //List<URL> patterns = findModulePatterns();
+      //TODO Step 2
+      //compilePatterns(patterns);
+      //TODO Steo 3
+      //loadClasses();
+      
+      
       //Step 1
       addPattern(new ModelPattern());
       addPattern(new CompartmentTypePattern());
@@ -53,7 +116,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new AttributeOperationCommonPattern());
       addPattern(new AttributePattern());
       addPattern(new OperationPattern());
-      addPattern(new RoleGroupPattern());
+      //addPattern(new RoleGroupPattern());
       //Step 2
       addConnectionPattern(new RelationshipPattern());
       addConnectionPattern(new InheritancePattern());
@@ -68,6 +131,78 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new RelationshipImplicationConstraintPattern());
       addConnectionPattern(new RelationshipExclusionConstraintPattern());
       addConnectionPattern(new FulfillmentPattern());
+	}
+	
+	private List<URL> findModulePatterns() {
+	    URL fileURL = bundle.getEntry("modules/test/HW.java");
+	    List<URL> patterns = new ArrayList<URL>();
+	    patterns.add(fileURL);
+	    return patterns;
+	}
+	
+	private void compilePatterns(List<URL> patterns) {
+		//Step 1
+	    List<ResourceSourceJavaFileObject> filesObjects = new ArrayList<ResourceSourceJavaFileObject>();
+	    for(URL patternURL : patterns) {
+	    	ResourceSourceJavaFileObject fileObject = null;
+			String patternPath = bundle.getLocation().toString() + patternURL.getPath();
+			patternPath = patternPath.substring(patternPath.indexOf("/")+1);
+			try {
+				fileObject = new ResourceSourceJavaFileObject(patternURL.toURI(), Paths.get(patternPath));
+			} catch (URISyntaxException e) { e.printStackTrace(); }
+			(filesObjects).add(fileObject);
+	    }		
+		//Step 2      
+	    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
+		StandardJavaFileManager fileManager = compiler.getStandardFileManager(collector, Locale.GERMAN, null);
+	    //TODO eigene Methode
+		List<String> options = new ArrayList<String>();
+		options.addAll(Arrays.asList("-d", classOutputFolder));   
+		options.addAll(Arrays.asList());
+		//System.out.println(System.getProperty("java.class.path"));
+	    //Step 3
+		JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, collector, options, null, filesObjects);
+			Boolean result = task.call();
+			for(Diagnostic<? extends JavaFileObject> d : collector.getDiagnostics()) {
+				System.out.println(d.getMessage(Locale.GERMAN));
+			}
+			System.out.println(result);
+			
+			//TODO fehlerbehandlung
+		    if (result == true) System.out.println("Succeeded");
+	}	      
+	
+	private void loadClasses() {
+		// Create a File object on the root of the directory
+		// containing the class file
+		File file = new File(classOutputFolder);
+		String[] a = file.list();
+		for(String s : a) {
+			System.out.println(s);
+		}
+		try {
+			URL url = file.toURL(); // file:/classes/demo
+			URL[] urls = new URL[] { url };
+			
+			// Create a new class loader with the directory
+			ClassLoader loader = new URLClassLoader(urls);
+			
+			// Load in the class; Class.childclass should be located in
+			// the directory file:/class/demo/
+			Class thisClass;
+				thisClass = loader.loadClass("HW");
+			
+			Class params[] = {};
+			Object paramsObj[] = {};
+			Object instance = thisClass.newInstance();
+			Method thisMethod = thisClass.getDeclaredMethod("HW", params);
+			
+			// run the testAdd() method on the instance:
+			System.out.println(thisMethod.invoke(instance, paramsObj));
+		} catch(MalformedURLException | ClassNotFoundException | InstantiationException | 
+				IllegalAccessException | NoSuchMethodException | SecurityException | 
+				IllegalArgumentException | InvocationTargetException e) { e.printStackTrace();}
 	}
 	
 	/**
