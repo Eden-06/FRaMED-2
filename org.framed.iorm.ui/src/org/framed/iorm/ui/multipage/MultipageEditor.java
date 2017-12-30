@@ -289,11 +289,12 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * 		   input.<br>
 	 * Step 4: It creates a linked root model for the <em>main diagram</em> if it does not already have on linked. If so it
 	 * 			also saves the role model file.<br>
-	 * Step 5: It gets an editor input for the crom text file.<br>
-	 * Step 6: It creates the feature editor and adds the page. To do that the created root model is needed.
+	 * Step 5: It updates the palette.
+	 * Step 6: It gets an editor input for the crom text file.<br>
+	 * Step 7: It creates the feature editor and adds the page. To do that the created root model is needed.
 	 * 		   It also creates the editores and add the pages for the iorm and crom text viewers.<br> 
-	 * Step 7: It sets the names of the pages. <br>
-	 * Step 8: It add its object to the register of multipage editors of the {@link MultipageEditorSynchronizationService}. 
+	 * Step 8: It sets the names of the pages. <br>
+	 * Step 9: It add its object to the register of multipage editors of the {@link MultipageEditorSynchronizationService}. 
 	 * <p>
 	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.<br>
 	 * @throws PartInitException 
@@ -320,9 +321,11 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			doSave(new NullProgressMonitor()); 
 		}
 		//Step 5
+		editorDiagram.getDiagramBehavior().refreshPalette();
+		//Step 6
 		IFile CROMFile = GeneralUtil.getCROMFileForDiagramResource(resource);
 		IFileEditorInput fileEditorForCROM = new FileEditorInput(CROMFile);
-		//Step 6
+		//Step 7
 		editorFeatures = new FRaMEDFeatureEditor(diagramEditorInput, this);
 		textViewerIORM = new FRaMEDTextViewer();
 		textViewerCROM = new FRaMEDTextViewer();
@@ -331,12 +334,12 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			textViewerIORMIndex = addPage(textViewerIORM, fileEditorInput);
 			textViewerCROMIndex = addPage(textViewerCROM, fileEditorForCROM);
 		} catch (PartInitException e) { e.printStackTrace(); }
-		//Step 7
+		//Step 8
 		setPageText(editorDiagramIndex, DIAGRAM_PAGE_NAME);
 		setPageText(textViewerIORMIndex, TEXT_IORM_PAGE_NAME);
 		setPageText(textViewerCROMIndex, TEXT_CROM_PAGE_NAME);	
 		setPageText(editorFeaturesIndex, FEATURE_PAGE_NAME);
-		//Step 8
+		//Step 9
 		MultipageEditorSynchronizationService.registerEditor(this);
 	}
 		

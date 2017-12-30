@@ -10,11 +10,13 @@ import org.eclipse.ui.IEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
+import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for javadoc link
+import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
 /**
  * This class offers severals utility operations to handle diagrams.
@@ -67,9 +69,8 @@ public class DiagramUtil {
 	 * <p>
 	 * If its not clear what the different shapes are look for the pictogram structure of a group or compartment type here: 
 	 * {@link GroupPattern#add}<br>
-	 * {@link CompartmentTypePattern#add}
-	 * .<br>
-	 *TODO if its not cleat typbe body
+	 * {@link CompartmentTypePattern#add}.<br>
+	 * TODO if its not cleat typbe body
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
 	 * @param diagram the diagram the group or compartment type is located in
@@ -157,18 +158,24 @@ public class DiagramUtil {
 	
 	/**
 	 * fetches the root model of role model which contains the given diagram
+	 * <p>
+	 * Note: See {@link NoLinkedModelYet} and {@link ToolBehaviorProvider#getListOfFramedFeatureNames} for further
+	 * informations.
 	 * @param diagram the diagram to search the root model for
 	 * @return the root model of a role model
 	 */
-	public static Model getRootModelForAnyDiagram(Diagram diagram) {
+	public static Model getRootModelForAnyDiagram(Diagram diagram) throws NullPointerException {
 		Model rootModel = null;
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram &&
 			   PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM)) {
-				if(shape.getLink().getBusinessObjects().size() == 1) {
-					rootModel = (Model) shape.getLink().getBusinessObjects().get(0);
-		}	}	}
+				//Note
+				if(shape.getLink() == null) throw new NoLinkedModelYet();
+				else { 
+					if(shape.getLink().getBusinessObjects().size() == 1) {
+						rootModel = (Model) shape.getLink().getBusinessObjects().get(0);
+		}	}	}	}
 		if(rootModel == null) throw new NoModelFoundException();
 		else return rootModel;
 	}	

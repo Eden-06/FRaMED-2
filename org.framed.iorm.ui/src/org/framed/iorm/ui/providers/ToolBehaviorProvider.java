@@ -44,6 +44,7 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
+import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
@@ -285,11 +286,19 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	/**
 	 * Gets the current feature configuration of the edited diagram and transforms it into a list of the chosen features' names.
 	 * @return a list of chosen features' names in the current feature configuration
+	 * <p>
+	 * Note: At the creation of diagram the main diagram is not linked to a model, but the this class already asks for one. Therefore
+	 * the method searching for the model throws a special exception for this case, which is caught here. In this case an empty list
+	 * of feature names is returned. The palette will updated later when a model is linked then.
 	 */
 	private List<String> getListOfFramedFeatureNames() {
-		Diagram diagram = getDiagramTypeProvider().getDiagram();
-		FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
 		List<String> framedFeatureNames = new ArrayList<String>();
+		Diagram diagram = getDiagramTypeProvider().getDiagram();
+		if(diagram == null) return framedFeatureNames;
+		FRaMEDConfiguration config = null;
+		//Note
+		try { config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration(); }
+		catch(NoLinkedModelYet e) {return framedFeatureNames;}
 		for(FRaMEDFeature framedFeature : config.getFeatures()) {
 			framedFeatureNames.add(framedFeature.getName().getLiteral());
 		}

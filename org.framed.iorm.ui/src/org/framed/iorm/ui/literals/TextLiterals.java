@@ -78,6 +78,11 @@ public class TextLiterals {
 	public static final String ERROR_NO_MODEL_FOUND = "A model could not be found!";
 	
 	/**
+	 * the error message for the {@link NoLinkedModelYet}
+	 */
+	public static final String ERROR_NO_LINKED_MODEL_YET = "There is no model linked for the diagram yet!";
+	
+	/**
 	 * the message for the {@link FeatureHasNoPaletteDescriptorException}
 	 */
 	public static final String FEATURE_HAS_NO_DESCRIPTOR_MESSAGE = "A Feature has no palette descriptor: ";
