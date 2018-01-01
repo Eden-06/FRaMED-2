@@ -16,6 +16,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.util.PropertyUtil;
 
@@ -48,7 +49,7 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 	 * layout integers gathered from {@link LayoutLiterals}
 	 */
 	private final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE,
-					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
+					  PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
 					  HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT;
 
 	/**

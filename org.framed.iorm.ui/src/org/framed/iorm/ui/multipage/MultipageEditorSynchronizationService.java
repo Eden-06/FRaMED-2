@@ -14,6 +14,7 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -36,8 +37,8 @@ public class MultipageEditorSynchronizationService {
 	 * the values for the property diagram kind to differ between diagram with the same name, but different
 	 * kinds like a group and a compartment type diagram called the same gathered form {@link IdentifierLiterals}
 	 */
-	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the register for the multipage editors to synchronize

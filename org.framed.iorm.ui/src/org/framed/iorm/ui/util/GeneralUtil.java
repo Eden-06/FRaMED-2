@@ -20,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.literals.LayoutLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 
 /**
@@ -32,8 +33,7 @@ public class GeneralUtil {
 	 * the layout integers this class need to perform the operation {@link #calculateHorizontalCenter}
 	 * gathered from {@link LayoutLiterals}
 	 */
-	private static final int HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
-			 		  	 	 DATATYPE_CORNER_SIZE = LayoutLiterals.DATATYPE_CORNER_SIZE,
+	private static final int HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
 			 		  	 	 ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS;
 		
 	/**
@@ -47,8 +47,6 @@ public class GeneralUtil {
 	public static final int calculateHorizontalCenter(Type type, int heightOfClassOrRole) {
 		if(type == Type.NATURAL_TYPE) 
 			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE)/2)+HEIGHT_NAME_SHAPE;
-		if(type == Type.DATA_TYPE)	
-			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-DATATYPE_CORNER_SIZE)/2)+HEIGHT_NAME_SHAPE;
 		if(type == Type.ROLE_TYPE)
 			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-ROLE_CORNER_RADIUS/2)/2)+HEIGHT_NAME_SHAPE;
 		return 0;

@@ -13,6 +13,7 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
 
@@ -49,8 +50,8 @@ public class ShapePatternUtil {
 	/**
 	 * values for the property diagram kind used to differ between diagrams of groups and compartments
 	 */
-	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-		    					DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+		    					DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 				
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group

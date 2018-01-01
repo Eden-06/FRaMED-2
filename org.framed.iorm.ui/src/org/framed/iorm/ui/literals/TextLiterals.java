@@ -21,8 +21,6 @@ public class TextLiterals {
 							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
 							   DIRECTEDITING_OPERATIONS = "An operations name has the form <name>(<parameters>):<type>.",
 							   NAME_ALREADY_USED_OPERATIONS = "Another operation already has the same name!",
-							   DIRECTEDITING_DATATYPE = "A data types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
-							   NAME_ALREADY_USED_DATATYPE = "Another data type already has the same name!",
 							   DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_NATURALTYPE = "Another natural type already has the same name!",
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",

@@ -41,6 +41,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
@@ -105,7 +106,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * values for the property diagram kind for the diagram in which a role type can be created and added in
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * text literals gathered from {@link TextLiterals}
@@ -133,24 +134,24 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}, look there for reference
 	 */
-	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
-					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE, 
-					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
-					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
+	private final int MIN_WIDTH = UILiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
+					  MIN_HEIGHT = UILiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE, 
+					  HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
+					  PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
 					  ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS,
-					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
-					  HEIGHT_ATTRIBUTE_SHAPE = LayoutLiterals.HEIGHT_ATTRITBUTE_SHAPE,
-					  HEIGHT_OPERATION_SHAPE = LayoutLiterals.HEIGHT_OPERATION_SHAPE,
+					  SHADOW_SIZE = UILiterals.SHADOW_SIZE,
+					  HEIGHT_ATTRIBUTE_SHAPE = UILiterals.HEIGHT_ATTRITBUTE_SHAPE,
+					  HEIGHT_OPERATION_SHAPE = UILiterals.HEIGHT_OPERATION_SHAPE,
 					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT,
 					  WIDTH_OCCURRENCE_CONSTRAINT = LayoutLiterals.WIDTH_CONSTRAINT;
 	
 	/**
 	 * colors gathered from {@link LayoutLiterals}, look there for reference
 	 */
-	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
-								 COLOR_LINES = LayoutLiterals.COLOR_LINES,
-								 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
-								 COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
+	private final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
+								 COLOR_LINES = UILiterals.COLOR_LINES,
+								 COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
+								 COLOR_SHADOW = UILiterals.COLOR_SHADOW;
 	
 	/**
 	 * Class constructor

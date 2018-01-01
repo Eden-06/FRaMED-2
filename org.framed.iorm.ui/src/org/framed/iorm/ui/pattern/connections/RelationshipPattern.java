@@ -25,6 +25,7 @@ import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -89,7 +90,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
 	 */
 	private final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-								 COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
+								 COLOR_TEXT = UILiterals.COLOR_TEXT;
 	
 	/**
 	 * layout integers gathered from {@link LayoutLiterals}

@@ -49,6 +49,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
@@ -123,9 +124,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * Also for the diagrams in which a group type can be created and added in
 	 */
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+	private final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
 						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID,
-						 DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
+						 DIAGRAM_KIND_MAIN_DIAGRAM = UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
 		
 	/**
 	 * the image identifier for the icon of the create feature in this pattern gathered from
@@ -151,21 +152,21 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference
 	 */
-	private final int MIN_WIDTH = LayoutLiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE,
-					  MIN_HEIGHT = LayoutLiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
-					  HEIGHT_NAME_SHAPE = LayoutLiterals.HEIGHT_NAME_SHAPE,
-					  PUFFER_BETWEEN_ELEMENTS = LayoutLiterals.PUFFER_BETWEEN_ELEMENTS,
+	private final int MIN_WIDTH = UILiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE,
+					  MIN_HEIGHT = UILiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
+					  HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
+					  PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
 					  GROUP_CORNER_RADIUS = LayoutLiterals.GROUP_CORNER_RADIUS,
-					  SHADOW_SIZE = LayoutLiterals.SHADOW_SIZE,
+					  SHADOW_SIZE = UILiterals.SHADOW_SIZE,
 					  HEIGHT_GROUP_ELEMENT_SHAPE = LayoutLiterals.HEIGHT_ELEMENT_SHAPE;
 	
 	/**
 	 * colors gathered from {@link LayoutLiterals}, look there for reference
 	 */
-	private final IColorConstant COLOR_TEXT = LayoutLiterals.COLOR_TEXT,
-			   			   		 COLOR_LINES = LayoutLiterals.COLOR_LINES,
-			   			   		 COLOR_BACKGROUND = LayoutLiterals.COLOR_BACKGROUND,
-			   			   		 COLOR_SHADOW = LayoutLiterals.COLOR_SHADOW;
+	private final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
+			   			   		 COLOR_LINES = UILiterals.COLOR_LINES,
+			   			   		 COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
+			   			   		 COLOR_SHADOW = UILiterals.COLOR_SHADOW;
 	
 	/**
 	 * Class constructor

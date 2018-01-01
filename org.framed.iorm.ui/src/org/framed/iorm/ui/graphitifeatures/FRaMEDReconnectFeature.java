@@ -13,6 +13,7 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.pattern.connections.RelationshipPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
@@ -28,7 +29,7 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	 * the identifier for a diagram of a stepped in compartment view gathered from
 	 * {@link IdentifierLiterals}
 	 */
-	private static final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private static final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the name of the edit relationship feature gathered from {@link NameLiterals}

@@ -60,7 +60,6 @@ public class NameLiterals {
 	 */
 	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 							   STANDARD_NATURALTYPE_NAME = "naturalType",
-			   				   STANDARD_DATATYPE_NAME = "dataType",
 			   				   STANDARD_GROUP_NAME = "group",
 			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
 			   				   STANDARD_OPERATION_NAME = "operation():type",
@@ -89,7 +88,6 @@ public class NameLiterals {
 	 */
 	public static final String COMPARTMENTTYPE_FEATURE_NAME = "Compartment Type",
 							   NATURALTYPE_FEATURE_NAME = "Natural Type",
-			 				   DATATYPE_FEATURE_NAME = "Data Type",
 			 				   GROUP_FEATURE_NAME = "Group",
 			 				   ATTRIBUTE_FEATURE_NAME = "Attribute",
 							   OPERATION_FEATURE_NAME = "Operation",

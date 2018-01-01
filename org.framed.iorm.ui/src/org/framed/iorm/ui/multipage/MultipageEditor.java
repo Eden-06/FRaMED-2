@@ -40,6 +40,7 @@ import org.framed.iorm.ui.exceptions.TransformationFailedException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
@@ -72,7 +73,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 		
 	/**
 	 * name literals for the pages of the multipage editor and the model feature
@@ -289,7 +290,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * 		   input.<br>
 	 * Step 4: It creates a linked root model for the <em>main diagram</em> if it does not already have on linked. If so it
 	 * 			also saves the role model file.<br>
-	 * Step 5: It updates the palette.
+	 * Step 5: It updates the palette.<br>
 	 * Step 6: It gets an editor input for the crom text file.<br>
 	 * Step 7: It creates the feature editor and adds the page. To do that the created root model is needed.
 	 * 		   It also creates the editores and add the pages for the iorm and crom text viewers.<br> 

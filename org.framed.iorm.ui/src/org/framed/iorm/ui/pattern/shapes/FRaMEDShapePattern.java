@@ -34,9 +34,10 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	protected String FEATURE_NAME;
 	
 	/**
-	 * the identifier for the icon of the create feature
+	 * the identifier or the path for the icon of the create feature
 	 */
-	protected String ICON_IMG_ID;
+	protected String ICON_IMG_ID,
+				     ICON_IMG_PATH;
 	
 	/**
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -52,6 +53,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return FEATURE_NAME;
 	}
 	
+	//TODO
 	/**
 	 * enables the icon for the create feature in this pattern
 	 * @return the image identifier for the icon of the create feature in this pattern
@@ -59,6 +61,11 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	@Override
 	public String getCreateImageId() {
 		return ICON_IMG_ID;
+	}
+	
+	//TODO
+	public String getCreateImagePath() {
+		return ICON_IMG_PATH;
 	}
 	
 	/**

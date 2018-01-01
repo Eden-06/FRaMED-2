@@ -1,8 +1,20 @@
 package org.framed.iorm.ui.providers;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
+import org.osgi.framework.Bundle;
 
 /**
  * This class links image identifiers to the corresponding image file paths.
@@ -20,7 +32,6 @@ public class ImageProvider extends AbstractImageProvider {
      */
     private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE,
     					 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE,
-    				     IMG_ID_FEATURE_DATATYPE = IdentifierLiterals.IMG_ID_FEATURE_DATATYPE,
     				     IMG_ID_FEATURE_ATTRIBUTE = IdentifierLiterals.IMG_ID_FEATURE_ATTRIBUTE,
  					     IMG_ID_FEATURE_OPERATION = IdentifierLiterals.IMG_ID_FEATURE_OPERATION,
     				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
@@ -48,7 +59,6 @@ public class ImageProvider extends AbstractImageProvider {
      */
     private final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = URLLiterals.IMG_FILEPATH_FEATURE_COMPARTMENTTYPE,
     					 IMG_FILEPATH_FEATURE_NATURALTYPE = URLLiterals.IMG_FILEPATH_FEATURE_NATURALTYPE,
-    					 IMG_FILEPATH_FEATURE_DATATYPE = URLLiterals.IMG_FILEPATH_FEATURE_DATATYPE,
     				     IMG_FILEPATH_FEATURE_ATTRIBUTE = URLLiterals.IMG_FILEPATH_FEATURE_ATTRIBUTE,
   					     IMG_FILEPATH_FEATURE_OPERATION = URLLiterals.IMG_FILEPATH_FEATURE_OPERATION,
   					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP,
@@ -77,8 +87,19 @@ public class ImageProvider extends AbstractImageProvider {
      */
     @Override
     protected void addAvailableImages() {
+    	List<Class<?>> patterns = findModulePatterns();
+    	for(Class<?> patternClass : patterns) {
+    		try {
+	    		Object object = patternClass.newInstance();
+				if(object instanceof FRaMEDShapePattern) {
+					FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
+					addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
+				}
+    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+    	}
+    	
+    	
     	addImageFilePath(IMG_ID_FEATURE_NATURALTYPE, IMG_FILEPATH_FEATURE_NATURALTYPE);
-        addImageFilePath(IMG_ID_FEATURE_DATATYPE, IMG_FILEPATH_FEATURE_DATATYPE);
         addImageFilePath(IMG_ID_FEATURE_ATTRIBUTE, IMG_FILEPATH_FEATURE_ATTRIBUTE);
         addImageFilePath(IMG_ID_FEATURE_OPERATION, IMG_FILEPATH_FEATURE_OPERATION);
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
@@ -95,4 +116,24 @@ public class ImageProvider extends AbstractImageProvider {
         addImageFilePath(IMG_ID_FEATURE_RELATIONSHIP_PROHIBITION, IMG_FILEPATH_FEATURE_RELATIONSHIP_PROHIBTION);
         addImageFilePath(IMG_ID_FEATURE_FULFILLMENT, IMG_FILEPATH_FEATURE_FULFILLMENT);
     }
+    
+    private List<Class<?>> findModulePatterns() {
+    	Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();
+	    for(URL patternURL : patternURLs) {
+	    	try {
+	    		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
+	    		patternClasses.add(classForPattern);
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }
+	    return patternClasses;
+	}
+	
+	private String formatURL(String patternURL) {
+		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
+			cutEnd = patternURL.indexOf(".java");	
+		patternURL = patternURL.substring(cutStart, cutEnd);
+		return patternURL.replace("/", ".");
+	}
 }

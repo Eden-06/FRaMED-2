@@ -137,28 +137,6 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = "shape_nt_opcontainer";
 	
 	/**
-	 * identifiers used for data types
-	 * <p>
-	 * can be for:<br>
-	 * (1) container shape or<br>
-	 * (2) typebody shape or<br>
-	 * (3) shadow shape or<br>
-	 * (4) name shape or<br>
-	 * (5) first line shape or<br>
-	 * (6) second line shape or<br>
-	 * (7) attribute container shape or<br>
-	 * (8) operation container shape 
-	 */
-	public static final String SHAPE_ID_DATATYPE_CONTAINER = "shape_dt_container",
-							   SHAPE_ID_DATATYPE_TYPEBODY = "shape_dt_typebody",
-						 	   SHAPE_ID_DATATYPE_SHADOW = "shape_dt_shadow",
-						 	   SHAPE_ID_DATATYPE_NAME = "shape_dt_name", 
-						 	   SHAPE_ID_DATATYPE_FIRSTLINE = "shape_dt_firstline",
-						 	   SHAPE_ID_DATATYPE_SECONDLINE = "shape_dt_secondline", 
-						 	   SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER = "shape_dt_attcontainer",
-						 	   SHAPE_ID_DATATYPE_OPERATIONCONTAINER = "shape_dt_opcontainer";
-	
-	/**
 	 * identifiers used for the group
 	 * <p>
 	 * can be for:<br>
@@ -250,22 +228,4 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER = "shape_rt_attcontainer",
 						 	   SHAPE_ID_ROLETYPE_OPERATIONCONTAINER = "shape_rt_opcontainer";
 	
-	/**
-	 * the kinds of diagrams used in the editor
-	 * <p>
-	 * can be:<br>
-	 * (1) the container diagram of the role model or<br>
-	 * (2) the main diagram of the role model or<br>
-	 * (3) a diagram used to save the graphical content of a group or<br>
-	 * (4) a diagram used to save the graphical content of a compartment type
-	 * <p>
-	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
-	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.<br>
-	 * The word <em>kind</em> is chosen to differ this property from the <em>diagram types</em> of the 
-	 * graphiti framework.
-	 */
-	public static final String DIAGRAM_KIND_CONTAINER_DIAGRAM = "container_diagram",
-							   DIAGRAM_KIND_MAIN_DIAGRAM = "main_diagram",
-							   DIAGRAM_KIND_GROUP_DIAGRAM = "group_diagram",
-							   DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = "compartment_diagram";
 }

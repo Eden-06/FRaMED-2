@@ -13,6 +13,7 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
 import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for javadoc link
@@ -31,10 +32,10 @@ public class DiagramUtil {
 	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
 	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 */
-	private static final String DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
-							    DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
-							    DIAGRAM_KIND_GROUP_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-							    DIAGRAM_KIND_COMPARTMENT_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private static final String DIAGRAM_KIND_MAIN_DIAGRAM = UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM,
+							    DIAGRAM_KIND_CONTAINER_DIAGRAM = UILiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
+							    DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
+							    DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 	
 	/**
 	 * the identifiers for of groups and compartment types pictograms gathered from {@link IdentifierLiterals}
@@ -58,7 +59,7 @@ public class DiagramUtil {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * This operation fetches a groups or compartment types diagram for a shape that is a part of a groups
 	 * or compartments pictogram representation using the following steps:

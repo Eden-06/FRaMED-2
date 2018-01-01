@@ -14,6 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +28,7 @@ import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
+import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
@@ -53,14 +56,16 @@ import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.osgi.framework.Bundle;
 
+import datatype.DataTypePattern;
+import testfeature.TestFeature;
+
 /**
  * This class manages the pattern and features for the editing of the diagram type
  * @author Kevin Kassin
  */
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 
-	private final Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
-	
+	/*
 	private final String classOutputFolder = "C:/Users/Medion/Desktop/eclipse-modeling-oxygen-R-win32-x86_64/eclipse/github/FRaMED-2a/org.framed.iorm.ui//modules/classes";
 	
 	private static final class ResourceSourceJavaFileObject extends SimpleJavaFileObject {
@@ -84,12 +89,12 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		    }	}
 		    return Kind.OTHER;
 	}	}   
+	*/
 	
 	/**
 	 * Class constructor
 	 * <p>
-	 * It sets the pattern that are used to created, edit and delete shape (Step 1) and 
-	 * connections (Step 2) in the editor for the diagram type.
+	 * TODO
 	 * <p>
 	 * For the reason the intra relationship constraints are implemented as shape pattern see 
 	 * {@link AbstractIntraRelationshipConstraintPattern}.
@@ -98,25 +103,27 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
       super(diagramTypeProvider);
       //TODO Step 1
-      //List<URL> patterns = findModulePatterns();
+      List<Class<?>> patterns = findModulePatterns();
       //TODO Step 2
-      //compilePatterns(patterns);
-      //TODO Steo 3
-      //loadClasses();
-      
+      for(Class<?> patternClass : patterns) {
+    	  try {
+			Object object = patternClass.newInstance();
+			if(object instanceof FRaMEDShapePattern) {
+				addPattern((FRaMEDShapePattern) object);
+			}
+		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+      }
       
       //Step 1
       addPattern(new ModelPattern());
       addPattern(new CompartmentTypePattern());
       addPattern(new NaturalTypePattern());
-      addPattern(new DataTypePattern());
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
       addPattern(new RoleTypePattern()); 
       addPattern(new AttributeOperationCommonPattern());
       addPattern(new AttributePattern());
       addPattern(new OperationPattern());
-      //addPattern(new RoleGroupPattern());
       //Step 2
       addConnectionPattern(new RelationshipPattern());
       addConnectionPattern(new InheritancePattern());
@@ -133,8 +140,29 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addConnectionPattern(new FulfillmentPattern());
 	}
 	
+	private List<Class<?>> findModulePatterns() {
+		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();
+	    for(URL patternURL : patternURLs) {
+	    	try {
+	    		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
+	    		patternClasses.add(classForPattern);
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }
+	    return patternClasses;
+	}
+	
+	private String formatURL(String patternURL) {
+		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
+			cutEnd = patternURL.indexOf(".java");	
+		patternURL = patternURL.substring(cutStart, cutEnd);
+		return patternURL.replace("/", ".");
+	}
+	
+	/* alte Impl.
 	private List<URL> findModulePatterns() {
-	    URL fileURL = bundle.getEntry("modules/test/HW.java");
+	    URL fileURL = bundle.getEntry("modules/testfeature/TestFeature.java");
 	    List<URL> patterns = new ArrayList<URL>();
 	    patterns.add(fileURL);
 	    return patterns;
@@ -204,6 +232,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 				IllegalAccessException | NoSuchMethodException | SecurityException | 
 				IllegalArgumentException | InvocationTargetException e) { e.printStackTrace();}
 	}
+	*/
 	
 	/**
 	 * sets the graphiti custom features that are used by editor for the diagram type

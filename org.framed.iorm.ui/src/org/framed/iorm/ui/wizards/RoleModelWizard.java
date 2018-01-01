@@ -37,6 +37,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
@@ -61,8 +62,8 @@ public class RoleModelWizard extends BasicNewResourceWizard {
 	 * If its not clear what <em>container diagram</em> and <em>main diagram</em> means, see 
 	 * {@link #createEmfFileForDiagram} for reference.
 	 */
-	private final String DIAGRAM_KIND_CONTAINER_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
-						 DIAGRAM_KIND_MAIN_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
+	private final String DIAGRAM_KIND_CONTAINER_DIAGRAM = UILiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM,
+						 DIAGRAM_KIND_MAIN_DIAGRAM = UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
 	
 	/**
 	 * name literals for the file extension of the new diagram, the wizard page and window gathered from {@link NameLiterals}

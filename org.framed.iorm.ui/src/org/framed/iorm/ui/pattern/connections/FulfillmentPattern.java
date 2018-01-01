@@ -22,6 +22,7 @@ import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
@@ -69,7 +70,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * the identifier for a diagram of a stepped in compartment view gathered from
 	 * {@link IdentifierLiterals}
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = IdentifierLiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
 
 	/**
 	 * the value for the property shape id for the connection decorator of the
@@ -89,7 +90,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	 * the color values gathered from {@link LayoutLiterals}
 	 */
 	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-									    COLOR_TEXT = LayoutLiterals.COLOR_TEXT;
+									    COLOR_TEXT = UILiterals.COLOR_TEXT;
 
 	/**
 	 * Class constructor

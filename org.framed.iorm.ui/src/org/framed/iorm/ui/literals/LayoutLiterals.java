@@ -12,30 +12,6 @@ import org.eclipse.swt.widgets.Display;
 public class LayoutLiterals {
 
 	/**
-	 * general layout integers
-	 * <p>
-	 * can be:<br>
-	 * (1) the puffer space between elements or<br>
-	 * (2) the size of the shadows of graphiti shapes
-	 */
-	public static final int PUFFER_BETWEEN_ELEMENTS = 3,
-							SHADOW_SIZE = 3;
-	
-	/**
-	 * general color values
-	 * <p>
-	 * can be:<br>
-	 * (1) the color of text or<br>
-	 * (2) the color of lines or<br>
-	 * (3) the color of backgrounds or<br>
-	 * (4) the color of graphiti shapes shadows
-	 */
-	public static final IColorConstant COLOR_TEXT = IColorConstant.BLACK,
-			   						   COLOR_LINES = IColorConstant.BLACK,
-			   						   COLOR_BACKGROUND = IColorConstant.WHITE,
-			   						   COLOR_SHADOW = IColorConstant.GRAY;
-	
-	/**
 	 * color values related to constraints
 	 * <p>
 	 * can be:<br>
@@ -71,28 +47,6 @@ public class LayoutLiterals {
 	public static final Color COLOR_VALID_CONFIGURATION = new Color(Display.getCurrent(), 0, 0, 255),
 							  COLOR_INVALID_CONFIGURATION = new Color(Display.getCurrent(), 255, 0, 0);
 	
-	/**
-	 * layout integers for graphiti shapes 
-	 * <p>
-	 * can be:<br>
-	 * (1) the height of the name rectangle or<br>
-	 * (2) the height of the attribute rectangle or<br>
-	 * (3) the height of the operation rectangle or<br>
-	 * (4) the minimal width for typebody rectangles of classes or roles or<br>
-	 * (5) the minimal height for typebody rectangles of classes or roles 
-	 */
-	public static final int HEIGHT_NAME_SHAPE = 20,
-							HEIGHT_ATTRITBUTE_SHAPE = 15,
-							HEIGHT_OPERATION_SHAPE = 15,
-							MIN_WIDTH_FOR_CLASS_OR_ROLE = 200,
-							MIN_HEIGHT_FOR_CLASS_OR_ROLE = 100;
-	
-	/**
-	 * layout integer for data types
-	 * <p>
-	 * the size of the corners of a data type
-	 */
-	public static final int DATATYPE_CORNER_SIZE = HEIGHT_NAME_SHAPE;
 	
 	/**
 	 * layout integer for groups
@@ -101,7 +55,7 @@ public class LayoutLiterals {
 	 * (1) the radius of the rounded corners of groups or<br>
 	 * (2) the height of the 
 	 */
-	public static final int GROUP_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE,
+	public static final int GROUP_CORNER_RADIUS = 2*UILiterals.HEIGHT_NAME_SHAPE,
 							HEIGHT_ELEMENT_SHAPE = 15;
 	
 	/**
@@ -109,7 +63,7 @@ public class LayoutLiterals {
 	 * <p>
 	 * the radius of the rounded corners of role types or<br>
 	 */
-	public static final int ROLE_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE;
+	public static final int ROLE_CORNER_RADIUS = 2*UILiterals.HEIGHT_NAME_SHAPE;
 	
 	/**
 	 * layout integers for the text of occurrence constraints
