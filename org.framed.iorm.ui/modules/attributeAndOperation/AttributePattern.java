@@ -1,5 +1,6 @@
 package attributeAndOperation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -10,15 +11,15 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
+
+import attributeAndOperation.usedInReferences.AbstractUsedInReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -56,7 +57,10 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 							framedFeatureNames.contains("Compartment_Properties"));
 				default: return false;
 		}	}	};
-			
+		
+	//TODO
+	private List<AbstractUsedInReference> usedInReferences; 
+		
 	/**
 	 * class constructor		
 	 */
@@ -66,6 +70,10 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_ID = literals.ATT_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ATT_ICON_IMG_PATH;
 		FPD = spec_FPD;
+		//TODO
+		usedInReferences = new ArrayList<AbstractUsedInReference>();
+		List<Class<?>> classes = util.findUsedInReferences();
+		usedInReferences = util.getUsedInReferences(classes);
 	}		
 	
 	/**
@@ -110,6 +118,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 * (1) the attribute is created in a class or role that is a {@link org.framed.iorm.model.Shape} and<br>
 	 * (2) not the drop shadow of a class or role is selected
 	 * of the right type
+	 * TODO Shadowstuff 
 	 * @return if an attribute can be created
 	 */
 	@Override
@@ -118,15 +127,14 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		Object businessObject =  getBusinessObjectForPictogramElement(pictogramElement);
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject; 
-			if(shape.getType() == Type.NATURAL_TYPE ||
-			   shape.getType() == Type.DATA_TYPE ||
-			   shape.getType() == Type.COMPARTMENT_TYPE ||
-			   shape.getType() == Type.ROLE_TYPE) {
-				if(!(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_SHADOW)) &&
-				   !(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_SHADOW)) &&
-				   //!(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_DATATYPE_SHADOW)) &&
-				   !(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_SHADOW)))	   
-	   				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+			if(util.usedInModelTypes(usedInReferences).contains(shape.getType())) {
+				boolean isShadowShape = false;
+				for(AbstractUsedInReference auir : usedInReferences) {
+					if(UIUtil.isShape_IdValue((Shape) pictogramElement, auir.getShadowShapeID()))
+						isShadowShape = true;
+				}
+				if(!isShadowShape)
+					return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 		return false;
 	}
@@ -151,60 +159,4 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		addGraphicalRepresentation(createContext, newAttribute);
 		return new Object[] { newAttribute };
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * the values of the property shape id for the drop shadows of class or roles gathered form
-	 * {@link IdentifierLiterals}
-	 */
-	private final String SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
-						 SHAPE_ID_COMPARTMENTTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW,
-						 //SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW,
-					     SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW;
 }

@@ -1,15 +1,21 @@
 package attributeAndOperation;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.framed.iorm.model.Type;
+import org.osgi.framework.Bundle;
 
 import attributeAndOperation.Literals;
+import attributeAndOperation.usedInReferences.AbstractUsedInReference;
 
 public class Util {
 
@@ -17,6 +23,52 @@ public class Util {
 	 * the object to get names, id and so on for this feature
 	 */
 	private final Literals literals = new Literals();
+	
+	//usedInReferences
+	//~~~~~~~~~~~~~~~~
+	//TODO
+	public List<Class<?>> findUsedInReferences() {
+		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+		List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+		List<Class<?>> patternClasses = new ArrayList<Class<?>>();
+		for(URL patternURL : patternURLs) {
+		   	try {
+		   		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
+		   		patternClasses.add(classForPattern);
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
+		}
+		return patternClasses;
+	}
+		
+	//TODO
+	public String formatURL(String patternURL) {
+		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
+			cutEnd = patternURL.indexOf(".java");	
+		patternURL = patternURL.substring(cutStart, cutEnd);
+		return patternURL.replace("/", ".");
+	}
+	
+	//TODO
+	public List<AbstractUsedInReference> getUsedInReferences(List<Class<?>> classes) {
+		List<AbstractUsedInReference> usedInReferences = new ArrayList<AbstractUsedInReference>();
+		for(Class<?> cl : classes) {
+			if(cl.getSuperclass().getTypeName().equals(literals.TYPE_USED_IN_REFERENCES)) {
+				try {
+					Object object = cl.newInstance();
+					usedInReferences.add((AbstractUsedInReference) object);
+				} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+		} 	}	
+		return usedInReferences;
+	}
+	
+	//TODO
+	public List<Type> usedInModelTypes(List<AbstractUsedInReference> usedInReferences) {
+		List<Type> modelTypes = new ArrayList<Type>();
+		for(AbstractUsedInReference auir : usedInReferences) {
+			modelTypes.add(auir.getModelType());
+		}
+		return modelTypes;
+	}
 	
 	//Names
 	//~~~~~

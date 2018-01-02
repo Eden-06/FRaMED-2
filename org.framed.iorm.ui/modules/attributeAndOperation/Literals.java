@@ -19,6 +19,10 @@ public class Literals {
 						SHAPE_ID_OPERATION_TEXT = "shape_op_text",
 						SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
 	
+	//usedInReferences
+	//~~~~~~~~~~~~~~~~
+	public final String TYPE_USED_IN_REFERENCES = "attributeAndOperation.usedInReferences.AbstractUsedInReference";
+	
 	//Common pattern for attributes and operations
 	//TODO
 	public final String COM_FEATURE_NAME = "AttributeOperationCommonPattern";

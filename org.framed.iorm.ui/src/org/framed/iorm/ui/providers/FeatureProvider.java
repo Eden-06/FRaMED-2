@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -109,13 +110,14 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       List<Class<?>> patterns = findModulePatterns();
       //TODO Step 2
       for(Class<?> patternClass : patterns) {
-    	  try {
-			Object object = patternClass.newInstance();
-			if(object instanceof FRaMEDShapePattern) {
-				addPattern((FRaMEDShapePattern) object);
-			}
-		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-      }
+    	  if(!Modifier.isAbstract(patternClass.getModifiers())) {
+	    	  try {
+				Object object = patternClass.newInstance();
+				if(object instanceof FRaMEDShapePattern) {
+					addPattern((FRaMEDShapePattern) object);
+				}
+	    	  } catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+      }	  }	
       
       //Step 1
       addPattern(new ModelPattern());

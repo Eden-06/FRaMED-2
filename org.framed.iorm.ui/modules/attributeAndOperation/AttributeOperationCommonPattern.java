@@ -1,5 +1,8 @@
 package attributeAndOperation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -16,15 +19,14 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
-//TODO fix depency
-import org.framed.iorm.ui.util.GeneralUtil;
+
+import attributeAndOperation.usedInReferences.AbstractUsedInReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -49,13 +51,16 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * the object to call utility operations on
 	 */
 	private final Util util = new Util();
-	
+		
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.NONE,
 			ViewVisibility.NO_VIEW);
+	
+	//TODO
+	private List<AbstractUsedInReference> usedInReferences; 
 	
 	/**
 	 * class constructor		
@@ -66,6 +71,10 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		ICON_IMG_ID = literals.COM_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.COM_ICON_IMG_PATH;
 		FPD = spec_FPD;
+		//TODO
+		usedInReferences = new ArrayList<AbstractUsedInReference>();
+		List<Class<?>> classes = util.findUsedInReferences();
+		usedInReferences = util.getUsedInReferences(classes);
 	}	
 	
 	/**
@@ -131,11 +140,8 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 				Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 				if(businessObject instanceof org.framed.iorm.model.Shape) {
 					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-					if(shape.getType() == Type.NATURAL_TYPE ||
-					   shape.getType() == Type.DATA_TYPE ||
-					   shape.getType() == Type.COMPARTMENT_TYPE ||
-					   shape.getType() == Type.ROLE_TYPE)	
-					   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
+					if(util.usedInModelTypes(usedInReferences).contains(shape.getType()))
+					   return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	
 		return false;
 	}
@@ -154,6 +160,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * Step 1: It gets the new object and the class or roles <em>attribute container shape</em> or <em>operation container shape</em> 
 	 * 		   to create the attribute or operation in.<br>
 	 * Step 2: It calculates the needed sizes and position of the horizontal center line.<br>
+	 * 			TODO: horizontal center berechnen?
 	 * Step 3: It creates the structure shown above and sets the shape identifiers for the created graphics algorithms.<br>
 	 * Step 4: It enables direct editing for the attribute or operation and links it pictogram element to its business object.
 	 * <p>
@@ -174,9 +181,12 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		//Step 2
 		int attributeContainerSize = attributeContainer.getChildren().size(),
 		    operationContainerSize = operationContainer.getChildren().size(); 	
-		int horizontalCenter;
-			horizontalCenter = GeneralUtil.calculateHorizontalCenter(businessObjectOfClassOrRole.getType(), 
-							    classOrRoleContainer.getGraphicsAlgorithm().getHeight());
+		int horizontalCenter = -1;
+		for(AbstractUsedInReference auir : usedInReferences) {
+			if(businessObjectOfClassOrRole.getType() == auir.getModelType())
+				horizontalCenter = auir.getHorizontalCenter(classOrRoleContainer.getGraphicsAlgorithm().getHeight());
+		}	
+		if(horizontalCenter == -1) return null;
 		//Step 3
 		if(addedAttributeOrOperation.getName().startsWith(literals.ATT_STANDARD_NAME)) {
 		   	attributeOrOperationShape = pictogramElementCreateService.createShape(attributeContainer, true);

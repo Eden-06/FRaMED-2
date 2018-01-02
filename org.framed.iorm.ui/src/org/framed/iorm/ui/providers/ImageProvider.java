@@ -1,15 +1,12 @@
 package org.framed.iorm.ui.providers;
 
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
@@ -32,8 +29,6 @@ public class ImageProvider extends AbstractImageProvider {
      */
     private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE,
     					 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE,
-    				     IMG_ID_FEATURE_ATTRIBUTE = IdentifierLiterals.IMG_ID_FEATURE_ATTRIBUTE,
- 					     IMG_ID_FEATURE_OPERATION = IdentifierLiterals.IMG_ID_FEATURE_OPERATION,
     				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
     					 IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
     
@@ -59,8 +54,6 @@ public class ImageProvider extends AbstractImageProvider {
      */
     private final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = URLLiterals.IMG_FILEPATH_FEATURE_COMPARTMENTTYPE,
     					 IMG_FILEPATH_FEATURE_NATURALTYPE = URLLiterals.IMG_FILEPATH_FEATURE_NATURALTYPE,
-    				     IMG_FILEPATH_FEATURE_ATTRIBUTE = URLLiterals.IMG_FILEPATH_FEATURE_ATTRIBUTE,
-  					     IMG_FILEPATH_FEATURE_OPERATION = URLLiterals.IMG_FILEPATH_FEATURE_OPERATION,
   					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP,
     					 IMG_FILEPATH_FEATURE_ROLETYPE = URLLiterals.IMG_FILEPATH_FEATURE_ROLETYPE;
     
@@ -89,19 +82,17 @@ public class ImageProvider extends AbstractImageProvider {
     protected void addAvailableImages() {
     	List<Class<?>> patterns = findModulePatterns();
     	for(Class<?> patternClass : patterns) {
-    		try {
-	    		Object object = patternClass.newInstance();
-				if(object instanceof FRaMEDShapePattern) {
-					FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
-					addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
-				}
-    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-    	}
-    	
+	    	if(!Modifier.isAbstract(patternClass.getModifiers())) {
+    			try {
+		    		Object object = patternClass.newInstance();
+					if(object instanceof FRaMEDShapePattern) {
+						FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
+						addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
+					}
+	    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+	    }	}	
     	
     	addImageFilePath(IMG_ID_FEATURE_NATURALTYPE, IMG_FILEPATH_FEATURE_NATURALTYPE);
-        addImageFilePath(IMG_ID_FEATURE_ATTRIBUTE, IMG_FILEPATH_FEATURE_ATTRIBUTE);
-        addImageFilePath(IMG_ID_FEATURE_OPERATION, IMG_FILEPATH_FEATURE_OPERATION);
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
         addImageFilePath(IMG_ID_FEATURE_ROLETYPE, IMG_FILEPATH_FEATURE_ROLETYPE);
