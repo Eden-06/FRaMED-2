@@ -3,6 +3,10 @@ package attributeAndOperation;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.UILiterals;
 
+/**
+ * This class saves literals in the scope of the attribute and operations feature module.
+ * @author Kevin Kassin
+ */
 public class Literals {
 
 	/**
@@ -21,15 +25,19 @@ public class Literals {
 	
 	//usedInReferences
 	//~~~~~~~~~~~~~~~~
-	public final String TYPE_USED_IN_REFERENCES = "attributeAndOperation.usedInReferences.AbstractUsedInReference";
+	public final String TYPE_USED_IN_REFERENCES = "attributeAndOperation.references.AbstractUsedInReference";
 	
 	//Common pattern for attributes and operations
-	//TODO
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	/**
+	 * the features name to identify the common pattern
+	 */
 	public final String COM_FEATURE_NAME = "AttributeOperationCommonPattern";
 	
-	
 	/**
-	 * empty because... TODO
+	 * the icon path and id
+	 * <p>
+	 * These are empty because there is no icon to show for the common pattern.
 	 */		
 	public final String	COM_ICON_IMG_ID = "",
 						COM_ICON_IMG_PATH = "";

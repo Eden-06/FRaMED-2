@@ -14,18 +14,23 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
-import org.framed.iorm.ui.wizards.RoleModelWizard;
+import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
+import datatype.references.AttributeAndOperationsReference;
+
+/**
+ * This class offers utility operations in the scope of the attribute and operations feature module.
+ * @author Kevin Kassin
+ */
 public class Util {
 	
 	/**
 	 * the object to get names, id and so on for this feature
 	 */
 	private final Literals literals = new Literals();
+	
+	private final AttributeAndOperationsReference aaoReference = new AttributeAndOperationsReference();
 	
 	//Layout
 	//~~~~~~
@@ -66,7 +71,7 @@ public class Util {
 	public boolean nameAlreadyUsedForClass(Diagram diagram, String newName) {
 		List<String> modelElements = new ArrayList<String>();
 		//Step 1
-		Model rootModel = DiagramUtil.getRootModelForAnyDiagram(diagram);
+		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
 		//Step 2
 		getDataTypeNamesRecursive(rootModel, modelElements);
 		return modelElements.contains(newName);
@@ -83,7 +88,7 @@ public class Util {
 	 */
 	public String calculateStandardNameForClass(Diagram diagram) {
 		List<String> modelElements = new ArrayList<String>();
-		Model rootModel = DiagramUtil.getRootModelForAnyDiagram(diagram);
+		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
 		getDataTypeNamesRecursive(rootModel, modelElements);
 		if(!(modelElements.contains(literals.STANDARD_NAME))) return literals.STANDARD_NAME;
 		for(int i=1; i<=literals.STANDARD_NAMES_COUNTER_LIMIT; i++) {
@@ -121,7 +126,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if (shape.getGraphicsAlgorithm() instanceof Text) {
 					Text text = (Text) shape.getGraphicsAlgorithm();
-					if(PropertyUtil.isShape_IdValue(shape, literals.SHAPE_ID_DATATYPE_NAME)) {
+					if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_DATATYPE_NAME)) {
 						return text.getValue();
 					}
 		} 	}	}
@@ -140,11 +145,7 @@ public class Util {
 		}
 		return null;
 	}
-	
-	//TODO
-	String SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
-		   SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT;
-	
+
 	/**
 	 * This operation gets the names of the attributes of a pictogram element that has an attribute container shape.
 	 * @param pictogramElement the pictogram element to get the attribute names of
@@ -158,9 +159,9 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {
 								Text text = (Text) attributeShape.getGraphicsAlgorithm();
 								pictogrammAttributeNames.add(text.getValue());
 		}	}	}	}	}	}
@@ -180,10 +181,10 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
-								NamedElement attribute = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(attributeShape);
+							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(attributeShape);
 								businessAttributeNames.add(attribute.getName());
 		}	}	}	}	}	}	
 		return businessAttributeNames;
@@ -201,9 +202,9 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {
 								Text text = (Text) operationShape.getGraphicsAlgorithm();
 								pictogramOperationNames.add(text.getValue());
 		}	}	}	}	}	}
@@ -222,10 +223,10 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
-								NamedElement operation = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(operationShape);
+							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {	
+								NamedElement operation = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(operationShape);
 								businessOperationNames.add(operation.getName());
 		}	}	}	}	}	}	
 		return businessOperationNames;

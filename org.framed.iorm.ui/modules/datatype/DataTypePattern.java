@@ -43,6 +43,8 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
 
+import datatype.references.AttributeAndOperationsReference;
+
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
  * of the type {@link Type#DATA_TYPE} in the editor.
@@ -70,25 +72,14 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	private final Literals literals = new Literals();
 	
 	/**
-	 *  the object to get names, ids for the attribute and operation feature
-	 *  <p>
-	 *  This reference creates a dependency between the data type and the attribute/operation features
-	 */
-	 private final attributeAndOperation.Literals att_ops_literal = 
-		new attributeAndOperation.Literals();
-	 
-	/**
-	 * shorthand definitions for the used literals from the attribute and operation features 
-	 */
-	 private final String SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = att_ops_literal.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS,
-			 			  SHAPE_ID_OPERATION_INDICATOR_DOTS = att_ops_literal.SHAPE_ID_OPERATION_INDICATOR_DOTS,
-			 			  SHAPE_ID_ATTRIBUTE_TEXT = att_ops_literal.SHAPE_ID_ATTRIBUTE_TEXT,
-			 			  SHAPE_ID_OPERATION_TEXT = att_ops_literal.SHAPE_ID_OPERATION_TEXT;	
-	
-	/**
-	 * the object to call util operations on
+	 * the object to call utility operations on
 	 */
 	private final Util util = new Util();
+	
+	/**
+	 * a reference class which encapsulates the dependency to the attribute and operation features
+	 */
+	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -544,7 +535,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	indicatorDotsShapeToDelete = null;
 				    	for(int j = 0; j<attributes.size(); j++) {
 				    		attributes.get(j).setVisible(true);
-				    		if(UIUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
+				    		if(UIUtil.isShape_IdValue(attributes.get(j), attOpsReference.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
 				    			indicatorDotsShapeToDelete = attributes.get(j);
 				    	}
 				    	attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
@@ -562,7 +553,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 				    				literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+fittingAttributes*literals.HEIGHT_OPERATION_SHAPE, 
 				    				newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_OPERATION_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
-				    		UIUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS); 	
+				    		UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS); 	
 				    	}	            			
 				    	layoutChanged=true;
 				    }
@@ -587,7 +578,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	indicatorDotsShapeToDelete = null;
 				    	for(int n = 0; n<operations.size(); n++) {
 				    		operations.get(n).setVisible(true);
-				    		if(UIUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
+				    		if(UIUtil.isShape_IdValue(operations.get(n), attOpsReference.SHAPE_ID_OPERATION_INDICATOR_DOTS))
 				    			indicatorDotsShapeToDelete = operations.get(n);
 				    	}
 				    	operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
@@ -605,7 +596,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				          	graphicAlgorithmService.setLocationAndSize(indicatorDots, 
 				          			literals.PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*literals.HEIGHT_OPERATION_SHAPE, 
 				          			newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_OPERATION_SHAPE);
-				          	UIUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS); 	
+				          	UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_OPERATION_INDICATOR_DOTS); 	
 					    }    
 					    layoutChanged=true;
 		}	}	}	}
@@ -685,7 +676,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 						counter = 0;
 						if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
 							for(Shape attributeShape : innerContainerShape.getChildren()) {
-								if(UIUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								if(UIUtil.isShape_IdValue(attributeShape, attOpsReference.SHAPE_ID_ATTRIBUTE_TEXT)) {	
 									Text text = (Text) attributeShape.getGraphicsAlgorithm();
 									text.setValue(businessAttributeNames.get(counter));
 									returnValue = true;
@@ -695,7 +686,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 						counter = 0;
 						if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
-								if(UIUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								if(UIUtil.isShape_IdValue(operationShape, attOpsReference.SHAPE_ID_OPERATION_TEXT)) {
 									Text text = (Text) operationShape.getGraphicsAlgorithm();
 									text.setValue(businessOperationNames.get(counter));									
 									returnValue = true;
@@ -709,7 +700,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * disables that the user can move the drop shadow manually
 	 * <p>
-	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
+	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. Therefore it takes
 	 * and expands some code of {@link AbstractPattern#canMoveShape}.
 	 */
 	@Override

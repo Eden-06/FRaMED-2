@@ -4,6 +4,11 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
+/**
+ * This class saves all literals in the scope of the UI. Modules can use these literals if they want to, e.g. to get layout integers
+ * recommended by the UI.
+ * @author Kevin Kassin
+ */
 public class UILiterals {
 
 	//Diagram

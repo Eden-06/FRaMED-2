@@ -4,6 +4,10 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 
+/**
+ * This class saves literals in the scope of the attribute and operations feature module.
+ * @author Kevin Kassin
+ */
 public class Literals {
 
 	/**

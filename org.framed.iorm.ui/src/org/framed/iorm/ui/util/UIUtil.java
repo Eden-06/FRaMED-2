@@ -1,11 +1,29 @@
 package org.framed.iorm.ui.util;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.osgi.framework.Bundle;
 
+/**
+ * This class offers utility operations in the scope of the UI. Modules can use these operations if they want to,
+ * e.g. for UI specific aspects like diagrams, models and the property service.
+ * @author Kevin Kassin
+ */
 public class UIUtil {
 
 	//Model
@@ -23,6 +41,75 @@ public class UIUtil {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * fetches the root model of role model which contains the given diagram
+	 * <p>
+	 * Note: See {@link NoLinkedModelYet} and {@link ToolBehaviorProvider#getListOfFramedFeatureNames} for further
+	 * informations.
+	 * @param diagram the diagram to search the root model for
+	 * @return the root model of a role model
+	 */
+	public static Model getRootModelForAnyDiagram(Diagram diagram) throws NullPointerException {
+		Model rootModel = null;
+		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram &&
+			   PropertyUtil.isDiagram_KindValue((Diagram) shape, UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM)) {
+				//Note
+				if(shape.getLink() == null) throw new NoLinkedModelYet();
+				else { 
+					if(shape.getLink().getBusinessObjects().size() == 1) {
+						rootModel = (Model) shape.getLink().getBusinessObjects().get(0);
+		}	}	}	}
+		if(rootModel == null) throw new NoModelFoundException();
+		else return rootModel;
+	}	
+	
+	/**
+	 * returns the first linked business object of a pictogram
+	 * <p>
+	 * This operation is build after method {@link IMappingProvider#getBusinessObjectForPictogramElement} to avoid
+	 * a dependency.<br>
+	 * This is a convenience method for getAllBusinessObjectsForPictogramElement(PictogramElement), because in many 
+	 * usecases only a single business object is linked.
+	 * @param pictogramElement the pictogram element to get business object for
+	 * @return the first business object of a pictogram element
+	 */
+	public static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
+		return pictogramElement.getLink().getBusinessObjects().get(0);
+	}
+	
+	//finding pattern dynamically
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	/**
+	 * fetches all java classes in the module source folder
+	 * @return all java classes in in the module source folder
+	 */
+	public static List<Class<?>> findModulePatterns() {
+		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();
+	    for(URL patternURL : patternURLs) {
+	    	try {
+	    		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
+	    		patternClasses.add(classForPattern);
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }
+	    return patternClasses;
+	}
+	
+	/**
+	 * formats the given string url by cutting and replacing character in specific manner
+	 * @param patternURL the string url to format
+	 * @return the formatted string url
+	 */
+	public static String formatURL(String patternURL) {
+		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
+			cutEnd = patternURL.indexOf(".java");	
+		patternURL = patternURL.substring(cutStart, cutEnd);
+		return patternURL.replace("/", ".");
 	}
 	
 	//Properties
@@ -53,7 +140,7 @@ public class UIUtil {
 	}
 	
 	//Diagram Kind
-	//~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~
 	/**
 	 * the key to identify the property diagram kind gathered from {@link IdentifierLiterals}
 	 * <P>

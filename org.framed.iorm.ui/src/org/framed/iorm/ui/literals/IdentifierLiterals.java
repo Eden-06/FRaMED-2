@@ -5,7 +5,6 @@ import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
 import org.framed.iorm.ui.util.PropertyUtil; //*import for javadoc link
-import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
  * This class saves severals static Strings used as identifiers.

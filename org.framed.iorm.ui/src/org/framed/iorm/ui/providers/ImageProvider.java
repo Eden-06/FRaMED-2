@@ -1,17 +1,14 @@
 package org.framed.iorm.ui.providers;
 
 import java.lang.reflect.Modifier;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
-import org.osgi.framework.Bundle;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This class links image identifiers to the corresponding image file paths.
@@ -73,14 +70,22 @@ public class ImageProvider extends AbstractImageProvider {
   					     IMG_FILEPATH_FEATURE_FULFILLMENT = URLLiterals.IMG_FILEPATH_FEATURE_FULFILLMENT;
     
     /**
-     * links the file paths to image identifiers
+     * links the file paths to image identifiers using the following steps:
      * <p>
-     * This is used to enable icons for create features. The features use the image identifiers linked here 
+   	 * Step 1: It uses {@link UIUtil#findModulePatterns()} to find all java classes in the modules dynamically by searching for them
+	 * 		   in the module source folder.<br>
+	 * Step 2: It checks all found classes for non abstract<br>
+	 * 		   (a) {@link FRaMEDShapePattern} and<br>
+	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the link their image identifier to their file path. 
+     * <p>
+     * This is used to enable icons for create features of the module features. The features use the image identifiers linked here 
      * as reference to the icons.
      */
     @Override
     protected void addAvailableImages() {
-    	List<Class<?>> patterns = findModulePatterns();
+    	//Step 1
+    	List<Class<?>> patterns = UIUtil.findModulePatterns();
+    	//Step 2
     	for(Class<?> patternClass : patterns) {
 	    	if(!Modifier.isAbstract(patternClass.getModifiers())) {
     			try {
@@ -92,6 +97,7 @@ public class ImageProvider extends AbstractImageProvider {
 	    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
 	    }	}	
     	
+    	//TODO delete after and after
     	addImageFilePath(IMG_ID_FEATURE_NATURALTYPE, IMG_FILEPATH_FEATURE_NATURALTYPE);
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
@@ -107,24 +113,4 @@ public class ImageProvider extends AbstractImageProvider {
         addImageFilePath(IMG_ID_FEATURE_RELATIONSHIP_PROHIBITION, IMG_FILEPATH_FEATURE_RELATIONSHIP_PROHIBTION);
         addImageFilePath(IMG_ID_FEATURE_FULFILLMENT, IMG_FILEPATH_FEATURE_FULFILLMENT);
     }
-    
-    private List<Class<?>> findModulePatterns() {
-    	Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
-	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
-	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();
-	    for(URL patternURL : patternURLs) {
-	    	try {
-	    		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
-	    		patternClasses.add(classForPattern);
-			} catch (ClassNotFoundException e) { e.printStackTrace(); }
-	    }
-	    return patternClasses;
-	}
-	
-	private String formatURL(String patternURL) {
-		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
-			cutEnd = patternURL.indexOf(".java");	
-		patternURL = patternURL.substring(cutStart, cutEnd);
-		return patternURL.replace("/", ".");
-	}
 }

@@ -26,7 +26,7 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
 
-import attributeAndOperation.usedInReferences.AbstractUsedInReference;
+import attributeAndOperation.references.AbstractUsedInReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -59,11 +59,18 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 			PaletteCategory.NONE,
 			ViewVisibility.NO_VIEW);
 	
-	//TODO
+	/**
+	 * the list of reference classes which save in which other module feature's shapes a attribute or
+	 * operation can be added with specific informations for these.
+	 * @see AbstractUsedInReference
+	 */
 	private List<AbstractUsedInReference> usedInReferences; 
 	
 	/**
-	 * class constructor		
+	 * class constructor
+	 * <p>	
+	 * Note: It gets the references which save in which other module feature's shapes a attribute or
+	 * operations can be added here and saves them it into {@link #usedInReferences}.	
 	 */
 	public AttributeOperationCommonPattern() {
 		super();
@@ -71,7 +78,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		ICON_IMG_ID = literals.COM_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.COM_ICON_IMG_PATH;
 		FPD = spec_FPD;
-		//TODO
+		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
 		List<Class<?>> classes = util.findUsedInReferences();
 		usedInReferences = util.getUsedInReferences(classes);
@@ -128,7 +135,8 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * returns true if:<br>
 	 * (1) the new business object is a named element with the standard attribute name or operation name and<br> 
 	 * (2) the attribute or operation is added to a class or role that is a {@link org.framed.iorm.model.Shape} of the
-	 * 	   right type
+	 * 	   right type. Which types these are is saved in {@link #usedInReferences}.
+	 * 
 	 * @return if the attribute or operation can be added
 	 */
 	@Override
@@ -159,8 +167,9 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * It uses follows this steps:<br>
 	 * Step 1: It gets the new object and the class or roles <em>attribute container shape</em> or <em>operation container shape</em> 
 	 * 		   to create the attribute or operation in.<br>
-	 * Step 2: It calculates the needed sizes and position of the horizontal center line.<br>
-	 * 			TODO: horizontal center berechnen?
+	 * Step 2: It calculates the needed sizes and position of the horizontal center line. To calculate the horizontal center it uses
+	 * 		   list {@link usedInReferences} and checks for the correct operation there by type of the shape to which a attribute or
+	 * 	       operation is added to.<br>
 	 * Step 3: It creates the structure shown above and sets the shape identifiers for the created graphics algorithms.<br>
 	 * Step 4: It enables direct editing for the attribute or operation and links it pictogram element to its business object.
 	 * <p>

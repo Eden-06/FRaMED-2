@@ -15,8 +15,12 @@ import org.framed.iorm.model.Type;
 import org.osgi.framework.Bundle;
 
 import attributeAndOperation.Literals;
-import attributeAndOperation.usedInReferences.AbstractUsedInReference;
+import attributeAndOperation.references.AbstractUsedInReference;
 
+/**
+ * This class offers utility operations in the scope of the attribute and operations feature module.
+ * @author Kevin Kassin
+ */
 public class Util {
 
 	/**
@@ -26,7 +30,10 @@ public class Util {
 	
 	//usedInReferences
 	//~~~~~~~~~~~~~~~~
-	//TODO
+	/**
+	 * fetches all java classes in the module source folder
+	 * @return all java classes in in the module source folder
+	 */
 	public List<Class<?>> findUsedInReferences() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
 		List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
@@ -40,7 +47,11 @@ public class Util {
 		return patternClasses;
 	}
 		
-	//TODO
+	/**
+	 * formats the given string url by cutting and replacing character in specific manner
+	 * @param patternURL the string url to format
+	 * @return the formatted string url
+	 */
 	public String formatURL(String patternURL) {
 		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
 			cutEnd = patternURL.indexOf(".java");	
@@ -48,7 +59,11 @@ public class Util {
 		return patternURL.replace("/", ".");
 	}
 	
-	//TODO
+	/**
+	 * get all sub classes of {@link AbstractUsedInReference} for a given list of classes 
+	 * @param classes a given list of classes of different types
+	 * @return a list of classes have {@link AbstractUsedInReference} as their super class
+	 */
 	public List<AbstractUsedInReference> getUsedInReferences(List<Class<?>> classes) {
 		List<AbstractUsedInReference> usedInReferences = new ArrayList<AbstractUsedInReference>();
 		for(Class<?> cl : classes) {
@@ -61,7 +76,11 @@ public class Util {
 		return usedInReferences;
 	}
 	
-	//TODO
+	/**
+	 * fetches a list of {@link Type}s referenced in the given list of sub classes of {@link AbstractUsedInReference}s.
+	 * @param usedInReferences the references to get the types of
+	 * @return a list of types referenced in the elements of the parameter
+	 */
 	public List<Type> usedInModelTypes(List<AbstractUsedInReference> usedInReferences) {
 		List<Type> modelTypes = new ArrayList<Type>();
 		for(AbstractUsedInReference auir : usedInReferences) {

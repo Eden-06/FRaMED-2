@@ -19,7 +19,7 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
 
-import attributeAndOperation.usedInReferences.AbstractUsedInReference;
+import attributeAndOperation.references.AbstractUsedInReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -58,11 +58,18 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 				default: return false;
 		}	}	};
 		
-	//TODO
+	/**
+	 * the list of reference classes which save in which other module feature's shapes a attribute or
+	 * operation can be added with specific informations for these.
+	 * @see AbstractUsedInReference
+	 */
 	private List<AbstractUsedInReference> usedInReferences; 
 		
 	/**
-	 * class constructor		
+	 * class constructor
+	 * <p>	
+	 * Note: It gets the references which save in which other module feature's shapes a attribute or
+	 * operations can be added here and saves them it into {@link #usedInReferences}.		
 	 */
 	public AttributePattern() {
 		super();
@@ -70,7 +77,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_ID = literals.ATT_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ATT_ICON_IMG_PATH;
 		FPD = spec_FPD;
-		//TODO
+		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
 		List<Class<?>> classes = util.findUsedInReferences();
 		usedInReferences = util.getUsedInReferences(classes);
@@ -116,9 +123,8 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the attribute is created in a class or role that is a {@link org.framed.iorm.model.Shape} and<br>
-	 * (2) not the drop shadow of a class or role is selected
-	 * of the right type
-	 * TODO Shadowstuff 
+	 * (2) not the drop shadow of a class or role is selected of the right type. Which types these are is 
+	 *     saved in {@link #usedInReferences}. This list also used to get the Shape ids of the drop shadow. 
 	 * @return if an attribute can be created
 	 */
 	@Override
