@@ -61,8 +61,6 @@ public class NameLiterals {
 	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 							   STANDARD_NATURALTYPE_NAME = "naturalType",
 			   				   STANDARD_GROUP_NAME = "group",
-			   				   STANDARD_ATTRIBUTE_NAME = "attribute:type",
-			   				   STANDARD_OPERATION_NAME = "operation():type",
 			   				   STANDARD_ROLETYPE_NAME = "roleType",
 			   				   STANDARD_RELATIONSHIP_NAME = "rst",
 			   				   STANDARD_CARDINALITY = "*";
@@ -89,8 +87,6 @@ public class NameLiterals {
 	public static final String COMPARTMENTTYPE_FEATURE_NAME = "Compartment Type",
 							   NATURALTYPE_FEATURE_NAME = "Natural Type",
 			 				   GROUP_FEATURE_NAME = "Group",
-			 				   ATTRIBUTE_FEATURE_NAME = "Attribute",
-							   OPERATION_FEATURE_NAME = "Operation",
 							   ROLETYPE_FEATURE_NAME = "Role Type";
 	
 	/**
@@ -142,7 +138,6 @@ public class NameLiterals {
 	 */
 	public static final String MODEL_FEATURE_NAME = "Model", 
 							   GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = "GroupOrCompartmentTypeElementPattern",
-			                   ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = "AttributeOperationCommonPattern",
 			                   RELATIONSHIP_DECORATOR_FEATURE_NAME = "Relationship Decorator";
 	
 	/**

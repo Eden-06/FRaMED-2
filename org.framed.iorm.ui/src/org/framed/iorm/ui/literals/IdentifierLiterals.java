@@ -167,9 +167,9 @@ public class IdentifierLiterals {
 	 * (4) the indicator dots if not all operations fit in to the class or roles type body shape
 	 */
 	public static final String SHAPE_ID_ATTRIBUTE_TEXT = "shape_att_text",
-							   SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
-							   SHAPE_ID_OPERATION_TEXT = "shape_op_text",
-							   SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
+						SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
+						SHAPE_ID_OPERATION_TEXT = "shape_op_text",
+						SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
 	
 	/**
 	 * identifier used for role constraint connection decorators

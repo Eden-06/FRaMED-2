@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.shapes;
+package attributeAndOperation;
 
 import java.util.List;
 
@@ -13,14 +13,12 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.pattern.shapes.AttributeOperationCommonPattern; //*import for javadoc link
-import org.framed.iorm.ui.util.NameUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -34,68 +32,41 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
-	 * the name of the create feature in this pattern and the standard names of attributes 
-	 * gathered from {@link NameLiterals}
+	 * the object to get names, id and so on for this feature
 	 */
-	private final String ATTRIBUTE_STANDARD_NAME = NameLiterals.STANDARD_ATTRIBUTE_NAME,
-						 ATTRIBUTE_FEATURE_NAME = NameLiterals.ATTRIBUTE_FEATURE_NAME;
+	private final Literals literals = new Literals();
+	
+	/**
+	 * the object to call utility operations on
+	 */
+	private final Util util = new Util();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-			PaletteCategory.PROPERTIES_CATEGORY,
-			ViewVisibility.ALL_VIEWS) {
-				@Override
-				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
-					switch(paletteView) {
-					case TOPLEVEL_VIEW: return true;
-					case COMPARTMENT_VIEW: 
-						return (framedFeatureNames.contains("Role_Properties") ||
-								framedFeatureNames.contains("Compartment_Properties"));
-					default: return false;
-			}	}	};
-	
+		PaletteCategory.PROPERTIES_CATEGORY,
+		ViewVisibility.ALL_VIEWS) {
+			@Override
+			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+				switch(paletteView) {
+				case TOPLEVEL_VIEW: return true;
+				case COMPARTMENT_VIEW: 
+					return (framedFeatureNames.contains("Role_Properties") ||
+							framedFeatureNames.contains("Compartment_Properties"));
+				default: return false;
+		}	}	};
+			
 	/**
-	 * the values of the property shape id for the drop shadows of class or roles gathered form
-	 * {@link IdentifierLiterals}
-	 */
-	private final String SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
-						 SHAPE_ID_COMPARTMENTTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW,
-						 //SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW,
-					     SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW;
-	
-	/**
-	 * the image identifier for the icon of the create feature in this pattern gathered from
-	 * {@link IdentifierLiterals}
-	 */
-	private final String IMG_ID_FEATURE_ATTRIBUTE = IdentifierLiterals.IMG_ID_FEATURE_ATTRIBUTE;
-	
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public AttributePattern() {
 		super();
+		FEATURE_NAME = literals.ATT_FEATURE_NAME;
+		ICON_IMG_ID = literals.ATT_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ATT_ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ATTRIBUTE_FEATURE_NAME;
-	}
-	
-	/**
-	 * enables the icon for the create feature in this pattern
-	 * @return the image identifier for the icon of the create feature in this pattern
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_ATTRIBUTE;
-	}
+	}		
 	
 	/**
 	 * checks if pattern is applicable for a given business object
@@ -151,11 +122,11 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 			   shape.getType() == Type.DATA_TYPE ||
 			   shape.getType() == Type.COMPARTMENT_TYPE ||
 			   shape.getType() == Type.ROLE_TYPE) {
-				if(!(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_SHADOW)) &&
-				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_SHADOW)) &&
+				if(!(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_NATURALTYPE_SHADOW)) &&
+				   !(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_SHADOW)) &&
 				   //!(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_DATATYPE_SHADOW)) &&
-				   !(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_SHADOW)))	   
-    				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+				   !(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_SHADOW)))	   
+	   				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 		return false;
 	}
@@ -170,14 +141,70 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	public Object[] create(ICreateContext createContext) {
 		ContainerShape attributeContainer = (ContainerShape) createContext.getTargetContainer().getChildren().get(2);
 		NamedElement newAttribute = OrmFactory.eINSTANCE.createNamedElement();
-		String standartName = NameUtil.calculateStandardNameForAttributeOrOperation(attributeContainer, ATTRIBUTE_STANDARD_NAME);
+		String standartName = util.calculateStandardNameForAttribute(attributeContainer);
 		newAttribute.setName(standartName);
 		if(newAttribute.eResource() != null) getDiagram().eResource().getContents().add(newAttribute);
 		org.framed.iorm.model.Shape classOrRole = 
-				(org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(createContext.getTargetContainer());
+			(org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(createContext.getTargetContainer());
 		classOrRole.getFirstSegment().getElements().add(newAttribute);
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		addGraphicalRepresentation(createContext, newAttribute);
 		return new Object[] { newAttribute };
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * the values of the property shape id for the drop shadows of class or roles gathered form
+	 * {@link IdentifierLiterals}
+	 */
+	private final String SHAPE_ID_NATURALTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW,
+						 SHAPE_ID_COMPARTMENTTYPE_SHADOW = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW,
+						 //SHAPE_ID_DATATYPE_SHADOW = IdentifierLiterals.SHAPE_ID_DATATYPE_SHADOW,
+					     SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW;
 }

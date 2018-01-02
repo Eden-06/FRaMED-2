@@ -92,7 +92,6 @@ public class NameUtil {
 	 * (4) the pattern for cardinalities
 	 */
 	private static final Pattern identifierPattern = Pattern.compile(identifier),
-								 attributePattern = Pattern.compile(attribute),
 								 operationPattern = Pattern.compile(operation),
 								 cardinalityPattern = Pattern.compile(cardinality);
 	
@@ -104,16 +103,6 @@ public class NameUtil {
 	public static final boolean matchesIdentifier(String identifier) {
 		Matcher identifierMatcher = identifierPattern.matcher(identifier);
 		return identifierMatcher.matches();
-	}
-	
-	/**
-	 * matching operation for the regular expression of attributes
-	 * @param identifier the string to check against
-	 * @return if the given string input matches the regular expression
-	 */
-	public static final boolean matchesAttribute(String attributeName) {
-		Matcher attributeMatcher = attributePattern.matcher(attributeName);
-		return attributeMatcher.matches();
 	}
 	
 	/**

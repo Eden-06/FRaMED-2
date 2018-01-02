@@ -63,7 +63,7 @@ public class Literals {
 					 SHADOW_SIZE = UILiterals.SHADOW_SIZE;
 	
 	/**
-	 * general color values
+	 * color values
 	 * <p>
 	 * can be:<br>
 	 * (1) the color of text or<br>

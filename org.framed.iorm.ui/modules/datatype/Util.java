@@ -22,9 +22,13 @@ import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 public class Util {
 	
-	Literals literals = new Literals();
+	/**
+	 * the object to get names, id and so on for this feature
+	 */
+	private final Literals literals = new Literals();
 	
-	//layouting
+	//Layout
+	//~~~~~~
 	/**
 	 * This operation calculates where the horizontal center of a data type.
 	 * @param heightOfDataType the height of the data type
@@ -34,7 +38,8 @@ public class Util {
 		return ((heightOfDataType-literals.HEIGHT_NAME_SHAPE-literals.DATATYPE_CORNER_SIZE)/2)+literals.HEIGHT_NAME_SHAPE;
 	}	
 	
-	//naming
+	//Names
+	//~~~~~
 	/**
 	 * matching operation for the regular expression of data type names (identifier)
 	 * @param identifier the string to check against
@@ -102,6 +107,8 @@ public class Util {
 				getDataTypeNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), modelElementNames);
 	}	}
 	
+	//Update
+	//~~~~~~
 	/**
 	 * This operation gets the name of a pictogram element with text shape as children.
 	 * @param pictogramElement the pictogram element to get the name of

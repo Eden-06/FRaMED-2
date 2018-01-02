@@ -17,11 +17,7 @@ public class TextLiterals {
 	/**
 	 * messages used as direct editing tips
 	 */
-	public static final String DIRECTEDITING_ATTRIBUTES = "An attributes name has the form <name>:<type>.",
-							   NAME_ALREADY_USED_ATTRIBUTES = "Another attribute already has the same name!",
-							   DIRECTEDITING_OPERATIONS = "An operations name has the form <name>(<parameters>):<type>.",
-							   NAME_ALREADY_USED_OPERATIONS = "Another operation already has the same name!",
-							   DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
+	public static final String DIRECTEDITING_NATURALTYPE = "A natural types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_NATURALTYPE = "Another natural type already has the same name!",
 							   DIRECTEDITING_GROUP = "A groups name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",

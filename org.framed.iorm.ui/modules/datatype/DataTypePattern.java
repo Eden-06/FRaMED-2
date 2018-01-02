@@ -35,7 +35,6 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
@@ -66,9 +65,25 @@ import org.framed.iorm.ui.util.UIUtil;
 public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
-	 * the object to get names, id and so on for this feature
+	 * the object to get names, ids and so on for this feature
 	 */
 	private final Literals literals = new Literals();
+	
+	/**
+	 *  the object to get names, ids for the attribute and operation feature
+	 *  <p>
+	 *  This reference creates a dependency between the data type and the attribute/operation features
+	 */
+	 private final attributeAndOperation.Literals att_ops_literal = 
+		new attributeAndOperation.Literals();
+	 
+	/**
+	 * shorthand definitions for the used literals from the attribute and operation features 
+	 */
+	 private final String SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = att_ops_literal.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS,
+			 			  SHAPE_ID_OPERATION_INDICATOR_DOTS = att_ops_literal.SHAPE_ID_OPERATION_INDICATOR_DOTS,
+			 			  SHAPE_ID_ATTRIBUTE_TEXT = att_ops_literal.SHAPE_ID_ATTRIBUTE_TEXT,
+			 			  SHAPE_ID_OPERATION_TEXT = att_ops_literal.SHAPE_ID_OPERATION_TEXT;	
 	
 	/**
 	 * the object to call util operations on
@@ -818,69 +833,5 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContextForAllShapes);
 		updateContainingGroupOrCompartmentType();
-	}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * identifier literals used as shape ids for the shapes the attribute and operation containers
-	 * <p>
-	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
-	 */
-	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
-						 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
-						 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
-					     SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-		
-	
+	}	
 }

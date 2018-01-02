@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.shapes;
+package attributeAndOperation;
 
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -14,22 +14,17 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.NameUtil;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
+import org.framed.iorm.ui.util.UIUtil;
+//TODO fix depency
 import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -46,69 +41,32 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
+	 * the object to get names, id and so on for this feature
+	 */
+	private final Literals literals = new Literals();
+	
+	/**
+	 * the object to call utility operations on
+	 */
+	private final Util util = new Util();
+	
+	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.NONE,
 			ViewVisibility.NO_VIEW);
-		
-	/**
-	 * the identifiers for the text rectangle of attributes or operations gathered from {@link IdentifierLiterals}
-	 */
-	private final String SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
-						 SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT;
 	
 	/**
-	 * the standard names for attributes and operations gathered from {@link NameLiterals}
-	 */
-	private final String STANDARD_ATTRIBUTE_NAME = NameLiterals.STANDARD_ATTRIBUTE_NAME,
-						 STANDARD_OPERATION_NAME = NameLiterals.STANDARD_OPERATION_NAME;
-						
-	/**
-	 * the feature name of the create feature in this pattern gathered from {@link NameLiterals}
-	 */
-	private final String ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME = NameLiterals.ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME;
-	
-	/**
-	 * text literals used as warning if an invalid name for attributes or operation is chosen
-	 * or another attribute or operation in the same class or role already has the same name 
-	 * when direct editing
-	 * gathered from {@link TextLiterals}
-	 */
-	private final String DIRECTEDITING_ATTRIBUTES = TextLiterals.DIRECTEDITING_ATTRIBUTES,
-						 NAME_ALREADY_USED_ATTRIBUTES = TextLiterals.NAME_ALREADY_USED_ATTRIBUTES,
-						 DIRECTEDITING_OPERATIONS = TextLiterals.DIRECTEDITING_OPERATIONS,
-						 NAME_ALREADY_USED_OPERATIONS = TextLiterals.NAME_ALREADY_USED_OPERATIONS;
-	
-	/**
-	 * layout integers used to add attributes and operations at the right position
-	 */
-	private final int HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
-			          PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
-			          HEIGHT_ATTRIBUTE_SHAPE = UILiterals.HEIGHT_ATTRITBUTE_SHAPE,
-			          HEIGHT_OPERATION_SHAPE = UILiterals.HEIGHT_OPERATION_SHAPE;
-	
-	/**
-	 * the color of the text in which attribute and operation names are written
-	 */
-	private final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT;
-	
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public AttributeOperationCommonPattern() {
 		super();
+		FEATURE_NAME = literals.COM_FEATURE_NAME;
+		ICON_IMG_ID = literals.COM_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.COM_ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ATTRIBUTE_OPERATION_COMMON_FEATURE_NAME;
-	}
+	}	
 	
 	/**
 	 * checks if pattern is applicable for a given business object
@@ -130,8 +88,8 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 		if(isMainBusinessObjectApplicable(businessObject)) {
-			if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ATTRIBUTE_TEXT) ||
-			   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_OPERATION_TEXT))
+			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
+			   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_OPERATION_TEXT))
 				return true;
 		}
 		return false;  
@@ -146,8 +104,8 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);	
 		if(isMainBusinessObjectApplicable(businessObject)) {
-			if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ATTRIBUTE_TEXT) ||
-			   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_OPERATION_TEXT))
+			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
+			   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_OPERATION_TEXT))
 				return true;
 		}	
 		return false; 
@@ -168,7 +126,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof NamedElement) {
 			NamedElement namedElement = (NamedElement) addContext.getNewObject();
-			if(namedElement.getName().startsWith(STANDARD_ATTRIBUTE_NAME) || namedElement.getName().startsWith(STANDARD_OPERATION_NAME)) {
+			if(namedElement.getName().startsWith(literals.ATT_STANDARD_NAME) || namedElement.getName().startsWith(literals.OPS_STANDARD_NAME)) {
 				PictogramElement pictogramElement = addContext.getTargetContainer();
 				Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 				if(businessObject instanceof org.framed.iorm.model.Shape) {
@@ -177,7 +135,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 					   shape.getType() == Type.DATA_TYPE ||
 					   shape.getType() == Type.COMPARTMENT_TYPE ||
 					   shape.getType() == Type.ROLE_TYPE)	
-						   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
+					   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	
 		return false;
 	}
@@ -218,32 +176,32 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		    operationContainerSize = operationContainer.getChildren().size(); 	
 		int horizontalCenter;
 			horizontalCenter = GeneralUtil.calculateHorizontalCenter(businessObjectOfClassOrRole.getType(), 
-							    	classOrRoleContainer.getGraphicsAlgorithm().getHeight());
+							    classOrRoleContainer.getGraphicsAlgorithm().getHeight());
 		//Step 3
-		 if(addedAttributeOrOperation.getName().startsWith(STANDARD_ATTRIBUTE_NAME)) {
-	    	attributeOrOperationShape = pictogramElementCreateService.createShape(attributeContainer, true);
-	    	text = graphicAlgorithmService.createText(attributeOrOperationShape, addedAttributeOrOperation.getName());
-	    	text.setForeground(manageColor(COLOR_TEXT));
-	    	graphicAlgorithmService.setLocationAndSize(text, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS+HEIGHT_ATTRIBUTE_SHAPE*attributeContainerSize, 
-	    								 classOrRoleContainer.getGraphicsAlgorithm().getWidth()-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE);
-	    	PropertyUtil.setShape_IdValue(attributeOrOperationShape, SHAPE_ID_ATTRIBUTE_TEXT);
-	    } else {
-			if(addedAttributeOrOperation.getName().startsWith(STANDARD_OPERATION_NAME)) {
-		    	attributeOrOperationShape = pictogramElementCreateService.createShape(operationContainer, true);
-		    	text = graphicAlgorithmService.createText(attributeOrOperationShape, addedAttributeOrOperation.getName());
-		    	text.setForeground(manageColor(COLOR_TEXT));
-		    	graphicAlgorithmService.setLocationAndSize(text, PUFFER_BETWEEN_ELEMENTS, PUFFER_BETWEEN_ELEMENTS+horizontalCenter+HEIGHT_OPERATION_SHAPE*operationContainerSize, 
-						 classOrRoleContainer.getGraphicsAlgorithm().getWidth()-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
-		    	PropertyUtil.setShape_IdValue(attributeOrOperationShape, SHAPE_ID_OPERATION_TEXT);	      	
-		    } else return null;    
-	    }	
+		if(addedAttributeOrOperation.getName().startsWith(literals.ATT_STANDARD_NAME)) {
+		   	attributeOrOperationShape = pictogramElementCreateService.createShape(attributeContainer, true);
+		   	text = graphicAlgorithmService.createText(attributeOrOperationShape, addedAttributeOrOperation.getName());
+		   	text.setForeground(manageColor(literals.COLOR_TEXT));
+		    graphicAlgorithmService.setLocationAndSize(text, literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+literals.PUFFER_BETWEEN_ELEMENTS+literals.HEIGHT_ATTRIBUTE_SHAPE*attributeContainerSize, 
+		    	classOrRoleContainer.getGraphicsAlgorithm().getWidth()-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_ATTRIBUTE_SHAPE);
+		    UIUtil.setShape_IdValue(attributeOrOperationShape, literals.SHAPE_ID_ATTRIBUTE_TEXT);
+		} else {
+			if(addedAttributeOrOperation.getName().startsWith(literals.OPS_STANDARD_NAME)) {
+				attributeOrOperationShape = pictogramElementCreateService.createShape(operationContainer, true);
+			    text = graphicAlgorithmService.createText(attributeOrOperationShape, addedAttributeOrOperation.getName());
+			    text.setForeground(manageColor(literals.COLOR_TEXT));
+			    graphicAlgorithmService.setLocationAndSize(text, literals.PUFFER_BETWEEN_ELEMENTS, literals.PUFFER_BETWEEN_ELEMENTS+horizontalCenter+literals.HEIGHT_OPERATION_SHAPE*operationContainerSize, 
+			    	classOrRoleContainer.getGraphicsAlgorithm().getWidth()-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_OPERATION_SHAPE);
+			    UIUtil.setShape_IdValue(attributeOrOperationShape, literals.SHAPE_ID_OPERATION_TEXT);	      	
+			} else return null;    
+		}	
 		//Step 4
-	    IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
+		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(attributeOrOperationShape);
 		directEditingInfo.setPictogramElement(attributeOrOperationShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
-	    link(attributeOrOperationShape, addedAttributeOrOperation);
-	    this.layoutPictogramElement(classOrRoleContainer);
+		link(attributeOrOperationShape, addedAttributeOrOperation);
+		layoutPictogramElement(classOrRoleContainer);
 		return attributeOrOperationShape;
 	}
 	
@@ -256,7 +214,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	public int getEditingType() {
 		return TYPE_TEXT;
 	}
-		
+			
 	/**
 	 * checks if a pictogram element can be direct edited
 	 * <p>
@@ -270,9 +228,9 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
 		if(businessObject instanceof NamedElement && graphicsAlgorithm instanceof Text) {
 			Shape shape = (Shape) editingContext.getPictogramElement();
-			return (PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ATTRIBUTE_TEXT) ||
-					PropertyUtil.isShape_IdValue(shape, SHAPE_ID_OPERATION_TEXT));
-		}	
+			return (UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
+					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT));
+		}		
 		return false;
 	}
 
@@ -285,7 +243,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		NamedElement operation = (NamedElement) getBusinessObject(editingContext);
 		return operation.getName();
 	}
-		
+			
 	/**
 	 * checks if the chosen attribute or operation name is a valid value for it
 	 * <p>
@@ -301,18 +259,18 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		ContainerShape attributeContainer = (ContainerShape) classOrRoleShape.getChildren().get(2);
 		ContainerShape operationContainer = (ContainerShape) classOrRoleShape.getChildren().get(4);
 		if(attributeContainer.getChildren().contains(shape))	{
-			if(!(NameUtil.matchesAttribute(newName))) return DIRECTEDITING_ATTRIBUTES;
-			if(NameUtil.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName)) 
-				return NAME_ALREADY_USED_ATTRIBUTES;
+			if(!(util.matchesAttribute(newName))) return literals.DIRECTEDITING_ATTRIBUTES;
+			if(util.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName)) 
+				return literals.NAME_ALREADY_USED_ATTRIBUTES;
 		}
 		if(operationContainer.getChildren().contains(shape))	{
-			if(!(NameUtil.matchesOperation(newName))) return DIRECTEDITING_OPERATIONS;
-			if(NameUtil.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
-				return NAME_ALREADY_USED_OPERATIONS;
+			if(!(util.matchesOperation(newName))) return literals.DIRECTEDITING_OPERATIONS;
+			if(util.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
+				return literals.NAME_ALREADY_USED_OPERATIONS;
 		}
 		return null;
 	}	
-			
+				
 	/**
 	 * set the new attribute or operation name if the value of it was evaluated as valid in 
 	 * {@link #checkValueValid}
@@ -342,7 +300,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		super.delete(deleteContext);
 		updatePictogramElement(ClassOrRole);
 	}
-		
+			
 	//move feature
 	//~~~~~~~~~~~~
 	/**
@@ -352,7 +310,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
 		return false;
 	}
-		
+			
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**

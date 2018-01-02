@@ -56,6 +56,9 @@ import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.osgi.framework.Bundle;
 
+import attributeAndOperation.AttributeOperationCommonPattern;
+import attributeAndOperation.AttributePattern;
+import attributeAndOperation.OperationPattern;
 import datatype.DataTypePattern;
 import testfeature.TestFeature;
 
@@ -121,9 +124,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
       addPattern(new RoleTypePattern()); 
-      addPattern(new AttributeOperationCommonPattern());
-      addPattern(new AttributePattern());
-      addPattern(new OperationPattern());
       //Step 2
       addConnectionPattern(new RelationshipPattern());
       addConnectionPattern(new InheritancePattern());
