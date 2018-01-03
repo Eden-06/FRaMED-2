@@ -3,6 +3,10 @@ package core.naturaltype;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.UILiterals;
 
+/**
+ * This class saves literals in the scope of the attribute and operations feature module.
+ * @author Kevin Kassin
+ */
 public class Literals {
 
 	/**
@@ -72,13 +76,13 @@ public class Literals {
 			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;
 	
 	/**
-	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
+	 * reason messages used in the operation {@link #updateNeeded}
 	 */
 	public final String REASON_NAME_NULL = "Name of a Natural Type is null.",
 						REASON_NAME_OUT_OF_DATE = "Name of a Natural Type is out of date.";
 	
 	/**
-	 * regular expression for a data types names:
+	 * regular expression for a natural type names:
 	 * <p>
 	 * string of letters and digits, first is no digit (for names)
 	 */

@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.shapes;
+package core.roletype;
 
 import java.util.List;
 
@@ -30,46 +30,40 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.NameUtil;
-import org.framed.iorm.ui.util.ShapePatternUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
+import org.framed.iorm.ui.util.UIUtil;
 
+import core.roletype.Literals;
+import core.roletype.Util;
+import core.roletype.references.AttributeAndOperationsReference;
+
+//TODO Doku
 public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 
 	/**
-	 * name literals gathered from {@link NameLiterals}
-	 * <p>
-	 * can be:<br>
-	 * (1) the name of the create feature in this pattern or<br>
-	 * (2) the standard names for role types or<br>
-	 * (3) the standard value for cardinalities
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String ROLETYPE_FEATURE_NAME = NameLiterals.ROLETYPE_FEATURE_NAME,
-						 STANDARD_ROLETYPE_NAME = NameLiterals.STANDARD_ROLETYPE_NAME,
-						 STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
+	private final Literals literals = new Literals();
 	
 	/**
-	 * the image identifier for the icon of the create feature in this pattern gathered from
-	 * {@link IdentifierLiterals}
+	 * the object to call utility operations on
 	 */
-	private final String IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
+	private final Util util = new Util();
+	
+	/**
+	 * a reference class which encapsulates the dependency to the attribute and operation features
+	 */
+	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -79,104 +73,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			ViewVisibility.COMPARTMENT_VIEW);
 	
 	/**
-	 * identifier literals used as shape ids for the role type 
-	 * <p>
-	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
-	 */
-	private final String SHAPE_ID_ROLETYPE_CONTAINER = IdentifierLiterals.SHAPE_ID_ROLETYPE_CONTAINER,
-						 SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT,
-						 SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
-						 SHAPE_ID_ROLETYPE_SHADOW = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW,
-						 SHAPE_ID_ROLETYPE_NAME = IdentifierLiterals.SHAPE_ID_ROLETYPE_NAME,
-						 SHAPE_ID_ROLETYPE_FIRSTLINE = IdentifierLiterals.SHAPE_ID_ROLETYPE_FIRSTLINE,
-						 SHAPE_ID_ROLETYPE_SECONDLINE = IdentifierLiterals.SHAPE_ID_ROLETYPE_SECONDLINE,
-						 SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER = IdentifierLiterals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER, 
-						 SHAPE_ID_ROLETYPE_OPERATIONCONTAINER = IdentifierLiterals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER;
-	
-	/**
-	 * identifier literals used as shape ids for the shapes of the attribute and operation containers
-	 * <p>
-	 * See {@link IdentifierLiterals} for the meaning of the identifiers.
-	 */
-	private final String SHAPE_ID_OPERATION_TEXT = IdentifierLiterals.SHAPE_ID_OPERATION_TEXT,
-			 			 SHAPE_ID_OPERATION_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_OPERATION_INDICATOR_DOTS,
-			 			 SHAPE_ID_ATTRIBUTE_TEXT = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_TEXT,
-			 			 SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = IdentifierLiterals.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS;
-	
-	/**
-	 * values for the property diagram kind for the diagram in which a role type can be created and added in
-	 */
-	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
-	
-	/**
-	 * text literals gathered from {@link TextLiterals}
-	 * <p>
-	 * can be:<br>
-	 * (1) the message if the form of a chosen role type name is not correct when direct editing or<br>
-	 * (2) the message if a chosen name for a role type is already used when direct editing or<br>
-	 * (3) the message if the form of a chosen occurrence constraint is not correct when direct editing 
-	 */
-	private final String DIRECTEDITING_ROLETYPE = TextLiterals.DIRECTEDITING_ROLETYPE,
-						 NAME_ALREADY_USED_ROLETYPE = TextLiterals.NAME_ALREADY_USED_ROLETYPE,
-						 DIRECTEDITING_OCCURRENCE_CONSTRAINT = TextLiterals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
-	
-	/**
-	 * reason messages used in the operation {@link #updateNeeded} gathered from {@link TextLiterals}
-	 */
-	private final String REASON_NAME_NULL = TextLiterals.REASON_NAME_NULL,
-						 REASON_NAME_OUT_OF_DATE = TextLiterals.REASON_NAME_OUT_OF_DATE,
-					 	 REASON_AMOUNT_ATTRIBUTES = TextLiterals.REASON_AMOUNT_ATTRIBUTES,
-					 	 REASON_AMOUNT_OPERATION = TextLiterals.REASON_AMOUNT_OPERATION,
-					 	 REASON_NAMES_ATTRIBUTES = TextLiterals.REASON_NAMES_ATTRIBUTES,
-					 	 REASON_NAMES_OPERATIONS = TextLiterals.REASON_NAMES_OPERATIONS,
-					 	 REASON_OCCURRENCE_CONSTRAINTS = TextLiterals.REASON_OCCURRENCE_CONSTRAINTS;
-	
-	/**
-	 * layout integers gathered from {@link LayoutLiterals}, look there for reference
-	 */
-	private final int MIN_WIDTH = UILiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
-					  MIN_HEIGHT = UILiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE, 
-					  HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
-					  PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
-					  ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS,
-					  SHADOW_SIZE = UILiterals.SHADOW_SIZE,
-					  HEIGHT_ATTRIBUTE_SHAPE = UILiterals.HEIGHT_ATTRITBUTE_SHAPE,
-					  HEIGHT_OPERATION_SHAPE = UILiterals.HEIGHT_OPERATION_SHAPE,
-					  HEIGHT_OCCURRENCE_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT,
-					  WIDTH_OCCURRENCE_CONSTRAINT = LayoutLiterals.WIDTH_CONSTRAINT;
-	
-	/**
-	 * colors gathered from {@link LayoutLiterals}, look there for reference
-	 */
-	private final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
-								 COLOR_LINES = UILiterals.COLOR_LINES,
-								 COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
-								 COLOR_SHADOW = UILiterals.COLOR_SHADOW;
-	
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public RoleTypePattern() {
 		super();
+		FEATURE_NAME = literals.FEATURE_NAME;
+		ICON_IMG_ID = literals.ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ROLETYPE_FEATURE_NAME;
-	}
-	
-	/**
-	 * enables the icon for the create feature in this pattern
-	 * @return the image identifier for the icon of the create feature in this pattern
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_ROLETYPE;
 	}
 	
 	/**
@@ -210,7 +114,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
 		return isMainBusinessObjectApplicable(businessObject);
-	}
+	}	
 	
 	//add feature
 	//~~~~~~~~~~~
@@ -230,13 +134,13 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			if(shape.getType()==Type.ROLE_TYPE) {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
-					if(DiagramUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
+						if(UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM))
 							return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}	}
 		return false;
 	}
-	
+		
 	/**
 	 * adds the graphical representation of a role type to the pictogram model
 	 * <p>
@@ -280,82 +184,82 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		ContainerShape targetDiagram = getDiagram();
 		int width = addContext.getWidth(), height = addContext.getHeight();
-		if(addContext.getWidth() < MIN_WIDTH) width = MIN_WIDTH;
-		if(addContext.getHeight() < MIN_HEIGHT) height = MIN_HEIGHT;
-				
+		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
+		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
+					
 		//Step 2
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
-							  
+								  
 		//drop shadow
 		ContainerShape dropShadowShape = pictogramElementCreateService.createContainerShape(containerShape, true);
-		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, ROLE_CORNER_RADIUS, ROLE_CORNER_RADIUS);
-		dropShadowRectangle.setForeground(manageColor(COLOR_SHADOW));
-		dropShadowRectangle.setBackground(manageColor(COLOR_SHADOW));
-		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+SHADOW_SIZE, addContext.getY()+SHADOW_SIZE, width, height);
+		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
+		dropShadowRectangle.setForeground(manageColor(literals.COLOR_SHADOW));
+		dropShadowRectangle.setBackground(manageColor(literals.COLOR_SHADOW));
+		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+literals.SHADOW_SIZE, addContext.getY()+literals.SHADOW_SIZE, width, height);
 			
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
-		cardinalityText.setForeground(manageColor(COLOR_TEXT));													
+		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
-				addContext.getX()+width/2-HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-				addContext.getY()-HEIGHT_OCCURRENCE_CONSTRAINT-PUFFER_BETWEEN_ELEMENTS, 
-				WIDTH_OCCURRENCE_CONSTRAINT, 
-				HEIGHT_OCCURRENCE_CONSTRAINT);
-		
+			addContext.getX()+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+			addContext.getY()-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
+			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
+			literals.HEIGHT_OCCURRENCE_CONSTRAINT);
+			
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
-		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, ROLE_CORNER_RADIUS, ROLE_CORNER_RADIUS);
-		typeBodyRectangle.setForeground(manageColor(COLOR_LINES));
-		typeBodyRectangle.setBackground(manageColor(COLOR_BACKGROUND));
+		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
+		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
+		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
 
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
 		Text text = graphicAlgorithmService.createText(nameShape, addedRoleType.getName());	
-		text.setForeground(manageColor(COLOR_TEXT));	
+		text.setForeground(manageColor(literals.COLOR_TEXT));	
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);	
-		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, HEIGHT_NAME_SHAPE);	
-				
+		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);	
+					
 		//first line
 		Shape firstLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);
-		Polyline firstPolyline = graphicAlgorithmService.createPolyline(firstLineShape, new int[] {0, HEIGHT_NAME_SHAPE, width, HEIGHT_NAME_SHAPE});
-		firstPolyline.setForeground(manageColor(COLOR_LINES));
-				
+		Polyline firstPolyline = graphicAlgorithmService.createPolyline(firstLineShape, new int[] {0, literals.HEIGHT_NAME_SHAPE, width, literals.HEIGHT_NAME_SHAPE});
+		firstPolyline.setForeground(manageColor(literals.COLOR_LINES));
+					
 		//attribute container
 		ContainerShape attributeContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
 		Rectangle attributeRectangle = graphicAlgorithmService.createRectangle(attributeContainer);
 		attributeRectangle.setLineVisible(false);
-		attributeRectangle.setBackground(manageColor(COLOR_BACKGROUND));
-		int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.ROLE_TYPE, height);
-		graphicAlgorithmService.setLocationAndSize(attributeRectangle, PUFFER_BETWEEN_ELEMENTS, HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS, 
-														   width-2*PUFFER_BETWEEN_ELEMENTS, horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
+		attributeRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
+		int horizontalCenter = util.calculateHorizontalCenter(height);
+		graphicAlgorithmService.setLocationAndSize(attributeRectangle, literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+literals.PUFFER_BETWEEN_ELEMENTS, 
+															   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
 		//second line
 		Shape secondLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);	
 		Polyline secondPolyline = graphicAlgorithmService.createPolyline(secondLineShape, new int[] {0, horizontalCenter, width, horizontalCenter});
-		secondPolyline.setForeground(manageColor(COLOR_LINES));
-				
+		secondPolyline.setForeground(manageColor(literals.COLOR_LINES));
+					
 		//operation container
 		ContainerShape operationContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
 		Rectangle operationRectangle = graphicAlgorithmService.createRectangle(operationContainer);
 		operationRectangle.setLineVisible(false);
-		operationRectangle.setBackground(manageColor(COLOR_BACKGROUND));
+		operationRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(operationRectangle, 
-				PUFFER_BETWEEN_ELEMENTS, horizontalCenter+PUFFER_BETWEEN_ELEMENTS, 
-				width-2*PUFFER_BETWEEN_ELEMENTS, horizontalCenter-ROLE_CORNER_RADIUS/2);
-				
+			literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter+literals.PUFFER_BETWEEN_ELEMENTS, 
+			width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter-literals.ROLE_CORNER_RADIUS/2);
+					
 		//Step 3
-		PropertyUtil.setShape_IdValue(containerShape, SHAPE_ID_ROLETYPE_CONTAINER);
-		PropertyUtil.setShape_IdValue(cardinalityShape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
-		PropertyUtil.setShape_IdValue(typeBodyShape, SHAPE_ID_ROLETYPE_TYPEBODY);
-		PropertyUtil.setShape_IdValue(dropShadowShape, SHAPE_ID_ROLETYPE_SHADOW);
-		PropertyUtil.setShape_IdValue(nameShape, SHAPE_ID_ROLETYPE_NAME);
-		PropertyUtil.setShape_IdValue(firstLineShape, SHAPE_ID_ROLETYPE_FIRSTLINE);
-		PropertyUtil.setShape_IdValue(attributeContainer, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
-		PropertyUtil.setShape_IdValue(secondLineShape, SHAPE_ID_ROLETYPE_SECONDLINE);
-		PropertyUtil.setShape_IdValue(operationContainer, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-				
+		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLETYPE_CONTAINER);
+		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
+		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLETYPE_TYPEBODY);
+		UIUtil.setShape_IdValue(dropShadowShape, literals.SHAPE_ID_ROLETYPE_SHADOW);
+		UIUtil.setShape_IdValue(nameShape, literals.SHAPE_ID_ROLETYPE_NAME);
+		UIUtil.setShape_IdValue(firstLineShape, literals.SHAPE_ID_ROLETYPE_FIRSTLINE);
+		UIUtil.setShape_IdValue(attributeContainer, literals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
+		UIUtil.setShape_IdValue(secondLineShape, literals.SHAPE_ID_ROLETYPE_SECONDLINE);
+		UIUtil.setShape_IdValue(operationContainer, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
+					
 		//Step 4
 		link(containerShape, addedRoleType);
 		link(cardinalityShape, addedRoleType);
@@ -366,7 +270,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		link(attributeContainer, addedRoleType);
 		link(secondLineShape, addedRoleType);
 		link(operationContainer, addedRoleType);
-				
+					
 		//Step 5
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
@@ -377,7 +281,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		layoutPictogramElement(typeBodyShape);
 		updateContainingGroupOrCompartmentType();
 		return containerShape;
-	}
+	}	
 	
 	//create feature
 	//~~~~~~~~~~~~~~
@@ -391,12 +295,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		if(DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null &&
-		   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM))	
+		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null &&
+			UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM))	
 			return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		return false;
 	}
-	
+		
 	/**
 	 * creates the business objects of the role type, adds it to model of the diagram in which the role type is 
 	 * created in and calls the add function for the role type
@@ -423,7 +327,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newRoleType = OrmFactory.eINSTANCE.createShape();
 		newRoleType.setType(Type.ROLE_TYPE);
-		String standardName = NameUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.ROLE_TYPE, STANDARD_ROLETYPE_NAME);
+		String standardName = util.calculateStandardNameForCompartmentsTypeElement(getDiagram());
 		newRoleType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -434,20 +338,20 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		newRoleType.setSecondSegment(operationSegment);
 		//occurence constraint
 		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
-		occurenceConstraint.setName(STANDARD_CARDINALITY);
+		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
 		getDiagram().eResource().getContents().add(occurenceConstraint);
 		newRoleType.setDescription(occurenceConstraint);
-		
+			
 		//Step 2
-		Model model = DiagramUtil.getLinkedModelForDiagram((Diagram) getDiagram());
+		Model model = UIUtil.getLinkedModelForDiagram((Diagram) getDiagram());
 		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
 		model.getElements().add(newRoleType);
 		newRoleType.setContainer(model);
-	
+		
 		//Step 3
 		addGraphicalRepresentation(createContext, newRoleType);
 		return new Object[] { newRoleType };
-	}
+	}	
 	
 	//direct editing
 	//~~~~~~~~~~~~~~
@@ -459,7 +363,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public int getEditingType() {
 		return TYPE_TEXT;
 	}
-		
+			
 	/**
 	 * calculates if a pictogram element of a role type can be direct edited
 	 * <p>
@@ -470,8 +374,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
 		PictogramElement pictogramElement = editingContext.getPictogramElement();
 		if(pictogramElement instanceof Shape) {
-		   if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME) ||
-			  PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+		   if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME) ||
+			  UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
 			  return true;
 		}   
 		return false;
@@ -484,13 +388,13 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String getInitialValue(IDirectEditingContext editingContext) {
 		org.framed.iorm.model.Shape roleType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		PictogramElement pictogramElement = editingContext.getPictogramElement();
-		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME)) 
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME)) 
 			return roleType.getName();
-		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
 			return roleType.getDescription().getName();
 		return null;
 	}
-		
+			
 	/**
 	 * calculates if a chosen value for the role types name or the occurrence constraint is valid
 	 * <p>
@@ -503,17 +407,17 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newValue, IDirectEditingContext editingContext) {
 		PictogramElement pictogramElement = editingContext.getPictogramElement();
 		if(getInitialValue(editingContext).contentEquals(newValue)) return null;
-		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_NAME)) {
-			if(!(NameUtil.matchesIdentifier(newValue))) return DIRECTEDITING_ROLETYPE;
-			if(NameUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newValue)) 
-				return NAME_ALREADY_USED_ROLETYPE;
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME)) {
+			if(!(util.matchesIdentifier(newValue))) return literals.DIRECTEDITING_ROLETYPE;
+			if(util.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), newValue)) 
+				return literals.NAME_ALREADY_USED_ROLETYPE;
 		}	
-		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
-			if(!(NameUtil.matchesCardinality(newValue))) return DIRECTEDITING_OCCURRENCE_CONSTRAINT;
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+			if(!(util.matchesCardinality(newValue))) return literals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
 		}
-	    return null;
-	}	
-		
+		return null;
+	} 
+			
 	/**
 	 * sets value of the role types name or the occurrence constraint, updates its own pictogram element and a 
 	 * compartment in which its in, if any.
@@ -524,16 +428,16 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
 		org.framed.iorm.model.Shape roleType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		Shape shape = (Shape) editingContext.getPictogramElement();
-		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_NAME)) {
+		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_NAME)) {
 			roleType.setName(value);
 			updatePictogramElement(shape.getContainer());
 			updateContainingGroupOrCompartmentType();
 		}	
-		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			roleType.getDescription().setName(value);
 			for(Shape containerChild : shape.getContainer().getChildren()) {
-	    		if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_ROLETYPE_TYPEBODY)) {
-	    			updatePictogramElement(containerChild);
+		    	if(UIUtil.isShape_IdValue(containerChild, literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
+		    		updatePictogramElement(containerChild);
 	}	}	}	}
 	
 	//layout feature
@@ -581,129 +485,128 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		Shape indicatorDotsShapeToDelete;
 		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
 		//Step 1
-		if(!(PropertyUtil.isShape_IdValue(container, SHAPE_ID_ROLETYPE_TYPEBODY))) return false;
+		if(!(UIUtil.isShape_IdValue(container, literals.SHAPE_ID_ROLETYPE_TYPEBODY))) return false;
 		else {	
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm(); 
 			RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
 		    //Step 2
-	        if(typeBodyRectangle.getWidth() < MIN_WIDTH) typeBodyRectangle.setWidth(MIN_WIDTH);
-			if(typeBodyRectangle.getHeight() < MIN_HEIGHT) typeBodyRectangle.setHeight(MIN_HEIGHT);
+		    if(typeBodyRectangle.getWidth() < literals.MIN_WIDTH) typeBodyRectangle.setWidth(literals.MIN_WIDTH);
+			if(typeBodyRectangle.getHeight() < literals.MIN_HEIGHT) typeBodyRectangle.setHeight(literals.MIN_HEIGHT);
 			int width = typeBodyRectangle.getWidth();
-		    int height = typeBodyRectangle.getHeight();
-		    int horizontalCenter = GeneralUtil.calculateHorizontalCenter(Type.ROLE_TYPE, height);
-		    dropShadowRectangle.setWidth(width);
-		    dropShadowRectangle.setHeight(height);
-		    dropShadowRectangle.setX(typeBodyRectangle.getX()+SHADOW_SIZE);
-		    dropShadowRectangle.setY(typeBodyRectangle.getY()+SHADOW_SIZE);    
-		    //Step 4
+			int height = typeBodyRectangle.getHeight();
+			int horizontalCenter = util.calculateHorizontalCenter(height);
+			dropShadowRectangle.setWidth(width);
+			dropShadowRectangle.setHeight(height);
+			dropShadowRectangle.setX(typeBodyRectangle.getX()+literals.SHADOW_SIZE);
+			dropShadowRectangle.setY(typeBodyRectangle.getY()+literals.SHADOW_SIZE);    
+			//Step 4
 		    for(Shape shape : container.getChildren()){
-		    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
-		        //(a) name
-		        if (graphicsAlgorithm instanceof Text) {
-		          	Text text = (Text) graphicsAlgorithm;	
-		           	if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_NAME)) {
-		           		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, HEIGHT_NAME_SHAPE);
-		           		layoutChanged=true;
-		        }	}
-		        //(b) first and second line
-		        if (graphicsAlgorithm instanceof Polyline) {	   
-		        	Polyline polyline = (Polyline) graphicsAlgorithm;  
-			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_FIRSTLINE)) {
-			          	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, polyline.getPoints().get(1).getY()));
-			           	layoutChanged=true;
-			        }	
-			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_SECONDLINE)) {   
-			           	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalCenter));
-			           	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalCenter));
-			           	layoutChanged=true;
-			    }	}
-		        if (graphicsAlgorithm instanceof Rectangle) {
-		          	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
-		          	//(c) attribute container shape
-			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
-			           	//resize and positioning the container
-			           	newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
-			           	newWidth = (typeBodyRectangle.getWidth()-2*PUFFER_BETWEEN_ELEMENTS);      
-			           	newY = HEIGHT_NAME_SHAPE+PUFFER_BETWEEN_ELEMENTS;
-			            rectangle.setHeight(newHeight);
-			            rectangle.setWidth(newWidth);
-			            ContainerShape attributeContainerShape = (ContainerShape) shape;	       
-			            EList<Shape> attributes = attributeContainerShape.getChildren();
-			            //set places of attributes
-			            for(int m = 0; m<attributes.size(); m++) {
-			            	Text attributeText = (Text) attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm();
-			            	attributeText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
-			            	attributeText.setWidth(newWidth);
-		            	}   	
-			            //set all attributes visible and delete indicator dots
-			            indicatorDotsShapeToDelete = null;
-			            for(int j = 0; j<attributes.size(); j++) {
-			            	attributes.get(j).setVisible(true);	   
-			            	if(PropertyUtil.isShape_IdValue(attributes.get(j), SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
-			            		indicatorDotsShapeToDelete = attributes.get(j);
-			            }
-			            attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
-			            //check if not all attributes fit in the attribute field
-			            if(attributeContainerShape.getChildren().size()*HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
-			            	int fittingAttributes = (newHeight-HEIGHT_ATTRIBUTE_SHAPE)/HEIGHT_ATTRIBUTE_SHAPE;	   
-			            	//set not fitting attributes to invisible
-			            	for(int k = fittingAttributes; k<attributes.size(); k++) {
-			            		attributeContainerShape.getChildren().get(k).setVisible(false);
-			            	}	 
-			            	//add dots to indicate that not all attributes fit
-			            	Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
+	    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();                         	                 
+	        //(a) name
+	    	if (graphicsAlgorithm instanceof Text) {
+	    		Text text = (Text) graphicsAlgorithm;	
+			   	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_NAME)) {
+			   		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);
+			   		layoutChanged=true;
+			}	}
+			//(b) first and second line
+	    	if (graphicsAlgorithm instanceof Polyline) {	   
+			   	Polyline polyline = (Polyline) graphicsAlgorithm;  
+			   	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_FIRSTLINE)) {
+			   		polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, polyline.getPoints().get(1).getY()));
+			       	layoutChanged=true;
+			   	}	
+			   	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_SECONDLINE)) {   
+		          	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalCenter));
+		           	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalCenter));
+		           	layoutChanged=true;
+		   }	}
+	    		if (graphicsAlgorithm instanceof Rectangle) {
+	    			Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
+			       	//(c) attribute container shape
+				    if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
+				    	//resize and positioning the container
+				       	newHeight = horizontalCenter-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS;
+				        newWidth = (typeBodyRectangle.getWidth()-2*literals.PUFFER_BETWEEN_ELEMENTS);      
+				       	newY = literals.HEIGHT_NAME_SHAPE+literals.PUFFER_BETWEEN_ELEMENTS;
+				       	rectangle.setHeight(newHeight);
+				        rectangle.setWidth(newWidth);
+				        ContainerShape attributeContainerShape = (ContainerShape) shape;	       
+				        EList<Shape> attributes = attributeContainerShape.getChildren();
+				        //set places of attributes
+				        for(int m = 0; m<attributes.size(); m++) {
+				          	Text attributeText = (Text) attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+				           	attributeText.setY(newY+m*attOpsReference.HEIGHT_OPERATION_SHAPE);
+				           	attributeText.setWidth(newWidth);
+			           	}   	
+				        //set all attributes visible and delete indicator dots
+				        indicatorDotsShapeToDelete = null;
+				        for(int j = 0; j<attributes.size(); j++) {
+				           	attributes.get(j).setVisible(true);	   
+				           	if(UIUtil.isShape_IdValue(attributes.get(j), attOpsReference.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS))
+				           		indicatorDotsShapeToDelete = attributes.get(j);
+				        }
+				        attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
+				        //check if not all attributes fit in the attribute field
+				        if(attributeContainerShape.getChildren().size()*attOpsReference.HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
+				          	int fittingAttributes = (newHeight-attOpsReference.HEIGHT_ATTRIBUTE_SHAPE)/attOpsReference.HEIGHT_ATTRIBUTE_SHAPE;	   
+				           	//set not fitting attributes to invisible
+				           	for(int k = fittingAttributes; k<attributes.size(); k++) {
+				           		attributeContainerShape.getChildren().get(k).setVisible(false);
+				           	}	 
+				           	//add dots to indicate that not all attributes fit
+				           	Shape indicatorDotsShape = pictogramElementCreateService.createShape(attributeContainerShape, true); 
 					        Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
-					        indicatorDots.setForeground(manageColor(COLOR_TEXT));
+					        indicatorDots.setForeground(manageColor(literals.COLOR_TEXT));
 					        graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-					           	PUFFER_BETWEEN_ELEMENTS, HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*HEIGHT_ATTRIBUTE_SHAPE, 
-					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE-2*PUFFER_BETWEEN_ELEMENTS);
-					        PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
-			            }	            			
-			            layoutChanged=true;
-			        }
-			        //(d) operation container shape
-			        if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
-			            //resize and positioning the container
-			            newHeight = horizontalCenter-HEIGHT_NAME_SHAPE-2*PUFFER_BETWEEN_ELEMENTS;
-			            newWidth = width-2*PUFFER_BETWEEN_ELEMENTS;		
-			            newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;	            	
-			            rectangle.setHeight(newHeight);
-			            rectangle.setWidth(newWidth);
-			            rectangle.setY(newY);
-			            ContainerShape operationContainerShape = (ContainerShape) shape;
-			            EList<Shape> operations = operationContainerShape.getChildren();
-			            //set place of operations
-			            for(int m = 0; m<operations.size(); m++) {
-			            	Text operationText = (Text) operationContainerShape.getChildren().get(m).getGraphicsAlgorithm();
-			            	operationText.setY(newY+m*HEIGHT_OPERATION_SHAPE);
-			            	operationText.setWidth(newWidth);
-		            	}
-			            //set all operations visible
-						indicatorDotsShapeToDelete = null;
-						for(int n = 0; n<operations.size(); n++) {
+					           	literals.PUFFER_BETWEEN_ELEMENTS, attOpsReference.HEIGHT_ATTRIBUTE_SHAPE+fittingAttributes*attOpsReference.HEIGHT_ATTRIBUTE_SHAPE, 						           	newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, attOpsReference.HEIGHT_OPERATION_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
+						        UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS);
+				        }	            			
+				        layoutChanged=true;
+				    }
+				    //(d) operation container shape
+				    if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
+				    	//resize and positioning the container
+				    	newHeight = horizontalCenter-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS;
+				    	newWidth = width-2*literals.PUFFER_BETWEEN_ELEMENTS;		
+				    	newY = horizontalCenter+literals.PUFFER_BETWEEN_ELEMENTS;	            	
+				    	rectangle.setHeight(newHeight);
+				    	rectangle.setWidth(newWidth);
+				    	rectangle.setY(newY);
+				    	ContainerShape operationContainerShape = (ContainerShape) shape;
+				    	EList<Shape> operations = operationContainerShape.getChildren();
+				    	//set place of operations
+				    	for(int m = 0; m<operations.size(); m++) {
+				    		Text operationText = (Text) operationContainerShape.getChildren().get(m).getGraphicsAlgorithm();
+				           	operationText.setY(newY+m*attOpsReference.HEIGHT_OPERATION_SHAPE);
+				           	operationText.setWidth(newWidth);
+				    	}
+				    	//set all operations visible
+				    	indicatorDotsShapeToDelete = null;
+				    	for(int n = 0; n<operations.size(); n++) {
 						    operations.get(n).setVisible(true);
-						    if(PropertyUtil.isShape_IdValue(operations.get(n), SHAPE_ID_OPERATION_INDICATOR_DOTS))
+						    if(UIUtil.isShape_IdValue(operations.get(n), attOpsReference.SHAPE_ID_OPERATION_INDICATOR_DOTS))
 						    indicatorDotsShapeToDelete = operations.get(n);
 						}
 						operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
 						//check if not all operations fit in the operations field
-						if(operations.size()*HEIGHT_OPERATION_SHAPE>newHeight) {	            		
-							int fittingOperations = (newHeight-HEIGHT_OPERATION_SHAPE)/HEIGHT_OPERATION_SHAPE;	   
+						if(operations.size()*attOpsReference.HEIGHT_OPERATION_SHAPE>newHeight) {	            		
+							int fittingOperations = (newHeight-attOpsReference.HEIGHT_OPERATION_SHAPE)/attOpsReference.HEIGHT_OPERATION_SHAPE;	   
 						   	//set not fitting operations to invisible
-					       	for(int o = fittingOperations; o<operations.size(); o++) {
-					       		operationContainerShape.getChildren().get(o).setVisible(false);            				
-						    }   	
-					       	//add dots to indicate that not all operations fit
-						    Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
-					        Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
-					        indicatorDots.setForeground(manageColor(COLOR_TEXT));
-					        graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-					           	PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*HEIGHT_OPERATION_SHAPE, 
-					           	newWidth-2*PUFFER_BETWEEN_ELEMENTS, HEIGHT_OPERATION_SHAPE);
-					       	PropertyUtil.setShape_IdValue(indicatorDotsShape, SHAPE_ID_OPERATION_INDICATOR_DOTS);
-					    } 	
+							for(int o = fittingOperations; o<operations.size(); o++) {
+						       	operationContainerShape.getChildren().get(o).setVisible(false);            				
+							}   	
+						   	//add dots to indicate that not all operations fit
+							Shape indicatorDotsShape = pictogramElementCreateService.createShape(operationContainerShape, true); 
+						    Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
+						    indicatorDots.setForeground(manageColor(literals.COLOR_TEXT));
+						    graphicAlgorithmService.setLocationAndSize(indicatorDots, 
+						       	literals.PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*attOpsReference.HEIGHT_OPERATION_SHAPE, 
+					          	newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, attOpsReference.HEIGHT_OPERATION_SHAPE);
+					       	UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_OPERATION_INDICATOR_DOTS);
+						} 	
 					    layoutChanged=true;
-		}  }	}	}        
+		}  	}	}	}        
 		return layoutChanged;
 	}
 	
@@ -725,75 +628,74 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public IReason updateNeeded(IUpdateContext updateContext) {
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
-			
-		if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY)) {
+				
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
 			//pictogram name of natural type, attributes and operations, occurrence constraint
-			String pictogramTypeName = ShapePatternUtil.getNameOfPictogramElement(pictogramElement, SHAPE_ID_ROLETYPE_NAME);
-			List<String> pictogramAttributeNames = ShapePatternUtil.getpictogramAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
-			List<String> pictogramOperationNames = ShapePatternUtil.getpictogramOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-			String pictogramOccurrenceConstraint = ShapePatternUtil.getOccurenceConstraintOfPictogramElement(pictogramElement, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
+			String pictogramTypeName = util.getNameOfPictogramElement(pictogramElement);
+			List<String> pictogramAttributeNames = util.getpictogramAttributeNames(pictogramElement);
+			List<String> pictogramOperationNames = util.getpictogramOperationNames(pictogramElement);
+			String pictogramOccurrenceConstraint = util.getOccurenceConstraintOfPictogramElement(pictogramElement);
 			//business name and attributes
-			String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
-			List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-			String businessTypeOccurrenceConstraint = ShapePatternUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-			
+			String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
+			List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
+			String businessTypeOccurrenceConstraint = util.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+				
 			//check for update: different names, different amount of attibutes/ operations
-			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(REASON_NAME_NULL);
-			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(REASON_NAME_OUT_OF_DATE);  
-			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason(REASON_AMOUNT_ATTRIBUTES);
-			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason(REASON_AMOUNT_OPERATION);
+			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
+			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(literals.REASON_NAME_OUT_OF_DATE);  
+			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason(attOpsReference.REASON_AMOUNT_ATTRIBUTES);
+			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason(attOpsReference.REASON_AMOUNT_OPERATION);
 			for(int i=0; i<pictogramAttributeNames.size(); i++) {
-				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_ATTRIBUTES);
+				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason(attOpsReference.REASON_NAMES_ATTRIBUTES);
 			}	
 			for(int i=0; i<pictogramOperationNames.size(); i++) {
-				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(REASON_NAMES_OPERATIONS);
+				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(attOpsReference.REASON_NAMES_OPERATIONS);
 			}	
-			if(!pictogramOccurrenceConstraint.equals(businessTypeOccurrenceConstraint)) return Reason.createTrueReason(REASON_OCCURRENCE_CONSTRAINTS);
+			if(!pictogramOccurrenceConstraint.equals(businessTypeOccurrenceConstraint)) return Reason.createTrueReason(literals.REASON_OCCURRENCE_CONSTRAINTS);
 		}
 		return Reason.createFalseReason();
 	}
-		
+			
 	@Override
 	public boolean update(IUpdateContext updateContext) {
 		int counter;
 		boolean changed = false;
-	         
+		         
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 			
 		//business names of natural type, attributes and operations
-		String businessTypeName = ShapePatternUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
-		List<String> businessAttributeNames = ShapePatternUtil.getBusinessAttributeNames(pictogramElement, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER);
-		List<String> businessOperationNames = ShapePatternUtil.getBusinessOperationNames(pictogramElement, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
-		String businessTypeOccurrenceConstraint = ShapePatternUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
-		
+		String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
+		List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
+		String businessTypeOccurrenceConstraint = util.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
+			
 		//set type name in pictogram model
-	    if (pictogramElement instanceof ContainerShape &&
-	    	PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY)) {     
-	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
-	    	//occurrence
-	    	for(Shape containerChild : typeBodyShape.getContainer().getChildren()) {
-	    		if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
-	    			((Text) containerChild.getGraphicsAlgorithm()).setValue(businessTypeOccurrenceConstraint);
-	    		}	
-	    	}
-	    	//iterate
-	        for(Shape shape : typeBodyShape.getChildren()) {
-	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
-	        		Text text = (Text) shape.getGraphicsAlgorithm();
-	        		if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_NAME)) {
-	                 	text.setValue(businessTypeName);
-	                   	changed = true;
-	            }   }
-	            //set attribute and operation names and thier places in pictogram model
-	            if(shape instanceof ContainerShape) {
-	            	ContainerShape innerContainerShape = (ContainerShape) shape;
+		if (pictogramElement instanceof ContainerShape &&
+		   	UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {     
+		   	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+		   	//occurrence
+		   	for(Shape containerChild : typeBodyShape.getContainer().getChildren()) {
+		   		if(UIUtil.isShape_IdValue(containerChild, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		   			((Text) containerChild.getGraphicsAlgorithm()).setValue(businessTypeOccurrenceConstraint);
+		   	}	}
+		    //iterate
+		    for(Shape shape : typeBodyShape.getChildren()) {
+		      	if (shape.getGraphicsAlgorithm() instanceof Text) {
+		       		Text text = (Text) shape.getGraphicsAlgorithm();
+		       		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_NAME)) {
+		               	text.setValue(businessTypeName);
+		                  	changed = true;
+		       	}   }
+		      	//set attribute and operation names and thier places in pictogram model
+		      	if(shape instanceof ContainerShape) {
+		           	ContainerShape innerContainerShape = (ContainerShape) shape;
 					if(innerContainerShape.getGraphicsAlgorithm() instanceof Rectangle) {
 						//Attributes
 						counter = 0;
-						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
+						if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
 							for(Shape attributeShape : innerContainerShape.getChildren()) {
-								if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+								if(UIUtil.isShape_IdValue(attributeShape, attOpsReference.SHAPE_ID_ATTRIBUTE_TEXT)) {
 									Text text = (Text) attributeShape.getGraphicsAlgorithm();
 									text.setValue(businessAttributeNames.get(counter));
 									changed = true;
@@ -802,16 +704,16 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 						//Operations
 						counter = 0;
 						//newY = horizontalCenter+PUFFER_BETWEEN_ELEMENTS;
-						if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
+						if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
 							for(Shape operationShape : innerContainerShape.getChildren()) {
-								if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								if(UIUtil.isShape_IdValue(operationShape, attOpsReference.SHAPE_ID_OPERATION_TEXT)) {
 									Text text = (Text) operationShape.getGraphicsAlgorithm();
 									text.setValue(businessOperationNames.get(counter));									
 									//operationShape.getGraphicsAlgorithm().setY(newY+counter*HEIGHT_OPERATION_SHAPE);
 									changed = true;
 									counter++;
 		}	}	}	}	}	}	}        
-	    return changed;
+		return changed;
 	}
 	
 	//move feature
@@ -824,10 +726,10 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW)) {
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW)) {
 			return false;
 		}
-		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_TYPEBODY)) {
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
 			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 			ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
 			return moveContext.getSourceContainer() != null && 
@@ -841,7 +743,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//move the type body and the drop shadow 
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
 			super.moveShape(moveContext);
 		else {
 			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
@@ -854,22 +756,22 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			
 			
 			if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
-				dropShadowRectangle.setX(moveContext.getX()+SHADOW_SIZE);
-				dropShadowRectangle.setY(moveContext.getY()+SHADOW_SIZE);
+				dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
+				dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
 				OCText.setX(OCText.getX() + moveContext.getDeltaX());
 				OCText.setY(OCText.getY() + moveContext.getDeltaY());
 				super.moveShape(moveContext);
 			} else {
 				//targetContainer of moveContext is dropShadowShape
 				//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
-				dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*SHADOW_SIZE);
-				dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*SHADOW_SIZE);
-				OCText.setX(OCText.getX() + moveContext.getX()+SHADOW_SIZE);
-				OCText.setY(OCText.getY() + moveContext.getY()+SHADOW_SIZE);
+				dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
+				dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+				OCText.setX(OCText.getX() + moveContext.getX()+literals.SHADOW_SIZE);
+				OCText.setY(OCText.getY() + moveContext.getY()+literals.SHADOW_SIZE);
 				MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
 				changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
-				changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+SHADOW_SIZE);
-				changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+SHADOW_SIZE);
+				changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
+				changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
 				super.moveShape(changedMoveContextForTypeBody);
 			}	
 		this.layoutPictogramElement(typeBodyShape);
@@ -883,8 +785,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
-		   PropertyUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		if(UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW) ||
+		   UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
@@ -897,8 +799,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
-		if(PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_ROLETYPE_SHADOW) ||
-		   PropertyUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		if(UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW) ||
+		   UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canDelete(deleteContext);

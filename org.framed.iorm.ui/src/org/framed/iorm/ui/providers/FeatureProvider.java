@@ -25,6 +25,8 @@ import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
+import core.roletype.RoleTypePattern;
+
 /**
  * This class manages the pattern and features for the editing of the diagram type
  * @author Kevin Kassin

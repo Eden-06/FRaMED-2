@@ -2,7 +2,6 @@ package attributeAndOperation.references;
 
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.util.GeneralUtil;
 
 /**
  * The reference class which saves in which other module feature's shapes a attribute or
@@ -10,6 +9,12 @@ import org.framed.iorm.ui.util.GeneralUtil;
  */
 public class CompartmentTypeUsedInReference extends AbstractUsedInReference {
 
+	//TODO change when possible
+	/**
+	 * the object to call utility operations of the datatype feature on
+	 */
+	private core.naturaltype.Util util = new core.naturaltype.Util();
+	
 	/**
 	 * class constructor
 	 */
@@ -21,6 +26,6 @@ public class CompartmentTypeUsedInReference extends AbstractUsedInReference {
 	/** */
 	@Override
 	public int getHorizontalCenter(int height) {
-		return GeneralUtil.calculateHorizontalCenter(Type.COMPARTMENT_TYPE, height);
+		return util.calculateHorizontalCenter(height);
 	}
 }

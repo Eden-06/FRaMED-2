@@ -17,7 +17,6 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -33,23 +32,8 @@ public class GeneralUtil {
 	 * the layout integers this class need to perform the operation {@link #calculateHorizontalCenter}
 	 * gathered from {@link LayoutLiterals}
 	 */
-	private static final int HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
-			 		  	 	 ROLE_CORNER_RADIUS = LayoutLiterals.ROLE_CORNER_RADIUS;
+	private static final int HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE;
 		
-	/**
-	 * This operation calculates where the horizontal center of a class or role is.
-	 * <p>
-	 * Depending on the the type of the class or role and its height the horizontal center position is returned.
-	 * @param type the type of the class or role
-	 * @param heightOfClassOrRole the height of the class or role
-	 * @return the horizontal center position
-	 */
-	public static final int calculateHorizontalCenter(Type type, int heightOfClassOrRole) {
-		if(type == Type.ROLE_TYPE)
-			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-ROLE_CORNER_RADIUS/2)/2)+HEIGHT_NAME_SHAPE;
-		return 0;
-	}
-	
 	/**
 	 * This operation calculates where the horizontal first third of a class or role is.
 	 * <p>

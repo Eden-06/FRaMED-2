@@ -1,8 +1,6 @@
 package attributeAndOperation.references;
 
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.util.GeneralUtil;
 
 /**
  * The reference class which saves in which other module feature's shapes a attribute or
@@ -11,17 +9,27 @@ import org.framed.iorm.ui.util.GeneralUtil;
 public class RoleTypeUsedInReference extends AbstractUsedInReference {
 
 	/**
+	 * the object to get names, ids and so on for the datatype feature
+	 */
+	private core.roletype.Literals literals = new core.roletype.Literals();
+	
+	/**
+	 * the object to call utility operations of the datatype feature on
+	 */
+	private core.roletype.Util util = new core.roletype.Util();
+	
+	/**
 	 * class constructor
 	 */
 	public RoleTypeUsedInReference() {
 		modelType = Type.ROLE_TYPE;
-		shadowShapeID = IdentifierLiterals.SHAPE_ID_ROLETYPE_SHADOW;
+		shadowShapeID = literals.SHAPE_ID_ROLETYPE_SHADOW;
 	}
 	
 	/** */
 	@Override
 	public int getHorizontalCenter(int height) {
-		return GeneralUtil.calculateHorizontalCenter(Type.ROLE_TYPE, height);
+		return util.calculateHorizontalCenter(height);
 	}
 
 }

@@ -99,6 +99,12 @@ public class UILiterals {
 							MIN_HEIGHT_FOR_CLASS_OR_ROLE = 100;
 	
 	/**
+	 * layout integers for the text of occurrence constraints
+	 */
+	public static final int HEIGHT_OCCURENCE_CONSTRAINT = 15,
+					 		WIDTH_OCCURENCE_CONSTRAINT = 30;
+	
+	/**
 	 * general color values
 	 * <p>
 	 * can be:<br>

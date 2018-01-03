@@ -1,7 +1,6 @@
 package attributeAndOperation.references;
 
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.util.GeneralUtil;
 
 /**
  * The reference class which saves in which other module feature's shapes a attribute or
@@ -15,6 +14,11 @@ public class NaturalTypeUsedInReference extends AbstractUsedInReference {
 	private core.naturaltype.Literals literals = new core.naturaltype.Literals();
 	
 	/**
+	 * the object to call utility operations of the datatype feature on
+	 */
+	private core.naturaltype.Util util = new core.naturaltype.Util();
+	
+	/**
 	 * class constructor
 	 */
 	public NaturalTypeUsedInReference() {
@@ -25,7 +29,7 @@ public class NaturalTypeUsedInReference extends AbstractUsedInReference {
 	/** */
 	@Override
 	public int getHorizontalCenter(int height) {
-		return GeneralUtil.calculateHorizontalCenter(Type.NATURAL_TYPE, height);
+		return util.calculateHorizontalCenter(height);
 	}
 
 }

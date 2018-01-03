@@ -1,4 +1,4 @@
-package core.naturaltype;
+package core.roletype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +14,12 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.util.UIUtil;
-import org.framed.iorm.ui.wizards.RoleModelWizard; //**import used for javadoc link
 
-import core.naturaltype.Literals;
-import core.naturaltype.references.AttributeAndOperationsReference;
+import core.roletype.references.AttributeAndOperationsReference;
+import core.roletype.Literals;
 
 /**
  * This class offers utility operations in the scope of the attribute and operations feature module.
@@ -43,14 +44,14 @@ public class Util {
 	 * @param heightOfDataType the height of the data type
 	 * @return the horizontal center position
 	 */
-	public int calculateHorizontalCenter(int heightOfNaturalType) {
-		return ((heightOfNaturalType-literals.HEIGHT_NAME_SHAPE)/2)+literals.HEIGHT_NAME_SHAPE;
+	public int calculateHorizontalCenter(int heightOfRoleType) {
+		return ((heightOfRoleType-literals.HEIGHT_NAME_SHAPE-literals.ROLE_CORNER_RADIUS/2)/2)+literals.HEIGHT_NAME_SHAPE;
 	}	
 	
 	//Names
 	//~~~~~
 	/**
-	 * matching operation for the regular expression of natural type names (identifier)
+	 * matching operation for the regular expression of role type names (identifier)
 	 * @param identifier the string to check against
 	 * @return if the given string input matches the regular expression
 	 */
@@ -58,63 +59,77 @@ public class Util {
 		Matcher identifierMatcher = Pattern.compile(literals.REG_EXP_NAME).matcher(identifier);
 		return identifierMatcher.matches();
 	}
-		
+	
 	/**
-	 * calculates if another natural type already has a name equivalent to the new given name when direct editing 
-	 * names using the following steps:
+	 * matching operation for the regular expression of cardinalities
+	 * @param identifier the string to check against
+	 * @return if the given string input matches the regular expression
+	 */
+	public final boolean matchesCardinality(String cardinality) {
+		Matcher cardinalityMatcher = Pattern.compile(literals.REG_EXP_CARDINALITY).matcher(cardinality);
+		return cardinalityMatcher.matches();
+	}
+	
+	/**
+	 * calculates if another role type in a compartment type already has a name equivalent 
+	 * to the new given name in the compartment type when direct editing names using the following steps:
 	 * <p>
-	 * Step 1: It gets the <em>main diagram</em> of the role model that the given diagram belongs to.<br>
+	 * Step 1: It gets the compartments diagram.<br>
 	 * Step 2: It fetches a list of the model element names for the given type and checks if this list contains
 	 * 		   the new name.
 	 * <p>
-	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 * @param diagram the diagram that is direct edited
+	 * @param type the type to the check for if a model element of that type already has the same name
 	 * @param newName the name to check against
 	 * @return boolean if another model element of a given type already has the same name when direct editing
 	 */
-	public boolean nameAlreadyUsedForClass(Diagram diagram, String newName) {
-		List<String> modelElements = new ArrayList<String>();
+	public boolean nameAlreadyUsedForCompartmentTypeElements(Diagram diagram, String newName) {
+		List<String> compartmentsElements = new ArrayList<String>();
 		//Step 1
-		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
+		Model compartmentsModel = DiagramUtil.getLinkedModelForDiagram(diagram);
 		//Step 2
-		getNaturalTypeNamesRecursive(rootModel, modelElements);
-		return modelElements.contains(newName);
+		getModelElementsNames(compartmentsModel, compartmentsElements);
+		return compartmentsElements.contains(newName);
 	}
-		
+	
 	/**
-	 * calculates the standard name of a data type when creating one
+	 * calculates the standard name of a element of a compartment type which should be unique named compartment wide
+	 * when creating one
+	 * <p>
+	 * Standard names of compartment types in a compartment type are calculated by  {@link #calculateStandardNameForClass},
+	 * since they need to be unique named over all compartment types in the while role model.
 	 * <p>
 	 * The standard name will be build by using a given standard name and adding a number as suffix to it
-	 * if needed. The limit of this number is set in {@link Literals#STANDARD_NAMES_COUNTER_LIMIT}.
-	 * @param diagram the diagram in that a class is added
-	 * @param standardName the normally used standard name for the class
+	 * if needed. The limit of this number is set in {@link #STANDART_NAMES_COUNTER_LIMIT}.
+	 * @param diagram the diagram in that compartment type element is added
+	 * @param type the type to the check for if a model element with the standard name already exists
+	 * @param standardName the normally used standard name for the compartment type element
 	 * @return
 	 */
-	public String calculateStandardNameForClass(Diagram diagram) {
-		List<String> modelElements = new ArrayList<String>();
-		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
-		getNaturalTypeNamesRecursive(rootModel, modelElements);
-		if(!(modelElements.contains(literals.STANDARD_NAME))) return literals.STANDARD_NAME;
+	public String calculateStandardNameForCompartmentsTypeElement(Diagram diagram) {
+		List<String> compartmentsElements = new ArrayList<String>();
+		Model compartmentModel = DiagramUtil.getLinkedModelForDiagram(diagram);
+		getModelElementsNames(compartmentModel, compartmentsElements);
+		if(!(compartmentsElements.contains(literals.STANDARD_NAME))) return literals.STANDARD_NAME;
 		for(int i=1; i<=literals.STANDARD_NAMES_COUNTER_LIMIT; i++) {
-			if(!(modelElements.contains(literals.STANDARD_NAME + Integer.toString(i))))
+			if(!(compartmentsElements.contains(literals.STANDARD_NAME + Integer.toString(i))))
 				return literals.STANDARD_NAME + Integer.toString(i);
 		}
 		return literals.STANDARD_NAME;
-	}
-		
+ 	}
+	
 	/**
-	 * fetches all names data types of the given model and its sub models of a given type in a recursive manner
+	 * fetches all names of model elements only of the given model of a given type in a recursive manner
 	 * @param model the model to fetch the model elements names from
-	 * @param modelElementNames the list of model element names to fill while using recursion
+	 * @param type the type of the model elements to get the names from
+	 * @param modelElementNames the list of model element names to fill
 	 */
-	private void getNaturalTypeNamesRecursive(Model model, List<String> modelElementNames) {
+	private void getModelElementsNames(Model model, List<String> modelElementNames) {
 		for(ModelElement modelElement : model.getElements()) {
-			if(modelElement.getType() == Type.NATURAL_TYPE)  
+			if(modelElement.getType() == Type.ROLE_TYPE)  
 				modelElementNames.add(modelElement.getName());
-			if(modelElement.getType() == Type.COMPARTMENT_TYPE ||
-			   modelElement.getType() == Type.GROUP) 
-				getNaturalTypeNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), modelElementNames);
-	}	}
+		}	
+	}
 	
 	//Update
 	//~~~~~~
@@ -129,12 +144,12 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if (shape.getGraphicsAlgorithm() instanceof Text) {
 					Text text = (Text) shape.getGraphicsAlgorithm();
-					if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_NATURALTYPE_NAME)) {
+					if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_NAME)) {
 						return text.getValue();
 		}	} 	}	}
 		return null;
 	}
-		
+			
 	/**
 	 * This operation gets the name of a business object that is an {@link org.framed.iorm.model.Shape}
 	 * @param businessObject the business object to get the name of
@@ -160,7 +175,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {
 								Text text = (Text) attributeShape.getGraphicsAlgorithm();
@@ -168,7 +183,22 @@ public class Util {
 		}	}	}	}	}	}
 		return pictogrammAttributeNames;
 	}
-		
+	
+	/**
+	 * fetches the shown occurrence constraint of a role type or role group by its given type body shape
+	 * @param pictogramElement the pictogram element to get the shown occurrence constraint for
+	 * @return the value of the occurrence constraint if it can be found
+	 */
+	public String getOccurenceConstraintOfPictogramElement(PictogramElement pictogramElement) {
+		if(pictogramElement instanceof Shape) {
+			Shape shape = (Shape) pictogramElement;
+			for(Shape containerChild : shape.getContainer().getChildren()) {
+				if(PropertyUtil.isShape_IdValue(containerChild, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+					return ((Text) containerChild.getGraphicsAlgorithm()).getValue();
+		}	}
+		return null;
+	}
+			
 	/**
 	 * This operation gets the names of the attributes in a model of a pictogram element that has an attribute container shape.
 	 * @param pictogramElement the pictogram element to get the attribute names 
@@ -181,7 +211,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {	
 								NamedElement attribute = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(attributeShape);
@@ -189,7 +219,7 @@ public class Util {
 		}	}	}	}	}	}	
 		return businessAttributeNames;
 	}
-		
+			
 	/**
 	 * This method gets the names of the operations of a pictogram element that has an operation container shape.
 	 * @param pictogramElement the pictogram element to get the operation names of
@@ -202,7 +232,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {
 								Text text = (Text) operationShape.getGraphicsAlgorithm();
@@ -210,7 +240,7 @@ public class Util {
 		}	}	}	}	}	}
 		return pictogramOperationNames;
 	}	
-		
+			
 	/**
 	 * This method gets the names of the operations in a model of pictogram element that has an operation container shape.
 	 * @param pictogramElement the pictogram element to get the operation names of
@@ -223,7 +253,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {	
 								NamedElement operation = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(operationShape);
@@ -231,4 +261,17 @@ public class Util {
 		}	}	}	}	}	}	
 		return businessOperationNames;
 	}
+	
+	/**
+	 * get the occurrence constraint of a role type or role group in the business model
+	 * @param businessObject the business object to get occurrence constraint for
+	 * @return the occurrence constraint value
+	 */
+	public String getOccurrenceConstraintOfBusinessObject(Object businessObject) {
+		if (businessObject instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			return shape.getDescription().getName();
+		}
+		return null;
+	}	
 }
