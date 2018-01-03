@@ -2,10 +2,12 @@ package org.framed.iorm.ui.literals;
 
 import org.framed.iorm.ui.exceptions.*; //*import for javadoc link
 import org.framed.iorm.ui.wizards.RoleModelWizardPage; //*import for javadoc link
+
+import core.naturaltype.NaturalTypePattern;
+
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.eclipse.ui.PartInitException; //*import for javadoc link
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
-import org.framed.iorm.ui.pattern.shapes.NaturalTypePattern; //*import for javadoc link
 import org.framed.iorm.ui.wizards.EditRelationshipDialog; //*import for javadoc link
 
 /**

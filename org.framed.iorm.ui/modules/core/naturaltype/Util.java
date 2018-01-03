@@ -1,4 +1,4 @@
-package datatype;
+package core.naturaltype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,13 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.util.UIUtil;
-import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
+import org.framed.iorm.ui.wizards.RoleModelWizard; //**import used for javadoc link
 
-import datatype.references.AttributeAndOperationsReference;
+import core.naturaltype.Literals;
+import core.naturaltype.references.AttributeAndOperationsReference;
 
-/**
- * This class offers utility operations in the scope of the attribute and operations feature module.
- * @author Kevin Kassin
- */
 public class Util {
-	
+
 	/**
 	 * the object to get names, id and so on for this feature
 	 */
@@ -42,14 +39,14 @@ public class Util {
 	 * @param heightOfDataType the height of the data type
 	 * @return the horizontal center position
 	 */
-	public int calculateHorizontalCenter(int heightOfDataType) {
-		return ((heightOfDataType-literals.HEIGHT_NAME_SHAPE-literals.DATATYPE_CORNER_SIZE)/2)+literals.HEIGHT_NAME_SHAPE;
+	public int calculateHorizontalCenter(int heightOfNaturalType) {
+		return ((heightOfNaturalType-literals.HEIGHT_NAME_SHAPE)/2)+literals.HEIGHT_NAME_SHAPE;
 	}	
 	
 	//Names
 	//~~~~~
 	/**
-	 * matching operation for the regular expression of data type names (identifier)
+	 * matching operation for the regular expression of natural type names (identifier)
 	 * @param identifier the string to check against
 	 * @return if the given string input matches the regular expression
 	 */
@@ -57,9 +54,9 @@ public class Util {
 		Matcher identifierMatcher = Pattern.compile(literals.REG_EXP_NAME).matcher(identifier);
 		return identifierMatcher.matches();
 	}
-	
+		
 	/**
-	 * calculates if another data type already has a name equivalent to the new given name when direct editing 
+	 * calculates if another natural type already has a name equivalent to the new given name when direct editing 
 	 * names using the following steps:
 	 * <p>
 	 * Step 1: It gets the <em>main diagram</em> of the role model that the given diagram belongs to.<br>
@@ -76,10 +73,10 @@ public class Util {
 		//Step 1
 		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
 		//Step 2
-		getDataTypeNamesRecursive(rootModel, modelElements);
+		getNaturalTypeNamesRecursive(rootModel, modelElements);
 		return modelElements.contains(newName);
 	}
-	
+		
 	/**
 	 * calculates the standard name of a data type when creating one
 	 * <p>
@@ -92,7 +89,7 @@ public class Util {
 	public String calculateStandardNameForClass(Diagram diagram) {
 		List<String> modelElements = new ArrayList<String>();
 		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
-		getDataTypeNamesRecursive(rootModel, modelElements);
+		getNaturalTypeNamesRecursive(rootModel, modelElements);
 		if(!(modelElements.contains(literals.STANDARD_NAME))) return literals.STANDARD_NAME;
 		for(int i=1; i<=literals.STANDARD_NAMES_COUNTER_LIMIT; i++) {
 			if(!(modelElements.contains(literals.STANDARD_NAME + Integer.toString(i))))
@@ -100,19 +97,19 @@ public class Util {
 		}
 		return literals.STANDARD_NAME;
 	}
-	
+		
 	/**
 	 * fetches all names data types of the given model and its sub models of a given type in a recursive manner
 	 * @param model the model to fetch the model elements names from
 	 * @param modelElementNames the list of model element names to fill while using recursion
 	 */
-	private void getDataTypeNamesRecursive(Model model, List<String> modelElementNames) {
+	private void getNaturalTypeNamesRecursive(Model model, List<String> modelElementNames) {
 		for(ModelElement modelElement : model.getElements()) {
-			if(modelElement.getType() == Type.DATA_TYPE)  
+			if(modelElement.getType() == Type.NATURAL_TYPE)  
 				modelElementNames.add(modelElement.getName());
 			if(modelElement.getType() == Type.COMPARTMENT_TYPE ||
 			   modelElement.getType() == Type.GROUP) 
-				getDataTypeNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), modelElementNames);
+				getNaturalTypeNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), modelElementNames);
 	}	}
 	
 	//Update
@@ -128,13 +125,12 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if (shape.getGraphicsAlgorithm() instanceof Text) {
 					Text text = (Text) shape.getGraphicsAlgorithm();
-					if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_DATATYPE_NAME)) {
+					if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_NATURALTYPE_NAME)) {
 						return text.getValue();
-					}
-		} 	}	}
+		}	} 	}	}
 		return null;
 	}
-	
+		
 	/**
 	 * This operation gets the name of a business object that is an {@link org.framed.iorm.model.Shape}
 	 * @param businessObject the business object to get the name of
@@ -160,7 +156,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {
 								Text text = (Text) attributeShape.getGraphicsAlgorithm();
@@ -168,10 +164,10 @@ public class Util {
 		}	}	}	}	}	}
 		return pictogrammAttributeNames;
 	}
-	
+		
 	/**
 	 * This operation gets the names of the attributes in a model of a pictogram element that has an attribute container shape.
-	 * @param pictogramElement the pictogram element to get the attribute names of
+	 * @param pictogramElement the pictogram element to get the attribute names 
 	 * @return the attribute names in a model of the pictogram element if it has an attribute container shape and returns null else
 	 */
 	public List<String> getBusinessAttributeNames(PictogramElement pictogramElement) {
@@ -181,7 +177,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(attributeShape, aaoReference.SHAPE_ID_ATTRIBUTE_TEXT)) {	
 								NamedElement attribute = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(attributeShape);
@@ -189,7 +185,7 @@ public class Util {
 		}	}	}	}	}	}	
 		return businessAttributeNames;
 	}
-	
+		
 	/**
 	 * This method gets the names of the operations of a pictogram element that has an operation container shape.
 	 * @param pictogramElement the pictogram element to get the operation names of
@@ -202,7 +198,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {
 								Text text = (Text) operationShape.getGraphicsAlgorithm();
@@ -210,7 +206,7 @@ public class Util {
 		}	}	}	}	}	}
 		return pictogramOperationNames;
 	}	
-	
+		
 	/**
 	 * This method gets the names of the operations in a model of pictogram element that has an operation container shape.
 	 * @param pictogramElement the pictogram element to get the operation names of
@@ -223,7 +219,7 @@ public class Util {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_DATATYPE_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, literals.SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
 							if(UIUtil.isShape_IdValue(operationShape, aaoReference.SHAPE_ID_OPERATION_TEXT)) {	
 								NamedElement operation = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(operationShape);

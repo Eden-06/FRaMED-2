@@ -51,6 +51,7 @@ import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.framed.iorm.ui.references.CoreReferences;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
 /**
@@ -64,6 +65,8 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  * @author Kevin Kassin
  */
 public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
+	
+	CoreReferences coreReferences = new CoreReferences();
 	
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
@@ -85,7 +88,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 						 TEXT_IORM_PAGE_NAME = NameLiterals.TEXT_IORM_PAGE_NAME,
 						 TEXT_CROM_PAGE_NAME = NameLiterals.TEXT_CROM_PAGE_NAME,
 						 FEATURE_PAGE_NAME = NameLiterals.FEATURE_PAGE_NAME,
-						 MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
+						 MODEL_FEATURE_NAME = coreReferences.MODEL_FEATURE_NAME;
 	
 	/**
 	 * the file extension for role model files gathered from {@link NameLiterals}

@@ -1,7 +1,6 @@
 package attributeAndOperation.references;
 
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.util.GeneralUtil;
 
 /**
@@ -11,11 +10,16 @@ import org.framed.iorm.ui.util.GeneralUtil;
 public class NaturalTypeUsedInReference extends AbstractUsedInReference {
 
 	/**
+	 * the object to get names, ids and so on for the datatype feature
+	 */
+	private core.naturaltype.Literals literals = new core.naturaltype.Literals();
+	
+	/**
 	 * class constructor
 	 */
 	public NaturalTypeUsedInReference() {
 		modelType = Type.NATURAL_TYPE;
-		shadowShapeID = IdentifierLiterals.SHAPE_ID_NATURALTYPE_SHADOW;
+		shadowShapeID = literals.SHAPE_ID_NATURALTYPE_SHADOW;
 	}
 	
 	/** */

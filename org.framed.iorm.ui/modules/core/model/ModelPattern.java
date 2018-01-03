@@ -1,8 +1,7 @@
-package org.framed.iorm.ui.pattern.shapes;
+package core.model;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,12 +14,14 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.URLLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
+import org.framed.iorm.ui.util.UIUtil;
+
+import core.model.Literals;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Model} in the editor. 
@@ -35,9 +36,9 @@ import org.framed.iorm.ui.util.DiagramUtil;
 public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
-	 * the features name gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String MODEL_FEATURE_NAME = NameLiterals.MODEL_FEATURE_NAME;
+	private final Literals literals = new Literals();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -47,25 +48,14 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 			ViewVisibility.NO_VIEW);
 	
 	/**
-	 * the URL leading to the standard configuration gathered from {@link URLLiterals}
-	 */
-	private final URL fileURLToStandartConfiguration = URLLiterals.URL_TO_STANDARD_CONFIGURATION;
-		
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public ModelPattern() {
 		super();
+		FEATURE_NAME = literals.FEATURE_NAME;
+		ICON_IMG_ID = literals.ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return MODEL_FEATURE_NAME;
 	}
 	
 	/**
@@ -110,7 +100,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Model) {
-			return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null)
+			return (UIUtil.getLinkedModelForDiagram(getDiagram()) == null)
 					&& EditPolicyService.canAdd(addContext, this.getDiagram());
 		}  
 		return false;
@@ -138,9 +128,9 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
-		return (DiagramUtil.getLinkedModelForDiagram(getDiagram()) == null);
+		return (UIUtil.getLinkedModelForDiagram(getDiagram()) == null);
 	}
-	
+		
 	/**
 	 * creates the business object of the root model, set its standard configuration and
 	 * calls the add function for the root model
@@ -155,7 +145,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 		addGraphicalRepresentation(createContext, newModel);
 		return new Object[] { newModel };
 	}
-	
+		
 	/**
 	 * sets the standard configuration for a given {@link org.framed.iorm.model.Model}
 	 * @param model the model to set the standard configuration for
@@ -165,7 +155,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	private void setStandartConfiguration(Model model) throws URISyntaxException, IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resourceStandartConfiguration =
-			resourceSet.createResource(URI.createURI(FileLocator.resolve(fileURLToStandartConfiguration).toURI().toString()));
+			resourceSet.createResource(URI.createURI(FileLocator.resolve(UILiterals.URL_TO_STANDARD_CONFIGURATION).toURI().toString()));
 		try {
 			resourceStandartConfiguration.load(null);
 		} catch (IOException e) { 

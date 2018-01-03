@@ -47,7 +47,6 @@ public class IdentifierLiterals {
 	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for shape create features
 	 */
 	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_compartmenttype",
-							   IMG_ID_FEATURE_NATURALTYPE = IMG_ID_PREFIX + "img_naturaltype",
 							   IMG_ID_FEATURE_DATATYPE = IMG_ID_PREFIX + "img_datatype",
 							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
 							   IMG_ID_FEATURE_OPERATION = IMG_ID_PREFIX + "img_operation",
@@ -113,27 +112,6 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = "shape_ct_contentpreview",
 						 	   SHAPE_ID_COMPARTMENTTYPE_ELEMENT = "shape_ct_element",
 						 	   SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS = "shape_ct_indicator_dots";
-	
-	/**
-	 * identifiers used for natural types
-	 * <p>
-	 * can be for:<br>
-	 * (1) type body shape or<br>
-	 * (2) drop shadow shape or<br>
-	 * (3) name shape or<br>
-	 * (4) first line shape or<br>
-	 * (5) second line shape or<br>
-	 * (6) attribute container shape or<br>
-	 * (7) operation container shape
-	 */
-	public static final String SHAPE_ID_NATURALTYPE_CONTAINER = "shape_nt_container",
-							   SHAPE_ID_NATURALTYPE_TYPEBODY = "shape_nt_typebody",
-						 	   SHAPE_ID_NATURALTYPE_SHADOW = "shape_nt_shadow",
-						 	   SHAPE_ID_NATURALTYPE_NAME = "shape_nt_name", 
-						 	   SHAPE_ID_NATURALTYPE_FIRSTLINE = "shape_nt_firstline",
-						 	   SHAPE_ID_NATURALTYPE_SECONDLINE = "shape_nt_secondline", 
-						 	   SHAPE_ID_NATURALTYPE_ATTRIBUTECONTAINER = "shape_nt_attcontainer",
-						 	   SHAPE_ID_NATURALTYPE_OPERATIONCONTAINER = "shape_nt_opcontainer";
 	
 	/**
 	 * identifiers used for the group

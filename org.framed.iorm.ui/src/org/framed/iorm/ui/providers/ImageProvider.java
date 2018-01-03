@@ -25,7 +25,6 @@ public class ImageProvider extends AbstractImageProvider {
      * See {@link IdentifierLiterals} for further explanations.
      */
     private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE,
-    					 IMG_ID_FEATURE_NATURALTYPE = IdentifierLiterals.IMG_ID_FEATURE_NATURALTYPE,
     				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
     					 IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
     
@@ -50,7 +49,6 @@ public class ImageProvider extends AbstractImageProvider {
      * See {@link URLLiterals} for further explanations.
      */
     private final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = URLLiterals.IMG_FILEPATH_FEATURE_COMPARTMENTTYPE,
-    					 IMG_FILEPATH_FEATURE_NATURALTYPE = URLLiterals.IMG_FILEPATH_FEATURE_NATURALTYPE,
   					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP,
     					 IMG_FILEPATH_FEATURE_ROLETYPE = URLLiterals.IMG_FILEPATH_FEATURE_ROLETYPE;
     
@@ -98,7 +96,6 @@ public class ImageProvider extends AbstractImageProvider {
 	    }	}	
     	
     	//TODO delete after and after
-    	addImageFilePath(IMG_ID_FEATURE_NATURALTYPE, IMG_FILEPATH_FEATURE_NATURALTYPE);
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
         addImageFilePath(IMG_ID_FEATURE_ROLETYPE, IMG_FILEPATH_FEATURE_ROLETYPE);

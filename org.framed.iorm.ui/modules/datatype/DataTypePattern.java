@@ -528,7 +528,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	//set place of attributes
 				    	for(int m = 0; m<attributes.size(); m++) {
 				    		Text attributeText = (Text) attributeContainerShape.getChildren().get(m).getGraphicsAlgorithm();
-				    		attributeText.setY(newY+m*literals.HEIGHT_OPERATION_SHAPE);
+				    		attributeText.setY(newY+m*attOpsReference.HEIGHT_OPERATION_SHAPE);
 				          	attributeText.setWidth(newWidth);
 				    	}
 				    	//set all attributes visible
@@ -540,8 +540,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	}
 				    	attributeContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
 				    	//check if not all attributes fit in the attribute field
-				    	if(attributeContainerShape.getChildren().size()*literals.HEIGHT_ATTRITBUTE_SHAPE>newHeight) {	            		
-				    		int fittingAttributes = (newHeight-literals.HEIGHT_ATTRITBUTE_SHAPE)/literals.HEIGHT_ATTRITBUTE_SHAPE;	   
+				    	if(attributeContainerShape.getChildren().size()*attOpsReference.HEIGHT_ATTRIBUTE_SHAPE>newHeight) {	            		
+				    		int fittingAttributes = (newHeight-attOpsReference.HEIGHT_ATTRIBUTE_SHAPE)/attOpsReference.HEIGHT_ATTRIBUTE_SHAPE;	   
 				    		//set not fitting attributes to invisible
 				    		for(int k = fittingAttributes; k<attributes.size(); k++) {
 				    			attributeContainerShape.getChildren().get(k).setVisible(false);
@@ -551,8 +551,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    		Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
 				    		indicatorDots.setForeground(manageColor(literals.COLOR_TEXT));
 				    		graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-				    				literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+fittingAttributes*literals.HEIGHT_OPERATION_SHAPE, 
-				    				newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_OPERATION_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
+				    				literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+fittingAttributes*attOpsReference.HEIGHT_OPERATION_SHAPE, 
+				    				newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, attOpsReference.HEIGHT_OPERATION_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
 				    		UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS); 	
 				    	}	            			
 				    	layoutChanged=true;
@@ -571,7 +571,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	//set place of operations
 				    	for(int m = 0; m<operations.size(); m++) {
 				    		Text operationText = (Text) operationContainerShape.getChildren().get(m).getGraphicsAlgorithm();
-				    		operationText.setY(newY+m*literals.HEIGHT_OPERATION_SHAPE);
+				    		operationText.setY(newY+m*attOpsReference.HEIGHT_OPERATION_SHAPE);
 				    		operationText.setWidth(newWidth);
 				    	}
 				    	//set all operations visible
@@ -583,8 +583,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				    	}
 				    	operationContainerShape.getChildren().remove(indicatorDotsShapeToDelete);
 				    	//check if not all operations fit in the operations field
-					    if(operations.size()*literals.HEIGHT_OPERATION_SHAPE>newHeight) {	            		
-					    	int fittingOperations = (newHeight-literals.HEIGHT_OPERATION_SHAPE)/literals.HEIGHT_OPERATION_SHAPE;	   
+					    if(operations.size()*attOpsReference.HEIGHT_OPERATION_SHAPE>newHeight) {	            		
+					    	int fittingOperations = (newHeight-attOpsReference.HEIGHT_OPERATION_SHAPE)/attOpsReference.HEIGHT_OPERATION_SHAPE;	   
 					      	//set not fitting operations to invisible
 					   		for(int o = fittingOperations; o<operations.size(); o++) {
 					   			operationContainerShape.getChildren().get(o).setVisible(false);            				
@@ -594,8 +594,8 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				          	Text indicatorDots = graphicAlgorithmService.createText(indicatorDotsShape, "...");
 				          	indicatorDots.setForeground(manageColor(literals.COLOR_TEXT));
 				          	graphicAlgorithmService.setLocationAndSize(indicatorDots, 
-				          			literals.PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*literals.HEIGHT_OPERATION_SHAPE, 
-				          			newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_OPERATION_SHAPE);
+				          			literals.PUFFER_BETWEEN_ELEMENTS, newY+fittingOperations*attOpsReference.HEIGHT_OPERATION_SHAPE, 
+				          			newWidth-2*literals.PUFFER_BETWEEN_ELEMENTS, attOpsReference.HEIGHT_OPERATION_SHAPE);
 				          	UIUtil.setShape_IdValue(indicatorDotsShape, attOpsReference.SHAPE_ID_OPERATION_INDICATOR_DOTS); 	
 					    }    
 					    layoutChanged=true;
@@ -636,13 +636,13 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
 			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(literals.REASON_NAME_OUT_OF_DATE);  
-			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason(literals.REASON_AMOUNT_ATTRIBUTES);
-			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason(literals.REASON_AMOUNT_OPERATION);
+			if(pictogramAttributeNames.size() != businessAttributeNames.size()) return Reason.createTrueReason(attOpsReference.REASON_AMOUNT_ATTRIBUTES);
+			if(pictogramOperationNames.size() != businessOperationNames.size()) return Reason.createTrueReason(attOpsReference.REASON_AMOUNT_OPERATION);
 			for(int i=0; i<pictogramAttributeNames.size(); i++) {
-				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason(literals.REASON_NAMES_ATTRIBUTES);
+				if(!(pictogramAttributeNames.get(i).equals(businessAttributeNames.get(i)))) return Reason.createTrueReason(attOpsReference.REASON_NAMES_ATTRIBUTES);
 			}	
 			for(int i=0; i<pictogramOperationNames.size(); i++) {
-				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(literals.REASON_NAMES_OPERATIONS);
+				if(!(pictogramOperationNames.get(i).equals(businessOperationNames.get(i)))) return Reason.createTrueReason(attOpsReference.REASON_NAMES_OPERATIONS);
 		}	}
 		return Reason.createFalseReason();
 	}

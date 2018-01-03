@@ -63,9 +63,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       
       //TODO delete after and after
       //Step 1
-      addPattern(new ModelPattern());
       addPattern(new CompartmentTypePattern());
-      addPattern(new NaturalTypePattern());
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
       addPattern(new RoleTypePattern()); 

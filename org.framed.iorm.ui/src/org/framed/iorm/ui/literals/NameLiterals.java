@@ -136,8 +136,7 @@ public class NameLiterals {
 	 * compartment type in this case. Here are not the actual elements meant, which are saved in the groups or
 	 * compartment types diagram.
 	 */
-	public static final String MODEL_FEATURE_NAME = "Model", 
-							   GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = "GroupOrCompartmentTypeElementPattern",
+	public static final String GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = "GroupOrCompartmentTypeElementPattern",
 			                   RELATIONSHIP_DECORATOR_FEATURE_NAME = "Relationship Decorator";
 	
 	/**

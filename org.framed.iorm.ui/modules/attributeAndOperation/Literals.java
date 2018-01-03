@@ -37,9 +37,9 @@ public class Literals {
 	/**
 	 * the icon path and id
 	 * <p>
-	 * These are empty because there is no icon to show for the common pattern.
+	 * Path is empty because there is no icon to show for the common pattern.
 	 */		
-	public final String	COM_ICON_IMG_ID = "",
+	public final String	COM_ICON_IMG_ID = "org.framed.iorm.ui.modules.attributeOperationCommon",
 						COM_ICON_IMG_PATH = "";
 	
 	//Attributes
@@ -129,6 +129,13 @@ public class Literals {
 	 */
 	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT;
 	
+	//Updates
+	//~~~~~~~
+	public final String REASON_AMOUNT_ATTRIBUTES = "Different amount of attributes.",
+			   			REASON_AMOUNT_OPERATION = "Different amount of operations.",
+			   			REASON_NAMES_ATTRIBUTES = "Different names of attributes.",
+			   			REASON_NAMES_OPERATIONS = "Different names of operations.";
+
 	//Names
 	//~~~~~
 	/**

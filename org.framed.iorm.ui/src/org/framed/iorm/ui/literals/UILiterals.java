@@ -1,8 +1,12 @@
 package org.framed.iorm.ui.literals;
 
+import java.net.URL;
+
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
+import org.osgi.framework.Bundle;
 
 /**
  * This class saves all literals in the scope of the UI. Modules can use these literals if they want to, e.g. to get layout integers
@@ -47,6 +51,25 @@ public class UILiterals {
 	public static final String KEY_SHAPE_ID = "shape id",
 							   KEY_DIAGRAM_KIND = "diagram kind";
 	
+	//URLs
+	//~~~~
+	/**
+	 * bundles to acces packages
+	 * <p>
+	 * the bundle used to get access to the package "org.framed.iorm.featuremodel"
+	 */
+	private static final Bundle BUNDLE_FEATUREMODEL = Platform.getBundle("org.framed.iorm.featuremodel");
+	
+	/**
+	 * URLs related to the feature model
+	 * <p>
+	 * can be:<br>
+	 * (1) the URL to the used feature model or<br>
+	 * (2) the URL to the standard configuration 
+	 */
+	public static final URL URL_TO_FEATUREMODEL = BUNDLE_FEATUREMODEL.getEntry("model.xml"),
+						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.diagram");
+	
 	//Layout
 	//~~~~~~
 	/**
@@ -87,6 +110,5 @@ public class UILiterals {
 	public static final IColorConstant COLOR_TEXT = IColorConstant.BLACK,
 			   						   COLOR_LINES = IColorConstant.BLACK,
 			   						   COLOR_BACKGROUND = IColorConstant.WHITE,
-			   						   COLOR_SHADOW = IColorConstant.GRAY;
-	
+			   						   COLOR_SHADOW = IColorConstant.GRAY;	
 }

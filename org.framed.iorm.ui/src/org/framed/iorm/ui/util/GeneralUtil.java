@@ -45,8 +45,6 @@ public class GeneralUtil {
 	 * @return the horizontal center position
 	 */
 	public static final int calculateHorizontalCenter(Type type, int heightOfClassOrRole) {
-		if(type == Type.NATURAL_TYPE) 
-			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE)/2)+HEIGHT_NAME_SHAPE;
 		if(type == Type.ROLE_TYPE)
 			return ((heightOfClassOrRole-HEIGHT_NAME_SHAPE-ROLE_CORNER_RADIUS/2)/2)+HEIGHT_NAME_SHAPE;
 		return 0;
