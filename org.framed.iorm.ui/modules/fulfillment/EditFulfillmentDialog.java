@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.wizards;
+package fulfillment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,6 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.model.provider.OrmItemProviderAdapterFactory;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature; //*import for javadox link
 
 /**
  * This class represents a dialog to edit the referenced roles of fulfillments.
@@ -38,15 +35,9 @@ import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature; //*import for
 public class EditFulfillmentDialog extends Dialog {
 	
 	/**
-	 * the name of the custom feature using this dialog gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
-	
-	/**
-	 * the height and width of the dialog gathered from {@link LayoutLiterals}
-	 */
-	private final int HEIGHT_EDIT_CONNECTION_DIALOG = LayoutLiterals.HEIGHT_EDIT_FULFILLMENT_DIALOG,
-					  WIDTH_EDIT_CONNECTION_DIALOG = LayoutLiterals.WIDTH_EDIT_FULFILLMENT_DIALOG;
+	Literals literals = new Literals();
 	
 	/**
 	 * the business object of the edited fulfillment 
@@ -83,8 +74,8 @@ public class EditFulfillmentDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(EDIT_FULFILLMENT_FEATURE_NAME);
-		newShell.setSize(WIDTH_EDIT_CONNECTION_DIALOG, HEIGHT_EDIT_CONNECTION_DIALOG);
+		newShell.setText(literals.EDIT_FULFILLMENT_FEATURE_NAME);
+		newShell.setSize(literals.WIDTH_EDIT_FULFILLMENT_DIALOG, literals.HEIGHT_EDIT_FULFILLMENT_DIALOG);
 	}
 	
 	/**

@@ -18,6 +18,7 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 
+import fulfillment.EditFulfillmentFeature;
 import relationship.RelationshipPattern;
 
 /**

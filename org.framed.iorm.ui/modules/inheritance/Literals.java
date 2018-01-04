@@ -3,6 +3,10 @@ package inheritance;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.UILiterals;
 
+/**
+ * This class saves literals in the scope of the inheritance feature module.
+ * @author Kevin Kassin
+ */
 public class Literals {
 
 	/**

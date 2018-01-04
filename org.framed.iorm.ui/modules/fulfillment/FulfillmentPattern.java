@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package fulfillment;
 
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -13,22 +13,17 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.graphitifeatures.EditFulfillmentFeature;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.util.UIUtil;
+
+import fulfillment.references.TypeReferences;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s of the type
@@ -44,20 +39,14 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class FulfillmentPattern extends FRaMEDConnectionPattern {
 
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String FULFILLMENT_FEATURE_NAME = NameLiterals.FULFILLMENT_FEATURE_NAME;
-
+	Literals literals = new Literals();
+	
 	/**
-	 * the name of the edit relationship feature gathered from {@link NameLiterals}
+	 * the reference for which model types a inheritance is applicable
 	 */
-	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
-
-	/**
-	 * the identifier for the icon of the create feature gathered from
-	 * {@link IdentifierLiterals}
-	 */
-	private final String IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
+	private final TypeReferences typeReferences = new TypeReferences();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -67,59 +56,16 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 			ViewVisibility.ALL_VIEWS);
 	
 	/**
-	 * the identifier for a diagram of a stepped in compartment view gathered from
-	 * {@link IdentifierLiterals}
-	 */
-	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
-
-	/**
-	 * the value for the property shape id for the connection decorator of the
-	 * fulfillment
-	 */
-	private static final String SHAPE_ID_FULFILLMENT_ARROWHEAD = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ARROWHEAD,
-			SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
-
-	/**
-	 * layout integers gathered from {@link LayoutLiterals}
-	 */
-	private static final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE,
-			FULFILLMENT_ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-			FULFILLMENT_ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
-
-	/**
-	 * the color values gathered from {@link LayoutLiterals}
-	 */
-	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-									    COLOR_TEXT = UILiterals.COLOR_TEXT;
-
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public FulfillmentPattern() {
 		super();
+		FEATURE_NAME = literals.FEATURE_NAME;
+		ICON_IMG_ID = literals.ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		FPD = spec_FPD;
 	}
-
-	/**
-	 * get method for the features name
-	 * 
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return FULFILLMENT_FEATURE_NAME;
-	}
-
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * 
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_FULFILLMENT;
-	}
-
+	
 	// add feature
 	// ~~~~~~~~~~~
 	/**
@@ -160,25 +106,25 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		connection.setStart(sourceAnchor);
 		connection.setEnd(targetAnchor);
 		Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-		polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+		polyline.setForeground(manageColor(literals.COLOR_CONNECTIONS));
 		polyline.setLineWidth(2);
 		// Step2
 		ConnectionDecorator arrowheadShape = pictogramElementCreateService.createConnectionDecorator(connection, false,
 				1.0, true);
-		int points[] = new int[] { -1 * FULFILLMENT_ARROWHEAD_LENGTH, FULFILLMENT_ARROWHEAD_HEIGHT, // Point 1
+		int points[] = new int[] { -1 * literals.FULFILLMENT_ARROWHEAD_LENGTH, literals.FULFILLMENT_ARROWHEAD_HEIGHT, // Point 1
 				0, 0, // P2
-				-1 * FULFILLMENT_ARROWHEAD_LENGTH, -1 * FULFILLMENT_ARROWHEAD_HEIGHT }; // P3
+				-1 * literals.FULFILLMENT_ARROWHEAD_LENGTH, -1 * literals.FULFILLMENT_ARROWHEAD_HEIGHT }; // P3
 		Polygon arrowhead = graphicAlgorithmService.createPolygon(arrowheadShape, points);
-		arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
-		arrowhead.setBackground(manageColor(COLOR_CONNECTIONS));
-		PropertyUtil.setShape_IdValue(arrowheadShape, SHAPE_ID_FULFILLMENT_ARROWHEAD);
+		arrowhead.setForeground(manageColor(literals.COLOR_CONNECTIONS));
+		arrowhead.setBackground(manageColor(literals.COLOR_CONNECTIONS));
+		UIUtil.setShape_IdValue(arrowheadShape, literals.SHAPE_ID_FULFILLMENT_ARROWHEAD);
 		// Step 3
 		ConnectionDecorator rolesShape = pictogramElementCreateService.createConnectionDecorator(connection, true, 0.8,
 				true);
 		Text roles = graphicAlgorithmService.createText(rolesShape, "");
-		graphicAlgorithmService.setLocation(roles, DISTANCE_FROM_CONNECTION_LINE, -1 * DISTANCE_FROM_CONNECTION_LINE);
-		roles.setForeground(manageColor(COLOR_TEXT));
-		PropertyUtil.setShape_IdValue(rolesShape, SHAPE_ID_FULFILLMENT_ROLES);
+		graphicAlgorithmService.setLocation(roles, literals.DISTANCE_FROM_CONNECTION_LINE, -1 * literals.DISTANCE_FROM_CONNECTION_LINE);
+		roles.setForeground(manageColor(literals.COLOR_TEXT));
+		UIUtil.setShape_IdValue(rolesShape, literals.SHAPE_ID_FULFILLMENT_ROLES);
 		// Step 4
 		link(connection, addedFulfillment);
 		link(arrowheadShape, addedFulfillment);
@@ -189,8 +135,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		pictogramElement[0] = connection;
 		customContext.setPictogramElements(pictogramElement);
 		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
-		EditFulfillmentFeature editFulfillmentFeature = (EditFulfillmentFeature) GeneralUtil
-				.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
+		EditFulfillmentFeature editFulfillmentFeature = (EditFulfillmentFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_FULFILLMENT_FEATURE_NAME);
 		if (editFulfillmentFeature.canExecute(customContext))
 			editFulfillmentFeature.execute(customContext);
 		return connection;
@@ -212,12 +157,12 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		Anchor targetAnchor = createContext.getTargetAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-		org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
-				if (targetShape.getType() == Type.COMPARTMENT_TYPE)
-					   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+				if (typeReferences.getTargetTypes().contains(targetShape.getType()))
+					   return EditPolicyService.canCreate(createContext, this.getDiagram());
 			}
 		}
 		return false;
@@ -235,11 +180,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
-			if (sourceShape.getType() == Type.NATURAL_TYPE || sourceShape.getType() == Type.DATA_TYPE || 
-				sourceShape.getType() == Type.COMPARTMENT_TYPE || 
-				(sourceShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)))
+			if(typeReferences.getSourceTypes().contains(sourceShape.getType()))
 				return true;
 		}
 		return false;
@@ -258,8 +201,8 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		// Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		Anchor targetAnchor = createContext.getTargetAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-		org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		// Step 2
 		Relation newFulfillment = OrmFactory.eINSTANCE.createRelation();
 		newFulfillment.setType(Type.FULFILLMENT);

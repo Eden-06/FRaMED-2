@@ -1,11 +1,10 @@
-package org.framed.iorm.ui.graphitifeatures;
+package fulfillment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -13,11 +12,9 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Shape;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.graphitifeatures.FRaMEDCustomFeature;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.util.PropertyUtil;
-import org.framed.iorm.ui.wizards.EditFulfillmentDialog;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to edit the referenced role types of fulfillments.
@@ -25,17 +22,12 @@ import org.framed.iorm.ui.wizards.EditFulfillmentDialog;
  * It is uses the {@link EditFulfillmentDialog}.
  * @author Kevin Kassin
  */
-public class EditFulfillmentFeature extends AbstractCustomFeature {
+public class EditFulfillmentFeature extends FRaMEDCustomFeature {
 
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME;
-	
-	/**
-	 * the value for the property shape id for the connection decorator for the roles of the fulfillment
-	 */
-	private static final String SHAPE_ID_FULFILLMENT_ROLES = IdentifierLiterals.SHAPE_ID_FULFILLMENT_ROLES;
+	Literals literals = new Literals();
 	
 	/**
 	 * Class constructor
@@ -43,17 +35,9 @@ public class EditFulfillmentFeature extends AbstractCustomFeature {
 	 */
 	public EditFulfillmentFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
+		FEATURE_NAME = literals.EDIT_FULFILLMENT_FEATURE_NAME;
 	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature 
-	 */
-	@Override
-	public String getName() {
-		return EDIT_FULFILLMENT_FEATURE_NAME;
-	}
-	
+		
 	/**
 	 * This methods checks if the feature can be executed.
 	 * <p>
@@ -94,7 +78,7 @@ public class EditFulfillmentFeature extends AbstractCustomFeature {
 			for(Shape role : newReferencedRoles)
 				businessObject.getReferencedRoles().add(role);
 			for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_FULFILLMENT_ROLES))
+				if(UIUtil.isShape_IdValue(decorator, literals.SHAPE_ID_FULFILLMENT_ROLES))
 					setDecoratorTextForFulfilledRoles((Text) decorator.getGraphicsAlgorithm(), newReferencedRoles);
 	}	}	}
 	

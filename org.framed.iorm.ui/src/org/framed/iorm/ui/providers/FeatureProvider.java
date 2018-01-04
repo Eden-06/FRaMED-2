@@ -28,6 +28,9 @@ import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
+import fulfillment.EditFulfillmentFeature;
+import fulfillment.FulfillmentPattern;
+
 /**
  * This class manages the pattern and features for the editing of the diagram type
  * @author Kevin Kassin
@@ -82,7 +85,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new TotalConstraintPattern());
       addConnectionPattern(new RelationshipImplicationConstraintPattern());
       addConnectionPattern(new RelationshipExclusionConstraintPattern());
-      addConnectionPattern(new FulfillmentPattern());
 	}
 		
 	/**
@@ -113,7 +115,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	    
 	    //TODO get rid of after and after
 	    customfeatures.add(new ChangeConfigurationFeature(this));
-	    customfeatures.add(new EditFulfillmentFeature(this));
 	    customfeatures.add(new StepInFeature(this));
 	    customfeatures.add(new StepInNewTabFeature(this));
 	    customfeatures.add(new StepOutFeature(this));
