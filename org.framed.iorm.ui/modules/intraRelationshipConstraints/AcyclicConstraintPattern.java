@@ -1,11 +1,10 @@
-package org.framed.iorm.ui.pattern.connections.intrarelationship;
+package intraRelationshipConstraints;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.NameLiterals;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -21,36 +20,21 @@ import org.framed.iorm.ui.literals.NameLiterals;
 public class AcyclicConstraintPattern extends AbstractIntraRelationshipConstraintPattern {
 
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private static final String ACYCLIC_FEATURE_NAME = NameLiterals.ACYCLIC_FEATURE_NAME;
+	private final Literals literals = new Literals();
 	
 	/**
 	 * Class constructor
 	 */
 	public AcyclicConstraintPattern() {
 		super();
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ACYCLIC_FEATURE_NAME;
+		FEATURE_NAME = literals.ACYCLIC_FEATURE_NAME;
+		ICON_IMG_ID = literals.ACYCLIC_ICON_IMG_ID;
 	}
 	
 	//add feature
 	//~~~~~~~~~~~
-	/**
-	 * calls its equivalent super class operation to calculate if an acyclic constraint can be added
-	 */
-	@Override
-	public boolean canAdd(IAddContext addContext) {
-		return canAddIntraRelationshipConstraint(addContext, Type.ACYCLIC);
-	}
-	
 	/**
 	 * calls its equivalent super class operation to add an acyclic constraint
 	 */

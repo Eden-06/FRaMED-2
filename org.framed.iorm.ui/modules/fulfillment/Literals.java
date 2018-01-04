@@ -27,7 +27,7 @@ public class Literals {
 						SHAPE_ID_FULFILLMENT_ROLES = "shape_fulfillment_roles";
 	
 	/**
-	 * layout integers gathered from {@link LayoutLiterals}
+	 * layout integers
 	 */
 	public final int DISTANCE_FROM_CONNECTION_LINE = UILiterals.DISTANCE_FROM_CONNECTION_LINE,
 					 FULFILLMENT_ARROWHEAD_LENGTH = UILiterals.ARROWHEAD_LENGTH,

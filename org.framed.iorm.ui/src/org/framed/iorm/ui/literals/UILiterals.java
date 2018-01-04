@@ -113,8 +113,8 @@ public class UILiterals {
 	/**
 	 * layout integers for the text of occurrence constraints
 	 */
-	public static final int HEIGHT_OCCURENCE_CONSTRAINT = 15,
-					 		WIDTH_OCCURENCE_CONSTRAINT = 30;
+	public static final int HEIGHT_CONSTRAINT = 15,
+					 		WIDTH_CONSTRAINT = 30;
 	
 	/**
 	 * general color values

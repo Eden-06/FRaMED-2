@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.intrarelationship;
+package intraRelationshipConstraints;
 
 import java.util.List;
 
@@ -15,22 +15,17 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This is the abstract super class of the patterns for intra relationship contraints. It collects similiar operations
@@ -46,9 +41,9 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDShapePattern {
 
 	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT = IdentifierLiterals.IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
+	private final Literals literals = new Literals();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -60,41 +55,15 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Intra_Relationship_Constraints");
 			}	};
-	
-	/**
-	 * the value of the property shape id for the decorators added to the relationship by the intra relationship constraint gathered
-	 * from {@link IdentifierLiterals}
-	 */
-	private final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR;
-	
-	/**
-	 * layout integers gathered from {@link LayoutLiterals}
-	 */
-	private final int HEIGHT_CONSTRAINT = LayoutLiterals.HEIGHT_CONSTRAINT,
-					  DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
-	
-	/**
-	 * the color values gathered from {@link LayoutLiterals}
-	 */
-	private final IColorConstant COLOR_CONSTRAINT_TEXT = LayoutLiterals.COLOR_CONSTRAINT_TEXT;
-	
+			
 	/**
 	 * Class constructor
 	 */
 	public AbstractIntraRelationshipConstraintPattern() {
 		super();
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the identifier of the common icon for the create features of all 
-	 * intra relationship constraints
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_INTRARELATIONSHIP_CONSTRAINT;
-	}
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+	}			
 	
 	/**
 	 * checks if pattern is applicable for a given business object
@@ -167,9 +136,9 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		ConnectionDecorator constraintName = 
 			pictogramElementCreateService.createConnectionDecorator(targetConnection, true, 0.5, true); 
 		Text nameText = graphicAlgorithmService.createText(constraintName, type.getName().toLowerCase());
-		nameText.setForeground(manageColor(COLOR_CONSTRAINT_TEXT));
-		graphicAlgorithmService.setLocation(nameText, DISTANCE_FROM_CONNECTION_LINE, (numberOfReferencedRelations-1)*HEIGHT_CONSTRAINT);
-		PropertyUtil.setShape_IdValue(constraintName, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
+		nameText.setForeground(manageColor(literals.COLOR_CONSTRAINT_TEXT));
+		graphicAlgorithmService.setLocation(nameText, literals.DISTANCE_FROM_CONNECTION_LINE, (numberOfReferencedRelations-1)*literals.HEIGHT_INTRAREL_CONSTRAINT);
+		UIUtil.setShape_IdValue(constraintName, literals.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR);
 		link(constraintName, addContext.getNewObject());
 		return constraintName;
 	}	
@@ -207,12 +176,12 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 			   targetAnchor = targetConnection.getEnd();
 		Relation newIntraRelCon = OrmFactory.eINSTANCE.createRelation();
 	    newIntraRelCon.setType(type); 
-	    Model model = DiagramUtil.getLinkedModelForDiagram(getDiagram());
+	    Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
 		if(newIntraRelCon.eResource() != null) getDiagram().eResource().getContents().add(newIntraRelCon);
 		model.getElements().add(newIntraRelCon);
 		newIntraRelCon.setContainer(model);
-		newIntraRelCon.setSource(ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor));
-		newIntraRelCon.setTarget(ConnectionPatternUtil.getModelElementForAnchor(targetAnchor)); 
+		newIntraRelCon.setSource(UIUtil.getModelElementForAnchor(sourceAnchor));
+		newIntraRelCon.setTarget(UIUtil.getModelElementForAnchor(targetAnchor)); 
 		targetRelation.getReferencedRelation().add(newIntraRelCon);
 		AddContext addContext = new AddContext();
 	    addContext.setNewObject(newIntraRelCon);
