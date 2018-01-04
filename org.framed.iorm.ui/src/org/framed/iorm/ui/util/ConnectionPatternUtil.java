@@ -4,7 +4,8 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.pattern.connections.RelationshipPattern; //*import for javadoc link
+
+import relationship.RelationshipPattern;
 
 /**
  * This class offers several utility operations mostly used by the graphiti connection patterns.

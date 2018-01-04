@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.wizards;
+package relationship;
 
 import java.util.List;
 
@@ -14,42 +14,23 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.model.Relation;
-import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
-import org.framed.iorm.ui.util.NameUtil;
-import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature; //*import for javadox link
 
 /**
  * This class represents a dialog to edit relationships name and cardinalities.
  * @author Kevin Kassin
  */
 public class EditRelationshipDialog extends Dialog {
+		
+	/**
+	 * the object to get names, ids and so on for this feature
+	 */
+	Literals literals = new Literals();
 	
 	/**
-	 * the name of the custom feature using this dialog gathered from {@link NameLiterals}
+	 * the object to call utility operations on
 	 */
-	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
+	private final Util util = new Util();
 	
-	/**
-	 * messages and titles used as tips when invalid inputs happen gathered from {@link TextLiterals}
-	 */
-	private final String EDITING_RELATIONSHIPS_NAME_INVALID_TITLE = TextLiterals.EDITING_RELATIONSHIPS_NAME_INVALID_TITLE,
-						 EDITING_RELATIONSHIPS_NAME_INVALID = TextLiterals.EDITING_RELATIONSHIPS_NAME_INVALID,
-						 EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = TextLiterals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE,
-						 EDITING_RELATIONSHIPS_NAME_ALREADY_USED = TextLiterals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED,
-						 EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = TextLiterals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE,
-						 EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = TextLiterals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY,
-						 EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = TextLiterals.EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE,
-						 EDITING_RELATIONSHIPS_TARGET_CARDINALITY = TextLiterals.EDITING_RELATIONSHIPS_TARGET_CARDINALITY;
-	
-	/**
-	 * the height and width of the dialog gathered from {@link LayoutLiterals}
-	 */
-	private final int HEIGHT_EDIT_RELATIONSHIP_DIALOG = LayoutLiterals.HEIGHT_EDIT_RELATIONSHIP_DIALOG,
-					  WIDTH_EDIT_RELATIONSHIP_DIALOG = LayoutLiterals.WIDTH_EDIT_RELATIONSHIP_DIALOG;
-
 	/**
 	 * the diagram of the compartment type the relation is created in
 	 */
@@ -103,8 +84,8 @@ public class EditRelationshipDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(EDIT_RELATIONSHIP_FEATURE_NAME + " " + businessObject.getName());
-		newShell.setSize(WIDTH_EDIT_RELATIONSHIP_DIALOG, HEIGHT_EDIT_RELATIONSHIP_DIALOG);
+		newShell.setText(literals.EDIT_RELATIONSHIP_FEATURE_NAME + " " + businessObject.getName());
+		newShell.setSize(literals.WIDTH_EDIT_RELATIONSHIP_DIALOG, literals.HEIGHT_EDIT_RELATIONSHIP_DIALOG);
 	}
 	
 	/**
@@ -173,19 +154,19 @@ public class EditRelationshipDialog extends Dialog {
 		}
 		else {
 			if(!(isValid(TextfieldType.RELATIONSHIP_NAME))) {
-				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_NAME_INVALID_TITLE, EDITING_RELATIONSHIPS_NAME_INVALID);
+				MessageDialog.openError(getParentShell(), literals.EDITING_RELATIONSHIPS_NAME_INVALID_TITLE, literals.EDITING_RELATIONSHIPS_NAME_INVALID);
 				return;
 			}
 			if(NameAlreadyUsed()) {
-				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE, EDITING_RELATIONSHIPS_NAME_ALREADY_USED);
+				MessageDialog.openError(getParentShell(), literals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE, literals.EDITING_RELATIONSHIPS_NAME_ALREADY_USED);
 				return;
 			}
 			if(!(isValid(TextfieldType.SOURCE_CARDINALITY))) {
-				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE, EDITING_RELATIONSHIPS_SOURCE_CARDINALITY);
+				MessageDialog.openError(getParentShell(), literals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE, literals.EDITING_RELATIONSHIPS_SOURCE_CARDINALITY);
 				return;
 			}
 			if(!(isValid(TextfieldType.TARGET_CARDINALITY))) {
-				MessageDialog.openError(getParentShell(), EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE, EDITING_RELATIONSHIPS_TARGET_CARDINALITY);
+				MessageDialog.openError(getParentShell(), literals.EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE, literals.EDITING_RELATIONSHIPS_TARGET_CARDINALITY);
 			}
 		}
 	}
@@ -199,13 +180,13 @@ public class EditRelationshipDialog extends Dialog {
 		switch(type) {
 	    	case RELATIONSHIP_NAME:
 	    		String name = relationshipNameTextField.getText();
-	    		return NameUtil.matchesIdentifier(name);
+	    		return util.matchesIdentifier(name);
 	    	case SOURCE_CARDINALITY:
 	    		String sourceCardinality = sourceCardinalityTextField.getText();
-	    		return NameUtil.matchesCardinality(sourceCardinality);
+	    		return util.matchesCardinality(sourceCardinality);
 	    	case TARGET_CARDINALITY:
 	    		String targetCardinality = targetCardinalityTextField.getText();
-	    		return NameUtil.matchesCardinality(targetCardinality);
+	    		return util.matchesCardinality(targetCardinality);
 		}
 		return false;
 	}
@@ -218,6 +199,6 @@ public class EditRelationshipDialog extends Dialog {
 	private boolean NameAlreadyUsed() {
 		String newName = relationshipNameTextField.getText();
 		if(newName.equals(businessObject.getName())) return false;
-		return NameUtil.nameAlreadyUsedForCompartmentTypeElements(diagram, Type.RELATIONSHIP, newName);
+		return util.nameAlreadyUsedForCompartmentTypeElements(diagram, newName);
 	}
 }

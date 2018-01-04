@@ -134,7 +134,7 @@ public class GeneralUtil {
 	}		
 	
 	/**
-	 * finds a feature by its name in an array of general create features
+	 * finds a feature by its name in an array of general features
 	 * @param array the array with features to search in
 	 * @param featureName the name of the feature to find
 	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found

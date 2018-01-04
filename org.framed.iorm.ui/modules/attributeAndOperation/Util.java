@@ -1,5 +1,6 @@
 package attributeAndOperation;
 
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class Util {
 	 * fetches all java classes in the module source folder
 	 * @return all java classes in in the module source folder
 	 */
-	public List<Class<?>> findUsedInReferences() {
+	public List<Class<?>> findModuleClasses() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
 		List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
 		List<Class<?>> patternClasses = new ArrayList<Class<?>>();
@@ -67,12 +68,13 @@ public class Util {
 	public List<AbstractUsedInReference> getUsedInReferences(List<Class<?>> classes) {
 		List<AbstractUsedInReference> usedInReferences = new ArrayList<AbstractUsedInReference>();
 		for(Class<?> cl : classes) {
-			if(cl.getSuperclass().getTypeName().equals(literals.TYPE_USED_IN_REFERENCES)) {
-				try {
-					Object object = cl.newInstance();
-					usedInReferences.add((AbstractUsedInReference) object);
-				} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-		} 	}	
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(cl.getSuperclass() == AbstractUsedInReference.class) {
+					try {
+						Object object = cl.newInstance();
+						usedInReferences.add((AbstractUsedInReference) object);
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+		} 	}	}
 		return usedInReferences;
 	}
 	

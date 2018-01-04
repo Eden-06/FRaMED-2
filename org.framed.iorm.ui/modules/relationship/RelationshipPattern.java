@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package relationship;
 
 import java.util.List;
 
@@ -15,25 +15,19 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.NameUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.util.UIUtil;
+
+import relationship.references.TypeReferences;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -47,25 +41,19 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class RelationshipPattern extends FRaMEDConnectionPattern {
 	
 	/**
-	 * the name of the feature and the standard name for relationships gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private static final String RELATIONSHIP_FEATURE_NAME = NameLiterals.RELATIONSHIP_FEATURE_NAME,
-								STANDARD_RELATIONSHIP_NAME = NameLiterals.STANDARD_RELATIONSHIP_NAME;
+	Literals literals = new Literals();
 	
 	/**
-	 * the standard value of cardinalities gathered from {@link NameLiterals}
+	 * the object to call utility operations on
 	 */
-	private final String STANDARD_CARDINALITY = NameLiterals.STANDARD_CARDINALITY;
+	private final Util util = new Util();
 	
 	/**
-	 * the name of the edit relationship feature gathered from {@link NameLiterals}
+	 * the reference for which model types a inheritance is applicable
 	 */
-	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
-	
-	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
-	 */
-	private final String IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP;
+	private final TypeReferences typeReferences = new TypeReferences();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -79,48 +67,14 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 			}	};
 	
 	/**
-	 * values for property shape id of the connection decorators of the relationship
-	 */
-	private final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
-			   			 SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
-			   		  	 SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR,
-			   		   	 SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
-	
-	/**
-	 * the color values used for the polyline and the texts of the relationship gathered from {@link LayoutLiterals}
-	 */
-	private final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-								 COLOR_TEXT = UILiterals.COLOR_TEXT;
-	
-	/**
-	 * layout integers gathered from {@link LayoutLiterals}
-	 */
-	private static final int DISTANCE_FROM_CONNECTION_LINE = LayoutLiterals.DISTANCE_FROM_CONNECTION_LINE;
-	
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public RelationshipPattern() {
 		super();
+		FEATURE_NAME = literals.FEATURE_NAME;
+		ICON_IMG_ID = literals.ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return RELATIONSHIP_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_RELATIONSHIP;
 	}
 	
 	//add feature
@@ -170,25 +124,25 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setForeground(manageColor(literals.COLOR_CONNECTIONS));
 	    polyline.setLineWidth(2);
 	    //Step 2
 	    ConnectionDecorator connectionDecoratorForName = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);   
 	    Text nameText = graphicAlgorithmService.createText(connectionDecoratorForName, addedRelationship.getName());
-	    graphicAlgorithmService.setLocation(nameText, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
-	    nameText.setForeground(manageColor(COLOR_TEXT)); 
+	    graphicAlgorithmService.setLocation(nameText, literals.DISTANCE_FROM_CONNECTION_LINE, -1*literals.DISTANCE_FROM_CONNECTION_LINE);
+	    nameText.setForeground(manageColor(literals.COLOR_TEXT)); 
 	    //Step 3
 	    ConnectionDecorator connectionDecoratorForSourceLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.1, true);
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
-	    graphicAlgorithmService.setLocation(sourceLabel, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
-	    sourceLabel.setForeground(manageColor(COLOR_TEXT));
+	    graphicAlgorithmService.setLocation(sourceLabel, literals.DISTANCE_FROM_CONNECTION_LINE, -1*literals.DISTANCE_FROM_CONNECTION_LINE);
+	    sourceLabel.setForeground(manageColor(literals.COLOR_TEXT));
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
-	    graphicAlgorithmService.setLocation(targetLabel, DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
-	    targetLabel.setForeground(manageColor(COLOR_TEXT));
+	    graphicAlgorithmService.setLocation(targetLabel, literals.DISTANCE_FROM_CONNECTION_LINE, -1*literals.DISTANCE_FROM_CONNECTION_LINE);
+	    targetLabel.setForeground(manageColor(literals.COLOR_TEXT));
 	    //Step 4
 	    ConnectionDecorator connectionDecoratorForAnchor = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);
@@ -202,10 +156,10 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		link(connectionDecoratorForTargetLabel, addedRelationship);
 		link(connectionDecoratorForAnchor, addedRelationship);
 		//Step 6
-		PropertyUtil.setShape_IdValue(connectionDecoratorForName, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
-		PropertyUtil.setShape_IdValue(connectionDecoratorForSourceLabel, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
-		PropertyUtil.setShape_IdValue(connectionDecoratorForTargetLabel, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
-		PropertyUtil.setShape_IdValue(connectionDecoratorForAnchor, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR);
+		UIUtil.setShape_IdValue(connectionDecoratorForName, literals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR);
+		UIUtil.setShape_IdValue(connectionDecoratorForSourceLabel, literals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR);
+		UIUtil.setShape_IdValue(connectionDecoratorForTargetLabel, literals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR);
+		UIUtil.setShape_IdValue(connectionDecoratorForAnchor, literals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR);
 		//Step 7
 		pictogramElementCreateService.createChopboxAnchor(connection);
 		//Step 8
@@ -215,12 +169,12 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		customContext.setPictogramElements(pictogramElement);
 		ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
 		EditRelationshipFeature editRelationshipFeature = 
-				(EditRelationshipFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
+				(EditRelationshipFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_RELATIONSHIP_FEATURE_NAME);
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);
 		return connection;
 	}
-	
+		
 	//create feature
 	//~~~~~~~~~~~~~~
 	/**
@@ -237,11 +191,11 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
-	    		if(sourceShape.getType() == Type.ROLE_TYPE)
+	    		if(typeReferences.getTypes().contains(sourceShape.getType()))
 		    		if(targetShape.getType() == sourceShape.getType())
 						   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
@@ -259,9 +213,9 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(sourceShape.getType() == Type.ROLE_TYPE)
+			if(typeReferences.getTypes().contains(sourceShape.getType()))
 				return true;
 		}	
 		return false;
@@ -281,12 +235,12 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();
-		String standardName = NameUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.RELATIONSHIP, STANDARD_RELATIONSHIP_NAME);
+		String standardName = util.calculateStandardNameForCompartmentsTypeElement(getDiagram());
 		newRelationship.setName(standardName);
 		newRelationship.setType(Type.RELATIONSHIP); 
 	    if(newRelationship.eResource() != null) getDiagram().eResource().getContents().add(newRelationship);
@@ -298,8 +252,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    //Step 4
 	    NamedElement sourceLabel = OrmFactory.eINSTANCE.createNamedElement();
 	    NamedElement targetLabel = OrmFactory.eINSTANCE.createNamedElement();
-	    sourceLabel.setName(STANDARD_CARDINALITY);
-	    targetLabel.setName(STANDARD_CARDINALITY);
+	    sourceLabel.setName(literals.STANDARD_CARDINALITY);
+	    targetLabel.setName(literals.STANDARD_CARDINALITY);
 	    newRelationship.setSourceLabel(sourceLabel);
 	    newRelationship.setTargetLabel(targetLabel);
 	    //Step 5

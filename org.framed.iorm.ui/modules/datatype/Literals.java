@@ -83,6 +83,7 @@ public class Literals {
 	 */
 	public final String REASON_NAME_NULL = "Name of a Data Type is null.",
 						REASON_NAME_OUT_OF_DATE = "Name of a Data Type is out of date.";
+	
 	/**
 	 * regular expression for a data types names:
 	 * <p>

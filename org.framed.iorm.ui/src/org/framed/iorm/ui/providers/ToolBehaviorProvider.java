@@ -38,6 +38,9 @@ import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
+
+import relationship.EditRelationshipFeature;
+
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
@@ -46,7 +49,6 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
-import org.framed.iorm.ui.graphitifeatures.EditRelationshipFeature;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link

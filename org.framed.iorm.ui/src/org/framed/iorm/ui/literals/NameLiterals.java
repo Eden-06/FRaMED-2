@@ -2,6 +2,9 @@ package org.framed.iorm.ui.literals;
 
 import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
+
+import relationship.EditRelationshipFeature;
+
 import org.framed.iorm.ui.graphitifeatures.*; //*import for javadoc link
 
 /**

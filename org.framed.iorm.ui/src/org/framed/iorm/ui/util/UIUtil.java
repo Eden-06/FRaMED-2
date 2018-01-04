@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -14,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -99,13 +101,29 @@ public class UIUtil {
 		return pictogramElement.getLink().getBusinessObjects().get(0);
 	}
 	
+	//features
+	//~~~~~~~~
+	/**
+	 * finds a feature by its name in an array of general features
+	 * @param array the array with features to search in
+	 * @param featureName the name of the feature to find
+	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found
+	 */
+	public static IFeature findFeatureByName(IFeature[] array, String featureName) {
+		for(int i = 0; i<array.length; i++) {
+			if(array[i].getName().equals(featureName)) 
+				return array[i];
+		}	
+		throw new NoFeatureForPatternFound(featureName);
+	}
+	
 	//finding pattern dynamically
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	/**
 	 * fetches all java classes in the module source folder
 	 * @return all java classes in in the module source folder
 	 */
-	public static List<Class<?>> findModulePatterns() {
+	public static List<Class<?>> findModuleJavaClasses() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
 	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
 	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();

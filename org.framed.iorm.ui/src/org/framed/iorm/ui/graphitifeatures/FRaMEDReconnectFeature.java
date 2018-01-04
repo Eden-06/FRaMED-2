@@ -14,10 +14,11 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.pattern.connections.RelationshipPattern;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
+
+import relationship.RelationshipPattern;
 
 /**
  * This class adds checks and needed changes to the business model when reconnecting relations 

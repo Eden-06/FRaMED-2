@@ -4,11 +4,11 @@ import org.framed.iorm.ui.exceptions.*; //*import for javadoc link
 import org.framed.iorm.ui.wizards.RoleModelWizardPage; //*import for javadoc link
 
 import core.naturaltype.NaturalTypePattern;
+import relationship.EditRelationshipDialog;
 
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 import org.eclipse.ui.PartInitException; //*import for javadoc link
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
-import org.framed.iorm.ui.wizards.EditRelationshipDialog; //*import for javadoc link
 
 /**
  * This class saves severals static Strings used as messages for the user.
@@ -23,20 +23,7 @@ public class TextLiterals {
 							   NAME_ALREADY_USED_GROUP = "Another group already has the same name!",
 							   DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
 							   NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!";
-							   
-	
-	/**
-	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen
-	 */
-	public static final String EDITING_RELATIONSHIPS_NAME_INVALID_TITLE = "Relationships name is invalid!",
-							   EDITING_RELATIONSHIPS_NAME_INVALID = "A relationships name cant be empty and cant contains spaces. Numbers are allowed but as first symbol!",
-							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED_TITLE = "Relationships name is already used!",
-							   EDITING_RELATIONSHIPS_NAME_ALREADY_USED = "Another relationship already in this compartment type already has the same name!",
-							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY_TITLE = "Relationships source cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_SOURCE_CARDINALITY = "The source cardinality has to be in the form <0-9/*> or <0-9>..<0-9/*>!",
-							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY_TITLE = "Relationships target cardinality is invalid!",
-							   EDITING_RELATIONSHIPS_TARGET_CARDINALITY = "The target cardinality has to be in the form <0-9/*> or <0-9>..<0-9/*>!";
-			
+							   		
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 * <p>

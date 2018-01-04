@@ -1,10 +1,13 @@
 package org.framed.iorm.ui.providers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IContext;
@@ -25,9 +28,6 @@ import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
-import core.roletype.RoleTypePattern;
-import inheritance.InheritancePattern;
-
 /**
  * This class manages the pattern and features for the editing of the diagram type
  * @author Kevin Kassin
@@ -37,7 +37,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	/**
 	 * The class constructor adds all graphiti pattern to the provider following these steps:
 	 * <p>
-	 * Step 1: It uses {@link UIUtil#findModulePatterns()} to find all java classes in the modules dynamically by searching for them
+	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
 	 * 		   in the module source folder.<br>
 	 * Step 2: It checks all found classes for non abstract<br>
 	 * 		   (a) {@link FRaMEDShapePattern} and<br>
@@ -47,22 +47,24 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
       super(diagramTypeProvider);
       //Step 1
-      List<Class<?>> patterns = UIUtil.findModulePatterns();
+      List<Class<?>> classes = UIUtil.findModuleJavaClasses();
       //Step 2
-      for(Class<?> patternClass : patterns) {
-    	  if(!Modifier.isAbstract(patternClass.getModifiers())) {
-	    	  try {
-				Object object = patternClass.newInstance();
-				//(a)
-				if(object instanceof FRaMEDShapePattern) {
-					addPattern((FRaMEDShapePattern) object);
-				}
-				//(b)
-				if(object instanceof FRaMEDConnectionPattern) {
-					addConnectionPattern((FRaMEDConnectionPattern) object);
-				}
-	    	  } catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-      }	  }	
+      for(Class<?> cl : classes) {
+    	  if(!Modifier.isAbstract(cl.getModifiers())) {
+    		  if(cl.getSuperclass() == FRaMEDShapePattern.class ||
+    			 cl.getSuperclass() == FRaMEDConnectionPattern.class) {
+    			  try {
+    				  Object object = cl.newInstance();
+    				  //(a)
+    				  if(object instanceof FRaMEDShapePattern) {
+    					  addPattern((FRaMEDShapePattern) object);
+    				  }
+    				  //(b)
+    				  if(object instanceof FRaMEDConnectionPattern) {
+    					  addConnectionPattern((FRaMEDConnectionPattern) object);
+    				  }
+    			  } catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+      }	  }	  }
       
       //TODO delete after and after
       //Step 1
@@ -70,7 +72,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
       //Step 2
-      addConnectionPattern(new RelationshipPattern());
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());
@@ -86,16 +87,40 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 	/**
 	 * sets the graphiti custom features that are used by editor for the diagram type
+	 * <p>
+	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
+	 * 		   in the module source folder.<br>
+	 * Step 2: It checks all found classes for non abstract {@link FRaMEDCustomFeature} to add the custom features
 	 */
 	@Override
 	public ICustomFeature[] getCustomFeatures(ICustomContext context) {
-	    return new ICustomFeature[] { new ChangeConfigurationFeature(this),
-	    							  new EditRelationshipFeature(this),
-	    							  new EditFulfillmentFeature(this),
-	    						 	  new StepInFeature(this),
-	    							  new StepInNewTabFeature(this),
-	    						 	  new StepOutFeature(this), 
-	    						 	  new ResetLayoutForElementFeature(this) };
+		List<ICustomFeature> customfeatures = new ArrayList<ICustomFeature>();
+		//Step 1
+	    List<Class<?>> classes = UIUtil.findModuleJavaClasses();
+	    //Step 2
+	    for(Class<?> cl : classes) {
+	    	if(!Modifier.isAbstract(cl.getModifiers())) {
+	    		if(cl.getSuperclass() == FRaMEDCustomFeature.class) {	
+		    		try {
+		    			Class<?>[] args = new Class<?>[1];
+		    			args[0] = IFeatureProvider.class;
+		    			Object object = cl.getDeclaredConstructor(args).newInstance(this);
+		    			customfeatures.add((FRaMEDCustomFeature) object);
+		    		} catch (InstantiationException | IllegalAccessException | 
+		    				 IllegalArgumentException | InvocationTargetException | 
+		    				 NoSuchMethodException | SecurityException e) { e.printStackTrace(); }
+	    }	}	}
+	    
+	    //TODO get rid of after and after
+	    customfeatures.add(new ChangeConfigurationFeature(this));
+	    customfeatures.add(new EditFulfillmentFeature(this));
+	    customfeatures.add(new StepInFeature(this));
+	    customfeatures.add(new StepInNewTabFeature(this));
+	    customfeatures.add(new StepOutFeature(this));
+	    customfeatures.add(new ResetLayoutForElementFeature(this));
+	
+	    ICustomFeature[] customFeatureArray = customfeatures.toArray(new ICustomFeature[0]);
+		return customFeatureArray;
 	} 
 	
 	/**

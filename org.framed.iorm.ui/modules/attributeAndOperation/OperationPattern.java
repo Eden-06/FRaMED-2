@@ -79,7 +79,7 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 		FPD = spec_FPD;
 		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
-		List<Class<?>> classes = util.findUsedInReferences();
+		List<Class<?>> classes = util.findModuleClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
 	

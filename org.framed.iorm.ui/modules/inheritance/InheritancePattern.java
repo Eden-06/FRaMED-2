@@ -24,7 +24,6 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.util.UIUtil;
 
-import inheritance.Literals;
 import inheritance.references.TypeReferences;
 
 /**

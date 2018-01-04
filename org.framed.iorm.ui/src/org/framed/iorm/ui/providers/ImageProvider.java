@@ -68,7 +68,7 @@ public class ImageProvider extends AbstractImageProvider {
     /**
      * links the file paths to image identifiers using the following steps:
      * <p>
-   	 * Step 1: It uses {@link UIUtil#findModulePatterns()} to find all java classes in the modules dynamically by searching for them
+   	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
 	 * 		   in the module source folder.<br>
 	 * Step 2: It checks all found classes for non abstract<br>
 	 * 		   (a) {@link FRaMEDShapePattern} and<br>
@@ -80,24 +80,26 @@ public class ImageProvider extends AbstractImageProvider {
     @Override
     protected void addAvailableImages() {
     	//Step 1
-    	List<Class<?>> patterns = UIUtil.findModulePatterns();
+    	List<Class<?>> classes = UIUtil.findModuleJavaClasses();
     	//Step 2
-    	for(Class<?> patternClass : patterns) {
-	    	if(!Modifier.isAbstract(patternClass.getModifiers())) {
-    			try {
-		    		Object object = patternClass.newInstance();
-					//(a)
-		    		if(object instanceof FRaMEDShapePattern) {
-						FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
-						addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
-					}
-					//(b)
-					if(object instanceof FRaMEDConnectionPattern) {
-						FRaMEDConnectionPattern framedPattern = (FRaMEDConnectionPattern) object;
-						addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
-					}
-	    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-	    }	}	
+    	for(Class<?> cl : classes) {
+	    	if(!Modifier.isAbstract(cl.getModifiers())) {
+	    		if(cl.getSuperclass() == FRaMEDShapePattern.class ||
+	       		   cl.getSuperclass() == FRaMEDConnectionPattern.class) {
+	    			try {
+			    		Object object = cl.newInstance();
+						//(a)
+			    		if(object instanceof FRaMEDShapePattern) {
+							FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
+							addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
+						}
+						//(b)
+						if(object instanceof FRaMEDConnectionPattern) {
+							FRaMEDConnectionPattern framedPattern = (FRaMEDConnectionPattern) object;
+							addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
+						}
+		    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+	    }	}	}
     	
     	//TODO delete after and after
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);

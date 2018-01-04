@@ -1,22 +1,19 @@
-package org.framed.iorm.ui.graphitifeatures;
+package relationship;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.graphitifeatures.FRaMEDCustomFeature;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //* import for javadoc link
-import org.framed.iorm.ui.util.PropertyUtil;
-import org.framed.iorm.ui.wizards.EditRelationshipDialog;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to edit the name and the cardinalities of a relationship.
@@ -24,19 +21,12 @@ import org.framed.iorm.ui.wizards.EditRelationshipDialog;
  * It is uses the {@link EditRelationshipDialog}.
  * @author Kevin Kassin
  */
-public class EditRelationshipFeature extends AbstractCustomFeature {
-
-	/**
-	 * the name of the feature gathered from {@link NameLiterals}
-	 */
-	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME;
+public class EditRelationshipFeature extends FRaMEDCustomFeature {
 	
 	/**
-	 * values for property shape id of the connection decorators of the relationship
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR,
-			   			 SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR,
-			   			 SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR;
+	Literals literals = new Literals();
 	
 	/**
 	 * Class constructor
@@ -44,15 +34,7 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 	 */
 	public EditRelationshipFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature 
-	 */
-	@Override
-	public String getName() {
-		return EDIT_RELATIONSHIP_FEATURE_NAME;
+		FEATURE_NAME = literals.EDIT_RELATIONSHIP_FEATURE_NAME;
 	}
 	
 	/**
@@ -94,15 +76,15 @@ public class EditRelationshipFeature extends AbstractCustomFeature {
 			for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
 				if(decorator.getGraphicsAlgorithm() instanceof Text) {
 					Text text = (Text) decorator.getGraphicsAlgorithm();
-					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_NAME_DECORATOR)) {
+					if(UIUtil.isShape_IdValue(decorator, literals.SHAPE_ID_RELATIONSHIP_NAME_DECORATOR)) {
 						text.setValue(relationshipValues.get(0));
 						businessObject.setName(relationshipValues.get(0));
 					}
-					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR)) {
+					if(UIUtil.isShape_IdValue(decorator, literals.SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR)) {
 						text.setValue(relationshipValues.get(1));
 						businessObject.getSourceLabel().setName(relationshipValues.get(1));
 					}
-					if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR)) {
+					if(UIUtil.isShape_IdValue(decorator, literals.SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR)) {
 						text.setValue(relationshipValues.get(2));
 						businessObject.getTargetLabel().setName(relationshipValues.get(2));
 	}	}	}	}	}

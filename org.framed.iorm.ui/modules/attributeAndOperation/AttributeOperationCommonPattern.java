@@ -80,7 +80,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		FPD = spec_FPD;
 		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
-		List<Class<?>> classes = util.findUsedInReferences();
+		List<Class<?>> classes = util.findModuleClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
 	
