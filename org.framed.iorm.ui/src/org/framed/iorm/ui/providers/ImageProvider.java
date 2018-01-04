@@ -33,8 +33,7 @@ public class ImageProvider extends AbstractImageProvider {
      * <p>
      * See {@link IdentifierLiterals} for further explanations.
      */
-    private final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE,
-    					 IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION,
+    private final String IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION,
     					 IMG_ID_FEATURE_ROLEEQUIVALENCE = IdentifierLiterals.IMG_ID_FEATURE_ROLEEQUIVALENCE,
   					     IMG_ID_FEATURE_ROLEPROHIBITION = IdentifierLiterals.IMG_ID_FEATURE_ROLEPROHIBITION,
   					     IMG_ID_FEATURE_RELATIONSHIP = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP,
@@ -57,8 +56,7 @@ public class ImageProvider extends AbstractImageProvider {
      * <p>
      * See {@link URLLiterals} for further explanations.
      */
-    private final String IMG_FILEPATH_FEATURE_INHERITANCE = URLLiterals.IMG_FILEPATH_FEATURE_INHERITANCE,
-    					 IMG_FILEPATH_FEATURE_ROLEIMPLICATION = URLLiterals.IMG_FILEPATH_FEATURE_ROLEIMPLICATION,
+    private final String IMG_FILEPATH_FEATURE_ROLEIMPLICATION = URLLiterals.IMG_FILEPATH_FEATURE_ROLEIMPLICATION,
     					 IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE = URLLiterals.IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE,
     					 IMG_FILEPATH_FEATURE_ROLEPROHIBITION = URLLiterals.IMG_FILEPATH_FEATURE_ROLEPROHIBITION,
     				     IMG_FILEPATH_FEATURE_RELATIONSHIP = URLLiterals.IMG_FILEPATH_FEATURE_RELATIONSHIP,
@@ -88,8 +86,14 @@ public class ImageProvider extends AbstractImageProvider {
 	    	if(!Modifier.isAbstract(patternClass.getModifiers())) {
     			try {
 		    		Object object = patternClass.newInstance();
-					if(object instanceof FRaMEDShapePattern) {
+					//(a)
+		    		if(object instanceof FRaMEDShapePattern) {
 						FRaMEDShapePattern framedPattern = (FRaMEDShapePattern) object;
+						addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
+					}
+					//(b)
+					if(object instanceof FRaMEDConnectionPattern) {
+						FRaMEDConnectionPattern framedPattern = (FRaMEDConnectionPattern) object;
 						addImageFilePath(framedPattern.getCreateImageId(), framedPattern.getCreateImagePath());
 					}
 	    		} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
@@ -100,7 +104,6 @@ public class ImageProvider extends AbstractImageProvider {
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
         addImageFilePath(IMG_ID_FEATURE_ROLETYPE, IMG_FILEPATH_FEATURE_ROLETYPE);
         
-        addImageFilePath(IMG_ID_FEATURE_INHERITANCE, IMG_FILEPATH_FEATURE_INHERITANCE);
         addImageFilePath(IMG_ID_FEATURE_ROLEIMPLICATION, IMG_FILEPATH_FEATURE_ROLEIMPLICATION);
         addImageFilePath(IMG_ID_FEATURE_ROLEEQUIVALENCE, IMG_FILEPATH_FEATURE_ROLEEQUIVALENCE);
         addImageFilePath(IMG_ID_FEATURE_ROLEPROHIBITION, IMG_FILEPATH_FEATURE_ROLEPROHIBITION);

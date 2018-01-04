@@ -20,9 +20,10 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	protected String FEATURE_NAME;
 	
 	/**
-	 * the identifier for the icon of the create feature
+	 * the identifier or the path for the icon of the create feature
 	 */
-	protected String ICON_IMG_ID;
+	protected String ICON_IMG_ID,
+				     ICON_IMG_PATH;
 	
 	/**
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -40,13 +41,20 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	}
 
 	/**
-	 * get method for the identifier of the icon for the create feature
-	 * 
-	 * @return the id of the icon
+	 * getter method for the icon id for the create feature in this pattern
+	 * @return the image identifier for the icon of the create feature 
 	 */
 	@Override
 	public String getCreateImageId() {
 		return ICON_IMG_ID;
+	}
+	
+	/**
+	 * getter method for the icon file path for the create feature in this pattern
+	 * @return the image file path for the icon of the create feature 
+	 */
+	public String getCreateImagePath() {
+		return ICON_IMG_PATH;
 	}
 	
 	/**

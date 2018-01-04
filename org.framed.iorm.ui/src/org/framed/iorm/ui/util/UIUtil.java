@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IMappingProvider;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -39,6 +40,23 @@ public class UIUtil {
 			   diagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 				return (Model) diagram.getLink().getBusinessObjects().get(0);
 			}
+		}
+		return null;
+	}
+	
+	/**
+	 * helper method to get the {@link ModelElement} for a given anchor
+	 * @param anchor the anchor that belongs to the model element to get
+	 * @return the model element that has the give anchor
+	 */
+	public static org.framed.iorm.model.ModelElement getModelElementForAnchor(Anchor anchor) {
+		Object object = null;
+		if (anchor != null) { object = GeneralUtil.getBusinessObjectForPictogramElement(anchor.getParent()); }
+		if (object != null) {
+			if (object instanceof org.framed.iorm.model.Shape)
+				return (org.framed.iorm.model.Shape) object;
+			if (object instanceof org.framed.iorm.model.Relation)
+				return (org.framed.iorm.model.Relation) object;
 		}
 		return null;
 	}

@@ -99,6 +99,18 @@ public class UILiterals {
 							MIN_HEIGHT_FOR_CLASS_OR_ROLE = 100;
 	
 	/**
+	 * layout integers for connections
+	 * <p>
+	 * can be:<br>
+	 * (1) the lenght of the arrowheads of connections or<br>
+	 * (2) the height of the arrowheads of connections or<br>
+	 * (3) the distance of connection decorators from the connections line
+	 */
+	public static final int ARROWHEAD_LENGTH = 15,	
+							ARROWHEAD_HEIGHT = 10,
+						    DISTANCE_FROM_CONNECTION_LINE = 15;
+	
+	/**
 	 * layout integers for the text of occurrence constraints
 	 */
 	public static final int HEIGHT_OCCURENCE_CONSTRAINT = 15,
@@ -117,4 +129,14 @@ public class UILiterals {
 			   						   COLOR_LINES = IColorConstant.BLACK,
 			   						   COLOR_BACKGROUND = IColorConstant.WHITE,
 			   						   COLOR_SHADOW = IColorConstant.GRAY;	
+	
+	/**
+	 * color value for connections
+	 * <p>
+	 * can be:<br>
+	 * (1) the color of the line of a connection or<br>
+	 * (2) the color of arrowheads of connections
+	 */
+	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK,
+									   COLOR_ARROWHEAD = IColorConstant.WHITE;
 }

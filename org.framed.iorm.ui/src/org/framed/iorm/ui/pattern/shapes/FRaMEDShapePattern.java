@@ -55,17 +55,19 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return FEATURE_NAME;
 	}
 	
-	//TODO
 	/**
-	 * enables the icon for the create feature in this pattern
-	 * @return the image identifier for the icon of the create feature in this pattern
+	 * getter method for the icon id for the create feature in this pattern
+	 * @return the image identifier for the icon of the create feature 
 	 */
 	@Override
 	public String getCreateImageId() {
 		return ICON_IMG_ID;
 	}
 	
-	//TODO
+	/**
+	 * getter method for the icon file path for the create feature in this pattern
+	 * @return the image file path for the icon of the create feature 
+	 */
 	public String getCreateImagePath() {
 		return ICON_IMG_PATH;
 	}

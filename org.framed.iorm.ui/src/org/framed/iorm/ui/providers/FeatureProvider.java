@@ -26,6 +26,7 @@ import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
 import core.roletype.RoleTypePattern;
+import inheritance.InheritancePattern;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type
@@ -68,10 +69,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new CompartmentTypePattern());
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
-      addPattern(new RoleTypePattern()); 
       //Step 2
       addConnectionPattern(new RelationshipPattern());
-      addConnectionPattern(new InheritancePattern());
       addConnectionPattern(new RoleImplicationPattern());
       addConnectionPattern(new RoleEquivalencePattern());
       addConnectionPattern(new RoleProhibitionPattern());

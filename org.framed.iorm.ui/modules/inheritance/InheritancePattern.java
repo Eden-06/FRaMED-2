@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package inheritance;
 
 import java.util.List;
 
@@ -12,21 +12,20 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.util.UIUtil;
+
+import inheritance.Literals;
+import inheritance.references.TypeReferences;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -40,73 +39,41 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class InheritancePattern extends FRaMEDConnectionPattern {
 	
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private static final String INHERITANCE_FEATURE_NAME = NameLiterals.INHERITANCE_FEATURE_NAME;
+	private final Literals literals = new Literals();
 	
 	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
+	 * the reference for which model types a inheritance is applicable
 	 */
-	private static final String IMG_ID_FEATURE_INHERITANCE = IdentifierLiterals.IMG_ID_FEATURE_INHERITANCE;
+	private final TypeReferences typeReferences = new TypeReferences();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-			PaletteCategory.RELATIONS_CATEGORY,
-			ViewVisibility.ALL_VIEWS) {
-				@Override
-				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
-					switch(paletteView) {
-						case TOPLEVEL_VIEW: return true;
-						case COMPARTMENT_VIEW: 
-							return (framedFeatureNames.contains("Role_Inheritance") ||
-								    (framedFeatureNames.contains("Compartment_Inheritance") &&
-								     framedFeatureNames.contains("Contains_Compartments")));
-						default: return false;
-				}	}	};
+		PaletteCategory.RELATIONS_CATEGORY,
+		ViewVisibility.ALL_VIEWS) {
+			@Override
+			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+				switch(paletteView) {
+					case TOPLEVEL_VIEW: return true;
+					case COMPARTMENT_VIEW: 
+						return (framedFeatureNames.contains("Role_Inheritance") ||
+							    (framedFeatureNames.contains("Compartment_Inheritance") &&
+							     framedFeatureNames.contains("Contains_Compartments")));
+					default: return false;
+			}	}	};
 	
 	/**
-	 * the value for the property shape id for the connection decorator of the inheritance
-	 */
-	private static final String SHAPE_ID_INHERITANCE_DECORATOR = IdentifierLiterals.SHAPE_ID_INHERITANCE_DECORATOR;
-	
-	/**
-	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
-	 */
-	private static final int INHERITANCE_ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-							 INHERITANCE_ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
-							 
-	/**
-	 * the color values used for the polyline and the arrowhead of inheritances gathered from {@link LayoutLiterals}
-	 */
-	private static final IColorConstant COLOR_CONNECTIONS = LayoutLiterals.COLOR_CONNECTIONS,
-										COLOR_INHERITANCE_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;		
-	
-	/**
-	 * Class constructor
+	 * class constructor		
 	 */
 	public InheritancePattern() {
 		super();
+		FEATURE_NAME = literals.FEATURE_NAME;
+		ICON_IMG_ID = literals.ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return INHERITANCE_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_INHERITANCE;
 	}
 	
 	//add feature
@@ -126,7 +93,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		}
 		return false;
 	}
-	
+		
 	/**
 	 * adds the inheritance to the pictogram diagram using the following steps:
 	 * <p>
@@ -145,23 +112,23 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONNECTIONS));
+	    polyline.setForeground(manageColor(literals.COLOR_CONNECTIONS));
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecorator;
 	    connectionDecorator = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { -1*INHERITANCE_ARROWHEAD_LENGTH, INHERITANCE_ARROWHEAD_HEIGHT, 		//Point 1
-	    						   0, 0, 																//P2
-	    						   -1*INHERITANCE_ARROWHEAD_LENGTH, -1*INHERITANCE_ARROWHEAD_HEIGHT };	//P3						 
-	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONNECTIONS));
-	    arrowhead.setBackground(manageColor(COLOR_INHERITANCE_ARROWHEAD));
-	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_INHERITANCE_DECORATOR);
+	    int points[] = new int[] { -1*literals.INHERITANCE_ARROWHEAD_LENGTH, literals.INHERITANCE_ARROWHEAD_HEIGHT, 		//Point 1
+	    						   0, 0, 																					//P2
+	    						   -1*literals.INHERITANCE_ARROWHEAD_LENGTH, -1*literals.INHERITANCE_ARROWHEAD_HEIGHT };	//P3						 
+		Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
+		arrowhead.setForeground(manageColor(literals.COLOR_CONNECTIONS));
+	    arrowhead.setBackground(manageColor(literals.COLOR_INHERITANCE_ARROWHEAD));
+	    UIUtil.setShape_IdValue(connectionDecorator, literals.SHAPE_ID_INHERITANCE_DECORATOR);
 	    //Step 3
 	    link(connection, addedInheritance);
 	    return connection;
 	}
-	 
+		 
 	//create feature
 	//~~~~~~~~~~~~~~
 	/**
@@ -179,15 +146,12 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
-	    		if(sourceShape.getType() == Type.NATURAL_TYPE ||
-	    		   sourceShape.getType() == Type.DATA_TYPE ||
-	    		   sourceShape.getType() == Type.COMPARTMENT_TYPE ||
-	    		   sourceShape.getType() == Type.ROLE_TYPE)
+	    		if(typeReferences.getTypes().contains(sourceShape.getType()))
 	    			if(targetShape.getType() == sourceShape.getType())
 						   return true && EditPolicyService.canCreate(createContext, this.getDiagram());
 	    }	}
@@ -205,12 +169,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(sourceShape.getType() == Type.NATURAL_TYPE || 
-			   sourceShape.getType() == Type.DATA_TYPE ||
-			   sourceShape.getType() == Type.COMPARTMENT_TYPE ||
-			   sourceShape.getType() == Type.ROLE_TYPE)
+			if(typeReferences.getTypes().contains(sourceShape.getType()))
 				return true;
 		}	
 		return false;
@@ -229,8 +190,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
 	    newInheritance.setType(Type.INHERITANCE); 
