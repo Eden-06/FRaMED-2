@@ -33,8 +33,6 @@ import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
-import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.GeneralUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
@@ -47,6 +45,8 @@ import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link

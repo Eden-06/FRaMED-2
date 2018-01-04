@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections;
+package org.framed.iorm.ui;
 
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.services.Graphiti;

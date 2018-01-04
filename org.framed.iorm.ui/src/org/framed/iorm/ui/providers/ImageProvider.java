@@ -4,10 +4,10 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
+import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
-import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
-import org.framed.iorm.ui.pattern.shapes.FRaMEDShapePattern;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**

@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.shapes;
+package org.framed.iorm.ui;
 
 import java.util.ArrayList;
 import java.util.List;
