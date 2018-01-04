@@ -24,12 +24,8 @@ import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.pattern.connections.*;
 import org.framed.iorm.ui.pattern.connections.interrelationship.*;
 import org.framed.iorm.ui.pattern.connections.intrarelationship.*;
-import org.framed.iorm.ui.pattern.connections.roleconstraint.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
-
-import fulfillment.EditFulfillmentFeature;
-import fulfillment.FulfillmentPattern;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type
@@ -54,8 +50,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       //Step 2
       for(Class<?> cl : classes) {
     	  if(!Modifier.isAbstract(cl.getModifiers())) {
-    		  if(cl.getSuperclass() == FRaMEDShapePattern.class ||
-    			 cl.getSuperclass() == FRaMEDConnectionPattern.class) {
+    		  if(UIUtil.getSuperClasses(cl).contains(FRaMEDShapePattern.class) ||
+    			 UIUtil.getSuperClasses(cl).contains(FRaMEDConnectionPattern.class)) {
     			  try {
     				  Object object = cl.newInstance();
     				  //(a)
@@ -75,9 +71,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
       //Step 2
-      addConnectionPattern(new RoleImplicationPattern());
-      addConnectionPattern(new RoleEquivalencePattern());
-      addConnectionPattern(new RoleProhibitionPattern());
       addPattern(new AcyclicConstraintPattern());
       addPattern(new CyclicConstraintPattern());
       addPattern(new IrreflexiveConstraintPattern());
@@ -102,7 +95,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	    //Step 2
 	    for(Class<?> cl : classes) {
 	    	if(!Modifier.isAbstract(cl.getModifiers())) {
-	    		if(cl.getSuperclass() == FRaMEDCustomFeature.class) {	
+	    		if(UIUtil.getSuperClasses(cl).contains(FRaMEDCustomFeature.class)) {	
 		    		try {
 		    			Class<?>[] args = new Class<?>[1];
 		    			args[0] = IFeatureProvider.class;

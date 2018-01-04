@@ -1,19 +1,16 @@
-package org.framed.iorm.ui.pattern.connections.roleconstraint;
+package roleconstraints;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This is the abstract super class of the patterns for role constraint. It collects similiar operations
@@ -24,28 +21,11 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
 public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPattern{
 	
 	/**
-	 * value for the property shape id for the decorator of role constraints gathered form {@link IdentifierLiterals}
-	 */
-	protected final String SHAPE_ID_ROLE_CONSTRAINT_DECORATOR = IdentifierLiterals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR;
-	
-	/**
 	 * Class constructor
 	 */
 	public AbstractRoleConstraintPattern() {
 		super();
 	}
-	
-	/**
-	 * the layout integers used to layout the arrowhead of the role equivalences gathered from {@link LayoutLiterals}
-	 */
-	protected static final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-							   ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
-	
-	/**
-	 * the color values used for the polyline and the arrowhead gathered from {@link LayoutLiterals}
-	 */
-	protected static final IColorConstant COLOR_CONSTRAINT_CONNECTION = LayoutLiterals.COLOR_CONSTRAINT_CONNECTION,
-										  COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;
 	
 	//add feature
 	//~~~~~~~~~~~
@@ -81,8 +61,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
@@ -104,7 +84,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(sourceShape.getType() == Type.ROLE_TYPE)
 				return true;
@@ -126,8 +106,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceShape = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetShape = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newRoleConstraint = OrmFactory.eINSTANCE.createRelation();
 	    newRoleConstraint.setType(type); 

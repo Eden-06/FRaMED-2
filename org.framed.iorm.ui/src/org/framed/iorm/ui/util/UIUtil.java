@@ -29,6 +29,24 @@ import org.osgi.framework.Bundle;
  */
 public class UIUtil {
 
+	/**
+	 * gets all superclasses of a given class in a list
+	 * @param class 
+	 * @return
+	 */
+	public static List<Class<?>> getSuperClasses(Class<?> cl) {
+		List<Class<?>> classList = new ArrayList<Class<?>>();	
+		Class<?> superclass = cl.getSuperclass();
+		if(superclass != null) {	
+			classList.add(superclass);
+			while (superclass != null) {   
+				cl = superclass;
+			    superclass = cl.getSuperclass();
+			    classList.add(superclass);
+		}	}	
+		return classList;
+	}
+	
 	//Model
 	//~~~~~
 	/**

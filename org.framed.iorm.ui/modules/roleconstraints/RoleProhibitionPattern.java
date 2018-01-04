@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.roleconstraint;
+package roleconstraints;
 
 import java.util.List;
 
@@ -13,13 +13,11 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -35,6 +33,11 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	
 	/**
+	 * the object to get names, ids and so on for this feature
+	 */
+	Literals literals = new Literals();
+		
+	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
@@ -46,41 +49,16 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 			}	};
 	
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
-	 */
-	private static final String ROLEPROHIBITION_FEATURE_NAME = NameLiterals.ROLEPROHIBITION_FEATURE_NAME;
-	
-	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
-	 */
-	private static final String IMG_ID_FEATURE_ROLEPROHIBITION = IdentifierLiterals.IMG_ID_FEATURE_ROLEPROHIBITION;
-	
-	/**
 	 * Class constructor
 	 */
 	public RoleProhibitionPattern() {
 		super();
+		FEATURE_NAME = literals.ROLEPROHIBITION_FEATURE_NAME;
+		ICON_IMG_ID = literals.ROLEPROHIBITION_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ROLEPROHIBITION_ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ROLEPROHIBITION_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_ROLEPROHIBITION;
-	}
-	
+	}				
+			
 	//add feature
 	//~~~~~~~~~~~
 	/**
@@ -110,25 +88,25 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
+	    polyline.setForeground(manageColor(literals.COLOR_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecoratorTarget = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { 0, ARROWHEAD_HEIGHT, 		//Point 1
-				 						 -1*ARROWHEAD_LENGTH, 0, 	//P2
-				 						 0, -1*ARROWHEAD_HEIGHT };	//P3						 
+	    int points[] = new int[] { 0, literals.ROLECONSTRAINT_ARROWHEAD_HEIGHT, 		//Point 1
+				 						 -1*literals.ROLECONSTRAINT_ARROWHEAD_LENGTH, 0, 	//P2
+				 						 0, -1*literals.ROLECONSTRAINT_ARROWHEAD_HEIGHT };	//P3						 
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, points);
 	    polylineTarget.setLineWidth(2); 
-	    polylineTarget.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
+	    polylineTarget.setForeground(manageColor(literals.COLOR_CONNECTIONS));
+	    UIUtil.setShape_IdValue(connectionDecoratorTarget, literals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    ConnectionDecorator connectionDecoratorSource = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 0, true);					 
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, points);
 	    polylineSource.setLineWidth(2); 
-	    polylineSource.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
+	    polylineSource.setForeground(manageColor(literals.COLOR_CONNECTIONS));
+	    UIUtil.setShape_IdValue(connectionDecoratorSource, literals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedRoleProhibtion);
 	    return connection;

@@ -13,6 +13,7 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.util.UIUtil;
 import org.osgi.framework.Bundle;
 
 import attributeAndOperation.Literals;
@@ -69,7 +70,7 @@ public class Util {
 		List<AbstractUsedInReference> usedInReferences = new ArrayList<AbstractUsedInReference>();
 		for(Class<?> cl : classes) {
 			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(cl.getSuperclass() == AbstractUsedInReference.class) {
+				if(UIUtil.getSuperClasses(cl).contains(AbstractUsedInReference.class)) {
 					try {
 						Object object = cl.newInstance();
 						usedInReferences.add((AbstractUsedInReference) object);

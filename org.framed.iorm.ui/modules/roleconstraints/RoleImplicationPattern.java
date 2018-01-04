@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.roleconstraint;
+package roleconstraints;
 
 import java.util.List;
 
@@ -14,13 +14,11 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -36,6 +34,11 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	
 	/**
+	 * the object to get names, ids and so on for this feature
+	 */
+	Literals literals = new Literals();
+	
+	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
@@ -47,42 +50,16 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 			}	};
 	
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
-	 */
-	private static final String ROLEIMPLICATION_FEATURE_NAME = NameLiterals.ROLEIMPLICATION_FEATURE_NAME;
-	
-	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
-	 */
-	private static final String IMG_ID_FEATURE_ROLEIMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_ROLEIMPLICATION;
-	
-	/**
 	 * Class constructor
 	 */
 	public RoleImplicationPattern() {
 		super();
+		FEATURE_NAME = literals.ROLEIMPLICATION_FEATURE_NAME;
+		ICON_IMG_ID = literals.ROLEIMPLICATION_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ROLEIMPLICATION_ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return ROLEIMPLICATION_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_ROLEIMPLICATION;
-	}
-	
-	
+	}		
+			
 	//add feature
 	//~~~~~~~~~~~
 	/**
@@ -112,19 +89,19 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	    connection.setStart(sourceAnchor);
 	    connection.setEnd(targetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
+	    polyline.setForeground(manageColor(literals.COLOR_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    //Step2
 	    ConnectionDecorator connectionDecorator;
 	    connectionDecorator = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 		//Point 1
+	    int points[] = new int[] { -1*literals.ROLECONSTRAINT_ARROWHEAD_LENGTH, literals.ROLECONSTRAINT_ARROWHEAD_HEIGHT, 		//Point 1
 	    						   0, 0, 										//P2
-	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 
+	    						   -1*literals.ROLECONSTRAINT_ARROWHEAD_LENGTH, -1*literals.ROLECONSTRAINT_ARROWHEAD_HEIGHT };	//P3						 
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
-	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
+	    arrowhead.setForeground(manageColor(literals.COLOR_CONNECTIONS));
+	    arrowhead.setBackground(manageColor(literals.COLOR_ARROWHEAD));
+	    UIUtil.setShape_IdValue(connectionDecorator, literals.SHAPE_ID_ROLE_CONSTRAINT_DECORATOR);
 	    //Step 3
 	    link(connection, addedRoleImplication);
 	    return connection;
