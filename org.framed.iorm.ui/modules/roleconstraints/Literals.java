@@ -30,7 +30,7 @@ public class Literals {
 	//Layout
 	//~~~~~~
 	/**
-	 * the layout integers used to layout the arrowhead of the inheritances
+	 * the layout integers used to layout the arrowhead of the role constraints
 	 */
 	public final int ROLECONSTRAINT_ARROWHEAD_LENGTH = UILiterals.ARROWHEAD_LENGTH,
 					 ROLECONSTRAINT_ARROWHEAD_HEIGHT = UILiterals.ARROWHEAD_HEIGHT;

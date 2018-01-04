@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.interrelationship;
+package interRelationshipConstraints;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -8,9 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -24,40 +22,16 @@ import org.framed.iorm.ui.util.PropertyUtil;
  * @author Kevin Kassin
  */
 public class RelationshipImplicationConstraintPattern extends AbstractInterRelationshipConstraintPattern {
-
-	/**
-	 * the name of the feature gathered from {@link NameLiterals}
-	 */
-	private final String RELATIONSHIP_IMPLICATION_FEATURE_NAME = NameLiterals.RELATIONSHIP_IMPLICATION_FEATURE_NAME;
 		     
-	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
-	 */
-	private static final String IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION;
-	
 	/**
 	 * Class constructor
 	 */
 	public RelationshipImplicationConstraintPattern() {
 		super();
-	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return RELATIONSHIP_IMPLICATION_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION;
+		FEATURE_NAME = literals.RELATIONSHIP_IMPLICATION_FEATURE_NAME;
+		ICON_IMG_ID = literals.RELATIONSHIP_IMPLICATION_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.RELATIONSHIP_IMPLICATION_ICON_IMG_PATH;
+		
 	}
 	
 	//add feature
@@ -90,13 +64,13 @@ public class RelationshipImplicationConstraintPattern extends AbstractInterRelat
 		//Step 3
 	    ConnectionDecorator connectionDecorator;
 	    connectionDecorator = pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { -1*ARROWHEAD_LENGTH, ARROWHEAD_HEIGHT, 		//Point 1
+	    int points[] = new int[] { -1*literals.INTER_REL_ARROWHEAD_LENGTH, literals.INTER_REL_ARROWHEAD_HEIGHT, 		//Point 1
 	    						   0, 0, 										//P2
-	    						   -1*ARROWHEAD_LENGTH, -1*ARROWHEAD_HEIGHT };	//P3						 
+	    						   -1*literals.INTER_REL_ARROWHEAD_LENGTH, -1*literals.INTER_REL_ARROWHEAD_HEIGHT };	//P3						 
 	    Polygon arrowhead = graphicAlgorithmService.createPolygon(connectionDecorator, points);
-	    arrowhead.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    arrowhead.setBackground(manageColor(COLOR_ARROWHEAD));
-	    PropertyUtil.setShape_IdValue(connectionDecorator, SHAPE_ID_INTER_REL_CON);
+	    arrowhead.setForeground(manageColor(literals.COLOR_INTER_REL_CONNECTIONS));
+	    arrowhead.setBackground(manageColor(literals.COLOR_INTER_REL_ARROWHEAD));
+	    UIUtil.setShape_IdValue(connectionDecorator, literals.SHAPE_ID_INTER_REL_CON);
 	    //Step 4
 	    link(connection, addedRoleImplication);
 	    return connection;

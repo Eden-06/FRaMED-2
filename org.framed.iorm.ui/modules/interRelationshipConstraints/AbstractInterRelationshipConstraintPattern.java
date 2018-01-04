@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.interrelationship;
+package interRelationshipConstraints;
 
 import java.util.List;
 
@@ -10,19 +10,16 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.pattern.connections.FRaMEDConnectionPattern;
-import org.framed.iorm.ui.util.ConnectionPatternUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This is the abstract super class of the patterns for inter relationship contraints. It collects similiar operations
@@ -31,6 +28,16 @@ import org.framed.iorm.ui.util.ConnectionPatternUtil;
  * @author Kevin Kassin
  */
 public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDConnectionPattern {
+	
+	/**
+	 * the object to get names, ids and so on for this feature
+	 */
+	Literals literals = new Literals();
+	
+	/**
+	 * the object to call utility operations on
+	 */
+	Util util = new Util();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -42,24 +49,6 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Inter_Relationship_Constraints");
 			}	};
-	
-	/**
-	 * values for the property shape id gathered from {@link IdentifierLiterals}
-	 */
-	protected final String SHAPE_ID_INTER_REL_CON = IdentifierLiterals.SHAPE_ID_INTER_REL_CON,
-					       SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = IdentifierLiterals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR;
-	
-	/**
-	 * the layout integers used to layout the arrowhead of the inheritances gathered from {@link LayoutLiterals}
-	 */
-	protected final int ARROWHEAD_LENGTH = LayoutLiterals.ARROWHEAD_LENGTH,
-					    ARROWHEAD_HEIGHT = LayoutLiterals.ARROWHEAD_HEIGHT;
-	
-	/**
-	 * the color values used for the polyline and the arrowhead gathered from {@link LayoutLiterals}
-	 */
-	protected final IColorConstant COLOR_CONSTRAINT_CONNECTION = LayoutLiterals.COLOR_CONSTRAINT_CONNECTION,
-								   COLOR_ARROWHEAD = LayoutLiterals.COLOR_ARROWHEAD;
 	
 	/**
 	 * Class constructor
@@ -100,15 +89,15 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    //Step 1
 	    Anchor graphicalSourceAnchor = null, 
 	    	   graphicalTargetAnchor = null;
-	    graphicalSourceAnchor = ConnectionPatternUtil.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getSourceAnchor());
-	    graphicalTargetAnchor = ConnectionPatternUtil.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getTargetAnchor());
+	    graphicalSourceAnchor = util.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getSourceAnchor());
+	    graphicalTargetAnchor = util.getGraphicalAnchorForBusinessModelAnchor(addConnectionContext.getTargetAnchor());
 	    if(graphicalSourceAnchor == null || graphicalTargetAnchor == null) return null;
 	    //Step 2
 	    Connection connection = pictogramElementCreateService.createFreeFormConnection(getDiagram());
 	    connection.setStart(graphicalSourceAnchor);
 	    connection.setEnd(graphicalTargetAnchor);
 	    Polyline polyline = graphicAlgorithmService.createPolyline(connection);
-	    polyline.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
+	    polyline.setForeground(manageColor(literals.COLOR_INTER_REL_CONNECTIONS));
 	    polyline.setLineStyle(LineStyle.DASH);
 	    polyline.setLineWidth(2);
 	    return connection;
@@ -131,8 +120,8 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceConnection = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetConnection = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceConnection = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetConnection = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceConnection != null && targetConnection != null) {
 	    	if(sourceConnection.getContainer() == targetConnection.getContainer() &&
 	    	   !(sourceConnection.equals(targetConnection))) {
@@ -154,7 +143,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		org.framed.iorm.model.ModelElement sourceConnection = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
+		org.framed.iorm.model.ModelElement sourceConnection = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceConnection != null){	
 			if(sourceConnection.getType() == Type.RELATIONSHIP)
 				return true;
@@ -175,8 +164,8 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		//Step 1
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    org.framed.iorm.model.ModelElement sourceConnection = ConnectionPatternUtil.getModelElementForAnchor(sourceAnchor);
-	    org.framed.iorm.model.ModelElement targetConnection = ConnectionPatternUtil.getModelElementForAnchor(targetAnchor);
+	    org.framed.iorm.model.ModelElement sourceConnection = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    org.framed.iorm.model.ModelElement targetConnection = UIUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newInterRelationshipConstraint = OrmFactory.eINSTANCE.createRelation();
 	    newInterRelationshipConstraint.setType(type); 

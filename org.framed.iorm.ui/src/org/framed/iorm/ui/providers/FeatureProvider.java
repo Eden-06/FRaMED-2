@@ -22,7 +22,6 @@ import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.pattern.connections.*;
-import org.framed.iorm.ui.pattern.connections.interrelationship.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
@@ -69,9 +68,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
       addPattern(new CompartmentTypePattern());
       addPattern(new GroupPattern());
       addPattern(new GroupOrCompartmentTypeElementPattern());
-      //Step 2
-      addConnectionPattern(new RelationshipImplicationConstraintPattern());
-      addConnectionPattern(new RelationshipExclusionConstraintPattern());
 	}
 		
 	/**

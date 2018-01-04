@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.connections.interrelationship;
+package interRelationshipConstraints;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -8,9 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s
@@ -26,40 +24,20 @@ import org.framed.iorm.ui.util.PropertyUtil;
 public class RelationshipExclusionConstraintPattern extends AbstractInterRelationshipConstraintPattern {
 
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String RELATIONSHIP_EXCLUSION_FEATURE_NAME = NameLiterals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
+	Literals literals = new Literals();
 		     
-	/**
-	 * the identifier for the icon of the create feature gathered from {@link IdentifierLiterals}
-	 */
-	private static final String IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION;
-	
 	/**
 	 * Class constructor
 	 */
 	public RelationshipExclusionConstraintPattern() {
 		super();
+		FEATURE_NAME = literals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
+		ICON_IMG_ID = literals.RELATIONSHIP_EXCLUSION_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.RELATIONSHIP_EXCLUSION_ICON_IMG_PATH;
 	}
-	
-	/**
-	 * get method for the features name
-	 * @return the name of the feature
-	 */
-	@Override
-	public String getCreateName() {
-		return RELATIONSHIP_EXCLUSION_FEATURE_NAME;
-	}
-	
-	/**
-	 * get method for the identifier of the icon for the create feature
-	 * @return the id of the icon
-	 */
-	@Override
-	public String getCreateImageId() {
-		return IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION;
-	}
-	
+
 	//add feature
 	//~~~~~~~~~~~
 	/**
@@ -90,19 +68,19 @@ public class RelationshipExclusionConstraintPattern extends AbstractInterRelatio
 		//Step 3
 	    ConnectionDecorator connectionDecoratorTarget = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 1.0, true);
-	    int points[] = new int[] { 0, ARROWHEAD_HEIGHT, 	//Point 1
-				 				  -1*ARROWHEAD_LENGTH, 0, 	//P2
-				 				   0, -1*ARROWHEAD_HEIGHT };//P3						 
+	    int points[] = new int[] { 0, literals.INTER_REL_ARROWHEAD_HEIGHT, 	//Point 1
+				 				  -1*literals.INTER_REL_ARROWHEAD_LENGTH, 0, 	//P2
+				 				   0, -1*literals.INTER_REL_ARROWHEAD_HEIGHT };//P3						 
 	    Polyline polylineTarget = graphicAlgorithmService.createPolyline(connectionDecoratorTarget, points);
 	    polylineTarget.setLineWidth(2); 
-	    polylineTarget.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorTarget, SHAPE_ID_INTER_REL_CON);
+	    polylineTarget.setForeground(manageColor(literals.COLOR_INTER_REL_CONNECTIONS));
+	    UIUtil.setShape_IdValue(connectionDecoratorTarget, literals.SHAPE_ID_INTER_REL_CON);
 	    ConnectionDecorator connectionDecoratorSource = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, false, 0, true);					 
 	    Polyline polylineSource = graphicAlgorithmService.createPolyline(connectionDecoratorSource, points);
 	    polylineSource.setLineWidth(2); 
-	    polylineSource.setForeground(manageColor(COLOR_CONSTRAINT_CONNECTION));
-	    PropertyUtil.setShape_IdValue(connectionDecoratorSource, SHAPE_ID_INTER_REL_CON);
+	    polylineSource.setForeground(manageColor(literals.COLOR_INTER_REL_CONNECTIONS));
+	    UIUtil.setShape_IdValue(connectionDecoratorSource, literals.SHAPE_ID_INTER_REL_CON);
 	    //Step 4
 	    link(connection, addedRoleImplication);
 	    return connection;
