@@ -14,8 +14,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.NameUtil;
 
 /**
@@ -29,7 +29,7 @@ public class RoleModelWizardPage extends WizardPage {
 	/**
 	 * the standard name for new diagrams
 	 */
-	private final String STANDARD_DIAGRAM_NAME = NameLiterals.STANDARD_DIAGRAM_NAME;
+	private final String STANDARD_DIAGRAM_NAME = UILiterals.STANDARD_DIAGRAM_NAME;
 	
 	/**
 	 * the messages used for eclipse wizards gathered from {@link TextLiterals}
@@ -39,9 +39,9 @@ public class RoleModelWizardPage extends WizardPage {
 	 * (2) the message that informs the user about an invalid input for the name<br>
 	 * (3) the label for the wizard page that asks for a diagram name
 	 */
-	private final String WIZARD_PAGE_DESC = TextLiterals.WIZARD_PAGE_DESC,
-						 WIZARD_MESSAGE_INVALID_INPUT = TextLiterals.WIZARD_MESSAGE_INVALID_INPUT,
-						 WIZARD_PAGE_LABEL = TextLiterals.WIZARD_PAGE_LABEL;
+	private final String WIZARD_PAGE_DESC = UILiterals.WIZARD_PAGE_DESC,
+						 WIZARD_MESSAGE_INVALID_INPUT = UILiterals.WIZARD_MESSAGE_INVALID_INPUT,
+						 WIZARD_PAGE_LABEL = UILiterals.WIZARD_PAGE_LABEL;
 
 	/**
 	 * the layout integer that defines the leght of the used textfield gathered from {@link LayoutLiterals}

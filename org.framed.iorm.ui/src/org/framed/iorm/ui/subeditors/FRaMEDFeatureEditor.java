@@ -33,6 +33,7 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand;
 import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
 import org.framed.iorm.ui.literals.LayoutLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
@@ -64,8 +65,8 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * the color values used for the {@link #infoLabel} showing if the chosen configuration is valid or not 
 	 * gathered {@link LayoutLiterals}
 	 */
-	private final Color COLOR_VALID_CONFIGURATION = LayoutLiterals.COLOR_VALID_CONFIGURATION,
-						COLOR_INVALID_CONFIGURATION = LayoutLiterals.COLOR_INVALID_CONFIGURATION;
+	private final Color COLOR_VALID_CONFIGURATION = UILiterals.COLOR_VALID_CONFIGURATION,
+						COLOR_INVALID_CONFIGURATION = UILiterals.COLOR_INVALID_CONFIGURATION;
 	
 	/**
 	 * the text label that used to show if the chosen configuration is valid or not

@@ -49,8 +49,8 @@ public class StepOutFeature extends AbstractCustomFeature {
 	 * (2) the identifier for the multipage editor that is used to open a new multipage editor in 
 	 *     the operation {@link #execute} 
 	 */
-	protected final String DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID,
-						   EDITOR_ID = IdentifierLiterals.EDITOR_ID;
+	protected final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID,
+						   EDITOR_ID = UILiterals.EDITOR_ID;
 	
 	/**
 	 * Class constructor

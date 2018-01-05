@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 
 /**
@@ -17,9 +17,9 @@ public class InvalidTypeOfEditorInputException extends RuntimeException {
 	private static final long serialVersionUID = -4203349335656800650L;
 	
 	/**
-	 * the exceptions message gathered from {@link TextLiterals}
+	 * the exceptions message
 	 */
-	private static final String MULTIPAGE_EDITOR_ERROR_NO_VALID_EDITOR_INPUT = TextLiterals.MULTIPAGE_EDITOR_ERROR_NO_VALID_EDITOR_INPUT; 
+	private static final String MULTIPAGE_EDITOR_ERROR_NO_VALID_EDITOR_INPUT = UILiterals.MULTIPAGE_EDITOR_ERROR_NO_VALID_EDITOR_INPUT; 
 
 	/**
 	 * Class constructor

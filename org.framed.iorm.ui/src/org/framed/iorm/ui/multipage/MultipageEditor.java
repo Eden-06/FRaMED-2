@@ -71,7 +71,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
 	 */
-	private final String DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;
+	private final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID;
 		
 	/**
 	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
@@ -81,19 +81,19 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * name literals for the pages of the multipage editor and the model feature
 	 * <p>
-	 * for reference check the Strings in {@link NameLiterals}
+	 * for reference check the Strings
 	 * @see NameLiterals
 	 */
-	private final String DIAGRAM_PAGE_NAME = NameLiterals.DIAGRAM_PAGE_NAME,
-						 TEXT_IORM_PAGE_NAME = NameLiterals.TEXT_IORM_PAGE_NAME,
-						 TEXT_CROM_PAGE_NAME = NameLiterals.TEXT_CROM_PAGE_NAME,
-						 FEATURE_PAGE_NAME = NameLiterals.FEATURE_PAGE_NAME,
+	private final String DIAGRAM_PAGE_NAME = UILiterals.DIAGRAM_PAGE_NAME,
+						 TEXT_IORM_PAGE_NAME = UILiterals.TEXT_IORM_PAGE_NAME,
+						 TEXT_CROM_PAGE_NAME = UILiterals.TEXT_CROM_PAGE_NAME,
+						 FEATURE_PAGE_NAME = UILiterals.FEATURE_PAGE_NAME,
 						 MODEL_FEATURE_NAME = coreReferences.MODEL_FEATURE_NAME;
 	
 	/**
-	 * the file extension for role model files gathered from {@link NameLiterals}
+	 * the file extension for role model files 
 	 */
-	private final String FILE_EXTENSION_FOR_DIAGRAMS = NameLiterals.FILE_EXTENSION_FOR_DIAGRAMS;
+	private final String FILE_EXTENSION_FOR_DIAGRAMS = UILiterals.FILE_EXTENSION_FOR_DIAGRAMS;
 		
 	/**
 	 * text literas used for messages
@@ -106,11 +106,11 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * (5) the message for the {@link PartInitException} in {@link #addPagesWithDiagramEditorInput} if a file input can't be created 
 	 * 	   for a given resource
 	 */
-	private final String STATUS_MESSAGE_UNSAVED_CHANGES = TextLiterals.STATUS_MESSAGE_UNSAVED_CHANGES,
-						 MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT = TextLiterals.MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT,
-						 MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE = TextLiterals.MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE,
-						 MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT = TextLiterals.MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT,
-					     MESSAGE_FILE_EDITOR_INPUT_FOR_RESOURCE_IS_NULL = TextLiterals.MESSAGE_FILE_EDITOR_INPUT_FOR_RESOURCE_IS_NULL;
+	private final String STATUS_MESSAGE_UNSAVED_CHANGES = UILiterals.STATUS_MESSAGE_UNSAVED_CHANGES,
+						 MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT = UILiterals.MUTLIPAGE_EDITOR_ERROR_NULLPOINTER_ON_FILE_EDITOR_INPUT,
+						 MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE = UILiterals.MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TITLE,
+						 MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT = UILiterals.MESSAGE_UNSAVED_CHANGES_IN_OTHER_MULTIPAGE_EDITORS_TEXT,
+					     MESSAGE_FILE_EDITOR_INPUT_FOR_RESOURCE_IS_NULL = UILiterals.MESSAGE_FILE_EDITOR_INPUT_FOR_RESOURCE_IS_NULL;
 	
 	/**
 	 * the active multipage editor before the a selection change was executed

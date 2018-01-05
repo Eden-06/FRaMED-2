@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 
 /**
  * This exception is thrown if a there is no linked model for a diagram to be found. This is distinct from the 
@@ -15,9 +15,9 @@ public class NoLinkedModelYet extends RuntimeException {
 	private static final long serialVersionUID = 2773087627369093055L;
 	
 	/**
-	 * the exceptions message gathered from {@link TextLiterals}
+	 * the exceptions message 
 	 */
-	private static final String ERROR_NO_LINKED_MODEL_YET = TextLiterals.ERROR_NO_LINKED_MODEL_YET;
+	private static final String ERROR_NO_LINKED_MODEL_YET = UILiterals.ERROR_NO_LINKED_MODEL_YET;
 
 	/**
 	 * Class constructor

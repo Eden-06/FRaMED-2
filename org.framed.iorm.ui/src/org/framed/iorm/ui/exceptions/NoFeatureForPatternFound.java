@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
 /**
@@ -16,9 +16,9 @@ public class NoFeatureForPatternFound extends RuntimeException {
 	private static final long serialVersionUID = 3388372441551168352L;
 
 	/**
-	 * the exceptions message gathered from {@link TextLiterals}
+	 * the exceptions message
 	 */
-	private static final String NO_FEATURE_FOR_PATTERN_FOUND = TextLiterals.NO_FEATURE_FOR_PATTERN_FOUND;
+	private static final String NO_FEATURE_FOR_PATTERN_FOUND = UILiterals.NO_FEATURE_FOR_PATTERN_FOUND;
 	
 	/**
 	 * Class constructor

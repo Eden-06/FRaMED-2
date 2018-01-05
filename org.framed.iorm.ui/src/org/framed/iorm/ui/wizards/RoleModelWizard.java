@@ -53,8 +53,8 @@ public class RoleModelWizard extends BasicNewResourceWizard {
 	 * identifier literals for the diagram type and the multipage editors identifier
 	 * gathered from {@link IdentifierLiterals}
 	 */
-	private final String DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID,
-						 EDITOR_ID = IdentifierLiterals.EDITOR_ID;
+	private final String DIAGRAM_TYPE = UILiterals.DIAGRAM_TYPE_ID,
+						 EDITOR_ID = UILiterals.EDITOR_ID;
 	
 	/**
 	 * the value used to identify the kind of diagrams for the <em>container</em> and <em>main diagram</em>
@@ -68,18 +68,18 @@ public class RoleModelWizard extends BasicNewResourceWizard {
 	/**
 	 * name literals for the file extension of the new diagram, the wizard page and window gathered from {@link NameLiterals}
 	 */
-	private final String FILE_EXTENSION_FOR_DIAGRAMS = NameLiterals.FILE_EXTENSION_FOR_DIAGRAMS,
-						 WIZARD_PAGE_NAME = NameLiterals.WIZARD_PAGE_NAME,
-						 WIZARD_WINDOW_NAME = NameLiterals.WIZARD_WINDOW_NAME,
-						 CONTAINER_DIAGRAM_NAME = NameLiterals.CONTAINER_DIAGRAM_NAME;
+	private final String FILE_EXTENSION_FOR_DIAGRAMS = UILiterals.FILE_EXTENSION_FOR_DIAGRAMS,
+						 WIZARD_PAGE_NAME = UILiterals.WIZARD_PAGE_NAME,
+						 WIZARD_WINDOW_NAME = UILiterals.WIZARD_WINDOW_NAME,
+						 CONTAINER_DIAGRAM_NAME = UILiterals.CONTAINER_DIAGRAM_NAME;
 	
 	/**
 	 * the text literals for the wizard errors gathered from {@link TextLiterals}
 	 */
-	private final String WIZARD_ERROR_NO_PROJECT_TITLE = TextLiterals.WIZARD_ERROR_NO_PROJECT_TITLE,
-						 WIZARD_ERROR_NO_PROJECT_TEXT = TextLiterals.WIZARD_ERROR_NO_PROJECT_TEXT,
-						 WIZARD_ERROR_DEADLOCK_DANGER = TextLiterals.WIZARD_ERROR_DEADLOCK_DANGER,
-						 WIZARD_ERROR_SAVING_FAILED = TextLiterals.WIZARD_ERROR_SAVING_FAILED;
+	private final String WIZARD_ERROR_NO_PROJECT_TITLE = UILiterals.WIZARD_ERROR_NO_PROJECT_TITLE,
+						 WIZARD_ERROR_NO_PROJECT_TEXT = UILiterals.WIZARD_ERROR_NO_PROJECT_TEXT,
+						 WIZARD_ERROR_DEADLOCK_DANGER = UILiterals.WIZARD_ERROR_DEADLOCK_DANGER,
+						 WIZARD_ERROR_SAVING_FAILED = UILiterals.WIZARD_ERROR_SAVING_FAILED;
 	
 	/**
 	 * the wizard page used by this wizard

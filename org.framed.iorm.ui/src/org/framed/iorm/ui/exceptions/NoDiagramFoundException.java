@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.DiagramUtil; //*import for javadoc link
 
 /**
@@ -18,9 +18,9 @@ public class NoDiagramFoundException extends RuntimeException {
 	private static final long serialVersionUID = -8634710412326399635L;
 	
 	/**
-	 * the exceptions message gathered from {@link TextLiterals}
+	 * the exceptions message
 	 */
-	private static final String ERROR_NO_DIAGRAM_FOUND = TextLiterals.ERROR_NO_DIAGRAM_FOUND;
+	private static final String ERROR_NO_DIAGRAM_FOUND = UILiterals.ERROR_NO_DIAGRAM_FOUND;
 
 	/**
 	 * Class constructor

@@ -115,7 +115,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * identifier literals used for the compartment types content diagram gathered from {@link IdentifierLiterals}
 	 */
 	private final String DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM,
-						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID;
+						 DIAGRAM_TYPE = UILiterals.DIAGRAM_TYPE_ID;
 		
 	/**
 	 * identifier literals used as shape ids for the natural type 

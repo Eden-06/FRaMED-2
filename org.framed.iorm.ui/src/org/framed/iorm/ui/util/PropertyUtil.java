@@ -5,6 +5,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 
+import org.framed.iorm.ui.literals.UILiterals;
+
 /**
  * This class delivers operations to change and access specific properties of grphiti {@link Shape}s and {@link Diagram}s. 
  * @author Kevin Kassin
@@ -16,7 +18,7 @@ public class PropertyUtil {
 	/**
 	 * the key to identify the property shape id gathered from {@link IdentifierLiterals}
 	 */
-	public static final String KEY_SHAPE_ID = IdentifierLiterals.KEY_SHAPE_ID;
+	public static final String KEY_SHAPE_ID = UILiterals.KEY_SHAPE_ID;
 	
 	/**
 	 * set the property shape id for a given shape
@@ -45,7 +47,7 @@ public class PropertyUtil {
 	 * The word <em>kind</em> is chosen to differ this property from the <em>diagram types</em> of the 
 	 * graphiti framework.
 	 */
-	public static final String KEY_DIAGRAM_KIND = IdentifierLiterals.KEY_DIAGRAM_KIND;
+	public static final String KEY_DIAGRAM_KIND = UILiterals.KEY_DIAGRAM_KIND;
 	
 	/**
 	 * set the property diagram kind for a given diagram

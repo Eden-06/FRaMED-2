@@ -1,41 +1,14 @@
 package org.framed.iorm.ui.literals;
 
-import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link 
-import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
-import org.framed.iorm.ui.util.PropertyUtil; //*import for javadoc link
 
 /**
  * This class saves severals static Strings used as identifiers.
  * @author Kevin Kassin
  */
 public class IdentifierLiterals {
-
-	/**
-	 * the identifier for the {@link DiagramTypeProvider} as defined in the extensions of this package
-	 * <p>
-	 * This value should always be the same as the value of the field <em>id</em> of the extension point 
-	 * <em>org.eclipse.graphiti.ui.diagramTypeProviders</em>.
-	 */
-	public static final String DIAGRAM_PROVIDER_ID = "CROM_Diagram_Provider";
 	
-	/**
-	 * the diagram identifier of the diagram type for compartment role object models as defined in the extensions of this package
-	 * <p>
-	 * This value should always be the same as the value of the field <em>id</em> of the extension point 
-	 * <em>org.eclipse.graphiti.ui.diagramTypes</em>.
-	 */
-	public static final String DIAGRAM_TYPE_ID = "CROM_Diagram";
-	
-	/**
-	 * the editor id of the {@link MultipageEditor}
-	 * <p>
-	 * This value should always be the same as the value of the field <em>id</em> of the extension point #
-	 * <em>org.eclipse.ui.editors</em>.
-	 */
-	public static final String EDITOR_ID = "CROM_MultipageEditor";
-
 	/**
 	 * string used as prefix for image identifiers for icon of create features
 	 */
@@ -47,12 +20,8 @@ public class IdentifierLiterals {
 	 * the identifier of images used in the {@link FRaMEDDiagramEditor} for shape create features
 	 */
 	public static final String IMG_ID_FEATURE_COMPARTMENTTYPE = IMG_ID_PREFIX + "img_compartmenttype",
-							   IMG_ID_FEATURE_DATATYPE = IMG_ID_PREFIX + "img_datatype",
-							   IMG_ID_FEATURE_ATTRIBUTE = IMG_ID_PREFIX + "img_attribute",
-							   IMG_ID_FEATURE_OPERATION = IMG_ID_PREFIX + "img_operation",
-							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group",
-							   IMG_ID_FEATURE_ROLETYPE = IMG_ID_PREFIX + "img_roletype";
-	
+							   IMG_ID_FEATURE_GROUP = IMG_ID_PREFIX + "img_group";
+							  
 	/**
 	 * image IDs
 	 * <p>
@@ -74,19 +43,6 @@ public class IdentifierLiterals {
 	 * the identifier of the feature model the {@link FRaMEDFeatureEditor} uses
 	 */
 	public static final String FEATUREMODEL_ID = "org.framed.iorm.featuremodel";
-	
-	/**
-	 * key values used to identify properties in {@link PropertyUtil}
-	 * <p>
-	 * can be:<br>
-	 * (1) the key value for the property shape id or<br>
-	 * (2) the key value for the property diagram kind
-	 * <p>
-	 * The word <em>kind</em> is chosen to differ the diagram kind property from the <em>diagram types</em> 
-	 * of the graphiti framework.
-	 */
-	public static final String KEY_SHAPE_ID = "shape id",
-							   KEY_DIAGRAM_KIND = "diagram kind";
 	
 	/**
 	 * identifiers used for natural types
@@ -144,19 +100,12 @@ public class IdentifierLiterals {
 	 * (4) the indicator dots if not all operations fit in to the class or roles type body shape
 	 */
 	public static final String SHAPE_ID_ATTRIBUTE_TEXT = "shape_att_text",
-						SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
+							SHAPE_ID_ATTRIBUTE_INDICATOR_DOTS = "shape_att_indicator_dots",
 						SHAPE_ID_OPERATION_TEXT = "shape_op_text",
 						SHAPE_ID_OPERATION_INDICATOR_DOTS = "shape_op_indicator_dots";
 	
-	/**
-	 * identifier used for role constraint connection decorators
-	 */
-	public static final String SHAPE_ID_ROLE_CONSTRAINT_DECORATOR = "shape_rc_decorator";
 	
-	/**
-	 * identifier used for the connection decorator of the inheritance relation
-	 */
-	public static final String SHAPE_ID_INHERITANCE_DECORATOR = "shape_inheritance_decorator";
+	
 	
 	/**
 	 * identifier used for the connection decorators of the fulfillment relation
@@ -195,14 +144,7 @@ public class IdentifierLiterals {
 	 * (7) attribute container shape or<br>
 	 * (8) operation container shape
 	 */
-	public static final String SHAPE_ID_ROLETYPE_CONTAINER = "shape_rt_container",
-							   SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = "shape_rt_cardinality",
-							   SHAPE_ID_ROLETYPE_TYPEBODY = "shape_rt_typebody",
-						 	   SHAPE_ID_ROLETYPE_SHADOW = "shape_rt_shadow",
-						 	   SHAPE_ID_ROLETYPE_NAME = "shape_rt_name", 
-						 	   SHAPE_ID_ROLETYPE_FIRSTLINE = "shape_rt_firstline",
-						 	   SHAPE_ID_ROLETYPE_SECONDLINE = "shape_rt_secondline", 
-						 	   SHAPE_ID_ROLETYPE_ATTRIBUTECONTAINER = "shape_rt_attcontainer",
-						 	   SHAPE_ID_ROLETYPE_OPERATIONCONTAINER = "shape_rt_opcontainer";
+	public static final String SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT = "shape_rt_cardinality",
+							   SHAPE_ID_ROLETYPE_TYPEBODY = "shape_rt_typebody";		
 	
 }

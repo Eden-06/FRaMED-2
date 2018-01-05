@@ -31,8 +31,8 @@ public class MultipageEditorSynchronizationService {
 	/**
 	 * the identifiers for the {@link MultipageEditor} and the {@link DiagramTypeProvider}
 	 */
-	private static final String EDITOR_ID = IdentifierLiterals.EDITOR_ID,
-							    DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID;	
+	private static final String EDITOR_ID = UILiterals.EDITOR_ID,
+							    DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID;	
 	/**
 	 * the values for the property diagram kind to differ between diagram with the same name, but different
 	 * kinds like a group and a compartment type diagram called the same gathered form {@link IdentifierLiterals}

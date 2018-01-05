@@ -62,10 +62,10 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	/**
 	 * names for the palette categories gathered from {@link NameLiterals}
 	 */
-	private final String ENTITIES_PALETTE_CATEGORY_NAME = NameLiterals.ENTITIES_PALETTE_CATEGORY_NAME,
-						 PROPERTIES_PALETTE_CATEGORY_NAME = NameLiterals.PROPERTIES_PALETTE_CATEGORY_NAME,
-						 RELATIONS_PALETTE_CATEGORY_NAME = NameLiterals.RELATIONS_PALETTE_CATEGORY_NAME,
-						 CONSTRAINTS_PALETTE_CATEGORY_NAME = NameLiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME;
+	private final String ENTITIES_PALETTE_CATEGORY_NAME = UILiterals.ENTITIES_PALETTE_CATEGORY_NAME,
+						 PROPERTIES_PALETTE_CATEGORY_NAME = UILiterals.PROPERTIES_PALETTE_CATEGORY_NAME,
+						 RELATIONS_PALETTE_CATEGORY_NAME = UILiterals.RELATIONS_PALETTE_CATEGORY_NAME,
+						 CONSTRAINTS_PALETTE_CATEGORY_NAME = UILiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME;
 	
 	/**
 	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered

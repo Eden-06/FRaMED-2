@@ -126,7 +126,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * Also for the diagrams in which a group type can be created and added in
 	 */
 	private final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_TYPE = IdentifierLiterals.DIAGRAM_TYPE_ID,
+						 DIAGRAM_TYPE = UILiterals.DIAGRAM_TYPE_ID,
 						 DIAGRAM_KIND_MAIN_DIAGRAM = UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM;
 		
 	/**

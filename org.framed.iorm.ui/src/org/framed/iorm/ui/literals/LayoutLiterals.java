@@ -1,25 +1,12 @@
 package org.framed.iorm.ui.literals;
 
-import org.eclipse.graphiti.util.ColorConstant;
-import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-
 /**
  * This class saves severals static layout integers and color values used for layouting.
  * @author Kevin Kassin
  */
 public class LayoutLiterals {
 
-	/**
-	 * color values related to constraints
-	 * <p>
-	 * can be:<br>
-	 * (1) the color of constraint texts or<br>
-	 * (2) the color of constraint connections
-	 */
-	public static final IColorConstant COLOR_CONSTRAINT_TEXT = new ColorConstant(48, 48, 48),
-									   COLOR_CONSTRAINT_CONNECTION = IColorConstant.GRAY;
+	
 		
 	/**
 	 * layout integer for wizards
@@ -31,23 +18,8 @@ public class LayoutLiterals {
 	 * (4) the height of the dialog to edit fulfillments or<br>
 	 * (5) the width of the dialog to edit fulfillments
 	 */
-	public static final int LENGHT_TEXTFIELD_WIZARD = 250,
-							HEIGHT_EDIT_RELATIONSHIP_DIALOG = 250,
-							WIDTH_EDIT_RELATIONSHIP_DIALOG = 400,
-						    HEIGHT_EDIT_FULFILLMENT_DIALOG = 300,
-						    WIDTH_EDIT_FULFILLMENT_DIALOG = 400;
-	
-	/**
-	 * color values for the feature editor
-	 * <p>
-	 * can be:<br>
-	 * (1) the color for a label showing a valid configuration or<br>
-	 * (2) the color for a label showing an invalid configuration
-	 */
-	public static final Color COLOR_VALID_CONFIGURATION = new Color(Display.getCurrent(), 0, 0, 255),
-							  COLOR_INVALID_CONFIGURATION = new Color(Display.getCurrent(), 255, 0, 0);
-	
-	
+	public static final int LENGHT_TEXTFIELD_WIZARD = 250;
+		
 	/**
 	 * layout integer for groups
 	 * <p>
@@ -59,28 +31,11 @@ public class LayoutLiterals {
 							HEIGHT_ELEMENT_SHAPE = 15;
 	
 	/**
-	 * layout integer for role types
-	 * <p>
-	 * the radius of the rounded corners of role types or<br>
-	 */
-	public static final int ROLE_CORNER_RADIUS = 2*UILiterals.HEIGHT_NAME_SHAPE;
-	
-	/**
 	 * layout integers for the text of occurrence constraints
 	 */
 	public static final int HEIGHT_CONSTRAINT = 15,
 							WIDTH_CONSTRAINT = 30;
-		
-	/**
-	 * color value for connections
-	 * <p>
-	 * can be:<br>
-	 * (1) the color of the line of a connection or<br>
-	 * (2) the color of arrowheads of connections
-	 */
-	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK,
-									   COLOR_ARROWHEAD = IColorConstant.WHITE;
-	
+			
 	/**
 	 * layout integers for connections
 	 * <p>
@@ -89,7 +44,5 @@ public class LayoutLiterals {
 	 * (2) the height of the arrowheads of connections or<br>
 	 * (3) the distance of connection decorators from the connections line
 	 */
-	public static final int ARROWHEAD_LENGTH = 15,	
-							ARROWHEAD_HEIGHT = 10,
-						    DISTANCE_FROM_CONNECTION_LINE = 15;
+	public static final int DISTANCE_FROM_CONNECTION_LINE = 15;
 }

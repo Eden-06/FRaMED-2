@@ -25,35 +25,15 @@ public class ImageProvider extends AbstractImageProvider {
      * See {@link IdentifierLiterals} for further explanations.
      */
     private final String IMG_ID_FEATURE_COMPARTMENTTYPE = IdentifierLiterals.IMG_ID_FEATURE_COMPARTMENTTYPE,
-    				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP,
-    					 IMG_ID_FEATURE_ROLETYPE = IdentifierLiterals.IMG_ID_FEATURE_ROLETYPE;
-    
-    /**
-     * the image identifiers for icons used for connection create features gathered from {@link IdentifierLiterals}
-     * <p>
-     * See {@link IdentifierLiterals} for further explanations.
-     */
-    private final String IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION,
- 						 IMG_ID_FEATURE_RELATIONSHIP_PROHIBITION = IdentifierLiterals.IMG_ID_FEATURE_RELATIONSHIP_EXCLUSION,
- 						 IMG_ID_FEATURE_FULFILLMENT = IdentifierLiterals.IMG_ID_FEATURE_FULFILLMENT;
-    
+    				     IMG_ID_FEATURE_GROUP = IdentifierLiterals.IMG_ID_FEATURE_GROUP;
+       
     /**
      * the image file paths to icons used for shape create features gathered from {@link URLLiterals}
      * <p>
      * See {@link URLLiterals} for further explanations.
      */
     private final String IMG_FILEPATH_FEATURE_COMPARTMENTTYPE = URLLiterals.IMG_FILEPATH_FEATURE_COMPARTMENTTYPE,
-  					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP,
-    					 IMG_FILEPATH_FEATURE_ROLETYPE = URLLiterals.IMG_FILEPATH_FEATURE_ROLETYPE;
-    
-    /**
-     * the image file paths to icons used for connection create features gathered from {@link URLLiterals}
-     * <p>
-     * See {@link URLLiterals} for further explanations.
-     */
-    private final String IMG_FILEPATH_FEATURE_RELATIONSHIP_IMPLICATION = URLLiterals.IMG_FILEPATH_FEATURE_RELATIONSHIP_IMPLICATION,
-  						 IMG_FILEPATH_FEATURE_RELATIONSHIP_PROHIBTION = URLLiterals.IMG_FILEPATH_FEATURE_RELATIONSHIP_EXCLUSION,
-  					     IMG_FILEPATH_FEATURE_FULFILLMENT = URLLiterals.IMG_FILEPATH_FEATURE_FULFILLMENT;
+  					     IMG_FILEPATH_FEATURE_GROUP = URLLiterals.IMG_FILEPATH_FEATURE_GROUP;
     
     /**
      * links the file paths to image identifiers using the following steps:
@@ -94,10 +74,5 @@ public class ImageProvider extends AbstractImageProvider {
     	//TODO delete after and after
         addImageFilePath(IMG_ID_FEATURE_GROUP, IMG_FILEPATH_FEATURE_GROUP);
         addImageFilePath(IMG_ID_FEATURE_COMPARTMENTTYPE, IMG_FILEPATH_FEATURE_COMPARTMENTTYPE);
-        addImageFilePath(IMG_ID_FEATURE_ROLETYPE, IMG_FILEPATH_FEATURE_ROLETYPE);
-        
-        addImageFilePath(IMG_ID_FEATURE_RELATIONSHIP_IMPLICATION, IMG_FILEPATH_FEATURE_RELATIONSHIP_IMPLICATION);
-        addImageFilePath(IMG_ID_FEATURE_RELATIONSHIP_PROHIBITION, IMG_FILEPATH_FEATURE_RELATIONSHIP_PROHIBTION);
-        addImageFilePath(IMG_ID_FEATURE_FULFILLMENT, IMG_FILEPATH_FEATURE_FULFILLMENT);
     }
 }

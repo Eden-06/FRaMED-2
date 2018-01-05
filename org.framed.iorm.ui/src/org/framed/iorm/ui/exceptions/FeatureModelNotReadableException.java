@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.TextLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
 
 /**
@@ -16,9 +16,9 @@ public class FeatureModelNotReadableException extends RuntimeException {
 	private static final long serialVersionUID = 8396630214250470131L;
 	
 	/**
-	 * the exceptions message gathered from {@link TextLiterals}
+	 * the exceptions message 
 	 */
-	private static final String FEATUREMODEL_NOT_READABLE_MESSAGE = TextLiterals.FEATUREMODEL_NOT_READABLE_MESSAGE;
+	private static final String FEATUREMODEL_NOT_READABLE_MESSAGE = UILiterals.FEATUREMODEL_NOT_READABLE_MESSAGE;
 	
 	/**
 	 * Class constructor

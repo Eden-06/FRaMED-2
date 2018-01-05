@@ -6,6 +6,7 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
@@ -39,8 +40,8 @@ public abstract class AbstractStepInFeature extends AbstractCustomFeature {
 	 * (2) the identifier for the multipage editor that is used to open a new multipage editor in 
 	 *     the operation {@link #execute} 
 	 */
-	protected final String DIAGRAM_PROVIDER_ID = IdentifierLiterals.DIAGRAM_PROVIDER_ID,
-						   EDITOR_ID = IdentifierLiterals.EDITOR_ID;
+	protected final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID,
+						   EDITOR_ID = UILiterals.EDITOR_ID;
 	
 	/**
 	 * Class constructor
