@@ -629,7 +629,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 			List<String> pictogramAttributeNames = util.getpictogramAttributeNames(pictogramElement);
 			List<String> pictogramOperationNames = util.getpictogramOperationNames(pictogramElement);
 			//business name and attributes
-			String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
 			List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
 								
@@ -654,7 +654,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	         
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 		//business names of natural type, attributes and operations
-		String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 		List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
 		List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
 			

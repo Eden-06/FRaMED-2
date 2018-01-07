@@ -20,12 +20,14 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
+import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.framed.iorm.ui.references.CoreReferences;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
 
@@ -35,6 +37,8 @@ import org.osgi.framework.Bundle;
  * @author Kevin Kassin
  */
 public class UIUtil {
+	
+	CoreReferences coreReference = new CoreReferences();
 
 	/**
 	 * gets all superclasses of a given class in a list
@@ -457,4 +461,155 @@ public class UIUtil {
 			   modelElement.getType() == Type.GROUP) 
 				getModelElementsNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), type, modelElementNames);
 	}	}	
+	
+	//Updates
+	//~~~~~~~
+	/**
+	 * This operation gets the name of a pictogram element with text shape as children.
+	 * @param pictogramElement the pictogram element to get the name of
+	 * @param SHAPE_ID_NAME the identifier of the textshape
+	 * @return the name of a pictogram element if it has a text shape as children and return null else 
+	 */
+	public static String getNameOfPictogramElement(PictogramElement pictogramElement, String SHAPE_ID_NAME) {
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if (shape.getGraphicsAlgorithm() instanceof Text) {
+					Text text = (Text) shape.getGraphicsAlgorithm();
+					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NAME)) {
+						return text.getValue();
+					}
+		} 	}	}
+		return null;
+	}
+
+	/**
+	 * This operation gets the name of a business object that is an {@link org.framed.iorm.model.Shape}
+	 * @param businessObject the business object to get the name of
+	 * @return the name of the business object if it is an {@link org.framed.iorm.model.Shape}
+	 */
+	public static String getNameOfBusinessObject(Object businessObject) {
+		if (businessObject instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			return shape.getName();
+		}
+		return null;
+	}
+	
+	/**
+	 * This operation gets the names of the attributes of a pictogram element that has an attribute container shape.
+	 * @param pictogramElement the pictogram element to get the attribute names of
+	 * @param SHAPE_ID_ATTRIBUTECONTAINER the identifier of the attribute container shape
+	 * @return the attribute names of the pictogram element if it has an attribute container shape and returns null else
+	 */
+	public static List<String> getpictogramAttributeNames(PictogramElement pictogramElement, String SHAPE_ID_ATTRIBUTECONTAINER, String SHAPE_ID_ATTRIBUTE_TEXT) {
+		List<String> pictogrammAttributeNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
+						for(Shape attributeShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+								Text text = (Text) attributeShape.getGraphicsAlgorithm();
+								pictogrammAttributeNames.add(text.getValue());
+		}	}	}	}	}	}
+		return pictogrammAttributeNames;
+	}
+	
+	/**
+	 * This operation gets the names of the attributes in a model of a pictogram element that has an attribute container shape.
+	 * @param pictogramElement the pictogram element to get the attribute names of
+	 * @param SHAPE_ID_ATTRIBUTECONTAINER the identifier of the attribute container shape
+	 * @return the attribute names in a model of the pictogram element if it has an attribute container shape and returns null else
+	 */
+	public static List<String> getBusinessAttributeNames(PictogramElement pictogramElement, String SHAPE_ID_ATTRIBUTECONTAINER, String SHAPE_ID_ATTRIBUTE_TEXT) {
+		List<String> businessAttributeNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
+						for(Shape attributeShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(attributeShape);
+								businessAttributeNames.add(attribute.getName());
+		}	}	}	}	}	}	
+		return businessAttributeNames;
+	}
+	
+	/**
+	 * This method gets the names of the operations of a pictogram element that has an operation container shape.
+	 * @param pictogramElement the pictogram element to get the operation names of
+	 * @param SHAPE_ID_OPERATIONCONTAINER the identifier of the operation container shape
+	 * @return the operation names of the pictogram element if it has an operation container shape and returns null else
+	 */
+	public static List<String> getpictogramOperationNames(PictogramElement pictogramElement, String SHAPE_ID_OPERATIONCONTAINER, String SHAPE_ID_OPERATION_TEXT) {
+		List<String> pictogramOperationNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+						for(Shape operationShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+								Text text = (Text) operationShape.getGraphicsAlgorithm();
+								pictogramOperationNames.add(text.getValue());
+		}	}	}	}	}	}
+		return pictogramOperationNames;
+	}
+	
+	/**
+	 * This method gets the names of the operations in a model of pictogram element that has an operation container shape.
+	 * @param pictogramElement the pictogram element to get the operation names of
+	 * @param SHAPE_ID_OPERATIONCONTAINER the identifier of the operation container shape
+	 * @return the operation names in a model of the pictogram element if it has an operation container shape and returns null else
+	 */
+	public static List<String> getBusinessOperationNames(PictogramElement pictogramElement, String SHAPE_ID_OPERATIONCONTAINER, String SHAPE_ID_OPERATION_TEXT) {
+		List<String> businessOperationNames = new ArrayList<String>();
+		if (pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for (Shape shape : containerShape.getChildren()) {
+				if(shape instanceof ContainerShape) {
+					ContainerShape innerContainerShape = (ContainerShape) shape;
+					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+						for(Shape operationShape : innerContainerShape.getChildren()) {
+							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
+								NamedElement operation = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(operationShape);
+								businessOperationNames.add(operation.getName());
+		}	}	}	}	}	}	
+		return businessOperationNames;
+	}
+	
+	/**
+	 * fetches the shown occurrence constraint of a role type or role group by its given type body shape
+	 * @param pictogramElement the pictogram element to get the shown occurrence constraint for 
+	 * @param SHAPE_ID_OCCURRENCE_CONSTRAINT the identifier of the occurrence constraint shape
+	 * @return the value of the occurrence constraint if it can be found
+	 */
+	public static String getOccurenceConstraintOfPictogramElement(PictogramElement pictogramElement, String SHAPE_ID_OCCURRENCE_CONSTRAINT) {
+		if(pictogramElement instanceof Shape) {
+			Shape shape = (Shape) pictogramElement;
+			for(Shape containerChild : shape.getContainer().getChildren()) {
+				if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_OCCURRENCE_CONSTRAINT))
+					return ((Text) containerChild.getGraphicsAlgorithm()).getValue();
+		}	}
+		return null;
+	}
+	
+	/**
+	 * get the occurrence constraint of a role type or role group in the business model
+	 * @param businessObject the business object to get occurrence constraint for
+	 * @return the occurrence constraint value
+	 */
+	public static String getOccurrenceConstraintOfBusinessObject(Object businessObject) {
+		if (businessObject instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			return shape.getDescription().getName();
+		}
+		return null;
+	}	
 }

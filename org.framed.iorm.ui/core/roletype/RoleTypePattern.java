@@ -636,10 +636,10 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			List<String> pictogramOperationNames = util.getpictogramOperationNames(pictogramElement);
 			String pictogramOccurrenceConstraint = util.getOccurenceConstraintOfPictogramElement(pictogramElement);
 			//business name and attributes
-			String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
 			List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
-			String businessTypeOccurrenceConstraint = util.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			String businessTypeOccurrenceConstraint = UIUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 				
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
@@ -665,10 +665,10 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		PictogramElement pictogramElement = updateContext.getPictogramElement();
 			
 		//business names of natural type, attributes and operations
-		String businessTypeName = util.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 		List<String> businessAttributeNames = util.getBusinessAttributeNames(pictogramElement);
 		List<String> businessOperationNames = util.getBusinessOperationNames(pictogramElement);
-		String businessTypeOccurrenceConstraint = util.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
+		String businessTypeOccurrenceConstraint = UIUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
 			
 		//set type name in pictogram model
 		if (pictogramElement instanceof ContainerShape &&
