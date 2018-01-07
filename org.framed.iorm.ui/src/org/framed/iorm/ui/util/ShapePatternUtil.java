@@ -15,7 +15,8 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
-import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
+
+import group.GroupPattern;
 
 /**
  * This class offers several utility operations mostly used by the graphiti shape patterns.

@@ -7,16 +7,9 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
-import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
-import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
-import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
-import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
-import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
-import org.framed.iorm.ui.exceptions.NoModelFoundException;
-import org.framed.iorm.ui.exceptions.TransformationFailedException;
+import org.framed.iorm.ui.exceptions.*;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.DiagramTypeProvider;
-import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.framed.iorm.ui.wizards.RoleModelWizardPage;
 import org.osgi.framework.Bundle;
@@ -287,6 +280,11 @@ public class UILiterals {
 	 */
 	public static final int HEIGHT_CONSTRAINT = 15,
 					 		WIDTH_CONSTRAINT = 30;
+	
+	/**
+	 * layout integer(s) for groups and compartment types 
+	 */
+	public static final int HEIGHT_ELEMENT_SHAPE = 15;
 	
 	/**
 	 * general color values

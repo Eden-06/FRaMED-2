@@ -1,5 +1,6 @@
 package org.framed.iorm.ui.util;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +8,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider;
+import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -18,18 +26,25 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.references.CoreReferences;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
+
+import group.GroupPattern;
 
 /**
  * This class offers utility operations in the scope of the UI. Modules can use these operations if they want to,
@@ -38,8 +53,8 @@ import org.osgi.framework.Bundle;
  */
 public class UIUtil {
 	
-	CoreReferences coreReference = new CoreReferences();
-
+	//General
+	//~~~~~~~
 	/**
 	 * gets all superclasses of a given class in a list
 	 * @param class 
@@ -56,6 +71,25 @@ public class UIUtil {
 			    classList.add(superclass);
 		}	}	
 		return classList;
+	}
+	
+	/**
+	 * sets the values of a given {@link AddContext} using a given {@link CreateContext}
+	 * <p>
+	 * This operation only deals with add and create contexts for graphiti shapes since graphiti connections use
+	 * a special type of create contexts.
+	 * @param addContext the {@link AddContext} to set the values in
+	 * @param createContext the {@link CreateContext} to get the values of
+	 * @return the given {@link AddContext} with set values
+	 */
+	public static AddContext getAddContextForCreateShapeContext(AddContext addContext, ICreateContext createContext) {
+		addContext.setHeight(createContext.getHeight());
+		addContext.setWidth(createContext.getWidth());
+		addContext.setX(createContext.getX());
+		addContext.setY(createContext.getY());
+		addContext.setLocation(createContext.getX(), createContext.getY());
+		addContext.setSize(createContext.getWidth(), createContext.getHeight());
+		return addContext;
 	}
 	
 	//Model
@@ -128,6 +162,95 @@ public class UIUtil {
 	 */
 	public static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		return pictogramElement.getLink().getBusinessObjects().get(0);
+	}
+	
+	//EditorInput
+	//~~~~~~~~~~~
+	/**
+	 * fetches the {@link Resource} for a given {@link IEditorInput}
+	 * @param editorInput the editor input to get the resource for
+	 * @return the resource if edtior input is of type {@link IFileEditorInput} and the resource and be loaded 
+	 * and returns null else
+	 */
+	public static Resource getResourceFromEditorInput(IEditorInput editorInput) {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = null;
+	 	if (editorInput instanceof IFileEditorInput) {
+	    	IFileEditorInput fileInput = (IFileEditorInput) editorInput;
+	    	IFile file = fileInput.getFile();
+	    	resource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
+	 	} 
+	 	if(editorInput instanceof IDiagramEditorInput) {
+	 		IDiagramEditorInput diagramInput = (IDiagramEditorInput) editorInput;
+	 		resource = resourceSet.createResource(diagramInput.getUri());
+	 	}	
+	 	if(resource != null) {
+	    	try {
+	    		resource.load(null);
+	    		return resource;
+	    	} catch (IOException e) { e.printStackTrace(); }
+	    }
+	 	return null;
+	}
+	
+	//Diagram
+	//~~~~~~~
+	/**
+	 * returns the diagram for a resource fetched from a {@link DiagramEditorInput}
+	 * @param resource the resource to get the diagram from
+	 * @return the fetched diagram
+	 * @throws NoDiagramFoundException
+	 */
+	public static Diagram getDiagramForResourceOfDiagramEditorInput(Resource resource) {
+		Diagram diagram = null;
+		if(resource.getEObject(resource.getURI().fragment()) instanceof Diagram) {
+			diagram = (Diagram) resource.getEObject(resource.getURI().fragment());
+			return diagram;
+		}	
+		throw new NoDiagramFoundException();
+	}
+	
+	/**
+	 * This operation fetches a groups or compartment types diagram for a shape that is a part of a groups
+	 * or compartments pictogram representation using the following steps:
+	 * <p>
+	 * Step 1: It gets the name of the group or compartment depending on the given shape.<br>
+	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
+	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
+	 * <p>
+	 * If its not clear what the different shapes are look for the pictogram structure of a group or compartment type here: 
+	 * {@link GroupPattern#add}<br>
+	 * {@link CompartmentTypePattern#add}.<br>
+	 * TODO if its not cleat typbe body
+	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
+	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
+	 * @param diagram the diagram the group or compartment type is located in
+	 * @param the type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
+	 * @return the groups or compartment types diagram, if the given shape was a name shape or the type body shape
+	 * @throws NoDiagramFoundException
+	 */
+	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram,
+																	  String SHAPE_ID_TYPEBODY, String SHAPE_ID_NAME, 
+																	  String DIAGRAM_KIND) {
+		//Step 1
+		String name = null;
+		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_TYPEBODY)) {
+			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
+			if(PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_NAME))
+				name = ((Text) nameShape.getGraphicsAlgorithm()).getValue();
+			}	
+		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_NAME))
+			name = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
+		//Step 2
+		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
+		if(containerDiagram == null) throw new NoDiagramFoundException();
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram) {
+				if((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND))) {
+					if(((Diagram) shape).getName().equals(name))
+						return ((Diagram) shape);
+		}	}	}	
+		throw new NoDiagramFoundException();	
 	}
 	
 	//features
@@ -257,6 +380,25 @@ public class UIUtil {
 	public static final boolean isDiagram_KindValue(Diagram diagram, String value) {
 		return (Graphiti.getPeService().getPropertyValue(diagram, KEY_DIAGRAM_KIND).equals(value));
 	}	
+	
+	//Grouping
+	//~~~~~~~~
+	/**
+	 * fetches the <em>type body shape</em> of a group or compartment type to thats the givem <em>container shape</em> belongs to
+	 * <p>
+	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, see 
+	 * {@link GroupPattern#add} for example.
+	 * @param groupContainer the container shape of the group or compartment type to get the type body shape for
+	 * @return the type body shape of group or compartment type with the given shape
+	 */
+	public static ContainerShape getTypeBodyForGroupOrCompartmentContainer(ContainerShape groupContainer, String SHAPE_ID_TYPEBODY) {
+		for(Shape shape : groupContainer.getChildren()) {
+			if(shape instanceof ContainerShape) {
+			   if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_TYPEBODY))
+				   return (ContainerShape) shape; 
+		}	}  
+		return null;
+	}
 		
 	//Names
 	//~~~~~
@@ -612,4 +754,55 @@ public class UIUtil {
 		}
 		return null;
 	}	
+	
+	/**
+	 * fetches all the names of the actual direct child elements in a groups model except {@link Relation}s
+	 * @param pictogramElement the pictogram/ shape element of the group
+	 * @param diagram the diagram the pattern that called this operation works in
+	 * @param the type e.g. {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
+	 * @return a list of names of all direct child elements in a groups model
+	 */
+	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram, Type type) {
+		List<String> modelElementsNames = new ArrayList<String>();
+		Diagram groupOrCompartmentTypeDiagram = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape((ContainerShape) pictogramElement, diagram, type);
+		Model groupOrCompartmentTypeModel = DiagramUtil.getLinkedModelForDiagram(groupOrCompartmentTypeDiagram);
+		for(ModelElement modelElement : groupOrCompartmentTypeModel.getElements()) {
+			if(modelElement instanceof org.framed.iorm.model.Shape)
+				modelElementsNames.add(modelElement.getName());
+		}
+		return modelElementsNames;
+	}
+	
+	/**
+	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group
+	 * <p>
+	 * If its not clear what <em>model content preview container</em> and <em>type body shape</em> means, see 
+	 * {@link GroupPattern#add} for example. 
+	 * @param pictogramElement the type body shape of of a group
+	 * @return a list of the shown names of child elements of a group
+	 */
+	public static List<String> getContentPreviewElementsNames(PictogramElement pictogramElement, String SHAPE_ID_CONTENT_PREVIEW, String SHAPE_ID_ELEMENT) {
+		List<String> modelContainerElementsNames = new ArrayList<String>();
+		if(pictogramElement instanceof ContainerShape) {
+			ContainerShape containerShape = (ContainerShape) pictogramElement;
+			for(Shape shape : containerShape.getChildren()) {
+				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_CONTENT_PREVIEW)) {
+					ContainerShape previewContentContainer = (ContainerShape) shape; 
+					for(Shape previewContentContainerElement : previewContentContainer.getChildren()) {
+						if(PropertyUtil.isShape_IdValue(previewContentContainerElement, SHAPE_ID_ELEMENT)) {
+							Text text = (Text) previewContentContainerElement.getGraphicsAlgorithm();
+							modelContainerElementsNames.add(text.getValue());
+		}	}	}	}	}
+		return modelContainerElementsNames;
+	}
+	
+	/**
+	 * calculate the string for a group or compartment type element that is shown in the group as
+	 * preview of its content
+	 * @param modelElement the model elemen in the group or compartment type to calculate the shown string for
+	 * @return the value of preview string of group or compartment type content for the given modelElement
+	 */
+	public static String getGroupOrCompartmentTypeElementText(ModelElement modelElement) {
+		return modelElement.getType().toString() + " " + modelElement.getName();
+	}
 }

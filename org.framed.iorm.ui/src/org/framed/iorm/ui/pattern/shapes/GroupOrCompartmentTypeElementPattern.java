@@ -15,6 +15,8 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.PropertyUtil;
 
+import group.GroupPattern;
+
 /**
  * This graphiti pattern is used to work with text shapes
  * of the preview of the groups or compartment types content.

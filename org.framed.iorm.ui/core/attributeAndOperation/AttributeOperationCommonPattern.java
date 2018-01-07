@@ -1,6 +1,5 @@
 package attributeAndOperation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IDirectEditingInfo;
@@ -79,7 +78,6 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		ICON_IMG_PATH = literals.COM_ICON_IMG_PATH;
 		FPD = spec_FPD;
 		//Note
-		usedInReferences = new ArrayList<AbstractUsedInReference>();
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	

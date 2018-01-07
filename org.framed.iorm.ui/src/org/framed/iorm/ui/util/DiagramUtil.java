@@ -15,7 +15,9 @@ import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
-import org.framed.iorm.ui.pattern.shapes.GroupPattern; //*import for javadoc link
+
+import group.GroupPattern;
+
 import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
