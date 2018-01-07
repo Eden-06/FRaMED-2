@@ -321,4 +321,66 @@ public class UILiterals {
 	 */
 	public static final Color COLOR_VALID_CONFIGURATION = new Color(Display.getCurrent(), 0, 0, 255),
 							  COLOR_INVALID_CONFIGURATION = new Color(Display.getCurrent(), 255, 0, 0);
+	
+	//Names
+	//~~~~~
+	/**
+	 * the limit of the suffix for standard names
+	 * <p>
+	 * This means that if the limit is 10 the following standard names are used:<br>
+	 * <em>standardName</em><br>
+	 * <em>standardName1</em><br>
+	 * <em>...</em><br>
+	 * <em>standardName10</em><br>
+	 */
+	public final static int STANDARD_NAMES_COUNTER_LIMIT = 10;
+	
+	/**
+	 * regular expression for identifiers:
+	 * <p>
+	 * string of letters and digits, first is no digit (for names)
+	 */
+	public static final String REG_EXP_IDENTIFIER = "[a-zA-Z_$][a-zA-Z\\d_$]*"; 
+		
+	/**
+	 * regular expression for qualified identifiers
+	 * <p>
+	 * full classes: (N.)*N (for types)
+	 */
+	public static final String REG_EXP_QUALIFIED_IDENTIFIER = "(" + REG_EXP_IDENTIFIER + "\\.)*" + REG_EXP_IDENTIFIER; 
+	
+	/**
+	 * regular expression for cardinalities
+	 * <p>
+	 * (integer|"*")[".."(integer|"*")]
+	 */
+	public static final String REG_EXP_CARDINALITY = "(\\d+|\\*)(\\.\\.(\\d+|\\*))?"; 
+	
+	/**
+	 * regular expression for attributes
+	 * <p>
+	 * name:type
+	 */
+	public static final String REG_EXP_ATTRIBUTE = REG_EXP_IDENTIFIER + ":" + REG_EXP_QUALIFIED_IDENTIFIER; 
+	
+	/**
+	 * regular expression for parameters
+	 * <p> 
+	 * name:type
+	 */
+	public static final String REG_EXP_PARAMETER = REG_EXP_ATTRIBUTE; 
+		
+	/**
+	 * regular expression for operations
+	 * <p>
+	 * name"("[Parameter(","Parameter)*]"):"type, return type is optional
+	 */
+	public static final String REG_EXP_OPERATION = REG_EXP_IDENTIFIER + "\\((" + REG_EXP_PARAMETER + "(," + REG_EXP_PARAMETER + ")*)?\\)(:" + REG_EXP_QUALIFIED_IDENTIFIER + ")?";
+		
+	/**
+	 * regular expression for role groups
+	 * <p>
+	 * name [ "(" cardinality ")" ]
+	 */
+	public static final String REG_EXP_ROLEGROUP = REG_EXP_IDENTIFIER +"([ ]*[(]"+ REG_EXP_CARDINALITY +"[)])?"; 
 }

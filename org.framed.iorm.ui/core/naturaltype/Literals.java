@@ -82,11 +82,9 @@ public class Literals {
 						REASON_NAME_OUT_OF_DATE = "Name of a Natural Type is out of date.";
 	
 	/**
-	 * regular expression for a natural type names:
-	 * <p>
-	 * string of letters and digits, first is no digit (for names)
+	 * regular expression for a natural type names
 	 */
-	public final String REG_EXP_NAME = "[a-zA-Z_$][a-zA-Z\\d_$]*";
+	public final String REG_EXP_NAME = UILiterals.REG_EXP_IDENTIFIER;
 	
 	/**
 	 * the limit of the suffix for standard names
@@ -97,5 +95,5 @@ public class Literals {
 	 * <em>...</em><br>
 	 * <em>standardName10</em><br>
 	 */
-	public final int STANDARD_NAMES_COUNTER_LIMIT = 10;
+	public final int STANDARD_NAMES_COUNTER_LIMIT = UILiterals.STANDARD_NAMES_COUNTER_LIMIT;;
 }

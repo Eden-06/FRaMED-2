@@ -51,14 +51,14 @@ public class Literals {
 	 * <p>
 	 * string of letters and digits, first is no digit (for names)
 	 */
-	public final String REG_EXP_NAME = "[a-zA-Z_$][a-zA-Z\\d_$]*";
+	public final String REG_EXP_NAME = UILiterals.REG_EXP_IDENTIFIER;
 	
 	/**
 	 * regular expression for cardinalities
 	 * <p>
 	 * (integer|"*")[".."(integer|"*")]
 	 */
-	public final String REG_EXP_CARDINALITY = "(\\d+|\\*)(\\.\\.(\\d+|\\*))?";
+	public final String REG_EXP_CARDINALITY = UILiterals.REG_EXP_CARDINALITY;
 	
 	/**
 	 * the limit of the suffix for standard names
@@ -69,7 +69,7 @@ public class Literals {
 	 * <em>...</em><br>
 	 * <em>standardName10</em><br>
 	 */
-	public final int STANDARD_NAMES_COUNTER_LIMIT = 10;
+	public final int STANDARD_NAMES_COUNTER_LIMIT = UILiterals.STANDARD_NAMES_COUNTER_LIMIT;;
 	
 	//Custom edit feature and edit dialog
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

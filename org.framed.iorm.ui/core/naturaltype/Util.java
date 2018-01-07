@@ -2,20 +2,13 @@ package naturaltype;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.framed.iorm.model.Model;
-import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.util.UIUtil;
-import org.framed.iorm.ui.wizards.RoleModelWizard; //**import used for javadoc link
 
 import naturaltype.Literals;
 import naturaltype.references.AttributeAndOperationsReference;
@@ -46,75 +39,6 @@ public class Util {
 	public int calculateHorizontalCenter(int heightOfNaturalType) {
 		return ((heightOfNaturalType-literals.HEIGHT_NAME_SHAPE)/2)+literals.HEIGHT_NAME_SHAPE;
 	}	
-	
-	//Names
-	//~~~~~
-	/**
-	 * matching operation for the regular expression of natural type names (identifier)
-	 * @param identifier the string to check against
-	 * @return if the given string input matches the regular expression
-	 */
-	public final boolean matchesIdentifier(String identifier) {
-		Matcher identifierMatcher = Pattern.compile(literals.REG_EXP_NAME).matcher(identifier);
-		return identifierMatcher.matches();
-	}
-		
-	/**
-	 * calculates if another natural type already has a name equivalent to the new given name when direct editing 
-	 * names using the following steps:
-	 * <p>
-	 * Step 1: It gets the <em>main diagram</em> of the role model that the given diagram belongs to.<br>
-	 * Step 2: It fetches a list of the model element names for the given type and checks if this list contains
-	 * 		   the new name.
-	 * <p>
-	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * @param diagram the diagram that is direct edited
-	 * @param newName the name to check against
-	 * @return boolean if another model element of a given type already has the same name when direct editing
-	 */
-	public boolean nameAlreadyUsedForClass(Diagram diagram, String newName) {
-		List<String> modelElements = new ArrayList<String>();
-		//Step 1
-		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
-		//Step 2
-		getNaturalTypeNamesRecursive(rootModel, modelElements);
-		return modelElements.contains(newName);
-	}
-		
-	/**
-	 * calculates the standard name of a data type when creating one
-	 * <p>
-	 * The standard name will be build by using a given standard name and adding a number as suffix to it
-	 * if needed. The limit of this number is set in {@link Literals#STANDARD_NAMES_COUNTER_LIMIT}.
-	 * @param diagram the diagram in that a class is added
-	 * @param standardName the normally used standard name for the class
-	 * @return
-	 */
-	public String calculateStandardNameForClass(Diagram diagram) {
-		List<String> modelElements = new ArrayList<String>();
-		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
-		getNaturalTypeNamesRecursive(rootModel, modelElements);
-		if(!(modelElements.contains(literals.STANDARD_NAME))) return literals.STANDARD_NAME;
-		for(int i=1; i<=literals.STANDARD_NAMES_COUNTER_LIMIT; i++) {
-			if(!(modelElements.contains(literals.STANDARD_NAME + Integer.toString(i))))
-				return literals.STANDARD_NAME + Integer.toString(i);
-		}
-		return literals.STANDARD_NAME;
-	}
-		
-	/**
-	 * fetches all names data types of the given model and its sub models of a given type in a recursive manner
-	 * @param model the model to fetch the model elements names from
-	 * @param modelElementNames the list of model element names to fill while using recursion
-	 */
-	private void getNaturalTypeNamesRecursive(Model model, List<String> modelElementNames) {
-		for(ModelElement modelElement : model.getElements()) {
-			if(modelElement.getType() == Type.NATURAL_TYPE)  
-				modelElementNames.add(modelElement.getName());
-			if(modelElement.getType() == Type.COMPARTMENT_TYPE ||
-			   modelElement.getType() == Type.GROUP) 
-				getNaturalTypeNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), modelElementNames);
-	}	}
 	
 	//Update
 	//~~~~~~

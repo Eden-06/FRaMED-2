@@ -80,7 +80,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		FPD = spec_FPD;
 		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
-		List<Class<?>> classes = util.findModuleClasses();
+		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
 	
@@ -278,13 +278,13 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		ContainerShape attributeContainer = (ContainerShape) classOrRoleShape.getChildren().get(2);
 		ContainerShape operationContainer = (ContainerShape) classOrRoleShape.getChildren().get(4);
 		if(attributeContainer.getChildren().contains(shape))	{
-			if(!(util.matchesAttribute(newName))) return literals.DIRECTEDITING_ATTRIBUTES;
-			if(util.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName)) 
+			if(!(UIUtil.matchesAttribute(newName))) return literals.DIRECTEDITING_ATTRIBUTES;
+			if(UIUtil.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName));
 				return literals.NAME_ALREADY_USED_ATTRIBUTES;
 		}
 		if(operationContainer.getChildren().contains(shape))	{
-			if(!(util.matchesOperation(newName))) return literals.DIRECTEDITING_OPERATIONS;
-			if(util.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
+			if(!(UIUtil.matchesOperation(newName))) return literals.DIRECTEDITING_OPERATIONS;
+			if(UIUtil.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
 				return literals.NAME_ALREADY_USED_OPERATIONS;
 		}
 		return null;

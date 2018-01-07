@@ -79,7 +79,7 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 		FPD = spec_FPD;
 		//Note
 		usedInReferences = new ArrayList<AbstractUsedInReference>();
-		List<Class<?>> classes = util.findModuleClasses();
+		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
 	
@@ -155,7 +155,7 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 	public Object[] create(ICreateContext createContext) {
 		ContainerShape operationContainer = (ContainerShape) createContext.getTargetContainer().getChildren().get(4);
 		NamedElement newOperation = OrmFactory.eINSTANCE.createNamedElement();
-		String standartName = util.calculateStandardNameForOperation(operationContainer);
+		String standartName = UIUtil.calculateStandardNameForAttributeOrOperation(operationContainer, literals.OPS_STANDARD_NAME);
 		newOperation.setName(standartName);
 		org.framed.iorm.model.Shape classOrRole = 
 			(org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(createContext.getTargetContainer());

@@ -46,11 +46,6 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	Literals literals = new Literals();
 	
 	/**
-	 * the object to call utility operations on
-	 */
-	private final Util util = new Util();
-	
-	/**
 	 * the reference for which model types a inheritance is applicable
 	 */
 	private final TypeReferences typeReferences = new TypeReferences();
@@ -240,7 +235,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();
-		String standardName = util.calculateStandardNameForCompartmentsTypeElement(getDiagram());
+		String standardName = UIUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.RELATIONSHIP, literals.STANDARD_NAME);
 		newRelationship.setName(standardName);
 		newRelationship.setType(Type.RELATIONSHIP); 
 	    if(newRelationship.eResource() != null) getDiagram().eResource().getContents().add(newRelationship);

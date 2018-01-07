@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This class represents a dialog to edit relationships name and cardinalities.
@@ -25,11 +27,6 @@ public class EditRelationshipDialog extends Dialog {
 	 * the object to get names, ids and so on for this feature
 	 */
 	Literals literals = new Literals();
-	
-	/**
-	 * the object to call utility operations on
-	 */
-	private final Util util = new Util();
 	
 	/**
 	 * the diagram of the compartment type the relation is created in
@@ -180,13 +177,13 @@ public class EditRelationshipDialog extends Dialog {
 		switch(type) {
 	    	case RELATIONSHIP_NAME:
 	    		String name = relationshipNameTextField.getText();
-	    		return util.matchesIdentifier(name);
+	    		return UIUtil.matchesIdentifier(name);
 	    	case SOURCE_CARDINALITY:
 	    		String sourceCardinality = sourceCardinalityTextField.getText();
-	    		return util.matchesCardinality(sourceCardinality);
+	    		return UIUtil.matchesCardinality(sourceCardinality);
 	    	case TARGET_CARDINALITY:
 	    		String targetCardinality = targetCardinalityTextField.getText();
-	    		return util.matchesCardinality(targetCardinality);
+	    		return UIUtil.matchesCardinality(targetCardinality);
 		}
 		return false;
 	}
@@ -199,6 +196,6 @@ public class EditRelationshipDialog extends Dialog {
 	private boolean NameAlreadyUsed() {
 		String newName = relationshipNameTextField.getText();
 		if(newName.equals(businessObject.getName())) return false;
-		return util.nameAlreadyUsedForCompartmentTypeElements(diagram, newName);
+		return UIUtil.nameAlreadyUsedForCompartmentTypeElements(diagram, Type.RELATIONSHIP, newName);
 	}
 }

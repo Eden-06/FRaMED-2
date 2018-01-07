@@ -327,7 +327,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newRoleType = OrmFactory.eINSTANCE.createShape();
 		newRoleType.setType(Type.ROLE_TYPE);
-		String standardName = util.calculateStandardNameForCompartmentsTypeElement(getDiagram());
+		String standardName = UIUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.ROLE_TYPE, literals.STANDARD_NAME);
 		newRoleType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -408,12 +408,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		PictogramElement pictogramElement = editingContext.getPictogramElement();
 		if(getInitialValue(editingContext).contentEquals(newValue)) return null;
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME)) {
-			if(!(util.matchesIdentifier(newValue))) return literals.DIRECTEDITING_ROLETYPE;
-			if(util.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), newValue)) 
+			if(!(UIUtil.matchesIdentifier(newValue))) return literals.DIRECTEDITING_ROLETYPE;
+			if(UIUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newValue)) 
 				return literals.NAME_ALREADY_USED_ROLETYPE;
 		}	
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
-			if(!(util.matchesCardinality(newValue))) return literals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
+			if(!(UIUtil.matchesCardinality(newValue))) return literals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
 		}
 		return null;
 	} 

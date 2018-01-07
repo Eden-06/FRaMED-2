@@ -60,27 +60,6 @@ public class Literals {
 	public final String	ATT_ICON_IMG_ID = "org.framed.iorm.ui.core.attributes",
 						ATT_ICON_IMG_PATH = "core/attributeAndOperation/icon_attribute.gif";
 	
-	/**
-	 * regular expression for identifiers:
-	 * <p>
-	 * string of letters and digits, first is no digit (for names)
-	 */
-	private final String identifier = "[a-zA-Z_$][a-zA-Z\\d_$]*"; 
-	
-	/**
-	 * regular expression for qualified identifiers
-	 * <p>
-	 * full classes: (N.)*N (for types)
-	 */
-	private final String qualifiedIdentifier = "(" + identifier + "\\.)*" + identifier; 
-	
-	/**
-	 * regular expression for attributes
-	 * <p>
-	 * name:type
-	 */
-	public final String ATT_REG_EXP_NAME = identifier + ":" + qualifiedIdentifier; 
-	
 	//Operations
 	//~~~~~~~~~~
 	/**
@@ -98,13 +77,6 @@ public class Literals {
 	 */		
 	public final String	OPS_ICON_IMG_ID = "org.framed.iorm.ui.core.operation",
 						OPS_ICON_IMG_PATH = "core/attributeAndOperation/icon_operation.gif";
-	
-	/**
-	 * regular expression for operations
-	 * <p>
-	 * name"("[Parameter(","Parameter)*]"):"type, return type is optional
-	 */
-	public final String OPS_REG_EXP_NAME = identifier + "\\((" + ATT_REG_EXP_NAME + "(," + ATT_REG_EXP_NAME + ")*)?\\)(:" + qualifiedIdentifier + ")?";
 	
 	/**
 	 * messages used as direct editing tips
@@ -139,13 +111,20 @@ public class Literals {
 	//Names
 	//~~~~~
 	/**
+	 * regular expression for attribute and operation names
+	 */
+	public final String ATT_REG_EXP_NAME = UILiterals.REG_EXP_ATTRIBUTE,
+				 		OPS_REG_EXP_NAME = UILiterals.REG_EXP_OPERATION;
+	
+	
+	/**
 	 * the limit of the suffix for standard names
 	 * <p>
 	 * This means that if the limit is 10 the following standard names are used:<br>
-	 * <em>standardName</em><br>
+	 * <em>standardName</em><br
 	 * <em>standardName1</em><br>
 	 * <em>...</em><br>
 	 * <em>standardName10</em><br>
 	 */
-	public final int STANDARD_NAMES_COUNTER_LIMIT = 10;
+	public final int STANDARD_NAMES_COUNTER_LIMIT = UILiterals.STANDARD_NAMES_COUNTER_LIMIT;;
 }

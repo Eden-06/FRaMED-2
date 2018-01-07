@@ -83,23 +83,4 @@ public class Literals {
 	 */
 	public final String REASON_NAME_NULL = "Name of a Data Type is null.",
 						REASON_NAME_OUT_OF_DATE = "Name of a Data Type is out of date.";
-	
-	/**
-	 * regular expression for a data types names:
-	 * <p>
-	 * string of letters and digits, first is no digit (for names)
-	 */
-	public final String REG_EXP_NAME = "[a-zA-Z_$][a-zA-Z\\d_$]*";
-	
-	/**
-	 * the limit of the suffix for standard names
-	 * <p>
-	 * This means that if the limit is 10 the following standard names are used:<br>
-	 * <em>standardName</em><br>
-	 * <em>standardName1</em><br>
-	 * <em>...</em><br>
-	 * <em>standardName10</em><br>
-	 */
-	public final int STANDARD_NAMES_COUNTER_LIMIT = 10;
-	
 }
