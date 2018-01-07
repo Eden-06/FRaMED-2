@@ -1,4 +1,4 @@
-package core.naturaltype.references;
+package naturaltype.references;
 
 import attributeAndOperation.Literals;
 

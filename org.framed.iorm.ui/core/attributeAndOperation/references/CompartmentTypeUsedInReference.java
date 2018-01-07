@@ -13,7 +13,7 @@ public class CompartmentTypeUsedInReference extends AbstractUsedInReference {
 	/**
 	 * the object to call utility operations of the datatype feature on
 	 */
-	private core.naturaltype.Util util = new core.naturaltype.Util();
+	private naturaltype.Util util = new naturaltype.Util();
 	
 	/**
 	 * class constructor

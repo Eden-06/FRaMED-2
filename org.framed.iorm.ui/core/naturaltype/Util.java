@@ -1,4 +1,4 @@
-package core.naturaltype;
+package naturaltype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //**import used for javadoc link
 
-import core.naturaltype.Literals;
-import core.naturaltype.references.AttributeAndOperationsReference;
+import naturaltype.Literals;
+import naturaltype.references.AttributeAndOperationsReference;
 
 /**
  * This class offers utility operations in the scope of the attribute and operations feature module.

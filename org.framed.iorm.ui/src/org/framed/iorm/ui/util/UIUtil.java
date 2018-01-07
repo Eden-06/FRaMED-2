@@ -143,11 +143,18 @@ public class UIUtil {
 	 */
 	public static List<Class<?>> findModuleJavaClasses() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
-	    List<URL> patternURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+	    List<URL> moduleClassURLs = Collections.list(bundle.findEntries("/modules", "*.java", true));
+	    List<URL> coreClassURLs = Collections.list(bundle.findEntries("/core", "*.java", true));
 	    List<Class<?>> patternClasses = new ArrayList<Class<?>>();
-	    for(URL patternURL : patternURLs) {
+	    for(URL classURL : moduleClassURLs) {
 	    	try {
-	    		Class<?> classForPattern = Class.forName(formatURL(patternURL.toString()));
+	    		Class<?> classForPattern = Class.forName(formatModuleURL(classURL.toString()));
+	    		patternClasses.add(classForPattern);
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }
+	    for(URL classURL : coreClassURLs) {
+	    	try {
+	    		Class<?> classForPattern = Class.forName(formatCoreURL(classURL.toString()));
 	    		patternClasses.add(classForPattern);
 			} catch (ClassNotFoundException e) { e.printStackTrace(); }
 	    }
@@ -159,8 +166,20 @@ public class UIUtil {
 	 * @param patternURL the string url to format
 	 * @return the formatted string url
 	 */
-	public static String formatURL(String patternURL) {
+	public static String formatModuleURL(String patternURL) {
 		int cutStart = patternURL.indexOf("modules/")+"modules/".length(),
+			cutEnd = patternURL.indexOf(".java");	
+		patternURL = patternURL.substring(cutStart, cutEnd);
+		return patternURL.replace("/", ".");
+	}
+	
+	/**
+	 * formats the given string url by cutting and replacing character in specific manner
+	 * @param patternURL the string url to format
+	 * @return the formatted string url
+	 */
+	public static String formatCoreURL(String patternURL) {
+		int cutStart = patternURL.indexOf("core/")+"core/".length(),
 			cutEnd = patternURL.indexOf(".java");	
 		patternURL = patternURL.substring(cutStart, cutEnd);
 		return patternURL.replace("/", ".");

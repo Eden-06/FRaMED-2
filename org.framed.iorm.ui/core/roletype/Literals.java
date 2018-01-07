@@ -1,4 +1,4 @@
-package core.roletype;
+package roletype;
 
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -24,8 +24,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.core.roletype",
-						ICON_IMG_PATH = "modules/core/roletype/icon_roletype.png";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.roletype",
+						ICON_IMG_PATH = "core/roletype/icon_roletype.png";
 	
 	/**
 	 * identifiers used for role types

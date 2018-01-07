@@ -17,8 +17,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.inheritance",
-						ICON_IMG_PATH = "modules/inheritance/icon_inheritance.png";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.inheritance",
+						ICON_IMG_PATH = "core/inheritance/icon_inheritance.png";
 	
 	/**
 	 * identifier used for the connection decorator of the inheritance relation

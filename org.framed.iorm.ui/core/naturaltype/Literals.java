@@ -1,4 +1,4 @@
-package core.naturaltype;
+package naturaltype;
 
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -22,8 +22,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.core.naturaltype",
-						ICON_IMG_PATH = "modules/core/naturaltype/icon_naturaltype.png";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.naturaltype",
+						ICON_IMG_PATH = "core/naturaltype/icon_naturaltype.png";
 	
 	/**
 	 * identifiers used for natural types

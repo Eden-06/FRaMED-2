@@ -1,4 +1,4 @@
-package core.naturaltype;
+package naturaltype;
 
 import java.util.List;
 
@@ -40,9 +40,9 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.UIUtil;
 
-import core.naturaltype.Literals;
-import core.naturaltype.references.AttributeAndOperationsReference;
-import core.naturaltype.Util;
+import naturaltype.Literals;
+import naturaltype.Util;
+import naturaltype.references.AttributeAndOperationsReference;
 
 import org.eclipse.graphiti.pattern.AbstractPattern; //*import for javadoc link
 

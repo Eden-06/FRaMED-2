@@ -17,8 +17,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.fulfillment",
-						ICON_IMG_PATH = "modules/fulfillment/icon_fulfillment.png";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.fulfillment",
+						ICON_IMG_PATH = "core/fulfillment/icon_fulfillment.png";
 	
 	/**
 	 * identifier used for the connection decorators of the fulfillment relation

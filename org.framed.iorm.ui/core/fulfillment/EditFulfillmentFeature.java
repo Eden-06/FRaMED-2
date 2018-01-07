@@ -12,7 +12,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Shape;
-import org.framed.iorm.ui.graphitifeatures.FRaMEDCustomFeature;
+import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.util.UIUtil;
 

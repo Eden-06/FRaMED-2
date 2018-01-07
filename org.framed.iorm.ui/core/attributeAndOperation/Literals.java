@@ -39,7 +39,7 @@ public class Literals {
 	 * <p>
 	 * Path is empty because there is no icon to show for the common pattern.
 	 */		
-	public final String	COM_ICON_IMG_ID = "org.framed.iorm.ui.modules.attributeOperationCommon",
+	public final String	COM_ICON_IMG_ID = "org.framed.iorm.ui.core.attributeOperationCommon",
 						COM_ICON_IMG_PATH = "";
 	
 	//Attributes
@@ -57,8 +57,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of the attribute feature
 	 */		
-	public final String	ATT_ICON_IMG_ID = "org.framed.iorm.ui.modules.attributes",
-						ATT_ICON_IMG_PATH = "modules/attributeAndOperation/icon_attribute.gif";
+	public final String	ATT_ICON_IMG_ID = "org.framed.iorm.ui.core.attributes",
+						ATT_ICON_IMG_PATH = "core/attributeAndOperation/icon_attribute.gif";
 	
 	/**
 	 * regular expression for identifiers:
@@ -96,8 +96,8 @@ public class Literals {
 	/**
 	 * the id or the path for icon used for palette entry of the attribute feature
 	 */		
-	public final String	OPS_ICON_IMG_ID = "org.framed.iorm.ui.modules.operation",
-						OPS_ICON_IMG_PATH = "modules/attributeAndOperation/icon_operation.gif";
+	public final String	OPS_ICON_IMG_ID = "org.framed.iorm.ui.core.operation",
+						OPS_ICON_IMG_PATH = "core/attributeAndOperation/icon_operation.gif";
 	
 	/**
 	 * regular expression for operations

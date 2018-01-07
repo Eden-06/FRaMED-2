@@ -1,4 +1,4 @@
-package core.model;
+package model;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -21,7 +21,7 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.UIUtil;
 
-import core.model.Literals;
+import model.Literals;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Model} in the editor. 

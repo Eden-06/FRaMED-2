@@ -21,6 +21,7 @@ import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.pattern.shapes.*;

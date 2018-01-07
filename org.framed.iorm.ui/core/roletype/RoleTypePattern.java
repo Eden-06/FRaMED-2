@@ -1,4 +1,4 @@
-package core.roletype;
+package roletype;
 
 import java.util.List;
 
@@ -43,9 +43,9 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.UIUtil;
 
-import core.roletype.Literals;
-import core.roletype.Util;
-import core.roletype.references.AttributeAndOperationsReference;
+import roletype.Literals;
+import roletype.Util;
+import roletype.references.AttributeAndOperationsReference;
 
 //TODO Doku
 public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {

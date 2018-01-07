@@ -1,4 +1,4 @@
-package core.roletype;
+package roletype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.PropertyUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
-import core.roletype.references.AttributeAndOperationsReference;
-import core.roletype.Literals;
+import roletype.Literals;
+import roletype.references.AttributeAndOperationsReference;
 
 /**
  * This class offers utility operations in the scope of the attribute and operations feature module.

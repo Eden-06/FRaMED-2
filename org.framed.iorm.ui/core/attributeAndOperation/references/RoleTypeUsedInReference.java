@@ -4,26 +4,26 @@ import org.framed.iorm.model.Type;
 
 /**
  * The reference class which saves in which other module feature's shapes a attribute or
- * operation can be added with specific informations for Natural Types.
+ * operation can be added with specific informations for Role Types.
  */
-public class NaturalTypeUsedInReference extends AbstractUsedInReference {
+public class RoleTypeUsedInReference extends AbstractUsedInReference {
 
 	/**
 	 * the object to get names, ids and so on for the datatype feature
 	 */
-	private core.naturaltype.Literals literals = new core.naturaltype.Literals();
+	private roletype.Literals literals = new roletype.Literals();
 	
 	/**
 	 * the object to call utility operations of the datatype feature on
 	 */
-	private core.naturaltype.Util util = new core.naturaltype.Util();
+	private roletype.Util util = new roletype.Util();
 	
 	/**
 	 * class constructor
 	 */
-	public NaturalTypeUsedInReference() {
-		modelType = Type.NATURAL_TYPE;
-		shadowShapeID = literals.SHAPE_ID_NATURALTYPE_SHADOW;
+	public RoleTypeUsedInReference() {
+		modelType = Type.ROLE_TYPE;
+		shadowShapeID = literals.SHAPE_ID_ROLETYPE_SHADOW;
 	}
 	
 	/** */

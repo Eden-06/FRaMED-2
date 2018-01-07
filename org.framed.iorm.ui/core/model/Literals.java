@@ -1,4 +1,4 @@
-package core.model;
+package model;
 
 /**
  * This class saves literals in the scope of the model feature core module.
@@ -16,6 +16,6 @@ public class Literals {
 	 * <p>
 	 * Path is empty because there is no icon to show for the model pattern.
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.core.model",
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.model",
 						ICON_IMG_PATH = "";
 }

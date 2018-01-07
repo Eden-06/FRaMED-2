@@ -1,4 +1,4 @@
-package core.roletype.references;
+package roletype.references;
 
 import attributeAndOperation.Literals;
 

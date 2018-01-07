@@ -20,7 +20,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.util.ShapePatternUtil;
 
-import core.naturaltype.NaturalTypePattern;
+import naturaltype.NaturalTypePattern;
 
 /**
  * This class is an abstract super class for the graphiti shape patterns.
