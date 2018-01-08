@@ -30,7 +30,7 @@ import org.eclipse.ui.part.EditorPart;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
-import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand;
+import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
 import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.UILiterals;

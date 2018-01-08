@@ -1,10 +1,9 @@
 package org.framed.iorm.ui.literals;
 
-import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link
-
 import fulfillment.EditFulfillmentFeature;
 import relationship.EditRelationshipFeature;
 
+import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
 import org.framed.iorm.ui.graphitifeatures.*; //*import for javadoc link
 
 /**

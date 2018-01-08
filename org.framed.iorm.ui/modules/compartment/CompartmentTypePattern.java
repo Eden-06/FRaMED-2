@@ -42,7 +42,6 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -298,7 +297,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		//groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedCompartmentType.getName(), 10, true);
 		UIUtil.setDiagram_KindValue(contentDiagram, UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM);
-		AddGroupOrCompartmentTypeContext agctc = (AddGroupOrCompartmentTypeContext) addContext;
+		AddCompartmentTypeContext agctc = (AddCompartmentTypeContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());
 		getDiagram().getContainer().getChildren().add(contentDiagram);
 		
@@ -403,7 +402,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		newCompartmentType.setContainer(model);
 	
 		//Step 3
-		AddGroupOrCompartmentTypeContext agctc = new AddGroupOrCompartmentTypeContext();
+		AddCompartmentTypeContext agctc = new AddCompartmentTypeContext();
 		UIUtil.getAddContextForCreateShapeContext(agctc, createContext);
 		agctc.setNewObject(newCompartmentType);
 		agctc.setModelToLink(compartmentsModel);

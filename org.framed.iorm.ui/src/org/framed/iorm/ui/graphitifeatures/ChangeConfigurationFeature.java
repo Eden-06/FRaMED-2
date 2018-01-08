@@ -8,12 +8,13 @@ import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
 import org.framed.iorm.featuremodel.FeaturemodelFactory;
-import org.framed.iorm.ui.contexts.ChangeConfigurationContext;
+import org.framed.iorm.ui.configuration.ChangeConfigurationContext;
+import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
-import org.framed.iorm.ui.commands.ConfigurationEditorChangeCommand; //*import for javadoc link 
+
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 
 /**

@@ -42,7 +42,6 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.contexts.AddGroupOrCompartmentTypeContext;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
@@ -258,7 +257,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		//groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedGroup.getName(), 10, true);
 		UIUtil.setDiagram_KindValue(contentDiagram, UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM);
-		AddGroupOrCompartmentTypeContext agctc = (AddGroupOrCompartmentTypeContext) addContext;
+		AddGroupContext agctc = (AddGroupContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());
 		getDiagram().getContainer().getChildren().add(contentDiagram);
 		
@@ -348,7 +347,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		newGroup.setContainer(model);
 				
 		//Step 3
-		AddGroupOrCompartmentTypeContext agctc = new AddGroupOrCompartmentTypeContext();
+		AddGroupContext agctc = new AddGroupContext();
 		UIUtil.getAddContextForCreateShapeContext(agctc, createContext);
 		agctc.setNewObject(newGroup);
 		agctc.setModelToLink(groupModel);

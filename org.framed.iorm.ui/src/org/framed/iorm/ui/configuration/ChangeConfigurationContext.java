@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.contexts;
+package org.framed.iorm.ui.configuration;
 
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;

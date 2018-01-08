@@ -1,9 +1,8 @@
-package org.framed.iorm.ui.commands;
+package org.framed.iorm.ui.configuration;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.swt.widgets.TreeItem;
-import org.framed.iorm.ui.contexts.ChangeConfigurationContext;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
