@@ -46,11 +46,11 @@ public class Util {
 	//Diagram
 	//~~~~~~~
 	/**
-	 * Convenience operation to call {@link UIUtil#getGroupOrCompartmentTypeDiagramForItsShape(Shape, Diagram, String, String, String)} 
+	 * Convenience operation to call {@link UIUtil#getDiagramForGroupingShape(Shape, Diagram, String, String, String)} 
 	 * with the correct parameters.
 	 */
 	public Diagram getGroupDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram) {
-		return UIUtil.getGroupOrCompartmentTypeDiagramForItsShape(groupOrCompartmentTypeShape, diagram, 
+		return UIUtil.getDiagramForGroupingShape(groupOrCompartmentTypeShape, diagram, 
 				literals.SHAPE_ID_GROUP_TYPEBODY, literals.SHAPE_ID_GROUP_NAME, UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM);
 	}
 	

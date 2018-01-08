@@ -1,10 +1,13 @@
-package org.framed.iorm.ui.graphitifeatures;
+package customFeatures;
 
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorInput;
@@ -13,59 +16,70 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
+
+import customFeatures.references.AbstractStepInAndOutReference;
 
 /**
  * This graphiti custom feature is used to step out of groups and compartment types remaining still showing the same number of tabs.
  * @author Kevin Kassin
  */
-public class StepOutFeature extends AbstractCustomFeature {
+public class StepOutFeature extends FRaMEDCustomFeature {
 	
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME;
+	private final Literals literals = new Literals();
 	
 	/**
-	 * the value of the property diagram kind to identify a diagram that belongs to a group
+	 * the object to call utility operations on
 	 */
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final Util util = new Util();
 	
 	/**
-	 * identifiers used to open a new editor for the groups or compartment types diagram gathered from {@link IdentifierLiterals}
-	 * <p>
-	 * can be:<br>
-	 * (1) the identifier for the diagram provider that is used to create an IDiagramEditorInput
-	 *     in the operation {@link #execute} or<br>
-	 * (2) the identifier for the multipage editor that is used to open a new multipage editor in 
-	 *     the operation {@link #execute} 
+	 * the list of reference classes which save in which other module feature's shapes a attribute or
+	 * operation can be added with specific informations for these.
+	 * @see AbstractUsedInReference
 	 */
-	protected final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID,
-						   EDITOR_ID = UILiterals.EDITOR_ID;
+	private List<AbstractStepInAndOutReference> stepInAndOutReferences; 
 	
 	/**
 	 * Class constructor
+	 * <p>
+	 * Note: It gets the references which save in which other module feature's shapes a attribute or
+	 * operations can be added here and saves them it into {@link #stepInAndOutReferences}.	
 	 * @param featureProvider the feature provider the feature belongs to
 	 */
 	public StepOutFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
+		FEATURE_NAME = literals.STEP_OUT_FEATURE_NAME;
+		//Note
+		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
+		stepInAndOutReferences = util.getStepInAndOutReferences(classes);
 	}
-	 
+	
 	/**
-	 * get method for the features name
-	 * @return the name of the feature
+	 * this operation encapsulates when the custom feature should be visible in the context menu
+	 * @return false, since the feature is never visible in the context menu
 	 */
-	@Override
-	public String getName() {
-		return STEP_OUT_FEATURE_NAME;
-	}
+	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
+		if(pictogramElement instanceof Diagram) {
+			Diagram diagram = (Diagram) pictogramElement;
+			if(util.diagramIsFittingToStepInAndOutFeature(diagram, stepInAndOutReferences))
+				return true;
+		} else {
+			if(pictogramElement instanceof Shape) {
+				Diagram diagram = UIUtil.getDiagramForContainedShape((Shape) pictogramElement);
+				if(diagram != null) {
+					if(util.diagramIsFittingToStepInAndOutFeature(diagram, stepInAndOutReferences))
+						return true;
+		}	}	}	
+		return false;
+	}	
 	
 	/**
 	 * This methods checks if the feature can be executed.
@@ -79,8 +93,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM) ||
-			   UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) {
+			if(util.diagramIsFittingToStepInAndOutFeature(getDiagram(), stepInAndOutReferences)) {
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))
@@ -89,6 +102,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 		return false;
 	}
 
+	//TODO doku?
 	/**
 	 * This operation executes the step out itself using the following steps:
 	 * <p>
@@ -107,7 +121,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 			MultipageEditor multipageEditorToClose = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 			//Step 1
-			Model groupModel = DiagramUtil.getLinkedModelForDiagram(getDiagram());
+			Model groupModel = UIUtil.getLinkedModelForDiagram(getDiagram());
 			Model modelToStepOutTo = groupModel.getParent().getContainer();
 			org.framed.iorm.model.Shape ShapeToStepOutTo = modelToStepOutTo.getParent();
 			//Step 2
@@ -119,25 +133,19 @@ public class StepOutFeature extends AbstractCustomFeature {
 				//Step 3		
 				Diagram diagramToStepOutTo = null;
 				String diagramNameToStepOutTo = ShapeToStepOutTo.getName();
-				Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(getDiagram());
-				Type type = null;
-				if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
-					type = Type.GROUP;
-				else if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) 
-						type = Type.COMPARTMENT_TYPE;
-				else return;
+				Diagram containerDiagram = UIUtil.getContainerDiagramForAnyDiagram(getDiagram());
+				Type type = ShapeToStepOutTo.getType();
 				for(Shape shape : containerDiagram.getChildren()) {
 					if(shape instanceof Diagram) {
-						if((UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM) &&
-						    type == Type.GROUP) ||
-						   (UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
-						    type == Type.COMPARTMENT_TYPE)) {
-							if(((Diagram) shape).getName().equals(diagramNameToStepOutTo))
-								diagramToStepOutTo = (Diagram) shape;
-				}	}	}
+						AbstractStepInAndOutReference siaorOfContainerChildren = util.getStepInAndOutReferenceForDiagramKind((Diagram) shape, stepInAndOutReferences);
+						if(siaorOfContainerChildren != null) {
+							if(type == siaorOfContainerChildren.getModelType()) {
+								if(((Diagram) shape).getName().equals(diagramNameToStepOutTo)) 
+									diagramToStepOutTo = (Diagram) shape;
+				}	}	}	}
 				if(diagramToStepOutTo == null) throw new NoDiagramFoundException();
 				DiagramEditorInput diagramEditorInput = 
-						DiagramEditorInput.createEditorInput(diagramToStepOutTo, DIAGRAM_PROVIDER_ID);
+						DiagramEditorInput.createEditorInput(diagramToStepOutTo, UILiterals.DIAGRAM_PROVIDER_ID);
 				stepOutWithEditorInput(diagramEditorInput);
 	}	}	
 		
@@ -154,7 +162,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		UIUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, EDITOR_ID);
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, UILiterals.EDITOR_ID);
 		} catch (PartInitException e) { e.printStackTrace(); }
 	}
 }

@@ -13,11 +13,8 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
@@ -27,7 +24,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
@@ -36,6 +32,9 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
+import customFeatures.StepInFeature;
+import customFeatures.StepInNewTabFeature;
+import customFeatures.StepOutFeature;
 import relationship.EditRelationshipFeature;
 
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
@@ -49,9 +48,6 @@ import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
-import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
-import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
-import org.framed.iorm.ui.graphitifeatures.StepOutFeature; //*import for javadoc link
 
 /**
  * This class enables context buttons and can manipulate the palette of the editor.
@@ -68,35 +64,12 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						 CONSTRAINTS_PALETTE_CATEGORY_NAME = UILiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME;
 	
 	/**
-	 * the value for the property diagram kind to identify diagrams belonging to a group or compartment type gathered
-	 * from {@link IdentiferLiterals}
-	 */
-	private final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-						 DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
-	
-	/**
 	 * the name literals for features to probaly add to the context menu for the diagram type
 	 * gathered from {@link NameLiterals}
 	 */
 	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
 					     EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME,
-						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME,
-						 STEP_IN_NEW_TAB_FEATURE_NAME = NameLiterals.STEP_IN_NEW_TAB_FEATURE_NAME,
-						 STEP_OUT_FEATURE_NAME = NameLiterals.STEP_OUT_FEATURE_NAME,
-						 RESET_LAYOUT_FEATURE_NAME = NameLiterals.RESET_LAYOUT_FEATURE_NAME;
-	
-	/**
-	 * the shape identifiers of the shapes the step in feature can be used on gathered from {@link IdentifierLiterals}
-	 * <p>
-	 * can be:<br>
-	 * (1) the shape identifier of type body rectangle of a group or<br>
-	 * (2) the shape identifier of type body rectangle of a compartment type
-	 */
-	private final String SHAPE_ID_GROUP_TYPEBODY = IdentifierLiterals.SHAPE_ID_GROUP_TYPEBODY,
-						 SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
-	
-	private final String SHAPE_ID_ROLETYPE_TYPEBODY = IdentifierLiterals.SHAPE_ID_ROLETYPE_TYPEBODY,
-						 SHAPE_ID_ROLETYPE_OC = IdentifierLiterals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT;
+						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME;
 	
 	/**
 	 * the current type of the palette of the editor
@@ -182,58 +155,6 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					contextMenuEntries.add(contextMenuEntry);
 			}
 		}
-		
-		//TODO get rid of after and after
-		if(customContext.getPictogramElements().length == 1) {
-			
-			if(businessObject != null) {
-				//Step 2
-				for(int i = 0; i < superContextEntries.length; i++) {
-					switch(superContextEntries[i].getText()) {
-						//Step 6
-						case STEP_IN_FEATURE_NAME :
-						case STEP_IN_NEW_TAB_FEATURE_NAME:	
-							if(pictogramElement instanceof Shape &&
-							   !(pictogramElement instanceof Diagram)) {
-								if(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_GROUP_TYPEBODY) ||
-								   UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
-									contextMenuEntries.add(superContextEntries[i]);
-							} break;
-						//Step 7	
-						case STEP_OUT_FEATURE_NAME:	
-							if(pictogramElement instanceof Diagram) {
-								Diagram diagram = (Diagram) pictogramElement;
-								if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
-								   UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
-									contextMenuEntries.add(superContextEntries[i]);
-							} else {
-								if(pictogramElement instanceof Shape) {
-									Diagram diagram = DiagramUtil.getDiagramForContainedShape((Shape) pictogramElement);
-									if(diagram != null) {
-										if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
-										   UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
-											contextMenuEntries.add(superContextEntries[i]);
-							}	}	} break;
-						//Step 8	
-						case RESET_LAYOUT_FEATURE_NAME:
-							if(pictogramElement instanceof FreeFormConnection ||
-							   pictogramElement instanceof ConnectionDecorator) {
-								if(businessObject instanceof Relation) {
-									Relation relation = (Relation) businessObject;
-									if(relation.getType() == Type.RELATIONSHIP ||
-									   relation.getType() == Type.FULFILLMENT)
-										contextMenuEntries.add(superContextEntries[i]);
-								}	}					
-							if(pictogramElement instanceof Shape &&
-							   !(pictogramElement instanceof Diagram)) {
-								if(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY) ||
-								   UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OC)) 
-									contextMenuEntries.add(superContextEntries[i]);
-							}
-							break;
-						default: 
-							break;	
-		}	}	}	}
 		return contextMenuEntries.toArray(new IContextMenuEntry[contextMenuEntries.size()]);
 	}
 	

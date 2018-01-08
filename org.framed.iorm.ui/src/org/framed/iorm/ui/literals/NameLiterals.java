@@ -1,11 +1,5 @@
 package org.framed.iorm.ui.literals;
 
-import fulfillment.EditFulfillmentFeature;
-import relationship.EditRelationshipFeature;
-
-import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
-import org.framed.iorm.ui.graphitifeatures.*; //*import for javadoc link
-
 /**
  * This class saves severals static Strings used as names.
  * @author Kevin Kassin

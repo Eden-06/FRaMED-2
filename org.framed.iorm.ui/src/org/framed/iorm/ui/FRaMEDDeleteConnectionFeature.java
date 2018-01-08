@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.graphitifeatures;
+package org.framed.iorm.ui;
 
 import java.util.ArrayList;
 import java.util.List;

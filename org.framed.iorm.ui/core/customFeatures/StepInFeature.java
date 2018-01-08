@@ -1,19 +1,22 @@
-package org.framed.iorm.ui.graphitifeatures;
+package customFeatures;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
+
+import customFeatures.references.AbstractStepInAndOutReference;
 
 /**
  * This graphiti custom feature is used to step in groups and compartment types remaining still showing the same number of tabs.
@@ -22,27 +25,32 @@ import org.framed.iorm.ui.util.UIUtil;
  * @author Kevin Kassin
  */
 public class StepInFeature extends AbstractStepInFeature {
-
+	 	 
 	/**
-	 * the name of the feature gathered from {@link NameLiterals} 
+	 * the object to get names, ids and so on for this feature
 	 */
-	private final String STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME;
-		 	 
+	Literals literals = new Literals();
+	
 	/**
 	 * Class constructor 
 	 * @param featureProvider the feature provider the feature belongs to
 	 */
 	public StepInFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
+		FEATURE_NAME = literals.STEP_IN_FEATURE_NAME;
 	}
 	
 	/**
-	 * get method for the features name
-	 * @return the name of the feature 
+	 * this operation encapsulates when the custom feature should be visible in the context menu
+	 * @return false, since the feature is never visible in the context menu
 	 */
-	@Override
-	public String getName() {
-		return STEP_IN_FEATURE_NAME;
+	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
+		if(pictogramElement instanceof Shape &&
+		   !(pictogramElement instanceof Diagram)) {
+				if(util.shapeIsFittingToStepInAndOutFeature((Shape) pictogramElement, stepInAndOutReferences))
+					return true;
+		}
+		return false;
 	}
 
 	/**
@@ -67,14 +75,17 @@ public class StepInFeature extends AbstractStepInFeature {
 		ContainerShape typeBodyShape = (ContainerShape) context.getPictogramElements()[0];
 		Type type = null;
 		if(getBusinessObjectForPictogramElement(typeBodyShape) instanceof org.framed.iorm.model.Shape) {
-			Shape businessobject = (Shape) getBusinessObjectForPictogramElement(typeBodyShape);
+			org.framed.iorm.model.Shape businessobject = (org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(typeBodyShape);
 			type = businessobject.getType();
 		} else return;
-		Diagram diagramToStepIn = DiagramUtil.getGroupOrCompartmentTypeDiagramForItsShape(typeBodyShape, getDiagram(), type);
+		AbstractStepInAndOutReference siaor = util.getStepInAndOutReferenceForType(type, stepInAndOutReferences);
+		if(siaor == null) return;
+		Diagram diagramToStepIn = UIUtil.getDiagramForGroupingShape(typeBodyShape, getDiagram(), siaor.getShapeIdTypebody(), 
+			siaor.getShapeIdName(), siaor.getDiagramKind());
 		//Step 3
-		IEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagramToStepIn, DIAGRAM_PROVIDER_ID);
+		IEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(diagramToStepIn, UILiterals.DIAGRAM_PROVIDER_ID);
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(diagramEditorInput, EDITOR_ID);
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(diagramEditorInput, UILiterals.EDITOR_ID);
 		} catch (PartInitException e) { e.printStackTrace(); }
 	}	
 }

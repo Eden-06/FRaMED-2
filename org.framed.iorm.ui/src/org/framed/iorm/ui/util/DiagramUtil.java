@@ -28,7 +28,7 @@ public class DiagramUtil {
 	 * the identifier of the <em>main diagram</em>, <em>container diagram</em>, group and compartment type
 	 * diagram using the property diagram kind
 	 * <p>
-	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
+	 * If its not clear what <em>main diagram</em> agetDiagramForContainedShapend <em>container diagram</em> means, see 
 	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 */
 	private static final String DIAGRAM_KIND_MAIN_DIAGRAM = UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM,

@@ -288,6 +288,7 @@ public class UIUtil {
 		throw new NoDiagramFoundException();
 	}
 	
+	//TODO overhaul documentation
 	/**
 	 * This operation fetches a groups or compartment types diagram for a shape that is a part of a groups
 	 * or compartments pictogram representation using the following steps:
@@ -303,20 +304,19 @@ public class UIUtil {
 	 * @return the groups or compartment types diagram, if the given shape was a name shape or the type body shape
 	 * @throws NoDiagramFoundException
 	 */
-	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram,
-																	  String SHAPE_ID_TYPEBODY, String SHAPE_ID_NAME, 
-																	  String DIAGRAM_KIND) {
+	public static Diagram getDiagramForGroupingShape(Shape groupingShape, Diagram diagram, String SHAPE_ID_TYPEBODY, 
+													 String SHAPE_ID_NAME, String DIAGRAM_KIND) {
 		//Step 1
 		String name = null;
-		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_TYPEBODY)) {
-			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
+		if(UIUtil.isShape_IdValue(groupingShape, SHAPE_ID_TYPEBODY)) {
+			Shape nameShape = ((ContainerShape) groupingShape).getChildren().get(0);
 			if(UIUtil.isShape_IdValue(nameShape, SHAPE_ID_NAME))
 				name = ((Text) nameShape.getGraphicsAlgorithm()).getValue();
 			}	
-		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_NAME))
-			name = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
+		if(UIUtil.isShape_IdValue(groupingShape, SHAPE_ID_NAME))
+			name = ((Text) groupingShape.getGraphicsAlgorithm()).getValue();	
 		//Step 2
-		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
+		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
 		if(containerDiagram == null) throw new NoDiagramFoundException();
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram) {
@@ -359,6 +359,23 @@ public class UIUtil {
 				return (Diagram) shape;
 		}
 		throw new NoDiagramFoundException();
+	}
+	
+	/**
+	 * fetches the diagram in which a given shape in contained
+	 * @param shape the shape to get containing diagram for
+	 * @return the diagram that contains the given shape
+	 */
+	public static Diagram getDiagramForContainedShape(Shape shape) {
+		if(shape.getContainer() == null) return null;
+		if(shape.getContainer() instanceof Diagram) {	 
+			return (Diagram) shape.getContainer();
+		}
+		if(shape.getContainer() instanceof Shape &&
+		   !(shape.getContainer() instanceof Diagram)) {
+			return getDiagramForContainedShape(shape.getContainer());
+		}
+		return null;
 	}
 	
 	//Multipage Editor

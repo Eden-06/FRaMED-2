@@ -22,8 +22,9 @@ import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
+import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
+import org.framed.iorm.ui.FRaMEDReconnectFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**
@@ -36,7 +37,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * The class constructor adds all graphiti pattern to the provider following these steps:
 	 * <p>
 	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
-	 * 		   in the module source folder.<br>
+	 * 		   in the module and core source folder.<br>
 	 * Step 2: It checks all found classes for non abstract<br>
 	 * 		   (a) {@link FRaMEDShapePattern} and<br>
 	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider. 
@@ -68,7 +69,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * sets the graphiti custom features that are used by editor for the diagram type
 	 * <p>
 	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
-	 * 		   in the module source folder.<br>
+	 * 		   in the module and core source folder.<br>
 	 * Step 2: It checks all found classes for non abstract {@link FRaMEDCustomFeature} to add the custom features
 	 */
 	@Override
@@ -89,12 +90,6 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		    				 IllegalArgumentException | InvocationTargetException | 
 		    				 NoSuchMethodException | SecurityException e) { e.printStackTrace(); }
 	    }	}	}
-	    
-	    //TODO get rid of after and after
-	    customfeatures.add(new StepInFeature(this));
-	    customfeatures.add(new StepInNewTabFeature(this));
-	    customfeatures.add(new StepOutFeature(this));
-	
 	    ICustomFeature[] customFeatureArray = customfeatures.toArray(new ICustomFeature[0]);
 		return customFeatureArray;
 	} 
