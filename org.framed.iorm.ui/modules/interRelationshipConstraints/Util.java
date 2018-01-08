@@ -3,12 +3,15 @@ package interRelationshipConstraints;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import interRelationshipConstraints.references.RelationshipReference;
 
 public class Util {
 	
+	/**
+	 * the reference to the relationship class to which the constraint belong 
+	 */
 	RelationshipReference relationshipReference = new RelationshipReference();
 
 	/**
@@ -22,7 +25,7 @@ public class Util {
 	public Anchor getGraphicalAnchorForBusinessModelAnchor(Anchor businessModelAnchor) {
 		Connection connection = (Connection) businessModelAnchor.getParent();
 		for(ConnectionDecorator connectionDecorator : connection.getConnectionDecorators()) {
-	    	if(PropertyUtil.isShape_IdValue(connectionDecorator, relationshipReference.getShapeIdRelationshipAnchor()))
+	    	if(UIUtil.isShape_IdValue(connectionDecorator, relationshipReference.getShapeIdRelationshipAnchor()))
 	    		return connectionDecorator.getAnchors().get(0);
 	    }
 		return null;

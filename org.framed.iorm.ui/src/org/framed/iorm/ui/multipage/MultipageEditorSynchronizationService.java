@@ -17,7 +17,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This operation offers a register and a synchronizing functionality for multipage editors.
@@ -173,9 +173,9 @@ public class MultipageEditorSynchronizationService {
 			Resource changedEditorResource = EditorInputUtil.getResourceFromEditorInput(changedEditorInput);
 			Diagram changedEditorDiagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
 			Type type = null;
-			if(PropertyUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_GROUP_DIAGRAM))
+			if(UIUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_GROUP_DIAGRAM))
 				type = Type.GROUP;
-			else if(PropertyUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+			else if(UIUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 					type = Type.COMPARTMENT_TYPE;
 			else return null;
 			Diagram equivalentDiagramInBaseResource =

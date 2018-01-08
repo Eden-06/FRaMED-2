@@ -13,7 +13,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to step in groups and compartment types remaining still showing the same number of tabs.
@@ -62,7 +62,7 @@ public class StepInFeature extends AbstractStepInFeature {
 		//Step 1
 		MultipageEditor multipageEditorToClose = 
 				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		GeneralUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
+		UIUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
 		//Step 2
 		ContainerShape typeBodyShape = (ContainerShape) context.getPictogramElements()[0];
 		Type type = null;

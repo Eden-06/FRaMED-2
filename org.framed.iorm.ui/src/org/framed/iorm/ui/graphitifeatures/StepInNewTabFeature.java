@@ -15,7 +15,6 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
 
 /**
  * This graphiti custom feature is used to step in groups and compartment types by opening a new tab.

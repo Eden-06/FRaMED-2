@@ -18,7 +18,7 @@ import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to reset the layout of relationships and and role types.
@@ -118,11 +118,11 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		connection.getBendpoints().clear();
 		int intraRelConsAdded = 0;
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR)) {
+			if(UIUtil.isShape_IdValue(decorator, SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR)) {
 				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, intraRelConsAdded*HEIGHT_CONSTRAINT);
 				intraRelConsAdded++;
 			} else {
-				if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR)) {
+				if(UIUtil.isShape_IdValue(decorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR)) {
 					graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), 0, 0);
 				} else {
 					graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
@@ -136,7 +136,7 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		if(connection == null) return;
 		connection.getBendpoints().clear();
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			if(PropertyUtil.isShape_IdValue(decorator, SHAPE_ID_FULFILLMENT_ROLES)) {
+			if(UIUtil.isShape_IdValue(decorator, SHAPE_ID_FULFILLMENT_ROLES)) {
 				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), DISTANCE_FROM_CONNECTION_LINE, -1*DISTANCE_FROM_CONNECTION_LINE);
 	}	}	}
 	
@@ -163,9 +163,9 @@ public class ResetLayoutForElementFeature extends AbstractCustomFeature {
 		ContainerShape containerShape = ((Shape) customContext.getPictogramElements()[0]).getContainer();
 		Shape typeBodyShape = null, occurenceConstraintShape = null;
 		for(Shape shape : containerShape.getChildren()) {
-			if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_TYPEBODY))
+			if(UIUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_TYPEBODY))
 				typeBodyShape = shape;
-			if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
+			if(UIUtil.isShape_IdValue(shape, SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
 				occurenceConstraintShape = shape;
 		}
 		if(typeBodyShape != null && occurenceConstraintShape != null) {

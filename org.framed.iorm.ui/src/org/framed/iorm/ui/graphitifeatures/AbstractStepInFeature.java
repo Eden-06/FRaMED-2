@@ -8,7 +8,7 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.ui.graphitifeatures.StepInFeature; //*import for javadoc link
 import org.framed.iorm.ui.graphitifeatures.StepInNewTabFeature; //*import for javadoc link
 
@@ -63,8 +63,8 @@ public abstract class AbstractStepInFeature extends AbstractCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY) ||
-			   PropertyUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) { 
+			if(UIUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_GROUP_TYPEBODY) ||
+			   UIUtil.isShape_IdValue((Shape) customContext.getPictogramElements()[0], SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) { 
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))

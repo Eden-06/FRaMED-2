@@ -25,7 +25,7 @@ public class ConnectionPatternUtil {
 	 */
 	public static org.framed.iorm.model.ModelElement getModelElementForAnchor(Anchor anchor) {
 		Object object = null;
-		if (anchor != null) { object = GeneralUtil.getBusinessObjectForPictogramElement(anchor.getParent()); }
+		if (anchor != null) { object = UIUtil.getBusinessObjectForPictogramElement(anchor.getParent()); }
 		if (object != null) {
 			if (object instanceof org.framed.iorm.model.Shape)
 				return (org.framed.iorm.model.Shape) object;
@@ -43,7 +43,7 @@ public class ConnectionPatternUtil {
 	 */
 	public static ConnectionDecorator getConnectionDecoratorByShapeId(Connection connection, String SHAPE_ID) {
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			if(PropertyUtil.isShape_IdValue(decorator,SHAPE_ID))
+			if(UIUtil.isShape_IdValue(decorator,SHAPE_ID))
 				return decorator;
 		}
 		return null;
@@ -60,7 +60,7 @@ public class ConnectionPatternUtil {
 	public static Anchor getGraphicalAnchorForBusinessModelAnchor(Anchor businessModelAnchor) {
 		Connection connection = (Connection) businessModelAnchor.getParent();
 		for(ConnectionDecorator connectionDecorator : connection.getConnectionDecorators()) {
-	    	if(PropertyUtil.isShape_IdValue(connectionDecorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR))
+	    	if(UIUtil.isShape_IdValue(connectionDecorator, SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR))
 	    		return connectionDecorator.getAnchors().get(0);
 	    }
 		return null;

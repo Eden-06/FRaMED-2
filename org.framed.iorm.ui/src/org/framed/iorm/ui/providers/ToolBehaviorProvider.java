@@ -34,8 +34,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import relationship.EditRelationshipFeature;
 
@@ -174,7 +173,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		//Step 1
 		if(customContext.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = customContext.getPictogramElements()[0];
-			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
 			if(businessObject != null) {
 				//Step 2
 				for(int i = 0; i < superContextEntries.length; i++) {
@@ -205,23 +204,23 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 						case STEP_IN_NEW_TAB_FEATURE_NAME:	
 							if(pictogramElement instanceof Shape &&
 							   !(pictogramElement instanceof Diagram)) {
-								if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_GROUP_TYPEBODY) ||
-								   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
+								if(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_GROUP_TYPEBODY) ||
+								   UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) 
 									contextMenuEntries.add(superContextEntries[i]);
 							} break;
 						//Step 7	
 						case STEP_OUT_FEATURE_NAME:	
 							if(pictogramElement instanceof Diagram) {
 								Diagram diagram = (Diagram) pictogramElement;
-								if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
-								   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+								if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
+								   UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 									contextMenuEntries.add(superContextEntries[i]);
 							} else {
 								if(pictogramElement instanceof Shape) {
 									Diagram diagram = DiagramUtil.getDiagramForContainedShape((Shape) pictogramElement);
 									if(diagram != null) {
-										if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
-										   PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
+										if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) ||
+										   UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
 											contextMenuEntries.add(superContextEntries[i]);
 							}	}	} break;
 						//Step 8	
@@ -236,8 +235,8 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 								}	}					
 							if(pictogramElement instanceof Shape &&
 							   !(pictogramElement instanceof Diagram)) {
-								if(PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY) ||
-								   PropertyUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OC)) 
+								if(UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_TYPEBODY) ||
+								   UIUtil.isShape_IdValue((Shape) pictogramElement, SHAPE_ID_ROLETYPE_OC)) 
 									contextMenuEntries.add(superContextEntries[i]);
 							}
 							break;
@@ -324,7 +323,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
 			if(fpd.featureExpression(framedFeatureNames, paletteView)) {
-				IFeature featureForPattern = GeneralUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
+				IFeature featureForPattern = UIUtil.findFeatureByName(getFeatureProvider().getCreateFeatures(), pattern.getCreateName());
 				ObjectCreationToolEntry objectCreationToolEntry = 
 					new ObjectCreationToolEntry( pattern.getCreateName(), 
 						pattern.getCreateDescription(), pattern.getCreateImageId(), 
@@ -366,7 +365,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					new ConnectionCreationToolEntry(iConPattern.getCreateName(), 
 						iConPattern.getCreateDescription(), iConPattern.getCreateImageId(),
 						iConPattern.getCreateLargeImageId());			
-				ICreateConnectionFeature feature = GeneralUtil.findCreateConnectionFeatureByName(getFeatureProvider().getCreateConnectionFeatures(), iConPattern.getCreateName());
+				ICreateConnectionFeature feature = UIUtil.findCreateConnectionFeatureByName(getFeatureProvider().getCreateConnectionFeatures(), iConPattern.getCreateName());
 				connectionCreationToolEntry.addCreateConnectionFeature(feature);
 				switch(fpd.paletteCategory) {
 					case ENTITIES_CATEGORY: 
@@ -392,18 +391,18 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
 		if(context.getPictogramElements().length == 1) {
 			PictogramElement pictogramElement = context.getPictogramElements()[0];
-			EObject businessObject = GeneralUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
 			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 			if(businessObject instanceof Relation) {
 				if(((Relation) businessObject).getType() == Type.RELATIONSHIP)
-					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
+					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
 				if(((Relation) businessObject).getType() == Type.FULFILLMENT)
-					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
+					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
 			}	
 			if(businessObject instanceof org.framed.iorm.model.Shape) {
 				if(((ModelElement) businessObject).getType() == Type.COMPARTMENT_TYPE ||
 				  ((ModelElement) businessObject).getType() == Type.GROUP)
-					return (ICustomFeature) GeneralUtil.findFeatureByName(customFeatures, STEP_IN_FEATURE_NAME);
+					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, STEP_IN_FEATURE_NAME);
 		}	}
 		return null;
 	}	

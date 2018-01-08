@@ -16,9 +16,6 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
-import compartment.CompartmentTypePattern;
-import group.GroupPattern;
-
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
 /**
@@ -70,10 +67,6 @@ public class DiagramUtil {
 	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
 	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
 	 * <p>
-	 * If its not clear what the different shapes are look for the pictogram structure of a group or compartment type here: 
-	 * {@link GroupPattern#add}<br>
-	 * {@link CompartmentTypePattern#add}.<br>
-	 * TODO if its not cleat typbe body
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
 	 * @param diagram the diagram the group or compartment type is located in
@@ -84,24 +77,24 @@ public class DiagramUtil {
 	public static Diagram getGroupOrCompartmentTypeDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram, Type type) {
 		//Step 1
 		String name = null;
-		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_TYPEBODY) ||
-	       PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
+		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_TYPEBODY) ||
+		   UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_TYPEBODY)) {
 			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
-			if(PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_GROUP_NAME) ||
-			   PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
+			if(UIUtil.isShape_IdValue(nameShape, SHAPE_ID_GROUP_NAME) ||
+			   UIUtil.isShape_IdValue(nameShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
 				name = ((Text) nameShape.getGraphicsAlgorithm()).getValue();
 			}	
-		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_NAME) ||
-		   PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
+		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_GROUP_NAME) ||
+		   UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_COMPARTMENTTYPE_NAME))
 			name = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
 		//Step 2
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		if(containerDiagram == null) throw new NoDiagramFoundException();
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram) {
-				if(((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM)) &&
+				if(((UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM)) &&
 				    type == Type.GROUP) ||
-				   ((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) &&
+				   ((UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) &&
 					type == Type.COMPARTMENT_TYPE)) {
 					if(((Diagram) shape).getName().equals(name))
 						return ((Diagram) shape);
@@ -134,7 +127,7 @@ public class DiagramUtil {
 	 * @return the container diagram of a role model
 	 */
 	public static Diagram getContainerDiagramForAnyDiagram(Diagram diagram) {
-		if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_CONTAINER_DIAGRAM)) return diagram;
+		if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_CONTAINER_DIAGRAM)) return diagram;
 		else {
 			if(diagram.getContainer() instanceof Diagram)
 				return getContainerDiagramForAnyDiagram((Diagram) diagram.getContainer());
@@ -153,7 +146,7 @@ public class DiagramUtil {
 		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram &&
-			    PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM));
+			   UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM));
 				return (Diagram) shape;
 		}
 		throw new NoDiagramFoundException();
@@ -172,7 +165,7 @@ public class DiagramUtil {
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram &&
-			   PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM)) {
+			   UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_MAIN_DIAGRAM)) {
 				//Note
 				if(shape.getLink() == null) throw new NoLinkedModelYet();
 				else { 
@@ -234,9 +227,9 @@ public class DiagramUtil {
 				for(Shape shape : containerDiagram.getChildren()) {
 					if(shape instanceof Diagram) {
 						Diagram diagram = (Diagram) shape;
-						if((PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) &&
+						if((UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_GROUP_DIAGRAM) &&
 							type == Type.GROUP) ||
-						   (PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
+						   (UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
 						    type == Type.COMPARTMENT_TYPE)) {	
 							if(diagram.getName().equals(diagramName)) 
 								return diagram;

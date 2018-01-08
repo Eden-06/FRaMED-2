@@ -19,7 +19,7 @@ public class Literals {
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.compartment",
-						ICON_IMG_PATH = "modules/datatype/icon_datatype.png";
+						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png";
 	
 	/**
 	 * identifiers used for compartment types

@@ -13,7 +13,7 @@ import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import group.GroupPattern;
 
@@ -88,8 +88,8 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
-				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
+				if(UIUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
+				   UIUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
 					return true;
 		}	}	
 		return false;
@@ -105,8 +105,8 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
-				   PropertyUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+				if(UIUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
+				   UIUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
 					return true;
 		}	
 		return false;

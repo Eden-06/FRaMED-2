@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.NameUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This class is an Eclipse wizard page that asks for a name of a new diagram. It is used by {@link RoleModelWizard}.
@@ -66,7 +66,7 @@ public class RoleModelWizardPage extends WizardPage {
 	 */
 	private boolean validatePage() {
 		String text = getTextFieldValue();
-		if (!(NameUtil.matchesIdentifier(text))) { 
+		if (!(UIUtil.matchesIdentifier(text))) { 
 			setErrorMessage(null);
 			setMessage(WIZARD_MESSAGE_INVALID_INPUT);
 			return false;

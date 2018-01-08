@@ -9,12 +9,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -28,8 +32,10 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
@@ -39,6 +45,7 @@ import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
@@ -89,6 +96,19 @@ public class UIUtil {
 		return addContext;
 	}
 	
+	/**
+	 * gets the {@link IFile} of the CROM for a diagram
+	 * @param diagram_resource the resource of the diagram to get the CROM file for
+	 * @return the file of the CROM
+	 */
+	public static IFile getCROMFileForDiagramResource(Resource diagram_resource) {
+		URI sourceURI = diagram_resource.getURI();
+		sourceURI = sourceURI.trimFileExtension();
+		sourceURI = sourceURI.appendFileExtension("crom");
+		Path path = new Path(sourceURI.toFileString());
+		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+	}
+	
 	//Model
 	//~~~~~
 	/**
@@ -113,7 +133,7 @@ public class UIUtil {
 	 */
 	public static org.framed.iorm.model.ModelElement getModelElementForAnchor(Anchor anchor) {
 		Object object = null;
-		if (anchor != null) { object = GeneralUtil.getBusinessObjectForPictogramElement(anchor.getParent()); }
+		if (anchor != null) { object = getBusinessObjectForPictogramElement(anchor.getParent()); }
 		if (object != null) {
 			if (object instanceof org.framed.iorm.model.Shape)
 				return (org.framed.iorm.model.Shape) object;
@@ -136,7 +156,7 @@ public class UIUtil {
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram &&
-			   PropertyUtil.isDiagram_KindValue((Diagram) shape, UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM)) {
+			   UIUtil.isDiagram_KindValue((Diagram) shape, UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM)) {
 				//Note
 				if(shape.getLink() == null) throw new NoLinkedModelYet();
 				else { 
@@ -160,6 +180,19 @@ public class UIUtil {
 	public static EObject getBusinessObjectForPictogramElement(PictogramElement pictogramElement) {
 		return pictogramElement.getLink().getBusinessObjects().get(0);
 	}
+	
+	/**
+	 * return a linked business object for a pictogram element if there is exactly one business object linked 
+	 * @param pictogramElement the element to get the linked business object for
+	 * @return the one linked business object if or null 
+	 */
+	public static EObject getBusinessObjectIfExactlyOne(PictogramElement pictogramElement) {
+		if(pictogramElement.getLink() != null &&
+		   pictogramElement.getLink().getBusinessObjects().size() == 1) {
+			return getBusinessObjectForPictogramElement(pictogramElement);
+		}	
+		return null;
+	}		
 	
 	//EditorInput
 	//~~~~~~~~~~~
@@ -227,23 +260,43 @@ public class UIUtil {
 																	  String DIAGRAM_KIND) {
 		//Step 1
 		String name = null;
-		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_TYPEBODY)) {
+		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_TYPEBODY)) {
 			Shape nameShape = ((ContainerShape) groupOrCompartmentTypeShape).getChildren().get(0);
-			if(PropertyUtil.isShape_IdValue(nameShape, SHAPE_ID_NAME))
+			if(UIUtil.isShape_IdValue(nameShape, SHAPE_ID_NAME))
 				name = ((Text) nameShape.getGraphicsAlgorithm()).getValue();
 			}	
-		if(PropertyUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_NAME))
+		if(UIUtil.isShape_IdValue(groupOrCompartmentTypeShape, SHAPE_ID_NAME))
 			name = ((Text) groupOrCompartmentTypeShape.getGraphicsAlgorithm()).getValue();	
 		//Step 2
 		Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(diagram);
 		if(containerDiagram == null) throw new NoDiagramFoundException();
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram) {
-				if((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND))) {
+				if((UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND))) {
 					if(((Diagram) shape).getName().equals(name))
 						return ((Diagram) shape);
 		}	}	}	
 		throw new NoDiagramFoundException();	
+	}
+	
+	//Multipage Editor
+	//~~~~~~~~~~~~~~~~
+	/**
+	 * manages to close a given multipage editor at the next reasonable opportunity using the operation 
+	 * {@link Display#asyncExec}
+	 * <p>
+	 * It also saves the multipage editor before closing it to clean up the dirty state of the whole workbench.
+	 * @param multipageEditorToClose
+	 */
+	public static void closeMultipageEditorWhenPossible(MultipageEditor multipageEditorToClose) {
+		Display display = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay();
+		display.asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				multipageEditorToClose.getDiagramEditor().doSave(new NullProgressMonitor());
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(multipageEditorToClose, false);
+			}
+		});
 	}
 	
 	//features
@@ -261,6 +314,20 @@ public class UIUtil {
 		}	
 		throw new NoFeatureForPatternFound(featureName);
 	}
+	
+	/**
+	 * finds a feature by its name in an array of connection create features
+	 * @param array the array with features to search in
+	 * @param featureName the name of the feature to find
+	 * @return the found feature or throw exceptions {@link NoFeatureForPatternFound} if it was not found
+	 */
+	public static ICreateConnectionFeature findCreateConnectionFeatureByName(ICreateConnectionFeature[] array, String featureName) {
+		for(int i = 0; i<array.length; i++) {
+			if(array[i].getCreateName().equals(featureName)) 
+				return array[i];
+		}	
+		throw new NoFeatureForPatternFound(featureName);
+	}	
 	
 	//finding pattern dynamically
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -388,7 +455,7 @@ public class UIUtil {
 	public static ContainerShape getTypeBodyForGroupingContainer(ContainerShape groupContainer, String SHAPE_ID_TYPEBODY) {
 		for(Shape shape : groupContainer.getChildren()) {
 			if(shape instanceof ContainerShape) {
-			   if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_TYPEBODY))
+			   if(UIUtil.isShape_IdValue(shape, SHAPE_ID_TYPEBODY))
 				   return (ContainerShape) shape; 
 		}	}  
 		return null;
@@ -612,7 +679,7 @@ public class UIUtil {
 			for (Shape shape : containerShape.getChildren()) {
 				if (shape.getGraphicsAlgorithm() instanceof Text) {
 					Text text = (Text) shape.getGraphicsAlgorithm();
-					if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_NAME)) {
+					if(UIUtil.isShape_IdValue(shape, SHAPE_ID_NAME)) {
 						return text.getValue();
 					}
 		} 	}	}
@@ -645,9 +712,9 @@ public class UIUtil {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
+							if(UIUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {
 								Text text = (Text) attributeShape.getGraphicsAlgorithm();
 								pictogrammAttributeNames.add(text.getValue());
 		}	}	}	}	}	}
@@ -667,10 +734,10 @@ public class UIUtil {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_ATTRIBUTECONTAINER)) {
 						for(Shape attributeShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
-								NamedElement attribute = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(attributeShape);
+							if(UIUtil.isShape_IdValue(attributeShape, SHAPE_ID_ATTRIBUTE_TEXT)) {	
+								NamedElement attribute = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(attributeShape);
 								businessAttributeNames.add(attribute.getName());
 		}	}	}	}	}	}	
 		return businessAttributeNames;
@@ -689,9 +756,9 @@ public class UIUtil {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
+							if(UIUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {
 								Text text = (Text) operationShape.getGraphicsAlgorithm();
 								pictogramOperationNames.add(text.getValue());
 		}	}	}	}	}	}
@@ -711,10 +778,10 @@ public class UIUtil {
 			for (Shape shape : containerShape.getChildren()) {
 				if(shape instanceof ContainerShape) {
 					ContainerShape innerContainerShape = (ContainerShape) shape;
-					if(PropertyUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
+					if(UIUtil.isShape_IdValue(innerContainerShape, SHAPE_ID_OPERATIONCONTAINER)) {
 						for(Shape operationShape : innerContainerShape.getChildren()) {
-							if(PropertyUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
-								NamedElement operation = (NamedElement) GeneralUtil.getBusinessObjectForPictogramElement(operationShape);
+							if(UIUtil.isShape_IdValue(operationShape, SHAPE_ID_OPERATION_TEXT)) {	
+								NamedElement operation = (NamedElement) UIUtil.getBusinessObjectForPictogramElement(operationShape);
 								businessOperationNames.add(operation.getName());
 		}	}	}	}	}	}	
 		return businessOperationNames;
@@ -730,7 +797,7 @@ public class UIUtil {
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			for(Shape containerChild : shape.getContainer().getChildren()) {
-				if(PropertyUtil.isShape_IdValue(containerChild, SHAPE_ID_OCCURRENCE_CONSTRAINT))
+				if(UIUtil.isShape_IdValue(containerChild, SHAPE_ID_OCCURRENCE_CONSTRAINT))
 					return ((Text) containerChild.getGraphicsAlgorithm()).getValue();
 		}	}
 		return null;
@@ -780,10 +847,10 @@ public class UIUtil {
 		if(pictogramElement instanceof ContainerShape) {
 			ContainerShape containerShape = (ContainerShape) pictogramElement;
 			for(Shape shape : containerShape.getChildren()) {
-				if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_CONTENT_PREVIEW)) {
+				if(UIUtil.isShape_IdValue(shape, SHAPE_ID_CONTENT_PREVIEW)) {
 					ContainerShape previewContentContainer = (ContainerShape) shape; 
 					for(Shape previewContentContainerElement : previewContentContainer.getChildren()) {
-						if(PropertyUtil.isShape_IdValue(previewContentContainerElement, SHAPE_ID_ELEMENT)) {
+						if(UIUtil.isShape_IdValue(previewContentContainerElement, SHAPE_ID_ELEMENT)) {
 							Text text = (Text) previewContentContainerElement.getGraphicsAlgorithm();
 							modelContainerElementsNames.add(text.getValue());
 		}	}	}	}	}

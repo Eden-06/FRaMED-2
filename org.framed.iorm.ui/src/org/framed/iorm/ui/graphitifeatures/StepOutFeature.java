@@ -20,8 +20,7 @@ import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to step out of groups and compartment types remaining still showing the same number of tabs.
@@ -81,8 +80,8 @@ public class StepOutFeature extends AbstractCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM) ||
-			   PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) {
+			if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM) ||
+			   UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) {
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))
@@ -123,16 +122,16 @@ public class StepOutFeature extends AbstractCustomFeature {
 				String diagramNameToStepOutTo = ShapeToStepOutTo.getName();
 				Diagram containerDiagram = DiagramUtil.getContainerDiagramForAnyDiagram(getDiagram());
 				Type type = null;
-				if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
+				if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_GROUP_DIAGRAM))
 					type = Type.GROUP;
-				else if(PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) 
+				else if(UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENT_DIAGRAM)) 
 						type = Type.COMPARTMENT_TYPE;
 				else return;
 				for(Shape shape : containerDiagram.getChildren()) {
 					if(shape instanceof Diagram) {
-						if((PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM) &&
+						if((UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_GROUP_DIAGRAM) &&
 						    type == Type.GROUP) ||
-						   (PropertyUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
+						   (UIUtil.isDiagram_KindValue((Diagram) shape, DIAGRAM_KIND_COMPARTMENT_DIAGRAM) &&
 						    type == Type.COMPARTMENT_TYPE)) {
 							if(((Diagram) shape).getName().equals(diagramNameToStepOutTo))
 								diagramToStepOutTo = (Diagram) shape;
@@ -154,7 +153,7 @@ public class StepOutFeature extends AbstractCustomFeature {
 	private void stepOutWithEditorInput(IEditorInput editorInput) {
 		MultipageEditor multipageEditorToClose = 
 				(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		GeneralUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
+		UIUtil.closeMultipageEditorWhenPossible(multipageEditorToClose);
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, EDITOR_ID);
 		} catch (PartInitException e) { e.printStackTrace(); }

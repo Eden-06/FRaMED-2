@@ -37,7 +37,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This class implements an Eclipse wizard to create a role model.
@@ -132,7 +132,7 @@ public class RoleModelWizard extends BasicNewResourceWizard {
 		}
 		//Step 3
 		Diagram mainDiagram = Graphiti.getPeCreateService().createDiagram(DIAGRAM_TYPE, diagramName, true);
-		PropertyUtil.setDiagram_KindValue(mainDiagram, DIAGRAM_KIND_MAIN_DIAGRAM);
+		UIUtil.setDiagram_KindValue(mainDiagram, DIAGRAM_KIND_MAIN_DIAGRAM);
 		IFile diagramFile = project.getFile(diagramName + FILE_EXTENSION_FOR_DIAGRAMS);
 		URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		createEmfFileForDiagram(uri, mainDiagram);
@@ -181,7 +181,7 @@ public class RoleModelWizard extends BasicNewResourceWizard {
 					protected void doExecute() {
 						resource.setTrackingModification(true);
 						Diagram containerDiagram = Graphiti.getPeCreateService().createDiagram(DIAGRAM_TYPE, CONTAINER_DIAGRAM_NAME);
-						PropertyUtil.setDiagram_KindValue(containerDiagram, DIAGRAM_KIND_CONTAINER_DIAGRAM);
+						UIUtil.setDiagram_KindValue(containerDiagram, DIAGRAM_KIND_CONTAINER_DIAGRAM);
 						resource.getContents().add(containerDiagram);
 						((Diagram) resource.getContents().get(0)).getChildren().add(mainDiagram);
 					}

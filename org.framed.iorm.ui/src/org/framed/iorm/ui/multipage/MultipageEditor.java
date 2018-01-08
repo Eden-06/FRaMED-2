@@ -46,8 +46,7 @@ import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.EditorInputUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.references.CoreReferences;
@@ -251,7 +250,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		if(getEditorInput() instanceof DiagramEditorInput) {
 			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
 			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
-			if(PropertyUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
+			if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
 				ToolBehaviorProvider toolBehaviorProvider = 
 					(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
 				toolBehaviorProvider.setPaletteType(PaletteView.COMPARTMENT_VIEW);	
@@ -317,7 +316,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		//Step 4
 		ICreateFeature createModelFeature = null;
 		ICreateFeature[] createFeatures = editorDiagram.getDiagramTypeProvider().getFeatureProvider().getCreateFeatures();
-		createModelFeature = (ICreateFeature) GeneralUtil.findFeatureByName(createFeatures, MODEL_FEATURE_NAME);
+		createModelFeature = (ICreateFeature) UIUtil.findFeatureByName(createFeatures, MODEL_FEATURE_NAME);
 		if(createModelFeature != null) {
 			CreateContext createContext = new CreateContext();
 			if(createModelFeature.canCreate(createContext)) createModelFeature.create(createContext);
@@ -326,7 +325,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		//Step 5
 		editorDiagram.getDiagramBehavior().refreshPalette();
 		//Step 6
-		IFile CROMFile = GeneralUtil.getCROMFileForDiagramResource(resource);
+		IFile CROMFile = UIUtil.getCROMFileForDiagramResource(resource);
 		IFileEditorInput fileEditorForCROM = new FileEditorInput(CROMFile);
 		//Step 7
 		editorFeatures = new FRaMEDFeatureEditor(diagramEditorInput, this);
@@ -423,7 +422,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	private boolean transformModel() {
 		//Step 1
 		Resource diagramResource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());
-		IFile CROMFile = GeneralUtil.getCROMFileForDiagramResource(diagramResource);	
+		IFile CROMFile = UIUtil.getCROMFileForDiagramResource(diagramResource);	
 		URI targetURI =	URI.createPlatformResourceURI(CROMFile.getFullPath().toString(), true);
 		ResourceSet set = new ResourceSetImpl();
 		Resource CROMResource = set.createResource(targetURI);

@@ -15,8 +15,7 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.ConnectionPatternUtil;
-import org.framed.iorm.ui.util.GeneralUtil;
-import org.framed.iorm.ui.util.PropertyUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import fulfillment.EditFulfillmentFeature;
 import relationship.RelationshipPattern;
@@ -117,7 +116,7 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
 				return newShape.getType() == Type.NATURAL_TYPE || newShape.getType() == Type.DATA_TYPE || 
 						newShape.getType() == Type.COMPARTMENT_TYPE || 
-					   (newShape.getType() == Type.ROLE_TYPE && PropertyUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM));
+					   (newShape.getType() == Type.ROLE_TYPE && UIUtil.isDiagram_KindValue(getDiagram(), DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM));
 			else
 				return newShape.getType() == Type.COMPARTMENT_TYPE;
 		}
@@ -164,7 +163,7 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 				pictogramElement[0] = connection;
 				customContext.setPictogramElements(pictogramElement);
 				ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
-				EditFulfillmentFeature editFulfillmentFeature = (EditFulfillmentFeature) GeneralUtil
+				EditFulfillmentFeature editFulfillmentFeature = (EditFulfillmentFeature) UIUtil
 						.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
 				if (editFulfillmentFeature.canExecute(customContext))
 					editFulfillmentFeature.execute(customContext);
