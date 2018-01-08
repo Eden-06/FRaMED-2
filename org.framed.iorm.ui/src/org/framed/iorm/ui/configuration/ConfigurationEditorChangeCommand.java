@@ -6,7 +6,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
-import org.framed.iorm.ui.graphitifeatures.ChangeConfigurationFeature; //*import for javadoc link
+
+import customFeatures.ChangeConfigurationFeature;
 
 /**
  * This command is used when configuration of a role model is changed.

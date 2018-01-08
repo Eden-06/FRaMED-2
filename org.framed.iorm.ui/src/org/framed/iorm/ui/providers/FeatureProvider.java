@@ -91,11 +91,9 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	    }	}	}
 	    
 	    //TODO get rid of after and after
-	    customfeatures.add(new ChangeConfigurationFeature(this));
 	    customfeatures.add(new StepInFeature(this));
 	    customfeatures.add(new StepInNewTabFeature(this));
 	    customfeatures.add(new StepOutFeature(this));
-	    customfeatures.add(new ResetLayoutForElementFeature(this));
 	
 	    ICustomFeature[] customFeatureArray = customfeatures.toArray(new ICustomFeature[0]);
 		return customFeatureArray;

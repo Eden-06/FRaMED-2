@@ -1,21 +1,23 @@
-package org.framed.iorm.ui.graphitifeatures;
+package customFeatures;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
 import org.framed.iorm.featuremodel.FeaturemodelFactory;
-import org.framed.iorm.ui.configuration.ChangeConfigurationContext;
-import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.FRaMEDCustomFeature;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
+import org.framed.iorm.ui.util.UIUtil;
 
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
+import org.framed.iorm.ui.configuration.ChangeConfigurationContext; //*import for javadoc link
+import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand; //*import for javadoc link
+
 
 /**
  * This graphiti custom feature is used to change the role models configuration.
@@ -25,12 +27,12 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javado
  * @see ChangeConfigurationContext
  * @author Kevin Kassin
  */
-public class ChangeConfigurationFeature extends AbstractCustomFeature  {
+public class ChangeConfigurationFeature extends FRaMEDCustomFeature  {
 	
 	/**
-	 * the name of the feature gathered from {@link NameLiterals}
+	 * the object to get names, ids and so on for this feature
 	 */
-	private String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME; 
+	Literals literals = new Literals();
 	
 	/**
 	 * Class constructor
@@ -38,15 +40,15 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 	 */
 	public ChangeConfigurationFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
+		FEATURE_NAME = literals.CHANGE_CONFIGURATION_FEATURE_NAME;
 	}
-	 
+	
 	/**
-	 * get method for the features name
-	 * @return the name of the feature
+	 * this operation encapsulates when the custom feature should be visible in the context menu
+	 * @return false, since the feature is never visible in the context menu
 	 */
-	@Override
-	public String getName() {
-		return CHANGECONFIGURATION_FEATURE_NAME;
+	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
+		return false;
 	}
 	
 	/**
@@ -62,7 +64,7 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 		ChangeConfigurationContext cfmc = (ChangeConfigurationContext) context;		
 		return (cfmc.getBehaviorEditor() != null &&
 				cfmc.getConfiguration() != null &&
-				DiagramUtil.getLinkedModelForDiagram(getDiagram()) != null);
+				UIUtil.getLinkedModelForDiagram(getDiagram()) != null);
 	}
 	 
 	/**
@@ -89,8 +91,8 @@ public class ChangeConfigurationFeature extends AbstractCustomFeature  {
 			framedFeatureConfiguration.getFeatures().add(framedFeature);	
 		}
 		//Step 3
-		Diagram mainDiagram = DiagramUtil.getMainDiagramForAnyDiagram(getDiagram());    
-		DiagramUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
+		UIUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
 		//Step 4 
 		this.getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refreshPalette();
 	}

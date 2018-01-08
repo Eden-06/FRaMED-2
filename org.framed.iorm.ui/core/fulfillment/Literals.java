@@ -42,9 +42,10 @@ public class Literals {
 	//Custom edit feature and dialog
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	/**
-	 * the name of the custom edit feature
+	 * the name of the custom edit features
 	 */
-	public final String EDIT_FULFILLMENT_FEATURE_NAME = "Edit Fulfillment";
+	public final String EDIT_FULFILLMENT_FEATURE_NAME = "Edit Fulfillment",
+						RESET_LAYOUT_FEATURE_NAME = "Reset Layout";
 	
 	/**
 	 * layout integer for wizards

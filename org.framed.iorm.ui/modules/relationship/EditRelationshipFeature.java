@@ -3,14 +3,18 @@ package relationship;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //* import for javadoc link
 import org.framed.iorm.ui.util.UIUtil;
@@ -35,6 +39,21 @@ public class EditRelationshipFeature extends FRaMEDCustomFeature {
 	public EditRelationshipFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
 		FEATURE_NAME = literals.EDIT_RELATIONSHIP_FEATURE_NAME;
+	}
+	
+	/**
+	 * this operation encapsulates when the custom feature should be visible in the context menu
+	 * @return 
+	 */
+	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
+		if(pictogramElement instanceof FreeFormConnection ||
+		   pictogramElement instanceof ConnectionDecorator) {
+			if(businessObject instanceof Relation) {
+				Relation relation = (Relation) businessObject;
+				if(relation.getType() == Type.RELATIONSHIP)
+					return true;
+		}	}
+		return false;
 	}
 	
 	/**

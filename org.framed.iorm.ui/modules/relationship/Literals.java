@@ -38,7 +38,8 @@ public class Literals {
 	/**
 	 * layout integers for the feature
 	 */
-	public final int DISTANCE_FROM_CONNECTION_LINE = UILiterals.DISTANCE_FROM_CONNECTION_LINE;
+	public final int DISTANCE_FROM_CONNECTION_LINE = UILiterals.DISTANCE_FROM_CONNECTION_LINE,
+					 HEIGHT_OCCURRENCE_CONSTRAINT = UILiterals.HEIGHT_CONSTRAINT;
 	
 	/**
 	 * the color values used for the polyline and the texts of the relationship
@@ -76,7 +77,8 @@ public class Literals {
 	/**
 	 * the name of the custom edit feature
 	 */
-	public final String EDIT_RELATIONSHIP_FEATURE_NAME = "Edit Relationship";
+	public final String EDIT_RELATIONSHIP_FEATURE_NAME = "Edit Relationship",
+						RESET_LAYOUT_FEATURE_NAME = "Reset Layout";
 	
 	/**
 	 * messages and titles used in the {@link EditRelationshipDialog} as tips when invalid inputs happen

@@ -28,8 +28,7 @@ public class NameLiterals {
 	 */
 	public static final String STANDARD_COMPARTMENTTYPE_NAME = "compartmentType",
 			   				   STANDARD_GROUP_NAME = "group";
-			   			
-							  
+			   								  
 	/**
 	 * name literals for commands
 	 * <p>

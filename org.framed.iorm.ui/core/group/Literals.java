@@ -20,7 +20,7 @@ public class Literals {
 	 * the ids or the paths for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.group",
-						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.compartmentElements",
+						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.GroupElements",
 						ICON_IMG_PATH = "core/group/icon_group.png",
 						ELEMENTS_ICON_IMG_PATH = "";
 

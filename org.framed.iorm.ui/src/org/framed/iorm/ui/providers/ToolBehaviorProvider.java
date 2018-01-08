@@ -45,6 +45,7 @@ import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
@@ -77,8 +78,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * the name literals for features to probaly add to the context menu for the diagram type
 	 * gathered from {@link NameLiterals}
 	 */
-	private final String CHANGE_CONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME,
-						 EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
+	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
 					     EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME,
 						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME,
 						 STEP_IN_NEW_TAB_FEATURE_NAME = NameLiterals.STEP_IN_NEW_TAB_FEATURE_NAME,
@@ -144,6 +144,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    return contextButtonPadData;
 	}    
 	
+	//TODO overhaul doku
 	/**
 	 * set the context menu for a specific context, for example a right clicked pictogram element.
 	 * <p>
@@ -171,34 +172,24 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		IContextMenuEntry[] superContextEntries = super.getContextMenu(customContext);
 		List<IContextMenuEntry> contextMenuEntries = new ArrayList<IContextMenuEntry>();
 		//Step 1
+		PictogramElement pictogramElement = customContext.getPictogramElements()[0];
+		EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+		//Step 2
+		for(IContextMenuEntry contextMenuEntry : superContextEntries) {
+			if(contextMenuEntry.getFeature() instanceof FRaMEDCustomFeature) {
+				FRaMEDCustomFeature framedCustomFeature = (FRaMEDCustomFeature) contextMenuEntry.getFeature();
+				if(framedCustomFeature.contextMenuExpression(pictogramElement, businessObject)) 
+					contextMenuEntries.add(contextMenuEntry);
+			}
+		}
+		
+		//TODO get rid of after and after
 		if(customContext.getPictogramElements().length == 1) {
-			PictogramElement pictogramElement = customContext.getPictogramElements()[0];
-			EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
+			
 			if(businessObject != null) {
 				//Step 2
 				for(int i = 0; i < superContextEntries.length; i++) {
 					switch(superContextEntries[i].getText()) {
-						//Step 3
-						case CHANGE_CONFIGURATION_FEATURE_NAME: 
-							break;
-						//Step 4	
-						case EDIT_RELATIONSHIP_FEATURE_NAME: 
-							if(pictogramElement instanceof FreeFormConnection ||
-							   pictogramElement instanceof ConnectionDecorator) {
-								if(businessObject instanceof Relation) {
-									Relation relation = (Relation) businessObject;
-									if(relation.getType() == Type.RELATIONSHIP)
-										contextMenuEntries.add(superContextEntries[i]);
-							}	} break;
-						//Step 5
-						case EDIT_FULFILLMENT_FEATURE_NAME:
-							if(pictogramElement instanceof FreeFormConnection ||
-							   pictogramElement instanceof ConnectionDecorator) {
-								if(businessObject instanceof Relation) {
-									Relation relation = (Relation) businessObject;
-									if(relation.getType() == Type.FULFILLMENT)
-										contextMenuEntries.add(superContextEntries[i]);
-							}	} break;
 						//Step 6
 						case STEP_IN_FEATURE_NAME :
 						case STEP_IN_NEW_TAB_FEATURE_NAME:	

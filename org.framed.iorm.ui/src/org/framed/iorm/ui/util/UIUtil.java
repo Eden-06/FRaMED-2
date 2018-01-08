@@ -327,6 +327,40 @@ public class UIUtil {
 		throw new NoDiagramFoundException();	
 	}
 	
+	
+	/**
+	 * uses an recursive algorithm to find the <em>container diagram</em> of a role model
+	 * <p>
+	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
+	 * @param diagram the diagram to search the container diagram from
+	 * @return the container diagram of a role model
+	 */
+	public static Diagram getContainerDiagramForAnyDiagram(Diagram diagram) {
+		if(UIUtil.isDiagram_KindValue(diagram, UILiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM)) return diagram;
+		else {
+			if(diagram.getContainer() instanceof Diagram)
+				return getContainerDiagramForAnyDiagram((Diagram) diagram.getContainer());
+			else return null;
+		}	
+	}
+	
+	/**
+	 * finds the <em>main diagram</em> of a role model
+	 * <p>
+	 * If its not clear what <em>main diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
+	 * @param diagram the diagram to search the main diagram from
+	 * @return the container diagram of a role model
+	 */
+	public static Diagram getMainDiagramForAnyDiagram(Diagram diagram) {
+		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram &&
+			   UIUtil.isDiagram_KindValue((Diagram) shape, UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM));
+				return (Diagram) shape;
+		}
+		throw new NoDiagramFoundException();
+	}
+	
 	//Multipage Editor
 	//~~~~~~~~~~~~~~~~
 	/**
