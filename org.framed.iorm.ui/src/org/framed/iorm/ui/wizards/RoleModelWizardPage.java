@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.UIUtil;
 
@@ -45,7 +44,7 @@ public class RoleModelWizardPage extends WizardPage {
 	/**
 	 * the layout integer that defines the leght of the used textfield gathered from {@link LayoutLiterals}
 	 */
-	private final int LENGHT_TEXTFIELD_WIZARD = LayoutLiterals.LENGHT_TEXTFIELD_WIZARD;
+	private final int LENGHT_TEXTFIELD_WIZARD = UILiterals.LENGHT_TEXTFIELD_WIZARD;
 
 	/**
 	 * the used textfield to get the user input

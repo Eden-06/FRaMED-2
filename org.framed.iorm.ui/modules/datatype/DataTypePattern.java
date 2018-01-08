@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -17,6 +18,7 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
@@ -100,7 +102,15 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+		modelType = Type.DATA_TYPE;
 		FPD = spec_FPD;
+	}
+	
+	/**
+	 * return null since this pattern does not offer a double click feature
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
 	}
 	
 	/**

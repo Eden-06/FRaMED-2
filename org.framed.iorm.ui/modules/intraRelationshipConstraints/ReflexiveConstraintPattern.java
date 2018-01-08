@@ -31,6 +31,7 @@ public class ReflexiveConstraintPattern extends AbstractIntraRelationshipConstra
 		super();
 		FEATURE_NAME = literals.REFLEXIVE_FEATURE_NAME;
 		ICON_IMG_ID = literals.REFLEXIVE_ICON_IMG_ID;
+		modelType = Type.REFLEXIVE;
 	}
 	
 	//add feature

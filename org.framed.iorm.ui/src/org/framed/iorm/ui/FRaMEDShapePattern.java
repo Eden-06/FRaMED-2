@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -16,6 +18,7 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.util.ShapePatternUtil;
@@ -31,10 +34,25 @@ import naturaltype.NaturalTypePattern;
 public abstract class FRaMEDShapePattern extends AbstractPattern {
 	
 	/**
+	 * the pictogram elements service used to creates pictogram elements in the subclasses
+	 */
+	protected final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
+	
+	/**
+	 * the graphics algorithm service used to create graphics algorithms in the subclasses
+	 */
+	protected final IGaService graphicAlgorithmService = Graphiti.getGaService();
+	
+	/**
+	 * the {@link Type} of business object the pattern creates 
+	 */
+	protected Type modelType;
+	
+	/**
 	 * the name of the feature
 	 */
 	protected String FEATURE_NAME;
-	
+		
 	/**
 	 * the identifier or the path for the icon of the create feature
 	 */
@@ -45,6 +63,13 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	protected FeaturePaletteDescriptor FPD;
+	
+	/**
+	 * Class constructor
+	 */
+	public FRaMEDShapePattern() {
+		super(null);
+	}
 	
 	/**
 	 * get method for the create features name
@@ -72,6 +97,11 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return ICON_IMG_PATH;
 	}
 	
+	//TODO doku
+	public Type getModelType() {
+		return modelType;
+	}
+	
 	/**
 	 * get method for the fpd
 	 * @return the feature palette descriptor
@@ -80,40 +110,8 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return FPD;
 	}
 	
-	/**
-	 * Class constructor
-	 */
-	public FRaMEDShapePattern() {
-		super(null);
-	}
-	
-	/**
-	 * the pictogram elements service used to creates pictogram elements in the subclasses
-	 */
-	protected final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
-	
-	/**
-	 * the graphics algorithm service used to create graphics algorithms in the subclasses
-	 */
-	protected final IGaService graphicAlgorithmService = Graphiti.getGaService();
-
-	/**
-	 * to be overriden in it subclasses
-	 */
-	@Override
-	public abstract boolean isMainBusinessObjectApplicable(Object mainBusinessObject);
-
-	/**
-	 * to be overriden in it subclasses
-	 */
-	@Override
-	protected abstract boolean isPatternControlled(PictogramElement pictogramElement);
-
-	/**
-	 * to be overriden in it subclasses
-	 */
-	@Override
-	protected abstract boolean isPatternRoot(PictogramElement pictogramElement);
+	//TODO doku
+	public abstract IFeature getDoubleClickFeature(ICustomFeature[] customFeatures);
 	
 	/**
 	 * fetches the business object for an direct edited shape 

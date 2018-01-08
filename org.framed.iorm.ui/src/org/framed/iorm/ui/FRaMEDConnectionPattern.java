@@ -1,9 +1,12 @@
 package org.framed.iorm.ui;
 
+import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 
 /**
@@ -13,6 +16,21 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
  * @author Kevin Kassin
  */
 public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern {
+	
+	/**
+	 * the pictogram elements service used to creates pictogram elements in the subclasses
+	 */
+	protected final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
+	
+	/**
+	 * the graphics algorithm service used to create graphics algorithms in the subclasses
+	 */
+	protected final IGaService graphicAlgorithmService = Graphiti.getGaService();
+	
+	/**
+	 * the {@link Type} of business object the pattern creates 
+	 */
+	protected Type modelType;
 	
 	/**
 	 * the name of the feature
@@ -29,6 +47,13 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
 	protected FeaturePaletteDescriptor FPD;
+	
+	/**
+	 * Class constructor
+	 */
+	public FRaMEDConnectionPattern() {
+		super();
+	}	
 	
 	/**
 	 * get method for the features name
@@ -57,6 +82,11 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 		return ICON_IMG_PATH;
 	}
 	
+	//TODO doku
+	public Type getModelType() {
+		return modelType;
+	}
+ 	
 	/**
 	 * get method for the fpd
 	 * @return the feature palette descriptor
@@ -65,20 +95,6 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 		return FPD;
 	}
 	
-	/**
-	 * Class constructor
-	 */
-	public FRaMEDConnectionPattern() {
-		super();
-	}
-	
-	/**
-	 * the pictogram elements service used to creates pictogram elements in the subclasses
-	 */
-	protected final IPeCreateService pictogramElementCreateService = Graphiti.getPeCreateService();
-	
-	/**
-	 * the graphics algorithm service used to create graphics algorithms in the subclasses
-	 */
-	protected final IGaService graphicAlgorithmService = Graphiti.getGaService();	
+	//TODO doku
+	public abstract IFeature getDoubleClickFeature(ICustomFeature[] customFeatures);
 }

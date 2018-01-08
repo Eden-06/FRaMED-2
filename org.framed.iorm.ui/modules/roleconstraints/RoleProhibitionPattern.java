@@ -56,6 +56,7 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 		FEATURE_NAME = literals.ROLEPROHIBITION_FEATURE_NAME;
 		ICON_IMG_ID = literals.ROLEPROHIBITION_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ROLEPROHIBITION_ICON_IMG_PATH;
+		modelType = Type.ROLE_PROHIBITION;
 		FPD = spec_FPD;
 	}				
 			

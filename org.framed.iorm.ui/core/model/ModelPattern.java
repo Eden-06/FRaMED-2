@@ -7,8 +7,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
@@ -55,7 +57,15 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+		modelType = null;
 		FPD = spec_FPD;
+	}
+	
+	/**
+	 * return null since this pattern does not offer a double click feature
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
 	}
 	
 	/**

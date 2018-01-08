@@ -3,7 +3,7 @@ package org.framed.iorm.ui.configuration;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.swt.widgets.TreeItem;
-import org.framed.iorm.ui.literals.NameLiterals;
+import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 
@@ -21,13 +21,7 @@ import customFeatures.ChangeConfigurationFeature;
  * @see ChangeConfigurationFeature
  * @author Kevin Kassin
  */
-public class ConfigurationEditorChangeCommand extends Command {
-
-	/**
-	 * name literals for features and commands name gather from {@link NameLiterals}. 
-	 */
-	private final String CHANGECONFIGURATION_FEATURE_NAME = NameLiterals.CHANGE_CONFIGURATION_FEATURE_NAME,
-				   		 CONFIGURATION_CHANGE_COMMAND_NAME = NameLiterals.CONFIGURATION_CHANGE_COMMAND_NAME;
+public class ChangeConfigurationCommand extends Command {
 	
 	/**
 	 * the feature editor that uses the command
@@ -52,8 +46,8 @@ public class ConfigurationEditorChangeCommand extends Command {
 	/**
 	 * Class constructor
 	 */
-	public ConfigurationEditorChangeCommand() {
-		super.setLabel(CONFIGURATION_CHANGE_COMMAND_NAME);
+	public ChangeConfigurationCommand() {
+		super.setLabel(UILiterals.CHANGE_CONFIGURATION_COMMAND_NAME);
 	}
 
 	/**
@@ -72,7 +66,7 @@ public class ConfigurationEditorChangeCommand extends Command {
 		ICustomFeature changeConfigurationFeature = null;
 		ICustomFeature[] customFeatures = behaviorDiagramEditor.getDiagramTypeProvider().getFeatureProvider().getCustomFeatures(new ChangeConfigurationContext());
 		for(int i = 0; i<customFeatures.length; i++) {
-			if(customFeatures[i].getName().equals(CHANGECONFIGURATION_FEATURE_NAME)) 
+			if(customFeatures[i].getName().equals(UILiterals.CHANGE_CONFIGURATION_FEATURE_NAME)) 
 				changeConfigurationFeature = customFeatures[i];
 		}
 		if(changeConfigurationFeature != null) {

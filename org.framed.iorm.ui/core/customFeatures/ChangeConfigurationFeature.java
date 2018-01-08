@@ -16,14 +16,14 @@ import org.framed.iorm.ui.util.UIUtil;
 
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 import org.framed.iorm.ui.configuration.ChangeConfigurationContext; //*import for javadoc link
-import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand; //*import for javadoc link
+import org.framed.iorm.ui.configuration.ChangeConfigurationCommand; //*import for javadoc link
 
 
 /**
  * This graphiti custom feature is used to change the role models configuration.
  * <p>
- * It is called by {@link ConfigurationEditorChangeCommand} and uses the {@link ChangeConfigurationContext}.
- * @see ConfigurationEditorChangeCommand
+ * It is called by {@link ChangeConfigurationCommand} and uses the {@link ChangeConfigurationContext}.
+ * @see ChangeConfigurationCommand
  * @see ChangeConfigurationContext
  * @author Kevin Kassin
  */

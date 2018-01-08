@@ -2,10 +2,12 @@ package inheritance;
 
 import java.util.List;
 
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -72,7 +74,15 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+		modelType = Type.INHERITANCE;
 		FPD = spec_FPD;
+	}
+	
+	/**
+	 * return null since this pattern does not offer a double click feature
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
 	}
 	
 	//add feature

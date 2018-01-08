@@ -1,5 +1,6 @@
 package fulfillment;
 
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -63,7 +64,15 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+		modelType = Type.FULFILLMENT;
 		FPD = spec_FPD;
+	}
+	
+	/**
+	 * returns the double click feature of this pattern 
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_FULFILLMENT_FEATURE_NAME);
 	}
 	
 	// add feature

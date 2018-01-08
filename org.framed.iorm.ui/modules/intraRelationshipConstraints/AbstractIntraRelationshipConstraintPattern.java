@@ -2,12 +2,14 @@ package intraRelationshipConstraints;
 
 import java.util.List;
 
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -64,6 +66,13 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		FPD = spec_FPD;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 	}			
+	
+	/**
+	 * return null since this pattern does not offer a double click feature
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
+	}
 	
 	/**
 	 * checks if pattern is applicable for a given business object

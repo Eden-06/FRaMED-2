@@ -31,6 +31,7 @@ public class TotalConstraintPattern extends AbstractIntraRelationshipConstraintP
 		super();
 		FEATURE_NAME = literals.TOTAL_FEATURE_NAME;
 		ICON_IMG_ID = literals.TOTAL_ICON_IMG_ID;
+		modelType = Type.TOTAL;
 	}
 	
 	//add feature

@@ -31,6 +31,7 @@ public class IrreflexiveConstraintPattern extends AbstractIntraRelationshipConst
 		super();
 		FEATURE_NAME = literals.IRREFLEXIVE_FEATURE_NAME;
 		ICON_IMG_ID = literals.IRREFLEXIVE_ICON_IMG_ID;
+		modelType = Type.IRREFLEXIVE;
 	}
 	
 	//add feature

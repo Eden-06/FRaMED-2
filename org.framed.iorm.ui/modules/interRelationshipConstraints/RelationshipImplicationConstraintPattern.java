@@ -31,7 +31,7 @@ public class RelationshipImplicationConstraintPattern extends AbstractInterRelat
 		FEATURE_NAME = literals.RELATIONSHIP_IMPLICATION_FEATURE_NAME;
 		ICON_IMG_ID = literals.RELATIONSHIP_IMPLICATION_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.RELATIONSHIP_IMPLICATION_ICON_IMG_PATH;
-		
+		modelType = Type.RELATIONSHIP_IMPLICATION;
 	}
 	
 	//add feature

@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -20,6 +21,7 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -54,6 +56,7 @@ import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 import compartment.references.AbstractInnerGroupingReference;
 import compartment.references.AttributeAndOperationsReference;
+import compartment.references.StepInReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -82,6 +85,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * the object to call utility operations on
 	 */
 	private final Util util = new Util();
+	
+	//TODO doku
+	private final StepInReference stepInReference = new StepInReference();
 	
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
@@ -117,10 +123,18 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
+		modelType = Type.COMPARTMENT_TYPE;
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		innerGroupingReferences = util.getUsedInReferences(classes);
+	}
+	
+	/**
+	 * returns the double click feature of this pattern 
+	 */
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, stepInReference.getStepInFeatureName());
 	}
 	
 	/**

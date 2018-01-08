@@ -31,6 +31,7 @@ public class CyclicConstraintPattern extends AbstractIntraRelationshipConstraint
 		super();
 		FEATURE_NAME = literals.CYCLIC_FEATURE_NAME;
 		ICON_IMG_ID = literals.CYCLIC_ICON_IMG_ID;
+		modelType = Type.CYCLIC;
 	}
 	
 	//add feature

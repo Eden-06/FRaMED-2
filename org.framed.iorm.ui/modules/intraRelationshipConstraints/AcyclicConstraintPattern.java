@@ -31,6 +31,7 @@ public class AcyclicConstraintPattern extends AbstractIntraRelationshipConstrain
 		super();
 		FEATURE_NAME = literals.ACYCLIC_FEATURE_NAME;
 		ICON_IMG_ID = literals.ACYCLIC_ICON_IMG_ID;
+		modelType = Type.ACYCLIC;
 	}
 	
 	//add feature

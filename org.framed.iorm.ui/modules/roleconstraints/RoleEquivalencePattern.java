@@ -58,6 +58,7 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 		FEATURE_NAME = literals.ROLEEQUIVALENCE_FEATURE_NAME;
 		ICON_IMG_ID = literals.ROLEEQUIVALENCE_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ROLEEQUIVALENCE_ICON_IMG_PATH;
+		modelType = Type.ROLE_EQUIVALENCE;
 		FPD = spec_FPD;
 	}
 	

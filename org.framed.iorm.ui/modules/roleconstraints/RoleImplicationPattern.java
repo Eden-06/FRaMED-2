@@ -57,6 +57,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 		FEATURE_NAME = literals.ROLEIMPLICATION_FEATURE_NAME;
 		ICON_IMG_ID = literals.ROLEIMPLICATION_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ROLEIMPLICATION_ICON_IMG_PATH;
+		modelType = Type.ROLE_IMPLICATION;
 		FPD = spec_FPD;
 	}		
 			

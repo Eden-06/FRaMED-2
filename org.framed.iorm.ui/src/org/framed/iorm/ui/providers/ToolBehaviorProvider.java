@@ -24,7 +24,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -42,7 +41,6 @@ import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Relation;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
@@ -54,22 +52,6 @@ import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
  * @author Kevin Kassin
  */
 public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
-		
-	/**
-	 * names for the palette categories gathered from {@link NameLiterals}
-	 */
-	private final String ENTITIES_PALETTE_CATEGORY_NAME = UILiterals.ENTITIES_PALETTE_CATEGORY_NAME,
-						 PROPERTIES_PALETTE_CATEGORY_NAME = UILiterals.PROPERTIES_PALETTE_CATEGORY_NAME,
-						 RELATIONS_PALETTE_CATEGORY_NAME = UILiterals.RELATIONS_PALETTE_CATEGORY_NAME,
-						 CONSTRAINTS_PALETTE_CATEGORY_NAME = UILiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME;
-	
-	/**
-	 * the name literals for features to probaly add to the context menu for the diagram type
-	 * gathered from {@link NameLiterals}
-	 */
-	private final String EDIT_RELATIONSHIP_FEATURE_NAME = NameLiterals.EDIT_RELATIONSHIP_FEATURE_NAME,
-					     EDIT_FULFILLMENT_FEATURE_NAME = NameLiterals.EDIT_FULFILLMENT_FEATURE_NAME,
-						 STEP_IN_FEATURE_NAME = NameLiterals.STEP_IN_FEATURE_NAME;
 	
 	/**
 	 * the current type of the palette of the editor
@@ -173,10 +155,10 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	public IPaletteCompartmentEntry[] getPalette() {
 		List<IPaletteCompartmentEntry> pallete = new ArrayList<IPaletteCompartmentEntry>();
 		//Step 1
-		entityCategory = new PaletteCompartmentEntry(ENTITIES_PALETTE_CATEGORY_NAME, null);
-		propertiesCategory = new PaletteCompartmentEntry(PROPERTIES_PALETTE_CATEGORY_NAME, null);
-		relationsCategory = new PaletteCompartmentEntry(RELATIONS_PALETTE_CATEGORY_NAME, null);
-		constraintsCategory = new PaletteCompartmentEntry(CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
+		entityCategory = new PaletteCompartmentEntry(UILiterals.ENTITIES_PALETTE_CATEGORY_NAME, null);
+		propertiesCategory = new PaletteCompartmentEntry(UILiterals.PROPERTIES_PALETTE_CATEGORY_NAME, null);
+		relationsCategory = new PaletteCompartmentEntry(UILiterals.RELATIONS_PALETTE_CATEGORY_NAME, null);
+		constraintsCategory = new PaletteCompartmentEntry(UILiterals.CONSTRAINTS_PALETTE_CATEGORY_NAME, null);
 		//Step 2
 		List<String> framedFeatureNames = getListOfFramedFeatureNames();
 		//Step 3 
@@ -296,6 +278,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					break;
 	}	}	}	}
 	
+	//TODO doku
 	/**
 	 * enables the edit features for relationships and fulfillments when double clicking such a relation
 	 */
@@ -306,16 +289,20 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
 			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 			if(businessObject instanceof Relation) {
-				if(((Relation) businessObject).getType() == Type.RELATIONSHIP)
-					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, EDIT_RELATIONSHIP_FEATURE_NAME);
-				if(((Relation) businessObject).getType() == Type.FULFILLMENT)
-					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, EDIT_FULFILLMENT_FEATURE_NAME);
-			}	
+				//Step 4
+				for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
+					if(iConPattern instanceof FRaMEDConnectionPattern) {
+						FRaMEDConnectionPattern framedConnectionPattern = (FRaMEDConnectionPattern) iConPattern;
+						if(framedConnectionPattern.getModelType() == ((Relation) businessObject).getType())
+							return (ICustomFeature) framedConnectionPattern.getDoubleClickFeature(customFeatures);
+			}	}	}
 			if(businessObject instanceof org.framed.iorm.model.Shape) {
-				if(((ModelElement) businessObject).getType() == Type.COMPARTMENT_TYPE ||
-				  ((ModelElement) businessObject).getType() == Type.GROUP)
-					return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, STEP_IN_FEATURE_NAME);
-		}	}
+				for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
+					if(iPattern instanceof FRaMEDShapePattern) {
+						FRaMEDShapePattern framedShapePattern = (FRaMEDShapePattern) iPattern;
+						if(framedShapePattern.getModelType() == ((ModelElement) businessObject).getType())
+							return (ICustomFeature) framedShapePattern.getDoubleClickFeature(customFeatures);
+		}	}	}	}
 		return null;
 	}	
 }

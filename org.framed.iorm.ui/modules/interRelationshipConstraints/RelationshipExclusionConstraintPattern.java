@@ -36,6 +36,7 @@ public class RelationshipExclusionConstraintPattern extends AbstractInterRelatio
 		FEATURE_NAME = literals.RELATIONSHIP_EXCLUSION_FEATURE_NAME;
 		ICON_IMG_ID = literals.RELATIONSHIP_EXCLUSION_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.RELATIONSHIP_EXCLUSION_ICON_IMG_PATH;
+		modelType = Type.RELATIONSHIP_EXCLUSION;
 	}
 
 	//add feature

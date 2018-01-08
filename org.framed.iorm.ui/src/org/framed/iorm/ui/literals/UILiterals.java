@@ -78,8 +78,8 @@ public class UILiterals {
 	public static final String KEY_SHAPE_ID = "shape id",
 							   KEY_DIAGRAM_KIND = "diagram kind";
 	
-	//URLs
-	//~~~~
+	//Feature Model
+	//~~~~~~~~~~~~~
 	/**
 	 * bundles to acces packages
 	 * <p>
@@ -97,6 +97,12 @@ public class UILiterals {
 	public static final URL URL_TO_FEATUREMODEL = BUNDLE_FEATUREMODEL.getEntry("model.xml"),
 						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.diagram");
 	
+	/**
+	 * name literals for the command and feature to change the configuration
+	 */
+	public static final String CHANGE_CONFIGURATION_COMMAND_NAME = "Configuration Change",
+							   CHANGE_CONFIGURATION_FEATURE_NAME = "Change Feature Model";
+			
 	//Editors
 	//~~~~~~~
 	/**
@@ -218,7 +224,7 @@ public class UILiterals {
 							   WIZARD_PAGE_NAME = "Role Model",
 							   STANDARD_DIAGRAM_NAME = "newDiagram",
 							   CONTAINER_DIAGRAM_NAME = "Container";
-	
+		
 	//Palette
 	//~~~~~~~
 	/**
@@ -255,13 +261,15 @@ public class UILiterals {
 	 * (2) the height of the attribute rectangle or<br>
 	 * (3) the height of the operation rectangle or<br>
 	 * (4) the minimal width for typebody rectangles of classes or roles or<br>
-	 * (5) the minimal height for typebody rectangles of classes or roles 
+	 * (5) the minimal height for typebody rectangles of classes or roles or<br>
+	 * (6) the lenght of textfields
 	 */
 	public static final int HEIGHT_NAME_SHAPE = 20,
 							HEIGHT_ATTRITBUTE_SHAPE = 15,
 							HEIGHT_OPERATION_SHAPE = 15,
 							MIN_WIDTH_FOR_CLASS_OR_ROLE = 200,
-							MIN_HEIGHT_FOR_CLASS_OR_ROLE = 100;
+							MIN_HEIGHT_FOR_CLASS_OR_ROLE = 100,
+							LENGHT_TEXTFIELD_WIZARD = 250;
 	
 	/**
 	 * layout integers for connections

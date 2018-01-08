@@ -30,11 +30,9 @@ import org.eclipse.ui.part.EditorPart;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
-import org.framed.iorm.ui.configuration.ConfigurationEditorChangeCommand;
+import org.framed.iorm.ui.configuration.ChangeConfigurationCommand;
 import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
-import org.framed.iorm.ui.literals.LayoutLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.literals.URLLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
@@ -59,7 +57,7 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	/**
 	 * URLs to the feature model and its standard configuration gathered from {@link URLLiterals}
 	 */
-	private final URL URL_TO_FEATUREMODEL = URLLiterals.URL_TO_FEATUREMODEL;
+	private final URL URL_TO_FEATUREMODEL = UILiterals.URL_TO_FEATUREMODEL;
 	
 	/**
 	 * the color values used for the {@link #infoLabel} showing if the chosen configuration is valid or not 
@@ -248,7 +246,7 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * add an selection listener to the tree view
 	 * <p>
 	 * The added selection listener calls this editors operation {@link #changeSelection} that uses 
-	 * the command {@link ConfigurationEditorChangeCommand} to actually change the configuration of the 
+	 * the command {@link ChangeConfigurationCommand} to actually change the configuration of the 
 	 * diagram.
 	 */
 	private void createSelectionListener() {
@@ -367,13 +365,13 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	}
 	 
 	/**
-	 * uses the command {@link ConfigurationEditorChangeCommand} to change the configuration of the 
+	 * uses the command {@link ChangeConfigurationCommand} to change the configuration of the 
 	 * diagram.
 	 * @param item the tree item to change the selection of 
 	 * @param select the new selection
 	 */
 	public void changeSelection(final TreeItem item, final boolean select) {
-		ConfigurationEditorChangeCommand command = new ConfigurationEditorChangeCommand();
+		ChangeConfigurationCommand command = new ChangeConfigurationCommand();
 		command.setFeatureEditor(this);
 		command.setBehaviorDiagramEditor(multipageEditor.getDiagramEditor());
 		command.setItem(item);
