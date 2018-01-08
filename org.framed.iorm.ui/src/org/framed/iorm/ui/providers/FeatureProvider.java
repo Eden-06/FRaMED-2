@@ -24,7 +24,6 @@ import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.graphitifeatures.*;
-import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**
@@ -44,29 +43,26 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
-      super(diagramTypeProvider);
-      //Step 1
-      List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-      //Step 2
-      for(Class<?> cl : classes) {
-    	  if(!Modifier.isAbstract(cl.getModifiers())) {
-    		  if(UIUtil.getSuperClasses(cl).contains(FRaMEDShapePattern.class) ||
-    			 UIUtil.getSuperClasses(cl).contains(FRaMEDConnectionPattern.class)) {
-    			  try {
-    				  Object object = cl.newInstance();
-    				  //(a)
-    				  if(object instanceof FRaMEDShapePattern) {
-    					  addPattern((FRaMEDShapePattern) object);
-    				  }
-    				  //(b)
-    				  if(object instanceof FRaMEDConnectionPattern) {
-    					  addConnectionPattern((FRaMEDConnectionPattern) object);
-    				  }
-    			  } catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-      }	  }	  }
-      
-      addPattern(new GroupOrCompartmentTypeElementPattern());
-	}
+		super(diagramTypeProvider);
+		//Step 1
+		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
+		//Step 2
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(UIUtil.getSuperClasses(cl).contains(FRaMEDShapePattern.class) ||
+					UIUtil.getSuperClasses(cl).contains(FRaMEDConnectionPattern.class)) {
+					try {
+						Object object = cl.newInstance();
+						//(a)
+						if(object instanceof FRaMEDShapePattern) {
+							addPattern((FRaMEDShapePattern) object);
+						}
+						//(b)
+						if(object instanceof FRaMEDConnectionPattern) {
+							addConnectionPattern((FRaMEDConnectionPattern) object);
+						}
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+    }	}	}	}
 		
 	/**
 	 * sets the graphiti custom features that are used by editor for the diagram type

@@ -6,21 +6,23 @@ import org.framed.iorm.ui.literals.UILiterals;
 public class Literals {
 	
 	/**
-	 * the features name used for the palette entry of this feature
+	 * the features names used for the palette entry of this feature
 	 */
-	public final String FEATURE_NAME = "Compartment Type";
+	public final String FEATURE_NAME = "Compartment Type",
+						ELEMENTS_FEATURE_NAME = "CompartmentTypeElementPattern";
 	
 	/**
-	 * the standart name for a pictogramm element and business object created by the feature
+	 * the standard name for a pictogramm element and business object created by the feature
 	 */
 	public final String STANDARD_NAME = "compartmentType";
 						
 	/**
-	 * the id or the path for icon used for palette entry of this feature
+	 * the ids or the paths for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.compartment",
-						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png";
-	
+						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.compartmentElements",
+						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png",
+						ELEMENTS_ICON_IMG_PATH = "";
 	/**
 	 * identifiers used for compartment types
 	 * <p>

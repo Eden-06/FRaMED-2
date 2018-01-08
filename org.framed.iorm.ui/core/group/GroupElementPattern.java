@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.pattern.shapes;
+package group;
 
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -8,28 +8,28 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.util.UIUtil;
 
-import group.GroupPattern;
-
 /**
  * This graphiti pattern is used to work with text shapes
- * of the preview of the groups or compartment types content.
+ * of the preview of groups content.
  * <p>
- * It deals with the following aspect of text shapes for group or compartment type elements:<br>
+ * It deals with the following aspect of text shapes for group elements:<br>
  * (1) disables deleting the text shapes<br>
  * (2) disables moving the text shapes<br>
  * (3) disables resizing the text shapes
- * @see GroupPattern
  * @author Kevin Kassin
  */
-public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
+public class GroupElementPattern extends FRaMEDShapePattern implements IPattern {
 
+	/**
+	 * the object to get names, ids and so on for this feature
+	 */
+	private final Literals literals = new Literals();
+	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
@@ -38,32 +38,14 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 			ViewVisibility.NO_VIEW);
 	
 	/**
-	 * the value of the property shape id for the text shapes of the group and compartment types elements
-	 */
-	private final String SHAPE_ID_GROUP_ELEMENT = IdentifierLiterals.SHAPE_ID_GROUP_ELEMENT,
-						 SHAPE_ID_COMPARTMENTTYPE_ELEMENT = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT;
-	
-	/**
-	 * the feature name of the create feature in this pattern gathered from {@link NameLiterals}
-	 */
-	private final String GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME = NameLiterals.GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
-	
-	/**
 	 * Class constructor
 	 */
-	public GroupOrCompartmentTypeElementPattern() {
+	public GroupElementPattern() {
 		super();
+		FEATURE_NAME = literals.ELEMENTS_FEATURE_NAME;
+		ICON_IMG_ID = literals.ELEMENTS_ICON_IMG_ID;
+		ICON_IMG_PATH = literals.ELEMENTS_ICON_IMG_PATH;
 		FPD = spec_FPD;
-	}
-	
-
-	/**
-	 * get method for the create features name
-	 * @return the name of the create feature
-	 */
-	@Override
-	public String getCreateName() {
-		return GROUP_OR_COMPARTMENT_TYPE_ELEMENT_FEATURE_NAME;
 	}
 	
 	/**
@@ -80,33 +62,29 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 
 	/**
 	 * checks if pattern is applicable for a given pictogram element
-	 * @return true, if the pictogram element is text shape for a group or compartment 
-	 * type element
+	 * @return true, if the pictogram element is text shape for a group element
 	 */
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(UIUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
-				   UIUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_GROUP_ELEMENT))
 					return true;
-		}	}	
+		}
 		return false;
 	}
 
 	/**
 	 * checks if the pictogram element to edit with the pattern is its root
-	 * @return true, if the pictogram element is text shape for a group or compartment 
-	 * type element
+	 * @return true, if the pictogram element is text shape for a group element
 	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(UIUtil.isShape_IdValue(shape, SHAPE_ID_GROUP_ELEMENT) ||
-				   UIUtil.isShape_IdValue(shape, SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_GROUP_ELEMENT))
 					return true;
 		}	
 		return false;
@@ -115,7 +93,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables the move feature for attributes and operations
+	 * disables the move feature for elements
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
@@ -125,7 +103,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	//move feature
 	//~~~~~~~~~~~~
 	/**
-	 * disables the move feature for attributes and operations
+	 * disables the move feature for elements
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
@@ -135,7 +113,7 @@ public class GroupOrCompartmentTypeElementPattern extends FRaMEDShapePattern imp
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables the resize feature for attributes and operations
+	 * disables the resize feature for elements
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext context) {

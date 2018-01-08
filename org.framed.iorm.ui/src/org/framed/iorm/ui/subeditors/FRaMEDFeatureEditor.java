@@ -37,7 +37,7 @@ import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.literals.URLLiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.EditorInputUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
@@ -125,7 +125,7 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	public FRaMEDFeatureEditor(IEditorInput editorInput, MultipageEditor multipageEditor) {
 		super();
 		this.multipageEditor = multipageEditor;
-		Resource resource = EditorInputUtil.getResourceFromEditorInput(editorInput);
+		Resource resource = UIUtil.getResourceFromEditorInput(editorInput);
 		if (resource == null) { throw new NullPointerException("The resource could not be loaded."); }
 		Model rootModel = readRootModel(editorInput);
 		IFeatureModel featureModel = readFeatureModel();

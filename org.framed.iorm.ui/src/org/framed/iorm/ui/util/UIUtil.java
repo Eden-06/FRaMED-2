@@ -1,6 +1,7 @@
 package org.framed.iorm.ui.util;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -36,6 +39,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
@@ -221,6 +225,50 @@ public class UIUtil {
 	    	} catch (IOException e) { e.printStackTrace(); }
 	    }
 	 	return null;
+	}
+	
+	/**
+	 * generates an {@link IFileEditorInput} for a given resource
+	 * @param resource the resource to create the editor input for
+	 * @return the generated editor input
+	 */
+	public static IFileEditorInput getIFileEditorInputForResource(Resource resource) {
+		IPath path = new Path(resource.getURI().toFileString());
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+		return new FileEditorInput(file);
+	}
+
+	/**
+	 * This operation creates an {@link IFile} of an file in the role model project for a given {@link IEditorInput} using two steps:
+	 * <p>
+	 * Step 1: It gets the project the editor input is located in.<br>
+	 * Step 2: The method searches for the file in the project the editor input is located in. With the found file
+	 * 		   it creates an IFile.
+	 * @param editorInput the editor input to get the IFile for
+	 * @return the created IFile
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+	public static final IFile getIFileForFile(IEditorInput editorInput, IPath PathToFile) throws IOException, URISyntaxException {
+		//Step 1
+		IFileEditorInput fileInput = (IFileEditorInput) editorInput;
+		IFile file = fileInput.getFile();
+		String projectNameOfDiagram = file.getParent().getParent().getName();
+		//Step 2		
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot(); 
+		IPath pathToEmptyTectFile = new Path(projectNameOfDiagram + PathToFile);
+		return root.getFile(pathToEmptyTectFile);		
+	}
+	
+	/**
+	 * gets an {@link IFile} for a resource used as a given editor input 
+	 * @param editorInput the given editor input
+	 * @return the corresponding IFile to the resource used as editor input
+	 */
+	public static final IFile getIFileForEditorInput(IEditorInput editorInput) {
+		Resource resource = getResourceFromEditorInput(editorInput);
+		IPath path = new Path(resource.getURI().toFileString());
+		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
 	}
 	
 	//Diagram

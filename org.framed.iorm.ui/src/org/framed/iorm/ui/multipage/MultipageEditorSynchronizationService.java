@@ -16,7 +16,6 @@ import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**
@@ -137,8 +136,8 @@ public class MultipageEditorSynchronizationService {
 	 * @return if the two multipage editors work on the same role model file
 	 */
 	private static boolean areTheSameRoleModels(MultipageEditor multipageEditor1, MultipageEditor multipageEditor2) {
-		IFile firstFile = EditorInputUtil.getIFileForEditorInput(multipageEditor1.getEditorInput());
-		IFile secondFile = EditorInputUtil.getIFileForEditorInput(multipageEditor2.getEditorInput());
+		IFile firstFile = UIUtil.getIFileForEditorInput(multipageEditor1.getEditorInput());
+		IFile secondFile = UIUtil.getIFileForEditorInput(multipageEditor2.getEditorInput());
 		return firstFile.equals(secondFile);
 	}
 	
@@ -163,14 +162,14 @@ public class MultipageEditorSynchronizationService {
 		//Step 1
 		Resource baseResource = null;
 		if(baseEditorInput instanceof IFileEditorInput || baseEditorInput instanceof DiagramEditorInput)
-			baseResource = EditorInputUtil.getResourceFromEditorInput(baseEditorInput);
+			baseResource = UIUtil.getResourceFromEditorInput(baseEditorInput);
 		else throw new InvalidTypeOfEditorInputException();
 		//Step 2
 		if(changedEditorInput instanceof IFileEditorInput)
-			return EditorInputUtil.getIFileEditorInputForResource(baseResource);
+			return UIUtil.getIFileEditorInputForResource(baseResource);
 		//Step 3
 		if(changedEditorInput instanceof DiagramEditorInput) {
-			Resource changedEditorResource = EditorInputUtil.getResourceFromEditorInput(changedEditorInput);
+			Resource changedEditorResource = UIUtil.getResourceFromEditorInput(changedEditorInput);
 			Diagram changedEditorDiagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
 			Type type = null;
 			if(UIUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_GROUP_DIAGRAM))

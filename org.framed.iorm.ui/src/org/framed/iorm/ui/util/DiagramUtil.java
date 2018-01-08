@@ -201,7 +201,7 @@ public class DiagramUtil {
 	 * @see RoleModelWizard#createEmfFileForDiagram
 	 */
 	public static Diagram getMainDiagramForIEditorInput(IEditorInput editorInput) {
-		Resource resource = EditorInputUtil.getResourceFromEditorInput(editorInput);
+		Resource resource = UIUtil.getResourceFromEditorInput(editorInput);
 		if(resource.getContents().get(0) instanceof Diagram) {
 			Diagram containerDiagram = (Diagram) resource.getContents().get(0);
 			if(containerDiagram.getChildren().get(0) instanceof Diagram) {

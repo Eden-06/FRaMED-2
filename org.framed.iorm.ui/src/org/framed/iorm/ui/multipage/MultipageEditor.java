@@ -45,7 +45,6 @@ import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
@@ -227,7 +226,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 			setPartName(getEditorInput().getName());
 		}
 		if(getEditorInput() instanceof DiagramEditorInput) {
-			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
+			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
 			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
 			org.framed.iorm.model.Shape groupOrCompartmentType = null;
 			if(diagram.getLink().getBusinessObjects().size() == 1) {
@@ -248,7 +247,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 */
 	private void setPaletteType() {
 		if(getEditorInput() instanceof DiagramEditorInput) {
-			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
+			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
 			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
 			if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
 				ToolBehaviorProvider toolBehaviorProvider = 
@@ -304,9 +303,9 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 */
 	private void addPagesWithDiagramEditorInput(DiagramEditorInput diagramEditorInput, IFileEditorInput fileEditorInput) throws PartInitException {
 		//Step 1
-		Resource resource = EditorInputUtil.getResourceFromEditorInput(diagramEditorInput);	
+		Resource resource = UIUtil.getResourceFromEditorInput(diagramEditorInput);	
 		//Step 2
-		if(fileEditorInput == null) fileEditorInput = EditorInputUtil.getIFileEditorInputForResource(resource);
+		if(fileEditorInput == null) fileEditorInput = UIUtil.getIFileEditorInputForResource(resource);
 		if(fileEditorInput == null) throw new PartInitException(MESSAGE_FILE_EDITOR_INPUT_FOR_RESOURCE_IS_NULL); 
 		//Step 3
 		editorDiagram = new FRaMEDDiagramEditor();
@@ -400,8 +399,8 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	public void refreshFile() throws NullPointerException {
 		IFileEditorInput fileEditorInput = null;
 		if(getEditorInput() instanceof DiagramEditorInput) {
-			Resource resource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());	
-			fileEditorInput = EditorInputUtil.getIFileEditorInputForResource(resource);
+			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
+			fileEditorInput = UIUtil.getIFileEditorInputForResource(resource);
 		}
 		if(getEditorInput() instanceof IFileEditorInput) { 
 			fileEditorInput = (IFileEditorInput) getEditorInput();
@@ -421,7 +420,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 */
 	private boolean transformModel() {
 		//Step 1
-		Resource diagramResource = EditorInputUtil.getResourceFromEditorInput(getEditorInput());
+		Resource diagramResource = UIUtil.getResourceFromEditorInput(getEditorInput());
 		IFile CROMFile = UIUtil.getCROMFileForDiagramResource(diagramResource);	
 		URI targetURI =	URI.createPlatformResourceURI(CROMFile.getFullPath().toString(), true);
 		ResourceSet set = new ResourceSetImpl();

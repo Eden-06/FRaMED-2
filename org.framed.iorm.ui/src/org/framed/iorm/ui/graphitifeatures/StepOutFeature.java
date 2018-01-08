@@ -19,7 +19,6 @@ import org.framed.iorm.ui.literals.NameLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.util.DiagramUtil;
-import org.framed.iorm.ui.util.EditorInputUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**
@@ -113,8 +112,8 @@ public class StepOutFeature extends AbstractCustomFeature {
 			org.framed.iorm.model.Shape ShapeToStepOutTo = modelToStepOutTo.getParent();
 			//Step 2
 			if(ShapeToStepOutTo == null) {
-				Resource resource = EditorInputUtil.getResourceFromEditorInput(multipageEditorToClose.getEditorInput());
-				IFileEditorInput fileEditorInput = EditorInputUtil.getIFileEditorInputForResource(resource);
+				Resource resource = UIUtil.getResourceFromEditorInput(multipageEditorToClose.getEditorInput());
+				IFileEditorInput fileEditorInput = UIUtil.getIFileEditorInputForResource(resource);
 				stepOutWithEditorInput(fileEditorInput);
 			} else {
 				//Step 3		
