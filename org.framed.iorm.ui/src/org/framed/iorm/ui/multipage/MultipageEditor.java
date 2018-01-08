@@ -39,7 +39,6 @@ import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.TransformationFailedException;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;

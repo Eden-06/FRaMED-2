@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.UIUtil;
@@ -22,7 +23,7 @@ public class Util {
 	 */
 	private final Literals literals = new Literals();
 	
-	//usedInReferences
+	//Grouping References
 	//~~~~~~~~~~~~~~~~
 	/**
 	 * get all sub classes of {@link AbstractInnerGroupingReference} for a given list of classes 
@@ -42,6 +43,8 @@ public class Util {
 		return innerGroupingReference;
 	}
 	
+	//Diagram
+	//~~~~~~~
 	/**
 	 * Convenience operation to call {@link UIUtil#getGroupOrCompartmentTypeDiagramForItsShape(Shape, Diagram, String, String, String)} 
 	 * with the correct parameters.
@@ -50,7 +53,21 @@ public class Util {
 		return UIUtil.getGroupOrCompartmentTypeDiagramForItsShape(groupOrCompartmentTypeShape, diagram, 
 				literals.SHAPE_ID_GROUP_TYPEBODY, literals.SHAPE_ID_GROUP_NAME, UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM);
 	}
-
 	
+	//Update
+	//~~~~~~
+	/**
+	 * Convenience operation to call {@link UIUtil#getNameOfPictogramElement(PictogramElement, String)} with the correct parameters.
+	 */
+	public String getNameOfPictogramElement(PictogramElement pictogramElement) {
+		return UIUtil.getNameOfPictogramElement(pictogramElement, literals.SHAPE_ID_GROUP_NAME);
+	}
 	
+	/**
+	 * Convenience operation to call {@link UIUtil#getContentPreviewElementsNames(PictogramElement, String, String)} 
+	 * with the correct parameters.
+	 */
+	public List<String> getContentPreviewElementsNames(PictogramElement pictogramElement) {
+		return UIUtil.getContentPreviewElementsNames(pictogramElement, literals.SHAPE_ID_GROUP_CONTENT_PREVIEW, literals.SHAPE_ID_GROUP_ELEMENT);
+	}
 }

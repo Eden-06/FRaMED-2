@@ -52,9 +52,9 @@ public class Literals {
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 */
 	public final String REASON_NAME_NULL = "Name is null.",
-							   REASON_NAME_OUT_OF_DATE = "Name is out of date.",
-							   REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
-							   REASON_NAMES_ELEMENTS = "Different names of elements.";
+						REASON_NAME_OUT_OF_DATE = "Name is out of date.",
+						REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
+						REASON_NAMES_ELEMENTS = "Different names of elements.";
 	
 	/**
 	 * layout integers gathered from {@link IdentifierLiterals}, look there for reference

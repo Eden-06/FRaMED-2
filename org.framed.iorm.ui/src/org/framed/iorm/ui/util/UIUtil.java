@@ -39,12 +39,9 @@ import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
-
-import group.GroupPattern;
 
 /**
  * This class offers utility operations in the scope of the UI. Modules can use these operations if they want to,
@@ -218,10 +215,6 @@ public class UIUtil {
 	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
 	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
 	 * <p>
-	 * If its not clear what the different shapes are look for the pictogram structure of a group or compartment type here: 
-	 * {@link GroupPattern#add}<br>
-	 * {@link CompartmentTypePattern#add}.<br>
-	 * TODO if its not cleat typbe body
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
 	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
 	 * @param diagram the diagram the group or compartment type is located in
@@ -384,14 +377,15 @@ public class UIUtil {
 	//Grouping
 	//~~~~~~~~
 	/**
-	 * fetches the <em>type body shape</em> of a group or compartment type to thats the givem <em>container shape</em> belongs to
+	 * fetches the <em>type body shape</em> of a grouping element (e.g. groups or compartment types) to thats the givem 
+	 * <em>container shape</em> belongs to
 	 * <p>
 	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, see 
 	 * {@link GroupPattern#add} for example.
-	 * @param groupContainer the container shape of the group or compartment type to get the type body shape for
-	 * @return the type body shape of group or compartment type with the given shape
+	 * @param groupContainer the container shape of a grouping element to get the type body shape for
+	 * @return the type body shape of a grouping element with the given shape
 	 */
-	public static ContainerShape getTypeBodyForGroupOrCompartmentContainer(ContainerShape groupContainer, String SHAPE_ID_TYPEBODY) {
+	public static ContainerShape getTypeBodyForGroupingContainer(ContainerShape groupContainer, String SHAPE_ID_TYPEBODY) {
 		for(Shape shape : groupContainer.getChildren()) {
 			if(shape instanceof ContainerShape) {
 			   if(PropertyUtil.isShape_IdValue(shape, SHAPE_ID_TYPEBODY))

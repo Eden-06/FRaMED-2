@@ -16,9 +16,9 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
+import compartment.CompartmentTypePattern;
 import group.GroupPattern;
 
-import org.framed.iorm.ui.pattern.shapes.CompartmentTypePattern; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //*import for javadoc link
 
 /**

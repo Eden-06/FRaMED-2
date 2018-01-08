@@ -563,7 +563,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_GROUP_TYPEBODY)) {
 			//pictogram name of natural type, attributes and operations
-			String pictogramTypeName = UIUtil.getNameOfPictogramElement(pictogramElement, literals.SHAPE_ID_GROUP_NAME);
+			String pictogramTypeName = util.getNameOfPictogramElement(pictogramElement);
 			//business name and attributes
 			String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			//model element names in groups model
@@ -573,8 +573,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				modelElementsNames = UIUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.GROUP);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			//model element names in model container of shape
-			List<String> pictogramElementsNames = UIUtil.getContentPreviewElementsNames(pictogramElement, 
-				literals.SHAPE_ID_GROUP_CONTENT_PREVIEW, literals.SHAPE_ID_GROUP_ELEMENT);		
+			List<String> pictogramElementsNames = util.getContentPreviewElementsNames(pictogramElement);		
 				
 			//check for update: different names, different amount of attibutes/ operations
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
@@ -724,7 +723,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				if(shape instanceof ContainerShape) {
 					for(AbstractInnerGroupingReference reference : innerGroupingReferences) {
 						if(UIUtil.isShape_IdValue(shape, reference.getShapeIdContainer())) {
-							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupOrCompartmentContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
+							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
 						}
 					}	
 			}	}

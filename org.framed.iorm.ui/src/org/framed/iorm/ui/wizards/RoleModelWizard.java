@@ -36,7 +36,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.PropertyUtil;
 

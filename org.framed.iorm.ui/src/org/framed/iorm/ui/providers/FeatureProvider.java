@@ -27,6 +27,8 @@ import org.framed.iorm.ui.graphitifeatures.*;
 import org.framed.iorm.ui.pattern.shapes.*;
 import org.framed.iorm.ui.util.UIUtil;
 
+import compartment.CompartmentTypePattern;
+
 /**
  * This class manages the pattern and features for the editing of the diagram type
  * @author Kevin Kassin

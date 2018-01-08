@@ -31,7 +31,7 @@
             contributorClass="org.framed.iorm.ui.multipage.MultipageEditorContributor"
             default="true"
             extensions="crom_diagram"
-            icon="icons/editors/icon_multipage_editor.png"
+            icon="icons/icon_multipage_editor.png"
             id="CROM_MultipageEditor"
             name="Compartment Role Object Model Editor">
       	</editor>
@@ -47,14 +47,14 @@
        <wizard
              category="org.framed.iorm.ui.wizard_category"
              class="org.framed.iorm.ui.wizards.RoleModelWizard"
-             icon="icons/wizard/icon_role_model_wizard.png"
+             icon="icons/icon_role_model_wizard.png"
              id="org.framed.iorm.ui.model_wizard"
              name="Compartment Role Object Model">
        </wizard>
        <wizard
              category="org.framed.iorm.ui.wizard_category"
              class="org.framed.iorm.ui.wizards.RoleModelProjectWizard"
-             icon="icons/wizard/icon_role_model_project_wizard.gif"
+             icon="icons/icon_role_model_project_wizard.gif"
              id="org.framed.iorm.ui.project_wizard"
              name="CROM Project"
              project="true">

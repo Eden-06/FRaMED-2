@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.ui.literals.LayoutLiterals;
-import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.NameUtil;
 

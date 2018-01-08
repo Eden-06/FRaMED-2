@@ -1,7 +1,6 @@
 package datatype;
 
 import org.eclipse.graphiti.util.IColorConstant;
-import org.framed.iorm.ui.literals.TextLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
 
 /**
