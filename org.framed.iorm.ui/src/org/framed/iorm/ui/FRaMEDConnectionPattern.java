@@ -95,6 +95,8 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 		return FPD;
 	}
 	
-	//TODO doku
-	public abstract IFeature getDoubleClickFeature(ICustomFeature[] customFeatures);
+	//TODO doku standard op to not be implmented if null returned
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
+	}
 }

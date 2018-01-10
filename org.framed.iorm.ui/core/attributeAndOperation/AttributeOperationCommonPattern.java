@@ -3,7 +3,6 @@ package attributeAndOperation;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IDirectEditingInfo;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
@@ -11,7 +10,6 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -84,13 +82,6 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
-	
-	/**
-	 * return null since this pattern does not offer a double click feature
-	 */
-	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
-		return null;
-	}
 	
 	/**
 	 * checks if pattern is applicable for a given business object

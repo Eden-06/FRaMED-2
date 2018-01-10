@@ -1,10 +1,8 @@
 package roleconstraints;
 
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.framed.iorm.model.OrmFactory;
@@ -27,13 +25,6 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 */
 	public AbstractRoleConstraintPattern() {
 		super();
-	}
-	
-	/**
-	 * return null since this pattern does not offer a double click feature
-	 */
-	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
-		return null;
 	}
 	
 	//add feature

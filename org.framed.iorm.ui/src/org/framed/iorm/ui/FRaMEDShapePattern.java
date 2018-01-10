@@ -110,8 +110,10 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return FPD;
 	}
 	
-	//TODO doku
-	public abstract IFeature getDoubleClickFeature(ICustomFeature[] customFeatures);
+	//TODO doku standard op to not be implmented if null returned
+	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		return null;
+	}
 	
 	/**
 	 * fetches the business object for an direct edited shape 

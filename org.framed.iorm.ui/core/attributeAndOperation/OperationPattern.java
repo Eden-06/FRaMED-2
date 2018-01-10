@@ -2,9 +2,7 @@ package attributeAndOperation;
 
 import java.util.List;
 
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -83,13 +81,6 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getUsedInReferences(classes);
 	}	
-	
-	/**
-	 * return null since this pattern does not offer a double click feature
-	 */
-	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
-		return null;
-	}
 	
 	/**
 	 * checks if pattern is applicable for a given business object
