@@ -21,7 +21,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.providers.FeatureProvider;
-import org.framed.iorm.ui.util.ShapePatternUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 import naturaltype.NaturalTypePattern;
 
@@ -45,8 +45,9 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	
 	/**
 	 * the {@link Type} of business object the pattern creates 
+	 * TODO standard value erklären
 	 */
-	protected Type modelType;
+	protected Type modelType = null;
 	
 	/**
 	 * the name of the feature
@@ -55,9 +56,14 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		
 	/**
 	 * the identifier or the path for the icon of the create feature
+	 * 
+	 * TODO standard value erklären
 	 */
 	protected String ICON_IMG_ID,
-				     ICON_IMG_PATH;
+				     ICON_IMG_PATH = "";
+	
+	//TODO standard value erklären
+	protected String DIAGRAM_KIND = null;
 	
 	/**
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -129,7 +135,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 * updates the list of the groups or compartment types content of in which an element is added, deleted or renamed
 	 */
 	protected void updateContainingGroupOrCompartmentType() {
-		ContainerShape groupTypeBodyToUpdate = ShapePatternUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
+		ContainerShape groupTypeBodyToUpdate = UIUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
         updatePictogramElement(groupTypeBodyToUpdate);
 	}
 	

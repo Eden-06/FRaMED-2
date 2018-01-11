@@ -75,7 +75,6 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 		FEATURE_NAME = literals.OPS_FEATURE_NAME;
 		ICON_IMG_ID = literals.OPS_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.OPS_ICON_IMG_PATH;
-		modelType = null;
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();

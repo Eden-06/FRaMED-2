@@ -113,6 +113,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.GROUP;
+		DIAGRAM_KIND = literals.DIAGRAM_KIND;
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
@@ -179,9 +180,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						if(UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM) ||
-						   UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM))
-							   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
+						return EditPolicyService.canAdd(addContext, getDiagram());
 		}	}	}	}
 		return false;
 	}
@@ -271,7 +270,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		//groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedGroup.getName(), 10, true);
-		UIUtil.setDiagram_KindValue(contentDiagram, UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM);
+		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddGroupContext agctc = (AddGroupContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());
 		getDiagram().getContainer().getChildren().add(contentDiagram);
@@ -316,9 +315,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-		   if(UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM) ||
-			  UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM))
-				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+		   EditPolicyService.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

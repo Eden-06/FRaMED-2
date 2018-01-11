@@ -21,8 +21,11 @@ public class Literals {
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.compartment",
 						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.compartmentElements",
-						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png",
-						ELEMENTS_ICON_IMG_PATH = "";
+						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png";
+	
+	//TODO
+	public final String DIAGRAM_KIND = "compartment_diagram";
+	
 	/**
 	 * identifiers used for compartment types
 	 * <p>

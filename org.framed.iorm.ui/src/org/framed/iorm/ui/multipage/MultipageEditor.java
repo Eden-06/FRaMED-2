@@ -44,11 +44,10 @@ import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.references.CoreReferences;
+import org.framed.iorm.ui.references.ModelFeatureReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
 /**
@@ -63,17 +62,18 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  */
 public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
 	
-	CoreReferences coreReferences = new CoreReferences();
+	ModelFeatureReference modelFeatureReferences = new ModelFeatureReference();
 	
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
 	 */
 	private final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID;
 		
+	//TODO fix
 	/**
 	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
 	 */
-	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
+	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM =  "compartment_diagram";
 		
 	/**
 	 * name literals for the pages of the multipage editor and the model feature
@@ -85,7 +85,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 						 TEXT_IORM_PAGE_NAME = UILiterals.TEXT_IORM_PAGE_NAME,
 						 TEXT_CROM_PAGE_NAME = UILiterals.TEXT_CROM_PAGE_NAME,
 						 FEATURE_PAGE_NAME = UILiterals.FEATURE_PAGE_NAME,
-						 MODEL_FEATURE_NAME = coreReferences.MODEL_FEATURE_NAME;
+						 MODEL_FEATURE_NAME = modelFeatureReferences.MODEL_FEATURE_NAME;
 	
 	/**
 	 * the file extension for role model files 
@@ -227,14 +227,14 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		}
 		if(getEditorInput() instanceof DiagramEditorInput) {
 			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
-			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
+			Diagram diagram = UIUtil.getDiagramForResourceOfDiagramEditorInput(resource);
 			org.framed.iorm.model.Shape groupOrCompartmentType = null;
 			if(diagram.getLink().getBusinessObjects().size() == 1) {
 				if(diagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 					Model model = (Model) diagram.getLink().getBusinessObjects().get(0);
 					groupOrCompartmentType = model.getParent();
 			}	}
-			setPartName(DiagramUtil.getMainDiagramForAnyDiagram(diagram).getName() + FILE_EXTENSION_FOR_DIAGRAMS + " " +
+			setPartName(UIUtil.getMainDiagramForAnyDiagram(diagram).getName() + FILE_EXTENSION_FOR_DIAGRAMS + " " +
 						groupOrCompartmentType.getType().getName() + " " +
 						groupOrCompartmentType.getName());
 	}	}
@@ -248,7 +248,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	private void setPaletteType() {
 		if(getEditorInput() instanceof DiagramEditorInput) {
 			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
-			Diagram diagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(resource);
+			Diagram diagram = UIUtil.getDiagramForResourceOfDiagramEditorInput(resource);
 			if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
 				ToolBehaviorProvider toolBehaviorProvider = 
 					(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
@@ -271,7 +271,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * @see RoleModelWizard#createEmfFileForDiagram
 	 */
 	private void addPageWithIFileEditorInput() throws PartInitException {
-		Diagram mainDiagram = DiagramUtil.getMainDiagramForIEditorInput(getEditorInput());
+		Diagram mainDiagram = UIUtil.getMainDiagramForIEditorInput(getEditorInput());
 		if(mainDiagram != null) {
 			DiagramEditorInput diagramEditorInput = DiagramEditorInput.createEditorInput(mainDiagram, DIAGRAM_PROVIDER_ID);
 			addPagesWithDiagramEditorInput(diagramEditorInput, (IFileEditorInput) getEditorInput());

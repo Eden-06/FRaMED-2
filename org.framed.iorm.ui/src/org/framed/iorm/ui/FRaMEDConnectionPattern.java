@@ -32,7 +32,7 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	/**
 	 * the {@link Type} of business object the pattern creates 
 	 */
-	protected Type modelType;
+	protected Type modelType = null;
 	
 	/**
 	 * the name of the feature
@@ -41,9 +41,10 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	
 	/**
 	 * the identifier or the path for the icon of the create feature
+	 * TODO standard value
 	 */
 	protected String ICON_IMG_ID,
-				     ICON_IMG_PATH;
+				     ICON_IMG_PATH= "";
 	
 	/**
 	 * the fpd manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -79,12 +80,13 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	/**
 	 * getter method for the icon file path for the create feature in this pattern
 	 * @return the image file path for the icon of the create feature 
+	 * TODO standard value erklären
 	 */
 	public String getCreateImagePath() {
-		return ICON_IMG_PATH;
+		return ICON_IMG_PATH ;
 	}
 	
-	//TODO doku
+	//TODO doku standard value erklären
 	public Type getModelType() {
 		return modelType;
 	}

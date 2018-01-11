@@ -21,8 +21,10 @@ public class Literals {
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.group",
 						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.GroupElements",
-						ICON_IMG_PATH = "core/group/icon_group.png",
-						ELEMENTS_ICON_IMG_PATH = "";
+						ICON_IMG_PATH = "core/group/icon_group.png";
+						
+	//TODO
+	public final String DIAGRAM_KIND = "group_diagram";
 
 	/**
 	 * identifiers used for the group

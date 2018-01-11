@@ -1,13 +1,10 @@
 package org.framed.iorm.ui.exceptions;
 
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.DiagramUtil; //*import for javadoc link
 
 /**
  * 
  * This exception is thrown if a diagram can not be gathered in a operation that is supposed to find one.
- * <p>
- * This exceptions heavily used for methods in {@link DiagramUtil}.
  * @author Kevin Kassin
  */
 public class NoDiagramFoundException extends RuntimeException {

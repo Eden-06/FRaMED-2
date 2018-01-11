@@ -12,10 +12,7 @@ public class Literals {
 	public final String FEATURE_NAME = "Model";
 					
 	/**
-	 * the icon path and id
-	 * <p>
-	 * Path is empty because there is no icon to show for the model pattern.
+	 * the icon id
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.model",
-						ICON_IMG_PATH = "";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.model";
 }

@@ -34,7 +34,6 @@ import org.framed.iorm.ui.configuration.ChangeConfigurationCommand;
 import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
 import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -148,9 +147,9 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * @return the root model of the resource is not null and the diagram has a root model and return null else
 	 */ 
 	private Model readRootModel(IEditorInput editorInput) {
-		Diagram diagram = DiagramUtil.getMainDiagramForIEditorInput(editorInput);
+		Diagram diagram = UIUtil.getMainDiagramForIEditorInput(editorInput);
 		if(diagram != null)
-			return DiagramUtil.getLinkedModelForDiagram(diagram);
+			return UIUtil.getLinkedModelForDiagram(diagram);
 		return null;
 	}
 		

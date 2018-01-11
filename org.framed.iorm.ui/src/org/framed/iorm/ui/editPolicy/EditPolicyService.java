@@ -12,15 +12,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
-import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.model.*;
 import model.*;
 import model.Model;;
@@ -57,11 +55,11 @@ public class EditPolicyService {
 	
 	private static Set<Policy> getPolicies(Diagram diagram)
 	{
-		Diagram mainDiagram = DiagramUtil.getMainDiagramForAnyDiagram(diagram);
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
 		
 		if(!configurations.containsKey(mainDiagram.getName())) {
 			//get config from diagram
-			FRaMEDConfiguration config = DiagramUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
+			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
 			configurations.put(diagram.getName(), config);
 			
 			//load all rules which are activated by current configuration

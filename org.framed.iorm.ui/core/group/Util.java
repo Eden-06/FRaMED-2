@@ -7,7 +7,6 @@ import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.util.UIUtil;
 
 import group.references.AbstractInnerGroupingReference;
@@ -51,7 +50,7 @@ public class Util {
 	 */
 	public Diagram getGroupDiagramForItsShape(Shape groupOrCompartmentTypeShape, Diagram diagram) {
 		return UIUtil.getDiagramForGroupingShape(groupOrCompartmentTypeShape, diagram, 
-				literals.SHAPE_ID_GROUP_TYPEBODY, literals.SHAPE_ID_GROUP_NAME, UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM);
+				literals.SHAPE_ID_GROUP_TYPEBODY, literals.SHAPE_ID_GROUP_NAME, literals.DIAGRAM_KIND);
 	}
 	
 	//Update

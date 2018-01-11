@@ -54,8 +54,6 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 		super();
 		FEATURE_NAME = literals.FEATURE_NAME;
 		ICON_IMG_ID = literals.ICON_IMG_ID;
-		ICON_IMG_PATH = literals.ICON_IMG_PATH;
-		modelType = null;
 		FPD = spec_FPD;
 	}
 	

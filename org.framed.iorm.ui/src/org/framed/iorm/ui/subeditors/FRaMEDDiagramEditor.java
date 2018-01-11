@@ -11,7 +11,7 @@ import org.framed.iorm.model.Model;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor; //*import for javadoc link
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor; //*import for javadoc link
-import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * the diagram editor used by {@link MultipageEditor}
@@ -47,7 +47,7 @@ public class FRaMEDDiagramEditor extends DiagramEditor  {
 	 * updates the value of the class variable {@link #selectedFeatures}
 	 */
 	public void updateSelectedFeatures() {
-		Diagram mainDiagram = DiagramUtil.getMainDiagramForIEditorInput(getEditorInput());
+		Diagram mainDiagram = UIUtil.getMainDiagramForIEditorInput(getEditorInput());
 		if(mainDiagram.getLink().getBusinessObjects().size() == 1 &&
 		   mainDiagram.getLink().getBusinessObjects().get(0) instanceof Model) {
 			Model rootModel = (Model) mainDiagram.getLink().getBusinessObjects().get(0);

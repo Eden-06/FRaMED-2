@@ -28,7 +28,6 @@ import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.DiagramUtil;
 import org.framed.iorm.ui.util.UIUtil;
 
 import customFeatures.StepInFeature;
@@ -194,7 +193,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		if(diagram == null) return framedFeatureNames;
 		FRaMEDConfiguration config = null;
 		//Note
-		try { config = DiagramUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration(); }
+		try { config = UIUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration(); }
 		catch(NoLinkedModelYet e) {return framedFeatureNames;}
 		for(FRaMEDFeature framedFeature : config.getFeatures()) {
 			framedFeatureNames.add(framedFeature.getName().getLiteral());

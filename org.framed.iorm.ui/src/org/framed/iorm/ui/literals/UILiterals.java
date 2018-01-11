@@ -33,9 +33,7 @@ public class UILiterals {
 	 * <p>
 	 * can be:<br>
 	 * (1) the container diagram of the role model or<br>
-	 * (2) the main diagram of the role model or<br>
-	 * (3) a diagram used to save the graphical content of a group or<br>
-	 * (4) a diagram used to save the graphical content of a compartment type
+	 * (2) the main diagram of the role model.
 	 * <p>
 	 * If its not clear what <em>main diagram</em> and <em>container diagram</em> means, see 
 	 * {@link RoleModelWizard#createEmfFileForDiagram} for reference.<br>
@@ -43,9 +41,7 @@ public class UILiterals {
 	 * graphiti framework.
 	 */
 	public static final String DIAGRAM_KIND_CONTAINER_DIAGRAM = "container_diagram",
-							   DIAGRAM_KIND_MAIN_DIAGRAM = "main_diagram",
-							   DIAGRAM_KIND_GROUP_DIAGRAM = "group_diagram",
-							   DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM = "compartment_diagram";
+							   DIAGRAM_KIND_MAIN_DIAGRAM = "main_diagram";
 	
 	/**
 	 * the diagram identifier of the diagram type for compartment role object models as defined in the extensions of this package

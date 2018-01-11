@@ -44,8 +44,7 @@ public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements
 		super();
 		FEATURE_NAME = literals.ELEMENTS_FEATURE_NAME;
 		ICON_IMG_ID = literals.ELEMENTS_ICON_IMG_ID;
-		ICON_IMG_PATH = literals.ELEMENTS_ICON_IMG_PATH;
-		modelType = null;
+		DIAGRAM_KIND = literals.DIAGRAM_KIND;
 		FPD = spec_FPD;
 	}
 	

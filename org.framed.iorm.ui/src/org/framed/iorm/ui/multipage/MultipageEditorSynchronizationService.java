@@ -1,5 +1,6 @@
 package org.framed.iorm.ui.multipage;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +14,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.DiagramUtil;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 import org.framed.iorm.ui.util.UIUtil;
 
 /**
@@ -32,13 +32,7 @@ public class MultipageEditorSynchronizationService {
 	 */
 	private static final String EDITOR_ID = UILiterals.EDITOR_ID,
 							    DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID;	
-	/**
-	 * the values for the property diagram kind to differ between diagram with the same name, but different
-	 * kinds like a group and a compartment type diagram called the same gathered form {@link IdentifierLiterals}
-	 */
-	private static final String DIAGRAM_KIND_GROUP_DIAGRAM = UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM,
-								DIAGRAM_KIND_COMPARTMENT_DIAGRAM = UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM;
-	
+
 	/**
 	 * the register for the multipage editors to synchronize
 	 */
@@ -159,6 +153,18 @@ public class MultipageEditorSynchronizationService {
      * @throws InvalidTypeOfEditorInputException
      */
 	private static IEditorInput getEquivalentEditorInput(IEditorInput baseEditorInput, IEditorInput changedEditorInput) {
+		//TODO doku Step0... load grouping references dynamicly
+		List<Class<?>> classes = UIUtil.findSourceJavaClasses();
+		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
+		}	}	}
 		//Step 1
 		Resource baseResource = null;
 		if(baseEditorInput instanceof IFileEditorInput || baseEditorInput instanceof DiagramEditorInput)
@@ -170,15 +176,16 @@ public class MultipageEditorSynchronizationService {
 		//Step 3
 		if(changedEditorInput instanceof DiagramEditorInput) {
 			Resource changedEditorResource = UIUtil.getResourceFromEditorInput(changedEditorInput);
-			Diagram changedEditorDiagram = DiagramUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
+			Diagram changedEditorDiagram = UIUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
 			Type type = null;
-			if(UIUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_GROUP_DIAGRAM))
-				type = Type.GROUP;
-			else if(UIUtil.isDiagram_KindValue(changedEditorDiagram, DIAGRAM_KIND_COMPARTMENT_DIAGRAM))
-					type = Type.COMPARTMENT_TYPE;
-			else return null;
+			//TODO doku?
+			for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
+				if(UIUtil.isDiagram_KindValue(changedEditorDiagram, agfr.getDiagramKind()))
+					type = agfr.getModelType();
+			}	
+			if(type == null) return null;
 			Diagram equivalentDiagramInBaseResource =
-				DiagramUtil.getDiagramFromResourceByName(baseResource, changedEditorDiagram.getName(), type);
+				UIUtil.getDiagramFromResourceByName(baseResource, changedEditorDiagram.getName(), type);
 			return DiagramEditorInput.createEditorInput(equivalentDiagramInBaseResource, DIAGRAM_PROVIDER_ID);
 		} 
 		//Step 4

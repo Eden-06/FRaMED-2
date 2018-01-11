@@ -34,7 +34,6 @@ import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
@@ -153,9 +152,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						if(UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM) ||
-						   UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM))
-							return EditPolicyService.canAdd(addContext, getDiagram());
+						return EditPolicyService.canAdd(addContext, getDiagram());
 		}	}	}	}
 		return false;
 	}
@@ -300,9 +297,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-		   if(UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM) ||
-			  UIUtil.isDiagram_KindValue(getDiagram(), UILiterals.DIAGRAM_KIND_GROUP_DIAGRAM))
-				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+			return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

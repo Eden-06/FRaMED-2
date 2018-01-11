@@ -311,7 +311,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		
 		//groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedCompartmentType.getName(), 10, true);
-		UIUtil.setDiagram_KindValue(contentDiagram, UILiterals.DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM);
+		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddCompartmentTypeContext agctc = (AddCompartmentTypeContext) addContext;
 		link(contentDiagram, agctc.getModelToLink());
 		getDiagram().getContainer().getChildren().add(contentDiagram);

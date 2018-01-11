@@ -1,7 +1,7 @@
 package org.framed.iorm.ui.references;
 
 //TODO
-public class CoreReferences {
+public class ModelFeatureReference {
 
 	model.Literals modelLiterals = new model.Literals();
 	
