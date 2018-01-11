@@ -12,7 +12,7 @@ import org.framed.iorm.ui.util.UIUtil;
 import relationship.RelationshipPattern;
 
 /**
- * This class adds checks and needed changes to the business model when reconnecting relations 
+ * This class manages checks and needed changes to the business model when reconnecting relations 
  * @author Kevin Kassin
  */
 public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {

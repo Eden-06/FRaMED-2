@@ -1,14 +1,17 @@
 package relationship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -23,6 +26,7 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
@@ -107,6 +111,31 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 				intraRelCon.setTarget(relation.getTarget());
 		}		
 	}
+	
+	//TODO
+	public void delete(FRaMEDDeleteConnectionFeature deleteConnectionFeature, IDeleteContext deleteContext) {
+		Connection connection = (Connection) deleteContext.getPictogramElement();
+		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);
+		List<Relation> relationsToDeleteAlso = new ArrayList<Relation>();
+		List<Connection> connectionsToDeleteAlso = new ArrayList<Connection>();
+		//Step 1
+		relationsToDeleteAlso.addAll(relation.getReferencedRelation());
+		//Step 2
+		ConnectionDecorator anchorDecorator = null;
+		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
+			if(UIUtil.isShape_IdValue(decorator,literals.SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR))
+				anchorDecorator = decorator;
+		}
+		connectionsToDeleteAlso.addAll(anchorDecorator.getAnchors().get(0).getIncomingConnections());
+		connectionsToDeleteAlso.addAll(anchorDecorator.getAnchors().get(0).getOutgoingConnections());
+		//Step 4
+		for(Relation relationToDeleteAlso : relationsToDeleteAlso) {
+			deleteConnectionFeature.deleteBusinessObject(relationToDeleteAlso);
+		}
+		for(Connection connectionToDeleteAlso : connectionsToDeleteAlso) {
+			DeleteContext deleteContextForInterRelCon = new DeleteContext(connectionToDeleteAlso);
+			deleteConnectionFeature.delete(deleteContextForInterRelCon);
+	}	}
 	
 	//add feature
 	//~~~~~~~~~~~

@@ -1,6 +1,7 @@
 package org.framed.iorm.ui;
 
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
@@ -108,4 +109,7 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	
 	//TODO doku standard op do nothing
 	public void postReconnect(IReconnectionContext context) {}
+	
+	//TODO doku standard does nothing to be overwritten by pattern if needed
+	public void delete(FRaMEDDeleteConnectionFeature deleteConnectionFeature, IDeleteContext deleteContext) {};
 }

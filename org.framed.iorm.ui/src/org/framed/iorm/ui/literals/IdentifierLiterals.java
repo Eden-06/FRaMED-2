@@ -53,30 +53,10 @@ public class IdentifierLiterals {
 						 	   SHAPE_ID_GROUP_CONTENT_PREVIEW = "shape_content_preview",
 						 	   SHAPE_ID_GROUP_ELEMENT = "shape_group_element",
 						 	   SHAPE_ID_GROUPS_INDICATOR_DOTS = "shape_group_indicator_dots";
+
 	
-	/**
-	 * identifier used for the connection decorators of the fulfillment relation
-	 */
-	public static final String SHAPE_ID_FULFILLMENT_ARROWHEAD = "shape_fulfillment_arrowhead",
-							   SHAPE_ID_FULFILLMENT_ROLES = "shape_fulfillment_roles";
 	
-	/**
-	 * identifiers used for the connection decorators of the  name and cardinalities of relationships
-	 */
-	public static final String SHAPE_ID_RELATIONSHIP_NAME_DECORATOR = "shape_rst_name",
-							   SHAPE_ID_RELATIONSHIP_SOURCE_CARDINALITY_DECORATOR = "shape_rst_source_cardinality",
-							   SHAPE_ID_RELATIONSHIP_TARGET_CARDINALITY_DECORATOR = "shape_rst_target_cardinality",
-							   SHAPE_ID_RELATIONSHIP_ANCHOR_DECORATOR = "shape_rst_anchor";
 	
-	/**
-	 * identifier used for the connection decorators of the intra relationship constraints
-	 */
-	public static final String SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR = "shape_irc_name";
-	
-	/**
-	 * identifier used for role constraint connection decorators
-	 */
-	public static final String SHAPE_ID_INTER_REL_CON = "shape_inter_rel_con";
 	
 		
 	

@@ -441,7 +441,7 @@ public class UIUtil {
 		Connection connection = context.getConnection();
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);
 		Anchor newAnchor = context.getNewAnchor();
-		org.framed.iorm.model.ModelElement newShape = ConnectionPatternUtil.getModelElementForAnchor(newAnchor);
+		org.framed.iorm.model.ModelElement newShape = getModelElementForAnchor(newAnchor);
 		if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
 			relation.setSource(newShape);
 		else
