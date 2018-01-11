@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class represents a dialog to edit relationships name and cardinalities.

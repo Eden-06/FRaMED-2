@@ -21,7 +21,6 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.providers.FeatureProvider;
-import org.framed.iorm.ui.util.UIUtil;
 
 import naturaltype.NaturalTypePattern;
 

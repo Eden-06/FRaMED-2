@@ -25,7 +25,7 @@ import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
 import org.framed.iorm.ui.FRaMEDReconnectFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class manages the pattern and features for the editing of the diagram type

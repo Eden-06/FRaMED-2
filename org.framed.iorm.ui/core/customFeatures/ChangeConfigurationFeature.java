@@ -10,9 +10,10 @@ import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.featuremodel.FeatureName;
 import org.framed.iorm.featuremodel.FeaturemodelFactory;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
+import org.framed.iorm.ui.UIUtil;
+
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
-import org.framed.iorm.ui.util.UIUtil;
 
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 import org.framed.iorm.ui.configuration.ChangeConfigurationContext; //*import for javadoc link

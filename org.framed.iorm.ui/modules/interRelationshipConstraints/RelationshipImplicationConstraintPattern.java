@@ -8,7 +8,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s

@@ -17,10 +17,10 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-import org.framed.iorm.ui.util.UIUtil;
 
 import customFeatures.references.AbstractStepInAndOutReference;
 

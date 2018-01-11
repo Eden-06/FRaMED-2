@@ -1,7 +1,7 @@
 package roleconstraints;
 
 import org.eclipse.graphiti.util.IColorConstant;
-import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.UILiterals;
 
 public class Literals {
 

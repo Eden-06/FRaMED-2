@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.UILiterals;
 
 /**
  * 

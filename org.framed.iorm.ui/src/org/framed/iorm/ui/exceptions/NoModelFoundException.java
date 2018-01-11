@@ -1,6 +1,6 @@
 package org.framed.iorm.ui.exceptions;
 
-import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.UILiterals;
 
 /**
  * This exception is thrown if a model can not be gathered in a operation that is supposed to find one.

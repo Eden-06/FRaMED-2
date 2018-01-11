@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.util;
+package org.framed.iorm.ui;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
@@ -53,7 +53,6 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;

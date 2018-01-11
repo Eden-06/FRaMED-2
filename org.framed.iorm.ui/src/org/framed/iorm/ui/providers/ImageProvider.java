@@ -6,7 +6,7 @@ import java.util.List;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDShapePattern;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class links image identifiers to the corresponding image file paths.

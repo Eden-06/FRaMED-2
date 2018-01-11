@@ -2,7 +2,7 @@ package datatype;
 
 import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
 
 import datatype.references.AttributeAndOperationsReference;
 

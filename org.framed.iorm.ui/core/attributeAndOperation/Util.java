@@ -4,7 +4,8 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UIUtil;
+
 import attributeAndOperation.references.AbstractUsedInReference;
 
 /**

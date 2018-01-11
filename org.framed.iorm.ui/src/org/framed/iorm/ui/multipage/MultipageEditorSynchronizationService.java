@@ -13,10 +13,10 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
-import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This operation offers a register and a synchronizing functionality for multipage editors.

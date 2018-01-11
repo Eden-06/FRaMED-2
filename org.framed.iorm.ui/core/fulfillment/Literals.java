@@ -1,7 +1,7 @@
 package fulfillment;
 
 import org.eclipse.graphiti.util.IColorConstant;
-import org.framed.iorm.ui.literals.UILiterals;
+import org.framed.iorm.ui.UILiterals;
 
 /**
  * This class saves literals in the scope of the fulfillment feature module.

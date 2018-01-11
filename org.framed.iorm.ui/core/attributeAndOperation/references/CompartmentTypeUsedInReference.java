@@ -1,7 +1,6 @@
 package attributeAndOperation.references;
 
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
 
 /**
  * The reference class which saves in which other module feature's shapes a attribute or
@@ -9,23 +8,19 @@ import org.framed.iorm.ui.literals.IdentifierLiterals;
  */
 public class CompartmentTypeUsedInReference extends AbstractUsedInReference {
 
-	//TODO change when possible
-	/**
-	 * the object to call utility operations of the datatype feature on
-	 */
-	private naturaltype.Util util = new naturaltype.Util();
+	private compartment.Literals literals = new compartment.Literals();
 	
 	/**
 	 * class constructor
 	 */
 	public CompartmentTypeUsedInReference() {
 		modelType = Type.COMPARTMENT_TYPE;
-		shadowShapeID = IdentifierLiterals.SHAPE_ID_COMPARTMENTTYPE_SHADOW;
+		shadowShapeID = literals.SHAPE_ID_COMPARTMENTTYPE_SHADOW;
 	}
-	
-	/** */
+
+	//nicht benutzt!
 	@Override
 	public int getHorizontalCenter(int height) {
-		return util.calculateHorizontalCenter(height);
+		return 0;
 	}
 }

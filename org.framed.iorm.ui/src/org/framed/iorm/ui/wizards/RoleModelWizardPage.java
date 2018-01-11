@@ -13,8 +13,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class is an Eclipse wizard page that asks for a name of a new diagram. It is used by {@link RoleModelWizard}.

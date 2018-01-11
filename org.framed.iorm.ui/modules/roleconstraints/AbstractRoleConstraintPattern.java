@@ -9,8 +9,8 @@ import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This is the abstract super class of the patterns for role constraint. It collects similiar operations

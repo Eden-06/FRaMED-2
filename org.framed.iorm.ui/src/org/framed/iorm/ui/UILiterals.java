@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.literals;
+package org.framed.iorm.ui;
 
 import java.net.URL;
 

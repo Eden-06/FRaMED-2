@@ -18,8 +18,9 @@ import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
-import org.framed.iorm.ui.util.UIUtil;
 import org.framed.iorm.model.*;
+import org.framed.iorm.ui.UIUtil;
+
 import model.*;
 import model.Model;;
 

@@ -8,7 +8,7 @@ import org.eclipse.graphiti.features.impl.DefaultReconnectionFeature;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.ui.providers.FeatureProvider;
-import org.framed.iorm.ui.util.UIUtil;
+
 import relationship.RelationshipPattern;
 
 /**

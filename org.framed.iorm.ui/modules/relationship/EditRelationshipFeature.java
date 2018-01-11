@@ -16,8 +16,8 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider; //* import for javadoc link
-import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti custom feature is used to edit the name and the cardinalities of a relationship.

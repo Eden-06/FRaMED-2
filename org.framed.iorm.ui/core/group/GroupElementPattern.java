@@ -8,10 +8,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDShapePattern;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with text shapes

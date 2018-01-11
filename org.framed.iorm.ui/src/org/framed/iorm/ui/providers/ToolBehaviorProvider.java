@@ -24,11 +24,9 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
-import org.framed.iorm.ui.literals.UILiterals;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.UIUtil;
 
 import customFeatures.StepInFeature;
 import customFeatures.StepInNewTabFeature;
@@ -43,6 +41,8 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 

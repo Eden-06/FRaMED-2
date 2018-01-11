@@ -34,10 +34,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.framed.iorm.ui.literals.IdentifierLiterals;
-import org.framed.iorm.ui.literals.NameLiterals;
-import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class implements an Eclipse wizard to create a role model.

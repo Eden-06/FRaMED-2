@@ -14,11 +14,11 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.util.UIUtil;
 
 /**
  * This graphiti pattern is used to work with {@link Relation}s

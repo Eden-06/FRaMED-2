@@ -7,8 +7,8 @@ import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.literals.UILiterals;
-import org.framed.iorm.ui.util.UIUtil;
+import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.UIUtil;
 
 import attributeAndOperation.references.AbstractUsedInReference;
 import customFeatures.references.AbstractStepInAndOutReference;
