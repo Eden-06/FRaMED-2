@@ -88,18 +88,25 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_RELATIONSHIP_FEATURE_NAME);
 	}
 	
-	//TODO doku, 
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * returns true if the new target or source has a type that is reference in {@link TypeReferences}
+	 */
 	@Override
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) 
-			return newShape.getType()==Type.ROLE_TYPE; //TODO reference use?
+			return typeReferences.getTypes().contains(newShape.getType());
 		return false;
 	}
 	
-	//TODO
-	//li>If a relationship was reconnected its intra relationship constraints need to be reconnected to.</li
+	/**
+	 * executes needed action after a reconnect was successful
+	 * <p>
+	 * If a relationship was reconnected its intra relationship constraints need to be reconnected to
+	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();
@@ -113,9 +120,13 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		}		
 	}
 	
-	//TODO
-	//Also deletes intra and inter relationship constraints when deleting relationships. This is needed to
-	//be done explicitly because graphiti does not automaticly deletes the business object of these constraints.
+	
+	/**
+	 * executes needed actions when a relationship is deleted
+	 * <p>
+	 * Also deletes intra and inter relationship constraints when deleting relationships. This is needed to
+	 * be done explicitly because graphiti does not automaticly deletes the business object of these constraints.
+	 */
 	public void delete(FRaMEDDeleteConnectionFeature deleteConnectionFeature, IDeleteContext deleteContext) {
 		Connection connection = (Connection) deleteContext.getPictogramElement();
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);

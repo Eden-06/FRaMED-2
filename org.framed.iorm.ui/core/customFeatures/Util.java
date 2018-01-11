@@ -66,7 +66,12 @@ public class Util {
 		return fitting;
 	}
 	
-	//TODO doku
+	/**
+	 * fetches the sub class of {@link AbstractStepInAndOutReference} fitting to the given type
+	 * @param type the type referenced in the {@link AbstractStepInAndOutReference} to search
+	 * @param stepInAndOutReferences all sub classes of {@link AbstractStepInAndOutReference}
+	 * @return a stepInAndOutReference fitting the given type
+	 */
 	public AbstractStepInAndOutReference getStepInAndOutReferenceForType(Type type, List<AbstractStepInAndOutReference> stepInAndOutReferences) {
 		for(AbstractStepInAndOutReference siaor : stepInAndOutReferences) {
 			if(type == siaor.getModelType())
@@ -75,13 +80,16 @@ public class Util {
 		throw new StepInAndOutReferenceNotFoundException();
 	}
 	
-	//TODO doku
+	/**
+	 * fetches the sub class of {@link AbstractStepInAndOutReference} fitting to the given diagram
+	 * @param diagram the diagram with the diagram kind in the {@link AbstractStepInAndOutReference} to search
+	 * @param stepInAndOutReferences all sub classes of {@link AbstractStepInAndOutReference}
+	 * @return a stepInAndOutReference fitting the diagram type
+	 */
 	public AbstractStepInAndOutReference getStepInAndOutReferenceForDiagramKind(Diagram diagram, List<AbstractStepInAndOutReference> stepInAndOutReferences) {
-		//Step 1
 		if(UIUtil.isDiagram_KindValue(diagram, UILiterals.DIAGRAM_KIND_CONTAINER_DIAGRAM) ||
 		   UIUtil.isDiagram_KindValue(diagram, UILiterals.DIAGRAM_KIND_MAIN_DIAGRAM))
 			return null;
-		//Step 2
 		for(AbstractStepInAndOutReference siaor : stepInAndOutReferences) {
 			if(UIUtil.isDiagram_KindValue(diagram, siaor.getDiagramKind()))
 				return siaor;

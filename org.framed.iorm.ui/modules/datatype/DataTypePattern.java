@@ -144,8 +144,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a data type and <br>
-	 * (2) if the target container is a diagram with a model linked and<br>
-	 * (3) the target container is the main diagram or a diagram of group
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the data type can be added
 	 */
 	@Override
@@ -304,7 +303,6 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>Diagram
 	 * returns true if:<br>
 	 * (1) the target container is a diagram with a model linked
-	 * (2) the target container is the main diagram or a diagram of group 
 	 * @return if an data type can be created
 	 */
 	@Override

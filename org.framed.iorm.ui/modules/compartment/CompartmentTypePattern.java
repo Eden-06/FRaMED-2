@@ -86,7 +86,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */
 	private final Util util = new Util();
 	
-	//TODO doku
+	/**
+	 * the reference to the step in feature 
+	 */
 	private final StepInReference stepInReference = new StepInReference();
 	
 	/**
@@ -187,7 +189,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.COMPARTMENT_TYPE) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					   return true && EditPolicyService.canAdd(addContext, this.getDiagram());
+					   return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}	}
 		return false;
 	}
@@ -364,7 +366,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-			return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+			return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

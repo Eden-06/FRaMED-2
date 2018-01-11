@@ -92,25 +92,6 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	    return contextButtonPadData;
 	}    
 	
-	//TODO overhaul doku
-	 /* Step 1: It gathers the selected pictogram element and its business object.
-	 * Step 2: It iterates over all custom feature to probably add to the list of custom feature to show in
-	 * 		   the context menu.<br>
-	 * Step 3: If its the {@link ChangeConfigurationFeature}, never add it to this list.<br>
-	 * Step 4: If its the {@link EditRelationshipFeature}, only add it to the list if a connection or decorator of
-	 * 		   a relationship is right clicked.<br>
-	 * Step 5: If its the {@link EditFulfillmentFeature}, only add it to the list if a connection or decorator of a
-	 * 		   fulfillment is right clicked.<br>
-	 * Step 6: If its the {@link StepInFeature} or the {@link StepInNewTabFeature} feature, check if the right clicked 
-	 * 		   pictogram element has a graphics algorithm that is the type body of a group or compartment type. If yes, 
-	 * 		   add the corresponding context menu entry to the context menu.<br>
-	 * Step 7: If its the {@link StepOutFeature} feature check, show the feature for a diagram only if its one of a group or compartment type.
-	 * 		   If a shape is right clicked, get the diagram that contains the shape first and then check for the same criteria
-	 * 		   for this diagram.<br>
-	 * Step 8: If its the {@link ResetLayoutForElementFeature} add it to the context menu if a relationships connection or
-	 * 		   connection decorator is right clicked. Also add it if a role types body shape or occurence constraint is selected.
-	 */
-	
 	/**
 	 * set the context menu for a specific context, for example a right clicked pictogram element.
 	 * <p>

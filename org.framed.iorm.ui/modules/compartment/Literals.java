@@ -23,7 +23,9 @@ public class Literals {
 						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.compartmentElements",
 						ICON_IMG_PATH = "modules/compartment/icon_compartmenttype.png";
 	
-	//TODO
+	/**
+	 * the kind of diagram this module's pattern creates
+	 */
 	public final String DIAGRAM_KIND = "compartment_diagram";
 	
 	/**

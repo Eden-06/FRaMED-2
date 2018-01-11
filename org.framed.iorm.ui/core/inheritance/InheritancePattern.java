@@ -77,7 +77,11 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		FPD = spec_FPD;
 	}
 	
-	//TODO doku
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * @return true if the shapes the new and old anchors belong to have the same type
+	 */
 	@Override
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor oldAnchor = context.getOldAnchor();

@@ -46,7 +46,25 @@ import roletype.Literals;
 import roletype.Util;
 import roletype.references.AttributeAndOperationsReference;
 
-//TODO Doku
+/**
+ * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
+ * of the type {@link Type#ROLE_TYPE} in the editor.
+ * <p>
+ * It deals with the following aspects of natural types:<br>
+ * (1) adding a role types to the diagram, especially its pictogram elements<br>
+ * (2) creating the role types, especially its business object<br>
+ * (3) direct editing of the role type's name<br>
+ * (4) layout the role types, especially setting lines, attributes and operations at the right positions<br>
+ * (5) updating the role types names, attributes names/ position and operation/ position<br>
+ * (6) move the drop shadow with the type body and disables moving the drop shadow manually<br>
+ * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
+ * (8) deleting all the natural types pictogram elements and its attached connections, also disables deleting
+ *     the drop shadow manually
+ * <p>
+ * If its not clear what <em>drop shadow shape</em> and <em>type body shape</em> means, see 
+ * {@link #add} for reference. 
+ * @author Kevin Kassin
+ */
 public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 
 	/**
@@ -123,8 +141,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a role type and <br>
-	 * (2) if the target container is a diagram with a model linked and<br>
-	 * (3) the target container is a diagram of a compartment type
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the role type can be added
 	 */
 	@Override
@@ -288,8 +305,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * calculates if a role type can be created
 	 * <p>
 	 * returns true if:<br>
-	 * (1) the target container is a diagram with a model linked and<br>
-	 * (2) the target container is a diagram of a compartment type
+	 * (1) the target container is a diagram with a model linked
 	 * @return if an role type can be created
 	 */
 	@Override

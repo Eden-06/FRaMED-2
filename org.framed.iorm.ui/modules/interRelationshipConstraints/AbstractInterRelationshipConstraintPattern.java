@@ -60,7 +60,11 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		FPD = spec_FPD;
 	}
 	
-	//TODO doku
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * return true if a the new anchor belongs to a relationship
+	 */
 	@Override
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
@@ -70,10 +74,12 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		return false;
 	}
 	
-	//TODO
-	//<li>If a inter relationship constraint was reconnected the connection need to be connected to the anchor
-	 //* 		   		used in the graphiti pictogram model which is another than used in the business model. See 
-	 //* 		   		{@link RelationshipPattern#add} for further informations.</li>
+	/**
+	 * executes needed action after a reconnect was successful
+	 * <p>
+	 * After the reconnect the connection need to be connected to the anchor of the relationship used in the 
+	 * graphiti pictogram model which is another than used in the business model.
+	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();

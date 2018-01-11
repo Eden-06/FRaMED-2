@@ -42,7 +42,7 @@ public class StepInFeature extends AbstractStepInFeature {
 	
 	/**
 	 * this operation encapsulates when the custom feature should be visible in the context menu
-	 * @return false, since the feature is never visible in the context menu
+	 * @return true if the shape to step into is reference in one of the {@link AbstractStepInAndOutReference}s.
 	 */
 	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
 		if(pictogramElement instanceof Shape &&

@@ -78,24 +78,29 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_FULFILLMENT_FEATURE_NAME);
 	}
 	
-	//TODO doku
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * @return true if the new source or target shape has the right type
+	 */
 	@Override
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {	
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
-				return newShape.getType() == Type.NATURAL_TYPE || newShape.getType() == Type.DATA_TYPE || 
-						newShape.getType() == Type.COMPARTMENT_TYPE || 
-						newShape.getType() == Type.ROLE_TYPE;
+				return typeReferences.getSourceTypes().contains(newShape.getType());
 			else
-				return newShape.getType() == Type.COMPARTMENT_TYPE;
+				return typeReferences.getTargetTypes().contains(newShape.getType());
 		}
 		return false;
 	}
-	
-	//TODO
-	//If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>
+
+	/**
+	 * executes needed action after a reconnect was successful
+	 * <p>
+	 * If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened
+	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		if(context.getReconnectType() == ReconnectionContext.RECONNECT_TARGET) {

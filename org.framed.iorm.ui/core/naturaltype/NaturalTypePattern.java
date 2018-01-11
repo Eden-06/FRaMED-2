@@ -140,8 +140,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a natural type and <br>
-	 * (2) if the target container is a diagram with a model linked and<br>
-	 * (3) the target container is the main diagram or a diagram of group
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the natural type can be added
 	 */
 	@Override
@@ -290,8 +289,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * calculates if a natural type can be created
 	 * <p>
 	 * returns true if:<br>
-	 * (1) the target container is a diagram with a model linked
-	 * (2) the target container is the main diagram or a diagram of group 
+	 * (1) the target container is a diagram with a model linked 
 	 * @return if an natural type can be created
 	 */
 	@Override

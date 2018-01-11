@@ -68,11 +68,4 @@ public abstract class AbstractStepInFeature extends FRaMEDCustomFeature {
 		}	}	
 		return false;
 	}
-	
-	/**
-	 * to be overriden in subclasses
-	 */
-	@Override
-	public abstract void execute(ICustomContext context);
-
 }

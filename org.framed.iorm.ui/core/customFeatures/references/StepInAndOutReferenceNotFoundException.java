@@ -1,6 +1,9 @@
 package customFeatures.references;
 
-//TODO doku
+/**
+ * This exception is thrown no fitting {@link AbstractStepInAndOutReference} is found in the utility class of this module.
+ * @author Kevin Kassin
+ */
 public class StepInAndOutReferenceNotFoundException extends RuntimeException {
 
 	/**

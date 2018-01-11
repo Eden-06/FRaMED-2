@@ -91,7 +91,9 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private List<AbstractInnerGroupingReference> innerGroupingReferences; 
 	
-	//TODO doku
+	/**
+	 * the reference to the step in feature 
+	 */
 	private final StepInReference stepInReference = new StepInReference();
 	
 	/**
@@ -168,8 +170,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) if the added business object is a group and <br>
-	 * (2) if the target container is a diagram with a model linked and<br>
-	 * (3) the target container is the main diagram or a diagram of group
+	 * (2) if the target container is a diagram with a model linked
 	 * @return if the group can be added
 	 */
 	@Override
@@ -309,7 +310,6 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the target container is a diagram with a model linked
-	 * (2) the target container is the main diagram or a diagram of group 
 	 * @return if an group can be created
 	 */
 	@Override

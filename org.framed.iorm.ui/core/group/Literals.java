@@ -23,7 +23,9 @@ public class Literals {
 						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.GroupElements",
 						ICON_IMG_PATH = "core/group/icon_group.png";
 						
-	//TODO
+	/**
+	 * the kind of diagrams the module pattern creates
+	 */
 	public final String DIAGRAM_KIND = "group_diagram";
 
 	/**

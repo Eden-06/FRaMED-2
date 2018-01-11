@@ -64,7 +64,7 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 	
 	/**
 	 * this operation encapsulates when the custom feature should be visible in the context menu
-	 * @return false, since the feature is never visible in the context menu
+	 * @return true is inner diagram or a shape in the inner diagram is right clicked
 	 */
 	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
 		if(pictogramElement instanceof Diagram) {
@@ -102,7 +102,6 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 		return false;
 	}
 
-	//TODO doku?
 	/**
 	 * This operation executes the step out itself using the following steps:
 	 * <p>
