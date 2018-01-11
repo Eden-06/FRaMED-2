@@ -25,9 +25,12 @@ import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -43,6 +46,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
+import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
@@ -398,7 +402,7 @@ public class UIUtil {
 		});
 	}
 	
-	//features
+	//Features
 	//~~~~~~~~
 	/**
 	 * finds a feature by its name in an array of general features
@@ -427,6 +431,22 @@ public class UIUtil {
 		}	
 		throw new NoFeatureForPatternFound(featureName);
 	}	
+	
+	/**
+	 * Changes the source or target reference of the business object relation depending which node of the
+	 * relation was changed
+	 * @param context the context object holding all the reconnection information
+	 */
+	public static void changeSourceOrTargetOfRelation(IReconnectionContext context) {
+		Connection connection = context.getConnection();
+		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);
+		Anchor newAnchor = context.getNewAnchor();
+		org.framed.iorm.model.ModelElement newShape = ConnectionPatternUtil.getModelElementForAnchor(newAnchor);
+		if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
+			relation.setSource(newShape);
+		else
+			relation.setTarget(newShape);
+	}
 	
 	//finding pattern dynamically
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~

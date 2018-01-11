@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -74,6 +75,21 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.INHERITANCE;
 		FPD = spec_FPD;
+	}
+	
+	//TODO doku
+	@Override
+	public boolean canReconnect(IReconnectionContext context) {
+		Anchor oldAnchor = context.getOldAnchor();
+	    Anchor newAnchor = context.getNewAnchor();
+	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
+	    org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
+	    if(oldShape != null && newShape != null) {
+	    	if(oldShape.getContainer() == newShape.getContainer()) {
+	    		if(newShape.getType() == oldShape.getType()) {
+	    			return true;
+	    }	}	}
+	    return false;
 	}
 	
 	//add feature

@@ -140,6 +140,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		return contextMenuEntries.toArray(new IContextMenuEntry[contextMenuEntries.size()]);
 	}
 	
+	//TODO doku anpassen
 	/**
 	 * builds the palette of the editor using the following steps
 	 * <p>

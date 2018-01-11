@@ -5,7 +5,9 @@ import java.util.List;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -56,6 +58,29 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	public AbstractInterRelationshipConstraintPattern() {
 		super();
 		FPD = spec_FPD;
+	}
+	
+	//TODO doku
+	@Override
+	public boolean canReconnect(IReconnectionContext context) {
+		Anchor newAnchor = context.getNewAnchor();
+		org.framed.iorm.model.ModelElement newRelation = UIUtil.getModelElementForAnchor(newAnchor);
+		if(newRelation != null) 
+			return (newRelation.getType() == Type.RELATIONSHIP);
+		return false;
+	}
+	
+	//TODO
+	@Override
+	public void postReconnect(IReconnectionContext context) {
+		Connection connection = context.getConnection();
+		Anchor graphicalNewAnchor = null;
+		graphicalNewAnchor = util.getGraphicalAnchorForBusinessModelAnchor(context.getNewAnchor());
+		if(graphicalNewAnchor == null) return;
+		if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
+			connection.setStart(graphicalNewAnchor);
+		else     
+			connection.setEnd(graphicalNewAnchor);
 	}
 		
 	//add feature

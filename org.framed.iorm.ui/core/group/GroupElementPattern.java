@@ -1,10 +1,8 @@
 package group;
 
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -49,13 +47,6 @@ public class GroupElementPattern extends FRaMEDShapePattern implements IPattern 
 		ICON_IMG_PATH = literals.ELEMENTS_ICON_IMG_PATH;
 		modelType = null;
 		FPD = spec_FPD;
-	}
-	
-	/**
-	 * return null since this pattern does not offer a double click feature
-	 */
-	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
-		return null;
 	}
 	
 	/**

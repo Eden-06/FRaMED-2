@@ -122,6 +122,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * returns the double click feature of this pattern 
 	 */
+	@Override
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, stepInReference.getStepInFeatureName());
 	}

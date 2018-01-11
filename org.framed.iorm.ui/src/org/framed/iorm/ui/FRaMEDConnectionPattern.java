@@ -1,6 +1,7 @@
 package org.framed.iorm.ui;
 
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.services.Graphiti;
@@ -99,4 +100,12 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return null;
 	}
+	
+	//TODO doku standard op, false
+	public boolean canReconnect(IReconnectionContext context) {
+		return false;
+	}
+	
+	//TODO doku standard op do nothing
+	public void postReconnect(IReconnectionContext context) {}
 }

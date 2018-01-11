@@ -6,8 +6,10 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
@@ -77,8 +79,33 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	/**
 	 * returns the double click feature of this pattern 
 	 */
+	@Override
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_RELATIONSHIP_FEATURE_NAME);
+	}
+	
+	//TODO doku, 
+	@Override
+	public boolean canReconnect(IReconnectionContext context) {
+		Anchor newAnchor = context.getNewAnchor();
+		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
+		if(newShape != null) 
+			return newShape.getType()==Type.ROLE_TYPE; //TODO reference use?
+		return false;
+	}
+	
+	//TODO
+	@Override
+	public void postReconnect(IReconnectionContext context) {
+		Connection connection = context.getConnection();
+		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);
+		if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE) {
+			for(Relation intraRelCon : relation.getReferencedRelation()) 
+				intraRelCon.setSource(relation.getSource());
+		} else {
+			for(Relation intraRelCon : relation.getReferencedRelation()) 
+				intraRelCon.setTarget(relation.getTarget());
+		}		
 	}
 	
 	//add feature

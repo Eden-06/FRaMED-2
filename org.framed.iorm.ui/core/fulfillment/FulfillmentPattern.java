@@ -4,8 +4,10 @@ import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -71,9 +73,42 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	/**
 	 * returns the double click feature of this pattern 
 	 */
+	@Override
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, literals.EDIT_FULFILLMENT_FEATURE_NAME);
 	}
+	
+	//TODO doku
+	@Override
+	public boolean canReconnect(IReconnectionContext context) {
+		Anchor newAnchor = context.getNewAnchor();
+		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
+		if(newShape != null) {	
+			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
+				return newShape.getType() == Type.NATURAL_TYPE || newShape.getType() == Type.DATA_TYPE || 
+						newShape.getType() == Type.COMPARTMENT_TYPE || 
+						newShape.getType() == Type.ROLE_TYPE;
+			else
+				return newShape.getType() == Type.COMPARTMENT_TYPE;
+		}
+		return false;
+	}
+	
+	//TODO
+	@Override
+	public void postReconnect(IReconnectionContext context) {
+		if(context.getReconnectType() == ReconnectionContext.RECONNECT_TARGET) {
+			Connection connection = context.getConnection();
+			CustomContext customContext = new CustomContext();
+			PictogramElement[] pictogramElement = new PictogramElement[1];
+			pictogramElement[0] = connection;
+			customContext.setPictogramElements(pictogramElement);
+			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customContext);
+			EditFulfillmentFeature editFulfillmentFeature = (EditFulfillmentFeature) UIUtil
+					.findFeatureByName(customFeatures, literals.EDIT_FULFILLMENT_FEATURE_NAME);
+			if (editFulfillmentFeature.canExecute(customContext))
+				editFulfillmentFeature.execute(customContext);
+	}	}
 	
 	// add feature
 	// ~~~~~~~~~~~
