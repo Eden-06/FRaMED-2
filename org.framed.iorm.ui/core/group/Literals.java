@@ -2,6 +2,7 @@ package group;
 
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.palette.PaletteView;
 
 public class Literals {
 
@@ -27,6 +28,11 @@ public class Literals {
 	 * the kind of diagrams the module pattern creates
 	 */
 	public final String DIAGRAM_KIND = "group_diagram";
+	
+	/**
+	 * the palette view of this module's pattern
+	 */
+	public final PaletteView paletteView = PaletteView.TOPLEVEL_VIEW; 
 
 	/**
 	 * identifiers used for the group

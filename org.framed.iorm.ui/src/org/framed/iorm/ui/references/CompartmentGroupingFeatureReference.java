@@ -22,5 +22,6 @@ public class CompartmentGroupingFeatureReference extends AbstractGroupingFeature
 		SHAPE_ID_CONTAINER = literals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER;
 		SHAPE_ID_NAME = literals.SHAPE_ID_COMPARTMENTTYPE_NAME;
 		SHAPE_ID_TYPEBODY = literals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
+		paletteView = literals.paletteView;
 	}
 }

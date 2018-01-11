@@ -2,6 +2,7 @@ package compartment;
 
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.palette.PaletteView;
 
 public class Literals {
 	
@@ -27,6 +28,11 @@ public class Literals {
 	 * the kind of diagram this module's pattern creates
 	 */
 	public final String DIAGRAM_KIND = "compartment_diagram";
+	
+	/**
+	 * the palette view of this module's patterns
+	 */
+	public final PaletteView paletteView = PaletteView.COMPARTMENT_VIEW; 
 	
 	/**
 	 * identifiers used for compartment types

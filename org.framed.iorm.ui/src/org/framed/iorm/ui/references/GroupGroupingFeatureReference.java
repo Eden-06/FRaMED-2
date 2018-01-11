@@ -22,5 +22,6 @@ public class GroupGroupingFeatureReference extends AbstractGroupingFeatureRefere
 		SHAPE_ID_CONTAINER = literals.SHAPE_ID_GROUP_CONTAINER;
 		SHAPE_ID_NAME = literals.SHAPE_ID_GROUP_NAME;
 		SHAPE_ID_TYPEBODY = literals.SHAPE_ID_GROUP_TYPEBODY;
+		paletteView = literals.paletteView;
 	}
 }

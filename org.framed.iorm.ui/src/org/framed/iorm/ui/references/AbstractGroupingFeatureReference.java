@@ -1,6 +1,7 @@
 package org.framed.iorm.ui.references;
 
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.palette.PaletteView;
 
 /**
  * This is the abstract superclass for references which contain informations about feature patterns that can
@@ -25,6 +26,11 @@ public abstract class AbstractGroupingFeatureReference {
 	protected String SHAPE_ID_CONTAINER,
 					 SHAPE_ID_NAME,
 					 SHAPE_ID_TYPEBODY;
+	
+	/**
+	 * the palette view of the grouping feature when stepped in it
+	 */
+	protected PaletteView paletteView;
 	
 	/**
 	 * getter method for modelType
@@ -64,5 +70,13 @@ public abstract class AbstractGroupingFeatureReference {
 	 */
 	public String getShapeIdTypebody() {
 		return SHAPE_ID_TYPEBODY;
+	}
+	
+	/**
+	 * getter method for paletteView
+	 * @return the palette view of the grouping feature when stepped in it
+	 */
+	public PaletteView getPaletteView() {
+		return paletteView;
 	}
 }

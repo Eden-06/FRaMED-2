@@ -68,7 +68,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
 	    			if(targetShape.getType() == sourceShape.getType())
-	    				return true && EditPolicyService.canCreate(createContext, this.getDiagram());
+	    				return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 	    return false;
 	}

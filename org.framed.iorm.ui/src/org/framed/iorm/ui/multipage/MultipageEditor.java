@@ -39,12 +39,12 @@ import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.TransformationFailedException;
-import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 import org.framed.iorm.ui.references.ModelFeatureReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
@@ -60,19 +60,16 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  */
 public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
 	
+	/**
+	 * the reference to the model feature
+	 */
 	ModelFeatureReference modelFeatureReferences = new ModelFeatureReference();
 	
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
 	 */
 	private final String DIAGRAM_PROVIDER_ID = UILiterals.DIAGRAM_PROVIDER_ID;
-		
-	//TODO fix
-	/**
-	 * the value for the property diagram kind of compartment types diagram gathered from {@link IdentifierLiterals} 
-	 */
-	private final String DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM =  "compartment_diagram";
-		
+				
 	/**
 	 * name literals for the pages of the multipage editor and the model feature
 	 * <p>
@@ -247,14 +244,14 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		if(getEditorInput() instanceof DiagramEditorInput) {
 			Resource resource = UIUtil.getResourceFromEditorInput(getEditorInput());	
 			Diagram diagram = UIUtil.getDiagramForResourceOfDiagramEditorInput(resource);
-			if(UIUtil.isDiagram_KindValue(diagram, DIAGRAM_KIND_COMPARTMENTTYPE_DIAGRAM)) {
-				ToolBehaviorProvider toolBehaviorProvider = 
-					(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
-				toolBehaviorProvider.setPaletteType(PaletteView.COMPARTMENT_VIEW);	
-				editorDiagram.getDiagramBehavior().refreshPalette();
-			}	
-		}
-	} 
+			for(AbstractGroupingFeatureReference agfr : UIUtil.getGroupingFeatureReferences()) {
+				if(UIUtil.isDiagram_KindValue(diagram, agfr.getDiagramKind())) {
+					ToolBehaviorProvider toolBehaviorProvider = 
+							(ToolBehaviorProvider) editorDiagram.getDiagramTypeProvider().getCurrentToolBehaviorProvider();
+					toolBehaviorProvider.setPaletteType(agfr.getPaletteView());	
+			}	}
+			editorDiagram.getDiagramBehavior().refreshPalette();
+	}	} 
 	
 	/**
 	 * This method add pages to the multipage editor if the editor input is of type {@link IFileEditorInput} 
