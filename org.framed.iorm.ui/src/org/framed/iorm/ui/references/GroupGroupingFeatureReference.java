@@ -2,11 +2,20 @@ package org.framed.iorm.ui.references;
 
 import org.framed.iorm.model.Type;
 
-//TODO Doku für alles
+/**
+ * This is the grouping feature reference which contain informations about the group
+ * @author Kevin Kassin
+ */
 public class GroupGroupingFeatureReference extends AbstractGroupingFeatureReference {
 
+	/**
+	 * the group's literals
+	 */
 	group.Literals literals = new group.Literals();
 	
+	/**
+	 * class constructor
+	 */
 	public GroupGroupingFeatureReference() {
 		modelType = Type.GROUP;
 		DIAGRAM_KIND = literals.DIAGRAM_KIND;

@@ -31,6 +31,8 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	
 	/**
 	 * the {@link Type} of business object the pattern creates 
+	 * <p>
+	 * The standard value is null, but sub classes can set the attribute if needed.
 	 */
 	protected Type modelType = null;
 	
@@ -41,7 +43,9 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	
 	/**
 	 * the identifier or the path for the icon of the create feature
-	 * TODO standard value
+	 * <p>
+	 * The image id has to be set, so there is no standard value. Meanwhile the standard value of the path 
+	 * is an empty string, but sub classes can set the attribute if needed.
 	 */
 	protected String ICON_IMG_ID,
 				     ICON_IMG_PATH= "";
@@ -79,39 +83,69 @@ public abstract class FRaMEDConnectionPattern extends AbstractConnectionPattern 
 	
 	/**
 	 * getter method for the icon file path for the create feature in this pattern
-	 * @return the image file path for the icon of the create feature 
-	 * TODO standard value erklären
+	 * @return the image file path for the icon of the create feature
 	 */
 	public String getCreateImagePath() {
 		return ICON_IMG_PATH ;
 	}
 	
-	//TODO doku standard value erklären
+	/**
+	 * getter method for the model type of the pattern
+	 * @return the model type of the pattern
+	 */
 	public Type getModelType() {
 		return modelType;
 	}
  	
 	/**
-	 * get method for the fpd
+	 * getter method for the fpd
 	 * @return the feature palette descriptor
 	 */
 	public FeaturePaletteDescriptor getFeaturePaletteDescriptor() {
 		return FPD;
 	}
 	
-	//TODO doku standard op to not be implmented if null returned
+	/**
+	 * encapsulates if and which custom feature should be used when double clicking a pictogram element
+	 * created by the pattern
+	 * <p>
+	 * The standard implementation gives back null since most pattern don't use a double click feature. A
+	 * sub class can override this implementation if needed.
+ 	 * @param customFeatures the list of possible custom feature to call
+	 * @return the custom feature that should be used when double clicking a pictogram element
+	 * created by the pattern or null if none should be called
+	 */
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return null;
 	}
 	
-	//TODO doku standard op, false
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * The standard implementation returns false to handle reconnects more safely. 
+	 * A sub class can override this implementation if needed.
+	 * @param context contains information about the reconnect 
+	 * @return if a reconnect can be executed
+	 */
 	public boolean canReconnect(IReconnectionContext context) {
 		return false;
 	}
 	
-	//TODO doku standard op do nothing
+	/**
+	 * executes needed action after a reconnect was successful
+	 * <p>
+	 * The standard implementation does nothing. A sub class can override this implementation if needed.
+	 * @param context contains information about the reconnect
+	 */
 	public void postReconnect(IReconnectionContext context) {}
 	
-	//TODO doku standard does nothing to be overwritten by pattern if needed
+	/**
+	 * executes needed actions when a connection is deleted
+	 * <p>
+	 * /**
+	 * The standard implementation does nothing. A sub class can override this implementation if needed.
+	 * @param deleteConnectionFeature the managing delete feature for all connections
+	 * @param deleteContext contains informations about the deletion
+	 */
 	public void delete(FRaMEDDeleteConnectionFeature deleteConnectionFeature, IDeleteContext deleteContext) {};
 }

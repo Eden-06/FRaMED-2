@@ -750,7 +750,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			//at creation no diagram is existing so catch this
 			List<String> modelElementsNames = null;
 			try {
-				modelElementsNames = UIUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.COMPARTMENT_TYPE);
+				modelElementsNames = UIUtil.getGroupingFeaturesModelElementNames(pictogramElement, getDiagram(), Type.COMPARTMENT_TYPE);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			
 			//check for update: different names, different amount of attibutes/ operations
@@ -834,7 +834,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 				            for(ModelElement modelElement : compartmentModel.getElements()) {
 					            if(modelElement instanceof org.framed.iorm.model.Shape) {	
 				            		Shape elementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
-					            	Text elementText = graphicAlgorithmService.createText(elementShape, UIUtil.getGroupOrCompartmentTypeElementText(modelElement));
+					            	Text elementText = graphicAlgorithmService.createText(elementShape, UIUtil.getGroupingFeaturesElementText(modelElement));
 					            	elementText.setForeground(manageColor(literals.COLOR_TEXT));
 					            	UIUtil.setShape_IdValue(elementShape, literals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT);
 					            	counter++;		
@@ -946,7 +946,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 				if(shape instanceof ContainerShape) {
 					for(AbstractInnerGroupingReference reference : innerGroupingReferences) {
 						if(UIUtil.isShape_IdValue(shape, reference.getShapeIdContainer()))
-							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
+							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingFeaturesContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
 			}	}	}
 			//Step 4
 			IEditorReference[] openEditors = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();

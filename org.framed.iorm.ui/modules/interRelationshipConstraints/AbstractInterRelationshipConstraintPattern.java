@@ -71,6 +71,9 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	}
 	
 	//TODO
+	//<li>If a inter relationship constraint was reconnected the connection need to be connected to the anchor
+	 //* 		   		used in the graphiti pictogram model which is another than used in the business model. See 
+	 //* 		   		{@link RelationshipPattern#add} for further informations.</li>
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();

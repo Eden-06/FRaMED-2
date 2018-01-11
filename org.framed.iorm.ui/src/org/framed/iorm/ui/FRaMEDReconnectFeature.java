@@ -9,15 +9,19 @@ import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.ui.providers.FeatureProvider;
 
-import relationship.RelationshipPattern;
-
 /**
- * This class manages checks and needed changes to the business model when reconnecting relations 
+ * This class manages checks and needed changes to the business model when reconnecting relations
+ * <p>
+ * It uses the {@link FRaMEDConnectionPattern#canReconnect(IReconnectionContext)} and 
+ * {@link FRaMEDConnectionPattern#postReconnect(IReconnectionContext)} operations to get
+ * pattern specific reconnect behavior. 
  * @author Kevin Kassin
  */
 public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	
-	//TODO
+	/**
+	 * the list of connection patterns known to the feature provider to which this feature belongs to
+	 */
 	private List<IConnectionPattern> connectionFeatures;
 	
 	/**
@@ -29,10 +33,10 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		connectionFeatures = ((FeatureProvider) getFeatureProvider()).getConnectionPatterns();
 	}
 	
-	//TODO doku with steps?
 	/**
-	 * decides if a reconnect can be executed by delegating the decision depending in the type of the relation to
-	 * reconnect
+	 * decides if a reconnect can be executed by delegating the decision to the 
+	 * {@link FRaMEDConnectionPattern#canReconnect(IReconnectionContext)} implementations of the
+	 * connection patterns
 	 */
 	@Override
     public boolean canReconnect(IReconnectionContext context) {
@@ -46,30 +50,13 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		return false;
     }	
 	
-	//TODO overhaul doku
 	/**
-	 * Executes needed action after a reconnect was succesful using the following steps:
+	 * Executes needed action after a reconnect was successful using the following steps:
 	 * <p>
 	 * Step 1: For every reconnect the source or target of the relations business object has to be changed
 	 * 		   using {@link #changeSourceOrTargetOfRelation}.<br>
-	 * Step 2: load dynamicly
-	 * 
-	 * 
-	 * 
-	 * Depending on the type of the reconnected relation there can be additional needed actions to do.
-	 * 		   
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * <ul>
-	 * 			<li>If a inter relationship constraint was reconnected the connection need to be connected to the anchor
-	 * 		   		used in the graphiti pictogram model which is another than used in the business model. See 
-	 * 		   		{@link RelationshipPattern#add} for further informations.</li>
-	 * 			<li>If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>
-	 *   	   	<li>If a relationship was reconnected its intra relationship constraints need to be reconnected to.</li> 
-	 *   	   </ul>
+	 * Step 2: It calls the {@link FRaMEDConnectionPattern#postReconnect(IReconnectionContext)} implementations to 
+	 * 		   execute pattern specific reconnect behavior. 
 	 */
 	@Override
 	public void postReconnect(IReconnectionContext context) {

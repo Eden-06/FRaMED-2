@@ -13,15 +13,18 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.ui.providers.FeatureProvider;
 
 /**
- * This graphiti custom feature is used to disabling the possibility of deleting connection decorators and the 
+ * This graphiti delete feature is used to disabling the possibility of deleting connection decorators and the 
  * "Are you sure?" message when deleting connections.
  * <p>
- * It is returned by the operation {@link FeatureProvider#getDeleteFeatureAdditional}.
+ * It also calls the {@link FRaMEDConnectionPattern#delete(FRaMEDDeleteConnectionFeature, IDeleteContext)} operation to get
+ * pattern specific deletion behavior. 
  * @author Kevin Kassin
  */
 public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 
-	//TODO
+	/**
+	 * the list of connection patterns known to the feature provider to which this feature belongs to
+	 */
 	private List<IConnectionPattern> connectionFeatures;
 	
 	/**
@@ -41,12 +44,9 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 		return !(deleteContext.getPictogramElement() instanceof ConnectionDecorator);
 	}
 	
-	//TODO
 	/**
-	 * disables the "Are you sure?" message when deleting connections
-	 * <p>
-	 * Also deletes intra and inter relationship constraints when deleting relationships. This is needed to
-	 * be done explicitly because graphiti does not automaticly deletes the business object of these constraints.
+	 * calls pattern specific deletion behavior for the connection patterns (Step 1) and
+	 * disables the "Are you sure?" message when deleting connections (Step 2)
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
@@ -64,7 +64,9 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 	
 	}
 	
-	//TODO publish	
+	/**
+	 * publishes the deleteBusinessObject(Object) operation of the super class
+	 */
 	public void deleteBusinessObject(Object object) {
 		super.deleteBusinessObject(object);
 	}

@@ -581,7 +581,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			//at creation no diagram is existing so catch this
 			List<String> modelElementsNames = null;
 			try {
-				modelElementsNames = UIUtil.getGroupOrCompartmentTypeElementNames(pictogramElement, getDiagram(), Type.GROUP);
+				modelElementsNames = UIUtil.getGroupingFeaturesModelElementNames(pictogramElement, getDiagram(), Type.GROUP);
 			} catch(NoDiagramFoundException e) { return Reason.createFalseReason(); }
  			//model element names in model container of shape
 			List<String> pictogramElementsNames = util.getContentPreviewElementsNames(pictogramElement);		
@@ -628,7 +628,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		                modelContainerShape.getChildren().clear();
 			            for(ModelElement modelElement : groupModel.getElements()) {
 			            	Shape groupElementShape = pictogramElementCreateService.createShape(modelContainerShape, true);
-			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, UIUtil.getGroupOrCompartmentTypeElementText(modelElement));
+			            	Text groupElementText = graphicAlgorithmService.createText(groupElementShape, UIUtil.getGroupingFeaturesElementText(modelElement));
 			            	groupElementText.setForeground(manageColor(literals.COLOR_TEXT));
 			            	UIUtil.setShape_IdValue(groupElementShape, literals.SHAPE_ID_GROUP_ELEMENT);
 			            }
@@ -734,7 +734,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				if(shape instanceof ContainerShape) {
 					for(AbstractInnerGroupingReference reference : innerGroupingReferences) {
 						if(UIUtil.isShape_IdValue(shape, reference.getShapeIdContainer())) {
-							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
+							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingFeaturesContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
 						}
 					}	
 			}	}

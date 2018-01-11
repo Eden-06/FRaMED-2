@@ -27,12 +27,6 @@ import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import customFeatures.StepInFeature;
-import customFeatures.StepInNewTabFeature;
-import customFeatures.StepOutFeature;
-import relationship.EditRelationshipFeature;
-
 import org.framed.iorm.ui.providers.FeatureProvider; //*import for javadoc link
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
@@ -99,12 +93,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	}    
 	
 	//TODO overhaul doku
-	/**
-	 * set the context menu for a specific context, for example a right clicked pictogram element.
-	 * <p>
-	 * This operation controls which custom features are shown in the context menu depending on the
-	 * right clicked pictogram element. It does this using the following steps:<br>
-	 * Step 1: It gathers the selected pictogram element and its business object.
+	 /* Step 1: It gathers the selected pictogram element and its business object.
 	 * Step 2: It iterates over all custom feature to probably add to the list of custom feature to show in
 	 * 		   the context menu.<br>
 	 * Step 3: If its the {@link ChangeConfigurationFeature}, never add it to this list.<br>
@@ -120,6 +109,16 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * 		   for this diagram.<br>
 	 * Step 8: If its the {@link ResetLayoutForElementFeature} add it to the context menu if a relationships connection or
 	 * 		   connection decorator is right clicked. Also add it if a role types body shape or occurence constraint is selected.
+	 */
+	
+	/**
+	 * set the context menu for a specific context, for example a right clicked pictogram element.
+	 * <p>
+	 * This operation controls which custom features are shown in the context menu depending on the
+	 * right clicked pictogram element. It does this using the following steps:<br>
+	 * Step 1: It gathers the selected pictogram element and its business object.<br>
+	 * Step 2: It uses calls the specific {@link FRaMEDCustomFeature#contextMenuExpression(PictogramElement, EObject)}
+	 * 		   implications to decide if a feature should be visible in the context menu.
 	 */
 	@Override
 	public IContextMenuEntry[] getContextMenu(ICustomContext customContext) {
@@ -139,17 +138,15 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		return contextMenuEntries.toArray(new IContextMenuEntry[contextMenuEntries.size()]);
 	}
 	
-	//TODO doku anpassen
 	/**
 	 * builds the palette of the editor using the following steps
 	 * <p>
 	 * Step 1: It creates the different palette categories.<br>
 	 * Step 2: See {@link #getListOfFramedFeatureNames()}.<br>
-	 * Step 3: It adds create features of shape patterns to the correct categories according to the {@link FeatureManager}
-	 * 		   using the operation {@link #addShapeFeature}.<br>
-	 * Step 4: It adds create features of connection patterns to the correct categories according to the {@link FeatureManager}
-	 * 		   using the operation {@link #addConnectionFeature}.<br>
-	 * Step 5: It adds the categories with the added features to the palette.
+	 * Step 3: It access all (a) {@link FRaMEDShapePattern}s and (b) {@link FRaMEDConnectionPattern}s of the feature provider and
+	 * 		   adds them to the correct categories if fitting using (a) {@link #addShapeFeature(FRaMEDShapePattern, List)} and
+	 * 		   (b) {@link #addConnectionFeature(FRaMEDConnectionPattern, List)}.
+	 * Step 4: It adds the categories with the added features to the palette.
 	 */
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
@@ -162,16 +159,17 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		//Step 2
 		List<String> framedFeatureNames = getListOfFramedFeatureNames();
 		//Step 3 
+		//(a)
 		for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
 			if(iPattern instanceof FRaMEDShapePattern)
 				addShapeFeature((FRaMEDShapePattern) iPattern, framedFeatureNames);
 		}
-		//Step 4
+		//(b)
 		for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 			if(iConPattern instanceof FRaMEDConnectionPattern)
 				addConnectionFeature((FRaMEDConnectionPattern) iConPattern, framedFeatureNames);
 		}
-		//Step 5
+		//Step 4
 		pallete.add(entityCategory); 
 		pallete.add(propertiesCategory); 
 		pallete.add(relationsCategory); 
@@ -278,9 +276,12 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 					break;
 	}	}	}	}
 	
-	//TODO doku
 	/**
-	 * enables the edit features for relationships and fulfillments when double clicking such a relation
+	 * enables the double click feature for shapes and connections
+	 * <p>
+	 * To do this it uses (a) {@link FRaMEDConnectionPattern#getDoubleClickFeature(ICustomFeature[])} and 
+	 * (b) {@link FRaMEDShapePattern#getDoubleClickFeature(ICustomFeature[])} to decide if and which custom
+	 * feature should called when double clicking a pictogram element of the pattern.
 	 */
 	@Override
 	public ICustomFeature getDoubleClickFeature(IDoubleClickContext context) {
@@ -288,14 +289,15 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			PictogramElement pictogramElement = context.getPictogramElements()[0];
 			EObject businessObject = UIUtil.getBusinessObjectIfExactlyOne(pictogramElement);
 			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
+			//(a)
 			if(businessObject instanceof Relation) {
-				//Step 4
 				for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 					if(iConPattern instanceof FRaMEDConnectionPattern) {
 						FRaMEDConnectionPattern framedConnectionPattern = (FRaMEDConnectionPattern) iConPattern;
 						if(framedConnectionPattern.getModelType() == ((Relation) businessObject).getType())
 							return (ICustomFeature) framedConnectionPattern.getDoubleClickFeature(customFeatures);
 			}	}	}
+			//(b)
 			if(businessObject instanceof org.framed.iorm.model.Shape) {
 				for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
 					if(iPattern instanceof FRaMEDShapePattern) {

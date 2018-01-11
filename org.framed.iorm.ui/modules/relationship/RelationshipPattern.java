@@ -99,6 +99,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	}
 	
 	//TODO
+	//li>If a relationship was reconnected its intra relationship constraints need to be reconnected to.</li
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();
@@ -113,6 +114,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	}
 	
 	//TODO
+	//Also deletes intra and inter relationship constraints when deleting relationships. This is needed to
+	//be done explicitly because graphiti does not automaticly deletes the business object of these constraints.
 	public void delete(FRaMEDDeleteConnectionFeature deleteConnectionFeature, IDeleteContext deleteContext) {
 		Connection connection = (Connection) deleteContext.getPictogramElement();
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(connection);

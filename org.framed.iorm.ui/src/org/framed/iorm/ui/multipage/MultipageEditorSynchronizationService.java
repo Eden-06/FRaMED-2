@@ -1,6 +1,5 @@
 package org.framed.iorm.ui.multipage;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,46 +138,36 @@ public class MultipageEditorSynchronizationService {
      * creates an equivalent editor input for another editor input depending on the editor input of the synchronization base
      * using the following steps:
      * <p>
-     * Step 1: If the editor input of the synchronization base is of the right type it gets its resource. Otherwise it throws
+     * Step 1: It gets a list of all references that contain informations about features that can group other objects.<br>
+     * Step 2: If the editor input of the synchronization base is of the right type it gets its resource. Otherwise it throws
      * an {@link InvalidTypeOfEditorInputException}.<br>
-     * Step 2: If the editor input of the multipage editor that is not the synchronize base is of the type {@link IFileEditorInput}, 
+     * Step 4: If the editor input of the multipage editor that is not the synchronize base is of the type {@link IFileEditorInput}, 
      * 		   return an file editor input for the synchronization base.<br>
-     * Step 3: If the editor input of the multipage editor that is not the synchronize base is of the type {@link DiagramEditorInput},
+     * Step 4: If the editor input of the multipage editor that is not the synchronize base is of the type {@link DiagramEditorInput},
      * 		   get the diagram of the editor input, search with its name the same diagram in the synchronization base and create a
      * 		   diagram editor input with the found diagram.<br> 
-     * Step 4: If neither Step 2 or 3 can be executed throw an {@link InvalidTypeOfEditorInputException}.
+     * Step 5: If neither Step 2 or 3 can be executed throw an {@link InvalidTypeOfEditorInputException}.
      * @param baseEditorInput the editor input of the synchronization base
      * @param changedEditorInput the editor input of the multipage editor that is not the synchronization base
      * @return an equivalent editor input for another editor input depending on the editor input of the synchronization base
      * @throws InvalidTypeOfEditorInputException
      */
 	private static IEditorInput getEquivalentEditorInput(IEditorInput baseEditorInput, IEditorInput changedEditorInput) {
-		//TODO doku Step0... load grouping references dynamicly
-		List<Class<?>> classes = UIUtil.findSourceJavaClasses();
-		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
-		}	}	}
 		//Step 1
+		List<AbstractGroupingFeatureReference> groupingFeatures = UIUtil.getGroupingFeatureReferences();
+		//Step 2
 		Resource baseResource = null;
 		if(baseEditorInput instanceof IFileEditorInput || baseEditorInput instanceof DiagramEditorInput)
 			baseResource = UIUtil.getResourceFromEditorInput(baseEditorInput);
 		else throw new InvalidTypeOfEditorInputException();
-		//Step 2
+		//Step 3
 		if(changedEditorInput instanceof IFileEditorInput)
 			return UIUtil.getIFileEditorInputForResource(baseResource);
-		//Step 3
+		//Step 4
 		if(changedEditorInput instanceof DiagramEditorInput) {
 			Resource changedEditorResource = UIUtil.getResourceFromEditorInput(changedEditorInput);
 			Diagram changedEditorDiagram = UIUtil.getDiagramForResourceOfDiagramEditorInput(changedEditorResource);
 			Type type = null;
-			//TODO doku?
 			for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
 				if(UIUtil.isDiagram_KindValue(changedEditorDiagram, agfr.getDiagramKind()))
 					type = agfr.getModelType();
@@ -188,7 +177,7 @@ public class MultipageEditorSynchronizationService {
 				UIUtil.getDiagramFromResourceByName(baseResource, changedEditorDiagram.getName(), type);
 			return DiagramEditorInput.createEditorInput(equivalentDiagramInBaseResource, DIAGRAM_PROVIDER_ID);
 		} 
-		//Step 4
+		//Step 5
 		throw new InvalidTypeOfEditorInputException();		
 	}
 }

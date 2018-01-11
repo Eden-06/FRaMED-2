@@ -44,7 +44,8 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	
 	/**
 	 * the {@link Type} of business object the pattern creates 
-	 * TODO standard value erklären
+	 * <p>
+	 * The standard value is null, but sub classes can set the attribute if needed.
 	 */
 	protected Type modelType = null;
 	
@@ -55,13 +56,19 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		
 	/**
 	 * the identifier or the path for the icon of the create feature
-	 * 
-	 * TODO standard value erklären
+	 * <p>
+	 * The image id has to be set, so there is no standard value. Meanwhile the standard value of the path 
+	 * is an empty string, but sub classes can set the attribute if needed.
 	 */
 	protected String ICON_IMG_ID,
 				     ICON_IMG_PATH = "";
 	
-	//TODO standard value erklären
+	/**
+	 * the kind of the diagram that the pattern creates
+	 * <p>
+	 * The standard value for this attribute is null, most features don't create own diagrams. Of course this attribute
+	 * can be set by sub classes if needed.
+	 */
 	protected String DIAGRAM_KIND = null;
 	
 	/**
@@ -102,20 +109,31 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 		return ICON_IMG_PATH;
 	}
 	
-	//TODO doku
+	/**
+	 * getter method for the model type of the pattern
+	 * @return the model type of the pattern
+	 */
 	public Type getModelType() {
 		return modelType;
 	}
 	
 	/**
-	 * get method for the fpd
+	 * getter method for the fpd
 	 * @return the feature palette descriptor
 	 */
 	public FeaturePaletteDescriptor getFeaturePaletteDescriptor() {
 		return FPD;
 	}
 	
-	//TODO doku standard op to not be implmented if null returned
+	/**
+	 * encapsulates if and which custom feature should be used when double clicking a pictogram element
+	 * created by the pattern
+	 * <p>
+	 * The standard implementation gives back null since most pattern don't use a double click feature.
+ 	 * @param customFeatures the list of possible custom feature to call
+	 * @return the custom feature that should be used when double clicking a pictogram element
+	 * created by the pattern or null if none should be called
+	 */
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
 		return null;
 	}
@@ -134,7 +152,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 * updates the list of the groups or compartment types content of in which an element is added, deleted or renamed
 	 */
 	protected void updateContainingGroupOrCompartmentType() {
-		ContainerShape groupTypeBodyToUpdate = UIUtil.getGroupTypeBodyForGroupsDiagram(getDiagram());
+		ContainerShape groupTypeBodyToUpdate = UIUtil.getTypebodyForGroupingFeaturesDiagram(getDiagram());
         updatePictogramElement(groupTypeBodyToUpdate);
 	}
 	

@@ -130,14 +130,14 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	/**
-	 * publish the getPatterns() operation of its super type
+	 * publishes the getPatterns() operation of its super type
 	 */
 	public List<IPattern> getPatterns() {
 		return super.getPatterns();
 	}
 	
 	/**
-	 * publish the getConnectionPatterns() operation of its super type
+	 * publishes the getConnectionPatterns() operation of its super type
 	 */
 	public List<IConnectionPattern> getConnectionPatterns() {
 		return super.getConnectionPatterns();

@@ -95,6 +95,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	}
 	
 	//TODO
+	//If the target of a fulfillment was changed the wizard to choose the fulfilled roles has to be opened.</li>
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		if(context.getReconnectType() == ReconnectionContext.RECONNECT_TARGET) {

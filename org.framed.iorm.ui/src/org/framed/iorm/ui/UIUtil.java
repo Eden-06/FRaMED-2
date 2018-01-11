@@ -59,14 +59,17 @@ import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
 
-import group.GroupPattern;
-
 /**
  * This class offers utility operations in the scope of the UI. Modules can use these operations if they want to,
  * e.g. for UI specific aspects like diagrams, models and the property service.
  * @author Kevin Kassin
  */
 public class UIUtil {
+	
+	/**
+	 * the list of feature references that contain informations about features that can group other objects
+	 */
+	private static List<AbstractGroupingFeatureReference> groupingFeatures = getGroupingFeatureReferences();
 	
 	//General
 	//~~~~~~~
@@ -118,6 +121,38 @@ public class UIUtil {
 		sourceURI = sourceURI.appendFileExtension("crom");
 		Path path = new Path(sourceURI.toFileString());
 		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+	}
+	
+	/**
+	 * get all {@link AbstractGroupingFeatureReference}, which encapsulates the dependency to all feature pattern that
+	 * can group other objects
+	 * @return the list of {@link AbstractGroupingFeatureReference}
+	 */
+	public static List<AbstractGroupingFeatureReference> getGroupingFeatureReferences() {
+		List<Class<?>> classes = findSourceJavaClasses();
+		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
+		}	}	}
+		return groupingFeatures;
+	}
+	
+	/**
+	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
+	 * @return a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
+	 */
+	private static List<Type> getGroupingFeaturesTypes() {
+		List<Type> types = new ArrayList<Type>();
+		for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
+			types.add(agfr.getModelType());
+		}
+		return types;
 	}
 	
 	//Model
@@ -313,29 +348,16 @@ public class UIUtil {
 		}	
 		throw new NoDiagramFoundException();
 	}
-	//TODO DOKU
+
 	/**
-	 * searches for a diagram with the given name in the given resource
-	 * <p>
-	 * @param resource the resource to search the diagram in
-	 * @param diagramName the name to search the diagram with
-	 * @param type either {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
-	 * @return the diagram with the specific name in the resource
-	 * @throws NoDiagramFoundException
+	 * searches for a grouping features diagram with the given name and type in a resource
+	 * @param resource the resource to search in
+	 * @param diagramName the name of the diagram to search for
+	 * @param type the type of the diagram to search for
+	 * @return a diagram with a specific name of given type from the resource
 	 */
 	public static Diagram getDiagramFromResourceByName(Resource resource, String diagramName, Type type) {
-		//TODO doku Step0... load grouping references dynamicly
-		List<Class<?>> classes = UIUtil.findSourceJavaClasses();
-		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
-		}	}	}
+		//Step 2
 		if(resource.getContents().get(0) instanceof Diagram) {
 			if(((Diagram) resource.getContents().get(0)).getContainer() == null) {
 				Diagram containerDiagram = (Diagram) resource.getContents().get(0);
@@ -351,20 +373,19 @@ public class UIUtil {
 		throw new NoDiagramFoundException();
 	}
 	
-	//TODO overhaul documentation
 	/**
-	 * This operation fetches a groups or compartment types diagram for a shape that is a part of a groups
-	 * or compartments pictogram representation using the following steps:
+	 * This operation fetches a grouping feature's diagram for a shape that is a part of the grouping feature's 
+	 * pictogram representation using the following steps:
 	 * <p>
 	 * Step 1: It gets the name of the group or compartment depending on the given shape.<br>
-	 * Step 2: It searches in the list of children of the container diagram for a diagram with the name
-	 * 		   found in step 2. If no such diagram can be found, throw a {@link NoDiagramFoundException}
-	 * <p>
-	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * @param groupOrCompartmentTypeShape the shape to start the search for the groups diagram 
-	 * @param diagram the diagram the group or compartment type is located in
-	 * TODO param
-	 * @return the groups or compartment types diagram, if the given shape was a name shape or the type body shape
+	 * Step 2: It searches in the list of children of the container diagram for a fitting diagram with the name
+	 * 		   found in step 1. If no such diagram can be found, throw a {@link NoDiagramFoundException}.
+	 * @param groupingShape the shape of the grouping feature to search the diagram for
+	 * @param diagram the the diagram the grouping feature's shape is located in
+	 * @param SHAPE_ID_TYPEBODY the shape id of the typebody of the grouping feature
+	 * @param SHAPE_ID_NAME the shape id of the name shape of the grouping feature
+	 * @param DIAGRAM_KIND the diagram kind the grouping feature creates
+	 * @return the grouping feature's diagram, if the given shape was a name shape or the type body shape
 	 * @throws NoDiagramFoundException
 	 */
 	public static Diagram getDiagramForGroupingShape(Shape groupingShape, Diagram diagram, String SHAPE_ID_TYPEBODY, 
@@ -390,33 +411,15 @@ public class UIUtil {
 		throw new NoDiagramFoundException();	
 	}
 	
-	//TODO doku?
 	/**
-	 * fetches the <em>type body shape</em> of group or compartment type that has the given diagram attached to
+	 * fetches the <em>type body shape</em> of grouping feature's pictogram element that has the given diagram attached to
 	 * <p>
-	 * To do that it basicly searches in all diagram of the <em>container diagram</em> for a <em>group container shape</em>
-	 * or a <em>compartment container shape and compares the diagram name to the found groups or compartment types name.
-	 * <p>
-	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, 
-	 * see {@link GroupPattern#add} for example.<br>
 	 * If its not clear what <em>container diagram</em> means, see {@link RoleModelWizard#createEmfFileForDiagram} for
 	 * reference.
 	 * @param diagram the diagram to find the groups or compartment types type body shape for
-	 * @return the type body shape of the group or compartment type that has the given diagram attached to
+	 * @return the type body shape of the grouping feature's object that has the given diagram attached to
 	 */
-	public static ContainerShape getGroupTypeBodyForGroupsDiagram(Diagram diagram) {
-		//TODO doku Step0... load grouping references dynamicly
-		List<Class<?>> classes = UIUtil.findSourceJavaClasses();
-		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
-		}	}	}
+	public static ContainerShape getTypebodyForGroupingFeaturesDiagram(Diagram diagram) {
 		Diagram containerDiagram = getContainerDiagramForAnyDiagram(diagram);
 		for(Shape containerDiagramChild : containerDiagram.getChildren()) {
 			if(containerDiagramChild instanceof Diagram) {
@@ -425,8 +428,8 @@ public class UIUtil {
 						for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
 							if(UIUtil.isDiagram_KindValue(diagram, agfr.getDiagramKind()) &&
 							   UIUtil.isShape_IdValue(diagramChild, agfr.getShapeIdContainer())) {
-								if(getNameForGroupOrCompartmentTypeContainer((ContainerShape) diagramChild, agfr.getModelType(), groupingFeatures).equals(diagram.getName())) {
-									return getTypeBodyForGroupingContainer((ContainerShape) diagramChild, agfr.getShapeIdTypebody());
+								if(getNameForGroupingFeaturesContainer((ContainerShape) diagramChild, agfr.getModelType()).equals(diagram.getName())) {
+									return getTypeBodyForGroupingFeaturesContainer((ContainerShape) diagramChild, agfr.getShapeIdTypebody());
 		}	}	}	}	}	}	}	
 		return null;
 	}
@@ -550,8 +553,8 @@ public class UIUtil {
 	//finding classes dynamically
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	/**
-	 * fetches all java classes in the module source folder
-	 * @return all java classes in in the module source folder
+	 * fetches all java classes in the module and core source folder
+	 * @return all java classes in in the module and core source folder
 	 */
 	public static List<Class<?>> findModuleJavaClasses() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
@@ -573,6 +576,10 @@ public class UIUtil {
 	    return classes;
 	}
 	
+	/**
+	 * fetches all java classes in the src source folder
+	 * @return all java classes in in the src source folder
+	 */
 	public static List<Class<?>> findSourceJavaClasses() {
 		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
 		List<URL> srcClassURLs = Collections.list(bundle.findEntries("/src", "*.java", true));
@@ -589,6 +596,7 @@ public class UIUtil {
 	/**
 	 * formats the given string url by cutting and replacing character in specific manner
 	 * @param patternURL the string url to format
+	 * @param sourceFolder the source that in which the class with the URL is, e.g "modules/"
 	 * @return the formatted string url
 	 */
 	public static String formatURL(String patternURL, String sourceFolder) {
@@ -602,17 +610,12 @@ public class UIUtil {
 	//Shape Identifier
 	//~~~~~~~~~~~~~~~~
 	/**
-	 * the key to identify the property shape id gathered from {@link IdentifierLiterals}
-	 */
-	public static final String KEY_SHAPE_ID = UILiterals.KEY_SHAPE_ID;
-		
-	/**
 	 * set the property shape id for a given shape
 	 * @param shape the shape to set the property for
 	 * @param value the new value of the property
 	 */
 	public static final void setShape_IdValue(Shape shape, String value) {
-		Graphiti.getPeService().setPropertyValue(shape, KEY_SHAPE_ID, value);
+		Graphiti.getPeService().setPropertyValue(shape, UILiterals.KEY_SHAPE_ID, value);
 	}
 		
 	/**
@@ -622,19 +625,11 @@ public class UIUtil {
 	 * @return boolean if the property value equals the given value
 	 */
 	public static final boolean isShape_IdValue(Shape shape, String value) {
-		return (Graphiti.getPeService().getPropertyValue(shape, KEY_SHAPE_ID).equals(value));
+		return (Graphiti.getPeService().getPropertyValue(shape, UILiterals.KEY_SHAPE_ID).equals(value));
 	}
 	
 	//Diagram Kind
 	//~~~~~~~~~~~~
-	/**
-	 * the key to identify the property diagram kind gathered from {@link IdentifierLiterals}
-	 * <P>
-	 * The word <em>kind</em> is chosen to differ this property from the <em>diagram types</em> of the 
-	 * graphiti framework.
-	 */
-	public static final String KEY_DIAGRAM_KIND = UILiterals.KEY_DIAGRAM_KIND;
-	
 	/**
 	 * set the property diagram kind for a given diagram
 	 * <P>
@@ -644,7 +639,7 @@ public class UIUtil {
 	 * @param value the new value of the property
 	 */
 	public static final void setDiagram_KindValue(Diagram diagram, String value) {
-		Graphiti.getPeService().setPropertyValue(diagram, KEY_DIAGRAM_KIND, value);
+		Graphiti.getPeService().setPropertyValue(diagram, UILiterals.KEY_DIAGRAM_KIND, value);
 	}
 		
 	/**
@@ -657,25 +652,22 @@ public class UIUtil {
 	 * @return boolean if the property value equals the given value
 	 */
 	public static final boolean isDiagram_KindValue(Diagram diagram, String value) {
-		return (Graphiti.getPeService().getPropertyValue(diagram, KEY_DIAGRAM_KIND).equals(value));
+		return (Graphiti.getPeService().getPropertyValue(diagram, UILiterals.KEY_DIAGRAM_KIND).equals(value));
 	}	
 	
 	//Grouping
 	//~~~~~~~~
-	//TODO doku
 	/**
-	 * fetches the name of a group or compartment type to thats the given <em>container shape</em> shape belongs to
-	 * <p>
-	 * If its not clear what <em>container shape</em> means, see {@link GroupPattern#add} for example.
+	 * fetches the name of a grouping features object to thats the given <em>container shape</em> shape belongs to
 	 * @param container the groups or compartment types container shape of the group to get the name for
-	 * @return the name of group or compartment type with the given shape
+	 * @param type the type of the grouping features pattern
+	 * @return the the name of a grouping features object with the given container shape
 	 */
-	private static String getNameForGroupOrCompartmentTypeContainer(ContainerShape container, Type type, 
-																	List<AbstractGroupingFeatureReference> groupingFeatures) {
+	private static String getNameForGroupingFeaturesContainer(ContainerShape container, Type type) {
 		ContainerShape typeBodyShape = null;
 		for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
 			if(type == agfr.getModelType()) 
-				typeBodyShape = getTypeBodyForGroupingContainer(container, agfr.getShapeIdTypebody());
+				typeBodyShape = getTypeBodyForGroupingFeaturesContainer(container, agfr.getShapeIdTypebody());
 		}
 		if(typeBodyShape == null) return null;
 		for(Shape shape : typeBodyShape.getChildren()) {
@@ -690,13 +682,11 @@ public class UIUtil {
 	/**
 	 * fetches the <em>type body shape</em> of a grouping element (e.g. groups or compartment types) to thats the givem 
 	 * <em>container shape</em> belongs to
-	 * <p>
-	 * If its not clear what <em>type body shape</em> and <em>container shape</em> means, see 
-	 * {@link GroupPattern#add} for example.
-	 * @param groupContainer the container shape of a grouping element to get the type body shape for
-	 * @return the type body shape of a grouping element with the given shape
+	 * @param groupingContainer the container shape of a grouping element to get the type body shape for
+	 * @param SHAPE_ID_TYPEBODY the shape id of a typebody for a grouping feature's pattern
+	 * @returnthe type body shape of a grouping element with the given shape
 	 */
-	public static ContainerShape getTypeBodyForGroupingContainer(ContainerShape groupingContainer, String SHAPE_ID_TYPEBODY) {
+	public static ContainerShape getTypeBodyForGroupingFeaturesContainer(ContainerShape groupingContainer, String SHAPE_ID_TYPEBODY) {
 		for(Shape shape : groupingContainer.getChildren()) {
 			if(shape instanceof ContainerShape) {
 			   if(UIUtil.isShape_IdValue(shape, SHAPE_ID_TYPEBODY))
@@ -705,8 +695,6 @@ public class UIUtil {
 		return null;
 	}
 	
-		
-		
 	//Names
 	//~~~~~
 	/**
@@ -906,8 +894,7 @@ public class UIUtil {
 		for(ModelElement modelElement : model.getElements()) {
 			if(modelElement.getType() == type)  
 				modelElementNames.add(modelElement.getName());
-			if(modelElement.getType() == Type.COMPARTMENT_TYPE ||
-			   modelElement.getType() == Type.GROUP) 
+			if(getGroupingFeaturesTypes().contains(type))
 				getModelElementsNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), type, modelElementNames);
 	}	}	
 	
@@ -1061,34 +1048,22 @@ public class UIUtil {
 		}
 		return null;
 	}	
-	
+
 	/**
-	 * fetches all the names of the actual direct child elements in a groups model except {@link Relation}s
+	 * fetches all the names of the actual direct child elements in a grouping feature's model except {@link Relation}s
 	 * @param pictogramElement the pictogram/ shape element of the group
 	 * @param diagram the diagram the pattern that called this operation works in
-	 * @param the type e.g. {@link Type#GROUP} or {@link Type#COMPARTMENT_TYPE}
-	 * @return a list of names of all direct child elements in a groups model
+	 * @param type the type of grouping feature
+	 * @return a list of names of all direct child elements in a grouping feature's model
 	 */
-	public static List<String> getGroupOrCompartmentTypeElementNames(PictogramElement pictogramElement, Diagram diagram, Type type) {
-		List<String> modelElementsNames = new ArrayList<String>();
-		//TODO doku Step0... load grouping references dynamicly
-		List<Class<?>> classes = UIUtil.findSourceJavaClasses();
-		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
-		}	}	}
+	public static List<String> getGroupingFeaturesModelElementNames(PictogramElement pictogramElement, Diagram diagram, Type type) {
 		Diagram groupOrCompartmentTypeDiagram = null;
 		for(AbstractGroupingFeatureReference agfr : groupingFeatures) {
 			if(type == agfr.getModelType())
 				groupOrCompartmentTypeDiagram = UIUtil.getDiagramForGroupingShape((ContainerShape) pictogramElement, diagram, agfr.getShapeIdTypebody(), agfr.getShapeIdName(), agfr.getDiagramKind());	
 		}
 		if(groupOrCompartmentTypeDiagram == null) return null;
+		List<String> modelElementsNames = new ArrayList<String>();
 		Model groupOrCompartmentTypeModel = UIUtil.getLinkedModelForDiagram(groupOrCompartmentTypeDiagram);
 		for(ModelElement modelElement : groupOrCompartmentTypeModel.getElements()) {
 			if(modelElement instanceof org.framed.iorm.model.Shape)
@@ -1099,11 +1074,8 @@ public class UIUtil {
 	
 	/**
 	 * fetches all the names of the groups content that are shown in <em>model content preview container</em> of the group
-	 * <p>
-	 * If its not clear what <em>model content preview container</em> and <em>type body shape</em> means, see 
-	 * {@link GroupPattern#add} for example. 
-	 * @param pictogramElement the type body shape of of a group
-	 * @return a list of the shown names of child elements of a group
+	 * @param pictogramElement the type body shape of of a grouping feature object
+	 * @return a list of the shown names of child elements of a grouping feature object
 	 */
 	public static List<String> getContentPreviewElementsNames(PictogramElement pictogramElement, String SHAPE_ID_CONTENT_PREVIEW, String SHAPE_ID_ELEMENT) {
 		List<String> modelContainerElementsNames = new ArrayList<String>();
@@ -1121,12 +1093,12 @@ public class UIUtil {
 	}
 	
 	/**
-	 * calculate the string for a group or compartment type element that is shown in the group as
+	 * calculate the string for a grouping feature object's element that is shown in the group as
 	 * preview of its content
-	 * @param modelElement the model elemen in the group or compartment type to calculate the shown string for
-	 * @return the value of preview string of group or compartment type content for the given modelElement
+	 * @param modelElement the model element in the grouping feature's object to calculate the shown string for
+	 * @return the value of preview string of a grouping feature object's content for the given modelElement
 	 */
-	public static String getGroupOrCompartmentTypeElementText(ModelElement modelElement) {
+	public static String getGroupingFeaturesElementText(ModelElement modelElement) {
 		return modelElement.getType().toString() + " " + modelElement.getName();
 	}
 }
