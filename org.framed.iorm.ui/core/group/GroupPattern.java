@@ -345,7 +345,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		//group
 		org.framed.iorm.model.Shape newGroup = OrmFactory.eINSTANCE.createShape();
 		newGroup.setType(Type.GROUP);
-		String standardName = UIUtil.calculateStandardNameForClass(getDiagram(), Type.GROUP, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), Type.GROUP, literals.STANDARD_NAME);
 		newGroup.setName(standardName);
 		//model
 		Model groupModel = OrmFactory.eINSTANCE.createModel();
@@ -418,7 +418,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(UIUtil.matchesIdentifier(newName))) return literals.DIRECTEDITING_GROUP;
-		if(UIUtil.nameAlreadyUsedForClass(getDiagram(), Type.GROUP, newName)) 
+		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.GROUP, newName)) 
 			return literals.NAME_ALREADY_USED_GROUP;
 	    return null;
 	}

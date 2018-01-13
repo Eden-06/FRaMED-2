@@ -274,16 +274,17 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		if(getInitialValue(editingContext).equals(newName)) return null;
 		Shape shape = (Shape) editingContext.getPictogramElement();
 		ContainerShape classOrRoleShape = shape.getContainer().getContainer();
+		//TODO use properties to get attribute and operation container 
 		ContainerShape attributeContainer = (ContainerShape) classOrRoleShape.getChildren().get(2);
 		ContainerShape operationContainer = (ContainerShape) classOrRoleShape.getChildren().get(4);
 		if(attributeContainer.getChildren().contains(shape))	{
-			if(!(UIUtil.matchesAttribute(newName))) return literals.DIRECTEDITING_ATTRIBUTES;
-			if(UIUtil.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName));
+			if(!(util.matchesAttribute(newName))) return literals.DIRECTEDITING_ATTRIBUTES;
+			if(util.nameAlreadyUsedForAttributeOrOperation(attributeContainer, newName))
 				return literals.NAME_ALREADY_USED_ATTRIBUTES;
 		}
 		if(operationContainer.getChildren().contains(shape))	{
-			if(!(UIUtil.matchesOperation(newName))) return literals.DIRECTEDITING_OPERATIONS;
-			if(UIUtil.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
+			if(!(util.matchesOperation(newName))) return literals.DIRECTEDITING_OPERATIONS;
+			if(util.nameAlreadyUsedForAttributeOrOperation(operationContainer, newName)) 
 				return literals.NAME_ALREADY_USED_OPERATIONS;
 		}
 		return null;

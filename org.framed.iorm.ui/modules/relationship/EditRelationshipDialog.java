@@ -196,6 +196,6 @@ public class EditRelationshipDialog extends Dialog {
 	private boolean NameAlreadyUsed() {
 		String newName = relationshipNameTextField.getText();
 		if(newName.equals(businessObject.getName())) return false;
-		return UIUtil.nameAlreadyUsedForCompartmentTypeElements(diagram, Type.RELATIONSHIP, newName);
+		return UIUtil.nameAlreadyUsedDiagramWide(diagram, Type.RELATIONSHIP, newName);
 	}
 }

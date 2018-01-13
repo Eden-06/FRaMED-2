@@ -153,7 +153,7 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 	public Object[] create(ICreateContext createContext) {
 		ContainerShape operationContainer = (ContainerShape) createContext.getTargetContainer().getChildren().get(4);
 		NamedElement newOperation = OrmFactory.eINSTANCE.createNamedElement();
-		String standartName = UIUtil.calculateStandardNameForAttributeOrOperation(operationContainer, literals.OPS_STANDARD_NAME);
+		String standartName = util.calculateStandardNameForAttributeOrOperation(operationContainer, literals.OPS_STANDARD_NAME);
 		newOperation.setName(standartName);
 		org.framed.iorm.model.Shape classOrRole = 
 			(org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(createContext.getTargetContainer());

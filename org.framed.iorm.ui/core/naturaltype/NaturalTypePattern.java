@@ -38,11 +38,7 @@ import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import naturaltype.Literals;
-import naturaltype.Util;
-import naturaltype.references.AttributeAndOperationsReference;
-
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 import org.eclipse.graphiti.pattern.AbstractPattern; //*import for javadoc link
 
 /**
@@ -79,7 +75,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
-	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference attOpsReference =  UIUtil.getAttributeAndOperationFeatureReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -325,7 +321,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newNaturalType = OrmFactory.eINSTANCE.createShape();
 		newNaturalType.setType(Type.NATURAL_TYPE);
-		String standardName = UIUtil.calculateStandardNameForClass(getDiagram(), Type.NATURAL_TYPE, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), Type.NATURAL_TYPE, literals.STANDARD_NAME);
 		newNaturalType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -397,7 +393,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(UIUtil.matchesIdentifier(newName))) return literals.DIRECTEDITING_NATURALTYPE;
-		if(UIUtil.nameAlreadyUsedForClass(getDiagram(), Type.NATURAL_TYPE, newName)) 
+		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.NATURAL_TYPE, newName)) 
 			return literals.NAME_ALREADY_USED_NATURALTYPE;
 	    return null;
 	}

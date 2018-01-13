@@ -153,7 +153,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	public Object[] create(ICreateContext createContext) {
 		ContainerShape attributeContainer = (ContainerShape) createContext.getTargetContainer().getChildren().get(2);
 		NamedElement newAttribute = OrmFactory.eINSTANCE.createNamedElement();
-		String standartName = UIUtil.calculateStandardNameForAttributeOrOperation(attributeContainer, literals.ATT_STANDARD_NAME);
+		String standartName = util.calculateStandardNameForAttributeOrOperation(attributeContainer, literals.ATT_STANDARD_NAME);
 		newAttribute.setName(standartName);
 		if(newAttribute.eResource() != null) getDiagram().eResource().getContents().add(newAttribute);
 		org.framed.iorm.model.Shape classOrRole = 

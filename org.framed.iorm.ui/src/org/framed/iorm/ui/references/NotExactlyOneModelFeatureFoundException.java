@@ -1,4 +1,4 @@
-package org.framed.iorm.ui.exceptions;
+package org.framed.iorm.ui.references;
 
 import org.framed.iorm.ui.UILiterals;
 

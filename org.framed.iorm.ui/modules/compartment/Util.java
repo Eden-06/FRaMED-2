@@ -8,8 +8,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.ui.UIUtil;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
-import compartment.references.AttributeAndOperationsReference;
 import compartment.references.AbstractInnerGroupingReference;
 
 public class Util {
@@ -22,7 +22,7 @@ public class Util {
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
-	private final AttributeAndOperationsReference aaoReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference aaoReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	//Grouping References
 	//~~~~~~~~~~~~~~~~

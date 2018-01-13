@@ -41,8 +41,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import datatype.references.AttributeAndOperationsReference;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -78,7 +77,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
-	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference attOpsReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -338,7 +337,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		//data type
 		org.framed.iorm.model.Shape newDataType = OrmFactory.eINSTANCE.createShape();
 		newDataType.setType(Type.DATA_TYPE);
-		String standardName = UIUtil.calculateStandardNameForClass(getDiagram(), Type.DATA_TYPE, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), Type.DATA_TYPE, literals.STANDARD_NAME);
 		newDataType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -410,7 +409,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(UIUtil.matchesIdentifier(newName))) return literals.DIRECTEDITING_DATATYPE;
-		if(UIUtil.nameAlreadyUsedForClass(getDiagram(), Type.DATA_TYPE, newName)) 
+		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.DATA_TYPE, newName)) 
 			return literals.NAME_ALREADY_USED_DATATYPE;
 		return null;
 	}

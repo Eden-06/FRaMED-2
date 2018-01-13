@@ -3,8 +3,7 @@ package datatype;
 import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.framed.iorm.ui.UIUtil;
-
-import datatype.references.AttributeAndOperationsReference;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
 /**
  * This class offers utility operations in the scope of the attribute and operations feature module.
@@ -20,7 +19,7 @@ public class Util {
 	/**
 	 * the reference oject to encapsulate the dependency to the datatypes attribute and operation feature
 	 */
-	private final AttributeAndOperationsReference aaoReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference aaoReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	//Layout
 	//~~~~~~

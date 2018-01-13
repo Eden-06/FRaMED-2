@@ -52,10 +52,10 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 import compartment.references.AbstractInnerGroupingReference;
-import compartment.references.AttributeAndOperationsReference;
 import compartment.references.StepInReference;
 
 /**
@@ -94,7 +94,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
-	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference attOpsReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	/**
 	 * the list of reference classes which save in which other module feature's shapes a attribute or
@@ -398,7 +398,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		//compartment type
 		org.framed.iorm.model.Shape newCompartmentType = OrmFactory.eINSTANCE.createShape();
 		newCompartmentType.setType(Type.COMPARTMENT_TYPE);
-		String standardName = UIUtil.calculateStandardNameForClass(getDiagram(), Type.COMPARTMENT_TYPE, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), Type.COMPARTMENT_TYPE, literals.STANDARD_NAME);
 		newCompartmentType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -478,7 +478,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
 		if(getInitialValue(editingContext).contentEquals(newName)) return null;
 		if(!(UIUtil.matchesIdentifier(newName))) return literals.DIRECTEDITING_COMPARTMENTTYPE;
-		if(UIUtil.nameAlreadyUsedForClass(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
+		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
 			return literals.NAME_ALREADY_USED_COMPARTMENTTYPE;
 		return null;
 	}

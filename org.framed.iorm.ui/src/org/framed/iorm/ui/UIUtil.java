@@ -53,11 +53,9 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
-import org.framed.iorm.ui.exceptions.NotExactlyOneModelFeatureFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
-import org.framed.iorm.ui.references.AbstractModelFeatureReference;
+import org.framed.iorm.ui.references.*;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
 
@@ -164,7 +162,28 @@ public class UIUtil {
 		}	}	}
 		if(modelFeatures.size()==1) return modelFeatures.get(0);
 		else throw new NotExactlyOneModelFeatureFoundException(modelFeatures.size());
-	}
+	}	
+		
+	/**
+	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
+	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
+	 * 		   or null else
+	 */
+	public static AbstractAttributeAndOperationReference getAttributeAndOperationFeatureReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractAttributeAndOperationReference> attsAndOpsFeatures = new ArrayList<AbstractAttributeAndOperationReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractAttributeAndOperationReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) attsAndOpsFeatures.add((AbstractAttributeAndOperationReference) object);
+		}	}	}
+		if(attsAndOpsFeatures.size()==1) return attsAndOpsFeatures.get(0);
+		else throw new NotExactlyOneAttributeAndOperationFeatureFoundException(attsAndOpsFeatures.size());		
+	}	
 	
 	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
@@ -714,26 +733,6 @@ public class UIUtil {
 	}
 	
 	/**
-	 * matching operation for the regular expression of operations
-	 * @param identifier the string to check against
-	 * @return if the given string input matches the regular expression
-	 */
-	public static final boolean matchesAttribute(String attributeName) {
-		Matcher attributeMatcher =  Pattern.compile(UILiterals.REG_EXP_ATTRIBUTE).matcher(attributeName);
-		return attributeMatcher.matches();
-	}
-	
-	/**
-	 * matching operation for the regular expression of operations
-	 * @param identifier the string to check against
-	 * @return if the given string input matches the regular expression
-	 */
-	public static final boolean matchesOperation(String operationName) {
-		Matcher operationMatcher =  Pattern.compile(UILiterals.REG_EXP_OPERATION).matcher(operationName);
-		return operationMatcher.matches();
-	}
-	
-	/**
 	 * matching operation for the regular expression of cardinalities
 	 * @param identifier the string to check against
 	 * @return if the given string input matches the regular expression
@@ -757,7 +756,7 @@ public class UIUtil {
 	 * @param newName the name to check against
 	 * @return boolean if another model element of a given type already has the same name when direct editing
 	 */
-	public static boolean nameAlreadyUsedForClass(Diagram diagram, Type type, String newName) {
+	public static boolean nameAlreadyUsedRoleModelWide(Diagram diagram, Type type, String newName) {
 		List<String> modelElements = new ArrayList<String>();
 		//Step 1
 		Model rootModel = UIUtil.getRootModelForAnyDiagram(diagram);
@@ -779,7 +778,7 @@ public class UIUtil {
 	 * @param newName the name to check against
 	 * @return boolean if another model element of a given type already has the same name when direct editing
 	 */
-	public static boolean nameAlreadyUsedForCompartmentTypeElements(Diagram diagram, Type type, String newName) {
+	public static boolean nameAlreadyUsedDiagramWide(Diagram diagram, Type type, String newName) {
 		List<String> compartmentsElements = new ArrayList<String>();
 		//Step 1
 		Model compartmentsModel = UIUtil.getLinkedModelForDiagram(diagram);
@@ -788,22 +787,6 @@ public class UIUtil {
 		return compartmentsElements.contains(newName);
 	}
 				
-	/**
-	 * calculates if another attribute or operation in the same class or role already have the same name when 
-	 * direct editing names of attributes or operations 
-	 * @param attributeOrOperationsContainer the container to search the other attributes or operations to check against
-	 * @param newName the name to check against
-	 * @return boolean if another attribute or operation in the same class or role already has the same name when 
-	 * 		   direct editing
-	 */
-	public static boolean nameAlreadyUsedForAttributeOrOperation(ContainerShape attributeOrOperationsContainer, String newName) {
-		List<String> attributeOrOperationNames = new ArrayList<String>();
-		for(Shape shape : attributeOrOperationsContainer.getChildren()) {
-			attributeOrOperationNames.add(((Text) shape.getGraphicsAlgorithm()).getValue());
-		}
-		return attributeOrOperationNames.contains(newName);
-	}	
-	
 	/**
 	 * calculates the standard name of a class ({@link Type#NATURAL_TYPE} for example) when creating one
 	 * <p>
@@ -814,7 +797,7 @@ public class UIUtil {
 	 * @param standardName the normally used standard name for the class
 	 * @return
 	 */
-	public static String calculateStandardNameForClass(Diagram diagram, Type type, String standardName) {
+	public static String calculateStandardNameRoleModelWide(Diagram diagram, Type type, String standardName) {
 		List<String> modelElements = new ArrayList<String>();
 		Model rootModel = getRootModelForAnyDiagram(diagram);
 		getModelElementsNamesRecursive(rootModel, type, modelElements);
@@ -835,30 +818,12 @@ public class UIUtil {
 	 * @param standardName the normally used standard name for the compartment type element
 	 * @return
 	 */
-	public static String calculateStandardNameForCompartmentsTypeElement(Diagram diagram, Type type, String standardName) {
+	public static String calculateStandardNameDiagramWide(Diagram diagram, Type type, String standardName) {
 		List<String> compartmentsElements = new ArrayList<String>();
 		Model compartmentModel = UIUtil.getLinkedModelForDiagram(diagram);
 		getModelElementsNames(compartmentModel, type, compartmentsElements);
 		return calcluateStandardNameForGivenCollection(compartmentsElements, standardName);
  	}
-	
-	/**
-	 * calculates the standard name of an attribute or operation when creating one
-	 * <p>
-	 * The standard name will be build by using a given standard name and adding a number as suffix to it
-	 * if needed. The limit of this number is set in {@link #STANDART_NAMES_COUNTER_LIMIT}.
-	 * @param attributeOrOperationsContainer the container to search the other attributes or operations to check for
-	 * 		  already used standard names
-	 * @param standardName the normally used standard name for the attribute or operation
-	 * @return
-	 */
-	public static String calculateStandardNameForAttributeOrOperation(ContainerShape attributeOrOperationsContainer, String standardName) {
-		List<String> attributeOrOperationNames = new ArrayList<String>();
-		for(Shape shape : attributeOrOperationsContainer.getChildren()) {
-			attributeOrOperationNames.add(((Text) shape.getGraphicsAlgorithm()).getValue());
-		}
-		return calcluateStandardNameForGivenCollection(attributeOrOperationNames, standardName);
-	}
 	
 	/**
 	 * calculates a standard name checking a given collection if an equivalent name already exists in that collection
@@ -869,7 +834,7 @@ public class UIUtil {
 	 * @param standardName
 	 * @return
 	 */
-	private static String calcluateStandardNameForGivenCollection(List<String> collection, String standardName) {
+	public static String calcluateStandardNameForGivenCollection(List<String> collection, String standardName) {
 		if(!(collection.contains(standardName))) return standardName;
 		for(int i=1; i<=UILiterals.STANDARD_NAMES_COUNTER_LIMIT; i++) {
 			if(!(collection.contains(standardName + Integer.toString(i))))

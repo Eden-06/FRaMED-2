@@ -41,10 +41,7 @@ import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import roletype.Literals;
-import roletype.Util;
-import roletype.references.AttributeAndOperationsReference;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -80,7 +77,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
-	private final AttributeAndOperationsReference attOpsReference = new AttributeAndOperationsReference();
+	private final AbstractAttributeAndOperationReference  attOpsReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -341,7 +338,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//natural type
 		org.framed.iorm.model.Shape newRoleType = OrmFactory.eINSTANCE.createShape();
 		newRoleType.setType(Type.ROLE_TYPE);
-		String standardName = UIUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.ROLE_TYPE, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameDiagramWide(getDiagram(), Type.ROLE_TYPE, literals.STANDARD_NAME);
 		newRoleType.setName(standardName);
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
@@ -423,7 +420,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(getInitialValue(editingContext).contentEquals(newValue)) return null;
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME)) {
 			if(!(UIUtil.matchesIdentifier(newValue))) return literals.DIRECTEDITING_ROLETYPE;
-			if(UIUtil.nameAlreadyUsedForCompartmentTypeElements(getDiagram(), Type.ROLE_TYPE, newValue)) 
+			if(UIUtil.nameAlreadyUsedDiagramWide(getDiagram(), Type.ROLE_TYPE, newValue)) 
 				return literals.NAME_ALREADY_USED_ROLETYPE;
 		}	
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {

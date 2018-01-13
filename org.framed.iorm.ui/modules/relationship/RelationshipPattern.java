@@ -314,7 +314,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		
 		//Step 2
 		Relation newRelationship = OrmFactory.eINSTANCE.createRelation();
-		String standardName = UIUtil.calculateStandardNameForCompartmentsTypeElement(getDiagram(), Type.RELATIONSHIP, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameDiagramWide(getDiagram(), Type.RELATIONSHIP, literals.STANDARD_NAME);
 		newRelationship.setName(standardName);
 		newRelationship.setType(Type.RELATIONSHIP); 
 	    if(newRelationship.eResource() != null) getDiagram().eResource().getContents().add(newRelationship);
