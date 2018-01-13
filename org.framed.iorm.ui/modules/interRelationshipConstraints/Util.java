@@ -4,15 +4,14 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.framed.iorm.ui.UIUtil;
-
-import interRelationshipConstraints.references.RelationshipReference;
+import org.framed.iorm.ui.references.AbstractRelationshipFeatureReference;
 
 public class Util {
 	
 	/**
 	 * the reference to the relationship class to which the constraint belong 
 	 */
-	RelationshipReference relationshipReference = new RelationshipReference();
+	AbstractRelationshipFeatureReference relationshipReference = UIUtil.getRelationshipFeatureReference();
 
 	/**
 	 * fetches the anchor used for the pictogram model for a given anchor that is used by a business model element

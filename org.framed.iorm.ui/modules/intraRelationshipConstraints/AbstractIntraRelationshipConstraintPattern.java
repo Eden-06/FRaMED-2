@@ -114,7 +114,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == type) {
-				return EditPolicyService.canAdd(addContext, this.getDiagram());
+			   return EditPolicyService.canAdd(addContext, this.getDiagram());
 		}	}
 		return false;
 	}

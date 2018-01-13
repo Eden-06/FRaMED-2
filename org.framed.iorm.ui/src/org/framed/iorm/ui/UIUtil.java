@@ -146,7 +146,7 @@ public class UIUtil {
 	/**
 	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
 	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
-	 * 		   or null else
+	 * 		   or throws {@link NotExactlyOneFeatureReferenceFoundException} else
 	 */
 	public static AbstractModelFeatureReference getModelFeatureReference() {
 		List<Class<?>> classes = findModuleJavaClasses();
@@ -161,13 +161,13 @@ public class UIUtil {
 					if(object != null) modelFeatures.add((AbstractModelFeatureReference) object);
 		}	}	}
 		if(modelFeatures.size()==1) return modelFeatures.get(0);
-		else throw new NotExactlyOneModelFeatureFoundException(modelFeatures.size());
+		else throw new NotExactlyOneFeatureReferenceFoundException(modelFeatures.size(), AbstractModelFeatureReference.class.getName());
 	}	
 		
 	/**
-	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
-	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
-	 * 		   or null else
+	 * get the {@link AbstractAttributeAndOperationReference}, which references the used attribute and operation feature
+	 * @return the sub class of {@link AbstractAttributeAndOperationReference}, if exactly one class with that super type was found
+	 * 		   or throws {@link NotExactlyOneFeatureReferenceFoundException} else
 	 */
 	public static AbstractAttributeAndOperationReference getAttributeAndOperationFeatureReference() {
 		List<Class<?>> classes = findModuleJavaClasses();
@@ -182,8 +182,73 @@ public class UIUtil {
 					if(object != null) attsAndOpsFeatures.add((AbstractAttributeAndOperationReference) object);
 		}	}	}
 		if(attsAndOpsFeatures.size()==1) return attsAndOpsFeatures.get(0);
-		else throw new NotExactlyOneAttributeAndOperationFeatureFoundException(attsAndOpsFeatures.size());		
+		else throw new NotExactlyOneFeatureReferenceFoundException(attsAndOpsFeatures.size(), AbstractAttributeAndOperationReference.class.getName());		
 	}	
+	
+	/**
+	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
+	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
+	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
+	 */
+	public static AbstractIntraRelationshipConstraintReference getIntraRelationshipConstraintFeatureReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractIntraRelationshipConstraintReference> intraRelConFeatures = new ArrayList<AbstractIntraRelationshipConstraintReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractIntraRelationshipConstraintReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) intraRelConFeatures.add((AbstractIntraRelationshipConstraintReference) object);
+		}	}	}
+		if(intraRelConFeatures.size()==1) return intraRelConFeatures.get(0);
+		if(intraRelConFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(intraRelConFeatures.size(), AbstractIntraRelationshipConstraintReference.class.getName());		
+		return null;
+	}
+		
+	/**
+	 * get the {@link AbstractRelationshipFeatureReference}, which references the used relationship feature
+	 * @return the sub class of {@link AbstractRelationshipFeatureReference}, if exactly one class with that super type was found
+	 * 		   or throws {@link NotExactlyOneFeatureReferenceFoundException} else
+	 */
+	public static AbstractRelationshipFeatureReference getRelationshipFeatureReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractRelationshipFeatureReference> RealtionshipFeatures = new ArrayList<AbstractRelationshipFeatureReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractRelationshipFeatureReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) RealtionshipFeatures.add((AbstractRelationshipFeatureReference) object);
+		}	}	}
+		if(RealtionshipFeatures.size()==1) return RealtionshipFeatures.get(0);
+		else throw new NotExactlyOneFeatureReferenceFoundException(RealtionshipFeatures.size(), AbstractRelationshipFeatureReference.class.getName());		
+	}	
+	
+	/**
+	 * get the {@link AbstractRelationshipFeatureReference}, which references the used relationship feature
+	 * @return the sub class of {@link AbstractRelationshipFeatureReference}, if exactly one class with that super type was found
+	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
+	 */
+	public static AbstractStepInReference getStepInFeatureReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractStepInReference> stepInFeatures = new ArrayList<AbstractStepInReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractStepInReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) stepInFeatures.add((AbstractStepInReference) object);
+		}	}	}
+		if(stepInFeatures.size()==1) return stepInFeatures.get(0);
+		if(stepInFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(stepInFeatures.size(), AbstractIntraRelationshipConstraintReference.class.getName());		
+		return null;
+	}
 	
 	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.

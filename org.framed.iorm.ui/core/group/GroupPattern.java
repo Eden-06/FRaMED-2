@@ -315,7 +315,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-		   EditPolicyService.canCreate(createContext, this.getDiagram());
+		   return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}   
 		return false;
 	}

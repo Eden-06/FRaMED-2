@@ -37,6 +37,14 @@ public class AcyclicConstraintPattern extends AbstractIntraRelationshipConstrain
 	//add feature
 	//~~~~~~~~~~~
 	/**
+	 * calls its equivalent super class operation to calculate if a cyclic constraint can be added
+	 */
+	@Override
+	public boolean canAdd(IAddContext addContext) {
+		return canAddIntraRelationshipConstraint(addContext, Type.ACYCLIC);
+	}
+	
+	/**
 	 * calls its equivalent super class operation to add an acyclic constraint
 	 */
 	@Override

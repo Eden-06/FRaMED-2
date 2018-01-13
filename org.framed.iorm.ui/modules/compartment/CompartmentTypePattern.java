@@ -53,10 +53,9 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
+import org.framed.iorm.ui.references.AbstractStepInReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
-
 import compartment.references.AbstractInnerGroupingReference;
-import compartment.references.StepInReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -89,7 +88,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	/**
 	 * the reference to the step in feature 
 	 */
-	private final StepInReference stepInReference = new StepInReference();
+	private final AbstractStepInReference stepInReference = UIUtil.getStepInFeatureReference();
 	
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
@@ -137,6 +136,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 */
 	@Override
 	public IFeature getDoubleClickFeature(ICustomFeature[] customFeatures) {
+		if(stepInReference == null) return null;
 		return (ICustomFeature) UIUtil.findFeatureByName(customFeatures, stepInReference.getStepInFeatureName());
 	}
 	

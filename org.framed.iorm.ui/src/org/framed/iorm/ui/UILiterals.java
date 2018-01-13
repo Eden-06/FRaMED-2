@@ -10,7 +10,6 @@ import org.eclipse.ui.PartInitException;
 import org.framed.iorm.ui.exceptions.*;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.DiagramTypeProvider;
-import org.framed.iorm.ui.references.NotExactlyOneModelFeatureFoundException;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.framed.iorm.ui.wizards.RoleModelWizardPage;
 import org.osgi.framework.Bundle;
@@ -145,14 +144,14 @@ public class UILiterals {
 	public static final String NO_FEATURE_FOR_PATTERN_FOUND = "No feature could found for the pattern: ";
 	
 	/**
-	 * the message for the {@link NotExactlyOneModelFeatureFoundException}
+	 * the message for the {@link NotExactlyOneFeatureReferenceFoundException}
 	 */
-	public static final String NOT_EXACTLY_ONE_MODEL_FEATURE_FOUND = "Not exactly one model feature reference was found: ";
+	public static final String NOT_EXACTLY_ONE_FEATURE_REFERENCE_FOUND = "Not exactly one feature reference was found: ";
 	
 	/**
-	 * the message for the {@link NotExactlyOneAttributeAndOperationFeatureFoundException}
+	 * the message for the {@link MoreThanOneFeatureReferenceFoundException}
 	 */
-	public static final String NOT_EXACTLY_ONE_ATT_OP_FEATURE_FOUND = "Not exactly one attribute and operation feature reference was found: ";
+	public static final String MORE_THAN_ONE_FEATURE_REFERENCE_FOUND = "More than one feature reference was found: ";
 	
 	/**
 	 * the message for the {@link TransformationFailedException}

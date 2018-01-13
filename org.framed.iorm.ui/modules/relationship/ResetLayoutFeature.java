@@ -14,8 +14,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-
-import relationship.references.IntraRelationshipConstraintReferences;
+import org.framed.iorm.ui.references.AbstractIntraRelationshipConstraintReference;
 
 /**
  * This graphiti custom feature is used to reset the layout of relationships and and role types.
@@ -35,7 +34,7 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 	/**
 	 * encapsulates the dependency of the relationship to its intra relationship constraint feature
 	 */
-	IntraRelationshipConstraintReferences ircr = new IntraRelationshipConstraintReferences();
+	AbstractIntraRelationshipConstraintReference ircr = UIUtil.getIntraRelationshipConstraintFeatureReference();
 	
 	/**
 	 * the graphics algorithm service used to edit graphics algorithms
@@ -92,7 +91,8 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 		connection.getBendpoints().clear();
 		int intraRelConsAdded = 0;
 		for(ConnectionDecorator decorator : connection.getConnectionDecorators()) {
-			if(UIUtil.isShape_IdValue(decorator, ircr.SHAPE_ID_INTRA_REL_CON_NAME_DECORATOR)) {
+			if(ircr != null &&
+			   UIUtil.isShape_IdValue(decorator, ircr.getIntraRelConNameDecorator())) {
 				graphicAlgorithmService.setLocation(decorator.getGraphicsAlgorithm(), literals.DISTANCE_FROM_CONNECTION_LINE, intraRelConsAdded*literals.HEIGHT_OCCURRENCE_CONSTRAINT);
 				intraRelConsAdded++;
 			} else {
