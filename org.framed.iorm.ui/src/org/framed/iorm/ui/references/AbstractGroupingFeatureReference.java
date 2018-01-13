@@ -6,6 +6,8 @@ import org.framed.iorm.ui.palette.PaletteView;
 /**
  * This is the abstract superclass for references which contain informations about feature patterns that can
  * group other objects.
+ * <p>
+ * You can find the sub classes in the modules of the grouping features.
  * @author Kevin Kassin
  */
 public abstract class AbstractGroupingFeatureReference {

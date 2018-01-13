@@ -45,7 +45,7 @@ import org.framed.iorm.ui.subeditors.FRaMEDTextViewer;
 import org.framed.iorm.ui.providers.DiagramTypeProvider; //*import for javadoc link
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
-import org.framed.iorm.ui.references.ModelFeatureReference;
+import org.framed.iorm.ui.references.AbstractModelFeatureReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
 
 /**
@@ -63,7 +63,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * the reference to the model feature
 	 */
-	ModelFeatureReference modelFeatureReferences = new ModelFeatureReference();
+	AbstractModelFeatureReference modelFeatureReferences = UIUtil.getModelFeatureReference();
 	
 	/**
 	 * the identifier of the {@link DiagramTypeProvider} which is needed to instantiate an {@link DiagramEditorInput}
@@ -79,8 +79,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	private final String DIAGRAM_PAGE_NAME = UILiterals.DIAGRAM_PAGE_NAME,
 						 TEXT_IORM_PAGE_NAME = UILiterals.TEXT_IORM_PAGE_NAME,
 						 TEXT_CROM_PAGE_NAME = UILiterals.TEXT_CROM_PAGE_NAME,
-						 FEATURE_PAGE_NAME = UILiterals.FEATURE_PAGE_NAME,
-						 MODEL_FEATURE_NAME = modelFeatureReferences.MODEL_FEATURE_NAME;
+						 FEATURE_PAGE_NAME = UILiterals.FEATURE_PAGE_NAME;
 	
 	/**
 	 * the file extension for role model files 
@@ -310,7 +309,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		//Step 4
 		ICreateFeature createModelFeature = null;
 		ICreateFeature[] createFeatures = editorDiagram.getDiagramTypeProvider().getFeatureProvider().getCreateFeatures();
-		createModelFeature = (ICreateFeature) UIUtil.findFeatureByName(createFeatures, MODEL_FEATURE_NAME);
+		createModelFeature = (ICreateFeature) UIUtil.findFeatureByName(createFeatures, modelFeatureReferences.getModelFeatureName());
 		if(createModelFeature != null) {
 			CreateContext createContext = new CreateContext();
 			if(createModelFeature.canCreate(createContext)) createModelFeature.create(createContext);

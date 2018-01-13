@@ -17,8 +17,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-
-import customFeatures.references.AbstractStepInAndOutReference;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 /**
  * This graphiti custom feature is used to step in groups and compartment types by opening a new tab.
@@ -49,7 +48,7 @@ public class StepInNewTabFeature extends AbstractStepInFeature {
 	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
 		if(pictogramElement instanceof Shape &&
 		   !(pictogramElement instanceof Diagram)) {
-				if(util.shapeIsFittingToStepInAndOutFeature((Shape) pictogramElement, stepInAndOutReferences))
+				if(util.shapeIsFittingToStepInAndOutFeature((Shape) pictogramElement, groupingFeatureReferences))
 					return true;
 		}
 		return false;
@@ -85,7 +84,7 @@ public class StepInNewTabFeature extends AbstractStepInFeature {
 			org.framed.iorm.model.Shape businessobject = (org.framed.iorm.model.Shape) getBusinessObjectForPictogramElement(typeBodyShape);
 			type = businessobject.getType();
 		} else return;
-		AbstractStepInAndOutReference siaor = util.getStepInAndOutReferenceForType(type, stepInAndOutReferences);
+		AbstractGroupingFeatureReference siaor = util.getStepInAndOutReferenceForType(type, groupingFeatureReferences);
 		if(siaor == null) return;
 		Diagram diagramToStepIn = UIUtil.getDiagramForGroupingShape(typeBodyShape, getDiagram(), siaor.getShapeIdTypebody(), 
 			siaor.getShapeIdName(), siaor.getDiagramKind());

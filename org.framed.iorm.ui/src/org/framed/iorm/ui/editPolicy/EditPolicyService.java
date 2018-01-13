@@ -50,7 +50,6 @@ public class EditPolicyService {
 	{
 		configurations = new HashMap<>();
 		policies = new HashMap<>();
-		System.out.println("loading model: ...");
 		model = loadModel();
 	}
 	
@@ -118,8 +117,7 @@ public class EditPolicyService {
 	/*
 	 * Load editPolicy ecore Model from file.
 	 */
-	private static Model loadModel()
-	{
+	private static Model loadModel() {
 		
 		String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/noRules.xmi");
 		//String filename = new String("platform:/plugin/org.framed.iorm.editPolicy.model/model/basicRules.xmi");

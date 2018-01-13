@@ -9,9 +9,7 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-
-import customFeatures.StepInFeature;
-import customFeatures.references.AbstractStepInAndOutReference;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 /**
  * This class is an abstract super class for the graphiti custom features {@link StepInFeature} and
@@ -32,7 +30,7 @@ public abstract class AbstractStepInFeature extends FRaMEDCustomFeature {
 	 * operation can be added with specific informations for these.
 	 * @see AbstractUsedInReference
 	 */
-	protected List<AbstractStepInAndOutReference> stepInAndOutReferences; 
+	protected List<AbstractGroupingFeatureReference> groupingFeatureReferences; 
 
 	/**
 	 * Class constructor
@@ -44,8 +42,7 @@ public abstract class AbstractStepInFeature extends FRaMEDCustomFeature {
 	public AbstractStepInFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
 		//Note
-		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		stepInAndOutReferences = util.getStepInAndOutReferences(classes);
+		groupingFeatureReferences = UIUtil.getGroupingFeatureReferences();
 	}
 	
 	/**
@@ -60,7 +57,7 @@ public abstract class AbstractStepInFeature extends FRaMEDCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(util.shapeIsFittingToStepInAndOutFeature((Shape) customContext.getPictogramElements()[0], stepInAndOutReferences)) {
+			if(util.shapeIsFittingToStepInAndOutFeature((Shape) customContext.getPictogramElements()[0], groupingFeatureReferences)) {
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))

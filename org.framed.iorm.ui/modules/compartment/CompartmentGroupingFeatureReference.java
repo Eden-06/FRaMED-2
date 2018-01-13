@@ -1,6 +1,7 @@
-package org.framed.iorm.ui.references;
+package compartment;
 
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 /**
  * This is the grouping feature reference which contain informations about the compartment type

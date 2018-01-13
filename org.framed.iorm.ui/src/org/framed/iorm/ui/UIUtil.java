@@ -53,9 +53,11 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.exceptions.NoFeatureForPatternFound;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
+import org.framed.iorm.ui.exceptions.NotExactlyOneModelFeatureFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
+import org.framed.iorm.ui.references.AbstractModelFeatureReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
 
@@ -129,11 +131,11 @@ public class UIUtil {
 	 * @return the list of {@link AbstractGroupingFeatureReference}
 	 */
 	public static List<AbstractGroupingFeatureReference> getGroupingFeatureReferences() {
-		List<Class<?>> classes = findSourceJavaClasses();
+		List<Class<?>> classes = findModuleJavaClasses();
 		List<AbstractGroupingFeatureReference> groupingFeatures = new ArrayList<AbstractGroupingFeatureReference>();
 		for(Class<?> cl : classes) {
 			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
+				if(getSuperClasses(cl).contains(AbstractGroupingFeatureReference.class)) {
 					Object object = null;
 					try {
 						object = cl.newInstance();
@@ -141,6 +143,27 @@ public class UIUtil {
 					if(object != null) groupingFeatures.add((AbstractGroupingFeatureReference) object);
 		}	}	}
 		return groupingFeatures;
+	}
+	
+	/**
+	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
+	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
+	 * 		   or null else
+	 */
+	public static AbstractModelFeatureReference getModelFeatureReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractModelFeatureReference> modelFeatures = new ArrayList<AbstractModelFeatureReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractModelFeatureReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) modelFeatures.add((AbstractModelFeatureReference) object);
+		}	}	}
+		if(modelFeatures.size()==1) return modelFeatures.get(0);
+		else throw new NotExactlyOneModelFeatureFoundException(modelFeatures.size());
 	}
 	
 	/**
@@ -571,23 +594,6 @@ public class UIUtil {
 	    	try {
 	    		Class<?> cl = Class.forName(formatURL(classURL.toString(), "core/"));
 	    		classes.add(cl);
-			} catch (ClassNotFoundException e) { e.printStackTrace(); }
-	    }
-	    return classes;
-	}
-	
-	/**
-	 * fetches all java classes in the src source folder
-	 * @return all java classes in in the src source folder
-	 */
-	public static List<Class<?>> findSourceJavaClasses() {
-		Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
-		List<URL> srcClassURLs = Collections.list(bundle.findEntries("/src", "*.java", true));
-	    List<Class<?>> classes = new ArrayList<Class<?>>();
-	    for(URL classURL : srcClassURLs) {
-	    	try {
-		   		Class<?> cl = Class.forName(formatURL(classURL.toString(), "src/"));
-		   		classes.add(cl);
 			} catch (ClassNotFoundException e) { e.printStackTrace(); }
 	    }
 	    return classes;

@@ -144,6 +144,11 @@ public class UILiterals {
 	public static final String NO_FEATURE_FOR_PATTERN_FOUND = "No feature could found for the pattern: ";
 	
 	/**
+	 * the message for the {@link NotExactlyOneModelFeatureFoundException}
+	 */
+	public static final String NOT_EXACTLY_ONE_MODEL_FEATURE_FOUND = "Not exaclty one model feature reference was found: ";
+	
+	/**
 	 * the message for the {@link TransformationFailedException}
 	 */
 	public static final String ERROR_TRANSFORMATION_FAILED = "The transformation of the IORM to the CROM failed!";

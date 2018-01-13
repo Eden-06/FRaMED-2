@@ -21,8 +21,7 @@ import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor;
-
-import customFeatures.references.AbstractStepInAndOutReference;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 /**
  * This graphiti custom feature is used to step out of groups and compartment types remaining still showing the same number of tabs.
@@ -45,13 +44,13 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 	 * operation can be added with specific informations for these.
 	 * @see AbstractUsedInReference
 	 */
-	private List<AbstractStepInAndOutReference> stepInAndOutReferences; 
+	private List<AbstractGroupingFeatureReference> groupingFeatureReferences; 
 	
 	/**
 	 * Class constructor
 	 * <p>
 	 * Note: It gets the references which save in which other module feature's shapes a attribute or
-	 * operations can be added here and saves them it into {@link #stepInAndOutReferences}.	
+	 * operations can be added here and saves them it into {@link #groupingFeatureReferences}.	
 	 * @param featureProvider the feature provider the feature belongs to
 	 */
 	public StepOutFeature(IFeatureProvider featureProvider) {
@@ -59,7 +58,7 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 		FEATURE_NAME = literals.STEP_OUT_FEATURE_NAME;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		stepInAndOutReferences = util.getStepInAndOutReferences(classes);
+		groupingFeatureReferences = util.getStepInAndOutReferences(classes);
 	}
 	
 	/**
@@ -69,13 +68,13 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
 		if(pictogramElement instanceof Diagram) {
 			Diagram diagram = (Diagram) pictogramElement;
-			if(util.diagramIsFittingToStepInAndOutFeature(diagram, stepInAndOutReferences))
+			if(util.diagramIsFittingToStepInAndOutFeature(diagram, groupingFeatureReferences))
 				return true;
 		} else {
 			if(pictogramElement instanceof Shape) {
 				Diagram diagram = UIUtil.getDiagramForContainedShape((Shape) pictogramElement);
 				if(diagram != null) {
-					if(util.diagramIsFittingToStepInAndOutFeature(diagram, stepInAndOutReferences))
+					if(util.diagramIsFittingToStepInAndOutFeature(diagram, groupingFeatureReferences))
 						return true;
 		}	}	}	
 		return false;
@@ -93,7 +92,7 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
 		if(customContext.getPictogramElements().length == 1) {
-			if(util.diagramIsFittingToStepInAndOutFeature(getDiagram(), stepInAndOutReferences)) {
+			if(util.diagramIsFittingToStepInAndOutFeature(getDiagram(), groupingFeatureReferences)) {
 				MultipageEditor multipageEditor = 
 					(MultipageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if(!(multipageEditor.isDirty()))
@@ -136,7 +135,7 @@ public class StepOutFeature extends FRaMEDCustomFeature {
 				Type type = ShapeToStepOutTo.getType();
 				for(Shape shape : containerDiagram.getChildren()) {
 					if(shape instanceof Diagram) {
-						AbstractStepInAndOutReference siaorOfContainerChildren = util.getStepInAndOutReferenceForDiagramKind((Diagram) shape, stepInAndOutReferences);
+						AbstractGroupingFeatureReference siaorOfContainerChildren = util.getStepInAndOutReferenceForDiagramKind((Diagram) shape, groupingFeatureReferences);
 						if(siaorOfContainerChildren != null) {
 							if(type == siaorOfContainerChildren.getModelType()) {
 								if(((Diagram) shape).getName().equals(diagramNameToStepOutTo)) 

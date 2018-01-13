@@ -1,7 +1,9 @@
-package customFeatures.references;
+package customFeatures;
+
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference; //* import for javadoc link
 
 /**
- * This exception is thrown no fitting {@link AbstractStepInAndOutReference} is found in the utility class of this module.
+ * This exception is thrown no fitting {@link AbstractGroupingFeatureReference} is found in the utility class of this module.
  * @author Kevin Kassin
  */
 public class StepInAndOutReferenceNotFoundException extends RuntimeException {
