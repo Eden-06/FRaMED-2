@@ -1,5 +1,8 @@
 package fulfillment;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -26,8 +29,6 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 
-import fulfillment.references.TypeReferences;
-
 /**
  * This graphiti pattern is used to work with {@link Relation}s of the type
  * {@link Type#FULFILLMENT} in the editor.
@@ -41,15 +42,17 @@ import fulfillment.references.TypeReferences;
  */
 public class FulfillmentPattern extends FRaMEDConnectionPattern {
 
+	//TODO To be delete when the type checks are done by the edit policies
+	/**
+	 * the lists of types for which a fulfillment is applicable
+	 */
+	List<Type> sourceTypes = Arrays.asList(Type.NATURAL_TYPE, Type.DATA_TYPE, Type.COMPARTMENT_TYPE, Type.ROLE_TYPE),
+			   targetTypes = Arrays.asList(Type.COMPARTMENT_TYPE);
+
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
 	Literals literals = new Literals();
-	
-	/**
-	 * the reference for which model types a inheritance is applicable
-	 */
-	private final TypeReferences typeReferences = new TypeReferences();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -89,9 +92,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {	
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
-				return typeReferences.getSourceTypes().contains(newShape.getType());
+				return sourceTypes.contains(newShape.getType());
 			else
-				return typeReferences.getTargetTypes().contains(newShape.getType());
+				return targetTypes.contains(newShape.getType());
 		}
 		return false;
 	}
@@ -211,7 +214,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
-				if (typeReferences.getTargetTypes().contains(targetShape.getType()))
+				if (targetTypes.contains(targetShape.getType()))
 					   return EditPolicyService.canCreate(createContext, this.getDiagram());
 			}
 		}
@@ -232,7 +235,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
-			if(typeReferences.getSourceTypes().contains(sourceShape.getType()))
+			if(sourceTypes.contains(sourceShape.getType()))
 				return true;
 		}
 		return false;

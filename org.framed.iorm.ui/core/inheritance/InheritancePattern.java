@@ -1,5 +1,6 @@
 package inheritance;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -25,8 +26,6 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 
-import inheritance.references.TypeReferences;
-
 /**
  * This graphiti pattern is used to work with {@link Relation}s
  * of the type {@link Type#INHERITANCE} in the editor.
@@ -38,15 +37,16 @@ import inheritance.references.TypeReferences;
  */
 public class InheritancePattern extends FRaMEDConnectionPattern {
 	
+	//TODO To be delete when the type checks are done by the edit policies
+	/**
+	 * the lists of types for which a inheritance is applicable
+	 */
+	List<Type> types = Arrays.asList(Type.NATURAL_TYPE, Type.DATA_TYPE, Type.COMPARTMENT_TYPE, Type.ROLE_TYPE);
+	
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
 	private final Literals literals = new Literals();
-	
-	/**
-	 * the reference for which model types a inheritance is applicable
-	 */
-	private final TypeReferences typeReferences = new TypeReferences();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -171,7 +171,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
-	    		if(typeReferences.getTypes().contains(sourceShape.getType()))
+	    		if(types.contains(sourceShape.getType()))
 	    			if(targetShape.getType() == sourceShape.getType())
 						   return EditPolicyService.canCreate(createContext, this.getDiagram());
 	    }	}
@@ -191,7 +191,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(typeReferences.getTypes().contains(sourceShape.getType()))
+			if(types.contains(sourceShape.getType()))
 				return true;
 		}	
 		return false;
