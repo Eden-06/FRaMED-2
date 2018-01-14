@@ -24,8 +24,7 @@ import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import attributeAndOperation.references.AbstractUsedInReference;
+import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -63,7 +62,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 * operation can be added with specific informations for these.
 	 * @see AbstractUsedInReference
 	 */
-	private List<AbstractUsedInReference> usedInReferences; 
+	private List<AbstractHasAttsAndOpsReference> usedInReferences; 
 	
 	/**
 	 * class constructor
@@ -80,7 +79,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		usedInReferences = util.getUsedInReferences(classes);
+		usedInReferences = util.getHasAttsAndOpsReferences(classes);
 	}	
 	
 	/**
@@ -190,9 +189,9 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 		int attributeContainerSize = attributeContainer.getChildren().size(),
 		    operationContainerSize = operationContainer.getChildren().size(); 	
 		int horizontalCenter = -1;
-		for(AbstractUsedInReference auir : usedInReferences) {
-			if(businessObjectOfClassOrRole.getType() == auir.getModelType())
-				horizontalCenter = auir.getHorizontalCenter(classOrRoleContainer.getGraphicsAlgorithm().getHeight());
+		for(AbstractHasAttsAndOpsReference haaor : usedInReferences) {
+			if(businessObjectOfClassOrRole.getType() == haaor.getModelType())
+				horizontalCenter = haaor.getHorizontalCenter(classOrRoleContainer.getGraphicsAlgorithm().getHeight());
 		}	
 		if(horizontalCenter == -1) return null;
 		//Step 3

@@ -17,8 +17,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-
-import attributeAndOperation.references.AbstractUsedInReference;
+import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
 
 /**
  * This graphiti pattern is used to work with {@link NamedElement}s
@@ -62,7 +61,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 	 * operation can be added with specific informations for these.
 	 * @see AbstractUsedInReference
 	 */
-	private List<AbstractUsedInReference> usedInReferences; 
+	private List<AbstractHasAttsAndOpsReference> usedInReferences; 
 		
 	/**
 	 * class constructor
@@ -78,7 +77,7 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		usedInReferences = util.getUsedInReferences(classes);
+		usedInReferences = util.getHasAttsAndOpsReferences(classes);
 	}	
 	
 	/**
@@ -133,8 +132,8 @@ public class AttributePattern extends FRaMEDShapePattern implements IPattern {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject; 
 			if(util.usedInModelTypes(usedInReferences).contains(shape.getType())) {
 				boolean isShadowShape = false;
-				for(AbstractUsedInReference auir : usedInReferences) {
-					if(UIUtil.isShape_IdValue((Shape) pictogramElement, auir.getShadowShapeID()))
+				for(AbstractHasAttsAndOpsReference haaor : usedInReferences) {
+					if(UIUtil.isShape_IdValue((Shape) pictogramElement, haaor.getShadowShapeID()))
 						isShadowShape = true;
 				}
 				if(!isShadowShape)

@@ -51,10 +51,9 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
+import org.framed.iorm.ui.references.AbstractStepInReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
-
-import group.references.AbstractInnerGroupingReference;
-import group.references.StepInReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -85,16 +84,15 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 	private final Util util = new Util();
 	
 	/**
-	 * the list of reference classes which save in which other module feature's shapes a attribute or
-	 * operation can be added with specific informations for these.
-	 * @see AbstractUsedInReference
+	 * the list of reference classes which save in module feature's shapes can group objects
+	 * @see AbstractGroupingFeatureReference
 	 */
-	private List<AbstractInnerGroupingReference> innerGroupingReferences; 
+	private final List<AbstractGroupingFeatureReference> groupingFeatureReferences; 
 	
 	/**
 	 * the reference to the step in feature 
 	 */
-	private final StepInReference stepInReference = new StepInReference();
+	private final AbstractStepInReference stepInReference = UIUtil.getStepInFeatureReference();
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -118,8 +116,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		DIAGRAM_KIND = literals.DIAGRAM_KIND;
 		FPD = spec_FPD;
 		//Note
-		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		innerGroupingReferences = util.getUsedInReferences(classes);
+		groupingFeatureReferences = UIUtil.getGroupingFeatureReferences();
 	}
 	
 	/**
@@ -732,7 +729,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			//Step 2
 			for(Shape shape : groupDiagram.getChildren()) {
 				if(shape instanceof ContainerShape) {
-					for(AbstractInnerGroupingReference reference : innerGroupingReferences) {
+					for(AbstractGroupingFeatureReference reference : groupingFeatureReferences) {
 						if(UIUtil.isShape_IdValue(shape, reference.getShapeIdContainer())) {
 							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingFeaturesContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
 						}

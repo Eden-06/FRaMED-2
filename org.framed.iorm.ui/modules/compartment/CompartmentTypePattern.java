@@ -53,9 +53,9 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 import org.framed.iorm.ui.references.AbstractStepInReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
-import compartment.references.AbstractInnerGroupingReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -96,11 +96,10 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	private final AbstractAttributeAndOperationReference attOpsReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
 	/**
-	 * the list of reference classes which save in which other module feature's shapes a attribute or
-	 * operation can be added with specific informations for these.
-	 * @see AbstractUsedInReference
+	 * the list of reference classes which save in module feature's shapes can group objects
+	 * @see AbstractGroupingFeatureReference
 	 */
-	private List<AbstractInnerGroupingReference> innerGroupingReferences;
+	private final List<AbstractGroupingFeatureReference> groupingFeatureReferences; 
 	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
@@ -127,8 +126,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		modelType = Type.COMPARTMENT_TYPE;
 		FPD = spec_FPD;
 		//Note
-		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		innerGroupingReferences = util.getUsedInReferences(classes);
+		groupingFeatureReferences = UIUtil.getGroupingFeatureReferences();
 	}
 	
 	/**
@@ -946,7 +944,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			//Step 3 
 			for(Shape shape : compartmentDiagram.getChildren()) {
 				if(shape instanceof ContainerShape) {
-					for(AbstractInnerGroupingReference reference : innerGroupingReferences) {
+					for(AbstractGroupingFeatureReference reference : groupingFeatureReferences) {
 						if(UIUtil.isShape_IdValue(shape, reference.getShapeIdContainer()))
 							innerGroupsOrCompartmentTypesToDelete.add(UIUtil.getTypeBodyForGroupingFeaturesContainer((ContainerShape) shape, reference.getShapeIdTypebody()));
 			}	}	}

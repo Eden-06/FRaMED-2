@@ -123,6 +123,8 @@ public class UIUtil {
 		return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
 	}
 	
+	//Get References
+	//~~~~~~~~~~~~~~
 	/**
 	 * get all {@link AbstractGroupingFeatureReference}, which encapsulates the dependency to all feature pattern that
 	 * can group other objects

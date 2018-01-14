@@ -26,9 +26,8 @@ public abstract class AbstractStepInFeature extends FRaMEDCustomFeature {
 	protected final Util util = new Util();
 	
 	/**
-	 * the list of reference classes which save in which other module feature's shapes a attribute or
-	 * operation can be added with specific informations for these.
-	 * @see AbstractUsedInReference
+	 * the list of reference classes which save in module feature's shapes can group objects
+	 * @see AbstractGroupingFeatureReference
 	 */
 	protected List<AbstractGroupingFeatureReference> groupingFeatureReferences; 
 

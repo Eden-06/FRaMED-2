@@ -1,7 +1,5 @@
 package compartment;
 
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -9,8 +7,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
-
-import compartment.references.AbstractInnerGroupingReference;
 
 public class Util {
 
@@ -23,26 +19,6 @@ public class Util {
 	 * a reference class which encapsulates the dependency to the attribute and operation features
 	 */
 	private final AbstractAttributeAndOperationReference aaoReference = UIUtil.getAttributeAndOperationFeatureReference();
-	
-	//Grouping References
-	//~~~~~~~~~~~~~~~~
-	/**
-	 * get all sub classes of {@link AbstractInnerGroupingReference} for a given list of classes 
-	 * @param classes a given list of classes of different types
-	 * @return a list of classes have {@link AbstractInnerGroupingReference} as their super class
-	 */
-	public List<AbstractInnerGroupingReference> getUsedInReferences(List<Class<?>> classes) {
-		List<AbstractInnerGroupingReference> innerGroupingReference = new ArrayList<AbstractInnerGroupingReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(UIUtil.getSuperClasses(cl).contains(AbstractInnerGroupingReference.class)) {
-					try {
-						Object object = cl.newInstance();
-						innerGroupingReference.add((AbstractInnerGroupingReference) object);
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-		} 	}	}
-		return innerGroupingReference;
-	}
 	
 	/**
 	 * This operation calculates where the horizontal first third of a compartment type is.

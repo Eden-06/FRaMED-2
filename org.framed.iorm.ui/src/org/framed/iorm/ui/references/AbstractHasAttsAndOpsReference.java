@@ -1,23 +1,23 @@
-package attributeAndOperation.references;
+package org.framed.iorm.ui.references;
 
 import org.framed.iorm.model.Type;
 
 /**
- * This is the super class for references classes which save in which other module feature's shapes a attribute or
+ * This is the super class for reference classes which save in which modules feature's shapes a attribute or
  * operation can be added with specific informations for these.
  * @author Kevin Kassin
  */
-public abstract class AbstractUsedInReference {
+public abstract class AbstractHasAttsAndOpsReference {
 
 	/**
 	 * the {@link Type} of the shape in which a attribute or operations can be added
 	 */
-	protected Type modelType = null;
+	protected Type modelType;
 	
 	/**
 	 * the id of the drop shadow of the shape in which a attribute or operations can be added
 	 */
-	protected String shadowShapeID = null;
+	protected String shadowShapeID;
 	
 	/**
 	 * getter method for modelType
@@ -38,5 +38,7 @@ public abstract class AbstractUsedInReference {
 	 * @param height the height of the shape
 	 * @return the height of the horizontal center
 	 */
-	public abstract int getHorizontalCenter(int height);
+	public int getHorizontalCenter(int height) {
+		return 0;
+	}
 }

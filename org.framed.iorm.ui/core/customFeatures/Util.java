@@ -9,16 +9,15 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
-import attributeAndOperation.references.AbstractUsedInReference;
 
 public class Util {
 
 	//StepInAndOutReferences
 	//~~~~~~~~~~~~~~~~
 	/**
-	 * get all sub classes of {@link AbstractUsedInReference} for a given list of classes 
+	 * get all sub classes of {@link AbstractGroupingFeatureReference} for a given list of classes 
 	 * @param classes a given list of classes of different types
-	 * @return a list of classes have {@link AbstractUsedInReference} as their super class
+	 * @return a list of classes have {@link AbstractGroupingFeatureReference} as their super class
 	 */
 	public List<AbstractGroupingFeatureReference> getStepInAndOutReferences(List<Class<?>> classes) {
 		List<AbstractGroupingFeatureReference> stepInAndOutReferences = new ArrayList<AbstractGroupingFeatureReference>();
