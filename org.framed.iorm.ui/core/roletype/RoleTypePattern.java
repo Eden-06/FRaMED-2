@@ -292,7 +292,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
 		layoutPictogramElement(typeBodyShape);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 		return containerShape;
 	}	
 	
@@ -442,7 +442,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_NAME)) {
 			roleType.setName(value);
 			updatePictogramElement(shape.getContainer());
-			updateContainingGroupOrCompartmentType();
+			updateContainingGroupingFeaturesObject();
 		}	
 		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			roleType.getDescription().setName(value);
@@ -830,6 +830,6 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContextForAllShapes);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 	}
 }

@@ -348,7 +348,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
 		layoutPictogramElement(containerShape);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 		return containerShape;
 	}
 	
@@ -489,7 +489,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		org.framed.iorm.model.Shape compartmentType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		compartmentType.setName(value);
 		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 	}
 	
 	//layout feature
@@ -973,7 +973,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			}
 			super.delete(deleteContextForAllShapes);
 			super.delete(deleteContextForGroupDiagram);
-			updateContainingGroupOrCompartmentType();
+			updateContainingGroupingFeaturesObject();
 		}
 	}
 }

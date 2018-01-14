@@ -41,7 +41,7 @@ import org.framed.iorm.ui.exceptions.FeatureHasNoPaletteDescriptorException;
 import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 
 /**
- * This class enables context buttons and can manipulate the palette of the editor.
+ * This class enables context buttons, the double click features and can manipulate the palette of the editor.
  * @author Kevin Kassin
  */
 public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
@@ -61,13 +61,36 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 							propertiesCategory, 
 							relationsCategory,
 							constraintsCategory;
+	
+	/**
+	 * the list of connection patterns the feature provider uses
+	 */
+	List<FRaMEDConnectionPattern> connectionPatterns;
+	
+	/**
+	 * the list of shape patterns the feature provider uses
+	 */
+	List<FRaMEDShapePattern> shapePatterns;
 		
 	/**
 	 * Class constructor
+	 * <p>
+	 * It fills the lists of patterns and casts them into the right type of (a) {@link FRaMEDConnectionPattern} and
+	 * (b) {@link FRaMEDShapePattern}.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public ToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
+		//(a)
+		for(IConnectionPattern iConPattern : ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
+			if(iConPattern instanceof FRaMEDConnectionPattern)
+				connectionPatterns.add((FRaMEDConnectionPattern) iConPattern);
+		}
+		//(b)
+		for(IPattern iPattern : ((FeatureProvider) getFeatureProvider()).getPatterns()) {
+			if(iPattern instanceof FRaMEDShapePattern)
+				shapePatterns.add((FRaMEDShapePattern) iPattern);
+		}
 	}
 	
 	/**
@@ -141,15 +164,11 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		List<String> framedFeatureNames = getListOfFramedFeatureNames();
 		//Step 3 
 		//(a)
-		for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
-			if(iPattern instanceof FRaMEDShapePattern)
-				addShapeFeature((FRaMEDShapePattern) iPattern, framedFeatureNames);
-		}
+		for(FRaMEDShapePattern framedShapePattern :  shapePatterns)
+			addShapeFeature(framedShapePattern, framedFeatureNames);
 		//(b)
-		for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
-			if(iConPattern instanceof FRaMEDConnectionPattern)
-				addConnectionFeature((FRaMEDConnectionPattern) iConPattern, framedFeatureNames);
-		}
+		for(FRaMEDConnectionPattern framedConnectionPattern : connectionPatterns)
+			addConnectionFeature(framedConnectionPattern, framedFeatureNames);
 		//Step 4
 		pallete.add(entityCategory); 
 		pallete.add(propertiesCategory); 
@@ -272,20 +291,16 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 			ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(context);
 			//(a)
 			if(businessObject instanceof Relation) {
-				for(IConnectionPattern iConPattern :  ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
-					if(iConPattern instanceof FRaMEDConnectionPattern) {
-						FRaMEDConnectionPattern framedConnectionPattern = (FRaMEDConnectionPattern) iConPattern;
+				for(FRaMEDConnectionPattern framedConnectionPattern : connectionPatterns) {
 						if(framedConnectionPattern.getModelType() == ((Relation) businessObject).getType())
 							return (ICustomFeature) framedConnectionPattern.getDoubleClickFeature(customFeatures);
-			}	}	}
+			}	}
 			//(b)
 			if(businessObject instanceof org.framed.iorm.model.Shape) {
-				for(IPattern iPattern :  ((FeatureProvider) getFeatureProvider()).getPatterns()) {
-					if(iPattern instanceof FRaMEDShapePattern) {
-						FRaMEDShapePattern framedShapePattern = (FRaMEDShapePattern) iPattern;
-						if(framedShapePattern.getModelType() == ((ModelElement) businessObject).getType())
-							return (ICustomFeature) framedShapePattern.getDoubleClickFeature(customFeatures);
-		}	}	}	}
+				for(FRaMEDShapePattern framedShapePattern :  shapePatterns) {
+					if(framedShapePattern.getModelType() == ((ModelElement) businessObject).getType())
+						return (ICustomFeature) framedShapePattern.getDoubleClickFeature(customFeatures);
+		}	}	}
 		return null;
 	}	
 }

@@ -291,7 +291,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
 		layoutPictogramElement(containerShape);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 		return containerShape;
 	}	
 	
@@ -422,7 +422,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		org.framed.iorm.model.Shape naturalType = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		naturalType.setName(value);
 	    updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-	    updateContainingGroupOrCompartmentType();
+	    updateContainingGroupingFeaturesObject();
 	}		
 			
 	//layout feature
@@ -816,6 +816,6 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 		deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 		super.delete(deleteContextForAllShapes);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 	}	
 }

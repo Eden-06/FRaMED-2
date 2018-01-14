@@ -22,15 +22,20 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	/**
 	 * the list of connection patterns known to the feature provider to which this feature belongs to
 	 */
-	private List<IConnectionPattern> connectionFeatures;
+	private List<FRaMEDConnectionPattern> connectionPatterns;
 	
 	/**
 	 * Class constructor
+	 * <p>
+	 * It fills the lists of patterns and casts them into the right type of {@link FRaMEDConnectionPattern}.
 	 * @param featureProvider the feature provider the feature belongs to
 	 */
 	public FRaMEDReconnectFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
-		connectionFeatures = ((FeatureProvider) getFeatureProvider()).getConnectionPatterns();
+		for(IConnectionPattern iConPattern : ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
+			if(iConPattern instanceof FRaMEDConnectionPattern)
+				connectionPatterns.add((FRaMEDConnectionPattern) iConPattern);
+		}
 	}
 	
 	/**
@@ -41,12 +46,10 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	@Override
     public boolean canReconnect(IReconnectionContext context) {
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(context.getConnection());
-		for(IConnectionPattern iConPattern :  connectionFeatures) {
-			if(iConPattern instanceof FRaMEDConnectionPattern) {
-				FRaMEDConnectionPattern framedConnectionFeature = (FRaMEDConnectionPattern) iConPattern;
-				if(relation.getType() == framedConnectionFeature.getModelType())
-					return framedConnectionFeature.canReconnect(context);
-		}	}
+		for(FRaMEDConnectionPattern framedConnectionPattern :  connectionPatterns) {
+			if(relation.getType() == framedConnectionPattern.getModelType())
+				return framedConnectionPattern.canReconnect(context);
+		}
 		return false;
     }	
 	
@@ -64,10 +67,8 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 		UIUtil.changeSourceOrTargetOfRelation(context);
 		//Step 2
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(context.getConnection());
-		for(IConnectionPattern iConPattern :  connectionFeatures) {
-			if(iConPattern instanceof FRaMEDConnectionPattern) {
-				FRaMEDConnectionPattern framedConnectionFeature = (FRaMEDConnectionPattern) iConPattern;
-				if(relation.getType() == framedConnectionFeature.getModelType())
-					framedConnectionFeature.postReconnect(context);
-	}	}	}
+		for(FRaMEDConnectionPattern framedConnectionPattern :  connectionPatterns) {
+			if(relation.getType() == framedConnectionPattern.getModelType())
+				framedConnectionPattern.postReconnect(context);
+	}	}	
 }

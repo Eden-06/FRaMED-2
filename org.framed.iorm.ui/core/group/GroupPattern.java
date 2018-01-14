@@ -296,7 +296,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		layoutPictogramElement(containerShape);
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 		return containerShape;
 	}
 		
@@ -428,7 +428,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		org.framed.iorm.model.Shape group = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
 		group.setName(value);
 		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-		updateContainingGroupOrCompartmentType();
+		updateContainingGroupingFeaturesObject();
 	}
 		
 	//layout feature
@@ -760,6 +760,6 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 			}	
 			super.delete(deleteContextForAllShapes);
 			super.delete(deleteContextForGroupDiagram);
-			updateContainingGroupOrCompartmentType();
+			updateContainingGroupingFeaturesObject();
 	}	}
 }
