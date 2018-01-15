@@ -44,14 +44,14 @@ public abstract class EpsilonStandalone {
     for (IModel model : getModels()) {
       module.getContext().getModelRepository().addModel(model);
     }
-
+    
     preProcess();
     result = execute(module);
     postProcess();
 
     module.getContext().getModelRepository().dispose();
   }
-
+  
   protected Object execute(IEolExecutableModule module) throws EolRuntimeException {
     return module.execute();
   }
@@ -62,10 +62,7 @@ public abstract class EpsilonStandalone {
 
     try {
       return fileURL.toURI();
-    } catch (URISyntaxException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    } catch (URISyntaxException e) { e.printStackTrace(); }
     return null;
   }
 }

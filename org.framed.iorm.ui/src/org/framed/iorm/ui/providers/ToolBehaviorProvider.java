@@ -82,11 +82,13 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	public ToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
 		//(a)
+		connectionPatterns = new ArrayList<FRaMEDConnectionPattern>();
 		for(IConnectionPattern iConPattern : ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 			if(iConPattern instanceof FRaMEDConnectionPattern)
 				connectionPatterns.add((FRaMEDConnectionPattern) iConPattern);
 		}
 		//(b)
+		shapePatterns = new ArrayList<FRaMEDShapePattern>();
 		for(IPattern iPattern : ((FeatureProvider) getFeatureProvider()).getPatterns()) {
 			if(iPattern instanceof FRaMEDShapePattern)
 				shapePatterns.add((FRaMEDShapePattern) iPattern);

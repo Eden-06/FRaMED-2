@@ -1,14 +1,20 @@
 package org.framed.iorm.transformation;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
+import org.eclipse.epsilon.eol.dom.Import;
+import org.eclipse.epsilon.eol.dom.StringLiteral;
 import org.eclipse.epsilon.eol.dt.ExtensionPointToolNativeTypeDelegate;
 import org.eclipse.epsilon.eol.models.IModel;
 import org.eclipse.epsilon.etl.EtlModule;
+import org.osgi.framework.Bundle;
 
 public class TransformationExecutor extends EpsilonStandalone {
 
@@ -22,6 +28,47 @@ public class TransformationExecutor extends EpsilonStandalone {
     sourceModelFile = null;
     targetModelFile = null;
     transformationFile = "epsilon/ORM2CROM.etl";
+    
+    //TESTAREA 
+    /*
+    Bundle bundle = Platform.getBundle("org.framed.iorm.ui");
+    List<URL> moduleClassURLs = null, coreClassURLs = null;
+    if((bundle.findEntries("/modules", "*.etl", true) != null)) 
+    	moduleClassURLs = Collections.list(bundle.findEntries("/modules", "*.etl", true));
+    if((bundle.findEntries("/core", "*.etl", true) != null)) 
+    	coreClassURLs = Collections.list(bundle.findEntries("/core", "*.etl", true));
+    
+    //WEITER
+    
+    
+    
+    
+    
+    for(URL url : coreClassURLs) {
+    	System.out.println(url);
+	    module.getImports().add(getImportForModuleURL(url));
+	    
+    }
+    
+    for(Import im : module.getImports()) {
+    	System.out.println(im + " " +  im.isLoaded());
+    }*/
+  }
+  
+  //TESTAREA
+  	private Import getImportForModuleURL(URL moduleUrl) {
+	  IEolExecutableModule importModule = createModule();
+	  try {
+		  importModule.parse(moduleUrl.toURI());
+	  } catch (Exception e) { e.printStackTrace(); }
+	  Import imp = new Import();
+	  imp.setModule(importModule.getModule());
+	  imp.setImportedModule(importModule.getModule());
+	  imp.setParent(importModule.getParent());
+	  imp.setParentModule(importModule.getParentModule());
+	  imp.setUri(importModule.getUri());
+	  imp.setPathLiteral(new StringLiteral(importModule.getUri().getPath()));
+	  return imp;
   }
 
   public Resource getSourceModelFile() {
@@ -48,7 +95,6 @@ public class TransformationExecutor extends EpsilonStandalone {
   public IEolExecutableModule createModule() {
     EtlModule module = new EtlModule();
     module.getContext().getNativeTypeDelegates().add(new ExtensionPointToolNativeTypeDelegate());
-
     return module;
   }
 

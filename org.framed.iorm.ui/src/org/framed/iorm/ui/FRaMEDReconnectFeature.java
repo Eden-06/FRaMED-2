@@ -1,5 +1,6 @@
 package org.framed.iorm.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -32,6 +33,7 @@ public class FRaMEDReconnectFeature extends DefaultReconnectionFeature  {
 	 */
 	public FRaMEDReconnectFeature(IFeatureProvider featureProvider) {
 		super(featureProvider);
+		connectionPatterns = new ArrayList<FRaMEDConnectionPattern>();
 		for(IConnectionPattern iConPattern : ((FeatureProvider) getFeatureProvider()).getConnectionPatterns()) {
 			if(iConPattern instanceof FRaMEDConnectionPattern)
 				connectionPatterns.add((FRaMEDConnectionPattern) iConPattern);
