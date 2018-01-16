@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.epsilon.common.parse.problem.ParseProblem;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
@@ -23,32 +22,28 @@ public abstract class EpsilonStandalone {
   public abstract String getSource();
 
   public abstract List<IModel> getModels() throws Exception;
-
+  
   public void postProcess() {};
 
   public void preProcess() {};
-
+  
   public void execute() throws Exception {
-
-    module = createModule();
-    module.parse(getTransformationFile());
-
-    if (module.getParseProblems().size() > 0) {
-      System.err.println("Parse errors occured...");
-      for (ParseProblem problem : module.getParseProblems()) {
-        System.err.println(problem.toString());
-      }
-      System.exit(-1);
-    }
-
-    for (IModel model : getModels()) {
+	  module = createModule();
+		try {
+			module.parse(getTransformationFile());
+		} catch (Exception e) { e.printStackTrace(); }
+		if (module.getParseProblems().size() > 0) {
+			System.err.println("Parse errors occured...");
+			for(ParseProblem problem : module.getParseProblems())
+				System.err.println(problem.toString());
+			System.exit(-1);
+		}
+	  for (IModel model : getModels()) {
       module.getContext().getModelRepository().addModel(model);
     }
-    
     preProcess();
     result = execute(module);
     postProcess();
-
     module.getContext().getModelRepository().dispose();
   }
   
@@ -56,7 +51,7 @@ public abstract class EpsilonStandalone {
     return module.execute();
   }
 
-  private URI getTransformationFile() {
+  protected URI getTransformationFile() {
     Bundle bundle = Platform.getBundle("org.framed.iorm.transformation");
     URL fileURL = bundle.getEntry(getSource());
 

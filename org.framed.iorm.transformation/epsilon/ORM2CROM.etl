@@ -1,17 +1,6 @@
-import "CompartmentType.etl";
-import "DataType.etl";
-//import "NaturalType.etl";
-import "RoleType.etl";
-import "RoleGroup.etl";
-import "Group.etl";
-import "RoleConstraints.etl";
-import "RelationshipImplication.etl";
-import "RelationshipExclusion.etl";
-import "Inheritance.etl";
-import "Relationship.etl";
-import "Fulfillment.etl";
+//Do not delete the line of import marker!
+//import marker 
 import "AllFeatures.eol";
-//import "../../org.framed.iorm.ui/core/naturaltype/NaturalType.etl";
 
 operation Any println() : Any { 
 	("Printing : " + self)->println();

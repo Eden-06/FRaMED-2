@@ -932,7 +932,7 @@ public class UIUtil {
 		for(ModelElement modelElement : model.getElements()) {
 			if(modelElement.getType() == type)  
 				modelElementNames.add(modelElement.getName());
-			if(getGroupingFeaturesTypes().contains(type))
+			if(getGroupingFeaturesTypes().contains(modelElement.getType()))
 				getModelElementsNamesRecursive(((org.framed.iorm.model.Shape) modelElement).getModel(), type, modelElementNames);
 	}	}	
 	

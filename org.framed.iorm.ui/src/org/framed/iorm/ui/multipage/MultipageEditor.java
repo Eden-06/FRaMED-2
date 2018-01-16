@@ -143,11 +143,16 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	private FRaMEDFeatureEditor editorFeatures;
 	
 	/**
+	 * the class that executes the model transformation IORM to CROM
+	 */
+	TransformationExecutor transformationExecuter;
+	
+	/**
 	 * Class constructor
 	 */
 	public MultipageEditor() {
 		super();
-		EditPolicyService.initEditPolicyService();
+		
 	}
 	
 	/**
@@ -159,6 +164,8 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	@Override
 	public void init(IEditorSite site, IEditorInput editorInput) throws PartInitException {
 		super.init(site, editorInput);
+		EditPolicyService.initEditPolicyService();
+		transformationExecuter = new TransformationExecutor();
 		getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(this);
 		PlatformUI.getWorkbench().addWorkbenchListener(this);
 	}
@@ -420,12 +427,11 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 		ResourceSet set = new ResourceSetImpl();
 		Resource CROMResource = set.createResource(targetURI);
 		//Step 2
-		TransformationExecutor exe = new TransformationExecutor();
-		exe.setSourceModelFile(diagramResource);
-		exe.setTargetModelFile(CROMResource);
+		transformationExecuter.setSourceModelFile(diagramResource);
+		transformationExecuter.setTargetModelFile(CROMResource);
 		try {
 			CROMResource.save(Collections.EMPTY_MAP);
-			exe.execute();
+			transformationExecuter.execute();
 			return true;
 		} catch (Exception e) { e.printStackTrace(); }
 		return false;
@@ -474,14 +480,19 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	/**
 	 * closes all multipage editors that have an {@link DiagramEditorInput}
 	 * <p>
-	 * This operation is called by the {@link IWorkbench} when the application is closed. At that moment all multipage
-	 * editor with a diagram editor input has to be closed to ensure the synchronization between multipage editors after the
+	 * This operation is called by the {@link IWorkbench} when the application is closed. At that moment 
+	 * there are two steps to execute:<br>
+	 * Step 1: all by the transformation executer copied or generated files has to be deleted 
+	 * Step 2: all multipage editor with a diagram editor input has to be closed to ensure the synchronization between multipage editors after the
 	 * restart of the application. It uses the operation {@link #allEditorsWithDiagramEditorInputClosed} to check if all multipage
 	 * editors with a diagram editor input are closed. If yes, this operation returns true to show the workbench that it can be closed 
 	 * completely now.
 	 */
 	@Override
 	public boolean preShutdown(IWorkbench workbench, boolean forced) {
+		//Step 1
+		transformationExecuter.deleteCopiedAndGeneratedFiles();
+		//Step 2
 		IEditorReference[] editorReferences =
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		for(IEditorReference editorReference : editorReferences) {
