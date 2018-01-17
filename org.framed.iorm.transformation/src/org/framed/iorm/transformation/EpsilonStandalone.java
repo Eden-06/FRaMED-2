@@ -13,21 +13,21 @@ import org.osgi.framework.Bundle;
 
 public abstract class EpsilonStandalone {
 
-  protected IEolExecutableModule module;
+	protected IEolExecutableModule module;
 
-  protected Object result;
+	protected Object result;
 
-  public abstract IEolExecutableModule createModule();
+	public abstract IEolExecutableModule createModule();
 
-  public abstract String getSource();
+	public abstract String getSource();
 
-  public abstract List<IModel> getModels() throws Exception;
+	public abstract List<IModel> getModels() throws Exception;
   
-  public void postProcess() {};
+	public void postProcess() {};
 
-  public void preProcess() {};
+	public void preProcess() {};
   
-  public void execute() throws Exception {
+	public void execute() throws Exception {
 	  module = createModule();
 		try {
 			module.parse(getTransformationFile());

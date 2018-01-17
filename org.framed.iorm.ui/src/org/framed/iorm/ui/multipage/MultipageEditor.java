@@ -59,7 +59,6 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  * @author Kevin Kassin
  */
 public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
-	
 	/**
 	 * the reference to the model feature
 	 */
