@@ -81,13 +81,11 @@ public class UIUtil {
 	public static List<Class<?>> getSuperClasses(Class<?> cl) {
 		List<Class<?>> classList = new ArrayList<Class<?>>();	
 		Class<?> superclass = cl.getSuperclass();
-		if(superclass != null) {	
+		while(superclass != null) {
 			classList.add(superclass);
-			while (superclass != null) {   
-				cl = superclass;
-			    superclass = cl.getSuperclass();
-			    classList.add(superclass);
-		}	}	
+			cl = superclass;
+			superclass = cl.getSuperclass();
+		}
 		return classList;
 	}
 	
