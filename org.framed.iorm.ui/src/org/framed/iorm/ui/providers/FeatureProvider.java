@@ -25,6 +25,7 @@ import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
 import org.framed.iorm.ui.FRaMEDReconnectFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
+import org.framed.iorm.ui.StandardFramedShapePattern;
 import org.framed.iorm.ui.UIUtil;
 
 /**
@@ -40,7 +41,9 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * 		   in the module and core source folder.<br>
 	 * Step 2: It checks all found classes for non abstract<br>
 	 * 		   (a) {@link FRaMEDShapePattern} and<br>
-	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider. 
+	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider.<br>
+	 * Step 3: It adds the standard implementation for shape patterns which disables moving, resizing and deleting
+	 * 		   already existing shapes in models which features are not implemented.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -63,7 +66,10 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 							addConnectionPattern((FRaMEDConnectionPattern) object);
 						}
 					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-    }	}	}	}
+		}	}	}	
+		//Step 3
+		addPattern(new StandardFramedShapePattern());
+	}
 		
 	/**
 	 * sets the graphiti custom features that are used by editor for the diagram type

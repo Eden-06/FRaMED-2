@@ -44,11 +44,24 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 	}
 	
 	/**
-	 * disables the delete option for connection decorators
+	 * checks if a connection can be deleted
+	 * <p>
+	 * @return true if a fitting {@link FRaMEDConnectionPattern} was found for it the clicked element isn't a 
+	 * 		   connection decorator
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
-		return !(deleteContext.getPictogramElement() instanceof ConnectionDecorator);
+		Object oject = getBusinessObjectForPictogramElement(deleteContext.getPictogramElement());
+		if(oject instanceof Relation) {	
+			boolean patternForRelationFound = false;
+			for(FRaMEDConnectionPattern framedConnectionPattern :  connectionPatterns) {
+				if(((Relation) oject).getType() == framedConnectionPattern.getModelType())
+					patternForRelationFound = true;
+			}	
+			if(patternForRelationFound) 
+				return !(deleteContext.getPictogramElement() instanceof ConnectionDecorator);
+		}	
+		return false;
 	}
 	
 	/**

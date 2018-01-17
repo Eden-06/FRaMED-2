@@ -88,52 +88,65 @@ public class TransformationExecutor extends EpsilonStandalone {
 		List<URL> moduleClassURLs = null, coreClassURLs = null;
 		Enumeration<URL> moduleClassEnumeration = UIBundle.findEntries("/modules", "*.etl", true),
 						 coreClassEnumeration = UIBundle.findEntries("/core", "*.etl", true);
-		if(moduleClassEnumeration != null) 
-			moduleClassURLs = Collections.list(moduleClassEnumeration);
-		if((coreClassEnumeration != null)) 
-			coreClassURLs = Collections.list(coreClassEnumeration);
+		if(moduleClassEnumeration != null) moduleClassURLs = Collections.list(moduleClassEnumeration);
+		if((coreClassEnumeration != null)) coreClassURLs = Collections.list(coreClassEnumeration);
 		//Step 3
 		File etlFile = null;
 		List<String> importNames = new ArrayList<String>();
 		if(moduleClassURLs != null) {
 			for(URL url : moduleClassURLs) {
-				//(a)
-				try {
-					etlFile = new File(FileLocator.resolve(url).toURI());
-				} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
-				try {
+				if(!packageMarkedAsNotUsed(url.toString(), "modules/")) {
+					//(a)
 					try {
-						Path path = Files.copy(Paths.get(etlFile.getPath()), 
-								   		  	   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
-						copiedAndGeneratedFiles.add(new File(path.toString()));
-					//Note
-					} catch (FileAlreadyExistsException e) {}
-				} catch (IOException e) { e.printStackTrace(); }
-				//(b)
-				importNames.add(etlFile.getName());
-			}
+						etlFile = new File(FileLocator.resolve(url).toURI());
+					} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
+					try {
+						try {
+							Path path = Files.copy(Paths.get(etlFile.getPath()), 
+									   		  	   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
+							copiedAndGeneratedFiles.add(new File(path.toString()));
+						//Note
+						} catch (FileAlreadyExistsException e) {}
+					} catch (IOException e) { e.printStackTrace(); }
+					//(b)
+					importNames.add(etlFile.getName());
+			}	}
 		}
 		if(coreClassURLs != null) {
 			for(URL url : coreClassURLs) {
-				//(a)
-				try {
-					etlFile = new File(FileLocator.resolve(url).toURI());
-				} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
-				try {
+				if(!packageMarkedAsNotUsed(url.toString(), "core/")) {
+					//(a)
 					try {
-						Path path = Files.copy(Paths.get(etlFile.getPath()), 
-											   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
-					copiedAndGeneratedFiles.add(new File(path.toString()));
-					//Note
-					} catch (FileAlreadyExistsException e) {}	
-				} catch (IOException e) { e.printStackTrace(); }
-				//(b)
-				importNames.add(etlFile.getName());
-			}
+						etlFile = new File(FileLocator.resolve(url).toURI());
+					} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
+					try {
+						try {
+							Path path = Files.copy(Paths.get(etlFile.getPath()), 
+												   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
+						copiedAndGeneratedFiles.add(new File(path.toString()));
+						//Note
+						} catch (FileAlreadyExistsException e) {}	
+					} catch (IOException e) { e.printStackTrace(); }
+					//(b)
+					importNames.add(etlFile.getName());
+			}	}
 		}
 		//Step 4
 		String generatedFileName = generateORM2CROMWithImports(importNames, epsilonFolder);
 		transformationFile = "epsilon/" + generatedFileName;
+	}
+	
+	/**
+	 * checks if the package part of a class url starts and ends with an _
+	 * @param classURL the string url to check against
+	 * @param sourceFolder the source folder in which the class is located in
+	 * @return if the package part of a class url starts and ends with an _
+	 */
+	public boolean packageMarkedAsNotUsed(String classURL, String sourceFolder) {
+		classURL = classURL.substring(classURL.indexOf(sourceFolder) + sourceFolder.length()); 
+		classURL = classURL.substring(0, classURL.indexOf("/"));
+		if(classURL.startsWith("_") && classURL.endsWith("_")) return true;
+		return false;
 	}
 	
 	/**

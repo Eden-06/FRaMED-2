@@ -671,18 +671,33 @@ public class UIUtil {
 	    List<URL> coreClassURLs = Collections.list(bundle.findEntries("/core", "*.java", true));
 	    List<Class<?>> classes = new ArrayList<Class<?>>();
 	    for(URL classURL : moduleClassURLs) {
-	    	try {
-	    		Class<?> cl = Class.forName(formatURL(classURL.toString(), "modules/"));
-	    		classes.add(cl);
-			} catch (ClassNotFoundException e) { e.printStackTrace(); }
-	    }
+	    	if(!packageMarkedAsNotUsed(classURL.toString(), "modules/")) {
+		    	try {
+		    		Class<?> cl = Class.forName(formatURL(classURL.toString(), "modules/"));
+		    		classes.add(cl);
+				} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }	}
 	    for(URL classURL : coreClassURLs) {
-	    	try {
-	    		Class<?> cl = Class.forName(formatURL(classURL.toString(), "core/"));
-	    		classes.add(cl);
-			} catch (ClassNotFoundException e) { e.printStackTrace(); }
-	    }
+	    	if(!packageMarkedAsNotUsed(classURL.toString(), "core/")) {
+		    	try {
+		    		Class<?> cl = Class.forName(formatURL(classURL.toString(), "core/"));
+		    		classes.add(cl);
+				} catch (ClassNotFoundException e) { e.printStackTrace(); }
+	    }	}
 	    return classes;
+	}
+	
+	/**
+	 * checks if the package part of a class url starts and ends with an _
+	 * @param classURL the string url to check against
+	 * @param sourceFolder the source folder in which the class is located in
+	 * @return if the package part of a class url starts and ends with an _
+	 */
+	public static boolean packageMarkedAsNotUsed(String classURL, String sourceFolder) {
+		classURL = classURL.substring(classURL.indexOf(sourceFolder) + sourceFolder.length()); 
+		classURL = classURL.substring(0, classURL.indexOf("/"));
+		if(classURL.startsWith("_") && classURL.endsWith("_")) return true;
+		return false;
 	}
 	
 	/**
@@ -691,11 +706,11 @@ public class UIUtil {
 	 * @param sourceFolder the source that in which the class with the URL is, e.g "modules/"
 	 * @return the formatted string url
 	 */
-	public static String formatURL(String patternURL, String sourceFolder) {
-		int cutStart = patternURL.indexOf(sourceFolder)+sourceFolder.length(),
-			cutEnd = patternURL.indexOf(".java");	
-		patternURL = patternURL.substring(cutStart, cutEnd);
-		return patternURL.replace("/", ".");
+	public static String formatURL(String classURL, String sourceFolder) {
+		int cutStart = classURL.indexOf(sourceFolder)+sourceFolder.length(),
+			cutEnd = classURL.indexOf(".java");	
+		classURL = classURL.substring(cutStart, cutEnd);
+		return classURL.replace("/", ".");
 	}
 	
 	//Properties
