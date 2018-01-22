@@ -23,11 +23,10 @@ operation transformInheritance(s : source!Relation, t : target!Inheritance) {
 rule CompartmentInheritance
 	transform s : source!Relation
 	to t : target!CompartmentInheritance {
-
-	guard : s.getType.getValue == 6 //enum value INHERITANCE 
-		and s.getSource.getType.getValue == 0 // COMPARTMENT_TYPE
-		and s.getTarget.getType.getValue == 0 // COMPARTMENT_TYPE
-		and s.~features.get("Compartment_Inheritance") // FEATURES
+	guard : s.getType==(source!Type#Inheritance) and 
+			s.getSource.getType==(source!Type#CompartmentType) and 
+			s.getTarget.getType==(source!Type#CompartmentType) and 
+			s.~features.get("Compartment_Inheritance")
 		
 	transformInheritance(s, t);
 }
@@ -40,9 +39,9 @@ rule NaturalInheritance
 	transform s : source!Relation
 	to t : target!NaturalInheritance {
 
-	guard : s.getType.getValue == 6 // enum value INHERITANCE
-		and s.getSource.getType.getValue == 1 // NATURAL_TYPE
-		and s.getTarget.getType.getValue == 1 // NATURAL_TYPE
+	guard : s.getType==(source!Type#Inheritance) and 
+			s.getSource.getType==(source!Type#NaturalType) and 
+			s.getTarget.getType==(source!Type#NaturalType)
 
 	transformInheritance(s, t);
 }
@@ -55,10 +54,10 @@ rule RoleInheritance
 	transform s : source!Relation
 	to t : target!RoleInheritance {
 
-	guard : s.getType.getValue == 6 // enum value INHERITANCE
-		and s.getSource.getType.getValue == 2 // ROLE_TYPE
-		and s.getTarget.getType.getValue == 2 // ROLE_TYPE
-		and s.~features.get("Role_Inheritance") // FEATURES
+	guard : s.getType==(source!Type#Inheritance) and
+			s.getSource.getType==(source!Type#RoleType) and
+			s.getTarget.getType==(source!Type#RoleType) and
+			s.~features.get("Role_Inheritance") 
 	
 	transformInheritance(s, t);
 }
@@ -71,10 +70,10 @@ rule DataInheritance
 	transform s : source!Relation
 	to t : target!DataInheritance {
 
-	guard : s.getType.getValue == 6 // enum value INHERITANCE
-		and s.getSource.getType.getValue == 3 // DATA_TYPE
-		and s.getTarget.getType.getValue == 3 // DATA_TYPE
-		and s.~features.get("Data_Type_Inheritance") //FEATURES
+	guard : s.getType==(source!Type#Inheritance) and
+		 	s.getSource.getType==(source!Type#DataType) and
+			s.getTarget.getType==(source!Type#DataType) and
+			s.~features.get("Data_Type_Inheritance") 
 	
 	transformInheritance(s, t);
 }

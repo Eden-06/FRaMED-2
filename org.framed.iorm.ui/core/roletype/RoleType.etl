@@ -1,5 +1,6 @@
 import "Type.etl";
 
+//TODO doku aus compartment.etl
 pre RoleType {
 	var roleTypes : OrderedSet(source!Shape);
 }
@@ -9,14 +10,13 @@ pre RoleType {
  */
  @lazy 
 rule RoleType
-	transform t : source!Shape
-	to n : target!RoleType {
+	transform s : source!Shape
+	to t : target!RoleType {
+	guard : s.getType==(source!Type#RoleType) 
 
-	guard : t.getType.getValue == 2 // enum value ROLE_TYPE
-
-	n.name = t.name;
+	t.name = s.name;
 	
-	roleTypes.add(t);
+	roleTypes.add(s);
 }
 
 /**
@@ -26,16 +26,16 @@ rule RoleType
  * types/shapes. The post block ensures that these cycles can be resolved.
  */
 post RoleType {
-	for (t : source!Shape in roleTypes) {
-		var n = t.equivalent();
+	for (s : source!Shape in roleTypes) {
+		var t = s.equivalent();
 
-		if (not n.isDefined() or not t.isDefined()) {
+		if (not t.isDefined() or not s.isDefined()) {
 			continue;
 		}
 
-		if(t.~features.get("Role_Behavior")) { //feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
-			t.addAttributes(n);
-			t.addOperations(n);
+		if(s.~features.get("Role_Behavior")) { //feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
+			s.addAttributes(t);
+			s.addOperations(t);
 		}	
 	}
 }

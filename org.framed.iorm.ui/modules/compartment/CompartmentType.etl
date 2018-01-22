@@ -1,6 +1,7 @@
 import "Type.etl";
 import "CardinalityParser.eol";
 
+//creates a set used for iorm shapes later in the rule
 pre CompartmentType {
 	var compartmentTypes : OrderedSet(source!Shape);
 }
@@ -10,16 +11,14 @@ pre CompartmentType {
  */
 @lazy 
 rule CompartmentType
-	transform t : source!Shape
-	to n : target!CompartmentType {
+	transform s : source!Shape
+	to t : target!CompartmentType {
+	guard : s.getType==(source!Type#CompartmentType) 
 
-	guard : t.getType.getValue == 0 // enum value COMPARTMENT_TYPE
-
-	compartmentTypes.add(t);
-
-	var children = t.getModel();
+	compartmentTypes.add(s);
+	var children = s.getModel();
 	if (not (children == null)) {
-		for(e in children.elements) e.~features=t.~features;
+		for(e in children.elements) e.~features=s.~features;
 	
 		// iterate over all children of the compartment type	
 		for (elem : source!ModelElement in children.elements) {
@@ -31,10 +30,10 @@ rule CompartmentType
 				// create a new part with the role
 				var part = new target!Part;
 				part.role = e;
-				part.whole = n;
+				part.whole = t;
 				// parse the lower and upper bound from the role
 				var desc = elem.description;
-				if (not (desc == null) and t.~features.get("Occurrence_Constraints")) {
+				if (not (desc == null) and s.~features.get("Occurrence_Constraints")) {
 					var card = desc.name;
 					var cards = parseCardinality(card);
 					
@@ -46,27 +45,27 @@ rule CompartmentType
 					}	
 				}				
 				// add the new part to the compartment
-				n.getParts().add(part);
+				t.getParts().add(part);
 			} else if (e.instanceOf(target!CompartmentType)) {	//COMPARTMENT_TYPE
-				n.getContains.add(e);
-				if(not(t.~features.get("Contains_Compartments"))) n.getContains.remove(e);
+				t.getContains.add(e);
+				if(not(s.~features.get("Contains_Compartments"))) t.getContains.remove(e);
 			} else if (e.instanceOf(target!RelationshipImplication) or e.instanceOf(target!RelationshipExclusion)) { // INTER_RELATIONSHIP_CONSTRAINT
-				n.getConstraints().add(e);				
+				t.getConstraints().add(e);				
 			} else if ( e.instanceOf(target!Constraint)) {		// CONSTRAINT
-				n.getConstraints().add(e);
+				t.getConstraints().add(e);
 			} else if ( e.instanceOf(target!Relationship)) {	// RELATIONSHIP
-				n.getRelationships().add(e);
+				t.getRelationships().add(e);
 			} else if ( e.instanceOf(target!RoleInheritance)) { //INHERITANCE
-				t.~parent.relations.add(e);
+				s.~parent.relations.add(e);
 			} else if ( e.instanceOf(Sequence(target!Fulfillment))) {		//FULFILLMENT
 				for(ob in e) {	
-					n.getFulfillments.add(ob);
+					t.getFulfillments.add(ob);
 				}	
 			}
 		}
 	}
 	
-	n.name = t.name;
+	t.name = s.name;
 }
 
 /**
@@ -76,16 +75,16 @@ rule CompartmentType
  * types/shapes. The post block ensures that these cycles can be resolved.
  */
 post CompartmentType {
-	for (t : source!Shape in compartmentTypes) {
-		var n = t.equivalent();
+	for (s : source!Shape in compartmentTypes) {
+		var t = s.equivalent();
 
-		if (not n.isDefined() or not t.isDefined()) {
+		if (not t.isDefined() or not s.isDefined()) {
 			continue;
 		}
 
-		if(t.~features.get("Compartment_Behavior")) { //feature Compartment_Behavior implies feature Compartment_Properties (not to check)
-			t.addAttributes(n);
-		    t.addOperations(n);
+		if(s.~features.get("Compartment_Behavior")) { //feature Compartment_Behavior implies feature Compartment_Properties (not to check)
+			s.addAttributes(t);
+		    s.addOperations(t);
 		}	
 	}
 }

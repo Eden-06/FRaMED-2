@@ -1,5 +1,6 @@
 import "Type.etl";
 
+//creates a set used for iorm shapes later in the rule
 pre DataType {
 	var dataTypes : OrderedSet(source!Shape);
 }
@@ -9,14 +10,13 @@ pre DataType {
  */
 @lazy 
 rule DataType
-	transform t : source!Shape
-	to n : target!DataType {
+	transform s : source!Shape
+	to t : target!DataType {
+	guard : s.getType==(source!Type#DataType) and 
+			s.~features.get("Data_Types")
 
-	guard : t.getType.getValue == 3 and t.~features.get("Data_Types") // enum value DATA_TYPE
-
-	n.name = t.name;
-
-	dataTypes.add(t);
+	t.name = s.name;
+	dataTypes.add(s);
 }
 
 /**
@@ -26,14 +26,14 @@ rule DataType
  * types/shapes. The post block ensures that these cycles can be resolved.
  */
 post DataType {
-	for (t : source!Shape in dataTypes) {
-		var n = t.equivalent();
+	for (s : source!Shape in dataTypes) {
+		var t = s.equivalent();
 
-		if (not n.isDefined() or not t.isDefined()) {
+		if (not t.isDefined() or not s.isDefined()) {
 			continue;
 		}
 
-		t.addAttributes(n);
-		t.addOperations(n);
+		s.addAttributes(t);
+		s.addOperations(t);
 	}
 }

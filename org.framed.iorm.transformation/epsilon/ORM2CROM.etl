@@ -1,45 +1,51 @@
-//Do not delete the line of import marker!
-//import marker 
+//Do not delete the next line!
+/*{generate imports here}*/ 
 import "AllFeatures.eol";
 
+//prints the object its called on
 operation Any println() : Any { 
 	("Printing : " + self)->println();
 }
 
+//sets up the map of all features, initiated with false here
 operation Any setFeatureMap() : Map {
 	for(s : String in getAllFeatures()) self.put(s, false);
 }
 
+//superior rule to start the transformation with
 rule ORM2CROM
-	transform mym : source!Model
-	to crom : target!Model {
-	guard : mym.parent == null
+	transform s : source!Model
+	to t : target!Model {
+	guard : s.parent == null
 	
+	/*sets up the map of all feature and sets the value to true for features in the given
+	  feature configuration*/
 	var featureMap : Map;
 	featureMap.setFeatureMap();
-	for(f in mym.framedConfiguration.features) {
+	for(f in s.framedConfiguration.features) {
 		featureMap.put(f.getName().asString(), true);
 	}
-	for(e in mym.elements) { 
+	/*it uses extended properties to enable access to feature map and the parent element to the
+	  sub rules*/
+	for(e in s.elements) { 
 		e.~features=featureMap;
-		e.~parent=crom;
+		e.~parent=t;
 	}
-	
-	for(shape : source!Shape in mym.elements) {
+	//call sub rules for the iorm shapes 
+	for(shape : source!Shape in s.elements) {
 		var x = shape.equivalent();
 		if(not ((x == null) or x.instanceOf(target!AbstractRole))) {
-			crom.elements.add(x);
-		}
-	}
-	
-	for (relation : source!Relation in mym.elements) {
+			t.elements.add(x);
+	}	}
+	//call sub rules for the iorm relations
+	for (relation : source!Relation in s.elements) {
 		var r = relation.equivalent();
 		if (not (r == null)) {
 			if(not(r.isKindOf(Sequence))) {
-				crom.relations.add(r);
+				t.relations.add(r);
 			} 
 			if(r.isKindOf(Sequence(target!Fulfillment))) {
-				for(ob in r) crom.relations.add(ob);
+				for(ob in r) t.relations.add(ob);
 	}	}	}	
 }
 

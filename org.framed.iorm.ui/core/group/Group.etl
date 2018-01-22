@@ -2,7 +2,7 @@
 rule Group
 	transform s : source!Shape
 	to t : target!Group {	
-	guard : s.getType.value == 13	// GROUP
+	guard : s.getType==(source!Type#Group)
 	
 	t.name = s.name;	
 	
@@ -15,7 +15,7 @@ rule Group
 				if(not(e==null)) t.getRelations().add(e);	
 			} else if(e.isKindOf(Sequence(target!Fulfillment))) {
 				for(ob in e) t.getRelations().add(ob);
-			} else {
+			} else { //TODO explicit!
 				if(not(e==null)) t.getElements().add(e);
 			}
 		}

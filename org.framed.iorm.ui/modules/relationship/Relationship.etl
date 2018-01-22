@@ -29,8 +29,8 @@ operation getPlace(card : String,holder:target!RigidType) : target!Place {
 rule Relationship
 	transform s : source!Relation
 	to t : target!Relationship {
-
-	guard : s.getType.getValue == 7 and s.~features.get("Relationships") // enum value RELATIONSHIP
+	guard : s.getType==(source!Type#Relationship) and 
+			s.~features.get("Relationships")
 	
 	t.name = s.name;
 	
@@ -77,43 +77,38 @@ rule Relationship
 rule TotalRelation
 	transform s : source!Relation
 	to t : target!Total {
-	
-	guard : s.getType.getValue == 8 and s.~features.get("Intra_Relationship_Constraints")
-	
+	guard : s.getType==(source!Type#Total) and 
+			s.~features.get("Intra_Relationship_Constraints")
 }
 
 @lazy 
 rule CyclicRelation
 	transform s : source!Relation
 	to t : target!Cyclic {
-	
-	guard : s.getType.getValue == 9 and s.~features.get("Intra_Relationship_Constraints") 
-	
+	guard : s.getType==(source!Type#Cyclic) and 
+			s.~features.get("Intra_Relationship_Constraints") 
 }  
 
 @lazy 
 rule IrreflexiveRelation
 	transform s : source!Relation
 	to t : target!Irreflexive {
-	
-	guard : s.getType.getValue == 10 and s.~features.get("Intra_Relationship_Constraints") 
-	
+	guard : s.getType==(source!Type#Irreflexive) and 
+			s.~features.get("Intra_Relationship_Constraints") 
 } 
 
 @lazy 
 rule AcyclicRelation
 	transform s : source!Relation
 	to t : target!Acyclic {
-	
-	guard : s.getType.getValue == 16 and s.~features.get("Intra_Relationship_Constraints") 
-	
+	guard : s.getType==(source!Type#Acyclic) and 
+			s.~features.get("Intra_Relationship_Constraints") 
 } 
 
 @lazy 
 rule ReflexiveRelation
 	transform s : source!Relation 
 	to t : target!Reflexive {
-	
-	guard : s.getType.getValue == 17 and s.~features.get("Intra_Relationship_Constraints") 
-	
+	guard : s.getType==(source!Type#Reflexive) 
+	and s.~features.get("Intra_Relationship_Constraints")
 } 

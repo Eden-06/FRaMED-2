@@ -2,9 +2,9 @@
 rule RelationshipImplication
 	transform s : source!Relation
 	to t : target!RelationshipImplication {
-
-	guard : s.getType.getValue == 15 and s.~features.get("Inter_Relationship_Constraints") // enum value RelationshipImplication
+	guard : s.getType==(source!Type#RelationshipImplication) and 
+			s.~features.get("Inter_Relationship_Constraints")
 		
-	t.first = s.source.equivalent();
-	t.second = s.target.equivalent();
+	t.first ::= s.source;
+	t.second ::= s.target;
 }

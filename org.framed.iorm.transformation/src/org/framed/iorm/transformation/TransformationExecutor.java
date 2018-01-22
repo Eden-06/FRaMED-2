@@ -165,6 +165,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 	private String generateORM2CROMWithImports(List<String> importNames, File epsilonFolder) {
 		String generatedFileName = "generatedORM2CROM.etl";
 		String fileText = "";
+		String importMarker = "/*{generate imports here}*/";
 		//Step 1
 		List<URL> ORM2CROMUrls = Collections.list(TransformationBundle.findEntries("/epsilon", "ORM2CROM.etl", true));
 		if(ORM2CROMUrls.size() != 1) { 
@@ -183,7 +184,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 			} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
 			//Step 3
 			for(String s : importNames)	
-				fileText = fileText.replace("//import marker", "//import marker\n import \"" + s + "\";\n");
+				fileText = fileText.replace(importMarker, importMarker +"\n import \"" + s + "\";\n");
 			//Step 4
 			try {
 				String generatedORM2CROMPath = epsilonFolder.getPath() + "\\" + generatedFileName;

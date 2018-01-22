@@ -43,7 +43,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * 		   (a) {@link FRaMEDShapePattern} and<br>
 	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider.<br>
 	 * Step 3: It adds the standard implementation for shape patterns which disables moving, resizing and deleting
-	 * 		   already existing shapes in models which features are not implemented.
+	 * 		   already existing shapes in models which features are not implemented. This needs to be added at last
+	 * 		   to ensure its only a fallback option.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {

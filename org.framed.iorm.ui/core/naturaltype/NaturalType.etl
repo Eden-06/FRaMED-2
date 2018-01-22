@@ -9,14 +9,13 @@ pre NaturalType {
  */
  @lazy 
 rule NaturalType
-	transform t : source!Shape
-	to n : target!NaturalType {
-
-	guard : t.getType.getValue == 1
+	transform s : source!Shape
+	to t : target!NaturalType {
+	guard : s.getType==(source!Type#NaturalType)
 	
-	n.name = t.name;
+	t.name = s.name;
 	
-	naturalTypes.add(t);	
+	naturalTypes.add(s);	
 }
 
 /**
@@ -26,14 +25,15 @@ rule NaturalType
  * types/shapes. The post block ensures that these cycles can be resolved.
  */
 post NaturalType {
-	for (t : source!Shape in naturalTypes) {		
-		var n = t.equivalent();
+	for (s : source!Shape in naturalTypes) {		
+		var t = s.equivalent();
 		
-		if (not n.isDefined() or not t.isDefined()) {
+		//TODO fix test better
+		if (not t.isDefined() or not s.isDefined()) {
 			continue;
 		}
 		
-		t.addAttributes(n);
-		t.addOperations(n);		
+		s.addAttributes(t);
+		s.addOperations(t);		
 	}
 }

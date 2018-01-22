@@ -2,8 +2,8 @@
 rule RelationshipExclusion
 	transform s : source!Relation
 	to t : target!RelationshipExclusion {
-
-	guard : s.getType.getValue == 18 and s.~features.get("Inter_Relationship_Constraints") // enum value RelationshipExclusion
+	guard : s.getType==(source!Type#RelationshipExclusion) and 
+			s.~features.get("Inter_Relationship_Constraints")
 	
 	t.first ::= s.source;
 	t.second ::= s.target;
