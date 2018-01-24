@@ -22,8 +22,6 @@ rule CompartmentType
 				if(not(s.~features.get("Contains_Compartments"))) t.getContains.remove(e);
 			} else if (e.instanceOf(target!RelationshipImplication) or e.instanceOf(target!RelationshipExclusion)) { // INTER_RELATIONSHIP_CONSTRAINT
 				t.getConstraints().add(e);				
-			} else if ( e.instanceOf(target!Constraint)) {		// CONSTRAINT
-				t.getConstraints().add(e);
 			} else if ( e.instanceOf(target!RoleInheritance)) { //INHERITANCE
 				s.~parent.relations.add(e);
 			} else if ( e.instanceOf(Sequence(target!Fulfillment))) {		//FULFILLMENT

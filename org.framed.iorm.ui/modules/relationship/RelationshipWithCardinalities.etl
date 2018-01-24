@@ -1,6 +1,9 @@
 import "CardinalityParser.eol";
 import "Relationship.etl";
 
+/*
+ * transforms a relationship type when relationship cardinalities are enabled
+ */
 @lazy 
 rule RelationshipWithCardinalities
 	transform s : source!Relation
@@ -8,8 +11,8 @@ rule RelationshipWithCardinalities
 	extends Relationship {
 		// feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)
 		guard : s.~features.get("Relationship_Cardinality")
-	
-		//Place should always be defined
+		
+		//Places should always be defined
 		var card = "0..*";
 		if(s.sourceLabel.isDefined()){
 			card=s.sourceLabel.name;
@@ -18,8 +21,6 @@ rule RelationshipWithCardinalities
 		if(not(place==null)) {
 			t.setFirst(place);
 		}
-		
-		//Place should always be defined
 		card="0..*";
 		if(s.targetLabel.isDefined()){
 			card=s.targetLabel.name;
@@ -30,6 +31,7 @@ rule RelationshipWithCardinalities
 		}
 }
 
+//creates a place for a given role type also using the given card as cardinalities
 operation getPlace(card : String,holder:target!RoleType) : target!Place {
 	var place = new target!Place;
 	place.lower = 0;
@@ -49,6 +51,7 @@ operation getPlace(card : String,holder:target!RoleType) : target!Place {
 	return place;
 }
 
+//throw error message if a place would filled with something different than a role type
 operation getPlace(card : String,holder:target!RigidType) : target!Place {
 	fail("Place can only reference role types as placeholders!");
 }

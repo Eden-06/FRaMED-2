@@ -7,7 +7,7 @@ pre RoleTypeWithAttsAndOps {
 }
 
 /*
- * Transforms a role type when attributes and operation are enabled
+ * transforms a role type when attributes and operation are enabled
  */
 @lazy 
 rule RoleTypeWithAttsAndOps

@@ -1,26 +1,31 @@
 import "IntraRelationshipConstraints.etl";
 
+/*
+ * The abstract rule for relationship executes all actions done for all relationships with and without 
+ * cardinalities.
+ */
 @abstract 
 rule Relationship
 	transform s : source!Relation
 	to t : target!Relationship {
 		guard : s.getType==(source!Type#Relationship) and 
 				s.~features.get("Relationships")
-		
+		//set name
 		t.name = s.name;
+		//only transform relationships in a compartment type
 		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
-			//get the crom equivalent to compartment type the role type is in
+			//get the crom equivalent to compartment type the relationship is in
 			var compartmentType = s.getContainer.getParent().equivalent();
-		
-	
+			//set the inter relationship constraints
 			s.getSource.equivalent().getOutgoing.add(t);
 			s.getTarget.equivalent().getIncoming.add(t);
-			
+			//set the relation as reference in the intra relationship constraints
 			for (r : source!Relation in s.referencedRelation) {
 				r.~features = s.~features;
 				var referenced = r.equivalent();
 				if(not(referenced == null))referenced.setRelation(t);
 			}	
+			//add the relationship to the compartment type the relationship is in
 			compartmentType.getRelationships().add(t);
 		}
 }

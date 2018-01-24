@@ -1,45 +1,65 @@
+/**
+ * the abstract rule for intra relationship constraints executes all actions done for all types of intra relationship
+ * constraints
+ */
+@abstract 
+rule IntraRelationshipConstraint
+	transform s : source!Relation
+	to t : target!Total {
+		// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
+		guard :	s.~features.get("Intra_Relationship_Constraints")
+		
+		//only transform if the role type is in a compartment type
+		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+			//get the crom equivalent to compartment type the role type is in
+			var compartmentType = s.getContainer.getParent().equivalent();
+			//add constraint to the compartment type it is in
+			compartmentType.getConstraints().add(t);
+		}	
+}
+
+//transforms total intra rel cons
 @lazy 
 rule TotalRelation
 	transform s : source!Relation
-	to t : target!Total {
-	guard : s.getType==(source!Type#Total) and 
-			// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
-			s.~features.get("Intra_Relationship_Constraints")
+	to t : target!Total
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Total)
 }
 
+//transforms cyclic intra rel cons
 @lazy 
 rule CyclicRelation
 	transform s : source!Relation
-	to t : target!Cyclic {
-		guard : s.getType==(source!Type#Cyclic) and 
-				// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
-				s.~features.get("Intra_Relationship_Constraints") 
+	to t : target!Cyclic 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Cyclic)
 }  
 
+//transforms irreflexive intra rel cons
 @lazy 
 rule IrreflexiveRelation
 	transform s : source!Relation
-	to t : target!Irreflexive {
-	guard : s.getType==(source!Type#Irreflexive) and 
-			// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
-			s.~features.get("Intra_Relationship_Constraints") 
+	to t : target!Irreflexive 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Irreflexive)
 			
 } 
 
+//transforms acyclic intra rel cons
 @lazy 
 rule AcyclicRelation
 	transform s : source!Relation
-	to t : target!Acyclic {
-	guard : s.getType==(source!Type#Acyclic) and 
-			// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
-			s.~features.get("Intra_Relationship_Constraints") 
+	to t : target!Acyclic 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Acyclic)
 } 
 
+//transforms reflexive intra rel cons
 @lazy 
 rule ReflexiveRelation
 	transform s : source!Relation 
-	to t : target!Reflexive {
-	guard : s.getType==(source!Type#Reflexive) and 
-			// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
-			s.~features.get("Intra_Relationship_Constraints")
+	to t : target!Reflexive 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Reflexive)
 } 

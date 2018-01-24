@@ -1,7 +1,7 @@
 import "RoleType.etl";
 
 /*
- * Transforms a role type when attributes and operation are enabled
+ * transforms a role type when attributes and operation are not enabled
  */
 @lazy 
 rule RoleTypeWithoutAttsAndOps
