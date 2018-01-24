@@ -1,0 +1,37 @@
+import "Type.etl";
+import "RoleType.etl";
+
+//creates a set used for iorm shapes later in the post rule
+pre RoleTypeWithAttsAndOps {
+	var roleTypes : OrderedSet(source!Shape);
+}
+
+/*
+ * Transforms a role type when attributes and operation are enabled
+ */
+@lazy 
+rule RoleTypeWithAttsAndOps
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleType {
+		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)	
+		guard : s.~features.get("Role_Behavior")
+		
+		roleTypes.add(s);
+}
+
+/**
+ * Add operations and attributes in the post processing step.
+ *
+ * This separation is necessary as the type references in attributes and operations may form cycles between
+ * types/shapes. The post block ensures that these cycles can be resolved.
+ */
+post RoleTypeWithAttsAndOps {
+	for (s : source!Shape in roleTypes) {
+		var t = s.equivalent();
+
+		if (t.isDefined() and s.isDefined()) {
+			s.addAttributes(t);
+			s.addOperations(t);
+	}	}
+}

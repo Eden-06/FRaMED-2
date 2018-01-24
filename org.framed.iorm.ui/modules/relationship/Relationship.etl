@@ -68,6 +68,7 @@ rule Relationship
 		s.getTarget.equivalent().getIncoming.add(t);
 	
 		for (r : source!Relation in s.referencedRelation) {
+			r.~features = s.~features;
 			var referenced = r.equivalent();
 			if(not(referenced == null))referenced.setRelation(t);
 		}
@@ -85,8 +86,8 @@ rule TotalRelation
 rule CyclicRelation
 	transform s : source!Relation
 	to t : target!Cyclic {
-	guard : s.getType==(source!Type#Cyclic) and 
-			s.~features.get("Intra_Relationship_Constraints") 
+		guard : s.getType==(source!Type#Cyclic) and 
+				s.~features.get("Intra_Relationship_Constraints") 
 }  
 
 @lazy 
@@ -95,6 +96,7 @@ rule IrreflexiveRelation
 	to t : target!Irreflexive {
 	guard : s.getType==(source!Type#Irreflexive) and 
 			s.~features.get("Intra_Relationship_Constraints") 
+			
 } 
 
 @lazy 

@@ -1,41 +1,38 @@
-import "Type.etl";
+import "CardinalityParser.eol";
 
-//TODO doku aus compartment.etl
-pre RoleType {
-	var roleTypes : OrderedSet(source!Shape);
-}
-
-/**
- * Transforms a shape with type ROLE_TYPE.
+/*
+ * The abstract rule for role types executes all actions done for all role types with and without 
+ * attributes/operations.
  */
- @lazy 
+@abstract
 rule RoleType
 	transform s : source!Shape
 	to t : target!RoleType {
-	guard : s.getType==(source!Type#RoleType) 
-
-	t.name = s.name;
-	
-	roleTypes.add(s);
-}
-
-/**
- * Add operations and attributes in the post processing step.
- *
- * This separation is necessary as the type references in attributes and operations may form cycles between
- * types/shapes. The post block ensures that these cycles can be resolved.
- */
-post RoleType {
-	for (s : source!Shape in roleTypes) {
-		var t = s.equivalent();
-
-		if (not t.isDefined() or not s.isDefined()) {
-			continue;
+		guard : s.getType==(source!Type#RoleType) 	
+		//set name 
+		t.name = s.name;
+		//only transform if the role type is in a compartment type
+		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+			//get the crom equivalent to compartment type the role type is in
+			var compartmentType = s.getContainer.getParent().equivalent();
+			//create a new part with the role
+			var part = new target!Part;
+			part.role = t;
+			part.whole = compartmentType;
+			//parse the lower and upper bound from the role
+			var desc = elem.description;
+			if (not (desc == null) and s.~features.get("Occurrence_Constraints")) {
+				var card = desc.name;
+				var cards = parseCardinality(card);
+				//set lower and upper bound
+				if(cards.size()>0) {
+					part.lower = cards[0];
+					if(cards.size()>1) {
+						part.upper = cards[1];
+			}	}	}
+			//add the part to the compartment type the role type is in
+			compartmentType.getParts().add(part);
 		}
-
-		if(s.~features.get("Role_Behavior")) { //feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
-			s.addAttributes(t);
-			s.addOperations(t);
-		}	
-	}
 }
+
+

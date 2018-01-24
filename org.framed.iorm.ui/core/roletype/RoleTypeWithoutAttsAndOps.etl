@@ -1,0 +1,13 @@
+import "RoleType.etl";
+
+/*
+ * Transforms a role type when attributes and operation are enabled
+ */
+@lazy 
+rule RoleTypeWithoutAttsAndOps
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleType {
+		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
+		guard : not(s.~features.get("Role_Behavior"))
+}

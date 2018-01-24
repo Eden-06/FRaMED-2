@@ -11,6 +11,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -103,7 +104,8 @@ public class TransformationExecutor extends EpsilonStandalone {
 					try {
 						try {
 							Path path = Files.copy(Paths.get(etlFile.getPath()), 
-									   		  	   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
+									   		  	   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()),
+									   		  	   StandardCopyOption.REPLACE_EXISTING);
 							copiedAndGeneratedFiles.add(new File(path.toString()));
 						//Note
 						} catch (FileAlreadyExistsException e) {}
