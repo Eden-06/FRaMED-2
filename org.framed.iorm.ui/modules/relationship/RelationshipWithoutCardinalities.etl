@@ -1,0 +1,38 @@
+import "Relationship.etl";
+
+@lazy 
+rule RelationshipWithoutCardinalities
+	transform s : source!Relation
+	to t : target!Relationship
+	extends Relationship {
+		// feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)	
+		guard : not(s.~features.get("Relationship_Cardinality"))
+		
+		var place = getPlace("0...*",s.getSource.equivalent());
+		t.setFirst(place);
+		place = getPlace("0...*",s.getTarget.equivalent());
+		t.setSecond(place);
+}
+
+operation getPlace(card : String,holder:target!RoleType) : target!Place {
+	var place = new target!Place;
+	place.lower = 0;
+	place.upper = -1;
+	if(card.isDefined()) {
+		var cards = parseCardinality(card);
+		if(cards.size()==1)
+			place.lower = cards[0];
+		if(cards.size()>1){
+			place.lower = cards[0];
+			place.upper = cards[1];
+		}				
+	}
+	if(holder.isDefined()){
+		place.holder = holder;
+	}
+	return place;
+}
+
+operation getPlace(card : String,holder:target!RigidType) : target!Place {
+	fail("Place can only reference role types as placeholders!");
+}

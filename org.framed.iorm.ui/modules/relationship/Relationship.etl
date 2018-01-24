@@ -1,116 +1,26 @@
-/**
- * Transforms a relation with type INHERITANCE.
- */
+import "IntraRelationshipConstraints.etl";
 
-operation getPlace(card : String,holder:target!RoleType) : target!Place {
-	var place = new target!Place;
-	place.lower = 0;
-	place.upper = -1;
-	if(card.isDefined()) {
-		var cards = parseCardinality(card);
-		if(cards.size()==1)
-			place.lower = cards[0];
-		if(cards.size()>1){
-			place.lower = cards[0];
-			place.upper = cards[1];
-		}				
-	}
-	if(holder.isDefined()){
-		place.holder = holder;
-	}
-	return place;
-}
-
-operation getPlace(card : String,holder:target!RigidType) : target!Place {
-	fail("Place can only reference role types as placeholders!");
-}
-
-@lazy 
+@abstract 
 rule Relationship
 	transform s : source!Relation
 	to t : target!Relationship {
-	guard : s.getType==(source!Type#Relationship) and 
-			s.~features.get("Relationships")
-	
-	t.name = s.name;
-	
-	if(s.~features.get("Relationship_Cardinality")) { // feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)	
-		//Place should always be defined
-		var card = "0..*";
-		if(s.sourceLabel.isDefined()){
-			card=s.sourceLabel.name;
-		}
-		var place = getPlace(card,s.getSource.equivalent());
-		if(not(place==null)) {
-			t.setFirst(place);
-		}
+		guard : s.getType==(source!Type#Relationship) and 
+				s.~features.get("Relationships")
 		
-		//Place should always be defined
-		card="0..*";
-		if(s.targetLabel.isDefined()){
-			card=s.targetLabel.name;
-		}
-		place = getPlace(card,s.getTarget.equivalent());
-		if(not(place==null)) {
-			t.setSecond(place);
-		}
-	} else {
-		var place = getPlace("0...*",s.getSource.equivalent());
-		t.setFirst(place);
-		place = getPlace("0...*",s.getTarget.equivalent());
-		t.setSecond(place);
-	}		
+		t.name = s.name;
+		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+			//get the crom equivalent to compartment type the role type is in
+			var compartmentType = s.getContainer.getParent().equivalent();
 		
-		//t.first - place from label
-		//t.second - place from label
-		
-		s.getSource.equivalent().getOutgoing.add(t);
-		s.getTarget.equivalent().getIncoming.add(t);
 	
-		for (r : source!Relation in s.referencedRelation) {
-			r.~features = s.~features;
-			var referenced = r.equivalent();
-			if(not(referenced == null))referenced.setRelation(t);
-		}
-}
-
-@lazy 
-rule TotalRelation
-	transform s : source!Relation
-	to t : target!Total {
-	guard : s.getType==(source!Type#Total) and 
-			s.~features.get("Intra_Relationship_Constraints")
-}
-
-@lazy 
-rule CyclicRelation
-	transform s : source!Relation
-	to t : target!Cyclic {
-		guard : s.getType==(source!Type#Cyclic) and 
-				s.~features.get("Intra_Relationship_Constraints") 
-}  
-
-@lazy 
-rule IrreflexiveRelation
-	transform s : source!Relation
-	to t : target!Irreflexive {
-	guard : s.getType==(source!Type#Irreflexive) and 
-			s.~features.get("Intra_Relationship_Constraints") 
+			s.getSource.equivalent().getOutgoing.add(t);
+			s.getTarget.equivalent().getIncoming.add(t);
 			
-} 
-
-@lazy 
-rule AcyclicRelation
-	transform s : source!Relation
-	to t : target!Acyclic {
-	guard : s.getType==(source!Type#Acyclic) and 
-			s.~features.get("Intra_Relationship_Constraints") 
-} 
-
-@lazy 
-rule ReflexiveRelation
-	transform s : source!Relation 
-	to t : target!Reflexive {
-	guard : s.getType==(source!Type#Reflexive) 
-	and s.~features.get("Intra_Relationship_Constraints")
-} 
+			for (r : source!Relation in s.referencedRelation) {
+				r.~features = s.~features;
+				var referenced = r.equivalent();
+				if(not(referenced == null))referenced.setRelation(t);
+			}	
+			compartmentType.getRelationships().add(t);
+		}
+}
