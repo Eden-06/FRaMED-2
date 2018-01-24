@@ -131,6 +131,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		Connection targetConnection = addContext.getTargetConnection();
 		Relation targetRelation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
 		Polyline poyline = (Polyline) targetConnection.getGraphicsAlgorithm();
+		((Relation) addContext.getNewObject()).getReferencedRelation().add(targetRelation);
 		int numberOfReferencedRelations = targetRelation.getReferencedRelation().size();
 		poyline.setLineStyle(LineStyle.DASH);
 		ConnectionDecorator constraintName = 

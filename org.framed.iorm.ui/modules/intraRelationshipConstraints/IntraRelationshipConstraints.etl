@@ -5,7 +5,7 @@
 @abstract 
 rule IntraRelationshipConstraint
 	transform s : source!Relation
-	to t : target!Total {
+	to t : target!IntraRelationshipConstraint {
 		// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
 		guard :	s.~features.get("Intra_Relationship_Constraints")
 		
@@ -13,6 +13,12 @@ rule IntraRelationshipConstraint
 		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
 			//get the crom equivalent to compartment type the role type is in
 			var compartmentType = s.getContainer.getParent().equivalent();
+			//add the relationship the intra relationship constraint belongs to
+			if(not(s.getReferencedRelation().size()==1)) {
+				fail("A intra relationship constraint " + s.getType + " has not exactly one referenced relationship!");
+			} else {
+				t.setRelation(s.getReferencedRelation().at(0).equivalent());	
+			}
 			//add constraint to the compartment type it is in
 			compartmentType.getConstraints().add(t);
 		}	

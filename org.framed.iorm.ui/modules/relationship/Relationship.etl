@@ -1,5 +1,3 @@
-import "IntraRelationshipConstraints.etl";
-
 /*
  * The abstract rule for relationship executes all actions done for all relationships with and without 
  * cardinalities.
@@ -18,13 +16,7 @@ rule Relationship
 			var compartmentType = s.getContainer.getParent().equivalent();
 			//set the inter relationship constraints
 			s.getSource.equivalent().getOutgoing.add(t);
-			s.getTarget.equivalent().getIncoming.add(t);
-			//set the relation as reference in the intra relationship constraints
-			for (r : source!Relation in s.referencedRelation) {
-				r.~features = s.~features;
-				var referenced = r.equivalent();
-				if(not(referenced == null))referenced.setRelation(t);
-			}	
+			s.getTarget.equivalent().getIncoming.add(t);	
 			//add the relationship to the compartment type the relationship is in
 			compartmentType.getRelationships().add(t);
 		}
