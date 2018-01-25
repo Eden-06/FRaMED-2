@@ -1,5 +1,6 @@
 import "Type.etl";
 
+//creates a set used for iorm shapes later in the post rule
 pre NaturalType {
 	var naturalTypes : OrderedSet(source!Shape);
 }
@@ -13,8 +14,8 @@ rule NaturalType
 	to t : target!NaturalType {
 	guard : s.getType==(source!Type#NaturalType)
 	
+	//set name
 	t.name = s.name;
-	
 	naturalTypes.add(s);	
 }
 
@@ -27,13 +28,8 @@ rule NaturalType
 post NaturalType {
 	for (s : source!Shape in naturalTypes) {		
 		var t = s.equivalent();
-		
-		//TODO fix test better
-		if (not t.isDefined() or not s.isDefined()) {
-			continue;
-		}
-		
-		s.addAttributes(t);
-		s.addOperations(t);		
-	}
+		if (t.isDefined() and s.isDefined()) {
+			s.addAttributes(t);
+			s.addOperations(t);		
+	}	}
 }

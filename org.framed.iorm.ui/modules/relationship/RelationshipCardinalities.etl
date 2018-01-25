@@ -31,6 +31,24 @@ rule RelationshipWithCardinalities
 		}
 }
 
+/*
+ * transforms a relationship type when relationship cardinalities are enabled
+ */
+@lazy 
+rule RelationshipWithoutCardinalities
+	transform s : source!Relation
+	to t : target!Relationship
+	extends Relationship {
+		// feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)	
+		guard : not(s.~features.get("Relationship_Cardinality"))
+		
+		//set places of the role types to the standard value of 0..*
+		var place = getPlace("0...*",s.getSource.equivalent());
+		t.setFirst(place);
+		place = getPlace("0...*",s.getTarget.equivalent());
+		t.setSecond(place);
+}
+
 //creates a place for a given role type also using the given card as cardinalities
 operation getPlace(card : String,holder:target!RoleType) : target!Place {
 	var place = new target!Place;

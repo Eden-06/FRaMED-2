@@ -1,6 +1,18 @@
 import "Type.etl";
 import "RoleType.etl";
 
+/*
+ * transforms a role type when attributes and operation are not enabled
+ */
+@lazy 
+rule RoleTypeWithoutAttsAndOps
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleType {
+		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
+		guard : not(s.~features.get("Role_Behavior"))
+}
+
 //creates a set used for iorm shapes later in the post rule
 pre RoleTypeWithAttsAndOps {
 	var roleTypes : OrderedSet(source!Shape);
