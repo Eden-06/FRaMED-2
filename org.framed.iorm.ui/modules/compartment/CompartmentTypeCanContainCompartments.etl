@@ -1,0 +1,44 @@
+import "CompartmentTypeWithAttsAndOps.etl";
+import "CompartmentTypeWithoutAttsAndOps.etl";
+
+/**
+ * The abstract rule for compartment type executes actions for kinds compartment types. 
+ */
+@lazy
+rule CompartmentTypeCanContainCompartments1
+	transform s : source!Shape
+	to t : target!CompartmentType 
+	extends CompartmentTypeWithAttAndOps {
+		guard : s.~features.get("Contains_Compartments")
+ 		
+ 		if(not(s.getModel() == null)) {
+ 			for (elem : source!ModelElement in s.getModel().elements) {	
+				
+				//if the children is another compartment type
+				if(elem.getType==(source!Type#CompartmentType)) {
+					var e = elem.equivalent();
+					if(not(e == null)) {
+						t.getContains.add(e);
+		}	}	}	}
+}
+
+/**
+ * The abstract rule for compartment type executes actions for kinds compartment types. 
+ */
+@lazy
+rule CompartmentTypeCanContainCompartments2
+	transform s : source!Shape
+	to t : target!CompartmentType 
+	extends CompartmentTypeWithoutAttAndOps {
+		guard : s.~features.get("Contains_Compartments")
+ 		
+ 		if(not(s.getModel() == null)) {
+ 			for (elem : source!ModelElement in s.getModel().elements) {	
+				
+				//if the children is another compartment type
+				if(elem.getType==(source!Type#CompartmentType)) {
+					var e = elem.equivalent();
+					if(not(e == null)) {
+						t.getContains.add(e);
+		}	}	}	}
+}

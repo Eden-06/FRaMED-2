@@ -20,7 +20,7 @@ rule RoleType
 			part.role = t;
 			part.whole = compartmentType;
 			//parse the lower and upper bound from the role
-			var desc = elem.description;
+			var desc = s.description;
 			if (not (desc == null) and s.~features.get("Occurrence_Constraints")) {
 				var card = desc.name;
 				var cards = parseCardinality(card);

@@ -25,11 +25,11 @@ rule ORM2CROM
 	for(f in s.framedConfiguration.features) {
 		featureMap.put(f.getName().asString(), true);
 	}
-	/*it uses extended properties to enable access to feature map and the parent element to the
+	/*it uses extended properties to enable access to feature map and the main model to the
 	  sub rules*/
 	for(e in s.elements) { 
 		e.~features = featureMap;
-		e.~parent = t;
+		e.~mainModel = t;
 	}
 	//call sub rules for the iorm shapes 
 	for(shape : source!Shape in s.elements) {

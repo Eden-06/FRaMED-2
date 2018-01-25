@@ -17,7 +17,7 @@ rule Inheritance
 		relationSource.getOutgoing.add(t);
 		relationTarget.getIncoming.add(t);	
 		//add the inheritance to the main model
-		if(s.~parent == null) { fail("Inheritance Role did not found a main model reference to add the inheritance to!"); }
+		if(s.~mainModel == null) { fail("Inheritance Role did not found a main model reference to add the inheritance to!"); }
 		else { 
-			s.~parent.getRelations().add(t);
+			s.~mainModel.getRelations().add(t);
 }		} 	

@@ -1,13 +1,26 @@
+/**
+ * transforms fulfillments on the top level and in grouping features objects
+ */
 @lazy 
 rule Fulfillment
 	transform s : source!Relation
 	to t : Sequence(target!Fulfillment) {
-	
-	guard : s.getType()==(source!Type#Fulfillment) // enum value Fulfillment
-	for(role : source!Shape in s.referencedRoles) {
-		var fulfillment = new target!Fulfillment;
-		fulfillment.filler ::= s.source;
-		fulfillment.filled ::= role;
-		t.add(fulfillment);	
-	}
+		guard : s.getType()==(source!Type#Fulfillment) // enum value Fulfillment
+		
+		//create target fulfillments for the source relations
+		for(role : source!Shape in s.referencedRoles) {
+			var fulfillment = new target!Fulfillment;
+			fulfillment.filler ::= s.source;
+			fulfillment.filled ::= role;
+			t.add(fulfillment);	
+		}	
+		//if fulfillment is compartment type add it to the compartment type
+		if(not(s.getContainer().getParent()==null)) {
+			//only transform if the role type is in a compartment type
+			if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+				//get the crom equivalent to compartment type the role type is in
+				var compartmentType = s.getContainer.getParent().equivalent();	
+				for(fulfillment : target!Fulfillment in t) {
+					compartmentType.getFulfillments.add(fulfillment);	
+		}	}	}	
 }
