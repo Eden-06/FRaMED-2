@@ -28,8 +28,8 @@ rule ORM2CROM
 	/*it uses extended properties to enable access to feature map and the parent element to the
 	  sub rules*/
 	for(e in s.elements) { 
-		e.~features=featureMap;
-		e.~parent=t;
+		e.~features = featureMap;
+		e.~parent = t;
 	}
 	//call sub rules for the iorm shapes 
 	for(shape : source!Shape in s.elements) {

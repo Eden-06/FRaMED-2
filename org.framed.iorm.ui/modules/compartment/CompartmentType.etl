@@ -13,15 +13,14 @@ rule CompartmentType
 	if (not (children == null)) {
 		// iterate over all children of the compartment type	
 		for (elem : source!ModelElement in children.elements) {
-			elem.~features=s.~features;
+			elem.~features = s.~features;
+			elem.~parent = s.~parent;
 			var e = elem.equivalent();
 			
 			if (e == null) { continue; }
 			if (e.instanceOf(target!CompartmentType)) {	//COMPARTMENT_TYPE
 				t.getContains.add(e);
-				if(not(s.~features.get("Contains_Compartments"))) t.getContains.remove(e);			
-			} else if ( e.instanceOf(target!RoleInheritance)) { //INHERITANCE
-				s.~parent.relations.add(e);
+				if(not(s.~features.get("Contains_Compartments"))) t.getContains.remove(e);
 			} else if ( e.instanceOf(Sequence(target!Fulfillment))) {		//FULFILLMENT
 				for(ob in e) {	
 					t.getFulfillments.add(ob);

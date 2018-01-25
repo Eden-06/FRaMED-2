@@ -1,0 +1,14 @@
+import "Inheritance.etl";
+
+/**
+ * Transforms a relation with type INHERITANCE between two elements of type ROLE_TYPE.
+ */
+@lazy  
+rule RoleInheritance
+	transform s : source!Relation
+	to t : target!RoleInheritance 
+	extends Inheritance {
+		guard : s.getSource.getType==(source!Type#RoleType) and
+				s.getTarget.getType==(source!Type#RoleType) and
+				s.~features.get("Role_Inheritance")
+}

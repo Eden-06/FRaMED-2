@@ -1,0 +1,15 @@
+import "Inheritance.etl";
+
+/**
+ * Transforms a relation with type INHERITANCE between two elements of type DATA_TYPE.
+ */
+@lazy  
+rule DataInheritance
+	transform s : source!Relation
+	to t : target!DataInheritance 
+	extends Inheritance {
+
+	guard : s.getSource.getType==(source!Type#DataType) and
+			s.getTarget.getType==(source!Type#DataType) and
+			s.~features.get("Data_Type_Inheritance")
+}

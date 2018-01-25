@@ -1,79 +1,23 @@
 /**
- * Sets the source and target attributes of the inheritance relation and adds the relation to 
- * the incoming and outgoing relations of its source and target. 
- *
- * It is assumed that source and target reference are valid, i.e., are of the same type and correspond
- * to the inheritance. For instance, a NaturalInheritance has source and target elements of type NaturalType.
+ * The abstract inheritance rule executes actions done for all types of inheritances
  */
-operation transformInheritance(s : source!Relation, t : target!Inheritance) {
-	var relationSource = s.getSource.equivalent();
-	var relationTarget = s.getTarget.equivalent();
-	
-	t.sub = relationSource;
-	t.super = relationTarget;
-	
-	relationSource.getOutgoing.add(t);
-	relationTarget.getIncoming.add(t);	
-}
-
-/**
- * Transforms a relation with type INHERITANCE between two elements of type COMPARTMENT_TYPE.
- */
-@lazy 
-rule CompartmentInheritance
+@abstract  
+rule Inheritance
 	transform s : source!Relation
-	to t : target!CompartmentInheritance {
-	guard : s.getType==(source!Type#Inheritance) and 
-			s.getSource.getType==(source!Type#CompartmentType) and 
-			s.getTarget.getType==(source!Type#CompartmentType) and 
-			s.~features.get("Compartment_Inheritance")
-		
-	transformInheritance(s, t);
-}
-
-/**
- * Transforms a relation with type INHERITANCE between two elements of type NATURAL_TYPE.
- */
-@lazy 
-rule NaturalInheritance
-	transform s : source!Relation
-	to t : target!NaturalInheritance {
-
-	guard : s.getType==(source!Type#Inheritance) and 
-			s.getSource.getType==(source!Type#NaturalType) and 
-			s.getTarget.getType==(source!Type#NaturalType)
-
-	transformInheritance(s, t);
-}
-
-/**
- * Transforms a relation with type INHERITANCE between two elements of type ROLE_TYPE.
- */
-@lazy  
-rule RoleInheritance
-	transform s : source!Relation
-	to t : target!RoleInheritance {
-
-	guard : s.getType==(source!Type#Inheritance) and
-			s.getSource.getType==(source!Type#RoleType) and
-			s.getTarget.getType==(source!Type#RoleType) and
-			s.~features.get("Role_Inheritance") 
+	to t : target!Inheritance {
+		guard : s.getType==(source!Type#Inheritance)
 	
-	transformInheritance(s, t);
-}
-
-/**
- * Transforms a relation with type INHERITANCE between two elements of type DATA_TYPE.
- */
-@lazy  
-rule DataInheritance
-	transform s : source!Relation
-	to t : target!DataInheritance {
-
-	guard : s.getType==(source!Type#Inheritance) and
-		 	s.getSource.getType==(source!Type#DataType) and
-			s.getTarget.getType==(source!Type#DataType) and
-			s.~features.get("Data_Type_Inheritance") 
-	
-	transformInheritance(s, t);
-}
+		//transforms the source and target elements
+		var relationSource = s.getSource.equivalent();
+		var relationTarget = s.getTarget.equivalent();
+		//set the source and target attributes
+		t.sub = relationSource;
+		t.super = relationTarget;
+		//adds the inheritance to the incoming/outgoing relations of the source and target
+		relationSource.getOutgoing.add(t);
+		relationTarget.getIncoming.add(t);	
+		//add the inheritance to the main model
+		if(s.~parent == null) { fail("Inheritance Role did not found a main model reference to add the inheritance to!"); }
+		else { 
+			s.~parent.getRelations().add(t);
+}		} 	
