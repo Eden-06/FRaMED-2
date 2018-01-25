@@ -57,6 +57,10 @@ public class TransformationExecutor extends EpsilonStandalone {
 	 */
 	private final List<File> copiedAndGeneratedFiles;
 	
+	private final String generatedFolder = "generated",
+						 generatedFile = "generatedORM2CROM.etl",
+						 importMarker = "/*{generate imports here}*/";
+	
 	/**
 	 * class constructor
 	 * <p>
@@ -104,7 +108,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 					try {
 						try {
 							Path path = Files.copy(Paths.get(etlFile.getPath()), 
-									   		  	   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()),
+									   		  	   Paths.get(epsilonFolder.getPath() + File.separator + File.separator + generatedFolder + File.separator + etlFile.getName()),
 									   		  	   StandardCopyOption.REPLACE_EXISTING);
 							copiedAndGeneratedFiles.add(new File(path.toString()));
 						//Note
@@ -124,8 +128,9 @@ public class TransformationExecutor extends EpsilonStandalone {
 					try {
 						try {
 							Path path = Files.copy(Paths.get(etlFile.getPath()), 
-												   Paths.get(epsilonFolder.getPath() + "\\" + etlFile.getName()));
-						copiedAndGeneratedFiles.add(new File(path.toString()));
+												   Paths.get(epsilonFolder.getPath() + File.separator + File.separator + generatedFolder + File.separator + etlFile.getName()),
+												   StandardCopyOption.REPLACE_EXISTING);
+							copiedAndGeneratedFiles.add(new File(path.toString()));
 						//Note
 						} catch (FileAlreadyExistsException e) {}	
 					} catch (IOException e) { e.printStackTrace(); }
@@ -134,8 +139,8 @@ public class TransformationExecutor extends EpsilonStandalone {
 			}	}
 		}
 		//Step 4
-		String generatedFileName = generateORM2CROMWithImports(importNames, epsilonFolder);
-		transformationFile = "epsilon/" + generatedFileName;
+		generateORM2CROMWithImports(importNames, epsilonFolder);
+		transformationFile = "epsilon/" + generatedFolder + "/" + generatedFile;
 	}
 	
 	/**
@@ -165,9 +170,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 	 * @return the name of the generated file
 	 */
 	private String generateORM2CROMWithImports(List<String> importNames, File epsilonFolder) {
-		String generatedFileName = "generatedORM2CROM.etl";
 		String fileText = "";
-		String importMarker = "/*{generate imports here}*/";
 		//Step 1
 		List<URL> ORM2CROMUrls = Collections.list(TransformationBundle.findEntries("/epsilon", "ORM2CROM.etl", true));
 		if(ORM2CROMUrls.size() != 1) { 
@@ -189,7 +192,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 				fileText = fileText.replace(importMarker, importMarker +"\n import \"" + s + "\";\n");
 			//Step 4
 			try {
-				String generatedORM2CROMPath = epsilonFolder.getPath() + "\\" + generatedFileName;
+				String generatedORM2CROMPath = epsilonFolder.getPath() + File.separator + File.separator + generatedFolder + File.separator + generatedFile;
 				File generatedORM2CROM = new File(generatedORM2CROMPath);
 				generatedORM2CROM.createNewFile();
 				copiedAndGeneratedFiles.add(generatedORM2CROM);
@@ -199,7 +202,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 				fileOutputStream.close();
 			} catch (Exception  e) { e.printStackTrace(); }
 		}
-		return generatedFileName;
+		return generatedFile;
 	}
 	
 	/**

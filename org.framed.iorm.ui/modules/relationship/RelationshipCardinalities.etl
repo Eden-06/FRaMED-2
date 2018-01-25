@@ -1,4 +1,4 @@
-import "CardinalityParser.eol";
+import "../CardinalityParser.eol";
 import "Relationship.etl";
 
 /*

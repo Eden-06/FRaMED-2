@@ -1,6 +1,6 @@
 //Do not delete the next line!
 /*{generate imports here}*/ 
-import "AllFeatures.eol";
+import "../AllFeatures.eol";
 
 //prints the object its called on
 operation Any println() : Any { 

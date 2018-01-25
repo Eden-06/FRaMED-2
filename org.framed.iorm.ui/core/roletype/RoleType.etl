@@ -1,4 +1,4 @@
-import "CardinalityParser.eol";
+import "../CardinalityParser.eol";
 
 /*
  * The abstract rule for role types executes all actions done for all role types with and without 
