@@ -10,6 +10,7 @@
 		    <features name="Role_Inheritance" manuallySelected="true"/>
 		    <features name="Playable"/>
 		    <features name="Players"/>
+		    <features name="Roles"/>
 		    <features name="Naturals"/>
 		    <features name="Compartments" manuallySelected="true"/>
 		    <features name="Dates" manuallySelected="true"/>

@@ -12,11 +12,12 @@ pre DataType {
 rule DataType
 	transform s : source!Shape
 	to t : target!DataType {
-	guard : s.getType==(source!Type#DataType) and 
-			s.~features.get("Data_Types")
-
-	t.name = s.name;
-	dataTypes.add(s);
+		guard : s.getType==(source!Type#DataType) and 
+				s.~features.get("Data_Types")
+		
+		//set name
+		t.name = s.name;
+		dataTypes.add(s);
 }
 
 /**
@@ -28,12 +29,8 @@ rule DataType
 post DataType {
 	for (s : source!Shape in dataTypes) {
 		var t = s.equivalent();
-
-		if (not t.isDefined() or not s.isDefined()) {
-			continue;
-		}
-
-		s.addAttributes(t);
-		s.addOperations(t);
-	}
+		if (t.isDefined() and s.isDefined()) {
+			s.addAttributes(t);
+			s.addOperations(t);
+	}	}
 }
