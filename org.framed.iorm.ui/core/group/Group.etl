@@ -1,24 +1,25 @@
+/**
+ * the transformation rules for groups
+ */
 @lazy 
 rule Group
 	transform s : source!Shape
 	to t : target!Group {	
-	guard : s.getType==(source!Type#Group)
-	
-	t.name = s.name;	
-	
-	var children = s.`model`;
-	if (not (children == null)) {
-		for (e in children.elements) e.~features=s.~features;
-		for (elem : source!ModelElement in children.elements) {
-			var e = elem.equivalent();
-			if(e.instanceOf(target!Relation)) {
-				if(not(e==null)) t.getRelations().add(e);	
-			} else if(e.isKindOf(Sequence(target!Fulfillment))) {
-				for(ob in e) t.getRelations().add(ob);
-			} else { //TODO explicit!
-				if(not(e==null)) t.getElements().add(e);
-			}
-		}
-	}
-	
+		guard : s.getType==(source!Type#Group)
+		
+		//set name
+		t.name = s.name;	
+		var children = s.`model`;
+		if (not (children == null)) {
+			for (elem : source!ModelElement in children.elements) {
+				//propagate the features list and and the main model reference to all children 
+				elem.~features = s.~features;
+				elem.~mainModel = s.~mainModel;
+				//transform all children
+				var e = elem.equivalent();
+				//add children to group
+				if(not(e==null)) {
+					if(e.instanceOf(target!Relation)) { t.getRelations().add(e); }
+					if(e.instanceOf(target!ModelElement)) { t.getElements().add(e); }
+		}	}	}
 }

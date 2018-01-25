@@ -14,13 +14,20 @@ rule Fulfillment
 			fulfillment.filled ::= role;
 			t.add(fulfillment);	
 		}	
-		//if fulfillment is compartment type add it to the compartment type
+		//if fulfillment is compartment type or group add it to the compartment type
 		if(not(s.getContainer().getParent()==null)) {
-			//only transform if the role type is in a compartment type
+			//transform if the role type is in a compartment type
 			if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
-				//get the crom equivalent to compartment type the role type is in
+				//get the crom equivalent to compartment type the fulfillment is in
 				var compartmentType = s.getContainer.getParent().equivalent();	
 				for(fulfillment : target!Fulfillment in t) {
 					compartmentType.getFulfillments.add(fulfillment);	
+			}	}	
+			//transform if the role type is in a group
+			if(s.getContainer().getParent().getType==(source!Type#Group)) {
+				//get the crom equivalent to compartment type the fulfillment is in
+				var Group = s.getContainer.getParent().equivalent();	
+				for(fulfillment : target!Fulfillment in t) {
+					Group.getRelations().add(fulfillment);	
 		}	}	}	
 }
