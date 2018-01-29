@@ -1,0 +1,19 @@
+import "Fulfillment.etl";
+
+/**
+ * transforms fulfillments in a group
+ */
+@lazy
+rule FulfillmentInGroup
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : not(s.getContainer().getParent()==null) and
+				s.getContainer().getParent().getType==(source!Type#Group)
+		
+		//get the crom equivalent to compartment type the fulfillment is in
+		var Group = s.getContainer.getParent().equivalent();	
+		for(fulfillment : target!Fulfillment in t) {
+			Group.getRelations().add(fulfillment);	
+		}	
+}
