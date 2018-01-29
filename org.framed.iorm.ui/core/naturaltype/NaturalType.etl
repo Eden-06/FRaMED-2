@@ -1,5 +1,3 @@
-import "Type.etl";
-
 //creates a set used for iorm shapes later in the post rule
 pre NaturalType {
 	var naturalTypes : OrderedSet(source!Shape);

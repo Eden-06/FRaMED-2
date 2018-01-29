@@ -1,5 +1,3 @@
-import "Type.etl";
-
 //creates a set used for iorm shapes later in the rule
 pre DataType {
 	var dataTypes : OrderedSet(source!Shape);

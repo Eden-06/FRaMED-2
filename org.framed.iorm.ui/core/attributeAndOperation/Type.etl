@@ -7,13 +7,13 @@
  * The name has to be a valid identifier, i.e. it starts with a letter and only contains letters and numbers.
  * The type has to be another model element.  
  */
-operation source!Shape addAttributes(n : target!Type) {	
+operation source!Shape addAttributes(t : target!Type) {	
 	var attributes = self.firstSegment;
 		
 	if(not (attributes == null) ) {
 		for(ele : source!NamedElement in attributes.elements) {
 			var attribute = new target!Attribute;
-			attribute.owner = n;
+			attribute.owner = t;
 			
 			var attString = ele.name.replaceAll(" +", "");
 			var tokens = attString.split(":");
@@ -25,7 +25,7 @@ operation source!Shape addAttributes(n : target!Type) {
 				attribute.type = attType;
 			}
 			
-			n.attributes.add(attribute);
+			t.attributes.add(attribute);
 		}
 	}
 }
@@ -41,7 +41,7 @@ operation source!Shape addAttributes(n : target!Type) {
  * The type has to be another model element. The parameters are a (probably empty) comma-separated list of 
  * '<parameterName> : <parameterType>' pairs, where the name and type follow the same constraints as above. 
  */
-operation source!Shape addOperations(n : target!Type) {
+operation source!Shape addOperations(t : target!Type) {
 	var operations = self.secondSegment;
 	
 	if (operations == null) {
@@ -65,13 +65,13 @@ operation source!Shape addOperations(n : target!Type) {
 		}
 		
 		var op = new target!Operation;
-		op.owner = n;
+		op.owner = t;
 		op.name = opName;
 							
 		if(not (opType == null)) {
-			var t = findTypeForName(opType);
+			var ty = findTypeForName(opType);
 			if (not (t == null)) {
-				op.type = t;
+				op.type = ty;
 			}
 		}
 		
@@ -92,7 +92,7 @@ operation source!Shape addOperations(n : target!Type) {
 			}
 		}
 		
-		n.operations.add(op);
+		t.operations.add(op);
 	}
 }
 

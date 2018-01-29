@@ -1,4 +1,3 @@
-import "Type.etl";
 import "RoleType.etl";
 
 /*
@@ -8,9 +7,10 @@ import "RoleType.etl";
 rule RoleTypeWithoutAttsAndOps
 	transform s : source!Shape
 	to t : target!RoleType 
-	extends RoleType {
+	extends RoleType 
+	{
 		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
-		guard : not(s.~features.get("Role_Behavior"))
+		guard : s.getType==(source!Type#RoleType) and not(s.~features.get("Role_Behavior"))
 }
 
 //creates a set used for iorm shapes later in the post rule
@@ -25,9 +25,10 @@ pre RoleTypeWithAttsAndOps {
 rule RoleTypeWithAttsAndOps
 	transform s : source!Shape
 	to t : target!RoleType 
-	extends RoleType {
+	extends RoleType 
+	{
 		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)	
-		guard : s.~features.get("Role_Behavior")
+		guard : s.getType==(source!Type#RoleType) and s.~features.get("Role_Behavior")
 		
 		roleTypes.add(s);
 }

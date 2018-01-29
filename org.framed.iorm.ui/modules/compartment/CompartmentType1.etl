@@ -1,12 +1,14 @@
 /**
  * The abstract rule for compartment type executes actions for kinds compartment types. 
  */
-@abstract
-rule CompartmentType
+@lazy
+rule CompartmentType1
 	transform s : source!Shape
 	to t : target!CompartmentType {
 		guard : s.getType==(source!Type#CompartmentType) 
- 		
+		
+ 		//set the transformed target element to ensure the subrule work on the same target
+ 		if(s.~transformed == null) s.~transformed = t;
  		//set the compartments name
  		t.name = s.name;
  		// iterate over all children of the compartment type	

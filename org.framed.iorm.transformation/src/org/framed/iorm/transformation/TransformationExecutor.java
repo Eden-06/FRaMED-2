@@ -90,17 +90,18 @@ public class TransformationExecutor extends EpsilonStandalone {
 			return;
 		}
 		//Step 2
-		List<URL> moduleClassURLs = null, coreClassURLs = null;
-		Enumeration<URL> moduleClassEnumeration = UIBundle.findEntries("/modules", "*.etl", true),
-						 coreClassEnumeration = UIBundle.findEntries("/core", "*.etl", true);
-		if(moduleClassEnumeration != null) moduleClassURLs = Collections.list(moduleClassEnumeration);
-		if((coreClassEnumeration != null)) coreClassURLs = Collections.list(coreClassEnumeration);
+		List<URL> moduleFileURLs = null, coreFileURLs = null;
+		Enumeration<URL> moduleFileEnumeration = UIBundle.findEntries("/modules", "*.etl", true),
+						 coreFileEnumeration = UIBundle.findEntries("/core", "*.etl", true);
+		if(moduleFileEnumeration != null) moduleFileURLs = Collections.list(moduleFileEnumeration);
+		if((coreFileEnumeration != null)) coreFileURLs = Collections.list(coreFileEnumeration);
 		//Step 3
 		File etlFile = null;
 		List<String> importNames = new ArrayList<String>();
-		if(moduleClassURLs != null) {
-			for(URL url : moduleClassURLs) {
-				if(!packageMarkedAsNotUsed(url.toString(), "modules/")) {
+		if(moduleFileURLs != null) {
+			for(URL url : moduleFileURLs) {
+				if(!packageMarkedAsNotUsed(url.toString(), "modules/") &&
+			       !packageETLFilesMarkedAsNotUsed(url.toString(), "modules/")) {
 					//(a)
 					try {
 						etlFile = new File(FileLocator.resolve(url).toURI());
@@ -118,9 +119,10 @@ public class TransformationExecutor extends EpsilonStandalone {
 					importNames.add(etlFile.getName());
 			}	}
 		}
-		if(coreClassURLs != null) {
-			for(URL url : coreClassURLs) {
-				if(!packageMarkedAsNotUsed(url.toString(), "core/")) {
+		if(coreFileURLs != null) {
+			for(URL url : coreFileURLs) {
+				if(!packageMarkedAsNotUsed(url.toString(), "core/") && 
+				   !packageETLFilesMarkedAsNotUsed(url.toString(), "core/")) {
 					//(a)
 					try {
 						etlFile = new File(FileLocator.resolve(url).toURI());
@@ -144,15 +146,28 @@ public class TransformationExecutor extends EpsilonStandalone {
 	}
 	
 	/**
-	 * checks if the package part of a class url starts and ends with an _
-	 * @param classURL the string url to check against
+	 * checks if the package part of a file url starts and ends with an _
+	 * @param url the string url to check against
 	 * @param sourceFolder the source folder in which the class is located in
 	 * @return if the package part of a class url starts and ends with an _
 	 */
-	public boolean packageMarkedAsNotUsed(String classURL, String sourceFolder) {
-		classURL = classURL.substring(classURL.indexOf(sourceFolder) + sourceFolder.length()); 
-		classURL = classURL.substring(0, classURL.indexOf("/"));
-		if(classURL.startsWith("_") && classURL.endsWith("_")) return true;
+	public boolean packageMarkedAsNotUsed(String url, String sourceFolder) {
+		url = url.substring(url.indexOf(sourceFolder) + sourceFolder.length()); 
+		url = url.substring(0, url.indexOf("/"));
+		if(url.startsWith("_") && url.endsWith("_")) return true;
+		return false;
+	}
+	
+	/**
+	 * checks if the etl file name part of a file url starts and ends with an _
+	 * @param url the string url to check against
+	 * @param sourceFolder the source folder in which the class is located in
+	 * @return if the etl file name part of a url starts and ends with an _
+	 */
+	public boolean packageETLFilesMarkedAsNotUsed(String url, String sourceFolder) {
+		url = url.substring(url.indexOf(sourceFolder) + sourceFolder.length()); 
+		url = url.substring(url.indexOf("/")+1, url.indexOf(".etl"));
+		if(url.startsWith("_") && url.endsWith("_")) return true;
 		return false;
 	}
 	

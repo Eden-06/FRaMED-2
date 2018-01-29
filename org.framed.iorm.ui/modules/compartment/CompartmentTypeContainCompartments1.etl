@@ -1,0 +1,46 @@
+import "CompartmentType1.etl";
+
+/**
+ * This rule transforms a compartment which can not contain other compartment types.
+ */
+@lazy
+rule CompartmentTypeCannotContainCompartments1
+	transform s : source!Shape
+	to t : target!CompartmentType 
+	extends CompartmentType1 {
+		guard : not(s.~features.get("Contains_Compartments"))
+		
+ 		if(not(s.getModel() == null)) {
+ 		for (elem : source!ModelElement in s.getModel().elements) {	
+			//if the children is another compartment type
+			if(elem.getType==(source!Type#CompartmentType)) {
+				var e = elem.equivalent();
+				if(not(e == null)) {
+					delete(e);
+		}	}	}	}
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}	
+
+/**
+ * This rule transforms a compartment which can contain other compartment types.
+ * t is not used why?
+ */
+@lazy
+rule CompartmentTypeCanContainCompartments1
+	transform s : source!Shape
+	to t : target!CompartmentType 
+	extends CompartmentType1 {
+		guard : s.~features.get("Contains_Compartments")
+		
+ 		if(not(s.getModel() == null)) {
+ 		for (elem : source!ModelElement in s.getModel().elements) {	
+			//if the children is another compartment type
+			if(elem.getType==(source!Type#CompartmentType)) {
+				var e = elem.equivalent();
+				if(not(e == null)) {
+					s.~transformed.getContains.add(e);
+		}	}	}	}
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
