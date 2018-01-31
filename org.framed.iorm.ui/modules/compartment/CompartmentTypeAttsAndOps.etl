@@ -3,24 +3,27 @@ import "CompartmentType.etl";
 /**
  * Transforms a compartment type when attributes and operation are not enabled
  */
-@abstract 
+@lazy 
 rule CompartmentTypeWithoutAttAndOps
 	transform s : source!Shape
 	to t : target!CompartmentType
 	extends CompartmentType {
 		//feature Compartment_Behavior implies feature Compartment_Properties and Compartment_Structure (not to check)	
 		guard : not(s.~features.get("Compartment_Behavior"))
+		
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
 }
 
 //creates a set used for iorm shapes later in the post rule
-pre CompartmentTypeWithAttAndOps {
+pre CompartmentTypeWithAttAndOps1 {
 	var compartmentTypes : OrderedSet(source!Shape);
 }
 
 /**
  * Transforms a compartment type when attributes and operation are enabled
  */
-@abstract 
+@lazy 
 rule CompartmentTypeWithAttAndOps
 	transform s : source!Shape
 	to t : target!CompartmentType
@@ -29,6 +32,8 @@ rule CompartmentTypeWithAttAndOps
 		guard : s.~features.get("Compartment_Behavior")
 		
 		compartmentTypes.add(s);
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
 }
 
 /**
@@ -39,9 +44,8 @@ rule CompartmentTypeWithAttAndOps
  */
 post CompartmentTypeWithAttAndOps {
 	for (s : source!Shape in compartmentTypes) {
-		var t = s.equivalent();
-		if (t.isDefined() and s.isDefined()) {
-			s.addAttributes(t);
-		    s.addOperations(t);
+		if (s.isDefined()) {
+			s.addAttributes(s.~transformed);
+		    s.addOperations(s.~transformed);
 	}	}	
 }

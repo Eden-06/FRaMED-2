@@ -9,6 +9,9 @@ rule RoleType
 	transform s : source!Shape
 	to t : target!RoleType {
 		guard : s.getType==(source!Type#RoleType) 	
+		
+		//set the transformed target element to ensure the subrule work on the same target
+ 		if(s.~transformed == null) s.~transformed = t;
 		//set name 
 		t.name = s.name;
 		//only transform if the role type is in a compartment type
@@ -19,17 +22,6 @@ rule RoleType
 			var part = new target!Part;
 			part.role = t;
 			part.whole = compartmentType;
-			//parse the lower and upper bound from the role
-			var desc = s.description;
-			if (not (desc == null) and s.~features.get("Occurrence_Constraints")) {
-				var card = desc.name;
-				var cards = parseCardinality(card);
-				//set lower and upper bound
-				if(cards.size()>0) {
-					part.lower = cards[0];
-					if(cards.size()>1) {
-						part.upper = cards[1];
-			}	}	}
 			//add the part to the compartment type the role type is in
 			compartmentType.getParts().add(part);
 		}

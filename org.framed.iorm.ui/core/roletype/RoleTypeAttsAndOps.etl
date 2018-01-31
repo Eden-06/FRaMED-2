@@ -7,10 +7,12 @@ import "RoleType.etl";
 rule RoleTypeWithoutAttsAndOps
 	transform s : source!Shape
 	to t : target!RoleType 
-	extends RoleType 
-	{
+	extends RoleType {
 		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
 		guard : s.getType==(source!Type#RoleType) and not(s.~features.get("Role_Behavior"))
+		
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
 }
 
 //creates a set used for iorm shapes later in the post rule
@@ -25,12 +27,13 @@ pre RoleTypeWithAttsAndOps {
 rule RoleTypeWithAttsAndOps
 	transform s : source!Shape
 	to t : target!RoleType 
-	extends RoleType 
-	{
+	extends RoleType {
 		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)	
 		guard : s.getType==(source!Type#RoleType) and s.~features.get("Role_Behavior")
 		
 		roleTypes.add(s);
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
 }
 
 /**
@@ -41,10 +44,8 @@ rule RoleTypeWithAttsAndOps
  */
 post RoleTypeWithAttsAndOps {
 	for (s : source!Shape in roleTypes) {
-		var t = s.equivalent();
-
-		if (t.isDefined() and s.isDefined()) {
-			s.addAttributes(t);
-			s.addOperations(t);
-	}	}
+		if (s.isDefined()) {
+			s.addAttributes(s.~transformed);
+		    s.addOperations(s.~transformed);
+	}	}	
 }

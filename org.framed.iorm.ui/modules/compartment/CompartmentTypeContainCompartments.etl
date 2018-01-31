@@ -1,13 +1,13 @@
-import "CompartmentType1.etl";
+import "CompartmentType.etl";
 
 /**
  * This rule transforms a compartment which can not contain other compartment types.
  */
 @lazy
-rule CompartmentTypeCannotContainCompartments1
+rule CompartmentTypeCannotContainCompartments
 	transform s : source!Shape
 	to t : target!CompartmentType 
-	extends CompartmentType1 {
+	extends CompartmentType {
 		guard : not(s.~features.get("Contains_Compartments"))
 		
  		if(not(s.getModel() == null)) {
@@ -27,10 +27,10 @@ rule CompartmentTypeCannotContainCompartments1
  * t is not used why?
  */
 @lazy
-rule CompartmentTypeCanContainCompartments1
+rule CompartmentTypeCanContainCompartments
 	transform s : source!Shape
 	to t : target!CompartmentType 
-	extends CompartmentType1 {
+	extends CompartmentType {
 		guard : s.~features.get("Contains_Compartments")
 		
  		if(not(s.getModel() == null)) {

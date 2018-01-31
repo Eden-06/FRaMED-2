@@ -2,7 +2,7 @@
  * The abstract rule for compartment type executes actions for kinds compartment types. 
  */
 @lazy
-rule CompartmentType1
+rule CompartmentType
 	transform s : source!Shape
 	to t : target!CompartmentType {
 		guard : s.getType==(source!Type#CompartmentType) 
