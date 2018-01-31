@@ -12,7 +12,9 @@ rule RoleTypeWithoutAttsAndOps
 		guard : s.getType==(source!Type#RoleType) and not(s.~features.get("Role_Behavior"))
 		
 		//deletes the own transformed shaped if its not the same as the one of the super rule
-		if(not(s.~transformed == t)) delete(t);
+		if(not(s.~transformed == t)) {
+			delete(t);
+		}	
 }
 
 //creates a set used for iorm shapes later in the post rule
