@@ -1,10 +1,10 @@
-import "CardinalityParser.eol";
+import "../CardinalityParser.eol";
 
 @lazy 
 rule RoleGroup
 	transform s : source!Shape
 	to t : target!RoleGroup {	
-	guard : s.getType.value == 12	// ROLEGROUP
+	guard : s.getType==(source!Type#RoleGroup)
 		
 	t.name = s.name;
 	if(s.name.indexOf("(")>-1) {
@@ -29,22 +29,20 @@ rule RoleGroup
 			var e = elem.equivalent();
 			
 			if (e.instanceOf(target!RoleGroupElement)) {
-				t.getElements().add(e);				
-			} else if(e.instanceOf(target!Relation)) {
-				var compTypeFound = false;
-				var compType = s;
-				while(not(compTypeFound)) {
-					compType = compType.eContainer();
-					compTypeFound = not(compType.instanceOf(source!Model)) and compType.getType.getValue == 0;
-				}
-				if(e.instanceOf(target!Constraint)) {
-					compType.equivalent().getConstraints().add(e);
+					t.getElements().add(e);				
+				} else if(e.instanceOf(target!Relation)) {
+					var compTypeFound = false;
+					var compType = s;
+					while(not(compTypeFound)) {
+						compType = compType.eContainer();
+						compTypeFound = not(compType.instanceOf(source!Model)) and compType.getType==(source!Type#CompartmentType);
+					}
+					if(e.instanceOf(target!Constraint)) {
+						compType.equivalent().getConstraints().add(e);
+					} else {
+						compType.equivalent().getRelationships().add(e);
+					}
 				} else {
-					compType.equivalent().getRelationships().add(e);
-				}
-			} else {
-				// TODO: print warning or throw exception
-			}			
-		}
-	}	
+					// TODO: print warning or throw exception
+		}	}	}	
 }

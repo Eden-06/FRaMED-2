@@ -10,10 +10,21 @@ rule Fulfillment
 		//create target fulfillments for the source relations
 		for(role : source!Shape in s.referencedRoles) {
 			var fulfillment = new target!Fulfillment;
-			fulfillment.filler ::= s.source;
-			fulfillment.filled ::= role;
-			t.add(fulfillment);	
-		}	
+			//TODO better
+			var tf = true;
+			if(s.source.getType == (source!Type#DataType)) { if(not(s.~features.get("Dates"))) { tf = false; }}	
+			if(s.source.getType == (source!Type#CompartmentType)) { if(not(s.~features.get("Compartments"))) { tf = false; }}
+			if(s.source.getType == (source!Type#RoleType)) { if(not(s.~features.get("Roles"))) { tf = false; }}	
+			if(s.target.getType == (source!Type#CompartmentType) and 
+			   not(s.target.getContainer().getParent() == null) and
+			   s.target.getContainer().getParent().getType() == (source!Type#CompartmentType)) { 
+			   if(not(s.~features.get("Contains_Compartments"))) { tf = false; }
+			}
+			if(tf) {	
+				fulfillment.filler ::= s.source;
+				fulfillment.filled ::= role;
+				t.add(fulfillment);	
+		}	}	
 		//if fulfillment is compartment type or group add it to the compartment type
 		if(not(s.getContainer().getParent()==null)) {
 			//transform if the role type is in a compartment type
