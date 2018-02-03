@@ -20,14 +20,14 @@
 			<secondSegment />
 			<model>
 				<elements xsi:type="org.framed.iorm.model:Shape" name="RT1"
-					incomingRelations="//@framedModel/@elements.1/@model/@elements.2"
+					incomingRelations="//@framedModel/@elements.1/@model/@elements.2 //@framedModel/@elements.1/@model/@elements.3"
 					type="RoleType">
 					<firstSegment />
 					<secondSegment />
 					<description name="*" />
 				</elements>
 				<elements xsi:type="org.framed.iorm.model:Shape" name="RT2"
-					outgoingRelations="//@framedModel/@elements.1/@model/@elements.2"
+					outgoingRelations="//@framedModel/@elements.1/@model/@elements.2 //@framedModel/@elements.1/@model/@elements.3"
 					type="RoleType">
 					<firstSegment />
 					<secondSegment />
@@ -41,8 +41,9 @@
 					<targetLabel name="*" />
 				</elements>
 				<elements xsi:type="org.framed.iorm.model:Relation" name="Acyclic"
-					type="Acyclic" target="//@elements.1/@model/@elements.0"
-					source="//@framedModel/@elements.1/@model/@elements.1">
+					type="Acyclic" target="//@framedModel/@elements.1/@model/@elements.0"
+					source="//@framedModel/@elements.1/@model/@elements.1"
+					referencedRelation="//@framedModel/@elements.1/@model/@elements.2">
 				</elements>
 			</model>
 		</elements>
