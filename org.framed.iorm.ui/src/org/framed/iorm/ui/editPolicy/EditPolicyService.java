@@ -12,9 +12,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
@@ -85,6 +87,18 @@ public class EditPolicyService {
 	
 	public static boolean canCreate(ICreateConnectionContext context, Diagram diagram) {
 		 // System.out.println("---can create check----");
+
+		return true;
+	}
+	
+	public static boolean canReconnect(IReconnectionContext context, Diagram diagram) {
+		 // System.out.println("---can reconnect check----");
+
+		return true;
+	}
+	
+	public static boolean canAdd(IAddConnectionContext context, Diagram diagram) {
+		 // System.out.println("---can reconnect check----");
 
 		return true;
 	}
