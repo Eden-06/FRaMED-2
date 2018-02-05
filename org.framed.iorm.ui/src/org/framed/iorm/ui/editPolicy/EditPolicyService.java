@@ -10,6 +10,7 @@ import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osgi.framework.Bundle;
@@ -68,13 +69,23 @@ public class EditPolicyService {
 	 * 
 	 * return policies.get(diagram.getName()); }
 	 */
-
+	
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
 		// System.out.println("---can add check----");
 		return true;
 	}
 
 	public static boolean canCreate(ICreateConnectionContext context, Diagram diagram) {
+		// System.out.println("---can create check----");
+		return true;
+	}
+	
+	public static boolean canStart(ICreateConnectionContext context, Diagram diagram) {
+		// System.out.println("---can create check----");
+		return true;
+	}
+	
+	public static boolean canExecute(ICustomContext context, Diagram diagram) {
 		// System.out.println("---can create check----");
 		return true;
 	}
@@ -110,7 +121,6 @@ public class EditPolicyService {
 		 * false; } }
 		 */
 		// System.out.println("-------------------------------");
-
 		return true;
 	}
 
@@ -118,7 +128,6 @@ public class EditPolicyService {
 	 * Load editPolicy ecore Model from file.
 	 */
 	private static void loadEditPolicyFile(String filename) {
-
 		// String filename = new
 		// String("platform:/plugin/org.framed.iorm.editPolicy.model/model/noRules.xmi");
 
@@ -178,7 +187,7 @@ public class EditPolicyService {
 			moduleFileURLs = Collections.list(moduleFileEnumeration);
 		if (coreFileEnumeration != null)
 			coreFileURLs = Collections.list(coreFileEnumeration);
-
+		
 		if (moduleFileURLs != null) {
 			for (URL url : moduleFileURLs) {
 				if (!packageMarkedAsNotUsed(url.toString(), "modules/")) {

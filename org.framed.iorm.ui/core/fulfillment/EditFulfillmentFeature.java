@@ -18,6 +18,7 @@ import org.framed.iorm.model.Shape;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 
 /**
@@ -66,7 +67,7 @@ public class EditFulfillmentFeature extends FRaMEDCustomFeature {
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
-		return true;
+		return EditPolicyService.canExecute(customContext, this.getDiagram());
 	}
 
 	/**

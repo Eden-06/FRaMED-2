@@ -2,9 +2,11 @@ package fulfillment;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
@@ -13,6 +15,7 @@ import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 
 /**
@@ -68,7 +71,7 @@ public class ResetLayout extends FRaMEDCustomFeature {
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
-		return true;
+		return EditPolicyService.canExecute(customContext, this.getDiagram());
 	}
 	
 	/**

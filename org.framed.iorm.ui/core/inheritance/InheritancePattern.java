@@ -192,7 +192,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(types.contains(sourceShape.getType()))
-				return true;
+				return EditPolicyService.canStart(createContext, getDiagram());
 		}	
 		return false;
 	}
