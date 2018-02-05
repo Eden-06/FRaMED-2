@@ -1,12 +1,6 @@
 package org.framed.iorm.ui.editPolicy;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.naming.Context;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -18,16 +12,11 @@ import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.framed.iorm.featuremodel.FRaMEDConfiguration;
-import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.*;
-import org.framed.iorm.ui.UIUtil;
-
-import model.*;
-import model.Model;;
 
 /**
- * This class provides canExecute(Command cmd) which checks whether a given command may execute according to editPolicies
+ * This class provides canExecute(Command cmd) which checks whether a given command may 
+ * execute according to an editPolicies
  *
  * @author Christian Deussen
  *
@@ -37,24 +26,26 @@ public class EditPolicyService {
 	/**
 	 * current configuration
 	 */
-	private static Map<String, FRaMEDConfiguration> configurations;
+	//private static Map<String, FRaMEDConfiguration> configurations;
 
 	/**
 	 * xmi model
 	 */
+	@SuppressWarnings("unused")
 	private static Model model;
 	/**
 	 * list of Policy-Rules which need to be evaluated
 	 */
-	private static Map<String, Set<Policy>> policies;
+	//private static Map<String, Set<Policy>> policies;
 
 	public static void initEditPolicyService()
 	{
-		configurations = new HashMap<>();
-		policies = new HashMap<>();
+		//configurations = new HashMap<>();
+		//policies = new HashMap<>();
 		model = loadModel();
 	}
 	
+	/*
 	private static Set<Policy> getPolicies(Diagram diagram)
 	{
 		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
@@ -78,6 +69,7 @@ public class EditPolicyService {
 
 		return policies.get(diagram.getName());
 	}
+	*/
 
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
 		 // System.out.println("---can add check----");
@@ -115,6 +107,7 @@ public class EditPolicyService {
 	{	
 		  //System.out.println("---can create check----");
 		  
+		/*
 			EditPolicyRuleVisitor editPolicyRuleVisitor = new EditPolicyRuleVisitor(context, false);
 			for (Policy policy : getPolicies(diagram)) {
 				if (!editPolicyRuleVisitor.abstractRuleVisitor(policy.getRule())) {
@@ -122,6 +115,7 @@ public class EditPolicyService {
 					return false;
 				}
 			}
+			*/
 			//System.out.println("-------------------------------");
 
 		
@@ -168,6 +162,5 @@ public class EditPolicyService {
 	public void update(final ORMGraphicalEditor.EditorType type) {
 		this.loadPolicyRules();
 	}
-			*/
-
+	*/
 }
