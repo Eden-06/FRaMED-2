@@ -38,7 +38,7 @@ import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
  * (5) disabling the resize feature for attributes and operations
  * @author Kevin Kassin
  */
-public class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
+public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
 	 * the object to get names, id and so on for this feature

@@ -10,7 +10,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
@@ -28,7 +27,7 @@ import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
  * @see AttributeOperationCommonPattern
  * @author Kevin Kassin
  */
-public class OperationPattern extends FRaMEDShapePattern implements IPattern {
+public class OperationPattern extends AttributeOperationCommonPattern implements IPattern {
 	
 	/**
 	 * the object to get names, id and so on for this feature
