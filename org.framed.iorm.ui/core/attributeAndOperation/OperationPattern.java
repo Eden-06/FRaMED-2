@@ -1,21 +1,14 @@
 package attributeAndOperation;
 
-import java.util.List;
-
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
-import org.framed.iorm.ui.palette.PaletteCategory;
-import org.framed.iorm.ui.palette.PaletteView;
-import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
 
 /**
@@ -28,89 +21,16 @@ import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
  * @author Kevin Kassin
  */
 public class OperationPattern extends AttributeOperationCommonPattern implements IPattern {
-	
-	/**
-	 * the object to get names, id and so on for this feature
-	 */
-	private final Literals literals = new Literals();
-	
-	/**
-	 * the object to call utility operations on
-	 */
-	private final Util util = new Util();
-	
-	/**
-	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
-	 */
-	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-		PaletteCategory.PROPERTIES_CATEGORY,
-		ViewVisibility.ALL_VIEWS) {
-			@Override
-			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
-				switch(paletteView) {
-				case TOPLEVEL_VIEW: return true;
-				case COMPARTMENT_VIEW: 
-					return (framedFeatureNames.contains("Role_Behavior") ||
-							framedFeatureNames.contains("Compartment_Behavior"));
-				default: return false;
-		}	}	};
-	
-	/**
-	 * the list of reference classes which save in which other module feature's shapes a attribute or
-	 * operation can be added with specific informations for these.
-	 * @see AbstractUsedInReference
-	 */
-	private List<AbstractHasAttsAndOpsReference> usedInReferences; 	
 		
 	/**
 	 * class constructor	
-	 * <p>	
-	 * Note: It gets the references which save in which other module feature's shapes a attribute or
-	 * operations can be added here and saves them it into {@link #usedInReferences}.	
 	 */
 	public OperationPattern() {
 		super();
 		FEATURE_NAME = literals.OPS_FEATURE_NAME;
 		ICON_IMG_ID = literals.OPS_ICON_IMG_ID;
 		ICON_IMG_PATH = literals.OPS_ICON_IMG_PATH;
-		FPD = spec_FPD;
-		//Note
-		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
-		usedInReferences = util.getHasAttsAndOpsReferences(classes);
 	}	
-	
-	/**
-	 * checks if pattern is applicable for a given business object
-	 * @return true, if business object is of type {@link org.framed.iorm.model.NamedElement} but not
-	 * of type {@link org.framed.iorm.model.ModelElement}
-	 */
-	@Override
-	public boolean isMainBusinessObjectApplicable(Object businessObject) {
-		return (businessObject instanceof NamedElement &&
-				!(businessObject instanceof ModelElement));
-	}
-
-	/**
-	 * checks if pattern is applicable for a given pictogram element
-	 * @return true, if business object of the pictogram element is of type {@link org.framed.iorm.model.NamedElement} 
-	 * but not of type {@link org.framed.iorm.model.ModelElement}
-	 */
-	@Override
-	protected boolean isPatternControlled(PictogramElement pictogramElement) {
-		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(businessObject);
-	}
-
-	/**
-	 * checks if the pictogram element to edit with the pattern is its root
-	 * @return true, if business object of the pictogram element is of type {@link org.framed.iorm.model.NamedElement} 
-	 * but not of type {@link org.framed.iorm.model.ModelElement}
-	 */
-	@Override
-	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
-		return isMainBusinessObjectApplicable(businessObject);
-	}
 	
 	//create feature
 	//~~~~~~~~~~~~~~
