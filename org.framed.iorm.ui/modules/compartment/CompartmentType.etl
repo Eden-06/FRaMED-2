@@ -7,17 +7,18 @@ rule CompartmentType
 	to t : target!CompartmentType {
 		guard : s.getType==(source!Type#CompartmentType) 
 		
- 		//set the transformed target element to ensure the subrule work on the same target
- 		if(s.~transformed == null) s.~transformed = t;
- 		//set the compartments name
- 		t.name = s.name;
- 		// iterate over all children of the compartment type	
-		if(not(s.getModel() == null)) {
-			for (elem : source!ModelElement in s.getModel().elements) {
-				//propagate the features list and and the main model reference to all children 
-				elem.~features = s.~features;
-				elem.~mainModel = s.~mainModel;
-				//transform all children
-				var e = elem.equivalent();	
-		}	}
+ 		//set the transformed target element to ensure the subrule work on the same target and only transform once
+ 		if(s.~transformed == null) {
+	 		s.~transformed = t;
+	 		//set the compartments name
+	 		t.name = s.name;
+	 		// iterate over all children of the compartment type	
+			if(not(s.getModel() == null)) {
+				for (elem : source!ModelElement in s.getModel().elements) {
+					//propagate the features list and and the main model reference to all children 
+					elem.~features = s.~features;
+					elem.~mainModel = s.~mainModel;
+					//transform all children
+					var e = elem.equivalent();	
+		}	}	}
 }
