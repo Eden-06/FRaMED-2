@@ -1,0 +1,22 @@
+import "Fulfillment.etl";
+
+/**
+ * deletes the fulfillments with a inner compartment type (in another compartment type) as a filled object if 
+ * inner compartment types aren't transformed
+ */
+@lazy
+rule FulfillmentNoContainsCompartment
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : s.target.getType==(source!Type#CompartmentType) and 
+				not(s.target.getContainer().getParent() == null) and
+				s.target.getContainer().getParent().getType()==(source!Type#CompartmentType) and
+				not(s.~features.get("Contains_Compartments"))
+		
+		for(fulfillment : target!Fulfillment in s.~transformed) {
+			delete(fulfillment);
+		}	
+		s.~transformed.clear();
+}
+

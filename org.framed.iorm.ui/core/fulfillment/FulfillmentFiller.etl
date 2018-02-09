@@ -1,0 +1,50 @@
+import "Fulfillment.etl";
+
+/**
+ * deletes the fulfillments with a data type as filler if data types can not play fulfillments
+ */
+@lazy
+rule FulfillmentNoDates
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : s.source.getType == (source!Type#DataType) and
+				not(s.~features.get("Dates"))
+					
+		deleteFulfillment(s);		
+}
+
+/**
+ * deletes the fulfillments with a compartment type as filler if compartment types can not play fulfillments
+ */
+@lazy
+rule FulfillmentNoCompartments
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : s.source.getType==(source!Type#CompartmentType) and 
+				not(s.~features.get("Compartments"))
+				
+		deleteFulfillment(s);
+}
+
+/**
+ * deletes the fulfillments with a role type as filler if role types can not play fulfillments
+ */
+@lazy
+rule FulfillmentNoRoles
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : s.source.getType == (source!Type#RoleType) and
+				not(s.~features.get("Roles"))
+	
+		deleteFulfillment(s);
+}
+
+operation deleteFulfillment(s : source!Relation) {
+	for(fulfillment : target!Fulfillment in s.~transformed) {
+		delete(fulfillment);
+	}	
+	s.~transformed.clear();
+}		

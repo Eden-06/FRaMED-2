@@ -1,5 +1,6 @@
 /**
- * the abstract rule for fulfillments  executes actions done for all fulfillment on the top level and in grouping features
+ * the abstract rule for fulfillments executes actions done for all fulfillment on the top level and in grouping features
+ * with all fillers and filled objects
  */
 @abstract
 rule Fulfillment
@@ -7,22 +8,14 @@ rule Fulfillment
 	to t : Sequence(target!Fulfillment) {
 		guard : s.getType()==(source!Type#Fulfillment) // enum value Fulfillment
 		
-		//create target fulfillments for the source relations
-		for(role : source!Shape in s.referencedRoles) {
-			var fulfillment = new target!Fulfillment;
-			//TODO better
-			var tf = true;
-			if(s.source.getType == (source!Type#DataType)) { if(not(s.~features.get("Dates"))) { tf = false; }}	
-			if(s.source.getType == (source!Type#CompartmentType)) { if(not(s.~features.get("Compartments"))) { tf = false; }}
-			if(s.source.getType == (source!Type#RoleType)) { if(not(s.~features.get("Roles"))) { tf = false; }}	
-			if(s.target.getType == (source!Type#CompartmentType) and 
-			   not(s.target.getContainer().getParent() == null) and
-			   s.target.getContainer().getParent().getType() == (source!Type#CompartmentType)) { 
-			   if(not(s.~features.get("Contains_Compartments"))) { tf = false; }
-			}
-			if(tf) {	
+		//set the transformed target element to ensure the subrule work on the same target and only transform once
+ 		if(s.~transformed == null) {
+	 		s.~transformed = t;
+	 		//create target fulfillments for the source relations
+			for(role : source!Shape in s.referencedRoles) {
+				var fulfillment = new target!Fulfillment;
 				fulfillment.filler ::= s.source;
 				fulfillment.filled ::= role;
-				t.add(fulfillment);	
+				s.~transformed.add(fulfillment);	
 		}	}	
 }
