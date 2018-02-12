@@ -14,7 +14,9 @@ rule Fulfillment
 	 		//create target fulfillments for the source relations
 			for(role : source!Shape in s.referencedRoles) {
 				var fulfillment = new target!Fulfillment;
+				s.source.~features = s.~features;
 				fulfillment.filler ::= s.source;
+				role.~features = s.~features;
 				fulfillment.filled ::= role;
 				s.~transformed.add(fulfillment);	
 		}	}	

@@ -15,7 +15,9 @@ rule Relationship
 			//get the crom equivalent to compartment type the relationship is in
 			var compartmentType = s.getContainer.getParent().equivalent();
 			//set the inter relationship constraints
+			s.getSource.~features = s.~features;
 			s.getSource.equivalent().getOutgoing.add(t);
+			s.getTarget.~features = s.~features;
 			s.getTarget.equivalent().getIncoming.add(t);	
 			//add the relationship to the compartment type the relationship is in
 			compartmentType.getRelationships().add(t);
