@@ -25,7 +25,6 @@ import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
@@ -151,11 +150,9 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.DATA_TYPE) {
-				ContainerShape containerShape = getDiagram();
-				if(containerShape instanceof Diagram) {
-					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						return EditPolicyService.canAdd(addContext, this.getDiagram());
-		}	}	}	}
+				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+					return EditPolicyService.canAdd(addContext, this.getDiagram());
+		}	}	}
 		return false;
 	}
 
