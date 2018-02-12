@@ -375,7 +375,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * It creates the following structure:<br>
 	 * <ul>
-	 *   <li>(org.framed.iorm.model.Shape) natural type</li>
+	 *   <li>(org.framed.iorm.model.Shape) compartment type</li>
 	 * 	   <ul>
 	 * 	     <li>(Segment) first segment (for attributes)</li> 
 	 *  	 <li>(Segment) second segment (for operations)</li> 
@@ -388,7 +388,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * Step 2: It adds the new compartment type to the elements of the model of the diagram in which its created.<br>
 	 * Step 3: It call the add function to add the pictogram elements of the compartment type using a 
 	 * 		   {@link AddGroupOrCompartmentTypeContext}.
-	 * @return the created business object of the group
+	 * @return the created business object of the compartment type
 	 */
 	@Override
 	public Object[] create(ICreateContext createContext) {
@@ -417,11 +417,11 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		newCompartmentType.setContainer(model);
 	
 		//Step 3
-		AddCompartmentTypeContext agctc = new AddCompartmentTypeContext();
-		UIUtil.getAddContextForCreateShapeContext(agctc, createContext);
-		agctc.setNewObject(newCompartmentType);
-		agctc.setModelToLink(compartmentsModel);
-		if(canAdd(agctc)) add(agctc);
+		AddCompartmentTypeContext actc = new AddCompartmentTypeContext();
+		UIUtil.getAddContextForCreateShapeContext(actc, createContext);
+		actc.setNewObject(newCompartmentType);
+		actc.setModelToLink(compartmentsModel);
+		if(canAdd(actc)) add(actc);
 		return new Object[] { newCompartmentType };
 	}
 	
