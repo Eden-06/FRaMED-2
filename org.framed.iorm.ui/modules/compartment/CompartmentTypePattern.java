@@ -228,7 +228,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * It uses follows this steps:<br>
 	 * Step 1: It gets the new object, the diagram to create the compartment type in and calculates the height and width 
-	 * 		   of the natural types representation.<br>
+	 * 		   of the compartment type's representation.<br>
 	 * Step 2: It creates the structure shown above.<br>
 	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the compartment type.<br>
 	 * Step 4: It links the created shapes of the group to its business objects.<br> 
@@ -309,7 +309,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		graphicAlgorithmService.setLocationAndSize(modelRectangle, literals.PUFFER_BETWEEN_ELEMENTS, horizontalSecondThird+literals.PUFFER_BETWEEN_ELEMENTS, 
 												   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);	
 		
-		//groups diagram
+		//compartments diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedCompartmentType.getName(), 10, true);
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddCompartmentTypeContext agctc = (AddCompartmentTypeContext) addContext;
@@ -436,7 +436,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	}
 		
 	/**
-	 * calculates if a pictogram element of a natural type can be direct edited
+	 * calculates if a pictogram element of a compartment type can be direct edited
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
@@ -468,8 +468,8 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	/**
 	 * calculates if a chosen value for the compartment types name is valid
 	 * <p>
-	 * A valid value is in a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
-	 * chosen for another compartment type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * A valid value is in a specific form checked by {@link UIUtil#matchesIdentifier} and is not already
+	 * chosen for another compartment type. This is checked by {@link UIUtil#nameAlreadyUsedRoleModelWide}.
 	 * @return if a chosen value for the compartment types name is valid
 	 */
 	@Override

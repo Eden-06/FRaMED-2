@@ -23,42 +23,29 @@ public class Literals {
 						ICON_IMG_PATH = "modules/rolegroup/icon_rolegroup.png";
 	
 	/**
-	 * identifiers used for compartment types
+	 * the kind of diagram this module's pattern creates
+	 */
+	public final String DIAGRAM_KIND = "role_group_diagram";
+	
+	/**
+	 * identifiers used for compartment types pictogramm shapes
 	 * <p>
 	 * can be for:<br>
 	 * (1) the container shape or<br>
 	 * (2) type body shape or<br>
 	 * (3) drop shadow shape or<br>
-	 * (4) name shape or<br>
-	 * (5) first line shape or<br>
-	 * (6) second line shape or<br>
-	 * (7) third line shape or<br>
-	 * (8) attribute container shape or<br>
-	 * (9) operation container shape or<br>
-	 * (10) content preview segment or<br>
-	 * (11) the elements in the content preview segment or<br>
-	 * (12) the dot elements that indicate some elements are not shown in the preview
+	 * (4) name shape
 	 */
-	/*public final String SHAPE_ID_COMPARTMENTTYPE_CONTAINER = "shape_ct_container",
-						SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = "shape_ct_typebody",
-						SHAPE_ID_COMPARTMENTTYPE_SHADOW = "shape_ct_shadow",
-						SHAPE_ID_COMPARTMENTTYPE_NAME = "shape_ct_name", 
-						SHAPE_ID_COMPARTMENTTYPE_FIRSTLINE = "shape_ct_firstline",
-						SHAPE_ID_COMPARTMENTTYPE_SECONDLINE = "shape_ct_secondline", 
-						SHAPE_ID_COMPARTMENTTYPE_THIRDLINE = "shape_ct_thirdline", 
-						SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER = "shape_ct_attcontainer",
-						SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER = "shape_ct_opcontainer",
-						SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = "shape_ct_contentpreview",
-						SHAPE_ID_COMPARTMENTTYPE_ELEMENT = "shape_ct_element",
-						SHAPE_ID_COMPARTMENTTYPE_INDICATOR_DOTS = "shape_ct_indicator_dots";
-	*/
+	public final String SHAPE_ID_ROLEGROUP_CONTAINER = "shape_rg_container",
+						SHAPE_ID_ROLEGROUP_TYPEBODY = "shape_rg_typebody",
+						SHAPE_ID_ROLEGROUP_SHADOW = "shape_rg_shadow",
+						SHAPE_ID_ROLEGROUP_NAME = "shape_rg_name";
 	
 	/**
 	 * messages used as direct editing tips
 	 */
-	/*public final String DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
-						NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!";
-	*/
+	public final String DIRECTEDITING_ROLEGROUP = "A role group's name cant be empty or contain spaces. Numbers are allowed but not as first symbol. There can be a cardinality written in parenthesis.",
+						NAME_ALREADY_USED_ROLEGROUP = "Another role group already has the same name!";
 	
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
@@ -72,13 +59,13 @@ public class Literals {
 	/**
 	 * integers used to layout this features pictogramm elements 
 	 */
-	/*public final int MIN_WIDTH = UILiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
+	public final int MIN_WIDTH = UILiterals.MIN_WIDTH_FOR_CLASS_OR_ROLE, 
 					 MIN_HEIGHT = UILiterals.MIN_HEIGHT_FOR_CLASS_OR_ROLE,
 					 HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
+					 ROLE_GROUP_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE,
 					 PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
-					 SHADOW_SIZE = UILiterals.SHADOW_SIZE,
-					 HEIGHT_COMPARTMENT_ELEMENT_SHAPE = UILiterals.HEIGHT_ELEMENT_SHAPE;
-	*/
+					 SHADOW_SIZE = UILiterals.SHADOW_SIZE;
+	
 
 	/**
 	 * color values
@@ -89,9 +76,15 @@ public class Literals {
 	 * (3) the color of backgrounds or<br>
 	 * (4) the color of graphiti shapes shadows
 	 */
-	/*public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
+	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
 			   					COLOR_LINES = UILiterals.COLOR_LINES,
 			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
-			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;
-	*/		   					
+			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;	   		
+	
+	//Name
+	//~~~~~
+	/**
+	 * regular expression for role group names
+	 */
+	public final String REG_EXP_NAME = UILiterals.REG_EXP_ROLEGROUP;
 }

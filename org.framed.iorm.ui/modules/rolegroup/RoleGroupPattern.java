@@ -26,7 +26,9 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -165,117 +167,94 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		return false;
 	}
 	
-//TODO: DOKU READY
 //TODO: IMPL READY	
 	
 	/**
-	 * TODO
+	 * adds the graphical representation of a role group to the pictogram model
+	 * <p>
+	 * It creates the following structure:<br>
+	 * <ul>
+	 *   <li>container shape</li>
+	 * 	   <ul>
+	 * 	     <li>drop shadow shape</li>
+	 *         <ul><li>drop shadow rectangle</li></ul>
+	 * 		 <li>type body shape</li>
+	 * 		   <ul><li>type body rectangle</li></ul>
+	 * 		   <ul>
+	 * 		     <li>name container</li>
+	 * 			  <ul><li>name text</li></ul>
+	 * 		   </ul>
+	 * 	   </ul>
+	 * </ul> 
+	 * <p>
+	 * The compartment types diagram will be created outside of the compartment types <em>container shape</em>. It can be 
+	 * found as child of the <em>container diagram</em> of the role model. If its not clear what <em>container diagram</em> 
+	 * means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
+	 * <p>
+	 * It uses follows this steps:<br>
+	 * Step 1: It gets the new object, the diagram to create the role group in and calculates the height and width 
+	 * 		   of the role group representation.<br>
+	 * Step 2: It creates the structure shown above.<br>
+	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the role group.<br>
+	 * Step 4: It links the created shapes of the group to its business objects.<br> 
+	 * Step 5: It enables direct editing, anchors and layouting of the role group. It also updates the group in which 
+	 * 		   its created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		/*
+		
 		//Step 1
-		org.framed.iorm.model.Shape addedCompartmentType = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		org.framed.iorm.model.Shape addedRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		ContainerShape targetDiagram = getDiagram();
 		int width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
-				
+		
 		//Step 2
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 							  
 		//drop shadow
 		ContainerShape dropShadowShape = pictogramElementCreateService.createContainerShape(containerShape, true);
-		Rectangle dropShadowRectangle = graphicAlgorithmService.createRectangle(dropShadowShape);
+		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, literals.ROLE_GROUP_CORNER_RADIUS, literals.ROLE_GROUP_CORNER_RADIUS);
 		dropShadowRectangle.setForeground(manageColor(literals.COLOR_SHADOW));
 		dropShadowRectangle.setBackground(manageColor(literals.COLOR_SHADOW));
 		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+literals.SHADOW_SIZE, addContext.getY()+literals.SHADOW_SIZE, width, height);
 				
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
-		Rectangle typeBodyRectangle = graphicAlgorithmService.createRectangle(typeBodyShape);
+		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_GROUP_CORNER_RADIUS, literals.ROLE_GROUP_CORNER_RADIUS);
+		typeBodyRectangle.setLineStyle(LineStyle.DASH);
+		typeBodyRectangle.setLineWidth(2);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
 		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
 				
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
-		Text text = graphicAlgorithmService.createText(nameShape, addedCompartmentType.getName());	
+		Text text = graphicAlgorithmService.createText(nameShape, addedRoleGroup.getName());	
 		text.setForeground(manageColor(literals.COLOR_TEXT));	
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);	
 		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);	
 				
-		//first line
-		Shape firstLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);
-		Polyline firstPolyline = graphicAlgorithmService.createPolyline(firstLineShape, new int[] {0, literals.HEIGHT_NAME_SHAPE, width, literals.HEIGHT_NAME_SHAPE});
-		firstPolyline.setForeground(manageColor(literals.COLOR_LINES));
-				
-		//attribute container
-		ContainerShape attributeContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
-		Rectangle attributeRectangle = graphicAlgorithmService.createRectangle(attributeContainer);
-		attributeRectangle.setLineVisible(false);
-		attributeRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		int horizontalFirstThird = util.calculateHorizontaltFirstThird(height);
-		graphicAlgorithmService.setLocationAndSize(attributeRectangle, literals.PUFFER_BETWEEN_ELEMENTS, literals.HEIGHT_NAME_SHAPE+literals.PUFFER_BETWEEN_ELEMENTS, 
-												   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
-		//second line
-		Shape secondLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);	
-		Polyline secondPolyline = graphicAlgorithmService.createPolyline(secondLineShape, new int[] {0, horizontalFirstThird, width, horizontalFirstThird});
-		secondPolyline.setForeground(manageColor(literals.COLOR_LINES));
-				
-		//operation container
-		ContainerShape operationContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
-		Rectangle operationRectangle = graphicAlgorithmService.createRectangle(operationContainer);
-		operationRectangle.setLineVisible(false);
-		operationRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		graphicAlgorithmService.setLocationAndSize(operationRectangle, literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird+literals.PUFFER_BETWEEN_ELEMENTS, 
-											 	   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);
-		
-		//third line
-		Shape thirdLineShape = pictogramElementCreateService.createShape(typeBodyShape, false);	
-		int horizontalSecondThird = util.calculateHorizontaltSecondThird(height);
-		Polyline thirdPolyline = graphicAlgorithmService.createPolyline(thirdLineShape, new int[] {0, horizontalSecondThird, width, horizontalSecondThird});
-		thirdPolyline.setForeground(manageColor(literals.COLOR_LINES));
-			
-		//model content preview container
-		ContainerShape modelContainer = pictogramElementCreateService.createContainerShape(typeBodyShape, false);
-		Rectangle modelRectangle = graphicAlgorithmService.createRectangle(modelContainer);
-		modelRectangle.setLineVisible(false);
-		modelRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		graphicAlgorithmService.setLocationAndSize(modelRectangle, literals.PUFFER_BETWEEN_ELEMENTS, horizontalSecondThird+literals.PUFFER_BETWEEN_ELEMENTS, 
-												   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);	
-		
-		//groups diagram
-		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedCompartmentType.getName(), 10, true);
+		//role groups diagram
+		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedRoleGroup.getName(), 10, true);
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
-		AddCompartmentTypeContext agctc = (AddCompartmentTypeContext) addContext;
-		link(contentDiagram, agctc.getModelToLink());
+		AddRoleGroupContext argc = (AddRoleGroupContext) addContext;
+		link(contentDiagram, argc.getModelToLink());
 		getDiagram().getContainer().getChildren().add(contentDiagram);
 		
 		//Step 3
-		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER);
-		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY);
-		UIUtil.setShape_IdValue(dropShadowShape, literals.SHAPE_ID_COMPARTMENTTYPE_SHADOW);
-		UIUtil.setShape_IdValue(nameShape, literals.SHAPE_ID_COMPARTMENTTYPE_NAME);
-		UIUtil.setShape_IdValue(firstLineShape, literals.SHAPE_ID_COMPARTMENTTYPE_FIRSTLINE);
-		UIUtil.setShape_IdValue(attributeContainer, literals.SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER);
-		UIUtil.setShape_IdValue(secondLineShape, literals.SHAPE_ID_COMPARTMENTTYPE_SECONDLINE);
-		UIUtil.setShape_IdValue(operationContainer, literals.SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER);
-		UIUtil.setShape_IdValue(thirdLineShape, literals.SHAPE_ID_COMPARTMENTTYPE_THIRDLINE);
-		UIUtil.setShape_IdValue(modelContainer, literals.SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW);
+		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLEGROUP_CONTAINER);
+		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLEGROUP_TYPEBODY);
+		UIUtil.setShape_IdValue(dropShadowShape, literals.SHAPE_ID_ROLEGROUP_SHADOW);
+		UIUtil.setShape_IdValue(nameShape, literals.SHAPE_ID_ROLEGROUP_NAME);
 		
 		//Step 4
-		link(containerShape, addedCompartmentType);
-		link(typeBodyShape, addedCompartmentType);
-		link(dropShadowShape, addedCompartmentType);
-		link(nameShape, addedCompartmentType);
-		link(firstLineShape, addedCompartmentType);
-		link(attributeContainer, addedCompartmentType);
-		link(secondLineShape, addedCompartmentType);
-		link(operationContainer, addedCompartmentType);
-		link(thirdLineShape, addedCompartmentType);
-		link(modelContainer, addedCompartmentType);
+		link(containerShape, addedRoleGroup);
+		link(typeBodyShape, addedRoleGroup);
+		link(dropShadowShape, addedRoleGroup);
+		link(nameShape, addedRoleGroup);
 		
 		//Step 5
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
@@ -284,11 +263,11 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
+		/*
 		layoutPictogramElement(containerShape);
 		updateContainingGroupingFeaturesObject();
-		return containerShape;
 		*/
-		return null;
+		return containerShape;
 	}
 	
 	//create feature
@@ -333,7 +312,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//compartment type
 		org.framed.iorm.model.Shape newRoleGroup = OrmFactory.eINSTANCE.createShape();
 		newRoleGroup.setType(modelType);
-		String standardName = UIUtil.calculateStandardNameDiagramWide(getDiagram(), modelType, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), modelType, literals.STANDARD_NAME);
 		newRoleGroup.setName(standardName);
 		
 		//model
@@ -354,6 +333,76 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		argc.setModelToLink(roleGroupModel);
 		if(canAdd(argc)) add(argc);
 		return new Object[] { newRoleGroup };
+	}	
+
+//TODO: DOKU READY
+
+	//direct editing
+	//~~~~~~~~~~~~~~
+	/**
+	 * sets the editing type as a text field for the direct editing of the role group name
+	 */
+	@Override
+	public int getEditingType() {
+		return TYPE_TEXT;
 	}
-}	
+		
+	/**
+	 * calculates if a pictogram element of a role group can be direct edited
+	 * <p>
+	 * returns true if:<br>
+	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#ROLE_GROUP} and<br>
+	 * (2) the graphics algorithm of the pictogram element is a {@link Text}
+	 * @return if the selected pictogram can be direct edited
+	 */
+	@Override
+	public boolean canDirectEdit(IDirectEditingContext editingContext) {
+		Object businessObject = getBusinessObject(editingContext);
+		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
+		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			if(shape.getType() == modelType) {
+				return true;
+		}	}
+		return false;
+	}
+
+	/**
+	 * returns the current role groups name as initial value for direct editing
+	 */
+	@Override
+	public String getInitialValue(IDirectEditingContext editingContext) {
+		org.framed.iorm.model.Shape roleGroup = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
+		return roleGroup.getName();
+	}
+		
+	//TODO
+	/**
+	 * calculates if a chosen value for the role group's name is valid
+	 * <p>
+	 * A valid value is in a specific form checked by {@link Util#matchesRoleGroupName} and is not already
+	 * chosen for another role group. This is checked by {@link UIUtil#nameAlreadyUsedDiagramWide}.
+	 * @return if a chosen value for the role group's name is valid
+	 */
+	@Override
+	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
+		if(getInitialValue(editingContext).contentEquals(newName)) return null;
+		if(!(util.matchesRoleGroupName(newName))) return literals.DIRECTEDITING_ROLEGROUP;
+		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
+			return literals.NAME_ALREADY_USED_ROLEGROUP;
+		return null;
+	}
+		
+	/**
+	 * sets value of the role groups name, updates its own pictogram element and a grouping features object in which its in, if any
+	 */
+	@Override
+	public void setValue(String value, IDirectEditingContext editingContext) {	     
+		org.framed.iorm.model.Shape roleGroup = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
+		roleGroup.setName(value);
+		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
+		updateContainingGroupingFeaturesObject();
+	}
+}
 	
