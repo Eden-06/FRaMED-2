@@ -24,15 +24,24 @@ public class Util {
 		return UIUtil.getNameOfPictogramElement(pictogramElement, literals.SHAPE_ID_ROLEGROUP_NAME);
 	}
 	
+	/**
+	 * Convenience operation to call {@link UIUtil#getOccurenceConstraintOfPictogramElement(PictogramElement, String)} with the correct parameters.
+	 */
+	public String getOccurenceConstraintOfPictogramElement(PictogramElement pictogramElement) {
+		return UIUtil.getOccurenceConstraintOfPictogramElement(pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT);
+	}
+	
 	//Diagram
 	//~~~~~~~
 	/**
-	 * Convenience operation to call {@link UIUtil#getDiagramForGroupingShape(Shape, Diagram, String, String, String)} 
-	 * with the correct parameters.
+	 * returns the diagram of a role group
 	 */
-	public Diagram getRoleGroupDiagramForItsShape(Shape typeShape, Diagram diagram) {
-		return UIUtil.getDiagramForGroupingShape(typeShape, diagram, 
-			   literals.SHAPE_ID_ROLEGROUP_TYPEBODY, literals.SHAPE_ID_ROLEGROUP_NAME, literals.DIAGRAM_KIND);
+	public Diagram getRoleGroupDiagramForItsShape(Shape typeBodyShape, Diagram diagram) {
+		for(Shape children : typeBodyShape.getContainer().getChildren()) {
+			if(children instanceof Diagram) {
+				return (Diagram) children;
+		}	}
+		return null;
 	}
 	
 	//Direct Editing

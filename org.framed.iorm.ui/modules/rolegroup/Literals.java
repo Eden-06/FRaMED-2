@@ -12,9 +12,10 @@ public class Literals {
 	public final String FEATURE_NAME = "Role Group";
 	
 	/**
-	 * the standard name for a pictogramm element and business object created by the feature
+	 * the standard name and cardinality for a pictogramm element and business object created by the feature
 	 */
-	public final String STANDARD_NAME = "roleGroup";
+	public final String STANDARD_NAME = "roleGroup",
+						STANDARD_CARDINALITY = "*";
 						
 	/**
 	 * the ids or the paths for icon used for palette entry of this feature
@@ -44,19 +45,22 @@ public class Literals {
 	public final String SHAPE_ID_ROLEGROUP_CONTAINER = "shape_rg_container",
 						SHAPE_ID_ROLEGROUP_TYPEBODY = "shape_rg_typebody",
 						SHAPE_ID_ROLEGROUP_SHADOW = "shape_rg_shadow",
-						SHAPE_ID_ROLEGROUP_NAME = "shape_rg_name";
+						SHAPE_ID_ROLEGROUP_NAME = "shape_rg_name",
+						SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT = "shape_rg_cardinality";
 	
 	/**
 	 * messages used as direct editing tips
 	 */
 	public final String DIRECTEDITING_ROLEGROUP = "A role group's name cant be empty or contain spaces. Numbers are allowed but not as first symbol. There can be a cardinality written in parenthesis.",
-						NAME_ALREADY_USED_ROLEGROUP = "Another role group already has the same name!";
+						NAME_ALREADY_USED_ROLEGROUP = "Another role group already has the same name!",
+						DIRECTEDITING_OCCURRENCE_CONSTRAINT = "The Occurrence Constraint has to be in the form <0-9/*> or <0-9>..<0-9/*>!";
 	
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 */
 	public final String REASON_NAME_NULL = "Name is null.",
-						REASON_NAME_OUT_OF_DATE = "Name is out of date.";
+						REASON_NAME_OUT_OF_DATE = "Name is out of date.",
+						REASON_OCCURRENCE_CONSTRAINTS = "Occurrence Constraint is out of date.";
 	
 	/**
 	 * integers used to layout this features pictogramm elements 
@@ -66,9 +70,10 @@ public class Literals {
 					 HEIGHT_NAME_SHAPE = UILiterals.HEIGHT_NAME_SHAPE,
 					 ROLE_GROUP_CORNER_RADIUS = 2*HEIGHT_NAME_SHAPE,
 					 PUFFER_BETWEEN_ELEMENTS = UILiterals.PUFFER_BETWEEN_ELEMENTS,
-					 SHADOW_SIZE = UILiterals.SHADOW_SIZE;
+					 SHADOW_SIZE = UILiterals.SHADOW_SIZE,
+					 HEIGHT_OCCURRENCE_CONSTRAINT = UILiterals.HEIGHT_CONSTRAINT,
+					 WIDTH_OCCURRENCE_CONSTRAINT = UILiterals.WIDTH_CONSTRAINT;
 	
-
 	/**
 	 * color values
 	 * <p>

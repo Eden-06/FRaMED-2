@@ -1,11 +1,9 @@
 package rolegroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -32,6 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
@@ -196,14 +195,24 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//Step 2
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
-							  
+			
 		//drop shadow
 		ContainerShape dropShadowShape = pictogramElementCreateService.createContainerShape(containerShape, true);
 		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, literals.ROLE_GROUP_CORNER_RADIUS, literals.ROLE_GROUP_CORNER_RADIUS);
 		dropShadowRectangle.setForeground(manageColor(literals.COLOR_SHADOW));
 		dropShadowRectangle.setBackground(manageColor(literals.COLOR_SHADOW));
 		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+literals.SHADOW_SIZE, addContext.getY()+literals.SHADOW_SIZE, width, height);
-				
+		
+		//occurence costraint
+		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
+		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleGroup.getDescription().getName());
+		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
+		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
+			addContext.getX()+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+			addContext.getY()-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
+			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
+			literals.HEIGHT_OCCURRENCE_CONSTRAINT);		
+		
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
 		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_GROUP_CORNER_RADIUS, literals.ROLE_GROUP_CORNER_RADIUS);
@@ -225,19 +234,21 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddRoleGroupContext argc = (AddRoleGroupContext) addContext;
 		link(contentDiagram, argc.getModelToLink());
-		getDiagram().getContainer().getChildren().add(contentDiagram);
+		containerShape.getChildren().add(contentDiagram);
 		
 		//Step 3
 		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLEGROUP_CONTAINER);
 		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLEGROUP_TYPEBODY);
 		UIUtil.setShape_IdValue(dropShadowShape, literals.SHAPE_ID_ROLEGROUP_SHADOW);
 		UIUtil.setShape_IdValue(nameShape, literals.SHAPE_ID_ROLEGROUP_NAME);
+		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT);
 		
 		//Step 4
 		link(containerShape, addedRoleGroup);
 		link(typeBodyShape, addedRoleGroup);
 		link(dropShadowShape, addedRoleGroup);
 		link(nameShape, addedRoleGroup);
+		link(cardinalityShape, addedRoleGroup);
 		
 		//Step 5
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
@@ -301,6 +312,12 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		getDiagram().eResource().getContents().add(roleGroupModel);
 		newRoleGroup.setModel(roleGroupModel);
 		
+		//occurence constraint
+		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
+		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
+		getDiagram().eResource().getContents().add(occurenceConstraint);
+		newRoleGroup.setDescription(occurenceConstraint);
+		
 		//Step 2
 		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
 		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
@@ -337,13 +354,12 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canDirectEdit(IDirectEditingContext editingContext) {
-		Object businessObject = getBusinessObject(editingContext);
-		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
-		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
-			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == modelType) {
-				return true;
-		}	}
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(pictogramElement instanceof Shape) {
+		   if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_NAME) ||
+			  UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT))
+			  return true;
+		}   
 		return false;
 	}
 
@@ -353,10 +369,14 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public String getInitialValue(IDirectEditingContext editingContext) {
 		org.framed.iorm.model.Shape roleGroup = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
-		return roleGroup.getName();
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_NAME)) 
+			return roleGroup.getName();
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT))
+			return roleGroup.getDescription().getName();
+		return null;
 	}
 		
-	//TODO
 	/**
 	 * calculates if a chosen value for the role group's name is valid
 	 * <p>
@@ -365,11 +385,17 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * @return if a chosen value for the role group's name is valid
 	 */
 	@Override
-	public String checkValueValid(String newName, IDirectEditingContext editingContext) {
-		if(getInitialValue(editingContext).contentEquals(newName)) return null;
-		if(!(util.matchesRoleGroupName(newName))) return literals.DIRECTEDITING_ROLEGROUP;
-		if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), Type.COMPARTMENT_TYPE, newName)) 
-			return literals.NAME_ALREADY_USED_ROLEGROUP;
+	public String checkValueValid(String newValue, IDirectEditingContext editingContext) {
+		PictogramElement pictogramElement = editingContext.getPictogramElement();
+		if(getInitialValue(editingContext).contentEquals(newValue)) return null;
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_NAME)) {
+			if(!(util.matchesRoleGroupName(newValue))) return literals.DIRECTEDITING_ROLEGROUP;
+			if(UIUtil.nameAlreadyUsedRoleModelWide(getDiagram(), modelType, newValue)) 
+				return literals.NAME_ALREADY_USED_ROLEGROUP;
+		}	
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) {
+			if(!(UIUtil.matchesCardinality(newValue))) return literals.DIRECTEDITING_OCCURRENCE_CONSTRAINT;
+		}
 		return null;
 	}
 		
@@ -379,10 +405,19 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
 		org.framed.iorm.model.Shape roleGroup = (org.framed.iorm.model.Shape) getBusinessObject(editingContext);
-		roleGroup.setName(value);
-		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
-		updateContainingGroupingFeaturesObject();
-	}
+		Shape shape = (Shape) editingContext.getPictogramElement();
+		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_NAME)) {
+			roleGroup.setName(value);
+			updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
+			updateContainingGroupingFeaturesObject();
+		}	
+		if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) {
+			roleGroup.getDescription().setName(value);
+			for(Shape containerChild : shape.getContainer().getChildren()) {
+				if(!(containerChild instanceof Diagram)) {
+		    		if(UIUtil.isShape_IdValue(containerChild, literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) 
+		    			updatePictogramElement(containerChild);
+	}	}	}	}
 	
 	//layout feature
 	//~~~~~~~~~~~~~~
@@ -474,12 +509,15 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
 			//pictogram name
 			String pictogramTypeName = util.getNameOfPictogramElement(pictogramElement);
+			String pictogramOccurrenceConstraint = util.getOccurenceConstraintOfPictogramElement(pictogramElement);
 			//business name and attributes
 			String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			String businessTypeOccurrenceConstraint = UIUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
 			
-			//check for update: different names, different amount of attibutes/ operations
+			//check for update: different names, different occurence constraint
 			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
-			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(literals.REASON_NAME_OUT_OF_DATE); 
+			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(literals.REASON_NAME_OUT_OF_DATE);
+			if(!pictogramOccurrenceConstraint.equals(businessTypeOccurrenceConstraint)) return Reason.createTrueReason(literals.REASON_OCCURRENCE_CONSTRAINTS);
 		}
 		return Reason.createFalseReason();
 	}
@@ -492,10 +530,17 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			
 		//business names of natural type, attributes and operations
 		String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+		String businessTypeOccurrenceConstraint = UIUtil.getOccurrenceConstraintOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));	
 			
 		//set type and diagram name in pictogram model
 	    if (pictogramElement instanceof ContainerShape) {     
 	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+	    	//occurrence
+		   	for(Shape containerChild : typeBodyShape.getContainer().getChildren()) {
+		   		if(!(containerChild instanceof Diagram)) {
+		   			if(UIUtil.isShape_IdValue(containerChild, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) 
+		   				((Text) containerChild.getGraphicsAlgorithm()).setValue(businessTypeOccurrenceConstraint);
+		   	}	}
         	Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
 	        for (Shape shape : typeBodyShape.getChildren()) {
 	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
@@ -511,9 +556,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	    return changed;
 	}	
 	
-	//TODO: DOKU READY
-	//TODO: IMPL READY	
-
 	//move feature
 	//~~~~~~~~~~~~
 	/**
@@ -543,16 +585,22 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
 		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
 		RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
+		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
+		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 				
 		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
 			dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
 			dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
+			OCText.setX(OCText.getX() + moveContext.getDeltaX());
+			OCText.setY(OCText.getY() + moveContext.getDeltaY());
 			super.moveShape(moveContext);
 		} else {
 			//targetContainer of moveContext is dropShadowShape
 			//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
 			dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
 			dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			OCText.setX(OCText.getX() + moveContext.getX()+literals.SHADOW_SIZE);
+			OCText.setY(OCText.getY() + moveContext.getY()+literals.SHADOW_SIZE);
 			MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
 			changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
 			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
@@ -567,7 +615,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
-		if(UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW)) {
+		if(UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW) ||
+		   UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
@@ -580,7 +629,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
-		if(UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW)) {
+		if(UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW) ||
+		   UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		return super.canDelete(deleteContext);
@@ -598,7 +648,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public void delete(IDeleteContext deleteContext) {
-		List<ContainerShape> innerGroupsOrCompartmentTypesToDelete = new ArrayList<ContainerShape>();
 		//Step 1
 		deleteAttachedConnections(deleteContext);
 		//Step 2
@@ -611,12 +660,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 			//Step 4
-			for(ContainerShape innerGroupOrCompartmentTypeToDelete : innerGroupsOrCompartmentTypesToDelete) {
-				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
-				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-				IDeleteFeature deleteFeatureForCompartmentDiagram = getFeatureProvider().getDeleteFeature(deleteContextForChildDiagram);
-				deleteFeatureForCompartmentDiagram.delete(deleteContextForChildDiagram);
-			}
 			super.delete(deleteContextForAllShapes);
 			updateContainingGroupingFeaturesObject();
 		}

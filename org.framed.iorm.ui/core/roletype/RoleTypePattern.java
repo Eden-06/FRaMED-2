@@ -762,8 +762,6 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
 			Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 				
-			
-			
 			if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
 				dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
 				dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
