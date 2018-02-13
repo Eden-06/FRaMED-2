@@ -524,7 +524,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
 	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
 	 * 		   the size of the type body and drop shadow shape.<br>
-	 * Step 3: It now iterates over all shapes of the natural type:<br>
+	 * Step 3: It now iterates over all shapes of the compartment type:<br>
 	 * (a) It sets the width of the names shape.<br>
 	 * (b) It sets the points of the line that separates the name, attribute, operations and content preview container.<br>
 	 * (c) It layouts the visualization of the attributes in the attribute container shape.<br>

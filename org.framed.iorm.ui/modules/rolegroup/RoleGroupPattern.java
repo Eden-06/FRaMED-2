@@ -166,9 +166,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		}	}	}
 		return false;
 	}
-	
-//TODO: IMPL READY	
-	
+		
 	/**
 	 * adds the graphical representation of a role group to the pictogram model
 	 * <p>
@@ -263,10 +261,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		directEditingInfo.setPictogramElement(nameShape);
 		directEditingInfo.setGraphicsAlgorithm(text);
 		pictogramElementCreateService.createChopboxAnchor(typeBodyShape);
-		/*
 		layoutPictogramElement(containerShape);
 		updateContainingGroupingFeaturesObject();
-		*/
 		return containerShape;
 	}
 	
@@ -334,8 +330,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(canAdd(argc)) add(argc);
 		return new Object[] { newRoleGroup };
 	}	
-
-//TODO: DOKU READY
 
 	//direct editing
 	//~~~~~~~~~~~~~~
@@ -405,6 +399,74 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		updateContainingGroupingFeaturesObject();
 	}
 	
+	//layout feature
+	//~~~~~~~~~~~~~~
+	/**
+	 * calculates if a pictogram element of a role group can be layouted
+	 * <p>
+	 * returns true if:<br>
+	 * (1) if exactly one pictogram element is given by the layout context
+	 * (2) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
+	 * 	   of the type {@link Type#ROLE_GROUP} 
+	 * @return if the given pictogram can be layouted
+	 */
+	@Override
+	public boolean canLayout(ILayoutContext layoutContext) {
+		PictogramElement element = layoutContext.getPictogramElement();
+		if(element instanceof ContainerShape) {
+			EList<EObject> businessObjects = element.getLink().getBusinessObjects();
+			if(businessObjects.size()==1) {
+				if(businessObjects.get(0) instanceof org.framed.iorm.model.Shape) {
+					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObjects.get(0);
+					if(shape.getType() == modelType) return true;
+		}	}	}
+		return false;
+	}
+	
+	/**
+	 * layouts the whole role group using the following steps:
+	 * <p>
+	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
+	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
+	 * 		   the size of the type body and drop shadow shape.<br>
+	 * Step 3: It now iterates over all shapes of the role group:<br>
+	 * (a) It sets the width of the names shape.<br>
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
+	@Override
+	public boolean layout(ILayoutContext layoutContext) {
+		boolean layoutChanged = false;
+		ContainerShape container = (ContainerShape) layoutContext.getPictogramElement();
+		//Step 1
+		if(!(UIUtil.isShape_IdValue(container, literals.SHAPE_ID_ROLEGROUP_TYPEBODY))) return false;
+		else {
+			RoundedRectangle typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm();
+			RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
+		    //Step 2
+		    if(typeBodyRectangle.getWidth() < literals.MIN_WIDTH) typeBodyRectangle.setWidth(literals.MIN_WIDTH);
+		    if(typeBodyRectangle.getHeight() < literals.MIN_HEIGHT) typeBodyRectangle.setHeight(literals.MIN_HEIGHT);
+			int width = typeBodyRectangle.getWidth();
+		    int height = typeBodyRectangle.getHeight();
+		    dropShadowRectangle.setWidth(width);
+		    dropShadowRectangle.setHeight(height);
+		    dropShadowRectangle.setX(typeBodyRectangle.getX()+literals.SHADOW_SIZE);
+		    dropShadowRectangle.setY(typeBodyRectangle.getY()+literals.SHADOW_SIZE);
+		    //Step 3    
+		    for (Shape shape : container.getChildren()){
+		    	GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm(); 
+		    	//(a) name shape
+ 		        if (graphicsAlgorithm instanceof Text) {
+		        	Text text = (Text) graphicsAlgorithm;	
+		        	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_NAME)) {
+		        		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);
+		            	layoutChanged=true;
+		        }	}
+ 		        layoutChanged = true; 
+		}	}  
+	    return layoutChanged;
+	}
+	
 	//update feature
 	//~~~~~~~~~~~~~~
 	@Override
@@ -463,5 +525,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	    }	      
 	    return changed;
 	}	
+	
+	//TODO: DOKU READY
+	//TODO: IMPL READY	
 }
 	
