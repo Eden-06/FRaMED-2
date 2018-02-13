@@ -404,5 +404,64 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		updatePictogramElement(((Shape) editingContext.getPictogramElement()).getContainer());
 		updateContainingGroupingFeaturesObject();
 	}
+	
+	//update feature
+	//~~~~~~~~~~~~~~
+	@Override
+	public boolean canUpdate(IUpdateContext updateContext) {
+		//check if object to update is a role group
+		PictogramElement pictogramElement = updateContext.getPictogramElement();
+		Object businessObject =  getBusinessObjectForPictogramElement(pictogramElement);
+		if(businessObject instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			if(shape.getType() == modelType) {
+				return true;
+		}	}
+		return false;
+	}
+
+	@Override
+	public IReason updateNeeded(IUpdateContext updateContext) {
+		PictogramElement pictogramElement = updateContext.getPictogramElement();
+	
+		if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
+			//pictogram name
+			String pictogramTypeName = util.getNameOfPictogramElement(pictogramElement);
+			//business name and attributes
+			String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			
+			//check for update: different names, different amount of attibutes/ operations
+			if(pictogramTypeName==null || businessTypeName==null) return Reason.createTrueReason(literals.REASON_NAME_NULL);
+			if(!(pictogramTypeName.equals(businessTypeName))) return Reason.createTrueReason(literals.REASON_NAME_OUT_OF_DATE); 
+		}
+		return Reason.createFalseReason();
+	}
+			
+	@Override
+	public boolean update(IUpdateContext updateContext) {
+		boolean changed = false;
+	         
+		PictogramElement pictogramElement = updateContext.getPictogramElement();
+			
+		//business names of natural type, attributes and operations
+		String businessTypeName = UIUtil.getNameOfBusinessObject(getBusinessObjectForPictogramElement(pictogramElement));
+			
+		//set type and diagram name in pictogram model
+	    if (pictogramElement instanceof ContainerShape) {     
+	    	ContainerShape typeBodyShape = (ContainerShape) pictogramElement;
+        	Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
+	        for (Shape shape : typeBodyShape.getChildren()) {
+	        	if (shape.getGraphicsAlgorithm() instanceof Text) {
+	        		Text text = (Text) shape.getGraphicsAlgorithm();
+	                if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_NAME)) {
+	                	diagram.setName(businessTypeName);
+	                	//change group name
+	                	text.setValue(businessTypeName);
+	                	changed = true;
+	        }   }	} 	
+	        layoutPictogramElement(typeBodyShape);
+	    }	      
+	    return changed;
+	}	
 }
 	
