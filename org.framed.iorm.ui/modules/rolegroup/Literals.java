@@ -28,6 +28,11 @@ public class Literals {
 	public final String DIAGRAM_KIND = "role_group_diagram";
 	
 	/**
+	 * the palette view of this module's patterns
+	 */
+	public final PaletteView paletteView = PaletteView.COMPARTMENT_VIEW; 
+	
+	/**
 	 * identifiers used for compartment types pictogramm shapes
 	 * <p>
 	 * can be for:<br>

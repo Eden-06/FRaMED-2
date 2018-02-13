@@ -528,5 +528,65 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	
 	//TODO: DOKU READY
 	//TODO: IMPL READY	
+
+	//move feature
+	//~~~~~~~~~~~~
+	/**
+	 * disables that the user can move the drop shadow manually
+	 * <p>
+	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. There for it takes
+	 * and expands some code of {@link AbstractPattern#canMoveShape}.
+	 */
+	@Override
+	public boolean canMoveShape(IMoveShapeContext moveContext) {
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW)) {
+			return false;
+		}
+		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
+		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
+		//copied and expanded from super.canMoveShape(IMoveShapeContext moveContext)
+		return moveContext.getSourceContainer() != null && 
+			   (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
+			   moveContext.getTargetContainer().equals(dropShadowShape)) && 
+			   isPatternRoot(moveContext.getPictogramElement());
+	}
+			
+	//move the type body and the drop shadow 
+	@Override
+	public void moveShape(IMoveShapeContext moveContext) {
+		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
+		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
+		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
+		RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
+				
+		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
+			dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
+			dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
+			super.moveShape(moveContext);
+		} else {
+			//targetContainer of moveContext is dropShadowShape
+			//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
+			dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
+			dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
+			changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
+			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
+			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
+			super.moveShape(changedMoveContextForTypeBody);
+	}	}
+	
+	//resize feature
+	//~~~~~~~~~~~~~~
+	/**
+	 * disables that the user can resize the drop shadow manually
+	 */
+	@Override
+	public boolean canResizeShape(IResizeShapeContext resizeContext) {
+		if(UIUtil.isShape_IdValue((Shape) resizeContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW)) {
+			return false;
+		}
+		return super.canResizeShape(resizeContext);
+	}
+
 }
 	
