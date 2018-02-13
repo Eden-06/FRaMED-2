@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -21,11 +19,8 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
-import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Polyline;
-import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -36,27 +31,17 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Model;
-import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
-import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
-import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
-import org.framed.iorm.ui.references.AbstractStepInReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
@@ -588,5 +573,53 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		return super.canResizeShape(resizeContext);
 	}
 
+	//delete feature
+	//~~~~~~~~~~~~~~
+	/**
+	 * disables that the user can delete the drop shadow manually
+	 */
+	@Override
+	public boolean canDelete(IDeleteContext deleteContext) {
+		if(UIUtil.isShape_IdValue((Shape) deleteContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_SHADOW)) {
+			return false;
+		}
+		return super.canDelete(deleteContext);
+	}
+			
+	/**
+	 * deletes the group as cares about all related concerns using the following steps
+	 * <p>
+	 * Step 1: It deletes attached connection to it.<br>
+	 * Step 2: It gets the compartment types diagram and creates a {@link DeleteContext} for it.<br>
+	 * Step 3: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
+	 * Step 4: It deletes the shapes gathered in Step 2 and 3. It also updates a group in which the group is in, if any.
+	 * <p>
+	 * If its not clear what the different shapes means, see {@link #add} for reference.
+	 */
+	@Override
+	public void delete(IDeleteContext deleteContext) {
+		List<ContainerShape> innerGroupsOrCompartmentTypesToDelete = new ArrayList<ContainerShape>();
+		//Step 1
+		deleteAttachedConnections(deleteContext);
+		//Step 2
+		Diagram compartmentDiagram = util.getRoleGroupDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		if(compartmentDiagram != null) {	
+			DeleteContext deleteContextForGroupingDiagram = new DeleteContext(compartmentDiagram);
+			deleteContextForGroupingDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+			//Step 3
+			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
+			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
+			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+			//Step 4
+			for(ContainerShape innerGroupOrCompartmentTypeToDelete : innerGroupsOrCompartmentTypesToDelete) {
+				DeleteContext deleteContextForChildDiagram = new DeleteContext(innerGroupOrCompartmentTypeToDelete);
+				deleteContextForChildDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
+				IDeleteFeature deleteFeatureForCompartmentDiagram = getFeatureProvider().getDeleteFeature(deleteContextForChildDiagram);
+				deleteFeatureForCompartmentDiagram.delete(deleteContextForChildDiagram);
+			}
+			super.delete(deleteContextForAllShapes);
+			updateContainingGroupingFeaturesObject();
+		}
+	}
 }
 	
