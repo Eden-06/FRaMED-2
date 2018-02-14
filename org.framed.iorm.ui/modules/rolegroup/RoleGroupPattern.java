@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
+import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -195,7 +196,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		
 		//Step 1
 		org.framed.iorm.model.Shape addedRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		Diagram targetDiagram = null;
@@ -325,7 +325,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//compartment type
 		org.framed.iorm.model.Shape newRoleGroup = OrmFactory.eINSTANCE.createShape();
 		newRoleGroup.setType(modelType);
-		String standardName = UIUtil.calculateStandardNameRoleModelWide(getDiagram(), modelType, literals.STANDARD_NAME);
+		String standardName = UIUtil.calculateStandardNameDiagramWide(getDiagram(), modelType, literals.STANDARD_NAME);
 		newRoleGroup.setName(standardName);
 		
 		//model
@@ -631,7 +631,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 					if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);
 			}	}
 			super.moveShape(moveContext);
-			updatePictogramElement(typeBodyShape);
+			getDiagramBehavior().refresh();
 		} else {
 			//targetContainer of moveContext is dropShadowShape
 			//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
@@ -661,7 +661,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
 			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
 			super.moveShape(changedMoveContextForTypeBody);
+			getDiagramBehavior().refresh();
 	}	}
+	
 	
 	//resize feature
 	//~~~~~~~~~~~~~~
@@ -682,6 +684,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		ContainerShape typeBodyShape = (ContainerShape) resizeContext.getPictogramElement();
 		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
 		graphicAlgorithmService.setSize(diagram.getGraphicsAlgorithm(), resizeContext.getWidth(), resizeContext.getHeight());
+		getDiagramBehavior().refresh();
 	}
 
 	//delete feature
