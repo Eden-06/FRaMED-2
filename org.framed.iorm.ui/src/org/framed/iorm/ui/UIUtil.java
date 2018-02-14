@@ -251,6 +251,31 @@ public class UIUtil {
 	}
 	
 	/**
+	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
+	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
+	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
+	 */
+	public static AbstractInRoleGroupReference getInRoleGroupReferenceForModelType(Type modelType) {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractInRoleGroupReference> inRoleGroupFeatures = new ArrayList<AbstractInRoleGroupReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractInRoleGroupReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) {
+						AbstractInRoleGroupReference airgr = (AbstractInRoleGroupReference) object;
+						if(airgr.modelType ==  modelType)
+							inRoleGroupFeatures.add((AbstractInRoleGroupReference) object);
+		}	}	}	}
+		if(inRoleGroupFeatures.size()==1) return inRoleGroupFeatures.get(0);
+		if(inRoleGroupFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(inRoleGroupFeatures.size(), AbstractInRoleGroupReference.class.getName());		
+		return null;
+	}
+		
+	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
 	 * @return a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
 	 */

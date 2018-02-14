@@ -41,6 +41,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
@@ -71,6 +72,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final Util util = new Util();
 	
+	//TODO
+	private final AbstractInRoleGroupReference irgr;
+	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */	
@@ -95,6 +99,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.ROLE_GROUP;
 		FPD = spec_FPD;
+		//Note
+		irgr = UIUtil.getInRoleGroupReferenceForModelType(modelType);
 	}
 	
 	/**
@@ -319,7 +325,11 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		newRoleGroup.setDescription(occurenceConstraint);
 		
 		//Step 2
-		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
+		Model model = null;
+		if(irgr != null && irgr.inRoleGroup(createContext)) { 
+			model = irgr.createInRoleGroup(createContext, getDiagram());
+		} else { model = UIUtil.getLinkedModelForDiagram(getDiagram()); }	
+		if(model == null) return null;
 		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
 		model.getElements().add(newRoleGroup);
 		newRoleGroup.setContainer(model);
