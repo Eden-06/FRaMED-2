@@ -105,6 +105,7 @@ public class UIUtil {
 		addContext.setY(createContext.getY());
 		addContext.setLocation(createContext.getX(), createContext.getY());
 		addContext.setSize(createContext.getWidth(), createContext.getHeight());
+		addContext.setTargetContainer(createContext.getTargetContainer());
 		return addContext;
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IDirectEditingInfo;
+import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -12,11 +13,13 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
+import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -37,6 +40,8 @@ import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -193,7 +198,12 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		//Step 1
 		org.framed.iorm.model.Shape addedRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
-		ContainerShape targetDiagram = getDiagram();
+		Diagram targetDiagram = null;
+		if(irgr != null && irgr.inRoleGroup(addContext)) { 
+			targetDiagram = irgr.addInRoleGroup(addContext, getDiagram());
+		} else { targetDiagram = getDiagram(); }	
+		if(targetDiagram == null) throw new NoDiagramFoundException();
+		
 		int width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
@@ -226,7 +236,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		typeBodyRectangle.setLineWidth(2);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
+		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, 
+			addContext.getX(), addContext.getY(), 
+			width, height);
 				
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
@@ -237,6 +249,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 				
 		//role groups diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedRoleGroup.getName(), 10, true);
+		graphicAlgorithmService.setLocationAndSize(contentDiagram.getGraphicsAlgorithm(), 
+			addContext.getX(), addContext.getY(), 
+			width, height);
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddRoleGroupContext argc = (AddRoleGroupContext) addContext;
 		link(contentDiagram, argc.getModelToLink());
@@ -329,7 +344,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(irgr != null && irgr.inRoleGroup(createContext)) { 
 			model = irgr.createInRoleGroup(createContext, getDiagram());
 		} else { model = UIUtil.getLinkedModelForDiagram(getDiagram()); }	
-		if(model == null) return null;
+		if(model == null) throw new NoModelFoundException();
 		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
 		model.getElements().add(newRoleGroup);
 		newRoleGroup.setContainer(model);
@@ -597,20 +612,50 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
 		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
 		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
-				
+		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
+		GraphicsAlgorithm diagramRectangle = diagram.getGraphicsAlgorithm();
+				 
 		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
-			dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
-			dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
-			OCText.setX(OCText.getX() + moveContext.getDeltaX());
-			OCText.setY(OCText.getY() + moveContext.getDeltaY());
+			graphicAlgorithmService.setLocation(dropShadowRectangle, moveContext.getX()+literals.SHADOW_SIZE, moveContext.getY()+literals.SHADOW_SIZE);
+			graphicAlgorithmService.setLocation(OCText, moveContext.getX(), moveContext.getY());
+			graphicAlgorithmService.setLocation(diagramRectangle, moveContext.getX(), moveContext.getY());
+			for(Shape innerShape : diagram.getChildren()) {
+				if(innerShape instanceof ContainerShape) {
+					ContainerShape innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
+					MoveShapeContext moveContextForInnerShape = new MoveShapeContext(innerTypeBody);
+					moveContextForInnerShape.setX(moveContext.getDeltaX() + innerTypeBody.getGraphicsAlgorithm().getX());
+					moveContextForInnerShape.setY(moveContext.getDeltaY() + innerTypeBody.getGraphicsAlgorithm().getY());
+					moveContextForInnerShape.setTargetContainer(diagram);
+					moveContextForInnerShape.setSourceContainer(diagram);
+					IMoveShapeFeature moveFeature = getFeatureProvider().getMoveShapeFeature(moveContextForInnerShape);
+					if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);
+			}	}
 			super.moveShape(moveContext);
+			updatePictogramElement(typeBodyShape);
 		} else {
 			//targetContainer of moveContext is dropShadowShape
 			//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
-			dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
-			dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
-			OCText.setX(OCText.getX() + moveContext.getX()+literals.SHADOW_SIZE);
-			OCText.setY(OCText.getY() + moveContext.getY()+literals.SHADOW_SIZE);
+			graphicAlgorithmService.setLocation(dropShadowRectangle, 
+					typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE,
+					typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			graphicAlgorithmService.setLocation(OCText, 
+					typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE,
+					typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			graphicAlgorithmService.setLocation(diagramRectangle, 
+					typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE,
+					typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			for(Shape innerShape : diagram.getChildren()) {
+				if(innerShape instanceof ContainerShape) {
+					ContainerShape innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
+					//TODO auslagern in UTIL
+					MoveShapeContext moveContextForInnerShape = new MoveShapeContext(innerTypeBody);
+					moveContextForInnerShape.setX(moveContext.getDeltaX() + typeBodyRectangle.getX() + innerTypeBody.getGraphicsAlgorithm().getX());
+					moveContextForInnerShape.setY(moveContext.getDeltaY() + typeBodyRectangle.getY() + innerTypeBody.getGraphicsAlgorithm().getY());
+					moveContextForInnerShape.setTargetContainer(diagram);
+					moveContextForInnerShape.setSourceContainer(diagram);
+					IMoveShapeFeature moveFeature = getFeatureProvider().getMoveShapeFeature(moveContextForInnerShape);
+					if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);	
+			}	}
 			MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
 			changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
 			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
@@ -630,6 +675,13 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
+	}
+	
+	public void resizeShape(IResizeShapeContext resizeContext) {
+		super.resizeShape(resizeContext);
+		ContainerShape typeBodyShape = (ContainerShape) resizeContext.getPictogramElement();
+		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
+		graphicAlgorithmService.setSize(diagram.getGraphicsAlgorithm(), resizeContext.getWidth(), resizeContext.getHeight());
 	}
 
 	//delete feature

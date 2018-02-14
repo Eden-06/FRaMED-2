@@ -1,5 +1,6 @@
 package rolegroup;
 
+import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.model.Model;
@@ -10,7 +11,7 @@ import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
 /**
  * TODO
  */
-public class InRoleGroupReference extends AbstractInRoleGroupReference {
+public class RoleGroupInRoleGroupReference extends AbstractInRoleGroupReference {
 	
 	/**
 	 * the object to get names, ids and so on for this feature
@@ -22,7 +23,7 @@ public class InRoleGroupReference extends AbstractInRoleGroupReference {
 	 */
 	private final Util util = new Util();
 	
-	public InRoleGroupReference() {
+	public RoleGroupInRoleGroupReference() {
 		modelType = Type.ROLE_GROUP;
 	}
 	
@@ -36,12 +37,24 @@ public class InRoleGroupReference extends AbstractInRoleGroupReference {
 	}
 	
 	//TODO
+	public boolean inRoleGroup(IAddContext addContext) {
+		if(!(addContext.getTargetContainer() instanceof Diagram)) {
+			System.out.println(addContext.getTargetContainer());
+			if(UIUtil.isShape_IdValue(addContext.getTargetContainer(), literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
+				return true;
+		}	}	
+		return false;
+	}
+	
+	//TODO
 	public Model createInRoleGroup(ICreateContext createContext, Diagram diagram) {
 		Diagram roleGroupDiagram = util.getRoleGroupDiagramForItsShape(createContext.getTargetContainer(), diagram);
 		return UIUtil.getLinkedModelForDiagram(roleGroupDiagram);
 	}
 	
 	//TODO
-	//public abstract Object[] addInRoleGroup();
+	public Diagram addInRoleGroup(IAddContext addContext, Diagram diagram) {
+		return util.getRoleGroupDiagramForItsShape(addContext.getTargetContainer(), diagram);
+	}
 }
 
