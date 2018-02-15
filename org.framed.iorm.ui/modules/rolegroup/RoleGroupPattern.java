@@ -13,14 +13,11 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
-import org.eclipse.graphiti.features.context.IResizeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
-import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -51,6 +48,7 @@ import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
+ * TODO
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
  * of the type {@link Type#COMPARTMENT_TYPE} in the editor.
  * <p>

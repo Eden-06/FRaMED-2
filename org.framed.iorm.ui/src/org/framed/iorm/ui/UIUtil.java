@@ -275,6 +275,28 @@ public class UIUtil {
 		if(inRoleGroupFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(inRoleGroupFeatures.size(), AbstractInRoleGroupReference.class.getName());		
 		return null;
 	}
+	
+	/**
+	 * get all {@link AbstractGroupingFeatureReference}, which encapsulates the dependency to all feature pattern that
+	 * can group other objects
+	 * @return the list of {@link AbstractGroupingFeatureReference}
+	 */
+	public static AbstractRoleGroupReference getRoleGroupReference() {
+		List<Class<?>> classes = findModuleJavaClasses();
+		List<AbstractRoleGroupReference> roleGroupFeature = new ArrayList<AbstractRoleGroupReference>();
+		for(Class<?> cl : classes) {
+			if(!Modifier.isAbstract(cl.getModifiers())) {
+				if(getSuperClasses(cl).contains(AbstractRoleGroupReference.class)) {
+					Object object = null;
+					try {
+						object = cl.newInstance();
+					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
+					if(object != null) roleGroupFeature.add((AbstractRoleGroupReference) object);
+		}	}	}
+		if(roleGroupFeature.size()==1) return roleGroupFeature.get(0);
+		if(roleGroupFeature.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(roleGroupFeature.size(), AbstractInRoleGroupReference.class.getName());		
+		return null;
+	}
 		
 	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.

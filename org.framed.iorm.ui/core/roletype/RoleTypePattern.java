@@ -25,7 +25,6 @@ import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
@@ -38,10 +37,13 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
+import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -79,6 +81,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	private final AbstractAttributeAndOperationReference  attOpsReference = UIUtil.getAttributeAndOperationFeatureReference();
 	
+	//TODO
+	private final AbstractInRoleGroupReference irgr;
+	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
@@ -96,6 +101,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.ROLE_TYPE;
 		FPD = spec_FPD;
+		//Note
+		irgr = UIUtil.getInRoleGroupReferenceForModelType(modelType);
 	}
 	
 	/**
@@ -193,7 +200,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public PictogramElement add(IAddContext addContext) {
 		//Step 1
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
-		ContainerShape targetDiagram = getDiagram();
+		ContainerShape targetDiagram = null;
+		if(irgr != null && irgr.inRoleGroup(addContext)) { 
+			targetDiagram = irgr.addInRoleGroup(addContext, getDiagram());
+		} else { targetDiagram = getDiagram(); }	
+		if(targetDiagram == null) throw new NoDiagramFoundException();
+		
 		int width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
@@ -352,7 +364,11 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		newRoleType.setDescription(occurenceConstraint);
 			
 		//Step 2
-		Model model = UIUtil.getLinkedModelForDiagram((Diagram) getDiagram());
+		Model model = null;
+		if(irgr != null && irgr.inRoleGroup(createContext)) { 
+			model = irgr.createInRoleGroup(createContext, getDiagram());
+		} else { model = UIUtil.getLinkedModelForDiagram(getDiagram()); }	
+		if(model == null) throw new NoModelFoundException();
 		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
 		model.getElements().add(newRoleType);
 		newRoleType.setContainer(model);
@@ -781,7 +797,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
 				super.moveShape(changedMoveContextForTypeBody);
 			}	
-		this.layoutPictogramElement(typeBodyShape);
+		layoutPictogramElement(typeBodyShape);
+		getDiagramBehavior().refresh();
 		}
 	}
 		
