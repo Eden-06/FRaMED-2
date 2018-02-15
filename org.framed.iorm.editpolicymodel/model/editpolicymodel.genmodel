@@ -18,8 +18,8 @@
       <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Relationship"/>
       <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Compartment"/>
     </genEnums>
-    <genClasses ecoreClass="editpolicymodel.ecore#//EditPolicyFile">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//EditPolicyFile/policy"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Model/policy"/>
     </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//Policy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//Policy/override"/>
@@ -36,13 +36,13 @@
     <genClasses ecoreClass="editpolicymodel.ecore#//AbstractFeatureRule">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractFeatureRule/rule2"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractFeatureRule/rule1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//AbstractFeatureRule/argument"/>
     </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//AndConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//OrConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//ContainsConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//NotConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsStepOutConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//IsStepOutConstraintRule.1"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsTargetConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsSourceConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsParentConstraintRule"/>

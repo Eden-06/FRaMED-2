@@ -3,9 +3,16 @@ package org.framed.iorm.ui.editPolicy;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
@@ -14,7 +21,9 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osgi.framework.Bundle;
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.*;
+import org.framed.iorm.ui.UIUtil;
 
 /**
  * This class provides canExecute(Command cmd) which checks whether a given
@@ -26,50 +35,51 @@ import org.framed.iorm.model.*;
 public class EditPolicyService {
 
 	/**
-	 * current configuration
+	 * configuration for each diagram
 	 */
-	// private static Map<String, FRaMEDConfiguration> configurations;
+	private static Map<String, FRaMEDConfiguration> configurations;
+
+	private static List<Editpolicymodel.Model> editpolicymodels;
 
 	/**
-	 * xmi model
+	 * for each diagram a list with activated policies
 	 */
-	@SuppressWarnings("unused")
-	private static Model model;
-
-	/**
-	 * list of Policy-Rules which need to be evaluated
-	 */
-	// private static Map<String, Set<Policy>> policies;
+	private static Map<String, List<Editpolicymodel.Policy>> activatedPolicies;
 
 	public static void initEditPolicyService() {
-		// configurations = new HashMap<>();
-		// policies = new HashMap<>();
+		EditPolicyService.editpolicymodels = new LinkedList<>();
+		EditPolicyService.activatedPolicies = new HashMap<>();
+		EditPolicyService.configurations = new HashMap<>();
+
 		loadAllFiles();
+		checkEditpolicyConsistency();
+		// EditPolicyService.getActivatedPolicies();
 	}
 
-	/*
-	 * private static Set<Policy> getPolicies(Diagram diagram) { Diagram mainDiagram
-	 * = UIUtil.getMainDiagramForAnyDiagram(diagram);
-	 * 
-	 * if(!configurations.containsKey(mainDiagram.getName())) { //get config from
-	 * diagram FRaMEDConfiguration config =
-	 * UIUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
-	 * configurations.put(diagram.getName(), config);
-	 * 
-	 * //load all rules which are activated by current configuration Set<Policy>
-	 * policySet = new HashSet<>();
-	 * 
-	 * EditPolicyConfigurationVisitor editPolicyConfigurationVisitor = new
-	 * EditPolicyConfigurationVisitor(config); for (Mapping mapping : (Mapping[])
-	 * model.getConfiguration().getMappings().toArray()) { if
-	 * (editPolicyConfigurationVisitor.abstractMappingRuleVisitor(mapping.getRule())
-	 * ) policySet.add(mapping.getPolicy()); }
-	 * 
-	 * policies.put(diagram.getName(), policySet); }
-	 * 
-	 * return policies.get(diagram.getName()); }
-	 */
-	
+	private static List<Editpolicymodel.Policy> getActivatedPolicies(Diagram diagram) { 
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+
+		if(!EditPolicyService.configurations.containsKey(mainDiagram.getName())) { 
+			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
+			EditPolicyService.configurations.put(diagram.getName(), config);
+
+			//load all rules which are activated by current configuration
+			List<Editpolicymodel.Policy> policyList = new LinkedList<>();
+
+			EditPolicyFeatureVisitor editPolicyFeatureVisitor = new EditPolicyFeatureVisitor(config); 
+			for(Editpolicymodel.Model model : editpolicymodels) {
+				for(Editpolicymodel.Policy policy : model.getPolicy()) {
+					if(editPolicyFeatureVisitor.featureRuleVisitor(policy.getFeatureRule())) {
+						policyList.add(policy); 
+					}
+				}
+			}
+
+			activatedPolicies.put(diagram.getName(), policyList);
+		}
+		return activatedPolicies.get(diagram.getName()); 
+	}
+
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
 		// System.out.println("---can add check----");
 		return true;
@@ -79,12 +89,12 @@ public class EditPolicyService {
 		// System.out.println("---can create check----");
 		return true;
 	}
-	
+
 	public static boolean canStart(ICreateConnectionContext context, Diagram diagram) {
 		// System.out.println("---can create check----");
 		return true;
 	}
-	
+
 	public static boolean canExecute(ICustomContext context, Diagram diagram) {
 		// System.out.println("---can create check----");
 		return true;
@@ -128,26 +138,23 @@ public class EditPolicyService {
 	 * Load editPolicy ecore Model from file.
 	 */
 	private static void loadEditPolicyFile(String filename) {
-		// String filename = new
-		// String("platform:/plugin/org.framed.iorm.editPolicy.model/model/noRules.xmi");
+		System.out.println("EDITPOLICY loading: " + filename);
 
-		System.out.println("EDITPOLICY: loading " + filename);
-		return;
-		/*
-		 * try { ResourceSet set = new ResourceSetImpl(); Resource res =
-		 * set.createResource(URI.createURI(filename)); res.load(Collections.EMPTY_MAP);
-		 * // if there are file contents in this directory if (res.getContents().size()
-		 * > 0 && res.getContents().get(0) instanceof Model) { // load test file and add
-		 * it to test list
-		 * 
-		 * //return (Model) res.getContents().get(0); return; } } catch (Exception e) {
-		 * System.err.println("Was not able to load xmi:  \"" + filename + "\" due : " +
-		 * e.toString()); for (StackTraceElement el : e.getStackTrace())
-		 * System.err.println(el.toString()); }
-		 */
-		// System.err.println("Was not able to load xmi: \"" + filename + "\" due :
-		// null");
-		// return null;
+		try {
+			ResourceSet set = new ResourceSetImpl();
+			Resource res = set.createResource(URI.createURI(filename));
+			res.load(Collections.EMPTY_MAP);
+			if (res.getContents().size() > 0 && res.getContents().get(0) instanceof Editpolicymodel.Model) {
+
+				EditPolicyService.editpolicymodels.add((Editpolicymodel.Model) res.getContents().get(0));
+			} else {
+				System.err.println("Was not able to load xmi: \"" + filename + "\" due : null");
+			}
+		} catch (Exception e) {
+			System.err.println("Was not able to load xmi:  \"" + filename + "\" due : " + e.toString());
+			for (StackTraceElement el : e.getStackTrace())
+				System.err.println(el.toString());
+		}
 	}
 
 	/**
@@ -187,7 +194,7 @@ public class EditPolicyService {
 			moduleFileURLs = Collections.list(moduleFileEnumeration);
 		if (coreFileEnumeration != null)
 			coreFileURLs = Collections.list(coreFileEnumeration);
-		
+
 		if (moduleFileURLs != null) {
 			for (URL url : moduleFileURLs) {
 				if (!packageMarkedAsNotUsed(url.toString(), "modules/")) {
@@ -203,4 +210,12 @@ public class EditPolicyService {
 			}
 		}
 	}
+
+	/**
+	 * do SAT checking whether policies can be used together
+	 */
+	private static void checkEditpolicyConsistency() {
+		return;
+	}
+
 }

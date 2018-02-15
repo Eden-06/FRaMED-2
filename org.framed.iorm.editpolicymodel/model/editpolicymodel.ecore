@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="editpolicymodel" nsURI="http://www.example.org/editpolicymodel"
-    nsPrefix="editpolicymodel">
-  <eClassifiers xsi:type="ecore:EClass" name="EditPolicyFile">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Editpolicymodel" nsURI="http://www.example.org/editpolicymodel"
+    nsPrefix="Editpolicymodel">
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="policy" upperBound="-1"
         eType="#//Policy" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Policy">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="override" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
         defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" lowerBound="1"
         eType="#//AbstractConstraintRule" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" lowerBound="1"
         eType="#//AbstractFeatureRule" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//ActionEnum"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ActionType" eType="#//ActionTypeEnum"/>
@@ -24,12 +24,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeatureRule" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule2" eType="#//AbstractFeatureRule"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule1" eType="#//AbstractFeatureRule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argument" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AndConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="OrConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContainsConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="NotConstraintRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsStepOutConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsStepOutConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTargetConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsSourceConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>

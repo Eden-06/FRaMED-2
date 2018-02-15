@@ -2,6 +2,8 @@ package org.framed.iorm.ui.editPolicy;
 
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 
+import Editpolicymodel.AbstractFeatureRule;
+
 
 /**
  * This class provides the rule-parse for the editPolicy-Mapping-configuration. Using VisitorPattern
@@ -9,7 +11,7 @@ import org.framed.iorm.featuremodel.FRaMEDConfiguration;
  * @author Christian Deussen
  *
  */
-public class EditPolicyConfigurationVisitor {
+public class EditPolicyFeatureVisitor {
 
 	/**
 	 * current configuration of editor
@@ -17,7 +19,7 @@ public class EditPolicyConfigurationVisitor {
 	@SuppressWarnings("unused")
 	private FRaMEDConfiguration configuration;
 
-	public EditPolicyConfigurationVisitor(FRaMEDConfiguration framedConfiguration)
+	public EditPolicyFeatureVisitor(FRaMEDConfiguration framedConfiguration)
 	{
 		this.configuration = framedConfiguration;
 	}
@@ -31,11 +33,11 @@ public class EditPolicyConfigurationVisitor {
 	 * @param rule
 	 * @return Boolean
 	 */
-	/*
-	public boolean abstractMappingRuleVisitor(AbstractMappingRule rule)
+	
+	public boolean featureRuleVisitor(AbstractFeatureRule rule)
 	{
 		System.out.println("NodeMappingVisitor for " + rule.getClass().toString() + " not implemented");
 		return false;
 	}
-	*/
+	
 }
