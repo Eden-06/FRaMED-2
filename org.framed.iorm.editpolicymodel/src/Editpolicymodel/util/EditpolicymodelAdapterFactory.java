@@ -128,6 +128,22 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createNotFeatureRuleAdapter();
 			}
 			@Override
+			public Adapter caseTrueFeatureRule(TrueFeatureRule object) {
+				return createTrueFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseFalseFeatureRule(FalseFeatureRule object) {
+				return createFalseFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseTrueConstraintRule(TrueConstraintRule object) {
+				return createTrueConstraintRuleAdapter();
+			}
+			@Override
+			public Adapter caseFalseConstraintRule(FalseConstraintRule object) {
+				return createFalseConstraintRuleAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -354,6 +370,62 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNotFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueFeatureRule <em>True Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.TrueFeatureRule
+	 * @generated
+	 */
+	public Adapter createTrueFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseFeatureRule <em>False Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.FalseFeatureRule
+	 * @generated
+	 */
+	public Adapter createFalseFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueConstraintRule <em>True Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.TrueConstraintRule
+	 * @generated
+	 */
+	public Adapter createTrueConstraintRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseConstraintRule <em>False Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.FalseConstraintRule
+	 * @generated
+	 */
+	public Adapter createFalseConstraintRuleAdapter() {
 		return null;
 	}
 

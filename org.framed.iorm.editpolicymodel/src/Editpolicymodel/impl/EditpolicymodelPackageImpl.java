@@ -11,6 +11,8 @@ import Editpolicymodel.AndFeatureRule;
 import Editpolicymodel.ContainsConstraintRule;
 import Editpolicymodel.EditpolicymodelFactory;
 import Editpolicymodel.EditpolicymodelPackage;
+import Editpolicymodel.FalseConstraintRule;
+import Editpolicymodel.FalseFeatureRule;
 import Editpolicymodel.IsParentConstraintRule;
 import Editpolicymodel.IsSourceConstraintRule;
 import Editpolicymodel.IsStepOutConstraintRule;
@@ -22,6 +24,8 @@ import Editpolicymodel.OrConstraintRule;
 import Editpolicymodel.OrFeatureRule;
 import Editpolicymodel.Policy;
 
+import Editpolicymodel.TrueConstraintRule;
+import Editpolicymodel.TrueFeatureRule;
 import genmodel.GenmodelPackage;
 
 import genmodel.impl.GenmodelPackageImpl;
@@ -147,6 +151,34 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass notFeatureRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass trueFeatureRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass falseFeatureRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass trueConstraintRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass falseConstraintRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -479,6 +511,42 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTrueFeatureRule() {
+		return trueFeatureRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFalseFeatureRule() {
+		return falseFeatureRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTrueConstraintRule() {
+		return trueConstraintRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFalseConstraintRule() {
+		return falseConstraintRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -562,6 +630,14 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		notFeatureRuleEClass = createEClass(NOT_FEATURE_RULE);
 
+		trueFeatureRuleEClass = createEClass(TRUE_FEATURE_RULE);
+
+		falseFeatureRuleEClass = createEClass(FALSE_FEATURE_RULE);
+
+		trueConstraintRuleEClass = createEClass(TRUE_CONSTRAINT_RULE);
+
+		falseConstraintRuleEClass = createEClass(FALSE_CONSTRAINT_RULE);
+
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
 		actionTypeEnumEEnum = createEEnum(ACTION_TYPE_ENUM);
@@ -608,6 +684,10 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		andFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
 		orFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
 		notFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
+		trueFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
+		falseFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
+		trueConstraintRuleEClass.getESuperTypes().add(this.getAbstractConstraintRule());
+		falseConstraintRuleEClass.getESuperTypes().add(this.getAbstractConstraintRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -651,6 +731,14 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(orFeatureRuleEClass, OrFeatureRule.class, "OrFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(notFeatureRuleEClass, NotFeatureRule.class, "NotFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(trueFeatureRuleEClass, TrueFeatureRule.class, "TrueFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(falseFeatureRuleEClass, FalseFeatureRule.class, "FalseFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(trueConstraintRuleEClass, TrueConstraintRule.class, "TrueConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(falseConstraintRuleEClass, FalseConstraintRule.class, "FalseConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

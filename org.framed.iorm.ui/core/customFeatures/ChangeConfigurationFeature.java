@@ -17,6 +17,7 @@ import de.ovgu.featureide.fm.core.configuration.Configuration;
 
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 import org.framed.iorm.ui.configuration.ChangeConfigurationContext; //*import for javadoc link
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.configuration.ChangeConfigurationCommand; //*import for javadoc link
 
 
@@ -94,6 +95,7 @@ public class ChangeConfigurationFeature extends FRaMEDCustomFeature  {
 		//Step 3
 		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
 		UIUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
+		EditPolicyService.setConfiguration(mainDiagram, framedFeatureConfiguration);
 		//Step 4 
 		this.getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refreshPalette();
 	}

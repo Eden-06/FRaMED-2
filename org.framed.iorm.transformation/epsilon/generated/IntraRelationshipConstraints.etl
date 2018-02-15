@@ -1,0 +1,71 @@
+/**
+ * the abstract rule for intra relationship constraints executes all actions done for all types of intra relationship
+ * constraints
+ */
+@abstract 
+rule IntraRelationshipConstraint
+	transform s : source!Relation
+	to t : target!IntraRelationshipConstraint {
+		// feature Intra_Relationship_Constraints implies feature Relationship_Constraints (not to check)
+		guard :	s.~features.get("Intra_Relationship_Constraints")
+		
+		//only transform if the role type is in a compartment type
+		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+			//get the crom equivalent to compartment type the role type is in
+			var compartmentType = s.getContainer.getParent().equivalent();
+			//add the relationship the intra relationship constraint belongs to
+			if(not(s.getReferencedRelation().size()==1)) {
+				fail("A intra relationship constraint " + s.getType + " has not exactly one referenced relationship!");
+			} else {
+				t.setRelation(s.getReferencedRelation().at(0).equivalent());	
+			}
+			//add constraint to the compartment type it is in
+			compartmentType.getConstraints().add(t);
+		}	
+}
+
+//transforms total intra rel cons
+@lazy 
+rule TotalRelation
+	transform s : source!Relation
+	to t : target!Total
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Total)
+}
+
+//transforms cyclic intra rel cons
+@lazy 
+rule CyclicRelation
+	transform s : source!Relation
+	to t : target!Cyclic 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Cyclic)
+}  
+
+//transforms irreflexive intra rel cons
+@lazy 
+rule IrreflexiveRelation
+	transform s : source!Relation
+	to t : target!Irreflexive 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Irreflexive)
+			
+} 
+
+//transforms acyclic intra rel cons
+@lazy 
+rule AcyclicRelation
+	transform s : source!Relation
+	to t : target!Acyclic 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Acyclic)
+} 
+
+//transforms reflexive intra rel cons
+@lazy 
+rule ReflexiveRelation
+	transform s : source!Relation 
+	to t : target!Reflexive 
+	extends IntraRelationshipConstraint {
+		guard : s.getType==(source!Type#Reflexive)
+} 

@@ -1,0 +1,12 @@
+import "Fulfillment.etl";
+
+/**
+ * transforms fulfillments on the top level
+ */
+@lazy 
+rule FulfillmentTopLevel
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment) 
+	extends Fulfillment {
+		guard : s.getContainer().getParent()==null	
+}

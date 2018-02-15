@@ -70,6 +70,10 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.AND_FEATURE_RULE: return createAndFeatureRule();
 			case EditpolicymodelPackage.OR_FEATURE_RULE: return createOrFeatureRule();
 			case EditpolicymodelPackage.NOT_FEATURE_RULE: return createNotFeatureRule();
+			case EditpolicymodelPackage.TRUE_FEATURE_RULE: return createTrueFeatureRule();
+			case EditpolicymodelPackage.FALSE_FEATURE_RULE: return createFalseFeatureRule();
+			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: return createTrueConstraintRule();
+			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: return createFalseConstraintRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -237,6 +241,46 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public NotFeatureRule createNotFeatureRule() {
 		NotFeatureRuleImpl notFeatureRule = new NotFeatureRuleImpl();
 		return notFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrueFeatureRule createTrueFeatureRule() {
+		TrueFeatureRuleImpl trueFeatureRule = new TrueFeatureRuleImpl();
+		return trueFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FalseFeatureRule createFalseFeatureRule() {
+		FalseFeatureRuleImpl falseFeatureRule = new FalseFeatureRuleImpl();
+		return falseFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrueConstraintRule createTrueConstraintRule() {
+		TrueConstraintRuleImpl trueConstraintRule = new TrueConstraintRuleImpl();
+		return trueConstraintRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FalseConstraintRule createFalseConstraintRule() {
+		FalseConstraintRuleImpl falseConstraintRule = new FalseConstraintRuleImpl();
+		return falseConstraintRule;
 	}
 
 	/**

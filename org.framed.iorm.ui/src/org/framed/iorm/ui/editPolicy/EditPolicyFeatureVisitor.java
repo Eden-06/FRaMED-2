@@ -3,6 +3,10 @@ package org.framed.iorm.ui.editPolicy;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 
 import Editpolicymodel.AbstractFeatureRule;
+import Editpolicymodel.AndFeatureRule;
+import Editpolicymodel.FalseFeatureRule;
+import Editpolicymodel.NotFeatureRule;
+import Editpolicymodel.TrueFeatureRule;
 
 
 /**
@@ -23,7 +27,7 @@ public class EditPolicyFeatureVisitor {
 	{
 		this.configuration = framedConfiguration;
 	}
-
+	
 	/**
 	 * root Visitor of mappingRule:
 	 * dispatches to specific rule
@@ -36,8 +40,28 @@ public class EditPolicyFeatureVisitor {
 	
 	public boolean featureRuleVisitor(AbstractFeatureRule rule)
 	{
+		if (rule instanceof AndFeatureRule)
+			return andRuleVisitor(rule);
+		
+		if (rule instanceof NotFeatureRule)
+			return notRuleVisitor(rule);
+
+		if (rule instanceof TrueFeatureRule)
+			return true;
+
+		if (rule instanceof FalseFeatureRule)
+			return false;
+
 		System.out.println("NodeMappingVisitor for " + rule.getClass().toString() + " not implemented");
-		return false;
+		return true;
+	}
+	
+	private boolean andRuleVisitor(AbstractFeatureRule rule) {
+		return true;
+	}
+	
+	private boolean notRuleVisitor(AbstractFeatureRule rule) {
+		return true;
 	}
 	
 }

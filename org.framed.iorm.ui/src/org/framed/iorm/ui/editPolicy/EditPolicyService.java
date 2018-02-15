@@ -21,6 +21,10 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osgi.framework.Bundle;
+
+import Editpolicymodel.AbstractConstraintRule;
+import Editpolicymodel.Policy;
+
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.*;
 import org.framed.iorm.ui.UIUtil;
@@ -56,11 +60,23 @@ public class EditPolicyService {
 		// EditPolicyService.getActivatedPolicies();
 	}
 
-	private static List<Editpolicymodel.Policy> getActivatedPolicies(Diagram diagram) { 
-		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+	public static void setConfiguration(Diagram diagram, FRaMEDConfiguration config) 
+	{ 
+		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+		
+		System.out.println("updating config for " + diagram.getName());
+		
 
-		if(!EditPolicyService.configurations.containsKey(mainDiagram.getName())) { 
-			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(mainDiagram).getFramedConfiguration();
+		EditPolicyService.configurations.put(diagram.getName(), config);
+		EditPolicyService.updateActivatedPolicies(diagram);
+	}
+
+	private static void updateActivatedPolicies(Diagram diagram) 
+	{
+		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+
+		if(!EditPolicyService.configurations.containsKey(diagram.getName())) { 
+			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
 			EditPolicyService.configurations.put(diagram.getName(), config);
 
 			//load all rules which are activated by current configuration
@@ -77,7 +93,7 @@ public class EditPolicyService {
 
 			activatedPolicies.put(diagram.getName(), policyList);
 		}
-		return activatedPolicies.get(diagram.getName()); 
+		return; 
 	}
 
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
@@ -85,8 +101,36 @@ public class EditPolicyService {
 		return true;
 	}
 
-	public static boolean canCreate(ICreateConnectionContext context, Diagram diagram) {
-		// System.out.println("---can create check----");
+	private static List<Editpolicymodel.AbstractConstraintRule> getConstraints(Diagram diagram, String action, String type) {
+		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+		List<AbstractConstraintRule> rules = new LinkedList<>();
+
+		List<Policy> policies = EditPolicyService.activatedPolicies.get(diagram.getName());
+		if(policies == null) {
+			System.out.println("no rules found for " + diagram.getName());
+			EditPolicyService.updateActivatedPolicies(diagram);
+			policies = EditPolicyService.activatedPolicies.get(diagram.getName());
+		}
+		
+		for(Policy policy: policies) {
+			System.out.println("Action: " + policy.getAction().toString());
+			System.out.println("Type: " + policy.getActionType().toString());
+
+			if(policy.getAction().toString().equals(action) && policy.getActionType().toString().equals(type))
+				rules.add(policy.getConstraintRule());
+		}
+
+		return rules;
+	}
+
+	public static boolean canCreate(ICreateConnectionContext context, String type, Diagram diagram) 
+	{
+		List<Editpolicymodel.AbstractConstraintRule> constraints = EditPolicyService.getConstraints(diagram, "Create", type);
+		EditPolicyConstraintVisitor constraintVisitor = new EditPolicyConstraintVisitor(context, false);
+		for(AbstractConstraintRule constraintRule: constraints) {
+			if(!constraintVisitor.constraintRuleVisitor(constraintRule))
+				return false;
+		}
 		return true;
 	}
 

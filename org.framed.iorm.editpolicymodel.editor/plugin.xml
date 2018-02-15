@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated editpolicymodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="Editpolicymodel.presentation.EditpolicymodelModelWizardID"
+            name="%_UI_EditpolicymodelModelWizard_label"
+            class="Editpolicymodel.presentation.EditpolicymodelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/EditpolicymodelModelFile.gif">
+         <description>%_UI_EditpolicymodelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated editpolicymodel -->
+      <editor
+            id="Editpolicymodel.presentation.EditpolicymodelEditorID"
+            name="%_UI_EditpolicymodelEditor_label"
+            icon="icons/full/obj16/EditpolicymodelModelFile.gif"
+            extensions="editpolicymodel"
+            class="Editpolicymodel.presentation.EditpolicymodelEditor"
+            contributorClass="Editpolicymodel.presentation.EditpolicymodelActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated editpolicymodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="genmodel.presentation.GenmodelModelWizardID"
+            name="%_UI_GenmodelModelWizard_label"
+            class="genmodel.presentation.GenmodelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/GenmodelModelFile.gif">
+         <description>%_UI_GenmodelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated editpolicymodel -->
+      <editor
+            id="genmodel.presentation.GenmodelEditorID"
+            name="%_UI_GenmodelEditor_label"
+            icon="icons/full/obj16/GenmodelModelFile.gif"
+            extensions="genmodel"
+            class="genmodel.presentation.GenmodelEditor"
+            contributorClass="genmodel.presentation.GenmodelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

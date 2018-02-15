@@ -1,0 +1,46 @@
+import "RoleType.etl";
+
+/*
+ * transforms a role type when occurence constraints are not enabled
+ */
+@lazy 
+rule RoleTypeWithoutOccurenceConstraints
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleType {
+		guard : not(s.~features.get("Occurrence_Constraints"))
+		
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
+
+/*
+ * transforms a role type when occurence constraints are enabled
+ */
+@lazy 
+rule RoleTypeWithOccurenceConstraints
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleType {
+		guard : s.~features.get("Occurrence_Constraints")
+		
+		//parse the lower and upper bound from the role
+		var desc = s.description;
+		if (not (desc == null)) {
+			if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {	
+				//get the crom equivalent to compartment type the role type is in
+				var compartmentType = s.getContainer.getParent().equivalent();
+				for(part : target!Part in compartmentType.getParts()) {
+					//find already created part of the role
+					if(part.role == s.~transformed) {
+						var card = desc.name;
+						var cards = parseCardinality(card);
+						//set lower and upper bound
+						if(cards.size()>0) {
+							part.lower = cards[0];
+							if(cards.size()>1) {
+								part.upper = cards[1];
+		}	}	}	}	}	}
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}

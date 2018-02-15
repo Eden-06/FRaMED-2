@@ -1,0 +1,23 @@
+/**
+ * The abstract inheritance rule executes actions done for all types of inheritances
+ */
+@abstract  
+rule Inheritance
+	transform s : source!Relation
+	to t : target!Inheritance {
+		guard : s.getType==(source!Type#Inheritance)
+	
+		//transforms the source and target elements
+		var relationSource = s.getSource.equivalent();
+		var relationTarget = s.getTarget.equivalent();
+		//set the source and target attributes
+		t.sub = relationSource;
+		t.super = relationTarget;
+		//adds the inheritance to the incoming/outgoing relations of the source and target
+		relationSource.getOutgoing.add(t);
+		relationTarget.getIncoming.add(t);	
+		//add the inheritance to the main model
+		if(s.~mainModel == null) { fail("Inheritance Role did not found a main model reference to add the inheritance to!"); }
+		else { 
+			s.~mainModel.getRelations().add(t);
+}		} 	

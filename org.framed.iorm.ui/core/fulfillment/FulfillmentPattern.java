@@ -215,7 +215,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
 				if (targetTypes.contains(targetShape.getType()))
-					   return EditPolicyService.canCreate(createContext, this.getDiagram());
+					   return EditPolicyService.canCreate(createContext, "Fulfillment", this.getDiagram());
 			}
 		}
 		return false;

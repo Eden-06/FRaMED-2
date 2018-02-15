@@ -161,7 +161,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    	   !(sourceConnection.equals(targetConnection))) {
 	    		if(sourceConnection.getType() == Type.RELATIONSHIP)
 	    			if(targetConnection.getType() == sourceConnection.getType())
-						   return EditPolicyService.canCreate(createContext, this.getDiagram());
+						   return EditPolicyService.canCreate(createContext, "InterRelationShip", this.getDiagram());
 		}	}
 	    return false;
 	}

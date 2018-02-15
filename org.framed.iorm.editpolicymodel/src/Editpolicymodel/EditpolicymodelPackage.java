@@ -856,6 +856,226 @@ public interface EditpolicymodelPackage extends EPackage {
 	int NOT_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.TrueFeatureRuleImpl <em>True Feature Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.TrueFeatureRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueFeatureRule()
+	 * @generated
+	 */
+	int TRUE_FEATURE_RULE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
+
+	/**
+	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
+
+	/**
+	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
+
+	/**
+	 * The number of structural features of the '<em>True Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>True Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.FalseFeatureRuleImpl <em>False Feature Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.FalseFeatureRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseFeatureRule()
+	 * @generated
+	 */
+	int FALSE_FEATURE_RULE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
+
+	/**
+	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
+
+	/**
+	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
+
+	/**
+	 * The number of structural features of the '<em>False Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>False Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.TrueConstraintRuleImpl <em>True Constraint Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.TrueConstraintRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueConstraintRule()
+	 * @generated
+	 */
+	int TRUE_CONSTRAINT_RULE = 17;
+
+	/**
+	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_CONSTRAINT_RULE__RULE2 = ABSTRACT_CONSTRAINT_RULE__RULE2;
+
+	/**
+	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_CONSTRAINT_RULE__RULE1 = ABSTRACT_CONSTRAINT_RULE__RULE1;
+
+	/**
+	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_CONSTRAINT_RULE__ARGUMENT = ABSTRACT_CONSTRAINT_RULE__ARGUMENT;
+
+	/**
+	 * The number of structural features of the '<em>True Constraint Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_CONSTRAINT_RULE_FEATURE_COUNT = ABSTRACT_CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>True Constraint Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.FalseConstraintRuleImpl <em>False Constraint Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.FalseConstraintRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseConstraintRule()
+	 * @generated
+	 */
+	int FALSE_CONSTRAINT_RULE = 18;
+
+	/**
+	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_CONSTRAINT_RULE__RULE2 = ABSTRACT_CONSTRAINT_RULE__RULE2;
+
+	/**
+	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_CONSTRAINT_RULE__RULE1 = ABSTRACT_CONSTRAINT_RULE__RULE1;
+
+	/**
+	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_CONSTRAINT_RULE__ARGUMENT = ABSTRACT_CONSTRAINT_RULE__ARGUMENT;
+
+	/**
+	 * The number of structural features of the '<em>False Constraint Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_CONSTRAINT_RULE_FEATURE_COUNT = ABSTRACT_CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>False Constraint Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -863,7 +1083,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 15;
+	int ACTION_ENUM = 19;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionTypeEnum <em>Action Type Enum</em>}' enum.
@@ -873,7 +1093,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionTypeEnum()
 	 * @generated
 	 */
-	int ACTION_TYPE_ENUM = 16;
+	int ACTION_TYPE_ENUM = 20;
 
 
 	/**
@@ -1157,6 +1377,46 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getNotFeatureRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.TrueFeatureRule <em>True Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>True Feature Rule</em>'.
+	 * @see Editpolicymodel.TrueFeatureRule
+	 * @generated
+	 */
+	EClass getTrueFeatureRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.FalseFeatureRule <em>False Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>False Feature Rule</em>'.
+	 * @see Editpolicymodel.FalseFeatureRule
+	 * @generated
+	 */
+	EClass getFalseFeatureRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.TrueConstraintRule <em>True Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>True Constraint Rule</em>'.
+	 * @see Editpolicymodel.TrueConstraintRule
+	 * @generated
+	 */
+	EClass getTrueConstraintRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.FalseConstraintRule <em>False Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>False Constraint Rule</em>'.
+	 * @see Editpolicymodel.FalseConstraintRule
+	 * @generated
+	 */
+	EClass getFalseConstraintRule();
 
 	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -1446,6 +1706,46 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NOT_FEATURE_RULE = eINSTANCE.getNotFeatureRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.TrueFeatureRuleImpl <em>True Feature Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.TrueFeatureRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueFeatureRule()
+		 * @generated
+		 */
+		EClass TRUE_FEATURE_RULE = eINSTANCE.getTrueFeatureRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.FalseFeatureRuleImpl <em>False Feature Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.FalseFeatureRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseFeatureRule()
+		 * @generated
+		 */
+		EClass FALSE_FEATURE_RULE = eINSTANCE.getFalseFeatureRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.TrueConstraintRuleImpl <em>True Constraint Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.TrueConstraintRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueConstraintRule()
+		 * @generated
+		 */
+		EClass TRUE_CONSTRAINT_RULE = eINSTANCE.getTrueConstraintRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.FalseConstraintRuleImpl <em>False Constraint Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.FalseConstraintRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseConstraintRule()
+		 * @generated
+		 */
+		EClass FALSE_CONSTRAINT_RULE = eINSTANCE.getFalseConstraintRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

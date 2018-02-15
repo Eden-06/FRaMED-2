@@ -166,6 +166,34 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EditpolicymodelPackage.TRUE_FEATURE_RULE: {
+				TrueFeatureRule trueFeatureRule = (TrueFeatureRule)theEObject;
+				T result = caseTrueFeatureRule(trueFeatureRule);
+				if (result == null) result = caseAbstractFeatureRule(trueFeatureRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.FALSE_FEATURE_RULE: {
+				FalseFeatureRule falseFeatureRule = (FalseFeatureRule)theEObject;
+				T result = caseFalseFeatureRule(falseFeatureRule);
+				if (result == null) result = caseAbstractFeatureRule(falseFeatureRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: {
+				TrueConstraintRule trueConstraintRule = (TrueConstraintRule)theEObject;
+				T result = caseTrueConstraintRule(trueConstraintRule);
+				if (result == null) result = caseAbstractConstraintRule(trueConstraintRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: {
+				FalseConstraintRule falseConstraintRule = (FalseConstraintRule)theEObject;
+				T result = caseFalseConstraintRule(falseConstraintRule);
+				if (result == null) result = caseAbstractConstraintRule(falseConstraintRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -392,6 +420,66 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseNotFeatureRule(NotFeatureRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>True Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>True Feature Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTrueFeatureRule(TrueFeatureRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>False Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>False Feature Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFalseFeatureRule(FalseFeatureRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>True Constraint Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>True Constraint Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTrueConstraintRule(TrueConstraintRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>False Constraint Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>False Constraint Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFalseConstraintRule(FalseConstraintRule object) {
 		return null;
 	}
 
