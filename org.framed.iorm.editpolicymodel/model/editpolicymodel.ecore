@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    name="editpolicymodel" nsURI="http://www.example.org/editpolicymodel"
-    nsPrefix="editpolicymodel"/>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="editpolicymodel" nsURI="http://www.example.org/editpolicymodel"
+    nsPrefix="editpolicymodel">
+  <eClassifiers xsi:type="ecore:EClass" name="EditPolicyFile">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="policy" upperBound="-1"
+        eType="#//Policy" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Policy">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="override" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" upperBound="-1"
+        eType="#//AbstractConstraintRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" upperBound="-1"
+        eType="#//AbstractFeatureRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//ActionEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ActionType" eType="#//ActionTypeEnum"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractConstraintRule" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule2" eType="#//AbstractConstraintRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule1" eType="#//AbstractConstraintRule"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argument" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeatureRule" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule2" eType="#//AbstractFeatureRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule1" eType="#//AbstractFeatureRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AndConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainsConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsStepOutConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsStepOutConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsTargetConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsSourceConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsParentConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActionEnum">
+    <eLiterals name="Create"/>
+    <eLiterals name="Add" value="1"/>
+    <eLiterals name="Start" value="2"/>
+    <eLiterals name="Reconnect" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActionTypeEnum">
+    <eLiterals name="Fulfillment"/>
+    <eLiterals name="Inheritance" value="1"/>
+    <eLiterals name="Relationship" value="2"/>
+    <eLiterals name="Compartment" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AndFeatureRule" eSuperTypes="#//AbstractFeatureRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrFeatureRule" eSuperTypes="#//AbstractFeatureRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotFeatureRule" eSuperTypes="#//AbstractFeatureRule"/>
+</ecore:EPackage>
