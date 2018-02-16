@@ -91,7 +91,7 @@ public class UILiterals {
 	 * (2) the URL to the standard configuration 
 	 */
 	public static final URL URL_TO_FEATUREMODEL = BUNDLE_FEATUREMODEL.getEntry("model.xml"),
-						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.diagram");
+						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.crom_diagram");
 	
 	/**
 	 * name literals for the command and feature to change the configuration

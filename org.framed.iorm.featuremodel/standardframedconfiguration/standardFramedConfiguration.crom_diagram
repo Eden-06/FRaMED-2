@@ -11,7 +11,6 @@
 	      	<features name="Playable"/>
 	      	<features name="Players"/>
 	      	<features name="Naturals"/>
-	      	<features name="Roles"/>
 	      	<features name="Compartments"/>
 	      	<features name="Dates"/>
 	      	<features name="Dependent"/>
@@ -35,7 +34,6 @@
 	      	<features name="Compartment_Behavior"/>
 	      	<features name="Compartment_Inheritance"/>
 	      	<features name="Participants"/>
-	      	<features name="Contains_Compartments"/>
 	      	<features name="Playable_by_Defining_Compartment"/>
 	      	<features name="Data_Types"/>
 	      	<features name="Data_Type_Inheritance"/>
