@@ -44,6 +44,7 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
+import org.framed.iorm.ui.references.AbstractRoleGroupReference;
 
 /**
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
@@ -84,6 +85,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//TODO
 	private final AbstractInRoleGroupReference irgr;
 	
+	//TODO
+	private final AbstractRoleGroupReference rgr;
+	
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
@@ -103,6 +107,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		FPD = spec_FPD;
 		//Note
 		irgr = UIUtil.getInRoleGroupReferenceForModelType(modelType);
+		rgr = UIUtil.getRoleGroupReference();
 	}
 	
 	/**
@@ -201,9 +206,16 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//Step 1
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		ContainerShape targetDiagram = null;
+		int x, y;
 		if(irgr != null && irgr.inRoleGroup(addContext)) { 
 			targetDiagram = irgr.addInRoleGroup(addContext, getDiagram());
-		} else { targetDiagram = getDiagram(); }	
+			x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX();
+			y =  addContext.getY() + targetDiagram.getGraphicsAlgorithm().getY();
+		} else { 
+			targetDiagram = getDiagram(); 
+			x =  addContext.getX();
+			y =  addContext.getY();
+		}	
 		if(targetDiagram == null) throw new NoDiagramFoundException();
 		
 		int width = addContext.getWidth(), height = addContext.getHeight();
@@ -219,15 +231,15 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
 		dropShadowRectangle.setForeground(manageColor(literals.COLOR_SHADOW));
 		dropShadowRectangle.setBackground(manageColor(literals.COLOR_SHADOW));
-		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+literals.SHADOW_SIZE, addContext.getY()+literals.SHADOW_SIZE, width, height);
+		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, x+literals.SHADOW_SIZE, y+literals.SHADOW_SIZE, width, height);
 			
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
 		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
-			addContext.getX()+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-			addContext.getY()-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
+			x+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+			y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
 			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
 			literals.HEIGHT_OCCURRENCE_CONSTRAINT);
 			
@@ -236,8 +248,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
-
+		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, x, y, width, height);
+		
+		
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
 		Text text = graphicAlgorithmService.createText(nameShape, addedRoleType.getName());	
@@ -513,7 +526,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(!(UIUtil.isShape_IdValue(container, literals.SHAPE_ID_ROLETYPE_TYPEBODY))) return false;
 		else {	
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm(); 
-			RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
+			RoundedRectangle dropShadowRectangle = null;
+			for(Shape shape : container.getContainer().getChildren()) {
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_SHADOW))
+					dropShadowRectangle = (RoundedRectangle) shape.getGraphicsAlgorithm();
+			}
+			if(dropShadowRectangle == null) { System.err.println("No shape for shadow found in role type"); return false;}
 		    //Step 2
 		    if(typeBodyRectangle.getWidth() < literals.MIN_WIDTH) typeBodyRectangle.setWidth(literals.MIN_WIDTH);
 			if(typeBodyRectangle.getHeight() < literals.MIN_HEIGHT) typeBodyRectangle.setHeight(literals.MIN_HEIGHT);
@@ -755,13 +773,18 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			return false;
 		}
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
-			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
-			ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-			return moveContext.getSourceContainer() != null && 
-				  (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
-				   moveContext.getTargetContainer().equals(dropShadowShape)) && 
-				   isPatternRoot(moveContext.getPictogramElement());
-		}
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement(),
+						   dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0),
+						   sourcon = moveContext.getSourceContainer(),
+						   tarcon = moveContext.getTargetContainer();
+			if(rgr != null && UIUtil.isShape_IdValue(tarcon, rgr.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
+				return sourcon.getContainer().equals(rgr.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
+			} else {
+				  return sourcon != null && 
+						 (sourcon.equals(tarcon) ||
+						  tarcon.equals(dropShadowShape)) &&
+						 isPatternRoot(moveContext.getPictogramElement());
+		}	}
 		return super.canMoveShape(moveContext);
 	}
 		
@@ -784,7 +807,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				OCText.setX(OCText.getX() + moveContext.getDeltaX());
 				OCText.setY(OCText.getY() + moveContext.getDeltaY());
 				super.moveShape(moveContext);
-			} else {
+			} 
+			if(rgr != null &&  irgr != null && 
+			   UIUtil.isShape_IdValue(moveContext.getTargetContainer(), rgr.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
+				irgr.moveInRoleGroup(moveContext, getDiagram(), getFeatureProvider());
+			} 
+			if(moveContext.getTargetContainer().equals(dropShadowShape)) {
 				//targetContainer of moveContext is dropShadowShape
 				//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
 				dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
@@ -814,6 +842,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
+	}
+	
+	//TODO explicit refresh need in role group
+	public void resizeShape(IResizeShapeContext resizeContext) {
+		super.resizeShape(resizeContext);
+		getDiagramBehavior().refresh();
 	}
 		
 	//delete feature

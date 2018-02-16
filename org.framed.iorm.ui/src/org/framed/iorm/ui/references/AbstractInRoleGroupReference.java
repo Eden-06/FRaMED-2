@@ -1,7 +1,9 @@
 package org.framed.iorm.ui.references;
 
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
@@ -21,5 +23,8 @@ public abstract class AbstractInRoleGroupReference {
 	
 	//TODO
 	public abstract Diagram addInRoleGroup(IAddContext addContext, Diagram diagram);
+	
+	//TODO
+	public abstract void moveInRoleGroup(IMoveShapeContext moveContext, Diagram diagram, IFeatureProvider featureProvider);
 }
 
