@@ -95,6 +95,6 @@ public class ChangeConfigurationFeature extends FRaMEDCustomFeature  {
 		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
 		UIUtil.getLinkedModelForDiagram(mainDiagram).setFramedConfiguration(framedFeatureConfiguration);
 		//Step 4 
-		this.getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refreshPalette();
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refreshPalette();
 	}
 }

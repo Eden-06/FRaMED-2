@@ -679,7 +679,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			super.moveShape(changedMoveContextForTypeBody);
 			getDiagramBehavior().refresh();
 		}
-		getDiagramBehavior().refresh();
 	}
 	
 	

@@ -826,7 +826,6 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				super.moveShape(changedMoveContextForTypeBody);
 			}	
 		layoutPictogramElement(typeBodyShape);
-		getDiagramBehavior().refresh();
 		}
 	}
 		
