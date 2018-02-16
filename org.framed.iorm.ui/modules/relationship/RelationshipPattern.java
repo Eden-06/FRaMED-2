@@ -271,7 +271,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
 	    		if(types.contains(sourceShape.getType()))
 		    		if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, this.getDiagram());
+						   return EditPolicyService.canCreate(createContext, "Relationship", this.getDiagram());
 		}	}
 		return false;
 	}
