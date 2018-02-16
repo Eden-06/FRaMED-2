@@ -1,10 +1,15 @@
 package org.framed.iorm.ui.editPolicy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 
 import Editpolicymodel.AbstractFeatureRule;
 import Editpolicymodel.AndFeatureRule;
 import Editpolicymodel.FalseFeatureRule;
+import Editpolicymodel.NameFeatureRule;
 import Editpolicymodel.NotFeatureRule;
 import Editpolicymodel.TrueFeatureRule;
 
@@ -45,6 +50,9 @@ public class EditPolicyFeatureVisitor {
 		
 		if (rule instanceof NotFeatureRule)
 			return notRuleVisitor(rule);
+		
+		if (rule instanceof NameFeatureRule)
+			return featureNameRuleVisitor(rule);
 
 		if (rule instanceof TrueFeatureRule)
 			return true;
@@ -62,6 +70,21 @@ public class EditPolicyFeatureVisitor {
 	
 	private boolean notRuleVisitor(AbstractFeatureRule rule) {
 		return true;
+	}
+	
+	private boolean featureNameRuleVisitor(AbstractFeatureRule rule)
+	{
+ 		List<String> features = new ArrayList<>();
+
+ 		for (FRaMEDFeature feature : this.configuration.getFeatures()) {
+ 			features.add(feature.getName().getName());
+ 			//System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
+ 		}
+
+		if(features.contains(rule.getArgument())) {
+			return true;
+		}
+		return false;
 	}
 	
 }

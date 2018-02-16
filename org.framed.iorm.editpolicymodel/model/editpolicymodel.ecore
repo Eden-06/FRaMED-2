@@ -53,4 +53,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="FalseFeatureRule" eSuperTypes="#//AbstractFeatureRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="TrueConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="FalseConstraintRule" eSuperTypes="#//AbstractConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NameFeatureRule" eSuperTypes="#//AbstractFeatureRule"/>
 </ecore:EPackage>

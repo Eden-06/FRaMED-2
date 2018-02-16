@@ -175,6 +175,15 @@ public interface EditpolicymodelFactory extends EFactory {
 	FalseConstraintRule createFalseConstraintRule();
 
 	/**
+	 * Returns a new object of class '<em>Name Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Name Feature Rule</em>'.
+	 * @generated
+	 */
+	NameFeatureRule createNameFeatureRule();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

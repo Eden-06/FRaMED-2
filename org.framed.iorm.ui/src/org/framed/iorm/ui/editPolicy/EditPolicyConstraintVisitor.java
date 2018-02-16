@@ -24,7 +24,6 @@ public class EditPolicyConstraintVisitor {
 	/**
 	 * whether editor is in StepIn/StepOut-View
 	 */
-	@SuppressWarnings("unused")
 	private boolean isStepOut;
 
 	public EditPolicyConstraintVisitor(Object context, boolean isStepOut) {
@@ -43,6 +42,9 @@ public class EditPolicyConstraintVisitor {
 	
 	public boolean constraintRuleVisitor(AbstractConstraintRule rule) 
 	{
+		if(rule == null) {
+			return true;
+		}
 		if (rule instanceof AndConstraintRule)
 			return this.andRuleVisitor(rule);
 		
@@ -63,14 +65,14 @@ public class EditPolicyConstraintVisitor {
 	}
 	
 	private boolean andRuleVisitor(AbstractConstraintRule rule) {
-		return true;
+		return constraintRuleVisitor(rule.getRule1()) && constraintRuleVisitor(rule.getRule2());
 	}
 	
 	private boolean notRuleVisitor(AbstractConstraintRule rule) {
-		return true;
+		return !constraintRuleVisitor(rule.getRule1());
 	}
 	
 	private boolean isStepOutConstraintRuleVisitor(AbstractConstraintRule rule) {
-		return true;
+		return this.isStepOut;
 	}
 }

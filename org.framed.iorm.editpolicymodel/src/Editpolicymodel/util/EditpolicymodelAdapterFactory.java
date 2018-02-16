@@ -144,6 +144,10 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createFalseConstraintRuleAdapter();
 			}
 			@Override
+			public Adapter caseNameFeatureRule(NameFeatureRule object) {
+				return createNameFeatureRuleAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -426,6 +430,20 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFalseConstraintRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NameFeatureRule <em>Name Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.NameFeatureRule
+	 * @generated
+	 */
+	public Adapter createNameFeatureRuleAdapter() {
 		return null;
 	}
 

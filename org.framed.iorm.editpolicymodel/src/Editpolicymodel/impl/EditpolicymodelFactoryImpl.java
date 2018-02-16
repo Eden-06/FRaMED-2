@@ -74,6 +74,7 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.FALSE_FEATURE_RULE: return createFalseFeatureRule();
 			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: return createTrueConstraintRule();
 			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: return createFalseConstraintRule();
+			case EditpolicymodelPackage.NAME_FEATURE_RULE: return createNameFeatureRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -281,6 +282,16 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public FalseConstraintRule createFalseConstraintRule() {
 		FalseConstraintRuleImpl falseConstraintRule = new FalseConstraintRuleImpl();
 		return falseConstraintRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NameFeatureRule createNameFeatureRule() {
+		NameFeatureRuleImpl nameFeatureRule = new NameFeatureRuleImpl();
+		return nameFeatureRule;
 	}
 
 	/**

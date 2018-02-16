@@ -1076,6 +1076,61 @@ public interface EditpolicymodelPackage extends EPackage {
 	int FALSE_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.NameFeatureRuleImpl <em>Name Feature Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.NameFeatureRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNameFeatureRule()
+	 * @generated
+	 */
+	int NAME_FEATURE_RULE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
+
+	/**
+	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
+
+	/**
+	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
+
+	/**
+	 * The number of structural features of the '<em>Name Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Name Feature Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1083,7 +1138,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 19;
+	int ACTION_ENUM = 20;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionTypeEnum <em>Action Type Enum</em>}' enum.
@@ -1093,7 +1148,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionTypeEnum()
 	 * @generated
 	 */
-	int ACTION_TYPE_ENUM = 20;
+	int ACTION_TYPE_ENUM = 21;
 
 
 	/**
@@ -1417,6 +1472,16 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFalseConstraintRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.NameFeatureRule <em>Name Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Name Feature Rule</em>'.
+	 * @see Editpolicymodel.NameFeatureRule
+	 * @generated
+	 */
+	EClass getNameFeatureRule();
 
 	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -1746,6 +1811,16 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FALSE_CONSTRAINT_RULE = eINSTANCE.getFalseConstraintRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.NameFeatureRuleImpl <em>Name Feature Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.NameFeatureRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNameFeatureRule()
+		 * @generated
+		 */
+		EClass NAME_FEATURE_RULE = eINSTANCE.getNameFeatureRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

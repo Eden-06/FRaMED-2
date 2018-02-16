@@ -18,6 +18,7 @@ import Editpolicymodel.IsSourceConstraintRule;
 import Editpolicymodel.IsStepOutConstraintRule;
 import Editpolicymodel.IsTargetConstraintRule;
 import Editpolicymodel.Model;
+import Editpolicymodel.NameFeatureRule;
 import Editpolicymodel.NotConstraintRule;
 import Editpolicymodel.NotFeatureRule;
 import Editpolicymodel.OrConstraintRule;
@@ -179,6 +180,13 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass falseConstraintRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass nameFeatureRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -547,6 +555,15 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getNameFeatureRule() {
+		return nameFeatureRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -638,6 +655,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		falseConstraintRuleEClass = createEClass(FALSE_CONSTRAINT_RULE);
 
+		nameFeatureRuleEClass = createEClass(NAME_FEATURE_RULE);
+
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
 		actionTypeEnumEEnum = createEEnum(ACTION_TYPE_ENUM);
@@ -688,6 +707,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		falseFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
 		trueConstraintRuleEClass.getESuperTypes().add(this.getAbstractConstraintRule());
 		falseConstraintRuleEClass.getESuperTypes().add(this.getAbstractConstraintRule());
+		nameFeatureRuleEClass.getESuperTypes().add(this.getAbstractFeatureRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -739,6 +759,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(trueConstraintRuleEClass, TrueConstraintRule.class, "TrueConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(falseConstraintRuleEClass, FalseConstraintRule.class, "FalseConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(nameFeatureRuleEClass, NameFeatureRule.class, "NameFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

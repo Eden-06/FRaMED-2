@@ -14,11 +14,12 @@
             genModel="model/editpolicymodel.genmodel"/>
    </extension>
 
+      <!-- @generated editpolicymodel 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated editpolicymodel -->
       <package
             uri="http://www.eclipse.org/emf/2002/GenModel"
             class="genmodel.GenmodelPackage"
             genModel="model/editpolicymodel.genmodel"/>
    </extension>
+   -->
 </plugin>

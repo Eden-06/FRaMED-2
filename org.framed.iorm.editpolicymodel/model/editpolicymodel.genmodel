@@ -53,6 +53,7 @@
     <genClasses ecoreClass="editpolicymodel.ecore#//FalseFeatureRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//TrueConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//FalseConstraintRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//NameFeatureRule"/>
   </genPackages>
   <genPackages prefix="Genmodel" ecorePackage="http://www.eclipse.org/emf/2002/GenModel#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="http://www.eclipse.org/emf/2002/GenModel#//GenProviderKind">

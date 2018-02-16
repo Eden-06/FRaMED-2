@@ -194,6 +194,13 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EditpolicymodelPackage.NAME_FEATURE_RULE: {
+				NameFeatureRule nameFeatureRule = (NameFeatureRule)theEObject;
+				T result = caseNameFeatureRule(nameFeatureRule);
+				if (result == null) result = caseAbstractFeatureRule(nameFeatureRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -480,6 +487,21 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFalseConstraintRule(FalseConstraintRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Name Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Name Feature Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNameFeatureRule(NameFeatureRule object) {
 		return null;
 	}
 
