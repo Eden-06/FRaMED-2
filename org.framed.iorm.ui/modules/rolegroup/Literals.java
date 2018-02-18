@@ -12,6 +12,14 @@ public class Literals {
 	public final String FEATURE_NAME = "Role Group";
 	
 	/**
+	 * InRoleGroupPatterns
+	 */
+	public final String ROLEGROUP_IN_RG_FEATURE_NAME = "Role Group in Role Group",
+						ROLETYPE_IN_RG_FEATURE_NAME = "Role Type in Role Group",
+						ROLEGROUP_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.rolegroup_in_rg",
+						ROLETYPE_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.roletype_in_rg";
+	
+	/**
 	 * the standard name and cardinality for a pictogramm element and business object created by the feature
 	 */
 	public final String STANDARD_NAME = "roleGroup",

@@ -23,6 +23,7 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDReconnectFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.StandardFramedShapePattern;
@@ -34,6 +35,8 @@ import org.framed.iorm.ui.UIUtil;
  */
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 
+	private FRaMEDPropertyService framedPropertyService;
+	
 	/**
 	 * The class constructor adds all graphiti pattern to the provider following these steps:
 	 * <p>
@@ -70,6 +73,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}	}	}	
 		//Step 3
 		addPattern(new StandardFramedShapePattern());
+		//Step 4 TODO doku
+		framedPropertyService = new FRaMEDPropertyService();
 	}
 		
 	/**
@@ -148,5 +153,9 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	public List<IConnectionPattern> getConnectionPatterns() {
 		return super.getConnectionPatterns();
+	}
+	
+	public FRaMEDPropertyService getFRaMEDPropertyService() {
+		return framedPropertyService;
 	}
 }

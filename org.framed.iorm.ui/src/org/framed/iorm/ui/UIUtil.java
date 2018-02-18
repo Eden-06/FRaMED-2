@@ -250,54 +250,7 @@ public class UIUtil {
 		if(stepInFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(stepInFeatures.size(), AbstractIntraRelationshipConstraintReference.class.getName());		
 		return null;
 	}
-	
-	/**
-	 * get the {@link AbstractModelFeatureReference}, which references the used model feature
-	 * @return the sub class of {@link AbstractModelFeatureReference}, if exactly one class with that super type was found
-	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
-	 */
-	public static AbstractInRoleGroupReference getInRoleGroupReferenceForModelType(Type modelType) {
-		List<Class<?>> classes = findModuleJavaClasses();
-		List<AbstractInRoleGroupReference> inRoleGroupFeatures = new ArrayList<AbstractInRoleGroupReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(getSuperClasses(cl).contains(AbstractInRoleGroupReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) {
-						AbstractInRoleGroupReference airgr = (AbstractInRoleGroupReference) object;
-						if(airgr.modelType ==  modelType)
-							inRoleGroupFeatures.add((AbstractInRoleGroupReference) object);
-		}	}	}	}
-		if(inRoleGroupFeatures.size()==1) return inRoleGroupFeatures.get(0);
-		if(inRoleGroupFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(inRoleGroupFeatures.size(), AbstractInRoleGroupReference.class.getName());		
-		return null;
-	}
-	
-	/**
-	 * get all {@link AbstractGroupingFeatureReference}, which encapsulates the dependency to all feature pattern that
-	 * can group other objects
-	 * @return the list of {@link AbstractGroupingFeatureReference}
-	 */
-	public static AbstractRoleGroupReference getRoleGroupReference() {
-		List<Class<?>> classes = findModuleJavaClasses();
-		List<AbstractRoleGroupReference> roleGroupFeature = new ArrayList<AbstractRoleGroupReference>();
-		for(Class<?> cl : classes) {
-			if(!Modifier.isAbstract(cl.getModifiers())) {
-				if(getSuperClasses(cl).contains(AbstractRoleGroupReference.class)) {
-					Object object = null;
-					try {
-						object = cl.newInstance();
-					} catch (InstantiationException | IllegalAccessException e) { e.printStackTrace(); }
-					if(object != null) roleGroupFeature.add((AbstractRoleGroupReference) object);
-		}	}	}
-		if(roleGroupFeature.size()==1) return roleGroupFeature.get(0);
-		if(roleGroupFeature.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(roleGroupFeature.size(), AbstractInRoleGroupReference.class.getName());		
-		return null;
-	}
-		
+			
 	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
 	 * @return a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
@@ -806,7 +759,28 @@ public class UIUtil {
 	 */
 	public static final boolean isDiagram_KindValue(Diagram diagram, String value) {
 		return (Graphiti.getPeService().getPropertyValue(diagram, UILiterals.KEY_DIAGRAM_KIND).equals(value));
-	}	
+	}
+	
+	//Rolegroup-Element
+	//~~~~~~~~~~~~~~~~~
+	/**
+	 * set the property shape id for a given shape
+	 * @param shape the shape to set the property for
+	 * @param value the new value of the property
+	 */
+	public static final void setRolegroupElementRelation(Shape shape, String value) {
+		Graphiti.getPeService().setPropertyValue(shape, UILiterals.KEY_ROLEGROUP_ELEMENT, value);
+	}
+		
+	/**
+	 * checks if the property shape id for a given shape equals the given value
+	 * @param shape the shape to check the property for
+	 * @param value the value to check the property against
+	 * @return boolean if the property value equals the given value
+	 */
+	public static final boolean getRolegroupElementRelation(Shape shape, String value) {
+		return (Graphiti.getPeService().getPropertyValue(shape, UILiterals.KEY_ROLEGROUP_ELEMENT).equals(value));
+	}
 	
 	//Grouping
 	//~~~~~~~~

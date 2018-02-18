@@ -28,12 +28,12 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
@@ -43,7 +43,7 @@ import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
-import org.framed.iorm.ui.references.AbstractInRoleGroupReference;
+import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
@@ -68,16 +68,13 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
-	private final Literals literals = new Literals();
+	protected final Literals literals = new Literals();
 	
 	/**
 	 * the object to call utility operations on
 	 */
-	private final Util util = new Util();
-	
-	//TODO
-	private final AbstractInRoleGroupReference irgr;
-	
+	protected final Util util = new Util();
+		
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */	
@@ -102,8 +99,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.ROLE_GROUP;
 		FPD = spec_FPD;
-		//Note
-		irgr = UIUtil.getInRoleGroupReferenceForModelType(modelType);
 	}
 	
 	/**
@@ -114,8 +109,15 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == modelType) return true;
-		}
+			if(shape.getType() == modelType) {
+				//TODO check for container, only unset if just created
+				if(shape.getContainer() != null) {
+					return shape.getContainer().getParent().getType() != Type.ROLE_GROUP;
+				} else {	
+					FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+					if(framedPropertyService.getIormShapeProperty(shape) instanceof Diagram)
+						return true;
+		}	}	}
 		return false;
 	}
 
@@ -154,9 +156,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==modelType) {
-				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					   return EditPolicyService.canAdd(addContext, this.getDiagram());
-		}	}	}
+				//if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+					return EditPolicyService.canAdd(addContext, this.getDiagram());
+		}	}	//}
 		return false;
 	}
 		
@@ -168,8 +170,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <ul>
 	 *   <li>container shape</li>
 	 * 	   <ul>
-	 * 	     <li>drop shadow shape</li>
-	 *         <ul><li>drop shadow rectangle</li></ul>
+	 * 	     <li>occurrence constraint shape</li>
+	 *         <ul><li>occurrence constraint text</li></ul>
 	 * 		 <li>type body shape</li>
 	 * 		   <ul><li>type body rectangle</li></ul>
 	 * 		   <ul>
@@ -194,20 +196,21 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
+		//Step 2
+		//TODO doku why here?!
+		org.framed.iorm.model.Shape newRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());	
+		if(model == null) throw new NoModelFoundException();
+		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
+		model.getElements().add(newRoleGroup);
+		newRoleGroup.setContainer(model);
+			
 		//Step 1
 		org.framed.iorm.model.Shape addedRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
-		Diagram targetDiagram = null;
-		int x,y;
-		if(irgr != null && irgr.inRoleGroup(addContext)) { 
-			targetDiagram = irgr.addInRoleGroup(addContext, getDiagram());
-			x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX();
-			y =  addContext.getY() + targetDiagram.getGraphicsAlgorithm().getY();
-		} else { targetDiagram = getDiagram(); 
-			x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX();
-			y =  addContext.getY() + targetDiagram.getGraphicsAlgorithm().getY();
-		}	
-		
-		int width = addContext.getWidth(), height = addContext.getHeight();
+		Diagram targetDiagram = getDiagram();
+		int x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX(),
+			y =  addContext.getY() + targetDiagram.getGraphicsAlgorithm().getY(),
+			width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
 		
@@ -249,8 +252,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			x, y, 
 			width, height);
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
-		AddRoleGroupContext argc = (AddRoleGroupContext) addContext;
-		link(contentDiagram, argc.getModelToLink());
+		link(contentDiagram, newRoleGroup.getModel());
 		containerShape.getChildren().add(contentDiagram);
 		
 		//Step 3
@@ -324,31 +326,19 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		//model
 		Model roleGroupModel = OrmFactory.eINSTANCE.createModel();
-		getDiagram().eResource().getContents().add(roleGroupModel);
+		//getDiagram().eResource().getContents().add(roleGroupModel);
 		newRoleGroup.setModel(roleGroupModel);
-		
+			
 		//occurence constraint
 		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
 		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
-		getDiagram().eResource().getContents().add(occurenceConstraint);
+		//getDiagram().eResource().getContents().add(occurenceConstraint);
 		newRoleGroup.setDescription(occurenceConstraint);
-		
+						
 		//Step 2
-		Model model = null;
-		if(irgr != null && irgr.inRoleGroup(createContext)) { 
-			model = irgr.createInRoleGroup(createContext, getDiagram());
-		} else { model = UIUtil.getLinkedModelForDiagram(getDiagram()); }	
-		if(model == null) throw new NoModelFoundException();
-		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
-		model.getElements().add(newRoleGroup);
-		newRoleGroup.setContainer(model);
-	
-		//Step 3
-		AddRoleGroupContext argc = new AddRoleGroupContext();
-		UIUtil.getAddContextForCreateShapeContext(argc, createContext);
-		argc.setNewObject(newRoleGroup);
-		argc.setModelToLink(roleGroupModel);
-		if(canAdd(argc)) add(argc);
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.setIormShapeProperty(newRoleGroup, createContext.getTargetContainer());
+		addGraphicalRepresentation(createContext, newRoleGroup);
 		return new Object[] { newRoleGroup };
 	}	
 
@@ -571,26 +561,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	
 	//move feature
 	//~~~~~~~~~~~~
-	/**
-	 * disables that the user can move the drop shadow manually
-	 * <p>
-	 * Its also checks if the type body shape is moved onto the drop shadow shape and allows this. Therefore it takes
-	 * and expands some code of {@link AbstractPattern#canMoveShape}.
-	 */
-	@Override
-	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
-			ContainerShape sourcon = moveContext.getSourceContainer(),
-						   tarcon = moveContext.getTargetContainer();
-			if(UIUtil.isShape_IdValue(tarcon, literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
-				return sourcon.getContainer().equals(util.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
-			} else {
-				super.canMoveShape(moveContext);
-		}	}
-		return super.canMoveShape(moveContext);
-	}
 			
-	//move the type body and the drop shadow 
+	//move the type body and its inner elements
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
@@ -622,9 +594,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			}	}
 			super.moveShape(moveContext);
 			getDiagramBehavior().refresh();
-		}
-		if(UIUtil.isShape_IdValue(moveContext.getTargetContainer(), literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
-			irgr.moveInRoleGroup(moveContext, diagram, getFeatureProvider());
 		}
 	}
 	
