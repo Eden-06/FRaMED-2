@@ -84,7 +84,7 @@ public class Literals {
 	 * (4) the color of graphiti shapes shadows
 	 */
 	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
-			   					COLOR_LINES = UILiterals.COLOR_LINES,
+			   					COLOR_LINES = IColorConstant.GRAY,
 			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
 			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;	   		
 	

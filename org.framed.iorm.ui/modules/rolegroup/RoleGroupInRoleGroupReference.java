@@ -71,9 +71,7 @@ public class RoleGroupInRoleGroupReference extends AbstractInRoleGroupReference 
 	public void moveInRoleGroup(IMoveShapeContext moveContext, Diagram diagram, IFeatureProvider featureProvider) {
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
-		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		RoundedRectangle dropShadowRectangle = (RoundedRectangle) dropShadowShape.getGraphicsAlgorithm();
-		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
+		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
 		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 		Diagram RoleGroupDiagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, diagram);
 		GraphicsAlgorithm diagramRectangle = RoleGroupDiagram.getGraphicsAlgorithm();
@@ -89,13 +87,11 @@ public class RoleGroupInRoleGroupReference extends AbstractInRoleGroupReference 
 			moveContextImpl.setDeltaX(moveContext.getDeltaX() + moveContext.getTargetContainer().getGraphicsAlgorithm().getX());
 			moveContextImpl.setDeltaY(moveContext.getDeltaY() + moveContext.getTargetContainer().getGraphicsAlgorithm().getY());
 		}
-		Graphiti.getGaService().setLocation(dropShadowRectangle, x+literals.SHADOW_SIZE, y+literals.SHADOW_SIZE);
+		Graphiti.getGaService().setLocation(typeBodyRectangle, x, y);
 		Graphiti.getGaService().setLocation(diagramRectangle, x, y);
 		Graphiti.getGaService().setLocation(OCText, 
 				x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
 				y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
-		typeBodyRectangle.setX(x);
-		typeBodyRectangle.setY(y);
 		for(Shape innerShape : RoleGroupDiagram.getChildren()) {
 			if(innerShape instanceof ContainerShape) {
 				ContainerShape innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
@@ -104,7 +100,7 @@ public class RoleGroupInRoleGroupReference extends AbstractInRoleGroupReference 
 				moveContextForInnerShape.setDeltaY(moveContextImpl.getDeltaY());
 				moveContextForInnerShape.setTargetContainer(typeBodyShape);
 				moveContextForInnerShape.setSourceContainer(innerTypeBody.getContainer());
-				moveContextForInnerShape.putProperty("automated", "");
+				moveContextForInnerShape.putProperty("automated", true);
 				IMoveShapeFeature moveFeature = featureProvider.getMoveShapeFeature(moveContextForInnerShape);
 				if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);
 		}	}
