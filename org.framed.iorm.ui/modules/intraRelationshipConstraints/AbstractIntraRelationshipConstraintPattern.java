@@ -177,8 +177,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 			   targetAnchor = targetConnection.getEnd();
 		Relation newIntraRelCon = OrmFactory.eINSTANCE.createRelation();
 	    newIntraRelCon.setType(type); 
-	    Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
-		if(newIntraRelCon.eResource() != null) getDiagram().eResource().getContents().add(newIntraRelCon);
+	    Model model = targetRelation.getContainer();
 		model.getElements().add(newIntraRelCon);
 		newIntraRelCon.setContainer(model);
 		newIntraRelCon.setSource(UIUtil.getModelElementForAnchor(sourceAnchor));

@@ -22,6 +22,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
@@ -30,6 +31,7 @@ import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -319,8 +321,9 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		newRelationship.setType(Type.RELATIONSHIP); 
 	    if(newRelationship.eResource() != null) getDiagram().eResource().getContents().add(newRelationship);
 	    //Step 3
-	    newRelationship.setContainer(sourceShape.getContainer());
-	    sourceShape.getContainer().getElements().add(newRelationship);
+	    Model model = getModelToCreateIn(sourceShape);
+	    newRelationship.setContainer(model);
+	    model.getElements().add(newRelationship);
 	    newRelationship.setSource(sourceShape);
 	    newRelationship.setTarget(targetShape);
 	    //Step 4
@@ -336,5 +339,22 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    addContext.setNewObject(newRelationship);
 		if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	
 	    return newConnection;
+	}
+	
+	/**
+	 * searches for model of the compartment type the connected role types are created in
+	 * <p>
+	 * This operation also works for nested role groups in role groups in such a way that
+	 * the compartment type is found in which the top level role group is contained in.
+	 * @param sourceShape the shape of the role to get the compartment type for
+	 * @return the model of the compartment type the connected role types are created
+	 */
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
+		while(sourceShape.getContainer() != null) {
+			if(sourceShape.getContainer().getParent().getType() == Type.COMPARTMENT_TYPE)
+				return sourceShape.getContainer();
+			else sourceShape = sourceShape.getContainer().getParent();
+		}
+		throw new NoModelFoundException();
 	}
 }

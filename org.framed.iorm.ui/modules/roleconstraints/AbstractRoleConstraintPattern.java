@@ -13,6 +13,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 
 /**
  * This is the abstract super class of the patterns for role constraint. It collects similiar operations
@@ -32,7 +33,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	/**
 	 * checks if connection can be reconnected
 	 * <p>
-	 * @return true if the shapes the new and old anchors belong to have the same type
+	 * @return true if the shapes the new and old anchors are both role types in the same container
 	 */
 	@Override
 	public boolean canReconnect(IReconnectionContext context) {
@@ -136,8 +137,9 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    newRoleConstraint.setType(type); 
 	    if(newRoleConstraint.eResource() != null) getDiagram().eResource().getContents().add(newRoleConstraint);
 	    //Step 3
-	    newRoleConstraint.setContainer(sourceShape.getContainer());
-	    getModelToCreateIn(sourceShape).getElements().add(newRoleConstraint);
+	    Model model = getModelToCreateIn(sourceShape);
+	    newRoleConstraint.setContainer(model);
+	    model.getElements().add(newRoleConstraint);
 		newRoleConstraint.setSource(sourceShape);
 		newRoleConstraint.setTarget(targetShape);
 	    //Step 4
@@ -162,6 +164,6 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 				return sourceShape.getContainer();
 			else sourceShape = sourceShape.getContainer().getParent();
 		}
-		return null;
+		throw new NoModelFoundException();
 	}
 }
