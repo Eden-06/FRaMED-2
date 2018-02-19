@@ -2,8 +2,6 @@ package org.framed.iorm.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 //TODO alles
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -29,6 +27,13 @@ public class FRaMEDPropertyService {
 			return containerShapeList.get(iormShapeList.indexOf(iormShape));
 		}
 		return null;
+	}
+	
+	public void deleteIormShapeProperty(org.framed.iorm.model.Shape iormShape) {
+		if(iormShapeList.contains(iormShape)) {
+			containerShapeList.remove(iormShapeList.indexOf(iormShape));
+			iormShapeList.remove(iormShape);
+		}
 	}
 
 }

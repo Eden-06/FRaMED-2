@@ -81,6 +81,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 */
 	public FRaMEDShapePattern() {
 		super(null);
+		System.out.println((FeatureProvider) getFeatureProvider());
 	}
 	
 	/**

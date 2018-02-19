@@ -18,12 +18,14 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.providers.FeatureProvider;
 
 import roletype.RoleTypePattern;
 
@@ -61,14 +63,18 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
-			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == modelType) {
-				System.out.println("BBBs " + ((org.framed.iorm.model.Shape) businessObject).getContainer());
-				org.framed.iorm.model.Shape parent = ((org.framed.iorm.model.Shape) businessObject).getContainer().getParent();
-				if(parent.getType() == Type.ROLE_GROUP)
-					return true;
-			}			
-		}
+			org.framed.iorm.model.Shape iormShape = (org.framed.iorm.model.Shape) businessObject;
+			if(iormShape.getType() == modelType) {
+				//TODO check for container, only unset if just created
+				if(iormShape.getContainer() != null) {
+					return iormShape.getContainer().getParent().getType() == Type.ROLE_GROUP;
+				} else {
+					FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+					if(!(framedPropertyService.getIormShapeProperty(iormShape) instanceof Diagram)) {
+						ContainerShape containerShape = framedPropertyService.getIormShapeProperty(iormShape);
+						if(UIUtil.isShape_IdValue(containerShape, roleGroupLiterals.SHAPE_ID_ROLEGROUP_TYPEBODY))
+							return true;
+		}	}	}	}
 		return false;
 	}
 
@@ -133,12 +139,17 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
+		
 		//Step 2
 		org.framed.iorm.model.Shape newRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.deleteIormShapeProperty(newRoleType);
+		
+		//TODO
 		Diagram targetDiagram = roleGroupUtil.getRoleGroupDiagramForItsShape(addContext.getTargetContainer(), getDiagram()); 
-		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
+		Model model = UIUtil.getLinkedModelForDiagram(targetDiagram);
 		if(model == null) throw new NoModelFoundException();
-		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
+		if(newRoleType.eResource() != null) targetDiagram.eResource().getContents().add(newRoleType);
 		model.getElements().add(newRoleType);
 		newRoleType.setContainer(model);
 		

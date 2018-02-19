@@ -761,27 +761,6 @@ public class UIUtil {
 		return (Graphiti.getPeService().getPropertyValue(diagram, UILiterals.KEY_DIAGRAM_KIND).equals(value));
 	}
 	
-	//Rolegroup-Element
-	//~~~~~~~~~~~~~~~~~
-	/**
-	 * set the property shape id for a given shape
-	 * @param shape the shape to set the property for
-	 * @param value the new value of the property
-	 */
-	public static final void setRolegroupElementRelation(Shape shape, String value) {
-		Graphiti.getPeService().setPropertyValue(shape, UILiterals.KEY_ROLEGROUP_ELEMENT, value);
-	}
-		
-	/**
-	 * checks if the property shape id for a given shape equals the given value
-	 * @param shape the shape to check the property for
-	 * @param value the value to check the property against
-	 * @return boolean if the property value equals the given value
-	 */
-	public static final boolean getRolegroupElementRelation(Shape shape, String value) {
-		return (Graphiti.getPeService().getPropertyValue(shape, UILiterals.KEY_ROLEGROUP_ELEMENT).equals(value));
-	}
-	
 	//Grouping
 	//~~~~~~~~
 	/**

@@ -199,6 +199,10 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//Step 2
 		//TODO doku why here?!
 		org.framed.iorm.model.Shape newRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.deleteIormShapeProperty(newRoleGroup);
+		
+		//TODO
 		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());	
 		if(model == null) throw new NoModelFoundException();
 		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
@@ -326,13 +330,11 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		
 		//model
 		Model roleGroupModel = OrmFactory.eINSTANCE.createModel();
-		//getDiagram().eResource().getContents().add(roleGroupModel);
 		newRoleGroup.setModel(roleGroupModel);
 			
 		//occurence constraint
 		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
 		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
-		//getDiagram().eResource().getContents().add(occurenceConstraint);
 		newRoleGroup.setDescription(occurenceConstraint);
 						
 		//Step 2

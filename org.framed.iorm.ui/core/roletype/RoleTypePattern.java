@@ -25,6 +25,7 @@ import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
@@ -34,6 +35,7 @@ import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
@@ -41,6 +43,7 @@ import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
 /**
@@ -107,11 +110,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == modelType) {
-				org.framed.iorm.model.Shape parent = ((org.framed.iorm.model.Shape) businessObject).getContainer().getParent();
-				if(parent.getType() != Type.ROLE_GROUP)
-					return true;
-			}			
-		}
+				//TODO check for container, only unset if just created
+				if(shape.getContainer() != null) {
+					return shape.getContainer().getParent().getType() != Type.ROLE_GROUP;
+				} else {	
+					FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+					if(framedPropertyService.getIormShapeProperty(shape) instanceof Diagram)
+						return true;
+		}	}	}
 		return false;
 	}
 
@@ -197,6 +203,10 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public PictogramElement add(IAddContext addContext) {
 		//Step 2
 		org.framed.iorm.model.Shape newRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.deleteIormShapeProperty(newRoleType);
+		
+		//TODO
 		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
 		if(model == null) throw new NoModelFoundException();
 		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
@@ -356,17 +366,16 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
 				operationSegment = OrmFactory.eINSTANCE.createSegment();
-		getDiagram().eResource().getContents().add(attributeSegment);
-		getDiagram().eResource().getContents().add(operationSegment);
 		newRoleType.setFirstSegment(attributeSegment);
 		newRoleType.setSecondSegment(operationSegment);
 		//occurence constraint
 		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
 		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
-		getDiagram().eResource().getContents().add(occurenceConstraint);
 		newRoleType.setDescription(occurenceConstraint);
 			
 		//Step 2
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.setIormShapeProperty(newRoleType, createContext.getTargetContainer());
 		addGraphicalRepresentation(createContext, newRoleType);
 		return new Object[] { newRoleType };
 	}	
