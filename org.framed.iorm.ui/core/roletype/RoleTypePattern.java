@@ -103,6 +103,11 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
 	 * checks if pattern is applicable for a given business object
+	 * <p>
+	 * Note: At creation of a role type there is no container of the iorm shape assigned. Therefore the else-branch uses
+	 *       the {@link FRaMEDPropertyService} to get in which container a role type was created in. The property managed with the 
+	 *       {@link FRaMEDPropertyService} is deleted when adding the role type. After that point in the life cycle of a 
+	 *       role type the now set container is used to identify if this pattern is the right one to apply.
 	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_TYPE}
 	 */
 	@Override
@@ -110,7 +115,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == modelType) {
-				//TODO check for container, only unset if just created
+				//Note
 				if(shape.getContainer() != null) {
 					return shape.getContainer().getParent().getType() != Type.ROLE_GROUP;
 				} else {	
@@ -191,29 +196,29 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * </ul> 
 	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the role type in and calculates the height and width 
-	 * 		   of the role types representation.<br>
-	 * Step 2: It creates the structure shown above.<br>
-	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
-	 * Step 4: It links the created shapes of the role to its business objects.<br> 
-	 * Step 5: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
+	 * Step 1: It adds the role types business object to the correct model. This is not done in the create operation, since there
+	 * 		   is only one create operation handling the creation of role types in and outside of role groups. To ensure modularity
+	 * 		   the code that differs depending on where role types are created in has be outsourced to this operation.<br>
+	 * Step 2: It calculates the height and width of the role types representation.<br>
+	 * Step 3: It creates the structure shown above.<br>
+	 * Step 4: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
+	 * Step 5: It links the created shapes of the role to its business objects.<br> 
+	 * Step 6: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
 	 * 		   its created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		//Step 2
+		//Step 1
 		org.framed.iorm.model.Shape newRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
 		framedPropertyService.deleteIormShapeProperty(newRoleType);
-		
-		//TODO
 		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
 		if(model == null) throw new NoModelFoundException();
 		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
 		model.getElements().add(newRoleType);
 		newRoleType.setContainer(model);
 		
-		//Step 1
+		//Step 2
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		ContainerShape targetDiagram = getDiagram(); 
 		int x =  addContext.getX(),
@@ -222,7 +227,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
 					
-		//Step 2
+		//Step 3
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 								  
@@ -285,7 +290,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter+literals.PUFFER_BETWEEN_ELEMENTS, 
 			width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter-literals.ROLE_CORNER_RADIUS/2);
 					
-		//Step 3
+		//Step 4
 		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLETYPE_CONTAINER);
 		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
 		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLETYPE_TYPEBODY);
@@ -296,7 +301,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		UIUtil.setShape_IdValue(secondLineShape, literals.SHAPE_ID_ROLETYPE_SECONDLINE);
 		UIUtil.setShape_IdValue(operationContainer, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
 					
-		//Step 4
+		//Step 5
 		link(containerShape, addedRoleType);
 		link(cardinalityShape, addedRoleType);
 		link(typeBodyShape, addedRoleType);
@@ -307,7 +312,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		link(secondLineShape, addedRoleType);
 		link(operationContainer, addedRoleType);
 					
-		//Step 5
+		//Step 6
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
@@ -351,8 +356,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * It follows this steps:<br>
 	 * Step 1: It creates the structure shown above.<br>
-	 * Step 2: It adds the new role type to the elements of the model of the diagram in which its created.<br>
-	 * Step 3: It call the add function to add the pictogram elements of the role type.
+	 * Step 2: It sets uses the {@link FRaMEDPropertyService} to make the business objects target container available to the 
+	 * 		   patterns that work with role groups. It also call the add function to add the pictogram elements of the role group.
 	 * @return the created business object of the role type
 	 */
 	@Override
@@ -814,7 +819,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can resize the drop shadow and the cardinality manually
+	 * disables that the user can resize the drop shadow and the occurrence constraint manually
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
@@ -823,12 +828,6 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			return false;
 		}
 		return super.canResizeShape(resizeContext);
-	}
-	
-	//TODO explicit refresh need in role group
-	public void resizeShape(IResizeShapeContext resizeContext) {
-		super.resizeShape(resizeContext);
-		getDiagramBehavior().refresh();
 	}
 		
 	//delete feature
