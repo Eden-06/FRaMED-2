@@ -2,9 +2,11 @@ package roleconstraints;
 
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
@@ -25,6 +27,27 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 */
 	public AbstractRoleConstraintPattern() {
 		super();
+	}
+	
+	/**
+	 * checks if connection can be reconnected
+	 * <p>
+	 * @return true if the shapes the new and old anchors belong to have the same type
+	 */
+	@Override
+	public boolean canReconnect(IReconnectionContext context) {
+		Anchor newAnchor = context.getNewAnchor();
+	    Anchor oldAnchor = context.getOldAnchor();
+	    org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
+	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
+	    if(newShape != null && oldShape != null) {
+	    	if(newShape.getContainer() == oldShape.getContainer() &&
+	    	   !(newShape.equals(oldShape))) {
+	    		if(newShape.getType() == Type.ROLE_TYPE)
+	    			if(oldShape.getType() == newShape.getType())
+	    				return true;
+		}	}
+	    return false;
 	}
 	
 	//add feature
@@ -114,7 +137,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    if(newRoleConstraint.eResource() != null) getDiagram().eResource().getContents().add(newRoleConstraint);
 	    //Step 3
 	    newRoleConstraint.setContainer(sourceShape.getContainer());
-	    sourceShape.getContainer().getElements().add(newRoleConstraint);
+	    getModelToCreateIn(sourceShape).getElements().add(newRoleConstraint);
 		newRoleConstraint.setSource(sourceShape);
 		newRoleConstraint.setTarget(targetShape);
 	    //Step 4
@@ -123,5 +146,22 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    Connection newConnection = null;
 	    if(arcp.canAdd(addContext)) newConnection = (Connection) arcp.add(addContext); 	        
 	    return newConnection;
+	}
+	
+	/**
+	 * searches for model of the compartment type the connected role types are created in
+	 * <p>
+	 * This operation also works for nested role groups in role groups in such a way that
+	 * the compartment type is found in which the top level role group is contained in.
+	 * @param sourceShape the shape of the role to get the compartment type for
+	 * @return the model of the compartment type the connected role types are created
+	 */
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
+		while(sourceShape.getContainer() != null) {
+			if(sourceShape.getContainer().getParent().getType() == Type.COMPARTMENT_TYPE)
+				return sourceShape.getContainer();
+			else sourceShape = sourceShape.getContainer().getParent();
+		}
+		return null;
 	}
 }
