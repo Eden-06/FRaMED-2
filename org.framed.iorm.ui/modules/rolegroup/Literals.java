@@ -2,22 +2,17 @@ package rolegroup;
 
 import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.UILiterals;
-import org.framed.iorm.ui.palette.PaletteView;
 
+/**
+ * This class saves literals in the scope of the role group feature module.
+ * @author Kevin Kassin
+ */
 public class Literals {
 	
 	/**
 	 * the features names used for the palette entry of this feature
 	 */
 	public final String FEATURE_NAME = "Role Group";
-	
-	/**
-	 * InRoleGroupPatterns
-	 */
-	public final String ROLEGROUP_IN_RG_FEATURE_NAME = "Role Group in Role Group",
-						ROLETYPE_IN_RG_FEATURE_NAME = "Role Type in Role Group",
-						ROLEGROUP_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.rolegroup_in_rg",
-						ROLETYPE_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.roletype_in_rg";
 	
 	/**
 	 * the standard name and cardinality for a pictogramm element and business object created by the feature
@@ -32,27 +27,29 @@ public class Literals {
 						ICON_IMG_PATH = "modules/rolegroup/icon_rolegroup.png";
 	
 	/**
+	 * literals for the InRoleGroupPatterns
+	 */
+	public final String ROLEGROUP_IN_RG_FEATURE_NAME = "Role Group in Role Group",
+						ROLETYPE_IN_RG_FEATURE_NAME = "Role Type in Role Group",
+						ROLEGROUP_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.rolegroup_in_rg",
+						ROLETYPE_IN_RG_ICON_IMG_ID = "org.framed.iorm.ui.modules.roletype_in_rg";
+	
+	/**
 	 * the kind of diagram this module's pattern creates
 	 */
 	public final String DIAGRAM_KIND = "role_group_diagram";
-	
+
 	/**
-	 * the palette view of this module's patterns
-	 */
-	public final PaletteView paletteView = PaletteView.COMPARTMENT_VIEW; 
-	
-	/**
-	 * identifiers used for compartment types pictogramm shapes
+	 * identifiers used for role groups pictogramm shapes
 	 * <p>
 	 * can be for:<br>
 	 * (1) the container shape or<br>
 	 * (2) type body shape or<br>
-	 * (3) drop shadow shape or<br>
-	 * (4) name shape
+	 * (3) name shape or<br>
+	 * (4) occurrence constraint
 	 */
 	public final String SHAPE_ID_ROLEGROUP_CONTAINER = "shape_rg_container",
 						SHAPE_ID_ROLEGROUP_TYPEBODY = "shape_rg_typebody",
-						SHAPE_ID_ROLEGROUP_SHADOW = "shape_rg_shadow",
 						SHAPE_ID_ROLEGROUP_NAME = "shape_rg_name",
 						SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT = "shape_rg_cardinality";
 	
@@ -88,13 +85,11 @@ public class Literals {
 	 * can be:<br>
 	 * (1) the color of text or<br>
 	 * (2) the color of lines or<br>
-	 * (3) the color of backgrounds or<br>
-	 * (4) the color of graphiti shapes shadows
+	 * (3) the color of backgrounds
 	 */
 	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
 			   					COLOR_LINES = IColorConstant.GRAY,
-			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
-			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;	   		
+			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND;  		
 	
 	//Name
 	//~~~~~

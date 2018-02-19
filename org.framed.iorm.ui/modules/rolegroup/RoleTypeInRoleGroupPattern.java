@@ -30,12 +30,22 @@ import org.framed.iorm.ui.providers.FeatureProvider;
 import roletype.RoleTypePattern;
 
 /**
- * TODO
+ * This pattern implements operations that differ from the {@link RoleTypePattern} when a role type is in a
+ * role group. Namely these are:
+ * <p>
+ * (1) adding a role group to the diagram, especially its pictogram elements<br>
+ * (2) moves the role group and its inner elements<br>
  */
 public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	
+	/**
+	 * the object to get names, ids and so on for the role group feature
+	 */
 	rolegroup.Literals roleGroupLiterals = new rolegroup.Literals();
 	
+	/**
+	 * the object to call utility operations of the role group feature on
+	 */
 	rolegroup.Util roleGroupUtil = new rolegroup.Util();
 	
 	/**
@@ -49,7 +59,9 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 				return false;
 		}	};
 		
-	//TODO	
+	/**
+	 * Class constructor
+	 */
 	public RoleTypeInRoleGroupPattern() {
 		FEATURE_NAME = roleGroupLiterals.ROLETYPE_IN_RG_FEATURE_NAME;
 		FPD = spec_FPD;
@@ -58,14 +70,19 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	
 	/**
 	 * checks if pattern is applicable for a given business object
-	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_GROUP} in Role Group
+	 * <p>
+	 * Note: At creation of a role type there is no container of the iorm shape assigned. Therefore the else-branch uses
+	 *       the {@link FRaMEDPropertyService} to get in which container a role type was created in. The property managed with the 
+	 *       {@link FRaMEDPropertyService} is deleted when adding the role type. After that point in the life cycle of a 
+	 *       role type the now set container is used to identify if this pattern is the right one to apply.
+	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_TYPE} in Role Group
 	 */
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape iormShape = (org.framed.iorm.model.Shape) businessObject;
 			if(iormShape.getType() == modelType) {
-				//TODO check for container, only unset if just created
+				//Note
 				if(iormShape.getContainer() != null) {
 					return iormShape.getContainer().getParent().getType() == Type.ROLE_GROUP;
 				} else {
@@ -80,7 +97,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 
 	/**
 	 * checks if pattern is applicable for a given pictogram element
-	 * @return true, if business object of the pictogram element is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_GROUP}
+	 * @return true, if business object of the pictogram element is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_TYPE}
 	 * in a Role Group
 	 */
 	@Override
@@ -91,7 +108,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 
 	/**
 	 * checks if the pictogram element to edit with the pattern is its root
-	 * @return true, if business object of the pictogram element is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_GROUP}
+	 * @return true, if business object of the pictogram element is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_TYPE}
 	 * in a Role Group
 	 */
 	@Override
@@ -129,23 +146,22 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	 * </ul> 
 	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the role type in and calculates the height and width 
-	 * 		   of the role types representation.<br>
-	 * Step 2: It creates the structure shown above.<br>
-	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
-	 * Step 4: It links the created shapes of the role to its business objects.<br> 
-	 * Step 5: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
+	 * Step 1: It adds the role types business object to the correct model. This is not done in the create operation, since there
+	 * 		   is only one create operation handling the creation of role types in and outside of role groups. To ensure modularity
+	 * 		   the code that differs depending on where role types are created in has be outsourced to this operation.<br>
+	 * Step 2: It calculates the height and width of the role types representation.<br>
+	 * Step 3: It creates the structure shown above.<br>
+	 * Step 4: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
+	 * Step 5: It links the created shapes of the role to its business objects.<br> 
+	 * Step 6: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
 	 * 		   its created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		
-		//Step 2
+		//Step 1
 		org.framed.iorm.model.Shape newRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
 		framedPropertyService.deleteIormShapeProperty(newRoleType);
-		
-		//TODO
 		Diagram targetDiagram = roleGroupUtil.getRoleGroupDiagramForItsShape(addContext.getTargetContainer(), getDiagram()); 
 		Model model = UIUtil.getLinkedModelForDiagram(targetDiagram);
 		if(model == null) throw new NoModelFoundException();
@@ -153,7 +169,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		model.getElements().add(newRoleType);
 		newRoleType.setContainer(model);
 		
-		//Step 1
+		//Step 2
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		int x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX(),
 			y =  addContext.getY() + targetDiagram.getGraphicsAlgorithm().getY(), 
@@ -161,7 +177,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
 					
-		//Step 2
+		//Step 3
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 								  
@@ -224,7 +240,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 			literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter+literals.PUFFER_BETWEEN_ELEMENTS, 
 			width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter-literals.ROLE_CORNER_RADIUS/2);
 					
-		//Step 3
+		//Step 4
 		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLETYPE_CONTAINER);
 		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
 		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLETYPE_TYPEBODY);
@@ -235,7 +251,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		UIUtil.setShape_IdValue(secondLineShape, literals.SHAPE_ID_ROLETYPE_SECONDLINE);
 		UIUtil.setShape_IdValue(operationContainer, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
 					
-		//Step 4
+		//Step 5
 		link(containerShape, addedRoleType);
 		link(cardinalityShape, addedRoleType);
 		link(typeBodyShape, addedRoleType);
@@ -246,7 +262,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		link(secondLineShape, addedRoleType);
 		link(operationContainer, addedRoleType);
 					
-		//Step 5
+		//Step 6
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
@@ -258,6 +274,12 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		return containerShape;
 	}	
 	
+	/**
+	 * disables that the user can move the drop shadow manually
+	 * <p>
+	 * alos checks if the role group is moved inside the same role group
+	 * TODO role group move auf schatten
+	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW)) {
@@ -265,15 +287,25 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		}
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
 			ContainerShape sourcon = moveContext.getSourceContainer(),
-					   tarcon = moveContext.getTargetContainer();
+						   tarcon = moveContext.getTargetContainer();
 			return sourcon.getContainer().equals(roleGroupUtil.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
 		}
 		return false;
 	}
 	
-	//move the type body and the drop shadow 
+	/**
+	 * moves a role type in a role group by following these steps:
+	 * <p>
+	 * Step 1: It gets the pictogram shapes and graphic algorithms of the role type.<br>
+	 * Step 2: It calculates the coordinates the role type is moved to. Since the role type is in a
+	 * 		   role group it might be needed to add the coordinates of the outer role groups and also
+	 * 		   differ between automated moved (e.g. when the outer role group would be moved) and the
+	 * 		   movement triggered by a user.<br>
+	 * Step 3: Its sets the role groups graphic algorithms to previously calculated coordinates.
+	 */
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
+		//Step 1
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
 		ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
@@ -281,6 +313,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
 		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 		
+		//Step 2
 		int x, y;
 		MoveShapeContext moveContextImpl = (MoveShapeContext) moveContext;
 		if(moveContextImpl.getProperty("automated") != null) {
@@ -290,13 +323,15 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 			x =  moveContext.getTargetContainer().getGraphicsAlgorithm().getX() + typeBodyRectangle.getX() + moveContext.getDeltaX();
 			y =  moveContext.getTargetContainer().getGraphicsAlgorithm().getY() + typeBodyRectangle.getY() + moveContext.getDeltaY();
 		}
-			dropShadowRectangle.setX(x + literals.SHADOW_SIZE);
-			dropShadowRectangle.setY(y + literals.SHADOW_SIZE);
-			Graphiti.getGaService().setLocation(OCText, 
-					x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-					y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
-			typeBodyRectangle.setX(x);
-			typeBodyRectangle.setY(y);
+		
+		//Step 3
+		dropShadowRectangle.setX(x + literals.SHADOW_SIZE);
+		dropShadowRectangle.setY(y + literals.SHADOW_SIZE);
+		Graphiti.getGaService().setLocation(OCText, 
+				x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+				y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
+		typeBodyRectangle.setX(x);
+		typeBodyRectangle.setY(y);
 	}	
 }
 

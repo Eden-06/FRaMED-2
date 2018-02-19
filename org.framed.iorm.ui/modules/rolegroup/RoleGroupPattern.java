@@ -44,23 +44,22 @@ import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.providers.FeatureProvider;
-import org.framed.iorm.ui.wizards.RoleModelWizard;
 
 /**
- * TODO
  * This graphiti pattern class is used to work with {@link org.framed.iorm.model.Shape}s
- * of the type {@link Type#COMPARTMENT_TYPE} in the editor.
+ * of the type {@link Type#ROLE_GROUP} in the editor.
  * <p>
- * It deals with the following aspects of compartment types:<br>
- * (1) adding a compartment type to the diagram, especially its pictogram elements<br>
- * (2) creating the compartment type, especially its business object<br>
- * (3) direct editing of the compartment types name<br>
- * (4) layout the group, especially setting lines, attributes, operations and  group elements at the right positions<br>
- * (5) updating the groups name, attributes, operations and its content overview<br>
- * (6) moves the drop shadow with the type body and disables moving the drop shadow manually<br>
- * (7) resizes the drop shadow with the type body and disables resizing the drop shadow manually<br>
- * (8) deleting all the compartments pictogram elements and its diagram, also disables deleting the drop 
- *     shadow manually
+ * It deals with the following aspects of role groups:<br>
+ * (1) adding a role group to the diagram, especially its pictogram elements<br>
+ * (2) creating the role group, especially its business object<br>
+ * (3) direct editing of the role groups name<br>
+ * (4) layout the role group, especially setting it names and occurrence constraints text<br>
+ * (5) updating the role groups name and occurrence constraint<br>
+ * (6) moves the role group and its inner elements<br>
+ * (7) resizes the role groups diagram with the type body<br>
+ * (8) deletes its diagram and updates the element the role group is contained in
+ * <p>
+ * For operation that differ when a role group is in another role group see {@link RoleGroupInRoleGroupPattern}.
  * @author Kevin Kassin
  */
 public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
@@ -103,6 +102,11 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
 	 * checks if pattern is applicable for a given business object
+	 * <p>
+	 * Note: At creation of a role group there is no container of the iorm shape assigned. Therefore the else-branch uses
+	 *       the {@link FRaMEDPropertyService} to get in which container a role group was created in. The property managed with the 
+	 *       {@link FRaMEDPropertyService} is deleted when adding the role group. After that point in the life cycle of a 
+	 *       role group the now set container is used to identify if this pattern is the right one to apply.
 	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_GROUP}
 	 */
 	@Override
@@ -110,7 +114,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == modelType) {
-				//TODO check for container, only unset if just created
 				if(shape.getContainer() != null) {
 					return shape.getContainer().getParent().getType() != Type.ROLE_GROUP;
 				} else {	
@@ -156,15 +159,14 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==modelType) {
-				//if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
 					return EditPolicyService.canAdd(addContext, this.getDiagram());
-		}	}	//}
+		}	}	}
 		return false;
 	}
 		
 	/**
-	 * TODO
-	 * adds the graphical representation of a role group to the pictogram model
+	 * adds the graphical representation of a role group in a role group to the pictogram model
 	 * <p>
 	 * It creates the following structure:<br>
 	 * <ul>
@@ -178,38 +180,34 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * 		     <li>name container</li>
 	 * 			  <ul><li>name text</li></ul>
 	 * 		   </ul>
+	 * 		<li>role groups diagram</li>
 	 * 	   </ul>
 	 * </ul> 
 	 * <p>
-	 * The compartment types diagram will be created outside of the compartment types <em>container shape</em>. It can be 
-	 * found as child of the <em>container diagram</em> of the role model. If its not clear what <em>container diagram</em> 
-	 * means, see {@link RoleModelWizard#createEmfFileForDiagram} for reference.
-	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the role group in and calculates the height and width 
-	 * 		   of the role group representation.<br>
-	 * Step 2: It creates the structure shown above.<br>
-	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the role group.<br>
-	 * Step 4: It links the created shapes of the group to its business objects.<br> 
-	 * Step 5: It enables direct editing, anchors and layouting of the role group. It also updates the group in which 
+	 * Step 1: It adds the role groups business object to the correct model. This is not done in the create operation, since there
+	 * 		   is only one create operation handling the creation of role groups in and outside of role groups. To ensure modularity
+	 * 		   the code that differs depending on where role groups are created in has be outsourced to this operation.<br>
+	 * Step 2: It calculates the location, height and width of the role groups representation.<br>
+	 * Step 3: It creates the structure shown above.<br>
+	 * Step 4: It sets the shape identifiers for the created graphics algorithms of the role group.<br>
+	 * Step 5: It links the created shapes of the group to its business objects.<br> 
+	 * Step 6: It enables direct editing, anchors and layouting of the role group. It also updates the group in which 
 	 * 		   its created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
-		//Step 2
-		//TODO doku why here?!
+		//Step 1
 		org.framed.iorm.model.Shape newRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
 		framedPropertyService.deleteIormShapeProperty(newRoleGroup);
-		
-		//TODO
 		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());	
 		if(model == null) throw new NoModelFoundException();
 		if(newRoleGroup.eResource() != null) getDiagram().eResource().getContents().add(newRoleGroup);
 		model.getElements().add(newRoleGroup);
 		newRoleGroup.setContainer(model);
 			
-		//Step 1
+		//Step 2
 		org.framed.iorm.model.Shape addedRoleGroup = (org.framed.iorm.model.Shape) addContext.getNewObject();
 		Diagram targetDiagram = getDiagram();
 		int x =  addContext.getX() + targetDiagram.getGraphicsAlgorithm().getX(),
@@ -218,7 +216,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
 		
-		//Step 2
+		//Step 3
 		//container for body shape
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 			
@@ -259,19 +257,19 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		link(contentDiagram, newRoleGroup.getModel());
 		containerShape.getChildren().add(contentDiagram);
 		
-		//Step 3
+		//Step 4
 		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLEGROUP_CONTAINER);
 		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLEGROUP_TYPEBODY);
 		UIUtil.setShape_IdValue(nameShape, literals.SHAPE_ID_ROLEGROUP_NAME);
 		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT);
 		
-		//Step 4
+		//Step 5
 		link(containerShape, addedRoleGroup);
 		link(typeBodyShape, addedRoleGroup);
 		link(nameShape, addedRoleGroup);
 		link(cardinalityShape, addedRoleGroup);
 		
-		//Step 5
+		//Step 6
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
@@ -308,15 +306,15 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <ul>
 	 *   <li>(org.framed.iorm.model.Shape) role group</li>
 	 * 	   <ul>
-	 * 		 <li>(Model) compartment types model</li> 
+	 * 		 <li>(Model) role groups model</li> 
+	 * 		 <li>(Description) role groups occurrence constraint</li>
 	 * 	   </ul>
 	 * </ul> 
 	 * <p>
 	 * It follows this steps:<br>
 	 * Step 1: It creates the structure shown above.<br>
-	 * Step 2: It adds the new role group to the elements of the model of the diagram in which its created.<br>
-	 * Step 3: It call the add function to add the pictogram elements of the role group using a 
-	 * 		   {@link AddRoleGroupContext}.
+	 * Step 2: It sets uses the {@link FRaMEDPropertyService} to make the business objects target container available to the 
+	 * 		   patterns that work with role groups. It also call the add function to add the pictogram elements of the role group.
 	 * @return the created business object of the role group
 	 */
 	@Override
@@ -347,7 +345,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	//direct editing
 	//~~~~~~~~~~~~~~
 	/**
-	 * sets the editing type as a text field for the direct editing of the role group name
+	 * sets the editing type as a text field for the direct editing of the role group name and occurrence constraint
 	 */
 	@Override
 	public int getEditingType() {
@@ -360,7 +358,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * returns true if:<br>
 	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
 	 * 	   of the type {@link Type#ROLE_GROUP} and<br>
-	 * (2) the graphics algorithm of the pictogram element is a {@link Text}
+	 * (2) the double clicked pictogram element is the name or the occurrence constraint
 	 * @return if the selected pictogram can be direct edited
 	 */
 	@Override
@@ -375,7 +373,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	}
 
 	/**
-	 * returns the current role groups name as initial value for direct editing
+	 * returns the current role groups name or occurrence constraint as initial value for direct editing
 	 */
 	@Override
 	public String getInitialValue(IDirectEditingContext editingContext) {
@@ -389,11 +387,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * calculates if a chosen value for the role group's name is valid
-	 * <p>
-	 * A valid value is in a specific form checked by {@link Util#matchesRoleGroupName} and is not already
-	 * chosen for another role group. This is checked by {@link UIUtil#nameAlreadyUsedDiagramWide}.
-	 * @return if a chosen value for the role group's name is valid
+	 * calculates if a chosen value for the role group's name or occurrence constraint is valid
+	 * @return if a chosen value for the role group's name or occurrence constraint is valid
 	 */
 	@Override
 	public String checkValueValid(String newValue, IDirectEditingContext editingContext) {
@@ -411,7 +406,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	}
 		
 	/**
-	 * sets value of the role groups name, updates its own pictogram element and a grouping features object in which its in, if any
+	 * sets value of the role groups name or occurrence constraint, updates its own pictogram element and a grouping 
+	 * features object in which its in, if any
 	 */
 	@Override
 	public void setValue(String value, IDirectEditingContext editingContext) {	     
@@ -462,6 +458,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * 		   the size of the type body and drop shadow shape.<br>
 	 * Step 3: It now iterates over all shapes of the role group:<br>
 	 * (a) It sets the width of the names shape.<br>
+	 * TODO: occurence set
 	 * <p>
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
@@ -486,9 +483,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		        	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_NAME)) {
 		        		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);
 		            	layoutChanged=true;
-		        }	}
- 		        layoutChanged = true; 
-		}	}  
+		}	}	}	}  
 	    return layoutChanged;
 	}
 	
@@ -564,18 +559,27 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	//move feature
 	//~~~~~~~~~~~~
 			
-	//move the type body and its inner elements
+	/**
+	 * moves a role group in a role group by following these steps:
+	 * <p>
+	 * Step 1: It gets the pictogram shapes and graphic algorithms of the role group.<br>
+	 * Step 2: Its sets the role groups graphic algorithms to its changed coordinates.<br>
+	 * Step 3: It creates move contexts for its inner elements and calls their move operations.
+	 */
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
+		//Step 1
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
 		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
 		GraphicsAlgorithm diagramRectangle = diagram.getGraphicsAlgorithm();
 				
+		//Step 2
 		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
 			graphicAlgorithmService.setLocation(OCText, moveContext.getX(), moveContext.getY());
 			graphicAlgorithmService.setLocation(diagramRectangle, moveContext.getX(), moveContext.getY());
+			//Step 3
 			for(Shape innerShape : diagram.getChildren()) {
 				if(innerShape instanceof ContainerShape) {
 					//TODO better
@@ -603,7 +607,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can resize the drop shadow manually
+	 * disables that the user can resize the occurrence constraint manually
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {
@@ -612,7 +616,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		return super.canResizeShape(resizeContext);
 	}
 	
-	//TODO
+	/**
+	 * when resizing the type body, resize the role groups diagram also
+	 */
 	public void resizeShape(IResizeShapeContext resizeContext) {
 		super.resizeShape(resizeContext);
 		ContainerShape typeBodyShape = (ContainerShape) resizeContext.getPictogramElement();
@@ -626,7 +632,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	//delete feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can delete the drop shadow manually
+	 * disables that the user can delete the occurrence constraint manually
 	 */
 	@Override
 	public boolean canDelete(IDeleteContext deleteContext) {
@@ -639,7 +645,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * deletes the group as cares about all related concerns using the following steps
 	 * <p>
 	 * Step 1: It deletes attached connection to it.<br>
-	 * Step 2: It gets the compartment types diagram and creates a {@link DeleteContext} for it.<br>
+	 * Step 2: It gets the role groups diagram and creates a {@link DeleteContext} for it.<br>
 	 * Step 3: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
 	 * Step 4: It deletes the shapes gathered in Step 2 and 3. It also updates a group in which the group is in, if any.
 	 * <p>
@@ -650,9 +656,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//Step 1
 		deleteAttachedConnections(deleteContext);
 		//Step 2
-		Diagram compartmentDiagram = util.getRoleGroupDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
-		if(compartmentDiagram != null) {	
-			DeleteContext deleteContextForGroupingDiagram = new DeleteContext(compartmentDiagram);
+		Diagram diagram = util.getRoleGroupDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());
+		if(diagram != null) {	
+			DeleteContext deleteContextForGroupingDiagram = new DeleteContext(diagram);
 			deleteContextForGroupingDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 			//Step 3
 			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();

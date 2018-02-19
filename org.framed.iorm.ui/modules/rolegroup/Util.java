@@ -8,6 +8,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.ui.UIUtil;
 
+/**
+* This class offers utility operations in the scope of the attribute and operations feature module.
+* @author Kevin Kassin
+*/
 public class Util {
 
 	/**
