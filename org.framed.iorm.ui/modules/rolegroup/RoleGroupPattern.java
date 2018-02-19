@@ -84,7 +84,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
-					case TOPLEVEL_VIEW: return false;
+					case NON_COMPARTMENT_VIEW: return false;
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Group_Constraints");
 					default: return false;
 		}	}	};

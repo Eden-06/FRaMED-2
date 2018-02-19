@@ -72,8 +72,7 @@ public class UILiterals {
 	 * of the graphiti framework.
 	 */
 	public static final String KEY_SHAPE_ID = "shape id",
-							   KEY_DIAGRAM_KIND = "diagram kind",
-							   KEY_ROLEGROUP_ELEMENT = "rolegroup-element";
+							   KEY_DIAGRAM_KIND = "diagram kind";
 	
 	//Feature Model
 	//~~~~~~~~~~~~~

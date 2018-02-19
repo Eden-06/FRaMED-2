@@ -70,7 +70,7 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
-				case TOPLEVEL_VIEW: return true;
+				case NON_COMPARTMENT_VIEW: return true;
 				case COMPARTMENT_VIEW: 
 					return (framedFeatureNames.contains("Role_Properties") ||
 							framedFeatureNames.contains("Compartment_Properties"));

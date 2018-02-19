@@ -35,6 +35,9 @@ import org.framed.iorm.ui.UIUtil;
  */
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 
+	/**
+	 * A service to manage any type of properties during runtime
+	 */
 	private FRaMEDPropertyService framedPropertyService;
 	
 	/**
@@ -47,7 +50,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider.<br>
 	 * Step 3: It adds the standard implementation for shape patterns which disables moving, resizing and deleting
 	 * 		   already existing shapes in models which features are not implemented. This needs to be added at last
-	 * 		   to ensure its only a fallback option.
+	 * 		   to ensure its only a fallback option.<br>
+	 * Step 4: Instanciates the service to manage any type of properties during runtime.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -73,7 +77,7 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}	}	}	
 		//Step 3
 		addPattern(new StandardFramedShapePattern());
-		//Step 4 TODO doku
+		//Step 4
 		framedPropertyService = new FRaMEDPropertyService();
 	}
 		
@@ -155,6 +159,10 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return super.getConnectionPatterns();
 	}
 	
+	/**
+	 * getter method for service to manage any type of properties during runtime
+	 * @return
+	 */
 	public FRaMEDPropertyService getFRaMEDPropertyService() {
 		return framedPropertyService;
 	}

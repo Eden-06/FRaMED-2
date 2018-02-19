@@ -555,8 +555,7 @@ public class UIUtil {
 			if(diagram.getContainer() instanceof Diagram)
 				return getContainerDiagramForAnyDiagram((Diagram) diagram.getContainer());
 			else return null;
-		}	
-	}
+	}	}
 	
 	/**
 	 * finds the <em>main diagram</em> of a role model

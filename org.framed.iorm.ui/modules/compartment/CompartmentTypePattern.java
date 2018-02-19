@@ -110,7 +110,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
-					case TOPLEVEL_VIEW: return framedFeatureNames.contains("Compartment_Types");
+					case NON_COMPARTMENT_VIEW: return framedFeatureNames.contains("Compartment_Types");
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Contains_Compartments");
 					default: return false;
 		}	}	};
