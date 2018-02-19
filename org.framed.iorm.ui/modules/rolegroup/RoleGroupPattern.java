@@ -483,7 +483,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		        	if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_NAME)) {
 		        		graphicAlgorithmService.setLocationAndSize(text, 0, 0, width, literals.HEIGHT_NAME_SHAPE);
 		            	layoutChanged=true;
-		}	}	}	}  
+		        	}
+		}	}	}  
 	    return layoutChanged;
 	}
 	
@@ -568,39 +569,42 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public void moveShape(IMoveShapeContext moveContext) {
-		//Step 1
-		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
-		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
-		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
-		GraphicsAlgorithm diagramRectangle = diagram.getGraphicsAlgorithm();
-				
-		//Step 2
-		if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
-			graphicAlgorithmService.setLocation(OCText, moveContext.getX(), moveContext.getY());
-			graphicAlgorithmService.setLocation(diagramRectangle, moveContext.getX(), moveContext.getY());
-			//Step 3
-			for(Shape innerShape : diagram.getChildren()) {
-				if(innerShape instanceof ContainerShape) {
-					//TODO better
-					ContainerShape innerTypeBody;
-					if(UIUtil.isShape_IdValue(innerShape, "shape_rt_container")) {
-						innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
-					} else {
-						innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(1);
-					}
-					MoveShapeContext moveContextForInnerShape = new MoveShapeContext(innerTypeBody);
-					moveContextForInnerShape.setDeltaX(moveContext.getDeltaX());
-					moveContextForInnerShape.setDeltaY(moveContext.getDeltaY());
-					moveContextForInnerShape.setTargetContainer(typeBodyShape);
-					moveContextForInnerShape.setSourceContainer((ContainerShape) innerShape);
-					moveContextForInnerShape.putProperty("automated", true);
-					IMoveShapeFeature moveFeature = getFeatureProvider().getMoveShapeFeature(moveContextForInnerShape);
-					if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);
-			}	}
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT))
 			super.moveShape(moveContext);
-			getDiagramBehavior().refresh();
-		}
+		else {
+			//Step 1
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
+			Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
+			Text OCText = (Text) OCShape.getGraphicsAlgorithm();
+			Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
+			GraphicsAlgorithm diagramRectangle = diagram.getGraphicsAlgorithm();
+					
+			//Step 2
+			if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
+				graphicAlgorithmService.setLocation(OCText, OCText.getX() + moveContext.getDeltaX(), OCText.getY() + moveContext.getDeltaY());
+				graphicAlgorithmService.setLocation(diagramRectangle, moveContext.getX(), moveContext.getY());
+				//Step 3
+				for(Shape innerShape : diagram.getChildren()) {
+					if(innerShape instanceof ContainerShape) {
+						//TODO better
+						ContainerShape innerTypeBody;
+						if(UIUtil.isShape_IdValue(innerShape, "shape_rt_container")) {
+							innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
+						} else {
+							innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(1);
+						}
+						MoveShapeContext moveContextForInnerShape = new MoveShapeContext(innerTypeBody);
+						moveContextForInnerShape.setDeltaX(moveContext.getDeltaX());
+						moveContextForInnerShape.setDeltaY(moveContext.getDeltaY());
+						moveContextForInnerShape.setTargetContainer(typeBodyShape);
+						moveContextForInnerShape.setSourceContainer((ContainerShape) innerShape);
+						moveContextForInnerShape.putProperty("automated", true);
+						IMoveShapeFeature moveFeature = getFeatureProvider().getMoveShapeFeature(moveContextForInnerShape);
+						if(moveFeature.canMoveShape(moveContextForInnerShape)) moveFeature.moveShape(moveContextForInnerShape);
+				}	}
+				super.moveShape(moveContext);
+				getDiagramBehavior().refresh();
+		}	}
 	}
 	
 	

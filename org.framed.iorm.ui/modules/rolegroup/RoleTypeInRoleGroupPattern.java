@@ -275,14 +275,15 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	}	
 	
 	/**
-	 * disables that the user can move the drop shadow manually
+	 * disables that the user can move the drop shadow and occurrence constraint manually
 	 * <p>
-	 * alos checks if the role group is moved inside the same role group
+	 * alos checks if the role type is moved inside the same role group
 	 * TODO role group move auf schatten
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW)) {
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW) ||
+		   UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
 			return false;
 		}
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {

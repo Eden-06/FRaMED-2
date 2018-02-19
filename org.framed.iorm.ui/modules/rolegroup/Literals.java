@@ -15,6 +15,11 @@ public class Literals {
 	public final String FEATURE_NAME = "Role Group";
 	
 	/**
+	 * name of the custom feature
+	 */
+	public final String RESET_LAYOUT_FEATURE_NAME = "Reset Layout";
+	
+	/**
 	 * the standard name and cardinality for a pictogramm element and business object created by the feature
 	 */
 	public final String STANDARD_NAME = "roleGroup",

@@ -224,15 +224,21 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 	//move feature
 	//~~~~~~~~~~~~
 	/**
-	 * returns if a role group in a role group can be moved
+	 * returns if a role group in a role group can be moved and disables to move the occurrence constraint manually
 	 * <p>
 	 * checks if the role group is moved inside the same role group
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		ContainerShape sourcon = moveContext.getSourceContainer(),
-				   	   tarcon = moveContext.getTargetContainer();
-		return sourcon.getContainer().equals(util.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) {
+					return false;
+		}
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLEGROUP_TYPEBODY)) {
+			ContainerShape sourcon = moveContext.getSourceContainer(),
+					   	   tarcon = moveContext.getTargetContainer();
+			return sourcon.getContainer().equals(util.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
+		}
+		return false;
 	}
 	
 	/**

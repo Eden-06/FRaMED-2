@@ -1,4 +1,4 @@
-package roletype;
+package rolegroup;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -14,9 +14,9 @@ import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
 
 /**
- * This graphiti custom feature is used to reset the layout of role types.
+ * This graphiti custom feature is used to reset the layout of role groups.
  * <p>
- * It is needed because the cardinalities of relationship and role type are moveable. This could lead to 
+ * It is needed because the cardinalities of role groups are moveable. This could lead to 
  * problem with seeing which cardinality belong to which element. To avoid that the user can easily reset the
  * places of the cardinalites with this feature.
  * @author Kevin Kassin
@@ -49,8 +49,8 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 	public boolean contextMenuExpression(PictogramElement pictogramElement, EObject businessObject) {
 		if(pictogramElement instanceof Shape &&
 		   !(pictogramElement instanceof Diagram)) {
-			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_TYPEBODY) ||
-	    	   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) 
+			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_TYPEBODY) ||
+	    	   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT)) 
 				return true;
 		}
 		return false;
@@ -69,18 +69,19 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 	}
 	
 	/**
-	 * moves the occurrence constraint back to the type body of the role type
+	 * moves the occurrence constraint back to the type body of the role group
 	 */
 	@Override 
 	public void execute(ICustomContext customContext) {	
 		ContainerShape containerShape = ((Shape) customContext.getPictogramElements()[0]).getContainer();
 		Shape typeBodyShape = null, occurenceConstraintShape = null;
 		for(Shape shape : containerShape.getChildren()) {
-			if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_TYPEBODY))
-				typeBodyShape = shape;
-			if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
-				occurenceConstraintShape = shape;
-		}
+			if(!(shape instanceof Diagram)) {
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_TYPEBODY))
+					typeBodyShape = shape;
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT))
+					occurenceConstraintShape = shape;
+		}	}
 		if(typeBodyShape != null && occurenceConstraintShape != null) {
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
 			graphicAlgorithmService.setLocation(occurenceConstraintShape.getGraphicsAlgorithm(),
