@@ -277,19 +277,20 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 	/**
 	 * disables that the user can move the drop shadow and occurrence constraint manually
 	 * <p>
-	 * alos checks if the role type is moved inside the same role group
-	 * TODO role group move auf schatten
+	 * also checks if the role type is moved inside the same role group
 	 */
 	@Override
 	public boolean canMoveShape(IMoveShapeContext moveContext) {
-		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW) ||
-		   UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT)) {
+		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT) || 
+		   UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_SHADOW))
 			return false;
-		}
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
-			ContainerShape sourcon = moveContext.getSourceContainer(),
-						   tarcon = moveContext.getTargetContainer();
-			return sourcon.getContainer().equals(roleGroupUtil.getRoleGroupDiagramForItsShape(tarcon, getDiagram()));
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement(),
+					   dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0),
+					   sourcon = moveContext.getSourceContainer(),
+					   tarcon = moveContext.getTargetContainer();
+			return sourcon.getContainer().equals(roleGroupUtil.getRoleGroupDiagramForItsShape(tarcon, getDiagram())) ||
+				   tarcon.equals(dropShadowShape);
 		}
 		return false;
 	}
@@ -314,25 +315,37 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
 		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 		
-		//Step 2
-		int x, y;
-		MoveShapeContext moveContextImpl = (MoveShapeContext) moveContext;
-		if(moveContextImpl.getProperty("automated") != null) {
-			x =  typeBodyRectangle.getX() + moveContext.getDeltaX();
-			y =  typeBodyRectangle.getY() + moveContext.getDeltaY();
+		if(moveContext.getTargetContainer().equals(dropShadowShape)) {
+			//Step 2 and Step 3
+			dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
+			dropShadowRectangle.setY(typeBodyRectangle.getY()+moveContext.getY()+2*literals.SHADOW_SIZE);
+			OCText.setX(OCText.getX() + moveContext.getX()+literals.SHADOW_SIZE);
+			OCText.setY(OCText.getY() + moveContext.getY()+literals.SHADOW_SIZE);
+			MoveShapeContext changedMoveContextForTypeBody = new MoveShapeContext(moveContext.getShape());
+			changedMoveContextForTypeBody.setTargetContainer(dropShadowShape.getContainer());
+			changedMoveContextForTypeBody.setX(typeBodyRectangle.getX()+moveContext.getX()+literals.SHADOW_SIZE);
+			changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
+			super.superMoveShape(changedMoveContextForTypeBody);
 		} else {
-			x =  moveContext.getTargetContainer().getGraphicsAlgorithm().getX() + typeBodyRectangle.getX() + moveContext.getDeltaX();
-			y =  moveContext.getTargetContainer().getGraphicsAlgorithm().getY() + typeBodyRectangle.getY() + moveContext.getDeltaY();
-		}
-		
-		//Step 3
-		dropShadowRectangle.setX(x + literals.SHADOW_SIZE);
-		dropShadowRectangle.setY(y + literals.SHADOW_SIZE);
-		Graphiti.getGaService().setLocation(OCText, 
-				x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-				y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
-		typeBodyRectangle.setX(x);
-		typeBodyRectangle.setY(y);
+			//Step 2
+			int x, y;
+			MoveShapeContext moveContextImpl = (MoveShapeContext) moveContext;
+			if(moveContextImpl.getProperty("automated") != null) {
+				x =  typeBodyRectangle.getX() + moveContext.getDeltaX();
+				y =  typeBodyRectangle.getY() + moveContext.getDeltaY();
+			} else {
+				x =  moveContext.getTargetContainer().getGraphicsAlgorithm().getX() + typeBodyRectangle.getX() + moveContext.getDeltaX();
+				y =  moveContext.getTargetContainer().getGraphicsAlgorithm().getY() + typeBodyRectangle.getY() + moveContext.getDeltaY();
+			}
+			//Step 3
+			dropShadowRectangle.setX(x + literals.SHADOW_SIZE);
+			dropShadowRectangle.setY(y + literals.SHADOW_SIZE);
+			Graphiti.getGaService().setLocation(OCText, 
+					x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+					y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
+			typeBodyRectangle.setX(x);
+			typeBodyRectangle.setY(y);
+		}	
 	}	
 }
 

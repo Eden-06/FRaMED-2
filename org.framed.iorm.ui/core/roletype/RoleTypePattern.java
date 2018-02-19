@@ -815,6 +815,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		layoutPictogramElement(typeBodyShape);
 		}
 	}
+	
+	/**
+	 * publishes the moveShape operation of the super class
+	 * @param moveContext the context containing information about the movement
+	 */
+	public void superMoveShape(MoveShapeContext moveContext) {
+		super.moveShape(moveContext);
+	}
 		
 	//resize feature
 	//~~~~~~~~~~~~~~
