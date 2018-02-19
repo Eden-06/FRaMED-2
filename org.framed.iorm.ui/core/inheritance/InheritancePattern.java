@@ -14,6 +14,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
@@ -214,11 +215,15 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
-	    newInheritance.setType(Type.INHERITANCE); 
-	    if(newInheritance.eResource() != null) getDiagram().eResource().getContents().add(newInheritance);
+	    newInheritance.setType(Type.INHERITANCE);
 	    //Step 3
-	    newInheritance.setContainer(sourceShape.getContainer());
-	    sourceShape.getContainer().getElements().add(newInheritance);
+	    Model mainModel = null;
+	    if(sourceShape.getContainer().getParent() != null &&
+	       sourceShape.getContainer().getParent().getType() == Type.GROUP)
+	    	mainModel = sourceShape.getContainer();
+	    else mainModel = UIUtil.getLinkedModelForDiagram(UIUtil.getMainDiagramForAnyDiagram(getDiagram()));
+	    newInheritance.setContainer(mainModel);
+	    mainModel.getElements().add(newInheritance);
 	    newInheritance.setSource(sourceShape);
 	    newInheritance.setTarget(targetShape);
 	    //Step 4
