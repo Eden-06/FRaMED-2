@@ -1,5 +1,8 @@
 package roleconstraints;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
@@ -22,6 +25,12 @@ import org.framed.iorm.ui.exceptions.NoModelFoundException;
  * @author Kevin Kassin
  */
 public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPattern{
+	
+	//TODO To be delete when the type checks are done by the edit policies
+	/**
+	 * the lists of types for which a role constraint is applicable
+	 */
+	List<Type> types = Arrays.asList(Type.ROLE_TYPE, Type.ROLE_GROUP);
 	
 	/**
 	 * Class constructor
@@ -90,9 +99,9 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    if(sourceShape != null && targetShape != null) {
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
-	    		if(sourceShape.getType() == Type.ROLE_TYPE)
-	    			if(targetShape.getType() == sourceShape.getType())
-	    				return EditPolicyService.canCreate(createContext, this.getDiagram());
+	    		if(types.contains(sourceShape.getType()) &&
+	    		   types.contains(targetShape.getType()))
+	    			return EditPolicyService.canCreate(createContext, this.getDiagram());
 		}	}
 	    return false;
 	}
