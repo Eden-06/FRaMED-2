@@ -83,8 +83,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	@Override
 	public void postReconnect(IReconnectionContext context) {
 		Connection connection = context.getConnection();
-		Anchor graphicalNewAnchor = null;
-		graphicalNewAnchor = util.getGraphicalAnchorForBusinessModelAnchor(context.getNewAnchor());
+		Anchor graphicalNewAnchor = util.getGraphicalAnchorForBusinessModelAnchor(context.getNewAnchor());
 		if(graphicalNewAnchor == null) return;
 		if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
 			connection.setStart(graphicalNewAnchor);

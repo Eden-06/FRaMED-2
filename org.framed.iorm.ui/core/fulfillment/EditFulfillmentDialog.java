@@ -111,15 +111,17 @@ public class EditFulfillmentDialog extends Dialog {
 	 * @return all role types of the fulfillments target shape 
 	 */
 	private List<Shape> getAllRolesofTarget() {
-		List<Shape> allRoles = new ArrayList<Shape>();
+		List<Shape> RoleTypesAndGroups = new ArrayList<Shape>();
 		EList<ModelElement> elementsOfTarget = 
 			((Shape) businessObject.getTarget()).getModel().getElements();
 		for(ModelElement element : elementsOfTarget) {
-			if(element instanceof Shape &&
-			  ((Shape) element).getType() == Type.ROLE_TYPE)
-				allRoles.add((Shape) element);
-		}
-		return allRoles;
+			if(element instanceof Shape) {	
+				Shape shape = (Shape) element;
+				if(shape.getType() == Type.ROLE_TYPE ||
+				   shape.getType() == Type.ROLE_GROUP)
+					RoleTypesAndGroups.add(shape);
+		}	}
+		return RoleTypesAndGroups;
 	}
 	
 	/**
