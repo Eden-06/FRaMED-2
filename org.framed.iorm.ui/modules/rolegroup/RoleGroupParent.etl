@@ -1,0 +1,46 @@
+import "RoleGroup.etl";
+
+/*
+ * transforms a role group when its direct parent is a compartment types
+ */
+@lazy 
+rule RoleGroupInCompartmentType
+	transform s : source!Shape
+	to t : target!RoleGroup 
+	extends  RoleGroup {	
+		guard : not(s.getContainer().getParent() == null) and
+				s.getContainer().getParent().getType==(source!Type#CompartmentType)	
+				
+		//get the crom equivalent to compartment type the role group is in
+		var compartmentType = s.getContainer.getParent().equivalent();
+		//check if a part with that role group does not already is added to the compartment type
+		var partAlreadyAdded = false;
+		for(alreadyAddedPart : target!Part in compartmentType.getParts()) {
+			if(alreadyAddedPart.role == s.~transformed) partAlreadyAdded = true;
+		}
+		if(not(partAlreadyAdded)) {
+			//create a new part with the role group
+			var part = new target!Part;
+			part.role = s.~transformed;
+			part.whole = compartmentType;
+			//add the part to the compartment type the role group 
+			compartmentType.getParts().add(part);
+		}	
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
+	
+/*
+ * transforms a role group when its direct parent is a role group
+ */		
+@lazy 
+rule RoleGroupInRoleGroup
+	transform s : source!Shape
+	to t : target!RoleGroup 
+	extends  RoleGroup {	
+		guard : not(s.getContainer().getParent() == null) and 
+				s.getContainer().getParent().getType==(source!Type#RoleGroup)	
+			
+	//deletes the own transformed shaped if its not the same as the one of the super rule	
+	if(not(s.~transformed == t)) delete(t);			
+}

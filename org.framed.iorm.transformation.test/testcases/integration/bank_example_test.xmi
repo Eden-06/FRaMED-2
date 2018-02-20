@@ -139,35 +139,35 @@
 					type="RoleGroup">
 					<model>
 						<elements xsi:type="org.framed.iorm.model:Shape" name="Source"
-							outgoingRelations="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.2 //@framedModel/@elements.4/@model/@elements.0/@model/@elements.3"
+							outgoingRelations="//@framedModel/@elements.4/@model/@elements.1 //@framedModel/@elements.4/@model/@elements.2"
 							type="RoleType">
 							<secondSegment>
 								<elements name="withdraw(amount:Money)" />
 							</secondSegment>
 						</elements>
 						<elements xsi:type="org.framed.iorm.model:Shape" name="Target"
-							incomingRelations="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.2 //@framedModel/@elements.4/@model/@elements.0/@model/@elements.3"
+							incomingRelations="//@framedModel/@elements.4/@model/@elements.1 //@framedModel/@elements.4/@model/@elements.2"
 							type="RoleType">
 							<secondSegment>
 								<elements name="deposite(amount:Money)" />
 							</secondSegment>
 						</elements>
-						<elements xsi:type="org.framed.iorm.model:Relation" name="trans"
-							type="Relationship"
-							target="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.1"
-							source="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.0"
-							referencedRelation="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.3">
-							<sourceLabel name="1" />
-							<targetLabel name="1" />
-						</elements>
-						<elements xsi:type="org.framed.iorm.model:Relation" name=""
-							type="Irreflexive"
-							target="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.1"
-							source="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.0"
-							referencedRelation="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.2" />
 					</model>
 					<description name="2..2" />
 				</elements>
+				<elements xsi:type="org.framed.iorm.model:Relation" name="trans"
+					type="Relationship"
+					target="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.1"
+					source="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.0"
+					referencedRelation="//@framedModel/@elements.4/@model/@elements.2">
+					<sourceLabel name="1" />
+					<targetLabel name="1" />
+				</elements>
+				<elements xsi:type="org.framed.iorm.model:Relation" name=""
+					type="Irreflexive"
+					target="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.1"
+					source="//@framedModel/@elements.4/@model/@elements.0/@model/@elements.0"
+					referencedRelation="//@framedModel/@elements.4/@model/@elements.1" />
 			</model>
 		</elements>
 		<elements xsi:type="org.framed.iorm.model:Shape" name="Account"
