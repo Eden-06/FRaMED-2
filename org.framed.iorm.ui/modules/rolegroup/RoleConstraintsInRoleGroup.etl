@@ -2,14 +2,15 @@
  * the abstract rule for role constraints executes all actions done for all types of role constraints
  */
 @abstract 
-rule RoleConstraint
+rule RoleConstraintInRG
 	transform s : source!Relation
 	to t : target!RoleConstraint {	
-		guard: s.~features.get("Role_Constraints") and 
+		//feature Group_Constraints implies feature Role_Constraints (not to check)
+		guard: s.~features.get("Group_Constraints") and
 			   (s.getType==(source!Type#RoleImplication) or
 			    s.getType==(source!Type#RoleProhibition) or
 			    s.getType==(source!Type#RoleEquivalence)) and
-			   not(associatedWithRoleGroup(s))
+			   associatedWithRoleGroup(s)
 		
 		//only transform if the role type is in a compartment type
 		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
@@ -37,30 +38,30 @@ operation associatedWithRoleGroup(s:source!Relation) : Boolean {
 
 // transforms role implications
 @lazy 
-rule RoleImplication
+rule RoleImplicationInRG
 	transform s : source!Relation
 	to t : target!RoleImplication 
-	extends RoleConstraint {
+	extends RoleConstraintInRG {
 		guard : s.getType==(source!Type#RoleImplication) and
 	 			s.~features.get("Role_Implication") 
 }
 
 // transforms role prohibitions
 @lazy 
-rule RoleProhibition
+rule RoleProhibitionInRG
 	transform s : source!Relation
 	to t : target!RoleProhibition 
-	extends RoleConstraint {
+	extends RoleConstraintInRG {
 		guard : s.getType==(source!Type#RoleProhibition) and
 				s.~features.get("Role_Prohibition") 
 }
 
 // transforms role equivalences
 @lazy 
-rule RoleEquivalence
+rule RoleEquivalenceInRG
 	transform s : source!Relation
 	to t : target!RoleEquivalence 
-	extends RoleConstraint {
+	extends RoleConstraintInRG {
 		guard : s.getType==(source!Type#RoleEquivalence) and 
 				s.~features.get("Role_Equivalence")
 }

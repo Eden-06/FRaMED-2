@@ -22,6 +22,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -217,13 +218,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
 	    newInheritance.setType(Type.INHERITANCE);
 	    //Step 3
-	    Model mainModel = null;
-	    if(sourceShape.getContainer().getParent() != null &&
-	       sourceShape.getContainer().getParent().getType() == Type.GROUP)
-	    	mainModel = sourceShape.getContainer();
-	    else mainModel = UIUtil.getLinkedModelForDiagram(UIUtil.getMainDiagramForAnyDiagram(getDiagram()));
-	    newInheritance.setContainer(mainModel);
-	    mainModel.getElements().add(newInheritance);
+	    Model model = getModelToCreateIn(sourceShape);
+	    newInheritance.setContainer(model);
+	    model.getElements().add(newInheritance);
 	    newInheritance.setSource(sourceShape);
 	    newInheritance.setTarget(targetShape);
 	    //Step 4
@@ -232,5 +229,24 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Connection newConnection = null;
 	    if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	        
 	    return newConnection;
+	}
+	
+	/**
+	 * searches for model of the compartment type the connected role types are created in
+	 * <p>
+	 * This operation also works for nested role groups in role groups in such a way that
+	 * the compartment type is found in which the top level role group is contained in.
+	 * @param sourceShape the shape of the role to get the compartment type for
+	 * @return the model of the compartment type the connected role types are created
+	 */
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
+		while(sourceShape.getContainer() != null) {
+			if(sourceShape.getContainer().getParent() == null ||
+			   (sourceShape.getContainer().getParent() != null &&
+			   sourceShape.getContainer().getParent().getType() == Type.GROUP))
+				return sourceShape.getContainer();
+			else sourceShape = sourceShape.getContainer().getParent();
+		}
+		throw new NoModelFoundException();
 	}
 }

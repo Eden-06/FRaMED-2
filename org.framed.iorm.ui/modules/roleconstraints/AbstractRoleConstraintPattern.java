@@ -119,7 +119,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(sourceShape.getType() == Type.ROLE_TYPE)
+			if(types.contains(sourceShape.getType()))
 				return true;
 		}	
 		return false;
