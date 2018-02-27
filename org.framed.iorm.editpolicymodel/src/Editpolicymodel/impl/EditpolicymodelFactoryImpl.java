@@ -62,19 +62,17 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.AND_CONSTRAINT_RULE: return createAndConstraintRule();
 			case EditpolicymodelPackage.OR_CONSTRAINT_RULE: return createOrConstraintRule();
 			case EditpolicymodelPackage.CONTAINS_CONSTRAINT_RULE: return createContainsConstraintRule();
-			case EditpolicymodelPackage.NOT_CONSTRAINT_RULE: return createNotConstraintRule();
 			case EditpolicymodelPackage.IS_STEP_OUT_CONSTRAINT_RULE: return createIsStepOutConstraintRule();
 			case EditpolicymodelPackage.IS_TARGET_CONSTRAINT_RULE: return createIsTargetConstraintRule();
 			case EditpolicymodelPackage.IS_SOURCE_CONSTRAINT_RULE: return createIsSourceConstraintRule();
 			case EditpolicymodelPackage.IS_PARENT_CONSTRAINT_RULE: return createIsParentConstraintRule();
-			case EditpolicymodelPackage.AND_FEATURE_RULE: return createAndFeatureRule();
-			case EditpolicymodelPackage.OR_FEATURE_RULE: return createOrFeatureRule();
-			case EditpolicymodelPackage.NOT_FEATURE_RULE: return createNotFeatureRule();
-			case EditpolicymodelPackage.TRUE_FEATURE_RULE: return createTrueFeatureRule();
-			case EditpolicymodelPackage.FALSE_FEATURE_RULE: return createFalseFeatureRule();
 			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: return createTrueConstraintRule();
 			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: return createFalseConstraintRule();
-			case EditpolicymodelPackage.NAME_FEATURE_RULE: return createNameFeatureRule();
+			case EditpolicymodelPackage.RULE: return createRule();
+			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
+			case EditpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
+			case EditpolicymodelPackage.NOT_RULE: return createNotRule();
+			case EditpolicymodelPackage.AND_RULE: return createAndRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -169,16 +167,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotConstraintRule createNotConstraintRule() {
-		NotConstraintRuleImpl notConstraintRule = new NotConstraintRuleImpl();
-		return notConstraintRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public IsStepOutConstraintRule createIsStepOutConstraintRule() {
 		IsStepOutConstraintRuleImpl isStepOutConstraintRule = new IsStepOutConstraintRuleImpl();
 		return isStepOutConstraintRule;
@@ -219,56 +207,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AndFeatureRule createAndFeatureRule() {
-		AndFeatureRuleImpl andFeatureRule = new AndFeatureRuleImpl();
-		return andFeatureRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OrFeatureRule createOrFeatureRule() {
-		OrFeatureRuleImpl orFeatureRule = new OrFeatureRuleImpl();
-		return orFeatureRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotFeatureRule createNotFeatureRule() {
-		NotFeatureRuleImpl notFeatureRule = new NotFeatureRuleImpl();
-		return notFeatureRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TrueFeatureRule createTrueFeatureRule() {
-		TrueFeatureRuleImpl trueFeatureRule = new TrueFeatureRuleImpl();
-		return trueFeatureRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FalseFeatureRule createFalseFeatureRule() {
-		FalseFeatureRuleImpl falseFeatureRule = new FalseFeatureRuleImpl();
-		return falseFeatureRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TrueConstraintRule createTrueConstraintRule() {
 		TrueConstraintRuleImpl trueConstraintRule = new TrueConstraintRuleImpl();
 		return trueConstraintRule;
@@ -289,9 +227,49 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NameFeatureRule createNameFeatureRule() {
-		NameFeatureRuleImpl nameFeatureRule = new NameFeatureRuleImpl();
-		return nameFeatureRule;
+	public <T> Rule<T> createRule() {
+		RuleImpl<T> rule = new RuleImpl<T>();
+		return rule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsFeature createIsFeature() {
+		IsFeatureImpl isFeature = new IsFeatureImpl();
+		return isFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsTargetType createIsTargetType() {
+		IsTargetTypeImpl isTargetType = new IsTargetTypeImpl();
+		return isTargetType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotRule createNotRule() {
+		NotRuleImpl notRule = new NotRuleImpl();
+		return notRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AndRule createAndRule() {
+		AndRuleImpl andRule = new AndRuleImpl();
+		return andRule;
 	}
 
 	/**

@@ -2,6 +2,7 @@
  */
 package Editpolicymodel;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link Editpolicymodel.Policy#getOverride <em>Override</em>}</li>
- *   <li>{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}</li>
- *   <li>{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}</li>
  *   <li>{@link Editpolicymodel.Policy#getAction <em>Action</em>}</li>
  *   <li>{@link Editpolicymodel.Policy#getActionType <em>Action Type</em>}</li>
+ *   <li>{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}</li>
+ *   <li>{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}</li>
  * </ul>
  *
  * @see Editpolicymodel.EditpolicymodelPackage#getPolicy()
@@ -51,58 +52,6 @@ public interface Policy extends EObject {
 	 * @generated
 	 */
 	void setOverride(Boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Constraint Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Constraint Rule</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Constraint Rule</em>' containment reference.
-	 * @see #setConstraintRule(AbstractConstraintRule)
-	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_ConstraintRule()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	AbstractConstraintRule getConstraintRule();
-
-	/**
-	 * Sets the value of the '{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Constraint Rule</em>' containment reference.
-	 * @see #getConstraintRule()
-	 * @generated
-	 */
-	void setConstraintRule(AbstractConstraintRule value);
-
-	/**
-	 * Returns the value of the '<em><b>Feature Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Feature Rule</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature Rule</em>' containment reference.
-	 * @see #setFeatureRule(AbstractFeatureRule)
-	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_FeatureRule()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	AbstractFeatureRule getFeatureRule();
-
-	/**
-	 * Sets the value of the '{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature Rule</em>' containment reference.
-	 * @see #getFeatureRule()
-	 * @generated
-	 */
-	void setFeatureRule(AbstractFeatureRule value);
 
 	/**
 	 * Returns the value of the '<em><b>Action</b></em>' attribute.
@@ -161,5 +110,37 @@ public interface Policy extends EObject {
 	 * @generated
 	 */
 	void setActionType(ActionTypeEnum value);
+
+	/**
+	 * Returns the value of the '<em><b>Feature Rule</b></em>' containment reference list.
+	 * The list contents are of type {@link Editpolicymodel.AbstractRule}<code>&lt;Editpolicymodel.Feature&gt;</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Feature Rule</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Feature Rule</em>' containment reference list.
+	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_FeatureRule()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<AbstractRule<Feature>> getFeatureRule();
+
+	/**
+	 * Returns the value of the '<em><b>Constraint Rule</b></em>' containment reference list.
+	 * The list contents are of type {@link Editpolicymodel.AbstractRule}<code>&lt;Editpolicymodel.Constraint&gt;</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constraint Rule</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constraint Rule</em>' containment reference list.
+	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_ConstraintRule()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<AbstractRule<Constraint>> getConstraintRule();
 
 } // Policy

@@ -114,31 +114,13 @@ public interface EditpolicymodelPackage extends EPackage {
 	int POLICY__OVERRIDE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Constraint Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLICY__CONSTRAINT_RULE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Feature Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLICY__FEATURE_RULE = 2;
-
-	/**
 	 * The feature id for the '<em><b>Action</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLICY__ACTION = 3;
+	int POLICY__ACTION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Action Type</b></em>' attribute.
@@ -147,7 +129,25 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POLICY__ACTION_TYPE = 4;
+	int POLICY__ACTION_TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Feature Rule</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLICY__FEATURE_RULE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Constraint Rule</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLICY__CONSTRAINT_RULE = 4;
 
 	/**
 	 * The number of structural features of the '<em>Policy</em>' class.
@@ -223,61 +223,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	int ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.AbstractFeatureRuleImpl <em>Abstract Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.AbstractFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractFeatureRule()
-	 * @generated
-	 */
-	int ABSTRACT_FEATURE_RULE = 3;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_RULE__RULE2 = 0;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_RULE__RULE1 = 1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_RULE__ARGUMENT = 2;
-
-	/**
-	 * The number of structural features of the '<em>Abstract Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_RULE_FEATURE_COUNT = 3;
-
-	/**
-	 * The number of operations of the '<em>Abstract Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_FEATURE_RULE_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.AndConstraintRuleImpl <em>And Constraint Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -285,7 +230,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndConstraintRule()
 	 * @generated
 	 */
-	int AND_CONSTRAINT_RULE = 4;
+	int AND_CONSTRAINT_RULE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -340,7 +285,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getOrConstraintRule()
 	 * @generated
 	 */
-	int OR_CONSTRAINT_RULE = 5;
+	int OR_CONSTRAINT_RULE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -395,7 +340,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getContainsConstraintRule()
 	 * @generated
 	 */
-	int CONTAINS_CONSTRAINT_RULE = 6;
+	int CONTAINS_CONSTRAINT_RULE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -443,34 +388,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	int CONTAINS_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.NotConstraintRuleImpl <em>Not Constraint Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.NotConstraintRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotConstraintRule()
-	 * @generated
-	 */
-	int NOT_CONSTRAINT_RULE = 7;
-
-	/**
-	 * The number of structural features of the '<em>Not Constraint Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_CONSTRAINT_RULE_FEATURE_COUNT = 0;
-
-	/**
-	 * The number of operations of the '<em>Not Constraint Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_CONSTRAINT_RULE_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.IsStepOutConstraintRuleImpl <em>Is Step Out Constraint Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -478,7 +395,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepOutConstraintRule()
 	 * @generated
 	 */
-	int IS_STEP_OUT_CONSTRAINT_RULE = 8;
+	int IS_STEP_OUT_CONSTRAINT_RULE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -533,7 +450,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsTargetConstraintRule()
 	 * @generated
 	 */
-	int IS_TARGET_CONSTRAINT_RULE = 9;
+	int IS_TARGET_CONSTRAINT_RULE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -588,7 +505,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsSourceConstraintRule()
 	 * @generated
 	 */
-	int IS_SOURCE_CONSTRAINT_RULE = 10;
+	int IS_SOURCE_CONSTRAINT_RULE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -643,7 +560,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsParentConstraintRule()
 	 * @generated
 	 */
-	int IS_PARENT_CONSTRAINT_RULE = 11;
+	int IS_PARENT_CONSTRAINT_RULE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -691,281 +608,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	int IS_PARENT_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.AndFeatureRuleImpl <em>And Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.AndFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndFeatureRule()
-	 * @generated
-	 */
-	int AND_FEATURE_RULE = 12;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
-
-	/**
-	 * The number of structural features of the '<em>And Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>And Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.OrFeatureRuleImpl <em>Or Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.OrFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getOrFeatureRule()
-	 * @generated
-	 */
-	int OR_FEATURE_RULE = 13;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
-
-	/**
-	 * The number of structural features of the '<em>Or Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Or Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.NotFeatureRuleImpl <em>Not Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.NotFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotFeatureRule()
-	 * @generated
-	 */
-	int NOT_FEATURE_RULE = 14;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
-
-	/**
-	 * The number of structural features of the '<em>Not Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Not Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.TrueFeatureRuleImpl <em>True Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.TrueFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueFeatureRule()
-	 * @generated
-	 */
-	int TRUE_FEATURE_RULE = 15;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
-
-	/**
-	 * The number of structural features of the '<em>True Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>True Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.FalseFeatureRuleImpl <em>False Feature Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.FalseFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseFeatureRule()
-	 * @generated
-	 */
-	int FALSE_FEATURE_RULE = 16;
-
-	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
-
-	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
-
-	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
-
-	/**
-	 * The number of structural features of the '<em>False Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>False Feature Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.TrueConstraintRuleImpl <em>True Constraint Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -973,7 +615,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueConstraintRule()
 	 * @generated
 	 */
-	int TRUE_CONSTRAINT_RULE = 17;
+	int TRUE_CONSTRAINT_RULE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -1028,7 +670,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseConstraintRule()
 	 * @generated
 	 */
-	int FALSE_CONSTRAINT_RULE = 18;
+	int FALSE_CONSTRAINT_RULE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Rule2</b></em>' reference.
@@ -1076,59 +718,347 @@ public interface EditpolicymodelPackage extends EPackage {
 	int FALSE_CONSTRAINT_RULE_OPERATION_COUNT = ABSTRACT_CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.NameFeatureRuleImpl <em>Name Feature Rule</em>}' class.
+	 * The meta object id for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.NameFeatureRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNameFeatureRule()
+	 * @see Editpolicymodel.AbstractRule
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 	 * @generated
 	 */
-	int NAME_FEATURE_RULE = 19;
+	int ABSTRACT_RULE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Rule2</b></em>' reference.
+	 * The number of structural features of the '<em>Abstract Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_FEATURE_RULE__RULE2 = ABSTRACT_FEATURE_RULE__RULE2;
+	int ABSTRACT_RULE_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Rule1</b></em>' reference.
+	 * The number of operations of the '<em>Abstract Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_FEATURE_RULE__RULE1 = ABSTRACT_FEATURE_RULE__RULE1;
+	int ABSTRACT_RULE_OPERATION_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Argument</b></em>' attribute.
+	 * The meta object id for the '{@link Editpolicymodel.impl.RuleImpl <em>Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.RuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getRule()
+	 * @generated
+	 */
+	int RULE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_FEATURE_RULE__ARGUMENT = ABSTRACT_FEATURE_RULE__ARGUMENT;
+	int RULE__RULE = ABSTRACT_RULE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Name Feature Rule</em>' class.
+	 * The number of structural features of the '<em>Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_FEATURE_RULE_FEATURE_COUNT = ABSTRACT_FEATURE_RULE_FEATURE_COUNT + 0;
+	int RULE_FEATURE_COUNT = ABSTRACT_RULE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Name Feature Rule</em>' class.
+	 * The number of operations of the '<em>Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_FEATURE_RULE_OPERATION_COUNT = ABSTRACT_FEATURE_RULE_OPERATION_COUNT + 0;
+	int RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.FeatureImpl <em>Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.FeatureImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeature()
+	 * @generated
+	 */
+	int FEATURE = 14;
+
+	/**
+	 * The number of structural features of the '<em>Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.IsFeatureImpl <em>Is Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.IsFeatureImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsFeature()
+	 * @generated
+	 */
+	int IS_FEATURE = 15;
+
+	/**
+	 * The number of structural features of the '<em>Is Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Is Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_FEATURE_OPERATION_COUNT = FEATURE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.ConstraintImpl <em>Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.ConstraintImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getConstraint()
+	 * @generated
+	 */
+	int CONSTRAINT = 16;
+
+	/**
+	 * The number of structural features of the '<em>Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.IsTargetTypeImpl <em>Is Target Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.IsTargetTypeImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsTargetType()
+	 * @generated
+	 */
+	int IS_TARGET_TYPE = 17;
+
+	/**
+	 * The number of structural features of the '<em>Is Target Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_TARGET_TYPE_FEATURE_COUNT = CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Is Target Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_TARGET_TYPE_OPERATION_COUNT = CONSTRAINT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.UnaryRuleImpl <em>Unary Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.UnaryRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getUnaryRule()
+	 * @generated
+	 */
+	int UNARY_RULE = 18;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_RULE__RULE = ABSTRACT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Unary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_RULE_FEATURE_COUNT = ABSTRACT_RULE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Unary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.NotRuleImpl <em>Not Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.NotRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotRule()
+	 * @generated
+	 */
+	int NOT_RULE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_RULE__RULE = UNARY_RULE__RULE;
+
+	/**
+	 * The number of structural features of the '<em>Not Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_RULE_FEATURE_COUNT = UNARY_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Not Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_RULE_OPERATION_COUNT = UNARY_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.BinaryRuleImpl <em>Binary Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.BinaryRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getBinaryRule()
+	 * @generated
+	 */
+	int BINARY_RULE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_RULE__LEFT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_RULE__RIGHT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Binary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_RULE_FEATURE_COUNT = ABSTRACT_RULE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Binary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.AndRuleImpl <em>And Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.AndRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndRule()
+	 * @generated
+	 */
+	int AND_RULE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
+
+	/**
+	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE__RIGHT_RULE = BINARY_RULE__RIGHT_RULE;
+
+	/**
+	 * The number of structural features of the '<em>And Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE_FEATURE_COUNT = BINARY_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>And Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE_OPERATION_COUNT = BINARY_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
@@ -1138,7 +1068,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 20;
+	int ACTION_ENUM = 22;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionTypeEnum <em>Action Type Enum</em>}' enum.
@@ -1148,7 +1078,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionTypeEnum()
 	 * @generated
 	 */
-	int ACTION_TYPE_ENUM = 21;
+	int ACTION_TYPE_ENUM = 23;
 
 
 	/**
@@ -1194,28 +1124,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	EAttribute getPolicy_Override();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Constraint Rule</em>'.
-	 * @see Editpolicymodel.Policy#getConstraintRule()
-	 * @see #getPolicy()
-	 * @generated
-	 */
-	EReference getPolicy_ConstraintRule();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Feature Rule</em>'.
-	 * @see Editpolicymodel.Policy#getFeatureRule()
-	 * @see #getPolicy()
-	 * @generated
-	 */
-	EReference getPolicy_FeatureRule();
-
-	/**
 	 * Returns the meta object for the attribute '{@link Editpolicymodel.Policy#getAction <em>Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1236,6 +1144,28 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPolicy_ActionType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Feature Rule</em>'.
+	 * @see Editpolicymodel.Policy#getFeatureRule()
+	 * @see #getPolicy()
+	 * @generated
+	 */
+	EReference getPolicy_FeatureRule();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Constraint Rule</em>'.
+	 * @see Editpolicymodel.Policy#getConstraintRule()
+	 * @see #getPolicy()
+	 * @generated
+	 */
+	EReference getPolicy_ConstraintRule();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.AbstractConstraintRule <em>Abstract Constraint Rule</em>}'.
@@ -1281,49 +1211,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	EAttribute getAbstractConstraintRule_Argument();
 
 	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.AbstractFeatureRule <em>Abstract Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Feature Rule</em>'.
-	 * @see Editpolicymodel.AbstractFeatureRule
-	 * @generated
-	 */
-	EClass getAbstractFeatureRule();
-
-	/**
-	 * Returns the meta object for the reference '{@link Editpolicymodel.AbstractFeatureRule#getRule2 <em>Rule2</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rule2</em>'.
-	 * @see Editpolicymodel.AbstractFeatureRule#getRule2()
-	 * @see #getAbstractFeatureRule()
-	 * @generated
-	 */
-	EReference getAbstractFeatureRule_Rule2();
-
-	/**
-	 * Returns the meta object for the reference '{@link Editpolicymodel.AbstractFeatureRule#getRule1 <em>Rule1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rule1</em>'.
-	 * @see Editpolicymodel.AbstractFeatureRule#getRule1()
-	 * @see #getAbstractFeatureRule()
-	 * @generated
-	 */
-	EReference getAbstractFeatureRule_Rule1();
-
-	/**
-	 * Returns the meta object for the attribute '{@link Editpolicymodel.AbstractFeatureRule#getArgument <em>Argument</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Argument</em>'.
-	 * @see Editpolicymodel.AbstractFeatureRule#getArgument()
-	 * @see #getAbstractFeatureRule()
-	 * @generated
-	 */
-	EAttribute getAbstractFeatureRule_Argument();
-
-	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.AndConstraintRule <em>And Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1352,16 +1239,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getContainsConstraintRule();
-
-	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.NotConstraintRule <em>Not Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Not Constraint Rule</em>'.
-	 * @see Editpolicymodel.NotConstraintRule
-	 * @generated
-	 */
-	EClass getNotConstraintRule();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.IsStepOutConstraintRule <em>Is Step Out Constraint Rule</em>}'.
@@ -1404,56 +1281,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getIsParentConstraintRule();
 
 	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.AndFeatureRule <em>And Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>And Feature Rule</em>'.
-	 * @see Editpolicymodel.AndFeatureRule
-	 * @generated
-	 */
-	EClass getAndFeatureRule();
-
-	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.OrFeatureRule <em>Or Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Or Feature Rule</em>'.
-	 * @see Editpolicymodel.OrFeatureRule
-	 * @generated
-	 */
-	EClass getOrFeatureRule();
-
-	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.NotFeatureRule <em>Not Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Not Feature Rule</em>'.
-	 * @see Editpolicymodel.NotFeatureRule
-	 * @generated
-	 */
-	EClass getNotFeatureRule();
-
-	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.TrueFeatureRule <em>True Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>True Feature Rule</em>'.
-	 * @see Editpolicymodel.TrueFeatureRule
-	 * @generated
-	 */
-	EClass getTrueFeatureRule();
-
-	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.FalseFeatureRule <em>False Feature Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>False Feature Rule</em>'.
-	 * @see Editpolicymodel.FalseFeatureRule
-	 * @generated
-	 */
-	EClass getFalseFeatureRule();
-
-	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.TrueConstraintRule <em>True Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1474,14 +1301,148 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getFalseConstraintRule();
 
 	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.NameFeatureRule <em>Name Feature Rule</em>}'.
+	 * Returns the meta object for class '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Name Feature Rule</em>'.
-	 * @see Editpolicymodel.NameFeatureRule
+	 * @return the meta object for class '<em>Abstract Rule</em>'.
+	 * @see Editpolicymodel.AbstractRule
 	 * @generated
 	 */
-	EClass getNameFeatureRule();
+	EClass getAbstractRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.Rule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rule</em>'.
+	 * @see Editpolicymodel.Rule
+	 * @generated
+	 */
+	EClass getRule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link Editpolicymodel.Rule#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rule</em>'.
+	 * @see Editpolicymodel.Rule#getRule()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EAttribute getRule_Rule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.Feature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature</em>'.
+	 * @see Editpolicymodel.Feature
+	 * @generated
+	 */
+	EClass getFeature();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.IsFeature <em>Is Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Is Feature</em>'.
+	 * @see Editpolicymodel.IsFeature
+	 * @generated
+	 */
+	EClass getIsFeature();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.Constraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Constraint</em>'.
+	 * @see Editpolicymodel.Constraint
+	 * @generated
+	 */
+	EClass getConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.IsTargetType <em>Is Target Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Is Target Type</em>'.
+	 * @see Editpolicymodel.IsTargetType
+	 * @generated
+	 */
+	EClass getIsTargetType();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.UnaryRule <em>Unary Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Unary Rule</em>'.
+	 * @see Editpolicymodel.UnaryRule
+	 * @generated
+	 */
+	EClass getUnaryRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link Editpolicymodel.UnaryRule#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @see Editpolicymodel.UnaryRule#getRule()
+	 * @see #getUnaryRule()
+	 * @generated
+	 */
+	EReference getUnaryRule_Rule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.NotRule <em>Not Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Not Rule</em>'.
+	 * @see Editpolicymodel.NotRule
+	 * @generated
+	 */
+	EClass getNotRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.AndRule <em>And Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>And Rule</em>'.
+	 * @see Editpolicymodel.AndRule
+	 * @generated
+	 */
+	EClass getAndRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.BinaryRule <em>Binary Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Binary Rule</em>'.
+	 * @see Editpolicymodel.BinaryRule
+	 * @generated
+	 */
+	EClass getBinaryRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link Editpolicymodel.BinaryRule#getLeftRule <em>Left Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Left Rule</em>'.
+	 * @see Editpolicymodel.BinaryRule#getLeftRule()
+	 * @see #getBinaryRule()
+	 * @generated
+	 */
+	EReference getBinaryRule_LeftRule();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.BinaryRule#getRightRule <em>Right Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Right Rule</em>'.
+	 * @see Editpolicymodel.BinaryRule#getRightRule()
+	 * @see #getBinaryRule()
+	 * @generated
+	 */
+	EReference getBinaryRule_RightRule();
 
 	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -1563,22 +1524,6 @@ public interface EditpolicymodelPackage extends EPackage {
 		EAttribute POLICY__OVERRIDE = eINSTANCE.getPolicy_Override();
 
 		/**
-		 * The meta object literal for the '<em><b>Constraint Rule</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference POLICY__CONSTRAINT_RULE = eINSTANCE.getPolicy_ConstraintRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Feature Rule</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference POLICY__FEATURE_RULE = eINSTANCE.getPolicy_FeatureRule();
-
-		/**
 		 * The meta object literal for the '<em><b>Action</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1593,6 +1538,22 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute POLICY__ACTION_TYPE = eINSTANCE.getPolicy_ActionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Feature Rule</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference POLICY__FEATURE_RULE = eINSTANCE.getPolicy_FeatureRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint Rule</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference POLICY__CONSTRAINT_RULE = eINSTANCE.getPolicy_ConstraintRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.AbstractConstraintRuleImpl <em>Abstract Constraint Rule</em>}' class.
@@ -1629,40 +1590,6 @@ public interface EditpolicymodelPackage extends EPackage {
 		EAttribute ABSTRACT_CONSTRAINT_RULE__ARGUMENT = eINSTANCE.getAbstractConstraintRule_Argument();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.AbstractFeatureRuleImpl <em>Abstract Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.AbstractFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractFeatureRule()
-		 * @generated
-		 */
-		EClass ABSTRACT_FEATURE_RULE = eINSTANCE.getAbstractFeatureRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Rule2</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ABSTRACT_FEATURE_RULE__RULE2 = eINSTANCE.getAbstractFeatureRule_Rule2();
-
-		/**
-		 * The meta object literal for the '<em><b>Rule1</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ABSTRACT_FEATURE_RULE__RULE1 = eINSTANCE.getAbstractFeatureRule_Rule1();
-
-		/**
-		 * The meta object literal for the '<em><b>Argument</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABSTRACT_FEATURE_RULE__ARGUMENT = eINSTANCE.getAbstractFeatureRule_Argument();
-
-		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.AndConstraintRuleImpl <em>And Constraint Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1691,16 +1618,6 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONTAINS_CONSTRAINT_RULE = eINSTANCE.getContainsConstraintRule();
-
-		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.NotConstraintRuleImpl <em>Not Constraint Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.NotConstraintRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotConstraintRule()
-		 * @generated
-		 */
-		EClass NOT_CONSTRAINT_RULE = eINSTANCE.getNotConstraintRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.IsStepOutConstraintRuleImpl <em>Is Step Out Constraint Rule</em>}' class.
@@ -1743,56 +1660,6 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass IS_PARENT_CONSTRAINT_RULE = eINSTANCE.getIsParentConstraintRule();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.AndFeatureRuleImpl <em>And Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.AndFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndFeatureRule()
-		 * @generated
-		 */
-		EClass AND_FEATURE_RULE = eINSTANCE.getAndFeatureRule();
-
-		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.OrFeatureRuleImpl <em>Or Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.OrFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getOrFeatureRule()
-		 * @generated
-		 */
-		EClass OR_FEATURE_RULE = eINSTANCE.getOrFeatureRule();
-
-		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.NotFeatureRuleImpl <em>Not Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.NotFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotFeatureRule()
-		 * @generated
-		 */
-		EClass NOT_FEATURE_RULE = eINSTANCE.getNotFeatureRule();
-
-		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.TrueFeatureRuleImpl <em>True Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.TrueFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTrueFeatureRule()
-		 * @generated
-		 */
-		EClass TRUE_FEATURE_RULE = eINSTANCE.getTrueFeatureRule();
-
-		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.FalseFeatureRuleImpl <em>False Feature Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.FalseFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFalseFeatureRule()
-		 * @generated
-		 */
-		EClass FALSE_FEATURE_RULE = eINSTANCE.getFalseFeatureRule();
-
-		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.TrueConstraintRuleImpl <em>True Constraint Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1813,14 +1680,136 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass FALSE_CONSTRAINT_RULE = eINSTANCE.getFalseConstraintRule();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.NameFeatureRuleImpl <em>Name Feature Rule</em>}' class.
+		 * The meta object literal for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.NameFeatureRuleImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNameFeatureRule()
+		 * @see Editpolicymodel.AbstractRule
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 		 * @generated
 		 */
-		EClass NAME_FEATURE_RULE = eINSTANCE.getNameFeatureRule();
+		EClass ABSTRACT_RULE = eINSTANCE.getAbstractRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.RuleImpl <em>Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.RuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getRule()
+		 * @generated
+		 */
+		EClass RULE = eINSTANCE.getRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Rule</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RULE__RULE = eINSTANCE.getRule_Rule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.FeatureImpl <em>Feature</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.FeatureImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeature()
+		 * @generated
+		 */
+		EClass FEATURE = eINSTANCE.getFeature();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.IsFeatureImpl <em>Is Feature</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.IsFeatureImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsFeature()
+		 * @generated
+		 */
+		EClass IS_FEATURE = eINSTANCE.getIsFeature();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.ConstraintImpl <em>Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.ConstraintImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getConstraint()
+		 * @generated
+		 */
+		EClass CONSTRAINT = eINSTANCE.getConstraint();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.IsTargetTypeImpl <em>Is Target Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.IsTargetTypeImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsTargetType()
+		 * @generated
+		 */
+		EClass IS_TARGET_TYPE = eINSTANCE.getIsTargetType();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.UnaryRuleImpl <em>Unary Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.UnaryRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getUnaryRule()
+		 * @generated
+		 */
+		EClass UNARY_RULE = eINSTANCE.getUnaryRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Rule</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference UNARY_RULE__RULE = eINSTANCE.getUnaryRule_Rule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.NotRuleImpl <em>Not Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.NotRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNotRule()
+		 * @generated
+		 */
+		EClass NOT_RULE = eINSTANCE.getNotRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.AndRuleImpl <em>And Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.AndRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndRule()
+		 * @generated
+		 */
+		EClass AND_RULE = eINSTANCE.getAndRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.BinaryRuleImpl <em>Binary Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.BinaryRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getBinaryRule()
+		 * @generated
+		 */
+		EClass BINARY_RULE = eINSTANCE.getBinaryRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Left Rule</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINARY_RULE__LEFT_RULE = eINSTANCE.getBinaryRule_LeftRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Right Rule</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINARY_RULE__RIGHT_RULE = eINSTANCE.getBinaryRule_RightRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

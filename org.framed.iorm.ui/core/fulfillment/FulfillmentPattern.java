@@ -194,8 +194,6 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		return connection;
 	}
 
-	// create feature
-	// ~~~~~~~~~~~~~~
 	/**
 	 * calculates if a fulfillment can be created
 	 * <p>
@@ -215,7 +213,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
 				if (targetTypes.contains(targetShape.getType()))
-					   return EditPolicyService.canCreate(createContext, "Fulfillment", this.getDiagram());
+					return EditPolicyService.canCreate(createContext, this.modelType, this.getDiagram());
 			}
 		}
 		return false;
@@ -236,7 +234,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
 			if(sourceTypes.contains(sourceShape.getType()))
-				   return EditPolicyService.canStart(createContext, this.getDiagram());;
+				   return EditPolicyService.canStart(createContext, this.getDiagram());
 		}
 		return false;
 	}

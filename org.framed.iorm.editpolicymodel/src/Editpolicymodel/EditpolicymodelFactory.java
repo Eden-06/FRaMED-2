@@ -67,15 +67,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	ContainsConstraintRule createContainsConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>Not Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Not Constraint Rule</em>'.
-	 * @generated
-	 */
-	NotConstraintRule createNotConstraintRule();
-
-	/**
 	 * Returns a new object of class '<em>Is Step Out Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,51 +103,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	IsParentConstraintRule createIsParentConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>And Feature Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>And Feature Rule</em>'.
-	 * @generated
-	 */
-	AndFeatureRule createAndFeatureRule();
-
-	/**
-	 * Returns a new object of class '<em>Or Feature Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Or Feature Rule</em>'.
-	 * @generated
-	 */
-	OrFeatureRule createOrFeatureRule();
-
-	/**
-	 * Returns a new object of class '<em>Not Feature Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Not Feature Rule</em>'.
-	 * @generated
-	 */
-	NotFeatureRule createNotFeatureRule();
-
-	/**
-	 * Returns a new object of class '<em>True Feature Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>True Feature Rule</em>'.
-	 * @generated
-	 */
-	TrueFeatureRule createTrueFeatureRule();
-
-	/**
-	 * Returns a new object of class '<em>False Feature Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>False Feature Rule</em>'.
-	 * @generated
-	 */
-	FalseFeatureRule createFalseFeatureRule();
-
-	/**
 	 * Returns a new object of class '<em>True Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -175,13 +121,49 @@ public interface EditpolicymodelFactory extends EFactory {
 	FalseConstraintRule createFalseConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>Name Feature Rule</em>'.
+	 * Returns a new object of class '<em>Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Name Feature Rule</em>'.
+	 * @return a new object of class '<em>Rule</em>'.
 	 * @generated
 	 */
-	NameFeatureRule createNameFeatureRule();
+	<T> Rule<T> createRule();
+
+	/**
+	 * Returns a new object of class '<em>Is Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Is Feature</em>'.
+	 * @generated
+	 */
+	IsFeature createIsFeature();
+
+	/**
+	 * Returns a new object of class '<em>Is Target Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Is Target Type</em>'.
+	 * @generated
+	 */
+	IsTargetType createIsTargetType();
+
+	/**
+	 * Returns a new object of class '<em>Not Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Not Rule</em>'.
+	 * @generated
+	 */
+	NotRule createNotRule();
+
+	/**
+	 * Returns a new object of class '<em>And Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>And Rule</em>'.
+	 * @generated
+	 */
+	AndRule createAndRule();
 
 	/**
 	 * Returns the package supported by this factory.
