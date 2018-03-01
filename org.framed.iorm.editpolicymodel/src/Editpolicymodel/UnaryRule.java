@@ -20,7 +20,6 @@ package Editpolicymodel;
  * @generated
  */
 public interface UnaryRule<T> extends AbstractRule {
-
 	/**
 	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -46,4 +45,5 @@ public interface UnaryRule<T> extends AbstractRule {
 	 * @generated
 	 */
 	void setRule(AbstractRule<T> value);
+
 } // UnaryRule

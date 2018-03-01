@@ -13,4 +13,12 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: Editpolicymodel,
  Editpolicymodel.impl,
- Editpolicymodel.util
+ Editpolicymodel.util,
+ iorm,
+ iorm.featuremodel,
+ iorm.featuremodel.impl,
+ iorm.featuremodel.util,
+ iorm.impl,
+ iorm.util
+Import-Package: org.framed.iorm.model
+

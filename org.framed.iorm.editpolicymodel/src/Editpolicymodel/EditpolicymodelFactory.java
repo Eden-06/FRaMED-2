@@ -40,40 +40,22 @@ public interface EditpolicymodelFactory extends EFactory {
 	Policy createPolicy();
 
 	/**
-	 * Returns a new object of class '<em>And Constraint Rule</em>'.
+	 * Returns a new object of class '<em>Contains</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>And Constraint Rule</em>'.
+	 * @return a new object of class '<em>Contains</em>'.
 	 * @generated
 	 */
-	AndConstraintRule createAndConstraintRule();
+	Contains createContains();
 
 	/**
-	 * Returns a new object of class '<em>Or Constraint Rule</em>'.
+	 * Returns a new object of class '<em>Is Step Out</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Or Constraint Rule</em>'.
+	 * @return a new object of class '<em>Is Step Out</em>'.
 	 * @generated
 	 */
-	OrConstraintRule createOrConstraintRule();
-
-	/**
-	 * Returns a new object of class '<em>Contains Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Contains Constraint Rule</em>'.
-	 * @generated
-	 */
-	ContainsConstraintRule createContainsConstraintRule();
-
-	/**
-	 * Returns a new object of class '<em>Is Step Out Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Step Out Constraint Rule</em>'.
-	 * @generated
-	 */
-	IsStepOutConstraintRule createIsStepOutConstraintRule();
+	IsStepOut createIsStepOut();
 
 	/**
 	 * Returns a new object of class '<em>Is Target Constraint Rule</em>'.
@@ -101,24 +83,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	IsParentConstraintRule createIsParentConstraintRule();
-
-	/**
-	 * Returns a new object of class '<em>True Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>True Constraint Rule</em>'.
-	 * @generated
-	 */
-	TrueConstraintRule createTrueConstraintRule();
-
-	/**
-	 * Returns a new object of class '<em>False Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>False Constraint Rule</em>'.
-	 * @generated
-	 */
-	FalseConstraintRule createFalseConstraintRule();
 
 	/**
 	 * Returns a new object of class '<em>Rule</em>'.
@@ -164,6 +128,42 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	AndRule createAndRule();
+
+	/**
+	 * Returns a new object of class '<em>True Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>True Rule</em>'.
+	 * @generated
+	 */
+	TrueRule createTrueRule();
+
+	/**
+	 * Returns a new object of class '<em>False Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>False Rule</em>'.
+	 * @generated
+	 */
+	FalseRule createFalseRule();
+
+	/**
+	 * Returns a new object of class '<em>Or Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Or Rule</em>'.
+	 * @generated
+	 */
+	OrRule createOrRule();
+
+	/**
+	 * Returns a new object of class '<em>Implication Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Implication Rule</em>'.
+	 * @generated
+	 */
+	ImplicationRule createImplicationRule();
 
 	/**
 	 * Returns the package supported by this factory.

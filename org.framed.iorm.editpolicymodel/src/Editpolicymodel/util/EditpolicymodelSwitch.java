@@ -78,72 +78,38 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.ABSTRACT_CONSTRAINT_RULE: {
-				AbstractConstraintRule abstractConstraintRule = (AbstractConstraintRule)theEObject;
-				T1 result = caseAbstractConstraintRule(abstractConstraintRule);
+			case EditpolicymodelPackage.CONTAINS: {
+				Contains contains = (Contains)theEObject;
+				T1 result = caseContains(contains);
+				if (result == null) result = caseConstraint(contains);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.AND_CONSTRAINT_RULE: {
-				AndConstraintRule andConstraintRule = (AndConstraintRule)theEObject;
-				T1 result = caseAndConstraintRule(andConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(andConstraintRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EditpolicymodelPackage.OR_CONSTRAINT_RULE: {
-				OrConstraintRule orConstraintRule = (OrConstraintRule)theEObject;
-				T1 result = caseOrConstraintRule(orConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(orConstraintRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EditpolicymodelPackage.CONTAINS_CONSTRAINT_RULE: {
-				ContainsConstraintRule containsConstraintRule = (ContainsConstraintRule)theEObject;
-				T1 result = caseContainsConstraintRule(containsConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(containsConstraintRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EditpolicymodelPackage.IS_STEP_OUT_CONSTRAINT_RULE: {
-				IsStepOutConstraintRule isStepOutConstraintRule = (IsStepOutConstraintRule)theEObject;
-				T1 result = caseIsStepOutConstraintRule(isStepOutConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(isStepOutConstraintRule);
+			case EditpolicymodelPackage.IS_STEP_OUT: {
+				IsStepOut isStepOut = (IsStepOut)theEObject;
+				T1 result = caseIsStepOut(isStepOut);
+				if (result == null) result = caseConstraint(isStepOut);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_TARGET_CONSTRAINT_RULE: {
 				IsTargetConstraintRule isTargetConstraintRule = (IsTargetConstraintRule)theEObject;
 				T1 result = caseIsTargetConstraintRule(isTargetConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(isTargetConstraintRule);
+				if (result == null) result = caseConstraint(isTargetConstraintRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_SOURCE_CONSTRAINT_RULE: {
 				IsSourceConstraintRule isSourceConstraintRule = (IsSourceConstraintRule)theEObject;
 				T1 result = caseIsSourceConstraintRule(isSourceConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(isSourceConstraintRule);
+				if (result == null) result = caseConstraint(isSourceConstraintRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_PARENT_CONSTRAINT_RULE: {
 				IsParentConstraintRule isParentConstraintRule = (IsParentConstraintRule)theEObject;
 				T1 result = caseIsParentConstraintRule(isParentConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(isParentConstraintRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: {
-				TrueConstraintRule trueConstraintRule = (TrueConstraintRule)theEObject;
-				T1 result = caseTrueConstraintRule(trueConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(trueConstraintRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: {
-				FalseConstraintRule falseConstraintRule = (FalseConstraintRule)theEObject;
-				T1 result = caseFalseConstraintRule(falseConstraintRule);
-				if (result == null) result = caseAbstractConstraintRule(falseConstraintRule);
+				if (result == null) result = caseConstraint(isParentConstraintRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -197,7 +163,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				NotRule notRule = (NotRule)theEObject;
 				T1 result = caseNotRule(notRule);
 				if (result == null) result = (T1)caseUnaryRule(notRule);
-				if (result == null) result = caseAbstractRule(notRule);
+				if (result == null) result = (T1)caseAbstractRule(notRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -205,7 +171,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				AndRule andRule = (AndRule)theEObject;
 				T1 result = caseAndRule(andRule);
 				if (result == null) result = (T1)caseBinaryRule(andRule);
-				if (result == null) result = caseAbstractRule(andRule);
+				if (result == null) result = (T1)caseAbstractRule(andRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -213,6 +179,36 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				BinaryRule<?> binaryRule = (BinaryRule<?>)theEObject;
 				T1 result = caseBinaryRule(binaryRule);
 				if (result == null) result = (T1)caseAbstractRule(binaryRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.TRUE_RULE: {
+				TrueRule trueRule = (TrueRule)theEObject;
+				T1 result = caseTrueRule(trueRule);
+				if (result == null) result = (T1)caseAbstractRule(trueRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.FALSE_RULE: {
+				FalseRule falseRule = (FalseRule)theEObject;
+				T1 result = caseFalseRule(falseRule);
+				if (result == null) result = (T1)caseAbstractRule(falseRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.OR_RULE: {
+				OrRule orRule = (OrRule)theEObject;
+				T1 result = caseOrRule(orRule);
+				if (result == null) result = (T1)caseBinaryRule(orRule);
+				if (result == null) result = (T1)caseAbstractRule(orRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.IMPLICATION_RULE: {
+				ImplicationRule implicationRule = (ImplicationRule)theEObject;
+				T1 result = caseImplicationRule(implicationRule);
+				if (result == null) result = (T1)caseBinaryRule(implicationRule);
+				if (result == null) result = (T1)caseAbstractRule(implicationRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -251,77 +247,32 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Constraint Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Contains</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Constraint Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Contains</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseAbstractConstraintRule(AbstractConstraintRule object) {
+	public T1 caseContains(Contains object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>And Constraint Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Is Step Out</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>And Constraint Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Is Step Out</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseAndConstraintRule(AndConstraintRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Or Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Or Constraint Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T1 caseOrConstraintRule(OrConstraintRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Contains Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Contains Constraint Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T1 caseContainsConstraintRule(ContainsConstraintRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Step Out Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Step Out Constraint Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T1 caseIsStepOutConstraintRule(IsStepOutConstraintRule object) {
+	public T1 caseIsStepOut(IsStepOut object) {
 		return null;
 	}
 
@@ -367,36 +318,6 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @generated
 	 */
 	public T1 caseIsParentConstraintRule(IsParentConstraintRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>True Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>True Constraint Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T1 caseTrueConstraintRule(TrueConstraintRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>False Constraint Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>False Constraint Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T1 caseFalseConstraintRule(FalseConstraintRule object) {
 		return null;
 	}
 
@@ -547,6 +468,66 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @generated
 	 */
 	public <T> T1 caseBinaryRule(BinaryRule<T> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>True Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>True Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseTrueRule(TrueRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>False Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>False Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseFalseRule(FalseRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Or Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseOrRule(OrRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Implication Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Implication Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseImplicationRule(ImplicationRule object) {
 		return null;
 	}
 

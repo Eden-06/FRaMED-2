@@ -4,10 +4,10 @@ package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.Rule;
-
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class RuleImpl<T> extends MinimalEObjectImpl.Container implements Rule<T> {
 	/**
-	 * The cached value of the '{@link #getRule() <em>Rule</em>}' attribute.
+	 * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRule()
@@ -35,7 +35,6 @@ public class RuleImpl<T> extends MinimalEObjectImpl.Container implements Rule<T>
 	 * @ordered
 	 */
 	protected T rule;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,11 +68,47 @@ public class RuleImpl<T> extends MinimalEObjectImpl.Container implements Rule<T>
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRule(T newRule) {
+	public NotificationChain basicSetRule(T newRule, NotificationChain msgs) {
 		T oldRule = rule;
 		rule = newRule;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.RULE__RULE, oldRule, rule));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.RULE__RULE, oldRule, newRule);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRule(T newRule) {
+		if (newRule != rule) {
+			NotificationChain msgs = null;
+			if (rule != null)
+				msgs = ((InternalEObject)rule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EditpolicymodelPackage.RULE__RULE, null, msgs);
+			if (newRule != null)
+				msgs = ((InternalEObject)newRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EditpolicymodelPackage.RULE__RULE, null, msgs);
+			msgs = basicSetRule(newRule, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.RULE__RULE, newRule, newRule));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EditpolicymodelPackage.RULE__RULE:
+				return basicSetRule(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -133,22 +168,6 @@ public class RuleImpl<T> extends MinimalEObjectImpl.Container implements Rule<T>
 				return rule != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (rule: ");
-		result.append(rule);
-		result.append(')');
-		return result.toString();
 	}
 
 } //RuleImpl

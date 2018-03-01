@@ -12,67 +12,46 @@
       <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionEnum/Start"/>
       <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionEnum/Reconnect"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="editpolicymodel.ecore#//ActionTypeEnum">
-      <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Fulfillment"/>
-      <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Inheritance"/>
-      <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Relationship"/>
-      <genEnumLiterals ecoreEnumLiteral="editpolicymodel.ecore#//ActionTypeEnum/Compartment"/>
-    </genEnums>
     <genClasses ecoreClass="editpolicymodel.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Model/policy"/>
     </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//Policy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//Policy/override"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Policy/constraintRule"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Policy/featureRule"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//Policy/action"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//Policy/ActionType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Policy/featureRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Policy/constraintRule"/>
     </genClasses>
-    <genClasses ecoreClass="editpolicymodel.ecore#//AbstractConstraintRule">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractConstraintRule/rule2"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractConstraintRule/rule1"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//AbstractConstraintRule/argument"/>
-    </genClasses>
-    <genClasses ecoreClass="editpolicymodel.ecore#//AbstractFeatureRule">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractFeatureRule/rule2"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//AbstractFeatureRule/rule1"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//AbstractFeatureRule/argument"/>
-    </genClasses>
-    <genClasses ecoreClass="editpolicymodel.ecore#//AndConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//OrConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//ContainsConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//NotConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//IsStepOutConstraintRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//Contains"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//IsStepOut"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsTargetConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsSourceConstraintRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsParentConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//AndFeatureRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//OrFeatureRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//NotFeatureRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//TrueFeatureRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//FalseFeatureRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//TrueConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//FalseConstraintRule"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//NameFeatureRule"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//AbstractRule">
       <genTypeParameters ecoreTypeParameter="editpolicymodel.ecore#//AbstractRule/T"/>
     </genClasses>
     <genClasses image="false" ecoreClass="editpolicymodel.ecore#//Rule">
       <genTypeParameters ecoreTypeParameter="editpolicymodel.ecore#//Rule/T"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//Rule/rule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//Rule/t"/>
     </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//Feature"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsFeature"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//Constraint"/>
     <genClasses ecoreClass="editpolicymodel.ecore#//IsTargetType"/>
-    <genClasses ecoreClass="editpolicymodel.ecore#//BinaryRule">
-      <genTypeParameters ecoreTypeParameter="editpolicymodel.ecore#//BinaryRule/T"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//BinaryRule/newAttribute"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//BinaryRule/newAttribute.1"/>
-    </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//UnaryRule">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute editpolicymodel.ecore#//UnaryRule/newAttribute"/>
+      <genTypeParameters ecoreTypeParameter="editpolicymodel.ecore#//UnaryRule/T"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//UnaryRule/rule"/>
     </genClasses>
     <genClasses ecoreClass="editpolicymodel.ecore#//NotRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//AndRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//BinaryRule">
+      <genTypeParameters ecoreTypeParameter="editpolicymodel.ecore#//BinaryRule/T"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//BinaryRule/leftRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference editpolicymodel.ecore#//BinaryRule/rightRule"/>
+    </genClasses>
+    <genClasses ecoreClass="editpolicymodel.ecore#//TrueRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//FalseRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//OrRule"/>
+    <genClasses ecoreClass="editpolicymodel.ecore#//ImplicationRule"/>
   </genPackages>
 </genmodel:GenModel>

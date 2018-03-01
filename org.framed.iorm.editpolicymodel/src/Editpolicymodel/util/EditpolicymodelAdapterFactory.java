@@ -76,24 +76,12 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createPolicyAdapter();
 			}
 			@Override
-			public Adapter caseAbstractConstraintRule(AbstractConstraintRule object) {
-				return createAbstractConstraintRuleAdapter();
+			public Adapter caseContains(Contains object) {
+				return createContainsAdapter();
 			}
 			@Override
-			public Adapter caseAndConstraintRule(AndConstraintRule object) {
-				return createAndConstraintRuleAdapter();
-			}
-			@Override
-			public Adapter caseOrConstraintRule(OrConstraintRule object) {
-				return createOrConstraintRuleAdapter();
-			}
-			@Override
-			public Adapter caseContainsConstraintRule(ContainsConstraintRule object) {
-				return createContainsConstraintRuleAdapter();
-			}
-			@Override
-			public Adapter caseIsStepOutConstraintRule(IsStepOutConstraintRule object) {
-				return createIsStepOutConstraintRuleAdapter();
+			public Adapter caseIsStepOut(IsStepOut object) {
+				return createIsStepOutAdapter();
 			}
 			@Override
 			public Adapter caseIsTargetConstraintRule(IsTargetConstraintRule object) {
@@ -106,14 +94,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseIsParentConstraintRule(IsParentConstraintRule object) {
 				return createIsParentConstraintRuleAdapter();
-			}
-			@Override
-			public Adapter caseTrueConstraintRule(TrueConstraintRule object) {
-				return createTrueConstraintRuleAdapter();
-			}
-			@Override
-			public Adapter caseFalseConstraintRule(FalseConstraintRule object) {
-				return createFalseConstraintRuleAdapter();
 			}
 			@Override
 			public <T> Adapter caseAbstractRule(AbstractRule<T> object) {
@@ -154,6 +134,22 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public <T> Adapter caseBinaryRule(BinaryRule<T> object) {
 				return createBinaryRuleAdapter();
+			}
+			@Override
+			public Adapter caseTrueRule(TrueRule object) {
+				return createTrueRuleAdapter();
+			}
+			@Override
+			public Adapter caseFalseRule(FalseRule object) {
+				return createFalseRuleAdapter();
+			}
+			@Override
+			public Adapter caseOrRule(OrRule object) {
+				return createOrRuleAdapter();
+			}
+			@Override
+			public Adapter caseImplicationRule(ImplicationRule object) {
+				return createImplicationRuleAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -204,72 +200,30 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AbstractConstraintRule <em>Abstract Constraint Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.Contains <em>Contains</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.AbstractConstraintRule
+	 * @see Editpolicymodel.Contains
 	 * @generated
 	 */
-	public Adapter createAbstractConstraintRuleAdapter() {
+	public Adapter createContainsAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AndConstraintRule <em>And Constraint Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsStepOut <em>Is Step Out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.AndConstraintRule
+	 * @see Editpolicymodel.IsStepOut
 	 * @generated
 	 */
-	public Adapter createAndConstraintRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.OrConstraintRule <em>Or Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.OrConstraintRule
-	 * @generated
-	 */
-	public Adapter createOrConstraintRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ContainsConstraintRule <em>Contains Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.ContainsConstraintRule
-	 * @generated
-	 */
-	public Adapter createContainsConstraintRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsStepOutConstraintRule <em>Is Step Out Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.IsStepOutConstraintRule
-	 * @generated
-	 */
-	public Adapter createIsStepOutConstraintRuleAdapter() {
+	public Adapter createIsStepOutAdapter() {
 		return null;
 	}
 
@@ -312,34 +266,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIsParentConstraintRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueConstraintRule <em>True Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.TrueConstraintRule
-	 * @generated
-	 */
-	public Adapter createTrueConstraintRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseConstraintRule <em>False Constraint Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.FalseConstraintRule
-	 * @generated
-	 */
-	public Adapter createFalseConstraintRuleAdapter() {
 		return null;
 	}
 
@@ -480,6 +406,62 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBinaryRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueRule <em>True Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.TrueRule
+	 * @generated
+	 */
+	public Adapter createTrueRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseRule <em>False Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.FalseRule
+	 * @generated
+	 */
+	public Adapter createFalseRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.OrRule <em>Or Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.OrRule
+	 * @generated
+	 */
+	public Adapter createOrRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ImplicationRule <em>Implication Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.ImplicationRule
+	 * @generated
+	 */
+	public Adapter createImplicationRuleAdapter() {
 		return null;
 	}
 

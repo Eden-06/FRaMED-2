@@ -2,7 +2,6 @@
  */
 package Editpolicymodel;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface BinaryRule<T> extends AbstractRule {
+public interface BinaryRule<T> extends AbstractRule<T> {
 	/**
 	 * Returns the value of the '<em><b>Left Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -49,19 +48,29 @@ public interface BinaryRule<T> extends AbstractRule {
 	void setLeftRule(AbstractRule<T> value);
 
 	/**
-	 * Returns the value of the '<em><b>Right Rule</b></em>' containment reference list.
-	 * The list contents are of type {@link Editpolicymodel.AbstractRule}<code>&lt;T&gt;</code>.
+	 * Returns the value of the '<em><b>Right Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Right Rule</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Right Rule</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Right Rule</em>' containment reference list.
+	 * @return the value of the '<em>Right Rule</em>' containment reference.
+	 * @see #setRightRule(AbstractRule)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getBinaryRule_RightRule()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<AbstractRule<T>> getRightRule();
+	AbstractRule<T> getRightRule();
+
+	/**
+	 * Sets the value of the '{@link Editpolicymodel.BinaryRule#getRightRule <em>Right Rule</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Right Rule</em>' containment reference.
+	 * @see #getRightRule()
+	 * @generated
+	 */
+	void setRightRule(AbstractRule<T> value);
 
 } // BinaryRule

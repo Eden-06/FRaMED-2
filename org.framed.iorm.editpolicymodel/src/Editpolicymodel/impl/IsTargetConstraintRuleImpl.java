@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class IsTargetConstraintRuleImpl extends AbstractConstraintRuleImpl implements IsTargetConstraintRule {
+public class IsTargetConstraintRuleImpl extends ConstraintImpl implements IsTargetConstraintRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

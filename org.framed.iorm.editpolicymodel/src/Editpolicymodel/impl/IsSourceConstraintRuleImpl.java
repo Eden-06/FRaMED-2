@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class IsSourceConstraintRuleImpl extends AbstractConstraintRuleImpl implements IsSourceConstraintRule {
+public class IsSourceConstraintRuleImpl extends ConstraintImpl implements IsSourceConstraintRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

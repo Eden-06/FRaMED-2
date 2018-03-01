@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface IsTargetConstraintRule extends AbstractConstraintRule {
+public interface IsTargetConstraintRule extends Constraint {
 } // IsTargetConstraintRule

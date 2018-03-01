@@ -22,7 +22,8 @@ import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osgi.framework.Bundle;
 
-import Editpolicymodel.AbstractConstraintRule;
+import Editpolicymodel.AbstractRule;
+import Editpolicymodel.Constraint;
 import Editpolicymodel.Policy;
 
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
@@ -85,7 +86,7 @@ public class EditPolicyService {
 			EditPolicyFeatureVisitor editPolicyFeatureVisitor = new EditPolicyFeatureVisitor(config); 
 			for(Editpolicymodel.Model model : editpolicymodels) {
 				for(Editpolicymodel.Policy policy : model.getPolicy()) {
-					if(editPolicyFeatureVisitor.featureRuleVisitor(policy.getFeatureRule())) {
+					if(editPolicyFeatureVisitor.checkRule(policy.getFeatureRule())) {
 						policyList.add(policy); 
 					}
 				}
@@ -101,9 +102,9 @@ public class EditPolicyService {
 		return true;
 	}
 
-	private static List<Editpolicymodel.AbstractConstraintRule> getConstraints(Diagram diagram, String action, String type) {
+	private static List<Editpolicymodel.AbstractRule<Constraint>> getConstraints(Diagram diagram, String action, Type type) {
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
-		List<AbstractConstraintRule> rules = new LinkedList<>();
+		List<AbstractRule<Constraint>> rules = new LinkedList<>();
 
 		List<Policy> policies = EditPolicyService.activatedPolicies.get(diagram.getName());
 		if(policies == null) {
@@ -123,12 +124,12 @@ public class EditPolicyService {
 		return rules;
 	}
 
-	public static boolean canCreate(ICreateConnectionContext context, String type, Diagram diagram) 
+	public static boolean canCreate(ICreateConnectionContext context, Type type, Diagram diagram) 
 	{
-		List<Editpolicymodel.AbstractConstraintRule> constraints = EditPolicyService.getConstraints(diagram, "Create", type);
+		List<Editpolicymodel.AbstractRule<Constraint>> constraints = EditPolicyService.getConstraints(diagram, "Create", type);
 		EditPolicyConstraintVisitor constraintVisitor = new EditPolicyConstraintVisitor(context, false);
-		for(AbstractConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.constraintRuleVisitor(constraintRule))
+		for(AbstractRule<Constraint> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
 		return true;

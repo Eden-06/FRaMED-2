@@ -1,11 +1,9 @@
 package org.framed.iorm.ui.editPolicy;
 
-import Editpolicymodel.AbstractConstraintRule;
-import Editpolicymodel.AndConstraintRule;
-import Editpolicymodel.FalseConstraintRule;
-import Editpolicymodel.IsStepOutConstraintRule;
-import Editpolicymodel.NotFeatureRule;
-import Editpolicymodel.TrueConstraintRule;
+import Editpolicymodel.AbstractRule;
+import Editpolicymodel.Constraint;
+import Editpolicymodel.IsStepOut;
+import Editpolicymodel.Rule;
 
 /**
  * This class provides the rule-parse for the command-rules. Using VisitorPattern
@@ -13,7 +11,7 @@ import Editpolicymodel.TrueConstraintRule;
  * @author Christian Deussen
  *
  */
-public class EditPolicyConstraintVisitor {
+public class EditPolicyConstraintVisitor extends AbstractEditPolicyRuleVisitor<Constraint> {
 
 	/**
 	 * command to check rules against
@@ -27,6 +25,7 @@ public class EditPolicyConstraintVisitor {
 	private boolean isStepOut;
 
 	public EditPolicyConstraintVisitor(Object context, boolean isStepOut) {
+		super(null);
 		this.context = context;
 		this.isStepOut = isStepOut;
 	}
@@ -40,39 +39,14 @@ public class EditPolicyConstraintVisitor {
 	 * @return Boolean
 	 */
 	
-	public boolean constraintRuleVisitor(AbstractConstraintRule rule) 
+	public boolean checkRule(AbstractRule<Constraint> rule) 
 	{
-		if(rule == null) {
-			return true;
-		}
-		if (rule instanceof AndConstraintRule)
-			return this.andRuleVisitor(rule);
-		
-		if (rule instanceof NotFeatureRule)
-			return notRuleVisitor(rule);
-		
-		if (rule instanceof IsStepOutConstraintRule)
-			return this.isStepOutConstraintRuleVisitor(rule);
-
-		if (rule instanceof TrueConstraintRule)
-			return true;
-
-		if (rule instanceof FalseConstraintRule)
-			return false;
-
-		System.out.println("NodeMappingVisitor for " + rule.getClass().toString() + " not implemented");
-		return true;
-	}
-	
-	private boolean andRuleVisitor(AbstractConstraintRule rule) {
-		return constraintRuleVisitor(rule.getRule1()) && constraintRuleVisitor(rule.getRule2());
-	}
-	
-	private boolean notRuleVisitor(AbstractConstraintRule rule) {
-		return !constraintRuleVisitor(rule.getRule1());
-	}
-	
-	private boolean isStepOutConstraintRuleVisitor(AbstractConstraintRule rule) {
-		return this.isStepOut;
+		if (rule instanceof Rule) {
+			Constraint constraint = ((Rule<Constraint>) rule).getRule();
+			if(constraint instanceof IsStepOut) {
+				return this.isStepOut;
+			}
+		} 
+		return super.checkRule(rule);
 	}
 }

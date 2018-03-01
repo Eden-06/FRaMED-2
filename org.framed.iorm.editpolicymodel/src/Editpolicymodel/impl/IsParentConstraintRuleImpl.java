@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class IsParentConstraintRuleImpl extends AbstractConstraintRuleImpl implements IsParentConstraintRule {
+public class IsParentConstraintRuleImpl extends ConstraintImpl implements IsParentConstraintRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

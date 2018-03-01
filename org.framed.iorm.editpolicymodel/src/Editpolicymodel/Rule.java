@@ -2,7 +2,6 @@
  */
 package Editpolicymodel;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Rule</b></em>'.
@@ -19,28 +18,28 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface Rule<T> extends AbstractRule {
+public interface Rule<T> extends AbstractRule<T> {
 	/**
-	 * Returns the value of the '<em><b>Rule</b></em>' attribute.
+	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rule</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Rule</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rule</em>' attribute.
+	 * @return the value of the '<em>Rule</em>' containment reference.
 	 * @see #setRule(Object)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getRule_Rule()
-	 * @model
+	 * @model kind="reference" containment="true"
 	 * @generated
 	 */
 	T getRule();
 
 	/**
-	 * Sets the value of the '{@link Editpolicymodel.Rule#getRule <em>Rule</em>}' attribute.
+	 * Sets the value of the '{@link Editpolicymodel.Rule#getRule <em>Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rule</em>' attribute.
+	 * @param value the new value of the '<em>Rule</em>' containment reference.
 	 * @see #getRule()
 	 * @generated
 	 */

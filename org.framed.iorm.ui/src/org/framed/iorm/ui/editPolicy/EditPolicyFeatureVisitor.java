@@ -6,13 +6,10 @@ import java.util.List;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 
-import Editpolicymodel.AbstractFeatureRule;
-import Editpolicymodel.AndFeatureRule;
-import Editpolicymodel.FalseFeatureRule;
-import Editpolicymodel.NameFeatureRule;
-import Editpolicymodel.NotFeatureRule;
-import Editpolicymodel.TrueFeatureRule;
-
+import Editpolicymodel.AbstractRule;
+import Editpolicymodel.Feature;
+import Editpolicymodel.IsFeature;
+import Editpolicymodel.Rule;
 
 /**
  * This class provides the rule-parse for the editPolicy-Mapping-configuration. Using VisitorPattern
@@ -20,7 +17,7 @@ import Editpolicymodel.TrueFeatureRule;
  * @author Christian Deussen
  *
  */
-public class EditPolicyFeatureVisitor {
+public class EditPolicyFeatureVisitor extends AbstractEditPolicyRuleVisitor<Feature> {
 
 	/**
 	 * current configuration of editor
@@ -30,49 +27,31 @@ public class EditPolicyFeatureVisitor {
 
 	public EditPolicyFeatureVisitor(FRaMEDConfiguration framedConfiguration)
 	{
+		super(framedConfiguration);
 		this.configuration = framedConfiguration;
 	}
 	
 	/**
-	 * root Visitor of mappingRule:
-	 * dispatches to specific rule
+	 * dispatch abstract rule
 	 *
-	 * returns whether the given rule is enabled according to configuration
+	 * returns whether this.cmd is allowed according to @param rule
 	 *
 	 * @param rule
 	 * @return Boolean
 	 */
 	
-	public boolean featureRuleVisitor(AbstractFeatureRule rule)
+	public boolean checkRule(AbstractRule<Feature> rule) 
 	{
-		if (rule instanceof AndFeatureRule)
-			return andRuleVisitor(rule);
-		
-		if (rule instanceof NotFeatureRule)
-			return notRuleVisitor(rule);
-		
-		if (rule instanceof NameFeatureRule)
-			return featureNameRuleVisitor(rule);
-
-		if (rule instanceof TrueFeatureRule)
-			return true;
-
-		if (rule instanceof FalseFeatureRule)
-			return false;
-
-		System.out.println("NodeMappingVisitor for " + rule.getClass().toString() + " not implemented");
-		return true;
+		if (rule instanceof Rule) {
+			Feature feature = ((Rule<Feature>) rule).getRule();
+			if(feature instanceof IsFeature) {
+				return featureNameVisitor((IsFeature)feature);
+			}
+		} 
+		return super.checkRule(rule);
 	}
-	
-	private boolean andRuleVisitor(AbstractFeatureRule rule) {
-		return true;
-	}
-	
-	private boolean notRuleVisitor(AbstractFeatureRule rule) {
-		return true;
-	}
-	
-	private boolean featureNameRuleVisitor(AbstractFeatureRule rule)
+
+	private boolean featureNameVisitor(IsFeature rule)
 	{
  		List<String> features = new ArrayList<>();
 
@@ -81,9 +60,9 @@ public class EditPolicyFeatureVisitor {
  			//System.out.println("EditPolicyHandler feature: " + feature.getName().getName());
  		}
 
-		if(features.contains(rule.getArgument())) {
-			return true;
-		}
+		//if(features.contains(rule.getArgument())) {
+		//	return true;
+		//}
 		return false;
 	}
 	

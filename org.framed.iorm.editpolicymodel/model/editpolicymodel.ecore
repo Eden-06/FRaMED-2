@@ -10,9 +10,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="override" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//ActionEnum"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="Create"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ActionType" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="CompartmentType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
         <eTypeArguments eClassifier="#//Feature"/>
@@ -40,7 +40,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//AbstractRule">
     <eTypeParameters name="T"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" containment="true">
       <eGenericType eTypeParameter="#//Rule/T"/>
     </eStructuralFeatures>
   </eClassifiers>

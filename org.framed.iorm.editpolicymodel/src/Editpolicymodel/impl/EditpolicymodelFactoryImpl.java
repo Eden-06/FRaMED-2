@@ -59,20 +59,20 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eClass.getClassifierID()) {
 			case EditpolicymodelPackage.MODEL: return createModel();
 			case EditpolicymodelPackage.POLICY: return createPolicy();
-			case EditpolicymodelPackage.AND_CONSTRAINT_RULE: return createAndConstraintRule();
-			case EditpolicymodelPackage.OR_CONSTRAINT_RULE: return createOrConstraintRule();
-			case EditpolicymodelPackage.CONTAINS_CONSTRAINT_RULE: return createContainsConstraintRule();
-			case EditpolicymodelPackage.IS_STEP_OUT_CONSTRAINT_RULE: return createIsStepOutConstraintRule();
+			case EditpolicymodelPackage.CONTAINS: return createContains();
+			case EditpolicymodelPackage.IS_STEP_OUT: return createIsStepOut();
 			case EditpolicymodelPackage.IS_TARGET_CONSTRAINT_RULE: return createIsTargetConstraintRule();
 			case EditpolicymodelPackage.IS_SOURCE_CONSTRAINT_RULE: return createIsSourceConstraintRule();
 			case EditpolicymodelPackage.IS_PARENT_CONSTRAINT_RULE: return createIsParentConstraintRule();
-			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: return createTrueConstraintRule();
-			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: return createFalseConstraintRule();
 			case EditpolicymodelPackage.RULE: return createRule();
 			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
 			case EditpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
 			case EditpolicymodelPackage.NOT_RULE: return createNotRule();
 			case EditpolicymodelPackage.AND_RULE: return createAndRule();
+			case EditpolicymodelPackage.TRUE_RULE: return createTrueRule();
+			case EditpolicymodelPackage.FALSE_RULE: return createFalseRule();
+			case EditpolicymodelPackage.OR_RULE: return createOrRule();
+			case EditpolicymodelPackage.IMPLICATION_RULE: return createImplicationRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -88,8 +88,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eDataType.getClassifierID()) {
 			case EditpolicymodelPackage.ACTION_ENUM:
 				return createActionEnumFromString(eDataType, initialValue);
-			case EditpolicymodelPackage.ACTION_TYPE_ENUM:
-				return createActionTypeEnumFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -105,8 +103,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eDataType.getClassifierID()) {
 			case EditpolicymodelPackage.ACTION_ENUM:
 				return convertActionEnumToString(eDataType, instanceValue);
-			case EditpolicymodelPackage.ACTION_TYPE_ENUM:
-				return convertActionTypeEnumToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -137,9 +133,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AndConstraintRule createAndConstraintRule() {
-		AndConstraintRuleImpl andConstraintRule = new AndConstraintRuleImpl();
-		return andConstraintRule;
+	public Contains createContains() {
+		ContainsImpl contains = new ContainsImpl();
+		return contains;
 	}
 
 	/**
@@ -147,29 +143,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OrConstraintRule createOrConstraintRule() {
-		OrConstraintRuleImpl orConstraintRule = new OrConstraintRuleImpl();
-		return orConstraintRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ContainsConstraintRule createContainsConstraintRule() {
-		ContainsConstraintRuleImpl containsConstraintRule = new ContainsConstraintRuleImpl();
-		return containsConstraintRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IsStepOutConstraintRule createIsStepOutConstraintRule() {
-		IsStepOutConstraintRuleImpl isStepOutConstraintRule = new IsStepOutConstraintRuleImpl();
-		return isStepOutConstraintRule;
+	public IsStepOut createIsStepOut() {
+		IsStepOutImpl isStepOut = new IsStepOutImpl();
+		return isStepOut;
 	}
 
 	/**
@@ -200,26 +176,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public IsParentConstraintRule createIsParentConstraintRule() {
 		IsParentConstraintRuleImpl isParentConstraintRule = new IsParentConstraintRuleImpl();
 		return isParentConstraintRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TrueConstraintRule createTrueConstraintRule() {
-		TrueConstraintRuleImpl trueConstraintRule = new TrueConstraintRuleImpl();
-		return trueConstraintRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FalseConstraintRule createFalseConstraintRule() {
-		FalseConstraintRuleImpl falseConstraintRule = new FalseConstraintRuleImpl();
-		return falseConstraintRule;
 	}
 
 	/**
@@ -277,6 +233,46 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TrueRule createTrueRule() {
+		TrueRuleImpl trueRule = new TrueRuleImpl();
+		return trueRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FalseRule createFalseRule() {
+		FalseRuleImpl falseRule = new FalseRuleImpl();
+		return falseRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrRule createOrRule() {
+		OrRuleImpl orRule = new OrRuleImpl();
+		return orRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplicationRule createImplicationRule() {
+		ImplicationRuleImpl implicationRule = new ImplicationRuleImpl();
+		return implicationRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ActionEnum createActionEnumFromString(EDataType eDataType, String initialValue) {
 		ActionEnum result = ActionEnum.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -289,26 +285,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * @generated
 	 */
 	public String convertActionEnumToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ActionTypeEnum createActionTypeEnumFromString(EDataType eDataType, String initialValue) {
-		ActionTypeEnum result = ActionTypeEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertActionTypeEnumToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

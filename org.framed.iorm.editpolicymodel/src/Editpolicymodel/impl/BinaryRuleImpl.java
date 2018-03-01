@@ -6,21 +6,14 @@ import Editpolicymodel.AbstractRule;
 import Editpolicymodel.BinaryRule;
 import Editpolicymodel.EditpolicymodelPackage;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,14 +41,14 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	protected AbstractRule<T> leftRule;
 
 	/**
-	 * The cached value of the '{@link #getRightRule() <em>Right Rule</em>}' containment reference list.
+	 * The cached value of the '{@link #getRightRule() <em>Right Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRightRule()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractRule<T>> rightRule;
+	protected AbstractRule<T> rightRule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,11 +117,42 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractRule<T>> getRightRule() {
-		if (rightRule == null) {
-			rightRule = new EObjectContainmentEList<AbstractRule<T>>(AbstractRule.class, this, EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE);
-		}
+	public AbstractRule<T> getRightRule() {
 		return rightRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRightRule(AbstractRule<T> newRightRule, NotificationChain msgs) {
+		AbstractRule<T> oldRightRule = rightRule;
+		rightRule = newRightRule;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, oldRightRule, newRightRule);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRightRule(AbstractRule<T> newRightRule) {
+		if (newRightRule != rightRule) {
+			NotificationChain msgs = null;
+			if (rightRule != null)
+				msgs = ((InternalEObject)rightRule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, null, msgs);
+			if (newRightRule != null)
+				msgs = ((InternalEObject)newRightRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, null, msgs);
+			msgs = basicSetRightRule(newRightRule, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, newRightRule, newRightRule));
 	}
 
 	/**
@@ -142,7 +166,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
 				return basicSetLeftRule(null, msgs);
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				return ((InternalEList<?>)getRightRule()).basicRemove(otherEnd, msgs);
+				return basicSetRightRule(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -176,8 +200,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 				setLeftRule((AbstractRule<T>)newValue);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				getRightRule().clear();
-				getRightRule().addAll((Collection<? extends AbstractRule<T>>)newValue);
+				setRightRule((AbstractRule<T>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,7 +218,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 				setLeftRule((AbstractRule<T>)null);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				getRightRule().clear();
+				setRightRule((AbstractRule<T>)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -212,7 +235,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
 				return leftRule != null;
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				return rightRule != null && !rightRule.isEmpty();
+				return rightRule != null;
 		}
 		return super.eIsSet(featureID);
 	}
