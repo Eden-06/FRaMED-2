@@ -173,7 +173,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(types.contains(sourceShape.getType()))
 	    			if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, "Inheritance", this.getDiagram());
+						   return EditPolicyService.canCreate(createContext, Type.INHERITANCE, this.getDiagram());
 	    }	}
 	    return false;
 	}

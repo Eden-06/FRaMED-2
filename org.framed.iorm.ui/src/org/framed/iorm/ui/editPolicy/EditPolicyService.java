@@ -18,12 +18,13 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osgi.framework.Bundle;
 
 import Editpolicymodel.AbstractRule;
-import Editpolicymodel.Constraint;
+import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.Policy;
 
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
@@ -50,6 +51,11 @@ public class EditPolicyService {
 	 * for each diagram a list with activated policies
 	 */
 	private static Map<String, List<Editpolicymodel.Policy>> activatedPolicies;
+
+	/**
+	 * For every diagram one editpolicyHandler
+	 */
+	private static Map<String, EditPolicyHandler> editPolicyHandlers;
 
 	public static void initEditPolicyService() {
 		EditPolicyService.editpolicymodels = new LinkedList<>();
@@ -83,28 +89,31 @@ public class EditPolicyService {
 			//load all rules which are activated by current configuration
 			List<Editpolicymodel.Policy> policyList = new LinkedList<>();
 
-			EditPolicyFeatureVisitor editPolicyFeatureVisitor = new EditPolicyFeatureVisitor(config); 
+			FeatureRuleVisitor featureRuleVisitor = new FeatureRuleVisitor(config); 
 			for(Editpolicymodel.Model model : editpolicymodels) {
 				for(Editpolicymodel.Policy policy : model.getPolicy()) {
-					if(editPolicyFeatureVisitor.checkRule(policy.getFeatureRule())) {
+					if(featureRuleVisitor.checkRule(policy.getFeatureRule())) {
 						policyList.add(policy); 
 					}
 				}
 			}
-
 			activatedPolicies.put(diagram.getName(), policyList);
 		}
 		return; 
 	}
 
+	public static boolean canDirectEdit(IDirectEditingContext editingContext) {
+		return true;
+	}
+	
 	public static boolean canAdd(IAddContext context, Diagram diagram) {
 		// System.out.println("---can add check----");
 		return true;
 	}
 
-	private static List<Editpolicymodel.AbstractRule<Constraint>> getConstraints(Diagram diagram, String action, Type type) {
+	private static List<Editpolicymodel.AbstractRule<ConstraintRule>> getConstraints(Diagram diagram, String action, Type type) {
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
-		List<AbstractRule<Constraint>> rules = new LinkedList<>();
+		List<AbstractRule<ConstraintRule>> rules = new LinkedList<>();
 
 		List<Policy> policies = EditPolicyService.activatedPolicies.get(diagram.getName());
 		if(policies == null) {
@@ -117,7 +126,7 @@ public class EditPolicyService {
 			System.out.println("Action: " + policy.getAction().toString());
 			System.out.println("Type: " + policy.getActionType().toString());
 
-			if(policy.getAction().toString().equals(action) && policy.getActionType().toString().equals(type))
+			if(policy.getAction().toString().equals(action) && policy.getActionType().toString().equals(type.toString()))
 				rules.add(policy.getConstraintRule());
 		}
 
@@ -126,9 +135,9 @@ public class EditPolicyService {
 
 	public static boolean canCreate(ICreateConnectionContext context, Type type, Diagram diagram) 
 	{
-		List<Editpolicymodel.AbstractRule<Constraint>> constraints = EditPolicyService.getConstraints(diagram, "Create", type);
-		EditPolicyConstraintVisitor constraintVisitor = new EditPolicyConstraintVisitor(context, false);
-		for(AbstractRule<Constraint> constraintRule: constraints) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = EditPolicyService.getConstraints(diagram, "Create", type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -157,7 +166,7 @@ public class EditPolicyService {
 
 	/**
 	 * canCreate is called to check whether a command is allowed to execute in a
-	 * given situation checks each policy
+	 * given situation. Checks each policy
 	 *
 	 * this function
 	 * 

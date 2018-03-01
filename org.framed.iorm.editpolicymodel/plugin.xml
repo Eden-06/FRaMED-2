@@ -30,4 +30,12 @@
             genModel="model/editpolicymodel.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated editpolicymodel -->
+      <package
+            uri="http://iorm.featuremodel/1.0"
+            class="featuremodel.FeaturemodelPackage"
+            genModel="model/editpolicymodel.genmodel"/>
+   </extension>
+
 </plugin>

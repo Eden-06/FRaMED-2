@@ -1,18 +1,18 @@
 /**
  */
-package iorm.featuremodel.impl;
+package featuremodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
 
 import Editpolicymodel.impl.EditpolicymodelPackageImpl;
 
-import iorm.IormPackage;
+import featuremodel.FRaMEDConfiguration;
+import featuremodel.FRaMEDFeature;
+import featuremodel.FeatureName;
+import featuremodel.FeaturemodelFactory;
+import featuremodel.FeaturemodelPackage;
 
-import iorm.featuremodel.FRaMEDConfiguration;
-import iorm.featuremodel.FRaMEDFeature;
-import iorm.featuremodel.FeatureName;
-import iorm.featuremodel.FeaturemodelFactory;
-import iorm.featuremodel.FeaturemodelPackage;
+import iorm.IormPackage;
 
 import iorm.impl.IormPackageImpl;
 
@@ -63,7 +63,7 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see iorm.featuremodel.FeaturemodelPackage#eNS_URI
+	 * @see featuremodel.FeaturemodelPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
@@ -101,7 +101,7 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 		// Obtain or create and register interdependencies
 		EditpolicymodelPackageImpl theEditpolicymodelPackage = (EditpolicymodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EditpolicymodelPackage.eNS_URI) instanceof EditpolicymodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EditpolicymodelPackage.eNS_URI) : EditpolicymodelPackage.eINSTANCE);
 		IormPackageImpl theIormPackage = (IormPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) instanceof IormPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) : IormPackage.eINSTANCE);
-		featuremodel.impl.FeaturemodelPackageImpl theFeaturemodelPackage_1 = (featuremodel.impl.FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) instanceof featuremodel.impl.FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) : featuremodel.FeaturemodelPackage.eINSTANCE);
+		iorm.featuremodel.impl.FeaturemodelPackageImpl theFeaturemodelPackage_1 = (iorm.featuremodel.impl.FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(iorm.featuremodel.FeaturemodelPackage.eNS_URI) instanceof iorm.featuremodel.impl.FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(iorm.featuremodel.FeaturemodelPackage.eNS_URI) : iorm.featuremodel.FeaturemodelPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theFeaturemodelPackage.createPackageContents();
@@ -240,6 +240,9 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		iorm.featuremodel.FeaturemodelPackage theFeaturemodelPackage_1 = (iorm.featuremodel.FeaturemodelPackage)EPackage.Registry.INSTANCE.getEPackage(iorm.featuremodel.FeaturemodelPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -248,11 +251,11 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(fRaMEDFeatureEClass, FRaMEDFeature.class, "FRaMEDFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFRaMEDFeature_Name(), this.getFeatureName(), "name", "RML_Feature_Model", 1, 1, FRaMEDFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFRaMEDFeature_Name(), theFeaturemodelPackage_1.getFeatureName(), "name", "RML_Feature_Model", 1, 1, FRaMEDFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFRaMEDFeature_ManuallySelected(), ecorePackage.getEBoolean(), "manuallySelected", null, 1, 1, FRaMEDFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fRaMEDConfigurationEClass, FRaMEDConfiguration.class, "FRaMEDConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFRaMEDConfiguration_Features(), this.getFRaMEDFeature(), null, "features", null, 0, -1, FRaMEDConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFRaMEDConfiguration_Features(), theFeaturemodelPackage_1.getFRaMEDFeature(), null, "features", null, 0, -1, FRaMEDConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(featureNameEEnum, FeatureName.class, "FeatureName");
@@ -293,6 +296,9 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 		addEEnumLiteral(featureNameEEnum, FeatureName.PLAYABLE_BY_DEFINING_COMPARTMENT);
 		addEEnumLiteral(featureNameEEnum, FeatureName.DATA_TYPES);
 		addEEnumLiteral(featureNameEEnum, FeatureName.DATA_TYPE_INHERITANCE);
+
+		// Create resource
+		createResource(eNS_URI);
 	}
 
 } //FeaturemodelPackageImpl

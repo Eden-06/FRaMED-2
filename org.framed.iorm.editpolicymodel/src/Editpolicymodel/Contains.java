@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface Contains extends Constraint {
+public interface Contains extends TypeArgumentRule {
 } // Contains

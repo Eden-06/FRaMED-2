@@ -3,24 +3,24 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.IsParentConstraintRule;
+import Editpolicymodel.IsParent;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Parent Constraint Rule</b></em>'.
+ * An implementation of the model object '<em><b>Is Parent</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IsParentConstraintRuleImpl extends ConstraintImpl implements IsParentConstraintRule {
+public class IsParentImpl extends TypeArgumentRuleImpl implements IsParent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsParentConstraintRuleImpl() {
+	protected IsParentImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class IsParentConstraintRuleImpl extends ConstraintImpl implements IsPare
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.IS_PARENT_CONSTRAINT_RULE;
+		return EditpolicymodelPackage.Literals.IS_PARENT;
 	}
 
-} //IsParentConstraintRuleImpl
+} //IsParentImpl

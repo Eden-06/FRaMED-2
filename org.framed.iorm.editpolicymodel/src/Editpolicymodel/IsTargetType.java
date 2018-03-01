@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface IsTargetType extends Constraint {
+public interface IsTargetType extends TypeArgumentRule {
 } // IsTargetType

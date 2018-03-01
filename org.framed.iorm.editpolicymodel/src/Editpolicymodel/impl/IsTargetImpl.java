@@ -3,24 +3,24 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.IsSourceConstraintRule;
+import Editpolicymodel.IsTarget;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Source Constraint Rule</b></em>'.
+ * An implementation of the model object '<em><b>Is Target</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IsSourceConstraintRuleImpl extends ConstraintImpl implements IsSourceConstraintRule {
+public class IsTargetImpl extends TypeArgumentRuleImpl implements IsTarget {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsSourceConstraintRuleImpl() {
+	protected IsTargetImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class IsSourceConstraintRuleImpl extends ConstraintImpl implements IsSour
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.IS_SOURCE_CONSTRAINT_RULE;
+		return EditpolicymodelPackage.Literals.IS_TARGET;
 	}
 
-} //IsSourceConstraintRuleImpl
+} //IsTargetImpl

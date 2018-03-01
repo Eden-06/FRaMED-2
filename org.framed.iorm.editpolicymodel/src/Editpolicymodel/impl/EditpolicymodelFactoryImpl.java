@@ -61,9 +61,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.POLICY: return createPolicy();
 			case EditpolicymodelPackage.CONTAINS: return createContains();
 			case EditpolicymodelPackage.IS_STEP_OUT: return createIsStepOut();
-			case EditpolicymodelPackage.IS_TARGET_CONSTRAINT_RULE: return createIsTargetConstraintRule();
-			case EditpolicymodelPackage.IS_SOURCE_CONSTRAINT_RULE: return createIsSourceConstraintRule();
-			case EditpolicymodelPackage.IS_PARENT_CONSTRAINT_RULE: return createIsParentConstraintRule();
+			case EditpolicymodelPackage.IS_TARGET: return createIsTarget();
+			case EditpolicymodelPackage.IS_SOURCE: return createIsSource();
+			case EditpolicymodelPackage.IS_PARENT: return createIsParent();
 			case EditpolicymodelPackage.RULE: return createRule();
 			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
 			case EditpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
@@ -73,6 +73,7 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.FALSE_RULE: return createFalseRule();
 			case EditpolicymodelPackage.OR_RULE: return createOrRule();
 			case EditpolicymodelPackage.IMPLICATION_RULE: return createImplicationRule();
+			case EditpolicymodelPackage.IS_SOURCE_TYPE: return createIsSourceType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -153,9 +154,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsTargetConstraintRule createIsTargetConstraintRule() {
-		IsTargetConstraintRuleImpl isTargetConstraintRule = new IsTargetConstraintRuleImpl();
-		return isTargetConstraintRule;
+	public IsTarget createIsTarget() {
+		IsTargetImpl isTarget = new IsTargetImpl();
+		return isTarget;
 	}
 
 	/**
@@ -163,9 +164,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsSourceConstraintRule createIsSourceConstraintRule() {
-		IsSourceConstraintRuleImpl isSourceConstraintRule = new IsSourceConstraintRuleImpl();
-		return isSourceConstraintRule;
+	public IsSource createIsSource() {
+		IsSourceImpl isSource = new IsSourceImpl();
+		return isSource;
 	}
 
 	/**
@@ -173,9 +174,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsParentConstraintRule createIsParentConstraintRule() {
-		IsParentConstraintRuleImpl isParentConstraintRule = new IsParentConstraintRuleImpl();
-		return isParentConstraintRule;
+	public IsParent createIsParent() {
+		IsParentImpl isParent = new IsParentImpl();
+		return isParent;
 	}
 
 	/**
@@ -266,6 +267,16 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public ImplicationRule createImplicationRule() {
 		ImplicationRuleImpl implicationRule = new ImplicationRuleImpl();
 		return implicationRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsSourceType createIsSourceType() {
+		IsSourceTypeImpl isSourceType = new IsSourceTypeImpl();
+		return isSourceType;
 	}
 
 	/**

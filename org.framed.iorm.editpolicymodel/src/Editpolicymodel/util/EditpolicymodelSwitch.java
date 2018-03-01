@@ -81,35 +81,39 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.CONTAINS: {
 				Contains contains = (Contains)theEObject;
 				T1 result = caseContains(contains);
-				if (result == null) result = caseConstraint(contains);
+				if (result == null) result = caseTypeArgumentRule(contains);
+				if (result == null) result = caseConstraintRule(contains);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_STEP_OUT: {
 				IsStepOut isStepOut = (IsStepOut)theEObject;
 				T1 result = caseIsStepOut(isStepOut);
-				if (result == null) result = caseConstraint(isStepOut);
+				if (result == null) result = caseConstraintRule(isStepOut);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_TARGET_CONSTRAINT_RULE: {
-				IsTargetConstraintRule isTargetConstraintRule = (IsTargetConstraintRule)theEObject;
-				T1 result = caseIsTargetConstraintRule(isTargetConstraintRule);
-				if (result == null) result = caseConstraint(isTargetConstraintRule);
+			case EditpolicymodelPackage.IS_TARGET: {
+				IsTarget isTarget = (IsTarget)theEObject;
+				T1 result = caseIsTarget(isTarget);
+				if (result == null) result = caseTypeArgumentRule(isTarget);
+				if (result == null) result = caseConstraintRule(isTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_SOURCE_CONSTRAINT_RULE: {
-				IsSourceConstraintRule isSourceConstraintRule = (IsSourceConstraintRule)theEObject;
-				T1 result = caseIsSourceConstraintRule(isSourceConstraintRule);
-				if (result == null) result = caseConstraint(isSourceConstraintRule);
+			case EditpolicymodelPackage.IS_SOURCE: {
+				IsSource isSource = (IsSource)theEObject;
+				T1 result = caseIsSource(isSource);
+				if (result == null) result = caseTypeArgumentRule(isSource);
+				if (result == null) result = caseConstraintRule(isSource);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_PARENT_CONSTRAINT_RULE: {
-				IsParentConstraintRule isParentConstraintRule = (IsParentConstraintRule)theEObject;
-				T1 result = caseIsParentConstraintRule(isParentConstraintRule);
-				if (result == null) result = caseConstraint(isParentConstraintRule);
+			case EditpolicymodelPackage.IS_PARENT: {
+				IsParent isParent = (IsParent)theEObject;
+				T1 result = caseIsParent(isParent);
+				if (result == null) result = caseTypeArgumentRule(isParent);
+				if (result == null) result = caseConstraintRule(isParent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -126,29 +130,30 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.FEATURE: {
-				Feature feature = (Feature)theEObject;
-				T1 result = caseFeature(feature);
+			case EditpolicymodelPackage.FEATURE_RULE: {
+				FeatureRule featureRule = (FeatureRule)theEObject;
+				T1 result = caseFeatureRule(featureRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_FEATURE: {
 				IsFeature isFeature = (IsFeature)theEObject;
 				T1 result = caseIsFeature(isFeature);
-				if (result == null) result = caseFeature(isFeature);
+				if (result == null) result = caseFeatureRule(isFeature);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.CONSTRAINT: {
-				Constraint constraint = (Constraint)theEObject;
-				T1 result = caseConstraint(constraint);
+			case EditpolicymodelPackage.CONSTRAINT_RULE: {
+				ConstraintRule constraintRule = (ConstraintRule)theEObject;
+				T1 result = caseConstraintRule(constraintRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IS_TARGET_TYPE: {
 				IsTargetType isTargetType = (IsTargetType)theEObject;
 				T1 result = caseIsTargetType(isTargetType);
-				if (result == null) result = caseConstraint(isTargetType);
+				if (result == null) result = caseTypeArgumentRule(isTargetType);
+				if (result == null) result = caseConstraintRule(isTargetType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -209,6 +214,21 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				T1 result = caseImplicationRule(implicationRule);
 				if (result == null) result = (T1)caseBinaryRule(implicationRule);
 				if (result == null) result = (T1)caseAbstractRule(implicationRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.IS_SOURCE_TYPE: {
+				IsSourceType isSourceType = (IsSourceType)theEObject;
+				T1 result = caseIsSourceType(isSourceType);
+				if (result == null) result = caseTypeArgumentRule(isSourceType);
+				if (result == null) result = caseConstraintRule(isSourceType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE: {
+				TypeArgumentRule typeArgumentRule = (TypeArgumentRule)theEObject;
+				T1 result = caseTypeArgumentRule(typeArgumentRule);
+				if (result == null) result = caseConstraintRule(typeArgumentRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -277,47 +297,47 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Target Constraint Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Is Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Target Constraint Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Is Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseIsTargetConstraintRule(IsTargetConstraintRule object) {
+	public T1 caseIsTarget(IsTarget object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Source Constraint Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Is Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Source Constraint Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Is Source</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseIsSourceConstraintRule(IsSourceConstraintRule object) {
+	public T1 caseIsSource(IsSource object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Parent Constraint Rule</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Is Parent</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Parent Constraint Rule</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Is Parent</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseIsParentConstraintRule(IsParentConstraintRule object) {
+	public T1 caseIsParent(IsParent object) {
 		return null;
 	}
 
@@ -352,17 +372,17 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseFeature(Feature object) {
+	public T1 caseFeatureRule(FeatureRule object) {
 		return null;
 	}
 
@@ -382,17 +402,17 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constraint Rule</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseConstraint(Constraint object) {
+	public T1 caseConstraintRule(ConstraintRule object) {
 		return null;
 	}
 
@@ -528,6 +548,36 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @generated
 	 */
 	public T1 caseImplicationRule(ImplicationRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Is Source Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Is Source Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseIsSourceType(IsSourceType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Argument Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Argument Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T1 caseTypeArgumentRule(TypeArgumentRule object) {
 		return null;
 	}
 

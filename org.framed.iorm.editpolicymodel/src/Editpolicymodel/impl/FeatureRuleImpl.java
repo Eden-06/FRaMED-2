@@ -2,8 +2,8 @@
  */
 package Editpolicymodel.impl;
 
-import Editpolicymodel.Constraint;
 import Editpolicymodel.EditpolicymodelPackage;
+import Editpolicymodel.FeatureRule;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -11,18 +11,18 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Constraint</b></em>'.
+ * An implementation of the model object '<em><b>Feature Rule</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public abstract class ConstraintImpl extends MinimalEObjectImpl.Container implements Constraint {
+public abstract class FeatureRuleImpl extends MinimalEObjectImpl.Container implements FeatureRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ConstraintImpl() {
+	protected FeatureRuleImpl() {
 		super();
 	}
 
@@ -33,7 +33,7 @@ public abstract class ConstraintImpl extends MinimalEObjectImpl.Container implem
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.CONSTRAINT;
+		return EditpolicymodelPackage.Literals.FEATURE_RULE;
 	}
 
-} //ConstraintImpl
+} //FeatureRuleImpl

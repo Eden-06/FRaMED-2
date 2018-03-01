@@ -14,7 +14,6 @@ import org.eclipse.ui.PlatformUI;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
-import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 

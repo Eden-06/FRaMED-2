@@ -4,8 +4,10 @@ package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.Rule;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -35,6 +37,7 @@ public class RuleImpl<T> extends MinimalEObjectImpl.Container implements Rule<T>
 	 * @ordered
 	 */
 	protected T rule;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

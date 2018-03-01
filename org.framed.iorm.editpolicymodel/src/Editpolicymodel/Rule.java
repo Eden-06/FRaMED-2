@@ -2,6 +2,7 @@
  */
 package Editpolicymodel;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Rule</b></em>'.
@@ -23,7 +24,7 @@ public interface Rule<T> extends AbstractRule<T> {
 	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rule</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Rule</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -46,3 +47,4 @@ public interface Rule<T> extends AbstractRule<T> {
 	void setRule(T value);
 
 } // Rule
+ 

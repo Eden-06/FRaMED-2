@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class IsTargetTypeImpl extends ConstraintImpl implements IsTargetType {
+public class IsTargetTypeImpl extends TypeArgumentRuleImpl implements IsTargetType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

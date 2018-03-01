@@ -1,7 +1,7 @@
 package org.framed.iorm.ui.editPolicy;
 
 import Editpolicymodel.AbstractRule;
-import Editpolicymodel.Constraint;
+import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.IsStepOut;
 import Editpolicymodel.Rule;
 
@@ -11,7 +11,7 @@ import Editpolicymodel.Rule;
  * @author Christian Deussen
  *
  */
-public class EditPolicyConstraintVisitor extends AbstractEditPolicyRuleVisitor<Constraint> {
+public class ConstraintRuleVisitor extends AbstractRuleVisitor<ConstraintRule> {
 
 	/**
 	 * command to check rules against
@@ -24,7 +24,7 @@ public class EditPolicyConstraintVisitor extends AbstractEditPolicyRuleVisitor<C
 	 */
 	private boolean isStepOut;
 
-	public EditPolicyConstraintVisitor(Object context, boolean isStepOut) {
+	public ConstraintRuleVisitor(Object context, boolean isStepOut) {
 		super(null);
 		this.context = context;
 		this.isStepOut = isStepOut;
@@ -39,10 +39,10 @@ public class EditPolicyConstraintVisitor extends AbstractEditPolicyRuleVisitor<C
 	 * @return Boolean
 	 */
 	
-	public boolean checkRule(AbstractRule<Constraint> rule) 
+	public boolean checkRule(AbstractRule<ConstraintRule> rule) 
 	{
 		if (rule instanceof Rule) {
-			Constraint constraint = ((Rule<Constraint>) rule).getRule();
+			ConstraintRule constraint = ((Rule<ConstraintRule>) rule).getRule();
 			if(constraint instanceof IsStepOut) {
 				return this.isStepOut;
 			}

@@ -4,9 +4,9 @@ package Editpolicymodel.impl;
 
 import Editpolicymodel.AbstractRule;
 import Editpolicymodel.ActionEnum;
-import Editpolicymodel.Constraint;
+import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.Feature;
+import Editpolicymodel.FeatureRule;
 import Editpolicymodel.Policy;
 
 import iorm.Type;
@@ -106,7 +106,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractRule<Feature> featureRule;
+	protected AbstractRule<FeatureRule> featureRule;
 
 	/**
 	 * The cached value of the '{@link #getConstraintRule() <em>Constraint Rule</em>}' containment reference.
@@ -116,7 +116,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractRule<Constraint> constraintRule;
+	protected AbstractRule<ConstraintRule> constraintRule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -205,7 +205,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractRule<Feature> getFeatureRule() {
+	public AbstractRule<FeatureRule> getFeatureRule() {
 		return featureRule;
 	}
 
@@ -214,8 +214,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFeatureRule(AbstractRule<Feature> newFeatureRule, NotificationChain msgs) {
-		AbstractRule<Feature> oldFeatureRule = featureRule;
+	public NotificationChain basicSetFeatureRule(AbstractRule<FeatureRule> newFeatureRule, NotificationChain msgs) {
+		AbstractRule<FeatureRule> oldFeatureRule = featureRule;
 		featureRule = newFeatureRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.POLICY__FEATURE_RULE, oldFeatureRule, newFeatureRule);
@@ -229,7 +229,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeatureRule(AbstractRule<Feature> newFeatureRule) {
+	public void setFeatureRule(AbstractRule<FeatureRule> newFeatureRule) {
 		if (newFeatureRule != featureRule) {
 			NotificationChain msgs = null;
 			if (featureRule != null)
@@ -248,7 +248,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractRule<Constraint> getConstraintRule() {
+	public AbstractRule<ConstraintRule> getConstraintRule() {
 		return constraintRule;
 	}
 
@@ -257,8 +257,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetConstraintRule(AbstractRule<Constraint> newConstraintRule, NotificationChain msgs) {
-		AbstractRule<Constraint> oldConstraintRule = constraintRule;
+	public NotificationChain basicSetConstraintRule(AbstractRule<ConstraintRule> newConstraintRule, NotificationChain msgs) {
+		AbstractRule<ConstraintRule> oldConstraintRule = constraintRule;
 		constraintRule = newConstraintRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.POLICY__CONSTRAINT_RULE, oldConstraintRule, newConstraintRule);
@@ -272,7 +272,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConstraintRule(AbstractRule<Constraint> newConstraintRule) {
+	public void setConstraintRule(AbstractRule<ConstraintRule> newConstraintRule) {
 		if (newConstraintRule != constraintRule) {
 			NotificationChain msgs = null;
 			if (constraintRule != null)
@@ -343,10 +343,10 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 				setActionType((Type)newValue);
 				return;
 			case EditpolicymodelPackage.POLICY__FEATURE_RULE:
-				setFeatureRule((AbstractRule<Feature>)newValue);
+				setFeatureRule((AbstractRule<FeatureRule>)newValue);
 				return;
 			case EditpolicymodelPackage.POLICY__CONSTRAINT_RULE:
-				setConstraintRule((AbstractRule<Constraint>)newValue);
+				setConstraintRule((AbstractRule<ConstraintRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -370,10 +370,10 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 				setActionType(ACTION_TYPE_EDEFAULT);
 				return;
 			case EditpolicymodelPackage.POLICY__FEATURE_RULE:
-				setFeatureRule((AbstractRule<Feature>)null);
+				setFeatureRule((AbstractRule<FeatureRule>)null);
 				return;
 			case EditpolicymodelPackage.POLICY__CONSTRAINT_RULE:
-				setConstraintRule((AbstractRule<Constraint>)null);
+				setConstraintRule((AbstractRule<ConstraintRule>)null);
 				return;
 		}
 		super.eUnset(featureID);

@@ -7,7 +7,7 @@ import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 
 import Editpolicymodel.AbstractRule;
-import Editpolicymodel.Feature;
+import Editpolicymodel.FeatureRule;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.Rule;
 
@@ -17,7 +17,7 @@ import Editpolicymodel.Rule;
  * @author Christian Deussen
  *
  */
-public class EditPolicyFeatureVisitor extends AbstractEditPolicyRuleVisitor<Feature> {
+public class FeatureRuleVisitor extends AbstractRuleVisitor<FeatureRule> {
 
 	/**
 	 * current configuration of editor
@@ -25,7 +25,7 @@ public class EditPolicyFeatureVisitor extends AbstractEditPolicyRuleVisitor<Feat
 	@SuppressWarnings("unused")
 	private FRaMEDConfiguration configuration;
 
-	public EditPolicyFeatureVisitor(FRaMEDConfiguration framedConfiguration)
+	public FeatureRuleVisitor(FRaMEDConfiguration framedConfiguration)
 	{
 		super(framedConfiguration);
 		this.configuration = framedConfiguration;
@@ -40,10 +40,10 @@ public class EditPolicyFeatureVisitor extends AbstractEditPolicyRuleVisitor<Feat
 	 * @return Boolean
 	 */
 	
-	public boolean checkRule(AbstractRule<Feature> rule) 
+	public boolean checkRule(AbstractRule<FeatureRule> rule) 
 	{
 		if (rule instanceof Rule) {
-			Feature feature = ((Rule<Feature>) rule).getRule();
+			FeatureRule feature = ((Rule<FeatureRule>) rule).getRule();
 			if(feature instanceof IsFeature) {
 				return featureNameVisitor((IsFeature)feature);
 			}

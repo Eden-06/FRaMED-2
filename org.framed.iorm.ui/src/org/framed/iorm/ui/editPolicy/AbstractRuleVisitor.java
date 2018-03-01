@@ -10,12 +10,12 @@ import Editpolicymodel.OrRule;
 import Editpolicymodel.TrueRule;
 
 /**
- * This class provides the rule-parse for the editPolicy-Mapping-configuration. Using VisitorPattern
+ * This class provides the rule parsing for the editPolicy Mapping configuration using VisitorPattern
  *
  * @author Christian Deussen
  *
  */
-public abstract class AbstractEditPolicyRuleVisitor<T> {
+public abstract class AbstractRuleVisitor<T> {
 
 	/**
 	 * current configuration of editor
@@ -23,7 +23,7 @@ public abstract class AbstractEditPolicyRuleVisitor<T> {
 	@SuppressWarnings("unused")
 	private FRaMEDConfiguration configuration;
 
-	public AbstractEditPolicyRuleVisitor(FRaMEDConfiguration framedConfiguration)
+	public AbstractRuleVisitor(FRaMEDConfiguration framedConfiguration)
 	{
 		this.configuration = framedConfiguration;
 	}
@@ -37,7 +37,6 @@ public abstract class AbstractEditPolicyRuleVisitor<T> {
 	 * @param rule
 	 * @return Boolean
 	 */
-	
 	public boolean checkRule(AbstractRule<T> rule)
 	{
 		if (rule instanceof AndRule)
@@ -59,14 +58,17 @@ public abstract class AbstractEditPolicyRuleVisitor<T> {
 		return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private boolean andRuleVisitor(AndRule rule) {
 		return checkRule(rule.getLeftRule()) && checkRule(rule.getRightRule());
 	}
 	
+	@SuppressWarnings("unchecked")
 	private boolean orRuleVisitor(OrRule rule) {
 		return checkRule(rule.getLeftRule()) && checkRule(rule.getRightRule());
 	}
 	
+	@SuppressWarnings("unchecked")
 	private boolean notRuleVisitor(NotRule rule) {
 		return checkRule(rule.getRule());
 	}	

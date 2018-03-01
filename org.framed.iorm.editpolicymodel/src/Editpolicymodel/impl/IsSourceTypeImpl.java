@@ -3,26 +3,24 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.Feature;
+import Editpolicymodel.IsSourceType;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature</b></em>'.
+ * An implementation of the model object '<em><b>Is Source Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public abstract class FeatureImpl extends MinimalEObjectImpl.Container implements Feature {
+public class IsSourceTypeImpl extends TypeArgumentRuleImpl implements IsSourceType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureImpl() {
+	protected IsSourceTypeImpl() {
 		super();
 	}
 
@@ -33,7 +31,7 @@ public abstract class FeatureImpl extends MinimalEObjectImpl.Container implement
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.FEATURE;
+		return EditpolicymodelPackage.Literals.IS_SOURCE_TYPE;
 	}
 
-} //FeatureImpl
+} //IsSourceTypeImpl

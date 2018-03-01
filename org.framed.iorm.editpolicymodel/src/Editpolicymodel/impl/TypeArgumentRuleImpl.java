@@ -3,9 +3,9 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.IsFeature;
+import Editpolicymodel.TypeArgumentRule;
 
-import iorm.featuremodel.FeatureName;
+import iorm.Type;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -15,44 +15,44 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Feature</b></em>'.
+ * An implementation of the model object '<em><b>Type Argument Rule</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link Editpolicymodel.impl.IsFeatureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link Editpolicymodel.impl.TypeArgumentRuleImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
+public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements TypeArgumentRule {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final FeatureName NAME_EDEFAULT = FeatureName.RML_FEATURE_MODEL;
+	protected static final Type TYPE_EDEFAULT = Type.COMPARTMENT_TYPE;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureName name = NAME_EDEFAULT;
+	protected Type type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsFeatureImpl() {
+	protected TypeArgumentRuleImpl() {
 		super();
 	}
 
@@ -63,7 +63,7 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.IS_FEATURE;
+		return EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE;
 	}
 
 	/**
@@ -71,8 +71,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureName getName() {
-		return name;
+	public Type getType() {
+		return type;
 	}
 
 	/**
@@ -80,11 +80,11 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setName(FeatureName newName) {
-		FeatureName oldName = name;
-		name = newName == null ? NAME_EDEFAULT : newName;
+	public void setType(Type newType) {
+		Type oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.IS_FEATURE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE, oldType, type));
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				return getName();
+			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE:
+				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,8 +109,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				setName((FeatureName)newValue);
+			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE:
+				setType((Type)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,8 +124,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				setName(NAME_EDEFAULT);
+			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE:
+				setType(TYPE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -139,8 +139,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				return name != NAME_EDEFAULT;
+			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE:
+				return type != TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,10 +155,10 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (type: ");
+		result.append(type);
 		result.append(')');
 		return result.toString();
 	}
 
-} //IsFeatureImpl
+} //TypeArgumentRuleImpl

@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ContainsImpl extends ConstraintImpl implements Contains {
+public class ContainsImpl extends TypeArgumentRuleImpl implements Contains {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

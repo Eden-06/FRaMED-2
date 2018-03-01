@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface IsStepOut extends Constraint {
+public interface IsStepOut extends ConstraintRule {
 } // IsStepOut

@@ -133,16 +133,19 @@ public class IormPackageImpl extends EPackageImpl implements IormPackage {
 		// Obtain or create and register interdependencies
 		EditpolicymodelPackageImpl theEditpolicymodelPackage = (EditpolicymodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EditpolicymodelPackage.eNS_URI) instanceof EditpolicymodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EditpolicymodelPackage.eNS_URI) : EditpolicymodelPackage.eINSTANCE);
 		FeaturemodelPackageImpl theFeaturemodelPackage = (FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) instanceof FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) : FeaturemodelPackage.eINSTANCE);
+		featuremodel.impl.FeaturemodelPackageImpl theFeaturemodelPackage_1 = (featuremodel.impl.FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) instanceof featuremodel.impl.FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) : featuremodel.FeaturemodelPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theIormPackage.createPackageContents();
 		theEditpolicymodelPackage.createPackageContents();
 		theFeaturemodelPackage.createPackageContents();
+		theFeaturemodelPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theIormPackage.initializePackageContents();
 		theEditpolicymodelPackage.initializePackageContents();
 		theFeaturemodelPackage.initializePackageContents();
+		theFeaturemodelPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theIormPackage.freeze();

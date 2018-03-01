@@ -2,25 +2,27 @@
  */
 package Editpolicymodel.impl;
 
+import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.IsTargetConstraintRule;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Target Constraint Rule</b></em>'.
+ * An implementation of the model object '<em><b>Constraint Rule</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IsTargetConstraintRuleImpl extends ConstraintImpl implements IsTargetConstraintRule {
+public abstract class ConstraintRuleImpl extends MinimalEObjectImpl.Container implements ConstraintRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsTargetConstraintRuleImpl() {
+	protected ConstraintRuleImpl() {
 		super();
 	}
 
@@ -31,7 +33,7 @@ public class IsTargetConstraintRuleImpl extends ConstraintImpl implements IsTarg
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.IS_TARGET_CONSTRAINT_RULE;
+		return EditpolicymodelPackage.Literals.CONSTRAINT_RULE;
 	}
 
-} //IsTargetConstraintRuleImpl
+} //ConstraintRuleImpl

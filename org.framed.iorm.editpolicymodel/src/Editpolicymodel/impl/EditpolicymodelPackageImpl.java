@@ -6,18 +6,19 @@ import Editpolicymodel.AbstractRule;
 import Editpolicymodel.ActionEnum;
 import Editpolicymodel.AndRule;
 import Editpolicymodel.BinaryRule;
-import Editpolicymodel.Constraint;
+import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.Contains;
 import Editpolicymodel.EditpolicymodelFactory;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.FalseRule;
-import Editpolicymodel.Feature;
+import Editpolicymodel.FeatureRule;
 import Editpolicymodel.ImplicationRule;
 import Editpolicymodel.IsFeature;
-import Editpolicymodel.IsParentConstraintRule;
-import Editpolicymodel.IsSourceConstraintRule;
+import Editpolicymodel.IsParent;
+import Editpolicymodel.IsSource;
+import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepOut;
-import Editpolicymodel.IsTargetConstraintRule;
+import Editpolicymodel.IsTarget;
 import Editpolicymodel.IsTargetType;
 import Editpolicymodel.Model;
 import Editpolicymodel.NotRule;
@@ -25,6 +26,7 @@ import Editpolicymodel.OrRule;
 import Editpolicymodel.Policy;
 import Editpolicymodel.Rule;
 import Editpolicymodel.TrueRule;
+import Editpolicymodel.TypeArgumentRule;
 import Editpolicymodel.UnaryRule;
 
 import iorm.IormPackage;
@@ -85,21 +87,21 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass isTargetConstraintRuleEClass = null;
+	private EClass isTargetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass isSourceConstraintRuleEClass = null;
+	private EClass isSourceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass isParentConstraintRuleEClass = null;
+	private EClass isParentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,7 +122,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass featureEClass = null;
+	private EClass featureRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,7 +136,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass constraintEClass = null;
+	private EClass constraintRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -204,6 +206,20 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass isSourceTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeArgumentRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum actionEnumEEnum = null;
 
 	/**
@@ -255,16 +271,19 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		// Obtain or create and register interdependencies
 		IormPackageImpl theIormPackage = (IormPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) instanceof IormPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) : IormPackage.eINSTANCE);
 		FeaturemodelPackageImpl theFeaturemodelPackage = (FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) instanceof FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) : FeaturemodelPackage.eINSTANCE);
+		featuremodel.impl.FeaturemodelPackageImpl theFeaturemodelPackage_1 = (featuremodel.impl.FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) instanceof featuremodel.impl.FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) : featuremodel.FeaturemodelPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theEditpolicymodelPackage.createPackageContents();
 		theIormPackage.createPackageContents();
 		theFeaturemodelPackage.createPackageContents();
+		theFeaturemodelPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theEditpolicymodelPackage.initializePackageContents();
 		theIormPackage.initializePackageContents();
 		theFeaturemodelPackage.initializePackageContents();
+		theFeaturemodelPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theEditpolicymodelPackage.freeze();
@@ -370,8 +389,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIsTargetConstraintRule() {
-		return isTargetConstraintRuleEClass;
+	public EClass getIsTarget() {
+		return isTargetEClass;
 	}
 
 	/**
@@ -379,8 +398,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIsSourceConstraintRule() {
-		return isSourceConstraintRuleEClass;
+	public EClass getIsSource() {
+		return isSourceEClass;
 	}
 
 	/**
@@ -388,8 +407,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIsParentConstraintRule() {
-		return isParentConstraintRuleEClass;
+	public EClass getIsParent() {
+		return isParentEClass;
 	}
 
 	/**
@@ -424,8 +443,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFeature() {
-		return featureEClass;
+	public EClass getFeatureRule() {
+		return featureRuleEClass;
 	}
 
 	/**
@@ -442,8 +461,17 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getConstraint() {
-		return constraintEClass;
+	public EAttribute getIsFeature_Name() {
+		return (EAttribute)isFeatureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConstraintRule() {
+		return constraintRuleEClass;
 	}
 
 	/**
@@ -559,6 +587,33 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getIsSourceType() {
+		return isSourceTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeArgumentRule() {
+		return typeArgumentRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeArgumentRule_Type() {
+		return (EAttribute)typeArgumentRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -605,22 +660,23 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		isStepOutEClass = createEClass(IS_STEP_OUT);
 
-		isTargetConstraintRuleEClass = createEClass(IS_TARGET_CONSTRAINT_RULE);
+		isTargetEClass = createEClass(IS_TARGET);
 
-		isSourceConstraintRuleEClass = createEClass(IS_SOURCE_CONSTRAINT_RULE);
+		isSourceEClass = createEClass(IS_SOURCE);
 
-		isParentConstraintRuleEClass = createEClass(IS_PARENT_CONSTRAINT_RULE);
+		isParentEClass = createEClass(IS_PARENT);
 
 		abstractRuleEClass = createEClass(ABSTRACT_RULE);
 
 		ruleEClass = createEClass(RULE);
 		createEReference(ruleEClass, RULE__RULE);
 
-		featureEClass = createEClass(FEATURE);
+		featureRuleEClass = createEClass(FEATURE_RULE);
 
 		isFeatureEClass = createEClass(IS_FEATURE);
+		createEAttribute(isFeatureEClass, IS_FEATURE__NAME);
 
-		constraintEClass = createEClass(CONSTRAINT);
+		constraintRuleEClass = createEClass(CONSTRAINT_RULE);
 
 		isTargetTypeEClass = createEClass(IS_TARGET_TYPE);
 
@@ -642,6 +698,11 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		orRuleEClass = createEClass(OR_RULE);
 
 		implicationRuleEClass = createEClass(IMPLICATION_RULE);
+
+		isSourceTypeEClass = createEClass(IS_SOURCE_TYPE);
+
+		typeArgumentRuleEClass = createEClass(TYPE_ARGUMENT_RULE);
+		createEAttribute(typeArgumentRuleEClass, TYPE_ARGUMENT_RULE__TYPE);
 
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
@@ -672,6 +733,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		// Obtain other dependent packages
 		IormPackage theIormPackage = (IormPackage)EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI);
+		FeaturemodelPackage theFeaturemodelPackage = (FeaturemodelPackage)EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI);
 
 		// Create type parameters
 		addETypeParameter(abstractRuleEClass, "T");
@@ -682,14 +744,14 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		containsEClass.getESuperTypes().add(this.getConstraint());
-		isStepOutEClass.getESuperTypes().add(this.getConstraint());
-		isTargetConstraintRuleEClass.getESuperTypes().add(this.getConstraint());
-		isSourceConstraintRuleEClass.getESuperTypes().add(this.getConstraint());
-		isParentConstraintRuleEClass.getESuperTypes().add(this.getConstraint());
+		containsEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		isStepOutEClass.getESuperTypes().add(this.getConstraintRule());
+		isTargetEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		isSourceEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		isParentEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		ruleEClass.getESuperTypes().add(this.getAbstractRule());
-		isFeatureEClass.getESuperTypes().add(this.getFeature());
-		isTargetTypeEClass.getESuperTypes().add(this.getConstraint());
+		isFeatureEClass.getESuperTypes().add(this.getFeatureRule());
+		isTargetTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		unaryRuleEClass.getESuperTypes().add(this.getAbstractRule());
 		notRuleEClass.getESuperTypes().add(this.getUnaryRule());
 		andRuleEClass.getESuperTypes().add(this.getBinaryRule());
@@ -698,6 +760,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		falseRuleEClass.getESuperTypes().add(this.getAbstractRule());
 		orRuleEClass.getESuperTypes().add(this.getBinaryRule());
 		implicationRuleEClass.getESuperTypes().add(this.getBinaryRule());
+		isSourceTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		typeArgumentRuleEClass.getESuperTypes().add(this.getConstraintRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -708,11 +772,11 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEAttribute(getPolicy_Action(), this.getActionEnum(), "action", "Create", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPolicy_ActionType(), theIormPackage.getType(), "ActionType", "CompartmentType", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		EGenericType g1 = createEGenericType(this.getAbstractRule());
-		EGenericType g2 = createEGenericType(this.getFeature());
+		EGenericType g2 = createEGenericType(this.getFeatureRule());
 		g1.getETypeArguments().add(g2);
 		initEReference(getPolicy_FeatureRule(), g1, null, "featureRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(this.getAbstractRule());
-		g2 = createEGenericType(this.getConstraint());
+		g2 = createEGenericType(this.getConstraintRule());
 		g1.getETypeArguments().add(g2);
 		initEReference(getPolicy_ConstraintRule(), g1, null, "constraintRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -720,11 +784,11 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		initEClass(isStepOutEClass, IsStepOut.class, "IsStepOut", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(isTargetConstraintRuleEClass, IsTargetConstraintRule.class, "IsTargetConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(isTargetEClass, IsTarget.class, "IsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(isSourceConstraintRuleEClass, IsSourceConstraintRule.class, "IsSourceConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(isSourceEClass, IsSource.class, "IsSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(isParentConstraintRuleEClass, IsParentConstraintRule.class, "IsParentConstraintRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(isParentEClass, IsParent.class, "IsParent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(abstractRuleEClass, AbstractRule.class, "AbstractRule", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -732,11 +796,12 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		g1 = createEGenericType(ruleEClass_T);
 		initEReference(getRule_Rule(), g1, null, "rule", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(featureEClass, Feature.class, "Feature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(featureRuleEClass, FeatureRule.class, "FeatureRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isFeatureEClass, IsFeature.class, "IsFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIsFeature_Name(), theFeaturemodelPackage.getFeatureName(), "name", null, 0, 1, IsFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(constraintEClass, Constraint.class, "Constraint", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(constraintRuleEClass, ConstraintRule.class, "ConstraintRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isTargetTypeEClass, IsTargetType.class, "IsTargetType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -767,6 +832,11 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(orRuleEClass, OrRule.class, "OrRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(implicationRuleEClass, ImplicationRule.class, "ImplicationRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(isSourceTypeEClass, IsSourceType.class, "IsSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(typeArgumentRuleEClass, TypeArgumentRule.class, "TypeArgumentRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeArgumentRule_Type(), theIormPackage.getType(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

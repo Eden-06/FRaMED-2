@@ -84,16 +84,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createIsStepOutAdapter();
 			}
 			@Override
-			public Adapter caseIsTargetConstraintRule(IsTargetConstraintRule object) {
-				return createIsTargetConstraintRuleAdapter();
+			public Adapter caseIsTarget(IsTarget object) {
+				return createIsTargetAdapter();
 			}
 			@Override
-			public Adapter caseIsSourceConstraintRule(IsSourceConstraintRule object) {
-				return createIsSourceConstraintRuleAdapter();
+			public Adapter caseIsSource(IsSource object) {
+				return createIsSourceAdapter();
 			}
 			@Override
-			public Adapter caseIsParentConstraintRule(IsParentConstraintRule object) {
-				return createIsParentConstraintRuleAdapter();
+			public Adapter caseIsParent(IsParent object) {
+				return createIsParentAdapter();
 			}
 			@Override
 			public <T> Adapter caseAbstractRule(AbstractRule<T> object) {
@@ -104,16 +104,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createRuleAdapter();
 			}
 			@Override
-			public Adapter caseFeature(Feature object) {
-				return createFeatureAdapter();
+			public Adapter caseFeatureRule(FeatureRule object) {
+				return createFeatureRuleAdapter();
 			}
 			@Override
 			public Adapter caseIsFeature(IsFeature object) {
 				return createIsFeatureAdapter();
 			}
 			@Override
-			public Adapter caseConstraint(Constraint object) {
-				return createConstraintAdapter();
+			public Adapter caseConstraintRule(ConstraintRule object) {
+				return createConstraintRuleAdapter();
 			}
 			@Override
 			public Adapter caseIsTargetType(IsTargetType object) {
@@ -150,6 +150,14 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseImplicationRule(ImplicationRule object) {
 				return createImplicationRuleAdapter();
+			}
+			@Override
+			public Adapter caseIsSourceType(IsSourceType object) {
+				return createIsSourceTypeAdapter();
+			}
+			@Override
+			public Adapter caseTypeArgumentRule(TypeArgumentRule object) {
+				return createTypeArgumentRuleAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -228,44 +236,44 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsTargetConstraintRule <em>Is Target Constraint Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsTarget <em>Is Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.IsTargetConstraintRule
+	 * @see Editpolicymodel.IsTarget
 	 * @generated
 	 */
-	public Adapter createIsTargetConstraintRuleAdapter() {
+	public Adapter createIsTargetAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsSourceConstraintRule <em>Is Source Constraint Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsSource <em>Is Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.IsSourceConstraintRule
+	 * @see Editpolicymodel.IsSource
 	 * @generated
 	 */
-	public Adapter createIsSourceConstraintRuleAdapter() {
+	public Adapter createIsSourceAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsParentConstraintRule <em>Is Parent Constraint Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsParent <em>Is Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.IsParentConstraintRule
+	 * @see Editpolicymodel.IsParent
 	 * @generated
 	 */
-	public Adapter createIsParentConstraintRuleAdapter() {
+	public Adapter createIsParentAdapter() {
 		return null;
 	}
 
@@ -298,16 +306,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.Feature <em>Feature</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FeatureRule <em>Feature Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.Feature
+	 * @see Editpolicymodel.FeatureRule
 	 * @generated
 	 */
-	public Adapter createFeatureAdapter() {
+	public Adapter createFeatureRuleAdapter() {
 		return null;
 	}
 
@@ -326,16 +334,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.Constraint <em>Constraint</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ConstraintRule <em>Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.Constraint
+	 * @see Editpolicymodel.ConstraintRule
 	 * @generated
 	 */
-	public Adapter createConstraintAdapter() {
+	public Adapter createConstraintRuleAdapter() {
 		return null;
 	}
 
@@ -462,6 +470,34 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createImplicationRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsSourceType <em>Is Source Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.IsSourceType
+	 * @generated
+	 */
+	public Adapter createIsSourceTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TypeArgumentRule <em>Type Argument Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.TypeArgumentRule
+	 * @generated
+	 */
+	public Adapter createTypeArgumentRuleAdapter() {
 		return null;
 	}
 

@@ -58,31 +58,31 @@ public interface EditpolicymodelFactory extends EFactory {
 	IsStepOut createIsStepOut();
 
 	/**
-	 * Returns a new object of class '<em>Is Target Constraint Rule</em>'.
+	 * Returns a new object of class '<em>Is Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Target Constraint Rule</em>'.
+	 * @return a new object of class '<em>Is Target</em>'.
 	 * @generated
 	 */
-	IsTargetConstraintRule createIsTargetConstraintRule();
+	IsTarget createIsTarget();
 
 	/**
-	 * Returns a new object of class '<em>Is Source Constraint Rule</em>'.
+	 * Returns a new object of class '<em>Is Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Source Constraint Rule</em>'.
+	 * @return a new object of class '<em>Is Source</em>'.
 	 * @generated
 	 */
-	IsSourceConstraintRule createIsSourceConstraintRule();
+	IsSource createIsSource();
 
 	/**
-	 * Returns a new object of class '<em>Is Parent Constraint Rule</em>'.
+	 * Returns a new object of class '<em>Is Parent</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Parent Constraint Rule</em>'.
+	 * @return a new object of class '<em>Is Parent</em>'.
 	 * @generated
 	 */
-	IsParentConstraintRule createIsParentConstraintRule();
+	IsParent createIsParent();
 
 	/**
 	 * Returns a new object of class '<em>Rule</em>'.
@@ -164,6 +164,15 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	ImplicationRule createImplicationRule();
+
+	/**
+	 * Returns a new object of class '<em>Is Source Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Is Source Type</em>'.
+	 * @generated
+	 */
+	IsSourceType createIsSourceType();
 
 	/**
 	 * Returns the package supported by this factory.
