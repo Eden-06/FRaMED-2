@@ -10,7 +10,6 @@ import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 
 import Editpolicymodel.AbstractRule;
 import Editpolicymodel.ActionEnum;
@@ -71,7 +70,7 @@ public class EditPolicyHandler {
 		return rules;
 	}
 
-	public boolean canCreate(ICreateConnectionContext context, Type type, Diagram diagram) 
+	public boolean canCreate(ICreateConnectionContext context, Type type) 
 	{
 		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.CREATE, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
@@ -82,22 +81,22 @@ public class EditPolicyHandler {
 		return true;
 	}
 
-	public boolean canStart(ICreateConnectionContext context, Diagram diagram) {
+	public boolean canStart(ICreateConnectionContext context) {
 		// System.out.println("---can create check----");
 		return true;
 	}
 
-	public boolean canExecute(ICustomContext context, Diagram diagram) {
+	public boolean canExecute(ICustomContext context) {
 		// System.out.println("---can create check----");
 		return true;
 	}
 
-	public boolean canReconnect(IReconnectionContext context, Diagram diagram) {
+	public boolean canReconnect(IReconnectionContext context) {
 		// System.out.println("---can reconnect check----");
 		return true;
 	}
 
-	public boolean canAdd(IAddConnectionContext context, Diagram diagram) {
+	public boolean canAdd(IAddConnectionContext context) {
 		// System.out.println("---can reconnect check----");
 		return true;
 	}
@@ -106,12 +105,12 @@ public class EditPolicyHandler {
 		return true;
 	}
 	
-	public boolean canAdd(IAddContext context, Diagram diagram) {
+	public boolean canAdd(IAddContext context) {
 		// System.out.println("---can add check----");
 		return true;
 	}
 	
-	public boolean canCreate(ICreateContext context, Diagram diagram) {
+	public boolean canCreate(ICreateContext context) {
 		// System.out.println("---can create check----");
 
 		/*

@@ -149,7 +149,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						return EditPolicyService.canAdd(addContext, getDiagram());
+						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}	}	}	}
 		return false;
 	}
@@ -308,7 +308,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null)
-			return EditPolicyService.canCreate(createContext, this.getDiagram());
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
 		return false;
 	}
 		

@@ -100,7 +100,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Model) {
 			return (UIUtil.getLinkedModelForDiagram(getDiagram()) == null)
-					&& EditPolicyService.canAdd(addContext, this.getDiagram());
+					&& EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}  
 		return false;
 	}

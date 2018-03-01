@@ -104,7 +104,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		if(addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if(relation.getType() == type) {
-				return EditPolicyService.canAdd(addContext, this.getDiagram());
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 			}   
 		}
 		return false;
@@ -161,7 +161,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    	   !(sourceConnection.equals(targetConnection))) {
 	    		if(sourceConnection.getType() == Type.RELATIONSHIP)
 	    			if(targetConnection.getType() == sourceConnection.getType())
-						   return EditPolicyService.canCreate(createContext, Type.RELATIONSHIP, this.getDiagram());
+						   return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
 		}	}
 	    return false;
 	}

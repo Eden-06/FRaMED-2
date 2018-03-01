@@ -187,7 +187,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.COMPARTMENT_TYPE) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					   return EditPolicyService.canAdd(addContext, this.getDiagram());
+					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}	}	}
 		return false;
 	}
@@ -364,7 +364,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-			return EditPolicyService.canCreate(createContext, this.getDiagram());
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
 		}   
 		return false;
 	}

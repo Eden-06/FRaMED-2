@@ -147,7 +147,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 				if(businessObject instanceof org.framed.iorm.model.Shape) {
 					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 					if(util.usedInModelTypes(usedInReferences).contains(shape.getType()))
-					   return EditPolicyService.canAdd(addContext, this.getDiagram());
+					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}	}	}	
 		return false;
 	}

@@ -137,7 +137,7 @@ public class OperationPattern extends FRaMEDShapePattern implements IPattern {
 						isShadowShape = true;
 				}
 				if(!isShadowShape)
-					return EditPolicyService.canCreate(createContext, this.getDiagram());					
+					return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);					
 		}	}
 		return false;
 	}

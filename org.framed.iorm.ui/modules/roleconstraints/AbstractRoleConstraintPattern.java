@@ -39,7 +39,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == type)
-				return EditPolicyService.canAdd(addContext, this.getDiagram());
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}
 		return false;
 	}
@@ -68,7 +68,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(sourceShape.getType() == Type.ROLE_TYPE)
 	    			if(targetShape.getType() == sourceShape.getType())
-	    				return EditPolicyService.canCreate(createContext, Type.ROLE_TYPE, this.getDiagram());
+	    				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.ROLE_TYPE);
 		}	}
 	    return false;
 	}

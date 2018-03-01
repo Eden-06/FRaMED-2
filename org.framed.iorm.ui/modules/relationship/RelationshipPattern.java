@@ -164,7 +164,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.RELATIONSHIP) {
-			   return EditPolicyService.canAdd(addContext, this.getDiagram());
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}	}
 		return false;
 	}
@@ -271,7 +271,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
 	    		if(types.contains(sourceShape.getType()))
 		    		if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, Type.RELATIONSHIP, this.getDiagram());
+						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
 		}	}
 		return false;
 	}

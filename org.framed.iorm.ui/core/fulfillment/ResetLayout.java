@@ -69,7 +69,7 @@ public class ResetLayout extends FRaMEDCustomFeature {
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
-		return EditPolicyService.canExecute(customContext, this.getDiagram());
+		return EditPolicyService.getHandler(this.getDiagram()).canExecute(customContext);
 	}
 	
 	/**

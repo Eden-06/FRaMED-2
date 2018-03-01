@@ -109,7 +109,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.INHERITANCE)
-			   return EditPolicyService.canAdd(addContext, this.getDiagram());
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}
 		return false;
 	}
@@ -173,7 +173,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(types.contains(sourceShape.getType()))
 	    			if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, Type.INHERITANCE, this.getDiagram());
+						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
 	    }	}
 	    return false;
 	}
@@ -192,7 +192,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
 			if(types.contains(sourceShape.getType()))
-				return EditPolicyService.canStart(createContext, getDiagram());
+				return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
 		}	
 		return false;
 	}

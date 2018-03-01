@@ -92,9 +92,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {	
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
-				return sourceTypes.contains(newShape.getType()) && EditPolicyService.canReconnect(context, this.getDiagram());
+				return sourceTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context);
 			else
-				return targetTypes.contains(newShape.getType()) && EditPolicyService.canReconnect(context, this.getDiagram());
+				return targetTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context);
 		}
 		return false;
 	}
@@ -133,7 +133,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if (relation.getType() == Type.FULFILLMENT)
-				   return EditPolicyService.canAdd(addContext, this.getDiagram());
+				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
 		}
 		return false;
 	}
@@ -213,7 +213,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
 				if (targetTypes.contains(targetShape.getType()))
-					return EditPolicyService.canCreate(createContext, this.modelType, this.getDiagram());
+					return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
 			}
 		}
 		return false;
@@ -234,7 +234,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
 			if(sourceTypes.contains(sourceShape.getType()))
-				   return EditPolicyService.canStart(createContext, this.getDiagram());
+				   return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
 		}
 		return false;
 	}
