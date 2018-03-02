@@ -7,8 +7,6 @@ import Editpolicymodel.TrueRule;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>True Rule</b></em>'.
@@ -16,7 +14,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class TrueRuleImpl extends MinimalEObjectImpl.Container implements TrueRule {
+public class TrueRuleImpl extends AbstractRuleImpl implements TrueRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

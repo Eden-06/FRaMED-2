@@ -68,13 +68,13 @@ public interface EditpolicymodelPackage extends EPackage {
 	int MODEL = 0;
 
 	/**
-	 * The feature id for the '<em><b>Policy</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Policies</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL__POLICY = 0;
+	int MODEL__POLICIES = 0;
 
 	/**
 	 * The number of structural features of the '<em>Model</em>' class.
@@ -409,10 +409,10 @@ public interface EditpolicymodelPackage extends EPackage {
 	int IS_PARENT_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
+	 * The meta object id for the '{@link Editpolicymodel.impl.AbstractRuleImpl <em>Abstract Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.AbstractRule
+	 * @see Editpolicymodel.impl.AbstractRuleImpl
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 	 * @generated
 	 */
@@ -660,7 +660,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	int NARY_RULE = 23;
 
 	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -697,7 +697,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	int AND_RULE = 15;
 
 	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -836,7 +836,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	int OR_RULE = 19;
 
 	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -967,15 +967,15 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getModel();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.Model#getPolicy <em>Policy</em>}'.
+	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.Model#getPolicies <em>Policies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Policy</em>'.
-	 * @see Editpolicymodel.Model#getPolicy()
+	 * @return the meta object for the containment reference list '<em>Policies</em>'.
+	 * @see Editpolicymodel.Model#getPolicies()
 	 * @see #getModel()
 	 * @generated
 	 */
-	EReference getModel_Policy();
+	EReference getModel_Policies();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.Policy <em>Policy</em>}'.
@@ -1329,10 +1329,10 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getNaryRule();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link Editpolicymodel.NaryRule#getRules <em>Rules</em>}'.
+	 * Returns the meta object for the containment reference list '{@link Editpolicymodel.NaryRule#getRules <em>Rules</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rules</em>'.
+	 * @return the meta object for the containment reference list '<em>Rules</em>'.
 	 * @see Editpolicymodel.NaryRule#getRules()
 	 * @see #getNaryRule()
 	 * @generated
@@ -1383,12 +1383,12 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass MODEL = eINSTANCE.getModel();
 
 		/**
-		 * The meta object literal for the '<em><b>Policy</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Policies</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL__POLICY = eINSTANCE.getModel_Policy();
+		EReference MODEL__POLICIES = eINSTANCE.getModel_Policies();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.PolicyImpl <em>Policy</em>}' class.
@@ -1491,10 +1491,10 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass IS_PARENT = eINSTANCE.getIsParent();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
+		 * The meta object literal for the '{@link Editpolicymodel.impl.AbstractRuleImpl <em>Abstract Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.AbstractRule
+		 * @see Editpolicymodel.impl.AbstractRuleImpl
 		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 		 * @generated
 		 */
@@ -1709,7 +1709,7 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass NARY_RULE = eINSTANCE.getNaryRule();
 
 		/**
-		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

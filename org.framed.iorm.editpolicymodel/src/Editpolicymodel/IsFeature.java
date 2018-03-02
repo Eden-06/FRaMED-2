@@ -2,7 +2,7 @@
  */
 package Editpolicymodel;
 
-import iorm.featuremodel.FeatureName;
+import org.framed.iorm.featuremodel.FeatureName;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +23,7 @@ import iorm.featuremodel.FeatureName;
 public interface IsFeature extends FeatureRule {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * The literals are from the enumeration {@link iorm.featuremodel.FeatureName}.
+	 * The literals are from the enumeration {@link org.framed.iorm.featuremodel.FeatureName}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
@@ -31,7 +31,7 @@ public interface IsFeature extends FeatureRule {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see iorm.featuremodel.FeatureName
+	 * @see org.framed.iorm.featuremodel.FeatureName
 	 * @see #setName(FeatureName)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getIsFeature_Name()
 	 * @model
@@ -44,7 +44,7 @@ public interface IsFeature extends FeatureRule {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see iorm.featuremodel.FeatureName
+	 * @see org.framed.iorm.featuremodel.FeatureName
 	 * @see #getName()
 	 * @generated
 	 */

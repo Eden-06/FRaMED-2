@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Editpolicymodel" nsURI="http://framed/editpolicymodel" nsPrefix="Editpolicymodel">
   <eClassifiers xsi:type="ecore:EClass" name="Model">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="policy" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="policies" upperBound="-1"
         eType="#//Policy" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Policy">
@@ -34,7 +34,7 @@
     <eLiterals name="Start" value="2"/>
     <eLiterals name="Reconnect" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractRule" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractRule" abstract="true">
     <eTypeParameters name="T"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//AbstractRule">
@@ -80,12 +80,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgumentRule" abstract="true" eSuperTypes="#//ConstraintRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NaryRule" abstract="true" eSuperTypes="#//AbstractRule">
+  <eClassifiers xsi:type="ecore:EClass" name="NaryRule" abstract="true">
     <eTypeParameters name="T"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
+        containment="true">
       <eGenericType eClassifier="#//AbstractRule">
         <eTypeArguments eTypeParameter="#//NaryRule/T"/>
       </eGenericType>
     </eStructuralFeatures>
+    <eGenericSuperTypes eClassifier="#//AbstractRule">
+      <eTypeArguments eTypeParameter="#//NaryRule/T"/>
+    </eGenericSuperTypes>
   </eClassifiers>
 </ecore:EPackage>

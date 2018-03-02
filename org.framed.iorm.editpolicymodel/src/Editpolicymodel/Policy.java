@@ -2,9 +2,9 @@
  */
 package Editpolicymodel;
 
-import iorm.Type;
-
 import org.eclipse.emf.ecore.EObject;
+
+import org.framed.iorm.model.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,7 +87,7 @@ public interface Policy extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Action Type</b></em>' attribute.
 	 * The default value is <code>"CompartmentType"</code>.
-	 * The literals are from the enumeration {@link iorm.Type}.
+	 * The literals are from the enumeration {@link org.framed.iorm.model.Type}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Action Type</em>' attribute isn't clear,
@@ -95,7 +95,7 @@ public interface Policy extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Type</em>' attribute.
-	 * @see iorm.Type
+	 * @see org.framed.iorm.model.Type
 	 * @see #setActionType(Type)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_ActionType()
 	 * @model default="CompartmentType"
@@ -108,7 +108,7 @@ public interface Policy extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Action Type</em>' attribute.
-	 * @see iorm.Type
+	 * @see org.framed.iorm.model.Type
 	 * @see #getActionType()
 	 * @generated
 	 */

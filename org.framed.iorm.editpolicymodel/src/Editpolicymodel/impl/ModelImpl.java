@@ -28,21 +28,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link Editpolicymodel.impl.ModelImpl#getPolicy <em>Policy</em>}</li>
+ *   <li>{@link Editpolicymodel.impl.ModelImpl#getPolicies <em>Policies</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	/**
-	 * The cached value of the '{@link #getPolicy() <em>Policy</em>}' containment reference list.
+	 * The cached value of the '{@link #getPolicies() <em>Policies</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPolicy()
+	 * @see #getPolicies()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Policy> policy;
+	protected EList<Policy> policies;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,11 +68,11 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Policy> getPolicy() {
-		if (policy == null) {
-			policy = new EObjectContainmentEList<Policy>(Policy.class, this, EditpolicymodelPackage.MODEL__POLICY);
+	public EList<Policy> getPolicies() {
+		if (policies == null) {
+			policies = new EObjectContainmentEList<Policy>(Policy.class, this, EditpolicymodelPackage.MODEL__POLICIES);
 		}
-		return policy;
+		return policies;
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EditpolicymodelPackage.MODEL__POLICY:
-				return ((InternalEList<?>)getPolicy()).basicRemove(otherEnd, msgs);
+			case EditpolicymodelPackage.MODEL__POLICIES:
+				return ((InternalEList<?>)getPolicies()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -97,8 +97,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EditpolicymodelPackage.MODEL__POLICY:
-				return getPolicy();
+			case EditpolicymodelPackage.MODEL__POLICIES:
+				return getPolicies();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -112,9 +112,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EditpolicymodelPackage.MODEL__POLICY:
-				getPolicy().clear();
-				getPolicy().addAll((Collection<? extends Policy>)newValue);
+			case EditpolicymodelPackage.MODEL__POLICIES:
+				getPolicies().clear();
+				getPolicies().addAll((Collection<? extends Policy>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,8 +128,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.MODEL__POLICY:
-				getPolicy().clear();
+			case EditpolicymodelPackage.MODEL__POLICIES:
+				getPolicies().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -143,8 +143,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.MODEL__POLICY:
-				return policy != null && !policy.isEmpty();
+			case EditpolicymodelPackage.MODEL__POLICIES:
+				return policies != null && !policies.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

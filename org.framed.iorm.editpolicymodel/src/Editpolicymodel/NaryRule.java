@@ -2,6 +2,7 @@
  */
 package Editpolicymodel;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,29 +22,19 @@ package Editpolicymodel;
  */
 public interface NaryRule<T> extends AbstractRule {
 	/**
-	 * Returns the value of the '<em><b>Rules</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Rules</b></em>' containment reference list.
+	 * The list contents are of type {@link Editpolicymodel.AbstractRule}<code>&lt;T&gt;</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rules</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Rules</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rules</em>' containment reference.
-	 * @see #setRules(AbstractRule)
+	 * @return the value of the '<em>Rules</em>' containment reference list.
 	 * @see Editpolicymodel.EditpolicymodelPackage#getNaryRule_Rules()
 	 * @model containment="true"
 	 * @generated
 	 */
-	AbstractRule<T> getRules();
-
-	/**
-	 * Sets the value of the '{@link Editpolicymodel.NaryRule#getRules <em>Rules</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rules</em>' containment reference.
-	 * @see #getRules()
-	 * @generated
-	 */
-	void setRules(AbstractRule<T> value);
+	EList<AbstractRule<T>> getRules();
 
 } // NaryRule

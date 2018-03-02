@@ -2,25 +2,27 @@
  */
 package Editpolicymodel.impl;
 
+import Editpolicymodel.AbstractRule;
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.FalseRule;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>False Rule</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Rule</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class FalseRuleImpl extends AbstractRuleImpl implements FalseRule {
+public abstract class AbstractRuleImpl<T> extends MinimalEObjectImpl.Container implements AbstractRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FalseRuleImpl() {
+	protected AbstractRuleImpl() {
 		super();
 	}
 
@@ -31,7 +33,7 @@ public class FalseRuleImpl extends AbstractRuleImpl implements FalseRule {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.FALSE_RULE;
+		return EditpolicymodelPackage.Literals.ABSTRACT_RULE;
 	}
 
-} //FalseRuleImpl
+} //AbstractRuleImpl

@@ -2,7 +2,7 @@
  */
 package Editpolicymodel;
 
-import iorm.Type;
+import org.framed.iorm.model.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +23,7 @@ import iorm.Type;
 public interface TypeArgumentRule extends ConstraintRule {
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link iorm.Type}.
+	 * The literals are from the enumeration {@link org.framed.iorm.model.Type}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
@@ -31,7 +31,7 @@ public interface TypeArgumentRule extends ConstraintRule {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see iorm.Type
+	 * @see org.framed.iorm.model.Type
 	 * @see #setType(Type)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getTypeArgumentRule_Type()
 	 * @model
@@ -44,7 +44,7 @@ public interface TypeArgumentRule extends ConstraintRule {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see iorm.Type
+	 * @see org.framed.iorm.model.Type
 	 * @see #getType()
 	 * @generated
 	 */

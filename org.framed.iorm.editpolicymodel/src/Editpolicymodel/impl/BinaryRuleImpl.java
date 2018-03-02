@@ -8,12 +8,10 @@ import Editpolicymodel.EditpolicymodelPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container implements BinaryRule<T> {
+public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl implements BinaryRule<T> {
 	/**
 	 * The cached value of the '{@link #getRightRule() <em>Right Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -74,6 +72,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	public AbstractRule<T> getRightRule() {
 		return rightRule;
 	}
@@ -117,6 +116,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	public AbstractRule<T> getLeftRule() {
 		return leftRule;
 	}

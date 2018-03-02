@@ -5,13 +5,13 @@ package Editpolicymodel.impl;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.TypeArgumentRule;
 
-import iorm.Type;
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.framed.iorm.model.Type;
 
 /**
  * <!-- begin-user-doc -->

@@ -168,7 +168,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				NotRule notRule = (NotRule)theEObject;
 				T1 result = caseNotRule(notRule);
 				if (result == null) result = (T1)caseUnaryRule(notRule);
-				if (result == null) result = (T1)caseAbstractRule(notRule);
+				if (result == null) result = caseAbstractRule(notRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -176,7 +176,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				AndRule andRule = (AndRule)theEObject;
 				T1 result = caseAndRule(andRule);
 				if (result == null) result = (T1)caseNaryRule(andRule);
-				if (result == null) result = (T1)caseAbstractRule(andRule);
+				if (result == null) result = caseAbstractRule(andRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -205,7 +205,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				OrRule orRule = (OrRule)theEObject;
 				T1 result = caseOrRule(orRule);
 				if (result == null) result = (T1)caseNaryRule(orRule);
-				if (result == null) result = (T1)caseAbstractRule(orRule);
+				if (result == null) result = caseAbstractRule(orRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -213,7 +213,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				ImplicationRule implicationRule = (ImplicationRule)theEObject;
 				T1 result = caseImplicationRule(implicationRule);
 				if (result == null) result = (T1)caseBinaryRule(implicationRule);
-				if (result == null) result = (T1)caseAbstractRule(implicationRule);
+				if (result == null) result = caseAbstractRule(implicationRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

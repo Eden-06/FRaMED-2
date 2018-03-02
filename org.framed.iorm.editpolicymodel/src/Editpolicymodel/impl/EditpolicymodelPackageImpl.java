@@ -30,14 +30,6 @@ import Editpolicymodel.TrueRule;
 import Editpolicymodel.TypeArgumentRule;
 import Editpolicymodel.UnaryRule;
 
-import iorm.IormPackage;
-
-import iorm.featuremodel.FeaturemodelPackage;
-
-import iorm.featuremodel.impl.FeaturemodelPackageImpl;
-
-import iorm.impl.IormPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -47,6 +39,10 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.framed.iorm.featuremodel.FeaturemodelPackage;
+
+import org.framed.iorm.model.OrmPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -276,22 +272,14 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		IormPackageImpl theIormPackage = (IormPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) instanceof IormPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI) : IormPackage.eINSTANCE);
-		FeaturemodelPackageImpl theFeaturemodelPackage = (FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) instanceof FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI) : FeaturemodelPackage.eINSTANCE);
-		featuremodel.impl.FeaturemodelPackageImpl theFeaturemodelPackage_1 = (featuremodel.impl.FeaturemodelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) instanceof featuremodel.impl.FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(featuremodel.FeaturemodelPackage.eNS_URI) : featuremodel.FeaturemodelPackage.eINSTANCE);
+		// Initialize simple dependencies
+		OrmPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theEditpolicymodelPackage.createPackageContents();
-		theIormPackage.createPackageContents();
-		theFeaturemodelPackage.createPackageContents();
-		theFeaturemodelPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theEditpolicymodelPackage.initializePackageContents();
-		theIormPackage.initializePackageContents();
-		theFeaturemodelPackage.initializePackageContents();
-		theFeaturemodelPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theEditpolicymodelPackage.freeze();
@@ -316,7 +304,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModel_Policy() {
+	public EReference getModel_Policies() {
 		return (EReference)modelEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -673,7 +661,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		// Create classes and their features
 		modelEClass = createEClass(MODEL);
-		createEReference(modelEClass, MODEL__POLICY);
+		createEReference(modelEClass, MODEL__POLICIES);
 
 		policyEClass = createEClass(POLICY);
 		createEAttribute(policyEClass, POLICY__OVERRIDE);
@@ -761,7 +749,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		IormPackage theIormPackage = (IormPackage)EPackage.Registry.INSTANCE.getEPackage(IormPackage.eNS_URI);
+		OrmPackage theOrmPackage = (OrmPackage)EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI);
 		FeaturemodelPackage theFeaturemodelPackage = (FeaturemodelPackage)EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI);
 
 		// Create type parameters
@@ -796,12 +784,12 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModel_Policy(), this.getPolicy(), null, "policy", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModel_Policies(), this.getPolicy(), null, "policies", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(policyEClass, Policy.class, "Policy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPolicy_Override(), ecorePackage.getEBooleanObject(), "override", "false", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPolicy_Action(), this.getActionEnum(), "action", "Create", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPolicy_ActionType(), theIormPackage.getType(), "ActionType", "CompartmentType", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPolicy_ActionType(), theOrmPackage.getType(), "ActionType", "CompartmentType", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		EGenericType g1 = createEGenericType(this.getAbstractRule());
 		EGenericType g2 = createEGenericType(this.getFeatureRule());
 		g1.getETypeArguments().add(g2);
@@ -821,7 +809,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		initEClass(isParentEClass, IsParent.class, "IsParent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(abstractRuleEClass, AbstractRule.class, "AbstractRule", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(abstractRuleEClass, AbstractRule.class, "AbstractRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(ruleEClass, Rule.class, "Rule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		g1 = createEGenericType(ruleEClass_T);
@@ -867,13 +855,13 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(isSourceTypeEClass, IsSourceType.class, "IsSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typeArgumentRuleEClass, TypeArgumentRule.class, "TypeArgumentRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTypeArgumentRule_Type(), theIormPackage.getType(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeArgumentRule_Type(), theOrmPackage.getType(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(naryRuleEClass, NaryRule.class, "NaryRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		g1 = createEGenericType(this.getAbstractRule());
 		g2 = createEGenericType(naryRuleEClass_T);
 		g1.getETypeArguments().add(g2);
-		initEReference(getNaryRule_Rules(), g1, null, "rules", null, 0, 1, NaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNaryRule_Rules(), g1, null, "rules", null, 0, -1, NaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

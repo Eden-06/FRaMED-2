@@ -100,7 +100,8 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 		// Obtain or create and register interdependencies
 		OrmPackageImpl theOrmPackage = (OrmPackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(OrmPackage.eNS_URI) instanceof OrmPackageImpl
-						? EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI) : OrmPackage.eINSTANCE);
+						? EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI)
+						: OrmPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theFeaturemodelPackage.createPackageContents();

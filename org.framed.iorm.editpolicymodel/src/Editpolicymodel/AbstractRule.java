@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see Editpolicymodel.EditpolicymodelPackage#getAbstractRule()
- * @model interface="true" abstract="true"
+ * @model abstract="true"
  * @generated
  */
 public interface AbstractRule<T> extends EObject {

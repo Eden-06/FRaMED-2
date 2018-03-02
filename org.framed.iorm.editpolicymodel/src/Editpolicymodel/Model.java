@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link Editpolicymodel.Model#getPolicy <em>Policy</em>}</li>
+ *   <li>{@link Editpolicymodel.Model#getPolicies <em>Policies</em>}</li>
  * </ul>
  *
  * @see Editpolicymodel.EditpolicymodelPackage#getModel()
@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Model extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Policy</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Policies</b></em>' containment reference list.
 	 * The list contents are of type {@link Editpolicymodel.Policy}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Policy</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Policies</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Policy</em>' containment reference list.
-	 * @see Editpolicymodel.EditpolicymodelPackage#getModel_Policy()
+	 * @return the value of the '<em>Policies</em>' containment reference list.
+	 * @see Editpolicymodel.EditpolicymodelPackage#getModel_Policies()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Policy> getPolicy();
+	EList<Policy> getPolicies();
 
 } // Model
