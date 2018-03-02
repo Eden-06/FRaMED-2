@@ -39,7 +39,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.example.org/editpolicymodel";
+	String eNS_URI = "http://framed/editpolicymodel";
 
 	/**
 	 * The package namespace name.
@@ -270,32 +270,32 @@ public interface EditpolicymodelPackage extends EPackage {
 	int CONTAINS_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.IsStepOutImpl <em>Is Step Out</em>}' class.
+	 * The meta object id for the '{@link Editpolicymodel.impl.IsStepInImpl <em>Is Step In</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.IsStepOutImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepOut()
+	 * @see Editpolicymodel.impl.IsStepInImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepIn()
 	 * @generated
 	 */
-	int IS_STEP_OUT = 3;
+	int IS_STEP_IN = 3;
 
 	/**
-	 * The number of structural features of the '<em>Is Step Out</em>' class.
+	 * The number of structural features of the '<em>Is Step In</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IS_STEP_OUT_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+	int IS_STEP_IN_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Is Step Out</em>' class.
+	 * The number of operations of the '<em>Is Step In</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IS_STEP_OUT_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+	int IS_STEP_IN_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.IsTargetImpl <em>Is Target</em>}' class.
@@ -650,6 +650,80 @@ public interface EditpolicymodelPackage extends EPackage {
 	int NOT_RULE_OPERATION_COUNT = UNARY_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.NaryRuleImpl <em>Nary Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.NaryRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNaryRule()
+	 * @generated
+	 */
+	int NARY_RULE = 23;
+
+	/**
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NARY_RULE__RULES = ABSTRACT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Nary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NARY_RULE_FEATURE_COUNT = ABSTRACT_RULE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Nary Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NARY_RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.AndRuleImpl <em>And Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.AndRuleImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndRule()
+	 * @generated
+	 */
+	int AND_RULE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE__RULES = NARY_RULE__RULES;
+
+	/**
+	 * The number of structural features of the '<em>And Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE_FEATURE_COUNT = NARY_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>And Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_RULE_OPERATION_COUNT = NARY_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.BinaryRuleImpl <em>Binary Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -660,22 +734,22 @@ public interface EditpolicymodelPackage extends EPackage {
 	int BINARY_RULE = 16;
 
 	/**
-	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_RULE__LEFT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_RULE__RIGHT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 1;
+	int BINARY_RULE__RIGHT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_RULE__LEFT_RULE = ABSTRACT_RULE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Binary Rule</em>' class.
@@ -694,52 +768,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int BINARY_RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.AndRuleImpl <em>And Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.AndRuleImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAndRule()
-	 * @generated
-	 */
-	int AND_RULE = 15;
-
-	/**
-	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
-
-	/**
-	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_RULE__RIGHT_RULE = BINARY_RULE__RIGHT_RULE;
-
-	/**
-	 * The number of structural features of the '<em>And Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_RULE_FEATURE_COUNT = BINARY_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>And Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_RULE_OPERATION_COUNT = BINARY_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.TrueRuleImpl <em>True Rule</em>}' class.
@@ -808,22 +836,13 @@ public interface EditpolicymodelPackage extends EPackage {
 	int OR_RULE = 19;
 
 	/**
-	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
-
-	/**
-	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_RULE__RIGHT_RULE = BINARY_RULE__RIGHT_RULE;
+	int OR_RULE__RULES = NARY_RULE__RULES;
 
 	/**
 	 * The number of structural features of the '<em>Or Rule</em>' class.
@@ -832,7 +851,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE_FEATURE_COUNT = BINARY_RULE_FEATURE_COUNT + 0;
+	int OR_RULE_FEATURE_COUNT = NARY_RULE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Or Rule</em>' class.
@@ -841,7 +860,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE_OPERATION_COUNT = BINARY_RULE_OPERATION_COUNT + 0;
+	int OR_RULE_OPERATION_COUNT = NARY_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.ImplicationRuleImpl <em>Implication Rule</em>}' class.
@@ -854,15 +873,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	int IMPLICATION_RULE = 20;
 
 	/**
-	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLICATION_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
-
-	/**
 	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -870,6 +880,15 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMPLICATION_RULE__RIGHT_RULE = BINARY_RULE__RIGHT_RULE;
+
+	/**
+	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLICATION_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
 
 	/**
 	 * The number of structural features of the '<em>Implication Rule</em>' class.
@@ -934,7 +953,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 23;
+	int ACTION_ENUM = 24;
 
 
 	/**
@@ -1034,14 +1053,14 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getContains();
 
 	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.IsStepOut <em>Is Step Out</em>}'.
+	 * Returns the meta object for class '{@link Editpolicymodel.IsStepIn <em>Is Step In</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Is Step Out</em>'.
-	 * @see Editpolicymodel.IsStepOut
+	 * @return the meta object for class '<em>Is Step In</em>'.
+	 * @see Editpolicymodel.IsStepIn
 	 * @generated
 	 */
-	EClass getIsStepOut();
+	EClass getIsStepIn();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.IsTarget <em>Is Target</em>}'.
@@ -1207,17 +1226,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getBinaryRule();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link Editpolicymodel.BinaryRule#getLeftRule <em>Left Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Left Rule</em>'.
-	 * @see Editpolicymodel.BinaryRule#getLeftRule()
-	 * @see #getBinaryRule()
-	 * @generated
-	 */
-	EReference getBinaryRule_LeftRule();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link Editpolicymodel.BinaryRule#getRightRule <em>Right Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1227,6 +1235,17 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBinaryRule_RightRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link Editpolicymodel.BinaryRule#getLeftRule <em>Left Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Left Rule</em>'.
+	 * @see Editpolicymodel.BinaryRule#getLeftRule()
+	 * @see #getBinaryRule()
+	 * @generated
+	 */
+	EReference getBinaryRule_LeftRule();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.TrueRule <em>True Rule</em>}'.
@@ -1298,6 +1317,27 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTypeArgumentRule_Type();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.NaryRule <em>Nary Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Nary Rule</em>'.
+	 * @see Editpolicymodel.NaryRule
+	 * @generated
+	 */
+	EClass getNaryRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link Editpolicymodel.NaryRule#getRules <em>Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rules</em>'.
+	 * @see Editpolicymodel.NaryRule#getRules()
+	 * @see #getNaryRule()
+	 * @generated
+	 */
+	EReference getNaryRule_Rules();
 
 	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -1411,14 +1451,14 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass CONTAINS = eINSTANCE.getContains();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.IsStepOutImpl <em>Is Step Out</em>}' class.
+		 * The meta object literal for the '{@link Editpolicymodel.impl.IsStepInImpl <em>Is Step In</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.IsStepOutImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepOut()
+		 * @see Editpolicymodel.impl.IsStepInImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepIn()
 		 * @generated
 		 */
-		EClass IS_STEP_OUT = eINSTANCE.getIsStepOut();
+		EClass IS_STEP_IN = eINSTANCE.getIsStepIn();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.IsTargetImpl <em>Is Target</em>}' class.
@@ -1575,20 +1615,20 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass BINARY_RULE = eINSTANCE.getBinaryRule();
 
 		/**
-		 * The meta object literal for the '<em><b>Left Rule</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BINARY_RULE__LEFT_RULE = eINSTANCE.getBinaryRule_LeftRule();
-
-		/**
 		 * The meta object literal for the '<em><b>Right Rule</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference BINARY_RULE__RIGHT_RULE = eINSTANCE.getBinaryRule_RightRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Left Rule</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINARY_RULE__LEFT_RULE = eINSTANCE.getBinaryRule_LeftRule();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.TrueRuleImpl <em>True Rule</em>}' class.
@@ -1657,6 +1697,24 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_ARGUMENT_RULE__TYPE = eINSTANCE.getTypeArgumentRule_Type();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.NaryRuleImpl <em>Nary Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.NaryRuleImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getNaryRule()
+		 * @generated
+		 */
+		EClass NARY_RULE = eINSTANCE.getNaryRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NARY_RULE__RULES = eINSTANCE.getNaryRule_Rules();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Editpolicymodel" nsURI="http://www.example.org/editpolicymodel"
-    nsPrefix="Editpolicymodel">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Editpolicymodel" nsURI="http://framed/editpolicymodel" nsPrefix="Editpolicymodel">
   <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="policy" upperBound="-1"
         eType="#//Policy" containment="true"/>
@@ -25,7 +24,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Contains" eSuperTypes="#//TypeArgumentRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsStepOut" eSuperTypes="#//ConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsStepIn" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTarget" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsSource" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsParent" eSuperTypes="#//TypeArgumentRule"/>
@@ -59,15 +58,15 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotRule" eSuperTypes="#//UnaryRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AndRule" eSuperTypes="#//BinaryRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AndRule" eSuperTypes="#//NaryRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="BinaryRule" abstract="true" eSuperTypes="#//AbstractRule">
     <eTypeParameters name="T"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftRule" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
         <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
       </eGenericType>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightRule" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="leftRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
         <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
       </eGenericType>
@@ -75,10 +74,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrueRule" eSuperTypes="#//AbstractRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="FalseRule" eSuperTypes="#//AbstractRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OrRule" eSuperTypes="#//BinaryRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrRule" eSuperTypes="#//NaryRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="ImplicationRule" eSuperTypes="#//BinaryRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsSourceType" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgumentRule" abstract="true" eSuperTypes="#//ConstraintRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NaryRule" abstract="true" eSuperTypes="#//AbstractRule">
+    <eTypeParameters name="T"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" containment="true">
+      <eGenericType eClassifier="#//AbstractRule">
+        <eTypeArguments eTypeParameter="#//NaryRule/T"/>
+      </eGenericType>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

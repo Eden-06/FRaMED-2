@@ -19,7 +19,7 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface Rule<T> extends AbstractRule<T> {
+public interface Rule<T> extends AbstractRule {
 	/**
 	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -47,4 +47,3 @@ public interface Rule<T> extends AbstractRule<T> {
 	void setRule(T value);
 
 } // Rule
- 

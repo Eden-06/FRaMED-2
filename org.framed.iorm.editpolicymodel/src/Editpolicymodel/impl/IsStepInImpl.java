@@ -3,24 +3,24 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.IsStepOut;
+import Editpolicymodel.IsStepIn;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Step Out</b></em>'.
+ * An implementation of the model object '<em><b>Is Step In</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IsStepOutImpl extends ConstraintRuleImpl implements IsStepOut {
+public class IsStepInImpl extends ConstraintRuleImpl implements IsStepIn {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsStepOutImpl() {
+	protected IsStepInImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class IsStepOutImpl extends ConstraintRuleImpl implements IsStepOut {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.IS_STEP_OUT;
+		return EditpolicymodelPackage.Literals.IS_STEP_IN;
 	}
 
-} //IsStepOutImpl
+} //IsStepInImpl

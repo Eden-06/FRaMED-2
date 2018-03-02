@@ -86,10 +86,10 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_STEP_OUT: {
-				IsStepOut isStepOut = (IsStepOut)theEObject;
-				T1 result = caseIsStepOut(isStepOut);
-				if (result == null) result = caseConstraintRule(isStepOut);
+			case EditpolicymodelPackage.IS_STEP_IN: {
+				IsStepIn isStepIn = (IsStepIn)theEObject;
+				T1 result = caseIsStepIn(isStepIn);
+				if (result == null) result = caseConstraintRule(isStepIn);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -175,7 +175,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.AND_RULE: {
 				AndRule andRule = (AndRule)theEObject;
 				T1 result = caseAndRule(andRule);
-				if (result == null) result = (T1)caseBinaryRule(andRule);
+				if (result == null) result = (T1)caseNaryRule(andRule);
 				if (result == null) result = (T1)caseAbstractRule(andRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -204,7 +204,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.OR_RULE: {
 				OrRule orRule = (OrRule)theEObject;
 				T1 result = caseOrRule(orRule);
-				if (result == null) result = (T1)caseBinaryRule(orRule);
+				if (result == null) result = (T1)caseNaryRule(orRule);
 				if (result == null) result = (T1)caseAbstractRule(orRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -229,6 +229,13 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 				TypeArgumentRule typeArgumentRule = (TypeArgumentRule)theEObject;
 				T1 result = caseTypeArgumentRule(typeArgumentRule);
 				if (result == null) result = caseConstraintRule(typeArgumentRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.NARY_RULE: {
+				NaryRule<?> naryRule = (NaryRule<?>)theEObject;
+				T1 result = caseNaryRule(naryRule);
+				if (result == null) result = (T1)caseAbstractRule(naryRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -282,17 +289,17 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Step Out</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Is Step In</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Step Out</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Is Step In</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseIsStepOut(IsStepOut object) {
+	public T1 caseIsStepIn(IsStepIn object) {
 		return null;
 	}
 
@@ -578,6 +585,21 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @generated
 	 */
 	public T1 caseTypeArgumentRule(TypeArgumentRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Nary Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Nary Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public <T> T1 caseNaryRule(NaryRule<T> object) {
 		return null;
 	}
 

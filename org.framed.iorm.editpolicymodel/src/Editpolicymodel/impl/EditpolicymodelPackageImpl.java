@@ -17,10 +17,11 @@ import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
 import Editpolicymodel.IsSource;
 import Editpolicymodel.IsSourceType;
-import Editpolicymodel.IsStepOut;
+import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTarget;
 import Editpolicymodel.IsTargetType;
 import Editpolicymodel.Model;
+import Editpolicymodel.NaryRule;
 import Editpolicymodel.NotRule;
 import Editpolicymodel.OrRule;
 import Editpolicymodel.Policy;
@@ -80,7 +81,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass isStepOutEClass = null;
+	private EClass isStepInEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,6 +215,13 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass typeArgumentRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass naryRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -380,8 +388,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIsStepOut() {
-		return isStepOutEClass;
+	public EClass getIsStepIn() {
+		return isStepInEClass;
 	}
 
 	/**
@@ -533,7 +541,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBinaryRule_LeftRule() {
+	public EReference getBinaryRule_RightRule() {
 		return (EReference)binaryRuleEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -542,7 +550,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBinaryRule_RightRule() {
+	public EReference getBinaryRule_LeftRule() {
 		return (EReference)binaryRuleEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -614,6 +622,24 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getNaryRule() {
+		return naryRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNaryRule_Rules() {
+		return (EReference)naryRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -658,7 +684,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		containsEClass = createEClass(CONTAINS);
 
-		isStepOutEClass = createEClass(IS_STEP_OUT);
+		isStepInEClass = createEClass(IS_STEP_IN);
 
 		isTargetEClass = createEClass(IS_TARGET);
 
@@ -688,8 +714,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		andRuleEClass = createEClass(AND_RULE);
 
 		binaryRuleEClass = createEClass(BINARY_RULE);
-		createEReference(binaryRuleEClass, BINARY_RULE__LEFT_RULE);
 		createEReference(binaryRuleEClass, BINARY_RULE__RIGHT_RULE);
+		createEReference(binaryRuleEClass, BINARY_RULE__LEFT_RULE);
 
 		trueRuleEClass = createEClass(TRUE_RULE);
 
@@ -703,6 +729,9 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		typeArgumentRuleEClass = createEClass(TYPE_ARGUMENT_RULE);
 		createEAttribute(typeArgumentRuleEClass, TYPE_ARGUMENT_RULE__TYPE);
+
+		naryRuleEClass = createEClass(NARY_RULE);
+		createEReference(naryRuleEClass, NARY_RULE__RULES);
 
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
@@ -740,12 +769,13 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		ETypeParameter ruleEClass_T = addETypeParameter(ruleEClass, "T");
 		ETypeParameter unaryRuleEClass_T = addETypeParameter(unaryRuleEClass, "T");
 		ETypeParameter binaryRuleEClass_T = addETypeParameter(binaryRuleEClass, "T");
+		ETypeParameter naryRuleEClass_T = addETypeParameter(naryRuleEClass, "T");
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
 		containsEClass.getESuperTypes().add(this.getTypeArgumentRule());
-		isStepOutEClass.getESuperTypes().add(this.getConstraintRule());
+		isStepInEClass.getESuperTypes().add(this.getConstraintRule());
 		isTargetEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isSourceEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isParentEClass.getESuperTypes().add(this.getTypeArgumentRule());
@@ -754,14 +784,15 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		isTargetTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		unaryRuleEClass.getESuperTypes().add(this.getAbstractRule());
 		notRuleEClass.getESuperTypes().add(this.getUnaryRule());
-		andRuleEClass.getESuperTypes().add(this.getBinaryRule());
+		andRuleEClass.getESuperTypes().add(this.getNaryRule());
 		binaryRuleEClass.getESuperTypes().add(this.getAbstractRule());
 		trueRuleEClass.getESuperTypes().add(this.getAbstractRule());
 		falseRuleEClass.getESuperTypes().add(this.getAbstractRule());
-		orRuleEClass.getESuperTypes().add(this.getBinaryRule());
+		orRuleEClass.getESuperTypes().add(this.getNaryRule());
 		implicationRuleEClass.getESuperTypes().add(this.getBinaryRule());
 		isSourceTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		typeArgumentRuleEClass.getESuperTypes().add(this.getConstraintRule());
+		naryRuleEClass.getESuperTypes().add(this.getAbstractRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -782,7 +813,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		initEClass(containsEClass, Contains.class, "Contains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(isStepOutEClass, IsStepOut.class, "IsStepOut", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(isStepInEClass, IsStepIn.class, "IsStepIn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isTargetEClass, IsTarget.class, "IsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -819,11 +850,11 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		g1 = createEGenericType(this.getAbstractRule());
 		g2 = createEGenericType(binaryRuleEClass_T);
 		g1.getETypeArguments().add(g2);
-		initEReference(getBinaryRule_LeftRule(), g1, null, "leftRule", null, 0, 1, BinaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinaryRule_RightRule(), g1, null, "rightRule", null, 0, 1, BinaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(this.getAbstractRule());
 		g2 = createEGenericType(binaryRuleEClass_T);
 		g1.getETypeArguments().add(g2);
-		initEReference(getBinaryRule_RightRule(), g1, null, "rightRule", null, 0, 1, BinaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinaryRule_LeftRule(), g1, null, "leftRule", null, 0, 1, BinaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(trueRuleEClass, TrueRule.class, "TrueRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -837,6 +868,12 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		initEClass(typeArgumentRuleEClass, TypeArgumentRule.class, "TypeArgumentRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeArgumentRule_Type(), theIormPackage.getType(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(naryRuleEClass, NaryRule.class, "NaryRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		g1 = createEGenericType(this.getAbstractRule());
+		g2 = createEGenericType(naryRuleEClass_T);
+		g1.getETypeArguments().add(g2);
+		initEReference(getNaryRule_Rules(), g1, null, "rules", null, 0, 1, NaryRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

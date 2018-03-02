@@ -49,13 +49,13 @@ public interface EditpolicymodelFactory extends EFactory {
 	Contains createContains();
 
 	/**
-	 * Returns a new object of class '<em>Is Step Out</em>'.
+	 * Returns a new object of class '<em>Is Step In</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Step Out</em>'.
+	 * @return a new object of class '<em>Is Step In</em>'.
 	 * @generated
 	 */
-	IsStepOut createIsStepOut();
+	IsStepIn createIsStepIn();
 
 	/**
 	 * Returns a new object of class '<em>Is Target</em>'.

@@ -80,8 +80,8 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createContainsAdapter();
 			}
 			@Override
-			public Adapter caseIsStepOut(IsStepOut object) {
-				return createIsStepOutAdapter();
+			public Adapter caseIsStepIn(IsStepIn object) {
+				return createIsStepInAdapter();
 			}
 			@Override
 			public Adapter caseIsTarget(IsTarget object) {
@@ -160,6 +160,10 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createTypeArgumentRuleAdapter();
 			}
 			@Override
+			public <T> Adapter caseNaryRule(NaryRule<T> object) {
+				return createNaryRuleAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -222,16 +226,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsStepOut <em>Is Step Out</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsStepIn <em>Is Step In</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.IsStepOut
+	 * @see Editpolicymodel.IsStepIn
 	 * @generated
 	 */
-	public Adapter createIsStepOutAdapter() {
+	public Adapter createIsStepInAdapter() {
 		return null;
 	}
 
@@ -498,6 +502,20 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeArgumentRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NaryRule <em>Nary Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.NaryRule
+	 * @generated
+	 */
+	public Adapter createNaryRuleAdapter() {
 		return null;
 	}
 

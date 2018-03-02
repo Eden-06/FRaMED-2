@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated editpolicymodel -->
       <package
-            uri="http://www.example.org/editpolicymodel"
+            uri="http://framed/editpolicymodel"
             class="Editpolicymodel.EditpolicymodelPackage"
             genModel="model/editpolicymodel.genmodel"/>
    </extension>
