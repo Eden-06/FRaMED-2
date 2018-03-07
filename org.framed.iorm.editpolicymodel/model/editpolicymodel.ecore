@@ -49,13 +49,16 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstraintRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTargetType" eSuperTypes="#//TypeArgumentRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="UnaryRule" abstract="true" eSuperTypes="#//AbstractRule">
+  <eClassifiers xsi:type="ecore:EClass" name="UnaryRule" abstract="true">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
         <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
       </eGenericType>
     </eStructuralFeatures>
+    <eGenericSuperTypes eClassifier="#//AbstractRule">
+      <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotRule" eSuperTypes="#//UnaryRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="AndRule" eSuperTypes="#//NaryRule"/>
