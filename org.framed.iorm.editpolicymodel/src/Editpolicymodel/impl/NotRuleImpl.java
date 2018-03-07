@@ -5,6 +5,8 @@ package Editpolicymodel.impl;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.NotRule;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 
 /**
@@ -14,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class NotRuleImpl<T> extends AbstractRuleImpl<T> implements NotRule<T> {
+public class NotRuleImpl<T> extends UnaryRuleImpl<T> implements NotRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -32,6 +34,17 @@ public class NotRuleImpl<T> extends AbstractRuleImpl<T> implements NotRule<T> {
 	@Override
 	protected EClass eStaticClass() {
 		return EditpolicymodelPackage.Literals.NOT_RULE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * This is specialized for the more specific type known in this context.
+	 * @generated
+	 */
+	@Override
+	public NotificationChain basicSetRule(T newRule, NotificationChain msgs) {
+		return super.basicSetRule(newRule, msgs);
 	}
 
 } //NotRuleImpl

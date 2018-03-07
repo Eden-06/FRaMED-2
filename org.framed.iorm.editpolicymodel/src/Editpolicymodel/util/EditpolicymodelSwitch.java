@@ -167,6 +167,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.NOT_RULE: {
 				NotRule<?> notRule = (NotRule<?>)theEObject;
 				T1 result = caseNotRule(notRule);
+				if (result == null) result = caseUnaryRule(notRule);
 				if (result == null) result = caseAbstractRule(notRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -203,7 +204,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.OR_RULE: {
 				OrRule<?> orRule = (OrRule<?>)theEObject;
 				T1 result = caseOrRule(orRule);
-				if (result == null) result = caseBinaryRule(orRule);
+				if (result == null) result = caseNaryRule(orRule);
 				if (result == null) result = caseAbstractRule(orRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

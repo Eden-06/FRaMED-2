@@ -2,7 +2,6 @@
  */
 package Editpolicymodel.impl;
 
-import Editpolicymodel.AbstractRule;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.NaryRule;
 
@@ -13,7 +12,10 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -31,7 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class NaryRuleImpl<T> extends AbstractRuleImpl<T> implements NaryRule<T> {
+public abstract class NaryRuleImpl<T> extends MinimalEObjectImpl.Container implements NaryRule<T> {
 	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -40,7 +42,7 @@ public abstract class NaryRuleImpl<T> extends AbstractRuleImpl<T> implements Nar
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractRule<T>> rules;
+	protected EList<T> rules;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,9 +68,9 @@ public abstract class NaryRuleImpl<T> extends AbstractRuleImpl<T> implements Nar
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AbstractRule<T>> getRules() {
+	public EList<T> getRules() {
 		if (rules == null) {
-			rules = new EObjectContainmentEList<AbstractRule<T>>(AbstractRule.class, this, EditpolicymodelPackage.NARY_RULE__RULES);
+			rules = new EObjectContainmentEList<T>(EObject.class, this, EditpolicymodelPackage.NARY_RULE__RULES);
 		}
 		return rules;
 	}
@@ -112,7 +114,7 @@ public abstract class NaryRuleImpl<T> extends AbstractRuleImpl<T> implements Nar
 		switch (featureID) {
 			case EditpolicymodelPackage.NARY_RULE__RULES:
 				getRules().clear();
-				getRules().addAll((Collection<? extends AbstractRule<T>>)newValue);
+				getRules().addAll((Collection<? extends T>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

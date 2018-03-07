@@ -2,7 +2,6 @@
  */
 package Editpolicymodel.impl;
 
-import Editpolicymodel.AbstractRule;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.UnaryRule;
 
@@ -13,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements UnaryRule<T> {
+public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container implements UnaryRule<T> {
 	/**
 	 * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -36,7 +36,7 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractRule<T> rule;
+	protected T rule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,7 +62,7 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractRule<T> getRule() {
+	public T getRule() {
 		return rule;
 	}
 
@@ -71,8 +71,8 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRule(AbstractRule<T> newRule, NotificationChain msgs) {
-		AbstractRule<T> oldRule = rule;
+	public NotificationChain basicSetRule(T newRule, NotificationChain msgs) {
+		T oldRule = rule;
 		rule = newRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.UNARY_RULE__RULE, oldRule, newRule);
@@ -86,7 +86,7 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRule(AbstractRule<T> newRule) {
+	public void setRule(T newRule) {
 		if (newRule != rule) {
 			NotificationChain msgs = null;
 			if (rule != null)
@@ -138,7 +138,7 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.UNARY_RULE__RULE:
-				setRule((AbstractRule<T>)newValue);
+				setRule((T)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -153,7 +153,7 @@ public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements Un
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EditpolicymodelPackage.UNARY_RULE__RULE:
-				setRule((AbstractRule<T>)null);
+				setRule((T)null);
 				return;
 		}
 		super.eUnset(featureID);

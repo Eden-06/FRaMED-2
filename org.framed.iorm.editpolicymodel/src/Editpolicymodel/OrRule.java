@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface OrRule<T> extends BinaryRule<T> {
+public interface OrRule<T> extends NaryRule<T> {
 } // OrRule

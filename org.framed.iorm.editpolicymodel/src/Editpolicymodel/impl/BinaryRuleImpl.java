@@ -2,7 +2,6 @@
  */
 package Editpolicymodel.impl;
 
-import Editpolicymodel.AbstractRule;
 import Editpolicymodel.BinaryRule;
 import Editpolicymodel.EditpolicymodelPackage;
 
@@ -13,6 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements BinaryRule<T> {
+public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container implements BinaryRule<T> {
 	/**
 	 * The cached value of the '{@link #getRightRule() <em>Right Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -37,7 +37,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractRule<T> rightRule;
+	protected T rightRule;
 
 	/**
 	 * The cached value of the '{@link #getLeftRule() <em>Left Rule</em>}' containment reference.
@@ -47,7 +47,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractRule<T> leftRule;
+	protected T leftRule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,7 +73,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractRule<T> getRightRule() {
+	public T getRightRule() {
 		return rightRule;
 	}
 
@@ -82,8 +82,8 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRightRule(AbstractRule<T> newRightRule, NotificationChain msgs) {
-		AbstractRule<T> oldRightRule = rightRule;
+	public NotificationChain basicSetRightRule(T newRightRule, NotificationChain msgs) {
+		T oldRightRule = rightRule;
 		rightRule = newRightRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, oldRightRule, newRightRule);
@@ -97,7 +97,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRightRule(AbstractRule<T> newRightRule) {
+	public void setRightRule(T newRightRule) {
 		if (newRightRule != rightRule) {
 			NotificationChain msgs = null;
 			if (rightRule != null)
@@ -116,7 +116,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractRule<T> getLeftRule() {
+	public T getLeftRule() {
 		return leftRule;
 	}
 
@@ -125,8 +125,8 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetLeftRule(AbstractRule<T> newLeftRule, NotificationChain msgs) {
-		AbstractRule<T> oldLeftRule = leftRule;
+	public NotificationChain basicSetLeftRule(T newLeftRule, NotificationChain msgs) {
+		T oldLeftRule = leftRule;
 		leftRule = newLeftRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__LEFT_RULE, oldLeftRule, newLeftRule);
@@ -140,7 +140,7 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLeftRule(AbstractRule<T> newLeftRule) {
+	public void setLeftRule(T newLeftRule) {
 		if (newLeftRule != leftRule) {
 			NotificationChain msgs = null;
 			if (leftRule != null)
@@ -196,10 +196,10 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				setRightRule((AbstractRule<T>)newValue);
+				setRightRule((T)newValue);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
-				setLeftRule((AbstractRule<T>)newValue);
+				setLeftRule((T)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -214,10 +214,10 @@ public abstract class BinaryRuleImpl<T> extends AbstractRuleImpl<T> implements B
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				setRightRule((AbstractRule<T>)null);
+				setRightRule((T)null);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
-				setLeftRule((AbstractRule<T>)null);
+				setLeftRule((T)null);
 				return;
 		}
 		super.eUnset(featureID);

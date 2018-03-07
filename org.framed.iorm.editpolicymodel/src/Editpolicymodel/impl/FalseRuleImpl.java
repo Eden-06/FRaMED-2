@@ -7,6 +7,8 @@ import Editpolicymodel.FalseRule;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>False Rule</b></em>'.
@@ -14,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class FalseRuleImpl<T> extends AbstractRuleImpl<T> implements FalseRule<T> {
+public class FalseRuleImpl<T> extends MinimalEObjectImpl.Container implements FalseRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

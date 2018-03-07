@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface NotRule<T> extends AbstractRule<T> {
+public interface NotRule<T> extends UnaryRule<T> {
 } // NotRule

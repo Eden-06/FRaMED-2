@@ -30,12 +30,12 @@ public interface BinaryRule<T> extends AbstractRule<T> {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Right Rule</em>' containment reference.
-	 * @see #setRightRule(AbstractRule)
+	 * @see #setRightRule(Object)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getBinaryRule_RightRule()
-	 * @model containment="true"
+	 * @model kind="reference" containment="true"
 	 * @generated
 	 */
-	AbstractRule<T> getRightRule();
+	T getRightRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.BinaryRule#getRightRule <em>Right Rule</em>}' containment reference.
@@ -45,7 +45,7 @@ public interface BinaryRule<T> extends AbstractRule<T> {
 	 * @see #getRightRule()
 	 * @generated
 	 */
-	void setRightRule(AbstractRule<T> value);
+	void setRightRule(T value);
 
 	/**
 	 * Returns the value of the '<em><b>Left Rule</b></em>' containment reference.
@@ -56,12 +56,12 @@ public interface BinaryRule<T> extends AbstractRule<T> {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Left Rule</em>' containment reference.
-	 * @see #setLeftRule(AbstractRule)
+	 * @see #setLeftRule(Object)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getBinaryRule_LeftRule()
-	 * @model containment="true"
+	 * @model kind="reference" containment="true"
 	 * @generated
 	 */
-	AbstractRule<T> getLeftRule();
+	T getLeftRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.BinaryRule#getLeftRule <em>Left Rule</em>}' containment reference.
@@ -71,6 +71,6 @@ public interface BinaryRule<T> extends AbstractRule<T> {
 	 * @see #getLeftRule()
 	 * @generated
 	 */
-	void setLeftRule(AbstractRule<T> value);
+	void setLeftRule(T value);
 
 } // BinaryRule

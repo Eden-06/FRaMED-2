@@ -154,7 +154,7 @@ public interface Policy extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	AbstractRule<ConstraintRule> getConstraintRule();
+	AbstractRule<FeatureRule> getConstraintRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}' containment reference.
@@ -164,6 +164,6 @@ public interface Policy extends EObject {
 	 * @see #getConstraintRule()
 	 * @generated
 	 */
-	void setConstraintRule(AbstractRule<ConstraintRule> value);
+	void setConstraintRule(AbstractRule<FeatureRule> value);
 
 } // Policy

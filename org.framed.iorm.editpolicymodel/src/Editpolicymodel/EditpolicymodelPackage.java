@@ -409,10 +409,10 @@ public interface EditpolicymodelPackage extends EPackage {
 	int IS_PARENT_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.AbstractRuleImpl <em>Abstract Rule</em>}' class.
+	 * The meta object id for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.AbstractRuleImpl
+	 * @see Editpolicymodel.AbstractRule
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 	 * @generated
 	 */
@@ -623,13 +623,22 @@ public interface EditpolicymodelPackage extends EPackage {
 	int NOT_RULE = 14;
 
 	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_RULE__RULE = UNARY_RULE__RULE;
+
+	/**
 	 * The number of structural features of the '<em>Not Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NOT_RULE_FEATURE_COUNT = ABSTRACT_RULE_FEATURE_COUNT + 0;
+	int NOT_RULE_FEATURE_COUNT = UNARY_RULE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Not Rule</em>' class.
@@ -638,7 +647,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NOT_RULE_OPERATION_COUNT = ABSTRACT_RULE_OPERATION_COUNT + 0;
+	int NOT_RULE_OPERATION_COUNT = UNARY_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.NaryRuleImpl <em>Nary Rule</em>}' class.
@@ -827,22 +836,13 @@ public interface EditpolicymodelPackage extends EPackage {
 	int OR_RULE = 19;
 
 	/**
-	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE__RIGHT_RULE = BINARY_RULE__RIGHT_RULE;
-
-	/**
-	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_RULE__LEFT_RULE = BINARY_RULE__LEFT_RULE;
+	int OR_RULE__RULES = NARY_RULE__RULES;
 
 	/**
 	 * The number of structural features of the '<em>Or Rule</em>' class.
@@ -851,7 +851,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE_FEATURE_COUNT = BINARY_RULE_FEATURE_COUNT + 0;
+	int OR_RULE_FEATURE_COUNT = NARY_RULE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Or Rule</em>' class.
@@ -860,7 +860,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_RULE_OPERATION_COUNT = BINARY_RULE_OPERATION_COUNT + 0;
+	int OR_RULE_OPERATION_COUNT = NARY_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.ImplicationRuleImpl <em>Implication Rule</em>}' class.
@@ -1491,10 +1491,10 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass IS_PARENT = eINSTANCE.getIsParent();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.AbstractRuleImpl <em>Abstract Rule</em>}' class.
+		 * The meta object literal for the '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.AbstractRuleImpl
+		 * @see Editpolicymodel.AbstractRule
 		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getAbstractRule()
 		 * @generated
 		 */

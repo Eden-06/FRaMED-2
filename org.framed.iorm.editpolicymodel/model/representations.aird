@@ -5,6 +5,7 @@
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2003/XMLType</semanticResources>
     <semanticResources>platform:/resource/org.framed.iorm.model/model/IORM.ecore</semanticResources>
+    <semanticResources>../test.editpolicyXmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_5K1uwBv8Eeir3aeVscTXqw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Review']"/>
     </ownedViews>

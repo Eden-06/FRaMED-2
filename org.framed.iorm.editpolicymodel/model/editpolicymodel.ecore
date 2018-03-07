@@ -10,7 +10,7 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//ActionEnum"
         defaultValueLiteral="Create"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ActionType" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionType" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"
         defaultValueLiteral="CompartmentType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
@@ -19,7 +19,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eClassifier="#//ConstraintRule"/>
+        <eTypeArguments eClassifier="#//FeatureRule"/>
       </eGenericType>
     </eStructuralFeatures>
   </eClassifiers>
@@ -34,7 +34,7 @@
     <eLiterals name="Start" value="2"/>
     <eLiterals name="Reconnect" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractRule" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractRule" abstract="true" interface="true">
     <eTypeParameters name="T"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule">
@@ -55,9 +55,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="UnaryRule" abstract="true">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" containment="true">
-      <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
-      </eGenericType>
+      <eGenericType eTypeParameter="#//UnaryRule/T"/>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
@@ -65,7 +63,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotRule">
     <eTypeParameters name="T"/>
-    <eGenericSuperTypes eClassifier="#//AbstractRule">
+    <eGenericSuperTypes eClassifier="#//UnaryRule">
       <eTypeArguments eTypeParameter="#//NotRule/T"/>
     </eGenericSuperTypes>
   </eClassifiers>
@@ -78,14 +76,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="BinaryRule" abstract="true">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rightRule" containment="true">
-      <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
-      </eGenericType>
+      <eGenericType eTypeParameter="#//BinaryRule/T"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="leftRule" containment="true">
-      <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
-      </eGenericType>
+      <eGenericType eTypeParameter="#//BinaryRule/T"/>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
@@ -105,7 +99,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrRule">
     <eTypeParameters name="T"/>
-    <eGenericSuperTypes eClassifier="#//BinaryRule">
+    <eGenericSuperTypes eClassifier="#//NaryRule">
       <eTypeArguments eTypeParameter="#//OrRule/T"/>
     </eGenericSuperTypes>
   </eClassifiers>
@@ -123,9 +117,7 @@
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         containment="true">
-      <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eTypeParameter="#//NaryRule/T"/>
-      </eGenericType>
+      <eGenericType eTypeParameter="#//NaryRule/T"/>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//NaryRule/T"/>
