@@ -118,7 +118,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>Not Rule</em>'.
 	 * @generated
 	 */
-	NotRule createNotRule();
+	<T> NotRule<T> createNotRule();
 
 	/**
 	 * Returns a new object of class '<em>And Rule</em>'.
@@ -127,7 +127,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>And Rule</em>'.
 	 * @generated
 	 */
-	AndRule createAndRule();
+	<T> AndRule<T> createAndRule();
 
 	/**
 	 * Returns a new object of class '<em>True Rule</em>'.
@@ -136,7 +136,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>True Rule</em>'.
 	 * @generated
 	 */
-	TrueRule createTrueRule();
+	<T> TrueRule<T> createTrueRule();
 
 	/**
 	 * Returns a new object of class '<em>False Rule</em>'.
@@ -145,7 +145,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>False Rule</em>'.
 	 * @generated
 	 */
-	FalseRule createFalseRule();
+	<T> FalseRule<T> createFalseRule();
 
 	/**
 	 * Returns a new object of class '<em>Or Rule</em>'.
@@ -154,7 +154,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>Or Rule</em>'.
 	 * @generated
 	 */
-	OrRule createOrRule();
+	<T> OrRule<T> createOrRule();
 
 	/**
 	 * Returns a new object of class '<em>Implication Rule</em>'.
@@ -163,7 +163,7 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @return a new object of class '<em>Implication Rule</em>'.
 	 * @generated
 	 */
-	ImplicationRule createImplicationRule();
+	<T> ImplicationRule<T> createImplicationRule();
 
 	/**
 	 * Returns a new object of class '<em>Is Source Type</em>'.

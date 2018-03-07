@@ -214,8 +214,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotRule createNotRule() {
-		NotRuleImpl notRule = new NotRuleImpl();
+	public <T> NotRule<T> createNotRule() {
+		NotRuleImpl<T> notRule = new NotRuleImpl<T>();
 		return notRule;
 	}
 
@@ -224,8 +224,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AndRule createAndRule() {
-		AndRuleImpl andRule = new AndRuleImpl();
+	public <T> AndRule<T> createAndRule() {
+		AndRuleImpl<T> andRule = new AndRuleImpl<T>();
 		return andRule;
 	}
 
@@ -234,8 +234,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TrueRule createTrueRule() {
-		TrueRuleImpl trueRule = new TrueRuleImpl();
+	public <T> TrueRule<T> createTrueRule() {
+		TrueRuleImpl<T> trueRule = new TrueRuleImpl<T>();
 		return trueRule;
 	}
 
@@ -244,8 +244,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FalseRule createFalseRule() {
-		FalseRuleImpl falseRule = new FalseRuleImpl();
+	public <T> FalseRule<T> createFalseRule() {
+		FalseRuleImpl<T> falseRule = new FalseRuleImpl<T>();
 		return falseRule;
 	}
 
@@ -254,8 +254,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OrRule createOrRule() {
-		OrRuleImpl orRule = new OrRuleImpl();
+	public <T> OrRule<T> createOrRule() {
+		OrRuleImpl<T> orRule = new OrRuleImpl<T>();
 		return orRule;
 	}
 
@@ -264,8 +264,8 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ImplicationRule createImplicationRule() {
-		ImplicationRuleImpl implicationRule = new ImplicationRuleImpl();
+	public <T> ImplicationRule<T> createImplicationRule() {
+		ImplicationRuleImpl<T> implicationRule = new ImplicationRuleImpl<T>();
 		return implicationRule;
 	}
 

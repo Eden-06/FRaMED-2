@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl implements UnaryRule<T> {
+public abstract class UnaryRuleImpl<T> extends AbstractRuleImpl<T> implements UnaryRule<T> {
 	/**
 	 * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
 	 * <!-- begin-user-doc -->

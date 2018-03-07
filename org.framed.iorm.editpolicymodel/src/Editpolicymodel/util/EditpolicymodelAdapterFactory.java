@@ -124,11 +124,11 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createUnaryRuleAdapter();
 			}
 			@Override
-			public Adapter caseNotRule(NotRule object) {
+			public <T> Adapter caseNotRule(NotRule<T> object) {
 				return createNotRuleAdapter();
 			}
 			@Override
-			public Adapter caseAndRule(AndRule object) {
+			public <T> Adapter caseAndRule(AndRule<T> object) {
 				return createAndRuleAdapter();
 			}
 			@Override
@@ -136,19 +136,19 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createBinaryRuleAdapter();
 			}
 			@Override
-			public Adapter caseTrueRule(TrueRule object) {
+			public <T> Adapter caseTrueRule(TrueRule<T> object) {
 				return createTrueRuleAdapter();
 			}
 			@Override
-			public Adapter caseFalseRule(FalseRule object) {
+			public <T> Adapter caseFalseRule(FalseRule<T> object) {
 				return createFalseRuleAdapter();
 			}
 			@Override
-			public Adapter caseOrRule(OrRule object) {
+			public <T> Adapter caseOrRule(OrRule<T> object) {
 				return createOrRuleAdapter();
 			}
 			@Override
-			public Adapter caseImplicationRule(ImplicationRule object) {
+			public <T> Adapter caseImplicationRule(ImplicationRule<T> object) {
 				return createImplicationRuleAdapter();
 			}
 			@Override

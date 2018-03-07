@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class NotRuleImpl extends UnaryRuleImpl implements NotRule {
+public class NotRuleImpl<T> extends AbstractRuleImpl<T> implements NotRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

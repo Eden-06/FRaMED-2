@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface FalseRule extends AbstractRule {
+public interface FalseRule<T> extends AbstractRule<T> {
 } // FalseRule

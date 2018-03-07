@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface AndRule extends NaryRule {
+public interface AndRule<T> extends NaryRule<T> {
 } // AndRule

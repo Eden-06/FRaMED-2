@@ -13,5 +13,5 @@ package Editpolicymodel;
  * @model
  * @generated
  */
-public interface ImplicationRule extends BinaryRule {
+public interface ImplicationRule<T> extends BinaryRule<T> {
 } // ImplicationRule

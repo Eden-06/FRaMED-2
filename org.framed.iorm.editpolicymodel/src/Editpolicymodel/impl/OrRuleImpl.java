@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class OrRuleImpl extends NaryRuleImpl implements OrRule {
+public class OrRuleImpl<T> extends BinaryRuleImpl<T> implements OrRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

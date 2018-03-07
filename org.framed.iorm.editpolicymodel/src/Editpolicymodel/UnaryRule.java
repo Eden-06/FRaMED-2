@@ -19,7 +19,7 @@ package Editpolicymodel;
  * @model abstract="true"
  * @generated
  */
-public interface UnaryRule<T> extends AbstractRule {
+public interface UnaryRule<T> extends AbstractRule<T> {
 	/**
 	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

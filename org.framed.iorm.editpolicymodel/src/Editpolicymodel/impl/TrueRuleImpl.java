@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class TrueRuleImpl extends AbstractRuleImpl implements TrueRule {
+public class TrueRuleImpl<T> extends AbstractRuleImpl<T> implements TrueRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

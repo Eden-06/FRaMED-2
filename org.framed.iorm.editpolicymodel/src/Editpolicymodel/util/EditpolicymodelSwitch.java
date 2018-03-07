@@ -126,7 +126,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.RULE: {
 				Rule<?> rule = (Rule<?>)theEObject;
 				T1 result = caseRule(rule);
-				if (result == null) result = (T1)caseAbstractRule(rule);
+				if (result == null) result = caseAbstractRule(rule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -160,22 +160,21 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.UNARY_RULE: {
 				UnaryRule<?> unaryRule = (UnaryRule<?>)theEObject;
 				T1 result = caseUnaryRule(unaryRule);
-				if (result == null) result = (T1)caseAbstractRule(unaryRule);
+				if (result == null) result = caseAbstractRule(unaryRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.NOT_RULE: {
-				NotRule notRule = (NotRule)theEObject;
+				NotRule<?> notRule = (NotRule<?>)theEObject;
 				T1 result = caseNotRule(notRule);
-				if (result == null) result = (T1)caseUnaryRule(notRule);
 				if (result == null) result = caseAbstractRule(notRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.AND_RULE: {
-				AndRule andRule = (AndRule)theEObject;
+				AndRule<?> andRule = (AndRule<?>)theEObject;
 				T1 result = caseAndRule(andRule);
-				if (result == null) result = (T1)caseNaryRule(andRule);
+				if (result == null) result = caseNaryRule(andRule);
 				if (result == null) result = caseAbstractRule(andRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -183,36 +182,36 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.BINARY_RULE: {
 				BinaryRule<?> binaryRule = (BinaryRule<?>)theEObject;
 				T1 result = caseBinaryRule(binaryRule);
-				if (result == null) result = (T1)caseAbstractRule(binaryRule);
+				if (result == null) result = caseAbstractRule(binaryRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.TRUE_RULE: {
-				TrueRule trueRule = (TrueRule)theEObject;
+				TrueRule<?> trueRule = (TrueRule<?>)theEObject;
 				T1 result = caseTrueRule(trueRule);
-				if (result == null) result = (T1)caseAbstractRule(trueRule);
+				if (result == null) result = caseAbstractRule(trueRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.FALSE_RULE: {
-				FalseRule falseRule = (FalseRule)theEObject;
+				FalseRule<?> falseRule = (FalseRule<?>)theEObject;
 				T1 result = caseFalseRule(falseRule);
-				if (result == null) result = (T1)caseAbstractRule(falseRule);
+				if (result == null) result = caseAbstractRule(falseRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.OR_RULE: {
-				OrRule orRule = (OrRule)theEObject;
+				OrRule<?> orRule = (OrRule<?>)theEObject;
 				T1 result = caseOrRule(orRule);
-				if (result == null) result = (T1)caseNaryRule(orRule);
+				if (result == null) result = caseBinaryRule(orRule);
 				if (result == null) result = caseAbstractRule(orRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EditpolicymodelPackage.IMPLICATION_RULE: {
-				ImplicationRule implicationRule = (ImplicationRule)theEObject;
+				ImplicationRule<?> implicationRule = (ImplicationRule<?>)theEObject;
 				T1 result = caseImplicationRule(implicationRule);
-				if (result == null) result = (T1)caseBinaryRule(implicationRule);
+				if (result == null) result = caseBinaryRule(implicationRule);
 				if (result == null) result = caseAbstractRule(implicationRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -235,7 +234,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 			case EditpolicymodelPackage.NARY_RULE: {
 				NaryRule<?> naryRule = (NaryRule<?>)theEObject;
 				T1 result = caseNaryRule(naryRule);
-				if (result == null) result = (T1)caseAbstractRule(naryRule);
+				if (result == null) result = caseAbstractRule(naryRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -464,7 +463,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseNotRule(NotRule object) {
+	public <T> T1 caseNotRule(NotRule<T> object) {
 		return null;
 	}
 
@@ -479,7 +478,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseAndRule(AndRule object) {
+	public <T> T1 caseAndRule(AndRule<T> object) {
 		return null;
 	}
 
@@ -509,7 +508,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseTrueRule(TrueRule object) {
+	public <T> T1 caseTrueRule(TrueRule<T> object) {
 		return null;
 	}
 
@@ -524,7 +523,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseFalseRule(FalseRule object) {
+	public <T> T1 caseFalseRule(FalseRule<T> object) {
 		return null;
 	}
 
@@ -539,7 +538,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseOrRule(OrRule object) {
+	public <T> T1 caseOrRule(OrRule<T> object) {
 		return null;
 	}
 
@@ -554,7 +553,7 @@ public class EditpolicymodelSwitch<T1> extends Switch<T1> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T1 caseImplicationRule(ImplicationRule object) {
+	public <T> T1 caseImplicationRule(ImplicationRule<T> object) {
 		return null;
 	}
 

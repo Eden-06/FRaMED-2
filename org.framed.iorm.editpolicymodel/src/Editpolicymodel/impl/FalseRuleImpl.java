@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class FalseRuleImpl extends AbstractRuleImpl implements FalseRule {
+public class FalseRuleImpl<T> extends AbstractRuleImpl<T> implements FalseRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

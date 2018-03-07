@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface NaryRule<T> extends AbstractRule {
+public interface NaryRule<T> extends AbstractRule<T> {
 	/**
 	 * Returns the value of the '<em><b>Rules</b></em>' containment reference list.
 	 * The list contents are of type {@link Editpolicymodel.AbstractRule}<code>&lt;T&gt;</code>.

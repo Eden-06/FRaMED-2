@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class AndRuleImpl extends NaryRuleImpl implements AndRule {
+public class AndRuleImpl<T> extends NaryRuleImpl<T> implements AndRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

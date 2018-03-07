@@ -20,7 +20,7 @@ package Editpolicymodel;
  * @model abstract="true"
  * @generated
  */
-public interface BinaryRule<T> extends AbstractRule {
+public interface BinaryRule<T> extends AbstractRule<T> {
 	/**
 	 * Returns the value of the '<em><b>Right Rule</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

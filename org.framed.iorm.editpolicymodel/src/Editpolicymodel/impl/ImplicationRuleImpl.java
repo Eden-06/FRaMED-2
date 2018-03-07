@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ImplicationRuleImpl extends BinaryRuleImpl implements ImplicationRule {
+public class ImplicationRuleImpl<T> extends BinaryRuleImpl<T> implements ImplicationRule<T> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
