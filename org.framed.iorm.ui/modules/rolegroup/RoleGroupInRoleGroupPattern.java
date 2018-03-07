@@ -115,6 +115,8 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 	 * <ul>
 	 *   <li>container shape</li>
 	 * 	   <ul>
+	 * 		 <li>occurrence constraint shape</li>
+	 *         <ul><li>occurrence constraint text</li></ul>
 	 * 		 <li>type body shape</li>
 	 * 		   <ul><li>type body rectangle</li></ul>
 	 * 		   <ul>

@@ -117,9 +117,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			if(shape.getType() == modelType) {
 				//Note
 				if(shape.getContainer() != null) {
-					return !(shape.getContainer().getParent() instanceof Diagram);
-							//TODO
-							//.getType() != Type.ROLE_GROUP;
+					return shape.getContainer().getParent().getType() == Type.COMPARTMENT_TYPE;
 				} else {	
 					FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
 					if(framedPropertyService.getIormShapeProperty(shape) instanceof Diagram)
