@@ -93,7 +93,7 @@ public class Literals {
 	 * (3) the color of backgrounds
 	 */
 	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
-			   					COLOR_LINES = IColorConstant.GRAY,
+			   					COLOR_LINES = IColorConstant.BLACK,
 			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND;  		
 	
 	//Name

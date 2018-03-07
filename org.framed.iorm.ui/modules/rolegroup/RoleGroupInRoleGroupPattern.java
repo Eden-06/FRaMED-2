@@ -115,8 +115,6 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 	 * <ul>
 	 *   <li>container shape</li>
 	 * 	   <ul>
-	 * 	     <li>occurrence constraint shape</li>
-	 *         <ul><li>occurrence constraint text</li></ul>
 	 * 		 <li>type body shape</li>
 	 * 		   <ul><li>type body rectangle</li></ul>
 	 * 		   <ul>
@@ -162,13 +160,14 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 			
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
+		cardinalityShape.setVisible(false);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, newRoleGroup.getDescription().getName());
-		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
+		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));	
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
 			x+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
 			y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
 			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
-			literals.HEIGHT_OCCURRENCE_CONSTRAINT);		
+			literals.HEIGHT_OCCURRENCE_CONSTRAINT);	
 		
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
@@ -177,6 +176,7 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 		typeBodyRectangle.setLineWidth(2);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
+		typeBodyRectangle.setTransparency(0.7);
 		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, 
 			x, y, 
 			width, height);
@@ -257,11 +257,9 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 		//Step 1
 		ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
 		RoundedRectangle typeBodyRectangle = (RoundedRectangle) typeBodyShape.getGraphicsAlgorithm();
-		Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-		Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 		Diagram diagram = util.getRoleGroupDiagramForItsShape(typeBodyShape, getDiagram());
 		GraphicsAlgorithm diagramRectangle = diagram.getGraphicsAlgorithm();
-
+		
 		//Step 2
 		int x, y;
 		MoveShapeContext moveContextImpl = (MoveShapeContext) moveContext;
@@ -278,14 +276,16 @@ public class RoleGroupInRoleGroupPattern extends RoleGroupPattern {
 		//Step 3
 		graphicAlgorithmService.setLocation(typeBodyRectangle, x, y);
 		graphicAlgorithmService.setLocation(diagramRectangle, x, y);
-		graphicAlgorithmService.setLocation(OCText, 
-				x+typeBodyRectangle.getWidth()/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-				y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS);
-		
 		//Step 4
 		for(Shape innerShape : diagram.getChildren()) {
 			if(innerShape instanceof ContainerShape) {
-				ContainerShape innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
+				ContainerShape innerTypeBody;
+				//TODO better
+				if(UIUtil.isShape_IdValue(innerShape, "shape_rt_container")) {
+					innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(2);
+				} else {
+					innerTypeBody = (ContainerShape) ((ContainerShape) innerShape).getChildren().get(1);
+				}
 				MoveShapeContext moveContextForInnerShape = new MoveShapeContext(innerTypeBody);
 				moveContextForInnerShape.setDeltaX(moveContextImpl.getDeltaX());
 				moveContextForInnerShape.setDeltaY(moveContextImpl.getDeltaY());

@@ -237,6 +237,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		typeBodyRectangle.setLineWidth(2);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
+		typeBodyRectangle.setTransparency(0.7);
 		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, 
 			x, y, 
 			width, height);

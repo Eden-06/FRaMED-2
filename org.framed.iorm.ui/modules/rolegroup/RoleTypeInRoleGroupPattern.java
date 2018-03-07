@@ -190,6 +190,7 @@ public class RoleTypeInRoleGroupPattern extends RoleTypePattern {
 			
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
+		cardinalityShape.setVisible(false);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
 		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
