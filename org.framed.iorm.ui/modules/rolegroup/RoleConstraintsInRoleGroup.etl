@@ -6,24 +6,22 @@ rule RoleConstraintInRG
 	transform s : source!Relation
 	to t : target!RoleConstraint {	
 		//feature Group_Constraints implies feature Role_Constraints (not to check)
-		guard: s.~features.get("Group_Constraints") and
-			   (s.getType==(source!Type#RoleImplication) or
+		guard: (s.getType==(source!Type#RoleImplication) or
 			    s.getType==(source!Type#RoleProhibition) or
 			    s.getType==(source!Type#RoleEquivalence)) and
-			   associatedWithRoleGroup(s)
-		
-		//only transform if the role type is in a compartment type
-		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
-			//get the crom equivalent to compartment type the role type is in
-			var compartmentType = s.getContainer.getParent().equivalent();
-			//set the roles of the constraint
-			s.source.~features=s.~features;
-			t.first ::= s.source;
-			s.target.~features=s.~features;
-			t.second ::= s.target;	
-			//add constraint to the compartment type it is in
-			compartmentType.getConstraints().add(t);
-}	 	}
+			  	associatedWithRoleGroup(s) and
+			  	s.getContainer().getParent().getType==(source!Type#CompartmentType)
+			  	
+		//get the crom equivalent to compartment type the role type is in
+		var compartmentType = s.getContainer.getParent().equivalent();
+		//set the roles of the constraint
+		s.source.~features=s.~features;
+		t.first ::= s.source;
+		s.target.~features=s.~features;
+		t.second ::= s.target;	
+		//add constraint to the compartment type it is in
+		compartmentType.getConstraints().add(t);
+}	
 
 operation associatedWithRoleGroup(s:source!Relation) : Boolean {
 	//source or target is a role group

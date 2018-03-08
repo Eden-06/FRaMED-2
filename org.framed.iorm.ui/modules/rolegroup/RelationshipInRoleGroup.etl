@@ -8,7 +8,6 @@ rule RelationshipInRoleGroup
 	transform s : source!Relation
 	to t : target!Relationship {
 		guard : s.~features.get("Relationships") and
-				s.~features.get("Group_Constraints") and
 				s.getType==(source!Type#Relationship) and
 				s.getSource().getContainer().getParent().getType==(source!Type#RoleGroup)
 	

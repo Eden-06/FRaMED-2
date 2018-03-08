@@ -5,8 +5,7 @@
 rule RelationshipImplicationInRoleGroup
 	transform s : source!Relation
 	to t : target!RelationshipImplication {
-		guard : s.~features.get("Inter_Relationship_Constraints") and 
-				s.~features.get("Group_Constraints")  and
+		guard : s.~features.get("Inter_Relationship_Constraints") and
 				s.getType==(source!Type#RelationshipImplication) and
 				not(s.getSource().getContainer().getParent() == null) and
 				s.getSource().getSource().getContainer().getParent().getType==(source!Type#RoleGroup)
@@ -23,7 +22,6 @@ rule RelationshipExclusionInRoleGroup
 	transform s : source!Relation
 	to t : target!RelationshipExclusion {
 		guard : s.~features.get("Inter_Relationship_Constraints") and 
-				s.~features.get("Group_Constraints") and
 				s.getType==(source!Type#RelationshipExclusion) and
 				not(s.getSource().getContainer().getParent() == null) and
 				s.getSource().getSource().getContainer().getParent().getType==(source!Type#RoleGroup)
