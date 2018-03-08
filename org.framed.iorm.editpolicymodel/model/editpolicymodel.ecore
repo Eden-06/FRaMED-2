@@ -48,7 +48,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsFeature" eSuperTypes="#//FeatureRule">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//featuremodel/FeatureName"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//featuremodel/FeatureName"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstraintRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTargetType" eSuperTypes="#//TypeArgumentRule"/>

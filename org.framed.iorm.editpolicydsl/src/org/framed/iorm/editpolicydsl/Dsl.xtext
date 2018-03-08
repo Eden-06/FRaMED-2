@@ -6,9 +6,8 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/emf/2003/XMLType" as type
 import "http://www.eclipse.org/emf/2002/GenModel" as genmodel
 
-
 import "http://iorm/1.0"  as iorm
-//import "http://iorm.featuremodel/1.0"
+import "http://iorm.featuremodel/1.0" as featuremodel
 import "http://framed/editpolicymodel"
 
 
@@ -30,6 +29,17 @@ enum ActionTypeEnum returns iorm::Type:
 	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition|
 	Irreflexive;
 
+enum FeatureNameEnum returns featuremodel::FeatureName:
+	Compartment_Behavior | Compartment_Inheritance | Compartment_Properties | Compartment_Structure | 
+	Compartment_Types | Contains_Compartments | Compartments |
+	Data_Type_Inheritance | Data_Types | Dates | Dependent |
+	Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints | 
+	Naturals | Occurrence_Constraints | On_Compartments | On_Relationships | 
+	Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
+	Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model | 
+	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance | 
+	Role_Prohibition | Role_Properties | Role_Structure | Role_Types | Roles;
+
 ConstraintRule returns AbstractRule:
 	StepInRule | TrueRule;
 
@@ -40,8 +50,7 @@ IsFeatureRule returns Rule:
 	{Rule}  rule=(IsFeature);
 
 IsFeature returns IsFeature:
-	{IsFeature}
-	'isFeature';  //(IsFeature.name=>FeatureName);
+	'isFeature' featureName=FeatureNameEnum;
 	
 EString returns ecore::EString:
 	STRING|ID;

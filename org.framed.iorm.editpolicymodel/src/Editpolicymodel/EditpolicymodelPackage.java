@@ -512,13 +512,13 @@ public interface EditpolicymodelPackage extends EPackage {
 	int IS_FEATURE = 10;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Feature Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IS_FEATURE__NAME = FEATURE_RULE_FEATURE_COUNT + 0;
+	int IS_FEATURE__FEATURE_NAME = FEATURE_RULE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Is Feature</em>' class.
@@ -1144,15 +1144,15 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getIsFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link Editpolicymodel.IsFeature#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link Editpolicymodel.IsFeature#getFeatureName <em>Feature Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see Editpolicymodel.IsFeature#getName()
+	 * @return the meta object for the attribute '<em>Feature Name</em>'.
+	 * @see Editpolicymodel.IsFeature#getFeatureName()
 	 * @see #getIsFeature()
 	 * @generated
 	 */
-	EAttribute getIsFeature_Name();
+	EAttribute getIsFeature_FeatureName();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.ConstraintRule <em>Constraint Rule</em>}'.
@@ -1539,12 +1539,12 @@ public interface EditpolicymodelPackage extends EPackage {
 		EClass IS_FEATURE = eINSTANCE.getIsFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Feature Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute IS_FEATURE__NAME = eINSTANCE.getIsFeature_Name();
+		EAttribute IS_FEATURE__FEATURE_NAME = eINSTANCE.getIsFeature_FeatureName();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.ConstraintRuleImpl <em>Constraint Rule</em>}' class.

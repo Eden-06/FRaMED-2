@@ -457,7 +457,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIsFeature_Name() {
+	public EAttribute getIsFeature_FeatureName() {
 		return (EAttribute)isFeatureEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -688,7 +688,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		featureRuleEClass = createEClass(FEATURE_RULE);
 
 		isFeatureEClass = createEClass(IS_FEATURE);
-		createEAttribute(isFeatureEClass, IS_FEATURE__NAME);
+		createEAttribute(isFeatureEClass, IS_FEATURE__FEATURE_NAME);
 
 		constraintRuleEClass = createEClass(CONSTRAINT_RULE);
 
@@ -854,7 +854,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(featureRuleEClass, FeatureRule.class, "FeatureRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isFeatureEClass, IsFeature.class, "IsFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIsFeature_Name(), theFeaturemodelPackage.getFeatureName(), "name", null, 0, 1, IsFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIsFeature_FeatureName(), theFeaturemodelPackage.getFeatureName(), "featureName", null, 0, 1, IsFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintRuleEClass, ConstraintRule.class, "ConstraintRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

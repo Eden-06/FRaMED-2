@@ -21,31 +21,31 @@ import org.framed.iorm.featuremodel.FeatureName;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link Editpolicymodel.impl.IsFeatureImpl#getName <em>Name</em>}</li>
+ *   <li>{@link Editpolicymodel.impl.IsFeatureImpl#getFeatureName <em>Feature Name</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getFeatureName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final FeatureName NAME_EDEFAULT = FeatureName.RML_FEATURE_MODEL;
+	protected static final FeatureName FEATURE_NAME_EDEFAULT = FeatureName.RML_FEATURE_MODEL;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getFeatureName()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureName name = NAME_EDEFAULT;
+	protected FeatureName featureName = FEATURE_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,8 +71,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureName getName() {
-		return name;
+	public FeatureName getFeatureName() {
+		return featureName;
 	}
 
 	/**
@@ -80,11 +80,11 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setName(FeatureName newName) {
-		FeatureName oldName = name;
-		name = newName == null ? NAME_EDEFAULT : newName;
+	public void setFeatureName(FeatureName newFeatureName) {
+		FeatureName oldFeatureName = featureName;
+		featureName = newFeatureName == null ? FEATURE_NAME_EDEFAULT : newFeatureName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.IS_FEATURE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME, oldFeatureName, featureName));
 	}
 
 	/**
@@ -95,8 +95,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				return getName();
+			case EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME:
+				return getFeatureName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,8 +109,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				setName((FeatureName)newValue);
+			case EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME:
+				setFeatureName((FeatureName)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -124,8 +124,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				setName(NAME_EDEFAULT);
+			case EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME:
+				setFeatureName(FEATURE_NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -139,8 +139,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EditpolicymodelPackage.IS_FEATURE__NAME:
-				return name != NAME_EDEFAULT;
+			case EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME:
+				return featureName != FEATURE_NAME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -155,8 +155,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (featureName: ");
+		result.append(featureName);
 		result.append(')');
 		return result.toString();
 	}
