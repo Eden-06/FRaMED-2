@@ -29,12 +29,12 @@ public interface UnaryRule<T> extends AbstractRule<T> {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Rule</em>' containment reference.
-	 * @see #setRule(Object)
+	 * @see #setRule(AbstractRule)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getUnaryRule_Rule()
-	 * @model kind="reference" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
-	T getRule();
+	AbstractRule<T> getRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.UnaryRule#getRule <em>Rule</em>}' containment reference.
@@ -44,6 +44,6 @@ public interface UnaryRule<T> extends AbstractRule<T> {
 	 * @see #getRule()
 	 * @generated
 	 */
-	void setRule(T value);
+	void setRule(AbstractRule<T> value);
 
 } // UnaryRule

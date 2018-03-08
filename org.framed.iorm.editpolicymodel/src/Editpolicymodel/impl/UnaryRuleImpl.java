@@ -2,6 +2,7 @@
  */
 package Editpolicymodel.impl;
 
+import Editpolicymodel.AbstractRule;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.UnaryRule;
 
@@ -36,7 +37,7 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	 * @generated
 	 * @ordered
 	 */
-	protected T rule;
+	protected AbstractRule<T> rule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,7 +63,7 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public T getRule() {
+	public AbstractRule<T> getRule() {
 		return rule;
 	}
 
@@ -71,8 +72,8 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRule(T newRule, NotificationChain msgs) {
-		T oldRule = rule;
+	public NotificationChain basicSetRule(AbstractRule<T> newRule, NotificationChain msgs) {
+		AbstractRule<T> oldRule = rule;
 		rule = newRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.UNARY_RULE__RULE, oldRule, newRule);
@@ -86,7 +87,7 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRule(T newRule) {
+	public void setRule(AbstractRule<T> newRule) {
 		if (newRule != rule) {
 			NotificationChain msgs = null;
 			if (rule != null)
@@ -138,7 +139,7 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.UNARY_RULE__RULE:
-				setRule((T)newValue);
+				setRule((AbstractRule<T>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -153,7 +154,7 @@ public abstract class UnaryRuleImpl<T> extends MinimalEObjectImpl.Container impl
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EditpolicymodelPackage.UNARY_RULE__RULE:
-				setRule((T)null);
+				setRule((AbstractRule<T>)null);
 				return;
 		}
 		super.eUnset(featureID);

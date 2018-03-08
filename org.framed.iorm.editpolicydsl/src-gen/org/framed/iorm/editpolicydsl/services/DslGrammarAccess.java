@@ -208,9 +208,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		////(IsFeature.name=>FeatureName);
-		////enum FeatureNames returns featuremodel::FeatureName:
-		////	On_Relationships;
-		////enum EnumType returns
 		//EString:
 		//	STRING | ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -1047,9 +1044,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	////(IsFeature.name=>FeatureName);
-	////enum FeatureNames returns featuremodel::FeatureName:
-	////	On_Relationships;
-	////enum EnumType returns
 	//EString:
 	//	STRING | ID;
 	public EStringElements getEStringAccess() {

@@ -42,7 +42,7 @@ public class EditPolicyHandler {
 
 		FeatureRuleVisitor featureRuleVisitor = new FeatureRuleVisitor(config); 
 		for(Editpolicymodel.Model model : models) {
-			for(Editpolicymodel.Policy policy : model.getPolicy()) {
+			for(Editpolicymodel.Policy policy : model.getPolicies()) {
 				if(featureRuleVisitor.checkRule(policy.getFeatureRule())) {
 					activatedPolicies.add(policy); 
 				}

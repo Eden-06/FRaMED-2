@@ -2,7 +2,7 @@ package org.framed.iorm.ui.editPolicy;
 
 import Editpolicymodel.AbstractRule;
 import Editpolicymodel.ConstraintRule;
-import Editpolicymodel.IsStepOut;
+import Editpolicymodel.IsStepIn;
 import Editpolicymodel.Rule;
 
 /**
@@ -43,7 +43,7 @@ public class ConstraintRuleVisitor extends AbstractRuleVisitor<ConstraintRule> {
 	{
 		if (rule instanceof Rule) {
 			ConstraintRule constraint = ((Rule<ConstraintRule>) rule).getRule();
-			if(constraint instanceof IsStepOut) {
+			if(constraint instanceof IsStepIn) {
 				return this.isStepOut;
 			}
 		} 

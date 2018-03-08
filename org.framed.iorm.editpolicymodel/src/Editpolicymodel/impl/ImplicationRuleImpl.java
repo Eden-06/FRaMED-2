@@ -5,8 +5,6 @@ package Editpolicymodel.impl;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.ImplicationRule;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 
 /**
@@ -34,28 +32,6 @@ public class ImplicationRuleImpl<T> extends BinaryRuleImpl<T> implements Implica
 	@Override
 	protected EClass eStaticClass() {
 		return EditpolicymodelPackage.Literals.IMPLICATION_RULE;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * This is specialized for the more specific type known in this context.
-	 * @generated
-	 */
-	@Override
-	public NotificationChain basicSetRightRule(T newRightRule, NotificationChain msgs) {
-		return super.basicSetRightRule(newRightRule, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * This is specialized for the more specific type known in this context.
-	 * @generated
-	 */
-	@Override
-	public NotificationChain basicSetLeftRule(T newLeftRule, NotificationChain msgs) {
-		return super.basicSetLeftRule(newLeftRule, msgs);
 	}
 
 } //ImplicationRuleImpl

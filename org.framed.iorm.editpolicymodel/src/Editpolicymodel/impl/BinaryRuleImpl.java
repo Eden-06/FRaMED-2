@@ -2,6 +2,7 @@
  */
 package Editpolicymodel.impl;
 
+import Editpolicymodel.AbstractRule;
 import Editpolicymodel.BinaryRule;
 import Editpolicymodel.EditpolicymodelPackage;
 
@@ -37,7 +38,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 * @ordered
 	 */
-	protected T rightRule;
+	protected AbstractRule<T> rightRule;
 
 	/**
 	 * The cached value of the '{@link #getLeftRule() <em>Left Rule</em>}' containment reference.
@@ -47,7 +48,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 * @ordered
 	 */
-	protected T leftRule;
+	protected AbstractRule<T> leftRule;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,7 +74,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public T getRightRule() {
+	public AbstractRule<T> getRightRule() {
 		return rightRule;
 	}
 
@@ -82,8 +83,8 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRightRule(T newRightRule, NotificationChain msgs) {
-		T oldRightRule = rightRule;
+	public NotificationChain basicSetRightRule(AbstractRule<T> newRightRule, NotificationChain msgs) {
+		AbstractRule<T> oldRightRule = rightRule;
 		rightRule = newRightRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE, oldRightRule, newRightRule);
@@ -97,7 +98,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRightRule(T newRightRule) {
+	public void setRightRule(AbstractRule<T> newRightRule) {
 		if (newRightRule != rightRule) {
 			NotificationChain msgs = null;
 			if (rightRule != null)
@@ -116,7 +117,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public T getLeftRule() {
+	public AbstractRule<T> getLeftRule() {
 		return leftRule;
 	}
 
@@ -125,8 +126,8 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetLeftRule(T newLeftRule, NotificationChain msgs) {
-		T oldLeftRule = leftRule;
+	public NotificationChain basicSetLeftRule(AbstractRule<T> newLeftRule, NotificationChain msgs) {
+		AbstractRule<T> oldLeftRule = leftRule;
 		leftRule = newLeftRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.BINARY_RULE__LEFT_RULE, oldLeftRule, newLeftRule);
@@ -140,7 +141,7 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLeftRule(T newLeftRule) {
+	public void setLeftRule(AbstractRule<T> newLeftRule) {
 		if (newLeftRule != leftRule) {
 			NotificationChain msgs = null;
 			if (leftRule != null)
@@ -196,10 +197,10 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				setRightRule((T)newValue);
+				setRightRule((AbstractRule<T>)newValue);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
-				setLeftRule((T)newValue);
+				setLeftRule((AbstractRule<T>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -214,10 +215,10 @@ public abstract class BinaryRuleImpl<T> extends MinimalEObjectImpl.Container imp
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EditpolicymodelPackage.BINARY_RULE__RIGHT_RULE:
-				setRightRule((T)null);
+				setRightRule((AbstractRule<T>)null);
 				return;
 			case EditpolicymodelPackage.BINARY_RULE__LEFT_RULE:
-				setLeftRule((T)null);
+				setLeftRule((AbstractRule<T>)null);
 				return;
 		}
 		super.eUnset(featureID);

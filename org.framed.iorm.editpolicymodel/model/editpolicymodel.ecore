@@ -19,7 +19,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" containment="true">
       <eGenericType eClassifier="#//AbstractRule">
-        <eTypeArguments eClassifier="#//FeatureRule"/>
+        <eTypeArguments eClassifier="#//ConstraintRule"/>
       </eGenericType>
     </eStructuralFeatures>
   </eClassifiers>
@@ -55,7 +55,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="UnaryRule" abstract="true">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" containment="true">
-      <eGenericType eTypeParameter="#//UnaryRule/T"/>
+      <eGenericType eClassifier="#//AbstractRule">
+        <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
+      </eGenericType>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//UnaryRule/T"/>
@@ -76,10 +78,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="BinaryRule" abstract="true">
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rightRule" containment="true">
-      <eGenericType eTypeParameter="#//BinaryRule/T"/>
+      <eGenericType eClassifier="#//AbstractRule">
+        <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
+      </eGenericType>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="leftRule" containment="true">
-      <eGenericType eTypeParameter="#//BinaryRule/T"/>
+      <eGenericType eClassifier="#//AbstractRule">
+        <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
+      </eGenericType>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//BinaryRule/T"/>
@@ -117,7 +123,9 @@
     <eTypeParameters name="T"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         containment="true">
-      <eGenericType eTypeParameter="#//NaryRule/T"/>
+      <eGenericType eClassifier="#//AbstractRule">
+        <eTypeArguments eTypeParameter="#//NaryRule/T"/>
+      </eGenericType>
     </eStructuralFeatures>
     <eGenericSuperTypes eClassifier="#//AbstractRule">
       <eTypeArguments eTypeParameter="#//NaryRule/T"/>

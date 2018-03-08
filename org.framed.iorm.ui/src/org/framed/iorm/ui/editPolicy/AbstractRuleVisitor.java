@@ -40,13 +40,13 @@ public abstract class AbstractRuleVisitor<T> {
 	public boolean checkRule(AbstractRule<T> rule)
 	{
 		if (rule instanceof AndRule)
-			return andRuleVisitor((AndRule)rule);
+			return andRuleVisitor((AndRule<T>)rule);
 		
 		if (rule instanceof OrRule)
-			return orRuleVisitor((OrRule)rule);
+			return orRuleVisitor((OrRule<T>)rule);
 		
 		if (rule instanceof NotRule)
-			return notRuleVisitor((NotRule)rule);
+			return notRuleVisitor((NotRule<T>)rule);
 		
 		if (rule instanceof TrueRule)
 			return true;		
@@ -58,18 +58,23 @@ public abstract class AbstractRuleVisitor<T> {
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private boolean andRuleVisitor(AndRule rule) {
-		return checkRule(rule.getLeftRule()) && checkRule(rule.getRightRule());
+	private boolean andRuleVisitor(AndRule<T> rule) {
+		for(AbstractRule<T> abstractRule : rule.getRules()) {
+			if(!checkRule(abstractRule))
+				return false;
+		}
+		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private boolean orRuleVisitor(OrRule rule) {
-		return checkRule(rule.getLeftRule()) && checkRule(rule.getRightRule());
+	private boolean orRuleVisitor(OrRule<T> rule) {
+		for(AbstractRule<T> abstractRule : rule.getRules()) {
+			if(checkRule(abstractRule))
+				return true;
+		}
+		return false;
 	}
-	
-	@SuppressWarnings("unchecked")
-	private boolean notRuleVisitor(NotRule rule) {
-		return checkRule(rule.getRule());
+		
+	private boolean notRuleVisitor(NotRule<T> rule) {
+		return !checkRule(rule.getRule());
 	}	
 }
