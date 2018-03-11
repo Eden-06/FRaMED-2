@@ -6,10 +6,12 @@ rule RoleConstraintInRG
 	transform s : source!Relation
 	to t : target!RoleConstraint {	
 		//feature Group_Constraints implies feature Role_Constraints (not to check)
-		guard: (s.getType==(source!Type#RoleImplication) or
+		guard: s.~features.get("Role_Constraints") and
+				(s.getType==(source!Type#RoleImplication) or
 			    s.getType==(source!Type#RoleProhibition) or
 			    s.getType==(source!Type#RoleEquivalence)) and
-			  	associatedWithRoleGroup(s) and
+			    associatedWithRoleGroup(s) and
+			  	s.~features.get("Group_Constraints") and
 			  	s.getContainer().getParent().getType==(source!Type#CompartmentType)
 			  	
 		//get the crom equivalent to compartment type the role type is in
@@ -28,9 +30,6 @@ operation associatedWithRoleGroup(s:source!Relation) : Boolean {
 	if(s.getSource().getType()==(source!Type#RoleGroup) or
 	   s.getTarget().getType()==(source!Type#RoleGroup))
 	   return true;
-	//if the role constraint is between two roles in a rolegroup
-	if(s.getSource().getContainer().getParent().getType()==(source!Type#RoleGroup)) 
-		return true;
 	return false;	   
 }
 

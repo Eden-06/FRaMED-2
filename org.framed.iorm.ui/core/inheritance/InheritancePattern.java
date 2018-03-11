@@ -232,12 +232,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	}
 	
 	/**
-	 * searches for model of the compartment type the connected role types are created in
-	 * <p>
-	 * This operation also works for nested role groups in role groups in such a way that
-	 * the compartment type is found in which the top level role group is contained in.
-	 * @param sourceShape the shape of the role to get the compartment type for
-	 * @return the model of the compartment type the connected role types are created
+	 * searches for the main or group model the inheritance should be added to
 	 */
 	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
 		while(sourceShape.getContainer() != null) {

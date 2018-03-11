@@ -9,29 +9,25 @@ rule RoleConstraint
 			   (s.getType==(source!Type#RoleImplication) or
 			    s.getType==(source!Type#RoleProhibition) or
 			    s.getType==(source!Type#RoleEquivalence)) and
-			   not(associatedWithRoleGroup(s))
+			   not(associatedWithRoleGroup(s)) and
+			   s.getContainer().getParent().getType==(source!Type#CompartmentType)
 		
-		//only transform if the role type is in a compartment type
-		if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
-			//get the crom equivalent to compartment type the role type is in
-			var compartmentType = s.getContainer.getParent().equivalent();
-			//set the roles of the constraint
-			s.source.~features=s.~features;
-			t.first ::= s.source;
-			s.target.~features=s.~features;
-			t.second ::= s.target;	
-			//add constraint to the compartment type it is in
-			compartmentType.getConstraints().add(t);
-}	 	}
+		//get the crom equivalent to compartment type the role type is in
+		var compartmentType = s.getContainer.getParent().equivalent();
+		//set the roles of the constraint
+		s.source.~features=s.~features;
+		t.first ::= s.source;
+		s.target.~features=s.~features;
+		t.second ::= s.target;	
+		//add constraint to the compartment type it is in
+		compartmentType.getConstraints().add(t);
+}	 	
 
 operation associatedWithRoleGroup(s:source!Relation) : Boolean {
 	//source or target is a role group
 	if(s.getSource().getType()==(source!Type#RoleGroup) or
 	   s.getTarget().getType()==(source!Type#RoleGroup))
 	   return true;
-	//if the role constraint is between two roles in a rolegroup
-	if(s.getSource().getContainer().getParent().getType()==(source!Type#RoleGroup)) 
-		return true;
 	return false;	   
 }
 

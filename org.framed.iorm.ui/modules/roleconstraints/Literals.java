@@ -38,6 +38,6 @@ public class Literals {
 	/**
 	 * the color values used for the polyline and the arrowhead of role constraints
 	 */
-	public final IColorConstant COLOR_CONNECTIONS = UILiterals.COLOR_CONNECTIONS,
+	public final IColorConstant COLOR_CONNECTIONS = UILiterals.COLOR_CONSTRAINTS,
 								COLOR_ARROWHEAD = UILiterals.COLOR_ARROWHEAD;
 }

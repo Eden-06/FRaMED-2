@@ -319,10 +319,12 @@ public class UILiterals {
 	 * <p>
 	 * can be:<br>
 	 * (1) the color of the line of a connection or<br>
-	 * (2) the color of arrowheads of connections
+	 * (2) the color of arrowheads of connections or<br>
+	 * (3) the color of constraints
 	 */
 	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK,
-									   COLOR_ARROWHEAD = IColorConstant.WHITE;
+									   COLOR_ARROWHEAD = IColorConstant.WHITE,
+									   COLOR_CONSTRAINTS = IColorConstant.GRAY;
 	
 	/**
 	 * color values for the feature editor

@@ -1,5 +1,6 @@
 package rolegroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -30,8 +31,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
+import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
+import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDShapePattern;
@@ -651,8 +654,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * Step 1: It deletes attached connection to it.<br>
 	 * Step 2: It gets the role groups diagram and creates a {@link DeleteContext} for it.<br>
-	 * Step 3: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
-	 * Step 4: It deletes the shapes gathered in Step 2 and 3. It also updates a group in which the group is in, if any.
+	 * Step 3: Deletes relationship, constraints, inheritances associated to roles in the deleted role constraint.<br>
+	 * Step 4: It gets the container shape of the group, so this can be deleted instead of the type body shape.<br>
+	 * Step 5: It deletes the shapes gathered in Step 2 and 3. It also updates a group in which the group is in, if any.
 	 * <p>
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
@@ -666,13 +670,36 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 			DeleteContext deleteContextForGroupingDiagram = new DeleteContext(diagram);
 			deleteContextForGroupingDiagram.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
 			//Step 3
+			Object object = getBusinessObjectForPictogramElement(diagram);
+			if(object instanceof Model)
+				deleteConnectionsInRoleGroup((Model) object);	
+			//Step 4
 			ContainerShape containerShape = (ContainerShape) ((ContainerShape) deleteContext.getPictogramElement()).getContainer();
 			DeleteContext deleteContextForAllShapes = new DeleteContext(containerShape);
 			deleteContextForAllShapes.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 0));
-			//Step 4
+			//Step 5
 			super.delete(deleteContextForAllShapes);
 			updateContainingGroupingFeaturesObject();
 		}
 	}
+	
+	/**
+	 * Deletes all relations which are referenced as incoming or outgoing relations of role types and groups contained in a 
+	 * given diagram
+	 * @param diagram the diagram to delete the referenced relations of
+	 */
+	private void deleteConnectionsInRoleGroup(Model model) {
+		for(ModelElement modelElement : model.getElements()) {
+			List<Relation> relations = new ArrayList<Relation>();
+			relations.addAll(modelElement.getIncomingRelations());
+			relations.addAll(modelElement.getOutgoingRelations());
+			for(Relation relation : relations) {
+				if(relation.getContainer() != null)
+					relation.getContainer().getElements().remove(relation);
+			}	
+			if(modelElement.getType()==Type.ROLE_GROUP) {
+				deleteConnectionsInRoleGroup(((org.framed.iorm.model.Shape) modelElement).getModel());
+	}	}	}
+	
 }
 	

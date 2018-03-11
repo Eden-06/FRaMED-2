@@ -9,257 +9,277 @@
 		It verifies as much as possible model elements.
 	</description>
 	<framedModel>
-		<elements xsi:type="org.framed.iorm.model:Shape" name="nat" outgoingRelations="//@framedModel/@elements.5" type="NaturalType">
+		<elements xsi:type="org.framed.iorm.model:Shape" name="nat" outgoingRelations="//@framedModel/@elements.8" type="NaturalType">
 	      <firstSegment/>
 	      <secondSegment>
-	        <elements name="operation(a:data1):data"/>
+	        <elements name="operation(a:data):data1"/>
 	      </secondSegment>
 	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Shape" name="data" incomingRelations="//@framedModel/@elements.3" type="DataType">
+	    <elements xsi:type="org.framed.iorm.model:Shape" name="data" outgoingRelations="//@framedModel/@elements.9 //@framedModel/@elements.10 //@framedModel/@elements.11" type="DataType">
 	      <firstSegment>
-	        <elements name="attribute:dataType1"/>
+	        <elements name="attribute:data1"/>
 	      </firstSegment>
 	      <secondSegment/>
 	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Shape" name="data1" outgoingRelations="//@framedModel/@elements.3 //@framedModel/@elements.6 //@framedModel/@elements.10" type="DataType">
-	      <firstSegment/>
+	    <elements xsi:type="org.framed.iorm.model:Shape" name="data1" incomingRelations="//@framedModel/@elements.10" type="DataType">
+	      <firstSegment>
+	        <elements name="a:data1"/>
+	      </firstSegment>
 	      <secondSegment>
-	        <elements name="operation():nat"/>
+	        <elements name="operation(a:nat):data"/>
 	      </secondSegment>
 	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.1" source="//@framedModel/@elements.2"/>
-	    <elements xsi:type="org.framed.iorm.model:Shape" name="compartment" incomingRelations="//@framedModel/@elements.6 //@framedModel/@elements.9 //@framedModel/@elements.5">
+	    <elements xsi:type="org.framed.iorm.model:Shape" name="group" type="Group">
+	      <model>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_nat" outgoingRelations="//@framedModel/@elements.3/@model/@elements.2" type="NaturalType">
+	          <firstSegment>
+	            <elements name="attribute:data"/>
+	          </firstSegment>
+	          <secondSegment/>
+	        </elements>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_nat1" incomingRelations="//@framedModel/@elements.3/@model/@elements.2" type="NaturalType">
+	          <firstSegment/>
+	          <secondSegment>
+	            <elements name="operation(a:nat):data"/>
+	          </secondSegment>
+	        </elements>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.3/@model/@elements.1" source="//@framedModel/@elements.3/@model/@elements.0"/>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_data" type="DataType">
+	          <firstSegment/>
+	          <secondSegment/>
+	        </elements>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1" type="Group">
+	          <model>
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_nat" outgoingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.2" type="NaturalType">
+	              <firstSegment>
+	                <elements name="attribute:group_nat"/>
+	              </firstSegment>
+	              <secondSegment/>
+	            </elements>
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct" incomingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.2">
+	              <firstSegment/>
+	              <secondSegment/>
+	              <model>
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rg(0..1)" incomingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.6 //@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.7 //@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.8" type="RoleGroup">
+	                  <model>
+	                    <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rg_rt" incomingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.1 //@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.5" type="RoleType">
+	                      <firstSegment/>
+	                      <secondSegment/>
+	                      <description name="*"/>
+	                    </elements>
+	                    <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rg_rt1" outgoingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.1 //@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.5" type="RoleType">
+	                      <firstSegment/>
+	                      <secondSegment/>
+	                      <description name="*"/>
+	                    </elements>
+	                  </model>
+	                  <description name="1..1"/>
+	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Relation" name="group_group1_ct_rg_rst" type="Relationship" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0/@model/@elements.0" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0/@model/@elements.1" referencedRelation="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.5">
+	                  <sourceLabel name="*"/>
+	                  <targetLabel name="0..1"/>
+	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rt" outgoingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.6" type="RoleType">
+	                  <firstSegment>
+	                    <elements name="attribute:data"/>
+	                  </firstSegment>
+	                  <secondSegment/>
+	                  <description name="1..3"/>
+	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rt1" outgoingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.7" type="RoleType">
+	                  <firstSegment/>
+	                  <secondSegment>
+	                    <elements name="operation():group_nat"/>
+	                  </secondSegment>
+	                  <description name="*"/>
+	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="group_group1_ct_rt2" outgoingRelations="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.8" type="RoleType">
+	                  <firstSegment/>
+	                  <secondSegment/>
+	                  <description name="0..1"/>
+	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Relation" type="Irreflexive" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0/@model/@elements.0" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0/@model/@elements.1" referencedRelation="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.1"/>
+	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.2"/>
+	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.3"/>
+	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.4"/>
+	              </model>
+	            </elements>
+	            <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1" source="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.0" referencedRoles="//@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.0 //@framedModel/@elements.3/@model/@elements.4/@model/@elements.1/@model/@elements.2"/>
+	          </model>
+	        </elements>
+	      </model>
+	    </elements>
+	    <elements xsi:type="org.framed.iorm.model:Shape" name="ct" incomingRelations="//@framedModel/@elements.6 //@framedModel/@elements.8 //@framedModel/@elements.9">
 	      <firstSegment>
 	        <elements name="attribute:nat"/>
 	      </firstSegment>
 	      <secondSegment/>
 	      <model>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_roleType" incomingRelations="//@framedModel/@elements.4/@model/@elements.6 //@framedModel/@elements.4/@model/@elements.11 //@framedModel/@elements.4/@model/@elements.17" outgoingRelations="//@framedModel/@elements.4/@model/@elements.4 //@framedModel/@elements.4/@model/@elements.12 //@framedModel/@elements.4/@model/@elements.18" type="RoleType">
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_rt" incomingRelations="//@framedModel/@elements.4/@model/@elements.4 //@framedModel/@elements.4/@model/@elements.8 //@framedModel/@elements.4/@model/@elements.17" outgoingRelations="//@framedModel/@elements.4/@model/@elements.5 //@framedModel/@elements.4/@model/@elements.12 //@framedModel/@elements.4/@model/@elements.16" type="RoleType">
 	          <firstSegment/>
 	          <secondSegment/>
-	          <description name="0..1"/>
+	          <description name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_roleType1" outgoingRelations="//@framedModel/@elements.4/@model/@elements.5 //@framedModel/@elements.4/@model/@elements.8 //@framedModel/@elements.4/@model/@elements.11 //@framedModel/@elements.4/@model/@elements.15 //@framedModel/@elements.4/@model/@elements.6 //@framedModel/@elements.4/@model/@elements.16 //@framedModel/@elements.4/@model/@elements.17" type="RoleType">
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_rt1" incomingRelations="//@framedModel/@elements.4/@model/@elements.7 //@framedModel/@elements.4/@model/@elements.9 //@framedModel/@elements.4/@model/@elements.15" outgoingRelations="//@framedModel/@elements.4/@model/@elements.4 //@framedModel/@elements.4/@model/@elements.8 //@framedModel/@elements.4/@model/@elements.17 //@framedModel/@elements.4/@model/@elements.19" type="RoleType">
 	          <firstSegment>
 	            <elements name="attribute:nat"/>
 	          </firstSegment>
 	          <secondSegment/>
 	          <description name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_roleType2" incomingRelations="//@framedModel/@elements.4/@model/@elements.4 //@framedModel/@elements.4/@model/@elements.7 //@framedModel/@elements.4/@model/@elements.12 //@framedModel/@elements.4/@model/@elements.13 //@framedModel/@elements.4/@model/@elements.18 //@framedModel/@elements.4/@model/@elements.19 //@framedModel/@elements.4/@model/@elements.20" type="RoleType">
-	          <firstSegment/>
-	          <secondSegment/>
-	          <description name="*"/>
-	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_roleType3" incomingRelations="//@framedModel/@elements.4/@model/@elements.5 //@framedModel/@elements.4/@model/@elements.8 //@framedModel/@elements.4/@model/@elements.16" outgoingRelations="//@framedModel/@elements.4/@model/@elements.7 //@framedModel/@elements.4/@model/@elements.13 //@framedModel/@elements.4/@model/@elements.19 //@framedModel/@elements.4/@model/@elements.20" type="RoleType">
-	          <firstSegment/>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_rt2" incomingRelations="//@framedModel/@elements.4/@model/@elements.5 //@framedModel/@elements.4/@model/@elements.12 //@framedModel/@elements.4/@model/@elements.16 //@framedModel/@elements.7" outgoingRelations="//@framedModel/@elements.4/@model/@elements.6 //@framedModel/@elements.4/@model/@elements.10 //@framedModel/@elements.4/@model/@elements.11" type="RoleType">
+	          <firstSegment>
+	            <elements name="attribute:data1"/>
+	          </firstSegment>
 	          <secondSegment>
-	            <elements name="operation():data1"/>
+	            <elements name="operation(a:nat):ct_ct1"/>
 	          </secondSegment>
 	          <description name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst02" incomingRelations="//@framedModel/@elements.4/@model/@elements.10" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0" referencedRelation="//@framedModel/@elements.4/@model/@elements.18">
-	          <sourceLabel name="1..*"/>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_rt3" incomingRelations="//@framedModel/@elements.4/@model/@elements.6 //@framedModel/@elements.4/@model/@elements.10 //@framedModel/@elements.4/@model/@elements.11" outgoingRelations="//@framedModel/@elements.4/@model/@elements.7 //@framedModel/@elements.4/@model/@elements.9 //@framedModel/@elements.4/@model/@elements.15 //@framedModel/@elements.7" type="RoleType">
+	          <firstSegment/>
+	          <secondSegment/>
+	          <description name="*"/>
+	        </elements>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst01" incomingRelations="//@framedModel/@elements.4/@model/@elements.13" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.8">
+	          <sourceLabel name="1..1"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst13" outgoingRelations="//@framedModel/@elements.4/@model/@elements.10" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.16">
-	          <sourceLabel name="*"/>
-	          <targetLabel name="1..*"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst02" incomingRelations="//@framedModel/@elements.4/@model/@elements.14" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0" referencedRelation="//@framedModel/@elements.4/@model/@elements.12">
+	          <sourceLabel name="0..1"/>
+	          <targetLabel name="1..1"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst01" incomingRelations="//@framedModel/@elements.4/@model/@elements.9" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.17">
-	          <sourceLabel name="*"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst23" outgoingRelations="//@framedModel/@elements.4/@model/@elements.13" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.2" referencedRelation="//@framedModel/@elements.4/@model/@elements.10 //@framedModel/@elements.4/@model/@elements.11">
+	          <sourceLabel name="0..1"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst23" outgoingRelations="//@framedModel/@elements.4/@model/@elements.9" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.3" referencedRelation="//@framedModel/@elements.4/@model/@elements.19 //@framedModel/@elements.4/@model/@elements.20">
-	          <sourceLabel name="*"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="rst13" outgoingRelations="//@framedModel/@elements.4/@model/@elements.14" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.1" source="//@framedModel/@elements.4/@model/@elements.3" referencedRelation="//@framedModel/@elements.4/@model/@elements.9">
+	          <sourceLabel name="0..1"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.1"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipImplication" target="//@framedModel/@elements.4/@model/@elements.6" source="//@framedModel/@elements.4/@model/@elements.7"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipExclusion" target="//@framedModel/@elements.4/@model/@elements.4" source="//@framedModel/@elements.4/@model/@elements.5"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.3"/>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_compartment1" incomingRelations="//@framedModel/@elements.4/@model/@elements.15">
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Acyclic" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.4"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Cyclic" target="//@framedModel/@elements.4/@model/@elements.1" source="//@framedModel/@elements.4/@model/@elements.3" referencedRelation="//@framedModel/@elements.4/@model/@elements.7"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Reflexive" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.2" referencedRelation="//@framedModel/@elements.4/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Total" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.2" referencedRelation="//@framedModel/@elements.4/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Irreflexive" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0" referencedRelation="//@framedModel/@elements.4/@model/@elements.5"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipImplication" target="//@framedModel/@elements.4/@model/@elements.4" source="//@framedModel/@elements.4/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipExclusion" target="//@framedModel/@elements.4/@model/@elements.5" source="//@framedModel/@elements.4/@model/@elements.7"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.4/@model/@elements.1" source="//@framedModel/@elements.4/@model/@elements.3"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1"/>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct_ct1" incomingRelations="//@framedModel/@elements.4/@model/@elements.19">
 	          <firstSegment/>
 	          <secondSegment/>
 	          <model>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct_ct1_roleType" outgoingRelations="//@framedModel/@elements.4/@model/@elements.14/@model/@elements.2" type="RoleType">
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct_ct1_rt" outgoingRelations="//@framedModel/@elements.4/@model/@elements.18/@model/@elements.2" type="RoleType">
 	              <firstSegment/>
 	              <secondSegment/>
 	              <description name="*"/>
 	            </elements>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct_ct1_roleType1" incomingRelations="//@framedModel/@elements.4/@model/@elements.14/@model/@elements.2" type="RoleType">
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct_ct1_rt1" incomingRelations="//@framedModel/@elements.4/@model/@elements.18/@model/@elements.2" type="RoleType">
 	              <firstSegment/>
 	              <secondSegment/>
 	              <description name="*"/>
 	            </elements>
-	            <elements xsi:type="org.framed.iorm.model:Relation" name="ct_ct1_rst" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.14/@model/@elements.1" source="//@framedModel/@elements.4/@model/@elements.14/@model/@elements.0">
+	            <elements xsi:type="org.framed.iorm.model:Relation" name="rst" type="Relationship" target="//@framedModel/@elements.4/@model/@elements.18/@model/@elements.1" source="//@framedModel/@elements.4/@model/@elements.18/@model/@elements.0">
 	              <sourceLabel name="*"/>
 	              <targetLabel name="*"/>
 	            </elements>
 	          </model>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4/@model/@elements.14" source="//@framedModel/@elements.4/@model/@elements.1" referencedRoles="//@framedModel/@elements.4/@model/@elements.14/@model/@elements.0"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Cyclic" target="//@framedModel/@elements.4/@model/@elements.3" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.5"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Acyclic" target="//@framedModel/@elements.4/@model/@elements.0" source="//@framedModel/@elements.4/@model/@elements.1" referencedRelation="//@framedModel/@elements.4/@model/@elements.6"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Reflexive" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.0" referencedRelation="//@framedModel/@elements.4/@model/@elements.4"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Irreflexive" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.3" referencedRelation="//@framedModel/@elements.4/@model/@elements.7"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Total" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.3" referencedRelation="//@framedModel/@elements.4/@model/@elements.7"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4/@model/@elements.18" source="//@framedModel/@elements.4/@model/@elements.1" referencedRoles="//@framedModel/@elements.4/@model/@elements.18/@model/@elements.0 //@framedModel/@elements.4/@model/@elements.18/@model/@elements.1"/>
 	      </model>
 	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4" source="//@framedModel/@elements.0" referencedRoles="//@framedModel/@elements.4/@model/@elements.1"/>
-	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4" source="//@framedModel/@elements.2" referencedRoles="//@framedModel/@elements.4/@model/@elements.0"/>
-	    <elements xsi:type="org.framed.iorm.model:Shape" name="group" type="Group">
-	      <model>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_nat" outgoingRelations="//@framedModel/@elements.7/@model/@elements.4" type="NaturalType">
-	          <firstSegment>
-	            <elements name="attribute:dataType2"/>
-	          </firstSegment>
-	          <secondSegment/>
-	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_data" type="DataType">
-	          <firstSegment/>
-	          <secondSegment/>
-	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="group_nat1" incomingRelations="//@framedModel/@elements.7/@model/@elements.4" type="NaturalType">
-	          <firstSegment/>
-	          <secondSegment/>
-	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="group1" type="Group">
-	          <model>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="group1_nat" outgoingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.2" type="NaturalType">
-	              <firstSegment/>
-	              <secondSegment/>
-	            </elements>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="group1_compartment" incomingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.2">
-	              <firstSegment/>
-	              <secondSegment/>
-	              <model>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_roleType" outgoingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.4" type="RoleType">
-	                  <firstSegment/>
-	                  <secondSegment/>
-	                  <description name="1..3"/>
-	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_roleType1" outgoingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.5" type="RoleType">
-	                  <firstSegment/>
-	                  <secondSegment/>
-	                  <description name="*"/>
-	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_roleType2" outgoingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.6" type="RoleType">
-	                  <firstSegment/>
-	                  <secondSegment/>
-	                  <description name="1..*"/>
-	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_roleGroup(1..*)" incomingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.4 //@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.5 //@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.6" type="RoleGroup">
-	                  <model>
-	                    <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_rg_roleType3" incomingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.7" type="RoleType">
-	                      <firstSegment/>
-	                      <secondSegment/>
-	                      <description name="*"/>
-	                    </elements>
-	                    <elements xsi:type="org.framed.iorm.model:Shape" name="group1_ct_rg_roleType4" outgoingRelations="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.7" type="RoleType">
-	                      <firstSegment/>
-	                      <secondSegment/>
-	                      <description name="1..2"/>
-	                    </elements>
-	                  </model>
-	                  <description name="*"/>
-	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.0"/>
-	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.1"/>
-	                <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.2"/>
-	                <elements xsi:type="org.framed.iorm.model:Relation" name="group1_ct_rg_rst" type="Relationship" target="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3/@model/@elements.0" source="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3/@model/@elements.1">
-	                  <sourceLabel name="0..1"/>
-	                  <targetLabel name="*"/>
-	                </elements>
-	              </model>
-	            </elements>
-	            <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1" source="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.0" referencedRoles="//@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.0 //@framedModel/@elements.7/@model/@elements.3/@model/@elements.1/@model/@elements.3"/>
-	          </model>
-	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.7/@model/@elements.2" source="//@framedModel/@elements.7/@model/@elements.0"/>
-	      </model>
-	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Shape" name="compartment1" incomingRelations="//@framedModel/@elements.10" outgoingRelations="//@framedModel/@elements.9">
+	    <elements xsi:type="org.framed.iorm.model:Shape" name="ct1" incomingRelations="//@framedModel/@elements.11" outgoingRelations="//@framedModel/@elements.6">
 	      <firstSegment>
-	        <elements name="attribute:dataType"/>
+	        <elements name="attribute:ct"/>
 	      </firstSegment>
-	      <secondSegment/>
+	      <secondSegment>
+	        <elements name="operation(a:nat):ct"/>
+	      </secondSegment>
 	      <model>
-	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_roleGroup" type="RoleGroup">
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg(0..1)" type="RoleGroup">
 	          <model>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_roleGroup1" type="RoleGroup">
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rt" type="RoleType">
+	              <firstSegment>
+	                <elements name="attribute:nat"/>
+	              </firstSegment>
+	              <secondSegment>
+	                <elements name="operation(a:ct1):nat"/>
+	              </secondSegment>
+	              <description name="*"/>
+	            </elements>
+	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1" type="RoleGroup">
 	              <model>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_roleType" incomingRelations="//@framedModel/@elements.8/@model/@elements.9 //@framedModel/@elements.8/@model/@elements.12" outgoingRelations="//@framedModel/@elements.8/@model/@elements.1 //@framedModel/@elements.8/@model/@elements.4 //@framedModel/@elements.8/@model/@elements.6 //@framedModel/@elements.8/@model/@elements.7 //@framedModel/@elements.8/@model/@elements.13" type="RoleType">
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_rt" incomingRelations="//@framedModel/@elements.5/@model/@elements.12" outgoingRelations="//@framedModel/@elements.5/@model/@elements.1 //@framedModel/@elements.5/@model/@elements.2 //@framedModel/@elements.5/@model/@elements.3 //@framedModel/@elements.5/@model/@elements.4 //@framedModel/@elements.5/@model/@elements.5 //@framedModel/@elements.5/@model/@elements.13" type="RoleType">
 	                  <firstSegment>
-	                    <elements name="attribute:nat"/>
+	                    <elements name="attribute:data"/>
 	                  </firstSegment>
 	                  <secondSegment/>
 	                  <description name="*"/>
 	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_roleType2" incomingRelations="//@framedModel/@elements.8/@model/@elements.1 //@framedModel/@elements.8/@model/@elements.4 //@framedModel/@elements.8/@model/@elements.6 //@framedModel/@elements.8/@model/@elements.7 //@framedModel/@elements.8/@model/@elements.13" outgoingRelations="//@framedModel/@elements.8/@model/@elements.10" type="RoleType">
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_rt1" incomingRelations="//@framedModel/@elements.5/@model/@elements.1 //@framedModel/@elements.5/@model/@elements.14" outgoingRelations="//@framedModel/@elements.5/@model/@elements.6 //@framedModel/@elements.5/@model/@elements.8 //@framedModel/@elements.5/@model/@elements.9 //@framedModel/@elements.5/@model/@elements.12" type="RoleType">
 	                  <firstSegment/>
 	                  <secondSegment/>
 	                  <description name="*"/>
 	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_roleType1" outgoingRelations="//@framedModel/@elements.8/@model/@elements.2 //@framedModel/@elements.8/@model/@elements.3 //@framedModel/@elements.8/@model/@elements.5 //@framedModel/@elements.8/@model/@elements.9 //@framedModel/@elements.8/@model/@elements.12 //@framedModel/@elements.8/@model/@elements.14" type="RoleType">
-	                  <firstSegment/>
-	                  <secondSegment/>
-	                  <description name="*"/>
-	                </elements>
-	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_roleType3" incomingRelations="//@framedModel/@elements.8/@model/@elements.2 //@framedModel/@elements.8/@model/@elements.3 //@framedModel/@elements.8/@model/@elements.5 //@framedModel/@elements.8/@model/@elements.10 //@framedModel/@elements.8/@model/@elements.14" type="RoleType">
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_rt2" incomingRelations="//@framedModel/@elements.5/@model/@elements.2 //@framedModel/@elements.5/@model/@elements.3 //@framedModel/@elements.5/@model/@elements.4 //@framedModel/@elements.5/@model/@elements.5 //@framedModel/@elements.5/@model/@elements.13" outgoingRelations="//@framedModel/@elements.5/@model/@elements.7" type="RoleType">
 	                  <firstSegment/>
 	                  <secondSegment>
-	                    <elements name="operation(a:data):nat"/>
+	                    <elements name="operation():data2"/>
 	                  </secondSegment>
 	                  <description name="*"/>
 	                </elements>
+	                <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_rg1_rt3" incomingRelations="//@framedModel/@elements.5/@model/@elements.6 //@framedModel/@elements.5/@model/@elements.7 //@framedModel/@elements.5/@model/@elements.8 //@framedModel/@elements.5/@model/@elements.9" outgoingRelations="//@framedModel/@elements.5/@model/@elements.14" type="RoleType">
+	                  <firstSegment/>
+	                  <secondSegment/>
+	                  <description name="*"/>
+	                </elements>
 	              </model>
-	              <description name="*"/>
-	            </elements>
-	            <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rg_roleType4" type="RoleType">
-	              <firstSegment>
-	                <elements name="attribute:data1"/>
-	              </firstSegment>
-	              <secondSegment>
-	                <elements name="operation(b:nat)"/>
-	              </secondSegment>
 	              <description name="*"/>
 	            </elements>
 	          </model>
 	          <description name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst02" incomingRelations="//@framedModel/@elements.8/@model/@elements.8" type="Relationship" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" referencedRelation="//@framedModel/@elements.8/@model/@elements.4 //@framedModel/@elements.8/@model/@elements.6 //@framedModel/@elements.8/@model/@elements.7">
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst01" incomingRelations="//@framedModel/@elements.5/@model/@elements.11" type="Relationship" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0">
+	          <sourceLabel name="0..1"/>
+	          <targetLabel name="1..*"/>
+	        </elements>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst02" incomingRelations="//@framedModel/@elements.5/@model/@elements.10" type="Relationship" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0" referencedRelation="//@framedModel/@elements.5/@model/@elements.3 //@framedModel/@elements.5/@model/@elements.4 //@framedModel/@elements.5/@model/@elements.5">
 	          <sourceLabel name="*"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst13" outgoingRelations="//@framedModel/@elements.8/@model/@elements.8" type="Relationship" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.3" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2" referencedRelation="//@framedModel/@elements.8/@model/@elements.3 //@framedModel/@elements.8/@model/@elements.5">
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Acyclic" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0" referencedRelation="//@framedModel/@elements.5/@model/@elements.2"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Irreflexive" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0" referencedRelation="//@framedModel/@elements.5/@model/@elements.2"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Total" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0" referencedRelation="//@framedModel/@elements.5/@model/@elements.2"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst13" outgoingRelations="//@framedModel/@elements.5/@model/@elements.10" type="Relationship" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1" referencedRelation="//@framedModel/@elements.5/@model/@elements.8 //@framedModel/@elements.5/@model/@elements.9">
 	          <sourceLabel name="*"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Acyclic" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.3" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2" referencedRelation="//@framedModel/@elements.8/@model/@elements.2"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Cyclic" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" referencedRelation="//@framedModel/@elements.8/@model/@elements.1"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Irreflexive" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.3" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2" referencedRelation="//@framedModel/@elements.8/@model/@elements.2"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Reflexive" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" referencedRelation="//@framedModel/@elements.8/@model/@elements.1"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="Total" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" referencedRelation="//@framedModel/@elements.8/@model/@elements.1"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipImplication" target="//@framedModel/@elements.8/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.2"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst01" incomingRelations="//@framedModel/@elements.8/@model/@elements.11" type="Relationship" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2">
-	          <sourceLabel name="*"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst23" outgoingRelations="//@framedModel/@elements.5/@model/@elements.11" type="Relationship" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2">
+	          <sourceLabel name="1..1"/>
 	          <targetLabel name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" name="ct1_rg_rg1_rst23" outgoingRelations="//@framedModel/@elements.8/@model/@elements.11" type="Relationship" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.3" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1">
-	          <sourceLabel name="*"/>
-	          <targetLabel name="*"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Cyclic" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1" referencedRelation="//@framedModel/@elements.5/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="Reflexive" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.3" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1" referencedRelation="//@framedModel/@elements.5/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipExclusion" target="//@framedModel/@elements.5/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.6"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipImplication" target="//@framedModel/@elements.5/@model/@elements.1" source="//@framedModel/@elements.5/@model/@elements.7"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.2" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.0"/>
+	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.1" source="//@framedModel/@elements.5/@model/@elements.0/@model/@elements.1/@model/@elements.3"/>
+	        <elements xsi:type="org.framed.iorm.model:Shape" name="ct1_rt" type="RoleType">
+	          <firstSegment/>
+	          <secondSegment/>
+	          <description name="*"/>
 	        </elements>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RelationshipExclusion" target="//@framedModel/@elements.8/@model/@elements.9" source="//@framedModel/@elements.8/@model/@elements.10"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleEquivalence" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleImplication" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.1" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.0"/>
-	        <elements xsi:type="org.framed.iorm.model:Relation" type="RoleProhibition" target="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.3" source="//@framedModel/@elements.8/@model/@elements.0/@model/@elements.0/@model/@elements.2"/>
 	      </model>
 	    </elements>
-	    <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.4" source="//@framedModel/@elements.8"/>
-	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.8" source="//@framedModel/@elements.2" referencedRoles="//@framedModel/@elements.8/@model/@elements.0"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.4" source="//@framedModel/@elements.5"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.4/@model/@elements.2" source="//@framedModel/@elements.4/@model/@elements.3"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4" source="//@framedModel/@elements.0" referencedRoles="//@framedModel/@elements.4/@model/@elements.0 //@framedModel/@elements.4/@model/@elements.1 //@framedModel/@elements.4/@model/@elements.2"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.4" source="//@framedModel/@elements.1" referencedRoles="//@framedModel/@elements.4/@model/@elements.2 //@framedModel/@elements.4/@model/@elements.3"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Inheritance" target="//@framedModel/@elements.2" source="//@framedModel/@elements.1"/>
+	    <elements xsi:type="org.framed.iorm.model:Relation" type="Fulfillment" target="//@framedModel/@elements.5" source="//@framedModel/@elements.1" referencedRoles="//@framedModel/@elements.5/@model/@elements.0 //@framedModel/@elements.5/@model/@elements.15"/>
 	    <framedConfiguration>
 	      <features/>
 	      <features name="Role_Types"/>
@@ -301,168 +321,194 @@
 	    </framedConfiguration>
 	</framedModel>	
 	<cromModel>
-		<elements xsi:type="crom_l1_composed:NaturalType" name="nat">
-		    <operations name="operation" type="//@cromModel/@elements.1">
-		      <params name="a" type="//@cromModel/@elements.2"/>
-		    </operations>
-		  </elements>
-		  <elements xsi:type="crom_l1_composed:DataType" name="data" incoming="//@cromModel/@relations.1">
-		    <attributes name="attribute"/>
-		  </elements>
-		  <elements xsi:type="crom_l1_composed:DataType" name="data1" outgoing="//@cromModel/@relations.1">
-		    <operations name="operation" type="//@cromModel/@elements.0"/>
-		  </elements>
-		  <elements xsi:type="crom_l1_composed:CompartmentType" name="compartment" incoming="//@cromModel/@relations.4">
-		    <attributes name="attribute" type="//@cromModel/@elements.0"/>
-		    <parts upper="1">
-		      <role xsi:type="crom_l1_composed:RoleType" name="ct_roleType" incoming="//@cromModel/@elements.3/@relationships.2" outgoing="//@cromModel/@elements.3/@relationships.0"/>
-		    </parts>
-		    <parts>
-		      <role xsi:type="crom_l1_composed:RoleType" name="ct_roleType1" outgoing="//@cromModel/@elements.3/@relationships.1 //@cromModel/@elements.3/@relationships.2">
-		        <attributes name="attribute" type="//@cromModel/@elements.0"/>
-		      </role>
-		    </parts>
-		    <parts>
-		      <role xsi:type="crom_l1_composed:RoleType" name="ct_roleType2" incoming="//@cromModel/@elements.3/@relationships.0 //@cromModel/@elements.3/@relationships.3 //@cromModel/@relations.0"/>
-		    </parts>
-		    <parts>
-		      <role xsi:type="crom_l1_composed:RoleType" name="ct_roleType3" incoming="//@cromModel/@elements.3/@relationships.1" outgoing="//@cromModel/@elements.3/@relationships.3 //@cromModel/@relations.0">
-		        <operations name="operation" type="//@cromModel/@elements.2"/>
-		      </role>
-		    </parts>
-		    <relationships name="rst02">
-		      <first lower="1" holder="//@cromModel/@elements.3/@parts.0/@role"/>
-		      <second holder="//@cromModel/@elements.3/@parts.2/@role"/>
-		    </relationships>
-		    <relationships name="rst13">
-		      <first holder="//@cromModel/@elements.3/@parts.1/@role"/>
-		      <second lower="1" holder="//@cromModel/@elements.3/@parts.3/@role"/>
-		    </relationships>
-		    <relationships name="rst01">
-		      <first holder="//@cromModel/@elements.3/@parts.1/@role"/>
-		      <second holder="//@cromModel/@elements.3/@parts.0/@role"/>
-		    </relationships>
-		    <relationships name="rst23">
-		      <first holder="//@cromModel/@elements.3/@parts.3/@role"/>
-		      <second holder="//@cromModel/@elements.3/@parts.2/@role"/>
-		    </relationships>
-		    <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.3/@parts.1/@role" second="//@cromModel/@elements.3/@parts.3/@role"/>
-		    <constraints xsi:type="crom_l1_composed:RelationshipImplication" first="//@cromModel/@elements.3/@relationships.3" second="//@cromModel/@elements.3/@relationships.2"/>
-		    <constraints xsi:type="crom_l1_composed:RelationshipExclusion" first="//@cromModel/@elements.3/@relationships.1" second="//@cromModel/@elements.3/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.3/@parts.1/@role" second="//@cromModel/@elements.3/@parts.0/@role"/>
-		    <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.3/@parts.0/@role" second="//@cromModel/@elements.3/@parts.2/@role"/>
-		    <constraints xsi:type="crom_l1_composed:Cyclic" relation="//@cromModel/@elements.3/@relationships.1"/>
-		    <constraints xsi:type="crom_l1_composed:Acyclic" relation="//@cromModel/@elements.3/@relationships.2"/>
-		    <constraints xsi:type="crom_l1_composed:Reflexive" relation="//@cromModel/@elements.3/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@cromModel/@elements.3/@relationships.3"/>
-		    <constraints xsi:type="crom_l1_composed:Total" relation="//@cromModel/@elements.3/@relationships.3"/>
-		    <contains name="ct_compartment1">
-		      <parts>
-		        <role xsi:type="crom_l1_composed:RoleType" name="ct_ct1_roleType" outgoing="//@cromModel/@elements.3/@contains.0/@relationships.0"/>
-		      </parts>
-		      <parts>
-		        <role xsi:type="crom_l1_composed:RoleType" name="ct_ct1_roleType1" incoming="//@cromModel/@elements.3/@contains.0/@relationships.0"/>
-		      </parts>
-		      <relationships name="ct_ct1_rst">
-		        <first holder="//@cromModel/@elements.3/@contains.0/@parts.0/@role"/>
-		        <second holder="//@cromModel/@elements.3/@contains.0/@parts.1/@role"/>
-		      </relationships>
-		    </contains>
-		    <fulfillments filled="//@cromModel/@elements.3/@contains.0/@parts.0/@role" filler="//@cromModel/@elements.3/@parts.1/@role"/>
-		  </elements>
-		  <elements xsi:type="crom_l1_composed:Group" name="group">
-		    <elements xsi:type="crom_l1_composed:NaturalType" name="group_nat" outgoing="//@cromModel/@elements.4/@relations.0">
-		      <attributes name="attribute"/>
-		    </elements>
-		    <elements xsi:type="crom_l1_composed:DataType" name="group_data"/>
-		    <elements xsi:type="crom_l1_composed:NaturalType" name="group_nat1" incoming="//@cromModel/@elements.4/@relations.0"/>
-		    <elements xsi:type="crom_l1_composed:Group" name="group1">
-		      <elements xsi:type="crom_l1_composed:NaturalType" name="group1_nat"/>
-		      <elements xsi:type="crom_l1_composed:CompartmentType" name="group1_compartment">
-		        <parts lower="1" upper="3">
-		          <role xsi:type="crom_l1_composed:RoleType" name="group1_ct_roleType"/>
-		        </parts>
-		        <parts>
-		          <role xsi:type="crom_l1_composed:RoleType" name="group1_ct_roleType1"/>
-		        </parts>
-		        <parts lower="1">
-		          <role xsi:type="crom_l1_composed:RoleType" name="group1_ct_roleType2"/>
-		        </parts>
-		        <parts>
-		          <role xsi:type="crom_l1_composed:RoleGroup" name="group1_ct_roleGroup" lower="1">
-		            <elements xsi:type="crom_l1_composed:RoleType" name="group1_ct_rg_roleType3" incoming="//@cromModel/@elements.4/@elements.3/@elements.1/@relationships.0"/>
-		            <elements xsi:type="crom_l1_composed:RoleType" name="group1_ct_rg_roleType4" outgoing="//@cromModel/@elements.4/@elements.3/@elements.1/@relationships.0"/>
-		          </role>
-		        </parts>
-		        <relationships name="group1_ct_rg_rst">
-		          <first upper="1" holder="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role/@elements.1"/>
-		          <second holder="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role/@elements.0"/>
-		        </relationships>
-		        <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.0/@role" second="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role"/>
-		        <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.1/@role" second="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role"/>
-		        <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.2/@role" second="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role"/>
-		      </elements>
-		      <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.0/@role" filler="//@cromModel/@elements.4/@elements.3/@elements.0"/>
-		      <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@elements.3/@elements.1/@parts.3/@role" filler="//@cromModel/@elements.4/@elements.3/@elements.0"/>
-		    </elements>
-		    <relations xsi:type="crom_l1_composed:NaturalInheritance" super="//@cromModel/@elements.4/@elements.2" sub="//@cromModel/@elements.4/@elements.0"/>
-		  </elements>
-		  <elements xsi:type="crom_l1_composed:CompartmentType" name="compartment1" outgoing="//@cromModel/@relations.4">
-		    <attributes name="attribute"/>
-		    <parts>
-		      <role xsi:type="crom_l1_composed:RoleGroup" name="ct1_roleGroup">
-		        <elements xsi:type="crom_l1_composed:RoleGroup" name="ct1_rg_roleGroup1">
-		          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_roleType" incoming="//@cromModel/@elements.5/@relationships.2" outgoing="//@cromModel/@elements.5/@relationships.0">
-		            <attributes name="attribute" type="//@cromModel/@elements.0"/>
-		          </elements>
-		          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_roleType2" incoming="//@cromModel/@elements.5/@relationships.0" outgoing="//@cromModel/@elements.5/@relationships.3"/>
-		          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_roleType1" outgoing="//@cromModel/@elements.5/@relationships.1 //@cromModel/@elements.5/@relationships.2"/>
-		          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_roleType3" incoming="//@cromModel/@elements.5/@relationships.1 //@cromModel/@elements.5/@relationships.3">
-		            <operations name="operation" type="//@cromModel/@elements.0">
-		              <params name="a" type="//@cromModel/@elements.1"/>
-		            </operations>
-		          </elements>
-		        </elements>
-		        <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_roleType4">
-		          <attributes name="attribute" type="//@cromModel/@elements.2"/>
-		          <operations name="operation">
-		            <params name="b" type="//@cromModel/@elements.0"/>
-		          </operations>
-		        </elements>
-		      </role>
-		    </parts>
-		    <relationships name="ct1_rg_rg1_rst02">
-		      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.0"/>
-		      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.1"/>
-		    </relationships>
-		    <relationships name="ct1_rg_rg1_rst13">
-		      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.2"/>
-		      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.3"/>
-		    </relationships>
-		    <relationships name="ct1_rg_rg1_rst01">
-		      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.2"/>
-		      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.0"/>
-		    </relationships>
-		    <relationships name="ct1_rg_rg1_rst23">
-		      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.1"/>
-		      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.3"/>
-		    </relationships>
-		    <constraints xsi:type="crom_l1_composed:Acyclic" relation="//@cromModel/@elements.5/@relationships.1"/>
-		    <constraints xsi:type="crom_l1_composed:Cyclic" relation="//@cromModel/@elements.5/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@cromModel/@elements.5/@relationships.1"/>
-		    <constraints xsi:type="crom_l1_composed:Reflexive" relation="//@cromModel/@elements.5/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:Total" relation="//@cromModel/@elements.5/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:RelationshipImplication" first="//@cromModel/@elements.5/@relationships.1" second="//@cromModel/@elements.5/@relationships.0"/>
-		    <constraints xsi:type="crom_l1_composed:RelationshipExclusion" first="//@cromModel/@elements.5/@relationships.3" second="//@cromModel/@elements.5/@relationships.2"/>
-		    <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.2" second="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.0"/>
-		    <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.0" second="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.1"/>
-		    <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.2" second="//@cromModel/@elements.5/@parts.0/@role/@elements.0/@elements.3"/>
-		  </elements>
-		  <relations xsi:type="crom_l1_composed:RoleInheritance" super="//@cromModel/@elements.3/@parts.2/@role" sub="//@cromModel/@elements.3/@parts.3/@role"/>
-		  <relations xsi:type="crom_l1_composed:DataInheritance" super="//@cromModel/@elements.1" sub="//@cromModel/@elements.2"/>
-		  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.3/@parts.1/@role" filler="//@cromModel/@elements.0"/>
-		  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.3/@parts.0/@role" filler="//@cromModel/@elements.2"/>
-		  <relations xsi:type="crom_l1_composed:CompartmentInheritance" super="//@cromModel/@elements.3" sub="//@cromModel/@elements.5"/>
-		  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.5/@parts.0/@role" filler="//@cromModel/@elements.2"/>
+	  <elements xsi:type="crom_l1_composed:NaturalType" name="nat">
+	    <operations name="operation" type="//@cromModel/@elements.2">
+	      <params name="a" type="//@cromModel/@elements.1"/>
+	    </operations>
+	  </elements>
+	  <elements xsi:type="crom_l1_composed:DataType" name="data" outgoing="//@cromModel/@relations.7">
+	    <attributes name="attribute" type="//@cromModel/@elements.2"/>
+	  </elements>
+	  <elements xsi:type="crom_l1_composed:DataType" name="data1" incoming="//@cromModel/@relations.7">
+	    <attributes name="a" type="//@cromModel/@elements.2"/>
+	    <operations name="operation" type="//@cromModel/@elements.1">
+	      <params name="a" type="//@cromModel/@elements.0"/>
+	    </operations>
+	  </elements>
+	  <elements xsi:type="crom_l1_composed:Group" name="group">
+	    <elements xsi:type="crom_l1_composed:NaturalType" name="group_nat" outgoing="//@cromModel/@elements.3/@relations.0">
+	      <attributes name="attribute" type="//@cromModel/@elements.1"/>
+	    </elements>
+	    <elements xsi:type="crom_l1_composed:NaturalType" name="group_nat1" incoming="//@cromModel/@elements.3/@relations.0">
+	      <operations name="operation" type="//@cromModel/@elements.1">
+	        <params name="a" type="//@cromModel/@elements.0"/>
+	      </operations>
+	    </elements>
+	    <elements xsi:type="crom_l1_composed:DataType" name="group_data"/>
+	    <elements xsi:type="crom_l1_composed:Group" name="group_group1">
+	      <elements xsi:type="crom_l1_composed:NaturalType" name="group_group1_nat">
+	        <attributes name="attribute" type="//@cromModel/@elements.3/@elements.0"/>
+	      </elements>
+	      <elements xsi:type="crom_l1_composed:CompartmentType" name="group_group1_ct">
+	        <parts lower="1" upper="1">
+	          <role xsi:type="crom_l1_composed:RoleGroup" name="group_group1_ct_rg" upper="1">
+	            <elements xsi:type="crom_l1_composed:RoleType" name="group_group1_ct_rg_rt" incoming="//@cromModel/@elements.3/@elements.3/@elements.1/@relationships.0"/>
+	            <elements xsi:type="crom_l1_composed:RoleType" name="group_group1_ct_rg_rt1" outgoing="//@cromModel/@elements.3/@elements.3/@elements.1/@relationships.0"/>
+	          </role>
+	        </parts>
+	        <parts lower="1" upper="3">
+	          <role xsi:type="crom_l1_composed:RoleType" name="group_group1_ct_rt">
+	            <attributes name="attribute" type="//@cromModel/@elements.1"/>
+	          </role>
+	        </parts>
+	        <parts>
+	          <role xsi:type="crom_l1_composed:RoleType" name="group_group1_ct_rt1">
+	            <operations name="operation" type="//@cromModel/@elements.3/@elements.0"/>
+	          </role>
+	        </parts>
+	        <parts upper="1">
+	          <role xsi:type="crom_l1_composed:RoleType" name="group_group1_ct_rt2"/>
+	        </parts>
+	        <relationships name="group_group1_ct_rg_rst">
+	          <first holder="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role/@elements.1"/>
+	          <second upper="1" holder="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role/@elements.0"/>
+	        </relationships>
+	        <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@cromModel/@elements.3/@elements.3/@elements.1/@relationships.0"/>
+	        <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.1/@role" second="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role"/>
+	        <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.2/@role" second="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role"/>
+	        <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.3/@role" second="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role"/>
+	      </elements>
+	      <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.0/@role" filler="//@cromModel/@elements.3/@elements.3/@elements.0"/>
+	      <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.3/@elements.3/@elements.1/@parts.1/@role" filler="//@cromModel/@elements.3/@elements.3/@elements.0"/>
+	    </elements>
+	    <relations xsi:type="crom_l1_composed:NaturalInheritance" super="//@cromModel/@elements.3/@elements.1" sub="//@cromModel/@elements.3/@elements.0"/>
+	  </elements>
+	  <elements xsi:type="crom_l1_composed:CompartmentType" name="ct" incoming="//@cromModel/@relations.0">
+	    <attributes name="attribute" type="//@cromModel/@elements.0"/>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleType" name="ct_rt" incoming="//@cromModel/@elements.4/@relationships.0" outgoing="//@cromModel/@elements.4/@relationships.1"/>
+	    </parts>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleType" name="ct_rt1" incoming="//@cromModel/@elements.4/@relationships.3" outgoing="//@cromModel/@elements.4/@relationships.0">
+	        <attributes name="attribute" type="//@cromModel/@elements.0"/>
+	      </role>
+	    </parts>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleType" name="ct_rt2" incoming="//@cromModel/@elements.4/@relationships.1 //@cromModel/@relations.1" outgoing="//@cromModel/@elements.4/@relationships.2">
+	        <attributes name="attribute" type="//@cromModel/@elements.2"/>
+	        <operations name="operation" type="//@cromModel/@elements.4/@contains.0">
+	          <params name="a" type="//@cromModel/@elements.0"/>
+	        </operations>
+	      </role>
+	    </parts>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleType" name="ct_rt3" incoming="//@cromModel/@elements.4/@relationships.2" outgoing="//@cromModel/@elements.4/@relationships.3 //@cromModel/@relations.1"/>
+	    </parts>
+	    <relationships name="rst01">
+	      <first lower="1" upper="1" holder="//@cromModel/@elements.4/@parts.1/@role"/>
+	      <second holder="//@cromModel/@elements.4/@parts.0/@role"/>
+	    </relationships>
+	    <relationships name="rst02">
+	      <first upper="1" holder="//@cromModel/@elements.4/@parts.0/@role"/>
+	      <second lower="1" upper="1" holder="//@cromModel/@elements.4/@parts.2/@role"/>
+	    </relationships>
+	    <relationships name="rst23">
+	      <first upper="1" holder="//@cromModel/@elements.4/@parts.2/@role"/>
+	      <second holder="//@cromModel/@elements.4/@parts.3/@role"/>
+	    </relationships>
+	    <relationships name="rst13">
+	      <first upper="1" holder="//@cromModel/@elements.4/@parts.3/@role"/>
+	      <second holder="//@cromModel/@elements.4/@parts.1/@role"/>
+	    </relationships>
+	    <constraints xsi:type="crom_l1_composed:Acyclic" relation="//@cromModel/@elements.4/@relationships.0"/>
+	    <constraints xsi:type="crom_l1_composed:Cyclic" relation="//@cromModel/@elements.4/@relationships.3"/>
+	    <constraints xsi:type="crom_l1_composed:Reflexive" relation="//@cromModel/@elements.4/@relationships.2"/>
+	    <constraints xsi:type="crom_l1_composed:Total" relation="//@cromModel/@elements.4/@relationships.2"/>
+	    <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@cromModel/@elements.4/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:RelationshipImplication" first="//@cromModel/@elements.4/@relationships.2" second="//@cromModel/@elements.4/@relationships.0"/>
+	    <constraints xsi:type="crom_l1_composed:RelationshipExclusion" first="//@cromModel/@elements.4/@relationships.3" second="//@cromModel/@elements.4/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.4/@parts.3/@role" second="//@cromModel/@elements.4/@parts.1/@role"/>
+	    <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.4/@parts.0/@role" second="//@cromModel/@elements.4/@parts.2/@role"/>
+	    <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.4/@parts.1/@role" second="//@cromModel/@elements.4/@parts.0/@role"/>
+	    <contains name="ct_ct1">
+	      <parts>
+	        <role xsi:type="crom_l1_composed:RoleType" name="ct_ct1_rt" outgoing="//@cromModel/@elements.4/@contains.0/@relationships.0"/>
+	      </parts>
+	      <parts>
+	        <role xsi:type="crom_l1_composed:RoleType" name="ct_ct1_rt1" incoming="//@cromModel/@elements.4/@contains.0/@relationships.0"/>
+	      </parts>
+	      <relationships name="rst">
+	        <first holder="//@cromModel/@elements.4/@contains.0/@parts.0/@role"/>
+	        <second holder="//@cromModel/@elements.4/@contains.0/@parts.1/@role"/>
+	      </relationships>
+	    </contains>
+	    <fulfillments filled="//@cromModel/@elements.4/@contains.0/@parts.0/@role" filler="//@cromModel/@elements.4/@parts.1/@role"/>
+	    <fulfillments filled="//@cromModel/@elements.4/@contains.0/@parts.1/@role" filler="//@cromModel/@elements.4/@parts.1/@role"/>
+	  </elements>
+	  <elements xsi:type="crom_l1_composed:CompartmentType" name="ct1" outgoing="//@cromModel/@relations.0">
+	    <attributes name="attribute" type="//@cromModel/@elements.4"/>
+	    <operations name="operation" type="//@cromModel/@elements.4">
+	      <params name="a" type="//@cromModel/@elements.0"/>
+	    </operations>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleGroup" name="ct1_rg" upper="1">
+	        <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rt">
+	          <attributes name="attribute" type="//@cromModel/@elements.0"/>
+	          <operations name="operation" type="//@cromModel/@elements.0">
+	            <params name="a" type="//@cromModel/@elements.5"/>
+	          </operations>
+	        </elements>
+	        <elements xsi:type="crom_l1_composed:RoleGroup" name="ct1_rg_rg1">
+	          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_rt" outgoing="//@cromModel/@elements.5/@relationships.0 //@cromModel/@elements.5/@relationships.1">
+	            <attributes name="attribute" type="//@cromModel/@elements.1"/>
+	          </elements>
+	          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_rt1" incoming="//@cromModel/@elements.5/@relationships.0" outgoing="//@cromModel/@elements.5/@relationships.2"/>
+	          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_rt2" incoming="//@cromModel/@elements.5/@relationships.1" outgoing="//@cromModel/@elements.5/@relationships.3">
+	            <operations name="operation"/>
+	          </elements>
+	          <elements xsi:type="crom_l1_composed:RoleType" name="ct1_rg_rg1_rt3" incoming="//@cromModel/@elements.5/@relationships.2 //@cromModel/@elements.5/@relationships.3"/>
+	        </elements>
+	      </role>
+	    </parts>
+	    <parts>
+	      <role xsi:type="crom_l1_composed:RoleType" name="ct1_rt"/>
+	    </parts>
+	    <relationships name="ct1_rg_rg1_rst01">
+	      <first upper="1" holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.0"/>
+	      <second lower="1" holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.1"/>
+	    </relationships>
+	    <relationships name="ct1_rg_rg1_rst02">
+	      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.0"/>
+	      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.2"/>
+	    </relationships>
+	    <relationships name="ct1_rg_rg1_rst13">
+	      <first holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.1"/>
+	      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.3"/>
+	    </relationships>
+	    <relationships name="ct1_rg_rg1_rst23">
+	      <first lower="1" upper="1" holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.2"/>
+	      <second holder="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.3"/>
+	    </relationships>
+	    <constraints xsi:type="crom_l1_composed:Acyclic" relation="//@cromModel/@elements.5/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:Irreflexive" relation="//@cromModel/@elements.5/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:Total" relation="//@cromModel/@elements.5/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:Cyclic" relation="//@cromModel/@elements.5/@relationships.2"/>
+	    <constraints xsi:type="crom_l1_composed:Reflexive" relation="//@cromModel/@elements.5/@relationships.2"/>
+	    <constraints xsi:type="crom_l1_composed:RelationshipExclusion" first="//@cromModel/@elements.5/@relationships.2" second="//@cromModel/@elements.5/@relationships.1"/>
+	    <constraints xsi:type="crom_l1_composed:RelationshipImplication" first="//@cromModel/@elements.5/@relationships.3" second="//@cromModel/@elements.5/@relationships.0"/>
+	    <constraints xsi:type="crom_l1_composed:RoleEquivalence" first="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.1" second="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.0"/>
+	    <constraints xsi:type="crom_l1_composed:RoleImplication" first="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.0" second="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.2"/>
+	    <constraints xsi:type="crom_l1_composed:RoleProhibition" first="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.3" second="//@cromModel/@elements.5/@parts.0/@role/@elements.1/@elements.1"/>
+	  </elements>
+	  <relations xsi:type="crom_l1_composed:CompartmentInheritance" super="//@cromModel/@elements.4" sub="//@cromModel/@elements.5"/>
+	  <relations xsi:type="crom_l1_composed:RoleInheritance" super="//@cromModel/@elements.4/@parts.2/@role" sub="//@cromModel/@elements.4/@parts.3/@role"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@parts.0/@role" filler="//@cromModel/@elements.0"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@parts.1/@role" filler="//@cromModel/@elements.0"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@parts.2/@role" filler="//@cromModel/@elements.0"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@parts.2/@role" filler="//@cromModel/@elements.1"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.4/@parts.3/@role" filler="//@cromModel/@elements.1"/>
+	  <relations xsi:type="crom_l1_composed:DataInheritance" super="//@cromModel/@elements.2" sub="//@cromModel/@elements.1"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.5/@parts.0/@role" filler="//@cromModel/@elements.1"/>
+	  <relations xsi:type="crom_l1_composed:Fulfillment" filled="//@cromModel/@elements.5/@parts.1/@role" filler="//@cromModel/@elements.1"/>	  
 	</cromModel>
 </ts:TestCase>	  
