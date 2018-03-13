@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
@@ -22,7 +19,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
-import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.transformation.test.model.test.TestCase;
 import org.osgi.framework.Bundle;
 
@@ -304,15 +300,15 @@ public class TestGenerator {
 			RelationsToDelete.clear();
 		}
 		
-		//Group Constraints TODO
+		//Group Constraints
 		if(!config.get(7)) {
-			deleteFulfillmentsWithFillerRoleGroups(testCase.getCromModel().getRelations());
+			deleteFulfillmentsWithFilledRoleGroups(testCase.getCromModel().getRelations());
 			for(ModelElement element : cromElements) {
 				if(element instanceof crom_l1_composed.Group) {
-					deleteFulfillmentsWithFillerRoleGroups(((Group) element).getRelations());
+					deleteFulfillmentsWithFilledRoleGroups(((Group) element).getRelations());
 					for(ModelElement innerElement : ((Group) element).getElements()) {
 						if(innerElement instanceof crom_l1_composed.Group) {
-							deleteFulfillmentsWithFillerRoleGroups(((Group) innerElement).getRelations());
+							deleteFulfillmentsWithFilledRoleGroups(((Group) innerElement).getRelations());
 		}	}	}	}	}
 		
 		//Playable_By_Defining_Compartment
@@ -386,7 +382,7 @@ public class TestGenerator {
 						if(groupElement instanceof crom_l1_composed.DataType)
 							ElementsToDeleteFromGroup.add(groupElement);
 						if(groupElement instanceof crom_l1_composed.Group)
-							TraverseInGroup((crom_l1_composed.Group) groupElement);
+							deleteDataTypesRecursive((crom_l1_composed.Group) groupElement);
 					}
 					for(crom_l1_composed.ModelElement elementToDelete : ElementsToDeleteFromGroup)
 						((crom_l1_composed.Group) element).getElements().remove(elementToDelete);
@@ -409,26 +405,51 @@ public class TestGenerator {
 		return testCase;
 	}
 	
-	//TODO
+	/**
+	 * deletes all relationships in compartment types starting from a given list of {@link ModelElement}s
+	 * @param elements a list of model elements
+	 */
 	private void deleteRelationshipsRecursive(EList<ModelElement> elements) {
 		List<Relationship> RelationshipsToDelete = new ArrayList<Relationship>();
+		//iterate over the given list of model elements
 		for(ModelElement element : elements) {	
+			//compartment type found
 			if(element instanceof CompartmentType) {
 				crom_l1_composed.CompartmentType compartmentType = (crom_l1_composed.CompartmentType) element;
+				//delete relationships
 				for(Relationship relationship : (compartmentType.getRelationships()))		
 					RelationshipsToDelete.add(relationship);	
 				for(Relationship relation : RelationshipsToDelete)
 					compartmentType.getRelationships().remove(relation);
+				//delete relationships in inner compartment types
 				for(crom_l1_composed.CompartmentType innerCT : compartmentType.getContains())
-					TraverseInCompartmentType(innerCT);
+					deleteRelationshipsInInnerCompartmentType(innerCT);
 			}
+			//group found: call operation recursively for its elements
 			if(element instanceof Group) {
 				deleteRelationshipsRecursive(((Group) element).getElements());
 	}	}	}
 	
-	//TODO
+	/**
+	 * Traverses in a given Compartment Type: deletes relationships and calls method recursive for other groups
+	 */
+	public void deleteRelationshipsInInnerCompartmentType(CompartmentType compartmentType) {
+		List<Relationship> RelationshipsToDelete = new ArrayList<Relationship>();
+		for(Relationship relationship : (compartmentType.getRelationships()))		
+			RelationshipsToDelete.add(relationship);	
+		for(Relationship relation : RelationshipsToDelete)
+			compartmentType.getRelationships().remove(relation);
+		for(crom_l1_composed.CompartmentType innerCT : compartmentType.getContains()) {
+			deleteRelationshipsInInnerCompartmentType(innerCT);
+	}	}
+	
+	/**
+	 * deletes all relationships cardinalities starting from a given list of {@link ModelElement}s
+	 * @param elements a list of model elements
+	 */
 	private void deleteRelationshipCardinalitiesRecursive(EList<ModelElement> elements) {
 		for(ModelElement element : elements) {	
+			//compartment type found
 			if(element instanceof CompartmentType) {
 				for(Relationship relationship : (((CompartmentType) element).getRelationships())) { 	
 					//get place, set place generic
@@ -437,14 +458,19 @@ public class TestGenerator {
 					relationship.getSecond().setLower(0);
 					relationship.getSecond().setUpper(-1);
 			}	}
+			//group found: call operation recursively for its elements
 			if(element instanceof Group) {
 				deleteRelationshipCardinalitiesRecursive(((Group) element).getElements());
 	}	}	}
 	
-	//TODO
+	/**
+	 * deletes all intra relationships constraints starting from a given list of {@link ModelElement}s
+	 * @param elements a list of model elements
+	 */
 	private void deleteIntraRelConsRecursive(EList<ModelElement> elements) {
 		List<Constraint> ConstraintsToDelete = new ArrayList<Constraint>();
 		for(ModelElement element : elements) {	
+			//compartment type found: find relatioships and delete its intra rel cons
 			if(element instanceof CompartmentType) {
 				for(Relation constraint : ((crom_l1_composed.CompartmentType) element).getConstraints()) {	
 					if(constraint instanceof crom_l1_composed.Reflexive || 
@@ -457,14 +483,19 @@ public class TestGenerator {
 				for(Constraint constraint : ConstraintsToDelete) 
 					((crom_l1_composed.CompartmentType) element).getConstraints().remove(constraint);			
 			}	
+			//group found: call operation recursively for its elements
 			if(element instanceof Group) {
 				deleteIntraRelConsRecursive(((Group) element).getElements());
 	}	}	}
 	
-	//TODO
+	/**
+	 * deletes all inter relationships constraints starting from a given list of {@link ModelElement}s
+	 * @param elements a list of model elements
+	 */
 	private void deleteInterRelConsRecursive(EList<ModelElement> elements) {
 		List<Constraint> ConstraintsToDelete = new ArrayList<Constraint>();
 		for(ModelElement element : elements) {	
+			//compartment type found: find inter rel cons and delete them
 			if(element instanceof CompartmentType) {
 				for(Relation constraint : ((crom_l1_composed.CompartmentType) element).getConstraints()) {	
 					if(constraint instanceof crom_l1_composed.RelationshipImplication || 
@@ -474,15 +505,20 @@ public class TestGenerator {
 				for(Constraint constraint : ConstraintsToDelete) 
 					((crom_l1_composed.CompartmentType) element).getConstraints().remove(constraint);	
 			}	
+			//group found: call operation recursively for its elements
 			if(element instanceof Group) {
 				deleteInterRelConsRecursive(((Group) element).getElements());
 	}	}	}
 	
-	//TODO
+	/**
+	 * deletes all attributes and operation in role group starting from a given list of {@link ModelElement}s
+	 * @param elements a list of model elements
+	 */
 	private void deleteAttsAndOpsInRolesRecursive(EList<ModelElement> elements) {
-		for(ModelElement element : elements) {	
+		for(ModelElement element : elements) {
+			//compartment type found
 			if(element instanceof CompartmentType) {
-				//find roles
+				//find role type of the compartment type and in role group
 				for(Part part : ((crom_l1_composed.CompartmentType) element).getParts()) {
 					if(part.getRole() instanceof crom_l1_composed.RoleType) 
 						DeleteAttsAndOpsFromRole((crom_l1_composed.RoleType) part.getRole());
@@ -494,6 +530,7 @@ public class TestGenerator {
 							if(roleGroupElement instanceof crom_l1_composed.RoleGroup)
 								deleteAttsAndOpsFromRolesInRoleGroups((crom_l1_composed.RoleGroup) roleGroupElement);
 			}	}	}	}	
+			//group found: call operation recursively for its elements
 			if(element instanceof Group) {
 				deleteAttsAndOpsInRolesRecursive(((Group) element).getElements());
 	}	}	}
@@ -546,38 +583,25 @@ public class TestGenerator {
 				}
 				//delete role implication
 				for(Constraint constraint : toDelete) constraints.remove(constraints.indexOf(constraint));
-	}}}
+	}	}	}
 
 	/**
 	 * Traverses in a given Group: delete data types, call method recursive for other groups
 	 * @param group
 	 */
-	public void TraverseInGroup(crom_l1_composed.Group group) {
+	public void deleteDataTypesRecursive(crom_l1_composed.Group group) {
 		List<crom_l1_composed.ModelElement> ElementsToDelete = new ArrayList<crom_l1_composed.ModelElement>();
 		for(crom_l1_composed.ModelElement groupElement : group.getElements()) {
 			if(groupElement instanceof crom_l1_composed.DataType) {
 				ElementsToDelete.add(groupElement);
 			}	
 			if(groupElement instanceof crom_l1_composed.Group)
-				TraverseInGroup((crom_l1_composed.Group) groupElement);
+				deleteDataTypesRecursive((crom_l1_composed.Group) groupElement);
 		}
 		for(crom_l1_composed.ModelElement element : ElementsToDelete) {
 			group.getElements().remove(element);
 		}
 	}
-	
-	/**
-	 * Traverses in a given Compartment Type: deletes relationships and calls method recursive for other groups
-	 */
-	public void TraverseInCompartmentType(CompartmentType compartmentType) {
-		List<Relationship> RelationshipsToDelete = new ArrayList<Relationship>();
-		for(Relationship relationship : (compartmentType.getRelationships()))		
-			RelationshipsToDelete.add(relationship);	
-		for(Relationship relation : RelationshipsToDelete)
-			compartmentType.getRelationships().remove(relation);
-		for(crom_l1_composed.CompartmentType innerCT : compartmentType.getContains()) {
-			TraverseInCompartmentType(innerCT);
-	}	}
 	
 	/**
 	 * Checks if a played role is part of a role group of the playing compartment type itself
@@ -662,8 +686,11 @@ public class TestGenerator {
 			compartment.getConstraints().remove(con);
 	}
 	
-	//TODO
-	private void deleteFulfillmentsWithFillerRoleGroups(EList<Relation> relations) {
+	/**
+	 * delete fulfillments with role groups as filled roles
+	 * @param relations a list of relation to search in for fulfillments to delete
+	 */
+	private void deleteFulfillmentsWithFilledRoleGroups(EList<Relation> relations) {
 		List<Fulfillment> fulfillmentsToDelete = new ArrayList<Fulfillment>();
 		for(Relation relation : relations) {
 			if(relation instanceof crom_l1_composed.Fulfillment) {
