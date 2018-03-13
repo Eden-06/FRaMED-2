@@ -1,0 +1,51 @@
+import "CompartmentTypeInCompartmentType.etl";
+
+/**
+ * Transforms a compartment type when attributes and operation are not enabled
+ */
+@lazy 
+rule CompartmentTypeInCTWithoutAttAndOps
+	transform s : source!Shape
+	to t : target!CompartmentType
+	extends CompartmentTypeInCompartmentType {
+		//feature Compartment_Behavior implies feature Compartment_Properties and Compartment_Structure (not to check)	
+		guard : not(s.~features.get("Compartment_Behavior"))
+	
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
+
+//creates a set used for iorm shapes later in the post rule
+pre CompartmentTypeInCTWithAttAndOps {
+	var compartmentTypesInCT : OrderedSet(source!Shape);
+}
+
+/**
+ * Transforms a compartment type when attributes and operation are enabled
+ */
+@lazy 
+rule CompartmentTypeInCTWithAttAndOps
+	transform s : source!Shape
+	to t : target!CompartmentType
+	extends CompartmentTypeInCompartmentType {
+		//feature Compartment_Behavior implies feature Compartment_Properties and Compartment_Structure (not to check)	
+		guard : s.~features.get("Compartment_Behavior")
+
+		compartmentTypesInCT.add(s);
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
+
+/**
+ * Add operations and attributes in the post processing step.
+ *
+ * This separation is necessary as the type references in attributes and operations may form cycles between
+ * types/shapes. The post block ensures that these cycles can be resolved.
+ */
+post CompartmentTypeInCTWithAttAndOps {
+	for (s : source!Shape in compartmentTypesInCT) {
+		if (s.isDefined()) {
+			s.addAttributes(s.~transformed);
+		    s.addOperations(s.~transformed);
+	}	}	
+}

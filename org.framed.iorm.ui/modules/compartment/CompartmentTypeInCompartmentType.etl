@@ -1,19 +1,24 @@
+import "CompartmentType.etl";
+
 /**
- * The abstract rule for compartment type outside of compartment types
+ * This rule transforms a compartment in a compartment type.
  */
 @abstract
-rule CompartmentType
+rule CompartmentTypeInCompartmentType
 	transform s : source!Shape
 	to t : target!CompartmentType {
 		guard : s.getType==(source!Type#CompartmentType) and
-				(s.getContainer().getParent()==null or
-				 not(s.getContainer().getParent().getType()==(source!Type#CompartmentType)))
-		
- 		//set the transformed target element to ensure the subrule work on the same target and only transform once
+				not(s.getContainer().getParent()==null) and
+				s.getContainer().getParent().getType()==(source!Type#CompartmentType) and
+				s.~features.get("Contains_Compartments")
+			
+		//set the transformed target element to ensure the subrule work on the same target and only transform once
  		if(s.~transformed == null) {
 	 		s.~transformed = t;
 	 		//set the compartments name
 	 		t.name = s.name;
+	 		//add to parent
+	 		s.getContainer().getParent().equivalent().getContains().add(s.~transformed);
 	 		// iterate over all children of the compartment type	
 			if(not(s.getModel() == null)) {
 				for (elem : source!ModelElement in s.getModel().elements) {
@@ -22,5 +27,4 @@ rule CompartmentType
 					elem.~mainModel = s.~mainModel;
 					//transform all children
 					var e = elem.equivalent();	
-		}	}	}
-}
+}		}	}	}
