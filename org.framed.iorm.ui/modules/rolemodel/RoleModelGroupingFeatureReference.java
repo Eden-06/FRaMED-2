@@ -1,13 +1,13 @@
-package compartment;
+package rolemodel;
 
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 /**
- * This is the grouping feature reference which contain informations about the compartment type
+ * This is the grouping feature reference which contain informations about the role model
  * @author Kevin Kassin
  */
-public class CompartmentGroupingFeatureReference extends AbstractGroupingFeatureReference {
+public class RoleModelGroupingFeatureReference extends AbstractGroupingFeatureReference {
 
 	/**
 	 * the compartment type's literals
@@ -17,7 +17,7 @@ public class CompartmentGroupingFeatureReference extends AbstractGroupingFeature
 	/**
 	 * class constructor
 	 */
-	public CompartmentGroupingFeatureReference() {
+	public RoleModelGroupingFeatureReference() {
 		modelType = Type.COMPARTMENT_TYPE;
 		DIAGRAM_KIND = literals.DIAGRAM_KIND;
 		SHAPE_ID_CONTAINER = literals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER;

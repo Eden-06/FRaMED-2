@@ -1,4 +1,4 @@
-package compartment;
+package rolemodel;
 
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -15,15 +15,15 @@ import org.framed.iorm.ui.palette.ViewVisibility;
 
 /**
  * This graphiti pattern is used to work with text shapes
- * of the preview of compartment types content.
+ * of the preview of role models content.
  * <p>
- * It deals with the following aspect of text shapes for group or compartment type elements:<br>
+ * It deals with the following aspect of text shapes for role model elements:<br>
  * (1) disables deleting the text shapes<br>
  * (2) disables moving the text shapes<br>
  * (3) disables resizing the text shapes
  * @author Kevin Kassin
  */
-public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements IPattern {
+public class RoleModelElementPattern extends FRaMEDShapePattern implements IPattern {
 
 	/**
 	 * the object to get names, ids and so on for this feature
@@ -40,7 +40,7 @@ public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements
 	/**
 	 * Class constructor
 	 */
-	public CompartmentTypeElementPattern() {
+	public RoleModelElementPattern() {
 		super();
 		FEATURE_NAME = literals.ELEMENTS_FEATURE_NAME;
 		ICON_IMG_ID = literals.ELEMENTS_ICON_IMG_ID;
@@ -70,10 +70,9 @@ public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEMODEL_ELEMENT)) 
 					return true;
-				}	
-		}
+		}	
 		return false;
 	}
 
@@ -87,7 +86,7 @@ public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLEMODEL_ELEMENT))
 					return true;
 		}	
 		return false;

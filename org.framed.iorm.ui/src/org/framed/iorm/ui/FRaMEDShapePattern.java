@@ -153,7 +153,7 @@ public abstract class FRaMEDShapePattern extends AbstractPattern {
 	 */
 	protected void updateContainingGroupingFeaturesObject() {
 		ContainerShape TypeBodyToUpdate = UIUtil.getTypebodyForGroupingFeaturesDiagram(getDiagram());
-        updatePictogramElement(TypeBodyToUpdate);
+		updatePictogramElement(TypeBodyToUpdate);
 	}
 	
 	/**

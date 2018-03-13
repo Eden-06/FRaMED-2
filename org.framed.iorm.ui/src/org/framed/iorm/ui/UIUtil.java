@@ -230,8 +230,8 @@ public class UIUtil {
 	}	
 	
 	/**
-	 * get the {@link AbstractRelationshipFeatureReference}, which references the used relationship feature
-	 * @return the sub class of {@link AbstractRelationshipFeatureReference}, if exactly one class with that super type was found
+	 * get the {@link AbstractStepInReference}, which references the custom StepInFeature
+	 * @return the sub class of {@link AbstractStepInReference}, if exactly one class with that super type was found
 	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
 	 */
 	public static AbstractStepInReference getStepInFeatureReference() {

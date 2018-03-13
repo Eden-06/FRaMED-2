@@ -88,13 +88,18 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor oldAnchor = context.getOldAnchor();
 	    Anchor newAnchor = context.getNewAnchor();
-	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
-	    org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
-	    if(oldShape != null && newShape != null) {
-	    	if(oldShape.getContainer() == newShape.getContainer()) {
-	    		if(newShape.getType() == oldShape.getType()) {
-	    			return true;
-	    }	}	}
+	    org.framed.iorm.model.ModelElement old = UIUtil.getModelElementForAnchor(oldAnchor);
+	    org.framed.iorm.model.ModelElement _new = UIUtil.getModelElementForAnchor(newAnchor);
+	    if(old instanceof org.framed.iorm.model.Shape && _new instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape oldShape = (org.framed.iorm.model.Shape) old;
+			org.framed.iorm.model.Shape newShape = (org.framed.iorm.model.Shape) _new;
+			if(oldShape.getFirstSegment() != null && oldShape.getSecondSegment() !=null &&
+			   newShape.getFirstSegment() != null && newShape.getSecondSegment() !=null) {
+			    if(oldShape != null && newShape != null) {
+			    	if(oldShape.getContainer() == newShape.getContainer()) {
+			    		if(newShape.getType() == oldShape.getType()) {
+			    			return true;
+		}	}  	}	}	}
 	    return false;
 	}
 	
@@ -168,15 +173,20 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
-	    ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
-	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
-	    	   !(sourceShape.equals(targetShape))) {
-	    		if(types.contains(sourceShape.getType()))
-	    			if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, this.getDiagram());
-	    }	}
+	    ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
+	    if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
+			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
+			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null &&
+			   targetShape.getFirstSegment() != null && targetShape.getSecondSegment() !=null) {
+			    if(sourceShape != null && targetShape != null) {
+			    	if(sourceShape.getContainer() == targetShape.getContainer() &&
+			    	   !(sourceShape.equals(targetShape))) {
+			    		if(types.contains(sourceShape.getType()))
+			    			if(targetShape.getType() == sourceShape.getType())
+								   return EditPolicyService.canCreate(createContext, this.getDiagram());
+		}	} 	}	}
 	    return false;
 	}
 	 
@@ -191,11 +201,14 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
-		if(sourceShape != null){	
-			if(types.contains(sourceShape.getType()))
-				return EditPolicyService.canStart(createContext, getDiagram());
-		}	
+		ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+		if(source instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
+			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
+				if(sourceShape != null){	
+					if(types.contains(sourceShape.getType()))
+						return EditPolicyService.canStart(createContext, getDiagram());
+		}	}	}			
 		return false;
 	}
 	  
