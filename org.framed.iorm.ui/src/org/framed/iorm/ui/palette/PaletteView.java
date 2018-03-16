@@ -6,7 +6,7 @@ package org.framed.iorm.ui.palette;
  */
 public enum PaletteView {
 	
-	TOPLEVEL_VIEW,
+	NON_COMPARTMENT_VIEW,
 	COMPARTMENT_VIEW;
 
 }

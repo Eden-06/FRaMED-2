@@ -52,7 +52,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 	 * This attribute is set by the {@link StepInFeature}, {@link StepInNewTabFeature} and {@link StepOutFeature}.
 	 * It is used to calculate the palette element to display depending on the type of diagram the editor is showing.
 	 */
-	private PaletteView paletteView = PaletteView.TOPLEVEL_VIEW;
+	private PaletteView paletteView = PaletteView.NON_COMPARTMENT_VIEW;
 	
 	/**
 	 * the categories of the palette
@@ -212,7 +212,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		FeaturePaletteDescriptor fpd = pattern.getFeaturePaletteDescriptor();
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(pattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
-		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
+		   (paletteView == PaletteView.NON_COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {
@@ -250,7 +250,7 @@ public class ToolBehaviorProvider extends DefaultToolBehaviorProvider{
 		FeaturePaletteDescriptor fpd = iConPattern.getFeaturePaletteDescriptor();
 		if(fpd == null) throw new FeatureHasNoPaletteDescriptorException(iConPattern.getCreateName());
 		if((fpd.viewVisibility == ViewVisibility.ALL_VIEWS) ||
-		   (paletteView == PaletteView.TOPLEVEL_VIEW &&
+		   (paletteView == PaletteView.NON_COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.TOPLEVEL_VIEW) ||
 		   (paletteView == PaletteView.COMPARTMENT_VIEW &&
 		    fpd.viewVisibility == ViewVisibility.COMPARTMENT_VIEW)) {

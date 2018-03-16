@@ -32,7 +32,7 @@ public class Literals {
 	/**
 	 * the palette view of this module's pattern
 	 */
-	public final PaletteView paletteView = PaletteView.TOPLEVEL_VIEW; 
+	public final PaletteView paletteView = PaletteView.NON_COMPARTMENT_VIEW; 
 
 	/**
 	 * identifiers used for the group

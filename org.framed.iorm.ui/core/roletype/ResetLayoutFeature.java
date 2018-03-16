@@ -12,10 +12,9 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.UIUtil;
-import org.framed.iorm.ui.providers.ToolBehaviorProvider;
 
 /**
- * This graphiti custom feature is used to reset the layout of relationships and and role types.
+ * This graphiti custom feature is used to reset the layout of role types.
  * <p>
  * It is needed because the cardinalities of relationship and role type are moveable. This could lead to 
  * problem with seeing which cardinality belong to which element. To avoid that the user can easily reset the
@@ -61,7 +60,7 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 	 * This methods checks if the feature can be executed.
 	 * <p>
 	 * return simply true since the check if the feature can be called on the given pictogram element
-	 * is done in the {@link ToolBehaviorProvider}.
+	 * is managed in the {@link #contextMenuExpression}.
 	 * @return if the feature can be executed
 	 */
 	@Override
@@ -70,11 +69,7 @@ public class ResetLayoutFeature extends FRaMEDCustomFeature {
 	}
 	
 	/**
-	 * differs between relationships, fulfillments and role type to call operations which executes the feature 
-	 * more specialized	 
-	 * <p> 
-	 * there hardly no checks for sizes of collections and types when casting since these checks are done
-	 * {@link ToolBehaviorProvider}.
+	 * moves the occurrence constraint back to the type body of the role type
 	 */
 	@Override 
 	public void execute(ICustomContext customContext) {	

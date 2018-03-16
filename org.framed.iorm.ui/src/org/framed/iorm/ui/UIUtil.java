@@ -105,6 +105,7 @@ public class UIUtil {
 		addContext.setY(createContext.getY());
 		addContext.setLocation(createContext.getX(), createContext.getY());
 		addContext.setSize(createContext.getWidth(), createContext.getHeight());
+		addContext.setTargetContainer(createContext.getTargetContainer());
 		return addContext;
 	}
 	
@@ -229,8 +230,8 @@ public class UIUtil {
 	}	
 	
 	/**
-	 * get the {@link AbstractRelationshipFeatureReference}, which references the used relationship feature
-	 * @return the sub class of {@link AbstractRelationshipFeatureReference}, if exactly one class with that super type was found
+	 * get the {@link AbstractStepInReference}, which references the custom StepInFeature
+	 * @return the sub class of {@link AbstractStepInReference}, if exactly one class with that super type was found
 	 * 		   or null if none was found or throws {@link MoreThanOneFeatureReferenceFoundException} else
 	 */
 	public static AbstractStepInReference getStepInFeatureReference() {
@@ -249,7 +250,7 @@ public class UIUtil {
 		if(stepInFeatures.size()>1 ) throw new MoreThanOneFeatureReferenceFoundException(stepInFeatures.size(), AbstractIntraRelationshipConstraintReference.class.getName());		
 		return null;
 	}
-	
+			
 	/**
 	 * creates a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
 	 * @return a list of types that are reference in the {@link AbstractGroupingFeatureReference}s.
@@ -554,8 +555,7 @@ public class UIUtil {
 			if(diagram.getContainer() instanceof Diagram)
 				return getContainerDiagramForAnyDiagram((Diagram) diagram.getContainer());
 			else return null;
-		}	
-	}
+	}	}
 	
 	/**
 	 * finds the <em>main diagram</em> of a role model
@@ -758,7 +758,7 @@ public class UIUtil {
 	 */
 	public static final boolean isDiagram_KindValue(Diagram diagram, String value) {
 		return (Graphiti.getPeService().getPropertyValue(diagram, UILiterals.KEY_DIAGRAM_KIND).equals(value));
-	}	
+	}
 	
 	//Grouping
 	//~~~~~~~~

@@ -86,7 +86,7 @@ public class EditFulfillmentDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 	    Composite composite = (Composite) super.createDialogArea(parent);
 	    //Step 1
-	    List<Shape> allRoleTypes = getAllRolesofTarget();
+	    List<Shape> allRoleTypesAndGroups = getRolesTypesAndGroupssofTarget();
 	    checkboxViewer = CheckboxTableViewer.newCheckList(composite, SWT.CHECK);
 	    checkboxViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	    AdapterFactoryLabelProvider labelProvider =
@@ -95,10 +95,10 @@ public class EditFulfillmentDialog extends Dialog {
 	        new AdapterFactoryContentProvider(new OrmItemProviderAdapterFactory());
 	    checkboxViewer.setLabelProvider(labelProvider);
 	    checkboxViewer.setContentProvider(contentProvider);
-	    checkboxViewer.setInput(new ItemProvider(new OrmItemProviderAdapterFactory(), allRoleTypes));
+	    checkboxViewer.setInput(new ItemProvider(new OrmItemProviderAdapterFactory(), allRoleTypesAndGroups));
 	    //Step 2
 	    EList<Shape> fulfilledRoleTypes = businessObject.getReferencedRoles();
-	    for (Shape role :  allRoleTypes) {
+	    for (Shape role :  allRoleTypesAndGroups) {
 	    	if (fulfilledRoleTypes.contains(role)) {
 	    		checkboxViewer.setChecked(role, true);
 	    }	}
@@ -110,16 +110,18 @@ public class EditFulfillmentDialog extends Dialog {
 	 * interates through all of the fulfillments target model elements and return all role types of these
 	 * @return all role types of the fulfillments target shape 
 	 */
-	private List<Shape> getAllRolesofTarget() {
-		List<Shape> allRoles = new ArrayList<Shape>();
+	private List<Shape> getRolesTypesAndGroupssofTarget() {
+		List<Shape> RoleTypesAndGroups = new ArrayList<Shape>();
 		EList<ModelElement> elementsOfTarget = 
 			((Shape) businessObject.getTarget()).getModel().getElements();
 		for(ModelElement element : elementsOfTarget) {
-			if(element instanceof Shape &&
-			  ((Shape) element).getType() == Type.ROLE_TYPE)
-				allRoles.add((Shape) element);
-		}
-		return allRoles;
+			if(element instanceof Shape) {	
+				Shape shape = (Shape) element;
+				if(shape.getType() == Type.ROLE_TYPE ||
+				   shape.getType() == Type.ROLE_GROUP)
+					RoleTypesAndGroups.add(shape);
+		}	}
+		return RoleTypesAndGroups;
 	}
 	
 	/**

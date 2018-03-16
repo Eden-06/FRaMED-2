@@ -1,0 +1,43 @@
+/*
+ * TODO
+ */
+@lazy 
+rule RelationshipImplication
+	transform s : source!Relation
+	to t : target!RelationshipImplication {
+		guard : s.~features.get("Inter_Relationship_Constraints") and 
+				s.getType==(source!Type#RelationshipImplication) and
+				not(s.getSource().getContainer().getParent() == null) and
+				s.getSource().getSource().getContainer().getParent().getType==(source!Type#CompartmentType)
+		
+	 	s.~transformed = t;
+		transformInCompartment(s);
+}	
+
+/*
+ * TODO
+ */
+@lazy 
+rule RelationshipExclusion
+	transform s : source!Relation
+	to t : target!RelationshipExclusion {
+		guard : s.~features.get("Inter_Relationship_Constraints") and 
+				s.getType==(source!Type#RelationshipExclusion) and
+				not(s.getSource().getContainer().getParent() == null) and
+				s.getSource().getSource().getContainer().getParent().getType==(source!Type#CompartmentType)
+		
+		s.~transformed = t;
+		transformInCompartment(s);
+}		
+
+operation transformInCompartment(s:source!Relation) {
+	//get the crom equivalent to compartment type the inter relationship constraint is in
+	var compartmentType = s.getContainer.getParent().equivalent();
+	//set the relationships of the constraint
+	s.source.~features = s.~features;
+	s.~transformed.first ::= s.source;
+	s.target.~features = s.~features;
+	s.~transformed.second ::= s.target;
+	//add the inter relationship constraint to the compartment type it is in
+	compartmentType.getConstraints().add(s.~transformed);
+}

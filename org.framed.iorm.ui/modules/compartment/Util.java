@@ -8,6 +8,10 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
+/**
+* This class offers utility operations in the scope of the compartment type feature module.
+* @author Kevin Kassin
+*/
 public class Util {
 
 	/**

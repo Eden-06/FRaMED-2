@@ -70,8 +70,9 @@ public class CompartmentTypeElementPattern extends FRaMEDShapePattern implements
 		if(pictogramElement instanceof Shape) {
 			Shape shape = (Shape) pictogramElement;
 			if(shape.getGraphicsAlgorithm() instanceof Text)
-				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT))
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_COMPARTMENTTYPE_ELEMENT)) {
 					return true;
+				}	
 		}
 		return false;
 	}

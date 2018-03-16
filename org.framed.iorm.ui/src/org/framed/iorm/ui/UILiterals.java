@@ -91,7 +91,7 @@ public class UILiterals {
 	 * (2) the URL to the standard configuration 
 	 */
 	public static final URL URL_TO_FEATUREMODEL = BUNDLE_FEATUREMODEL.getEntry("model.xml"),
-						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.diagram");
+						  	URL_TO_STANDARD_CONFIGURATION = BUNDLE_FEATUREMODEL.getEntry("/standardframedconfiguration/standardFramedConfiguration.crom_diagram");
 	
 	/**
 	 * name literals for the command and feature to change the configuration
@@ -319,10 +319,12 @@ public class UILiterals {
 	 * <p>
 	 * can be:<br>
 	 * (1) the color of the line of a connection or<br>
-	 * (2) the color of arrowheads of connections
+	 * (2) the color of arrowheads of connections or<br>
+	 * (3) the color of constraints
 	 */
 	public static final IColorConstant COLOR_CONNECTIONS = IColorConstant.BLACK,
-									   COLOR_ARROWHEAD = IColorConstant.WHITE;
+									   COLOR_ARROWHEAD = IColorConstant.WHITE,
+									   COLOR_CONSTRAINTS = IColorConstant.GRAY;
 	
 	/**
 	 * color values for the feature editor

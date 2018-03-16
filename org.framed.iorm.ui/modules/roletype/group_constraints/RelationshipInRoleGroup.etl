@@ -1,0 +1,110 @@
+import "../CardinalityParser.eol";
+
+/*
+ * TODO
+ */
+@abstract 
+rule RelationshipInRoleGroup
+	transform s : source!Relation
+	to t : target!Relationship {
+		guard : s.~features.get("Relationships") and
+				s.getType==(source!Type#Relationship) and
+				s.getSource().getContainer().getParent().getType==(source!Type#RoleGroup)
+	
+		//set the transformed target element to ensure the subrule work on the same target and only transform once
+ 		if(s.~transformed == null) {
+	 		s.~transformed = t;
+			//set name
+			s.~transformed.name = s.name;
+			//get the crom equivalent to compartment type the relationship is in
+			var compartmentType = s.getContainer.getParent().equivalent();
+			//set the inter relationship constraints
+			s.getSource.~features = s.~features;
+			s.getSource.equivalent().getOutgoing.add(s.~transformed);
+			s.getTarget.~features = s.~features;
+			s.getTarget.equivalent().getIncoming.add(s.~transformed);	
+			//add the relationship to the compartment type the relationship is in
+			compartmentType.getRelationships().add(s.~transformed);
+}		}
+
+/*
+ * transforms a relationship type when relationship cardinalities are enabled
+ */
+@lazy 
+rule RelationshipWithCardinalitiesInRG
+	transform s : source!Relation
+	to t : target!Relationship
+	extends RelationshipInRoleGroup {
+		// feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)
+		guard : s.~features.get("Relationship_Cardinality")
+		
+		//Places should always be defined
+		var card = "0..*";
+		if(s.sourceLabel.isDefined()){
+			card=s.sourceLabel.name;
+		}
+		s.getSource.~features=s.~features;
+		var place = getPlace(card,s.getSource.equivalent());
+		if(not(place==null)) {
+			s.~transformed.setFirst(place);
+		}
+		card="0..*";
+		if(s.targetLabel.isDefined()){
+			card=s.targetLabel.name;
+		}
+		s.getTarget.~features=s.~features;
+		place = getPlace(card,s.getTarget.equivalent());
+		if(not(place==null)) {
+			s.~transformed.setSecond(place);
+		}
+		//deletes the own transformed shaped if its not the same as the one of the super rule	
+		if(not(s.~transformed == t)) delete(t);	
+}
+
+/*
+ * transforms a relationship type when relationship cardinalities are enabled
+ */
+@lazy 
+rule RelationshipWithoutCardinalitiesInRG
+	transform s : source!Relation
+	to t : target!Relationship
+	extends RelationshipInRoleGroup {
+		// feature Relationship_Cardinality implies feature Relationship_Constraints (not to check)	
+		guard : not(s.~features.get("Relationship_Cardinality"))
+	
+		//set places of the role types to the standard value of 0..*
+		s.getSource.~features=s.~features;
+		var place = getPlace("0...*",s.getSource.equivalent());
+		s.~transformed.setFirst(place);
+		s.getTarget.~features=s.~features;
+		place = getPlace("0...*",s.getTarget.equivalent());
+		s.~transformed.setSecond(place);
+		//deletes the own transformed shaped if its not the same as the one of the super rule	
+		if(not(s.~transformed == t)) delete(t);	
+	
+}
+
+//creates a place for a given role type also using the given card as cardinalities
+operation getPlace(card : String,holder:target!RoleType) : target!Place {
+	var place = new target!Place;
+	place.lower = 0;
+	place.upper = -1;
+	if(card.isDefined()) {
+		var cards = parseCardinality(card);
+		if(cards.size()==1)
+			place.lower = cards[0];
+		if(cards.size()>1){
+			place.lower = cards[0];
+			place.upper = cards[1];
+		}				
+	}
+	if(holder.isDefined()){
+		place.holder = holder;
+	}
+	return place;
+}
+
+//throw error message if a place would filled with something different than a role type
+operation getPlace(card : String,holder:target!RigidType) : target!Place {
+	fail("Place can only reference role types as placeholders!");
+}

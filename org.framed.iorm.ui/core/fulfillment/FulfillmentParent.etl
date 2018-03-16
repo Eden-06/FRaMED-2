@@ -1,0 +1,49 @@
+import "Fulfillment.etl";
+
+/**
+ * transforms fulfillments in a compartment type
+ */
+@lazy
+rule FulfillmentInCompartmentType
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : not(s.getContainer().getParent()==null) and
+				s.getContainer().getParent().getType==(source!Type#CompartmentType)
+				
+				
+		//get the crom equivalent to compartment type the fulfillment is in
+		var compartmentType = s.getContainer.getParent().equivalent();	
+		for(fulfillment : target!Fulfillment in s.~transformed) {
+			compartmentType.getFulfillments.add(fulfillment);
+		}
+}
+
+/**
+ * transforms fulfillments in a group
+ */
+@lazy
+rule FulfillmentInGroup
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : not(s.getContainer().getParent()==null) and
+				s.getContainer().getParent().getType==(source!Type#Group)
+		
+		//get the crom equivalent to group the fulfillment is in
+		var Group = s.getContainer.getParent().equivalent();	
+		for(fulfillment : target!Fulfillment in s.~transformed) {
+			Group.getRelations().add(fulfillment);
+		}	
+}
+
+/**
+ * transforms fulfillments on the top level
+ */
+@lazy 
+rule FulfillmentTopLevel
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment) 
+	extends Fulfillment {
+		guard : s.getContainer().getParent()==null	
+}

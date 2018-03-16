@@ -12,7 +12,7 @@ public class CompartmentGroupingFeatureReference extends AbstractGroupingFeature
 	/**
 	 * the compartment type's literals
 	 */
-	compartment.Literals literals = new compartment.Literals();
+	Literals literals = new Literals();
 	
 	/**
 	 * class constructor

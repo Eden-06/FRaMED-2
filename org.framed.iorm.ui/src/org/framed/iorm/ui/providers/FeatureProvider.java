@@ -23,6 +23,7 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.FRaMEDCustomFeature;
 import org.framed.iorm.ui.FRaMEDDeleteConnectionFeature;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDReconnectFeature;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.StandardFramedShapePattern;
@@ -35,6 +36,11 @@ import org.framed.iorm.ui.UIUtil;
 public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	/**
+	 * A service to manage any type of properties during runtime
+	 */
+	private FRaMEDPropertyService framedPropertyService;
+	
+	/**
 	 * The class constructor adds all graphiti pattern to the provider following these steps:
 	 * <p>
 	 * Step 1: It uses {@link UIUtil#findModuleJavaClasses()} to find all java classes in the modules dynamically by searching for them
@@ -44,7 +50,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 * 		   (b) {@link FRaMEDConnectionPattern} to add to the provider.<br>
 	 * Step 3: It adds the standard implementation for shape patterns which disables moving, resizing and deleting
 	 * 		   already existing shapes in models which features are not implemented. This needs to be added at last
-	 * 		   to ensure its only a fallback option.
+	 * 		   to ensure its only a fallback option.<br>
+	 * Step 4: Instanciates the service to manage any type of properties during runtime.
 	 * @param diagramTypeProvider the provider of the edited diagram type
 	 */
 	public FeatureProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -70,6 +77,8 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}	}	}	
 		//Step 3
 		addPattern(new StandardFramedShapePattern());
+		//Step 4
+		framedPropertyService = new FRaMEDPropertyService();
 	}
 		
 	/**
@@ -148,5 +157,13 @@ public class FeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	public List<IConnectionPattern> getConnectionPatterns() {
 		return super.getConnectionPatterns();
+	}
+	
+	/**
+	 * getter method for service to manage any type of properties during runtime
+	 * @return
+	 */
+	public FRaMEDPropertyService getFRaMEDPropertyService() {
+		return framedPropertyService;
 	}
 }

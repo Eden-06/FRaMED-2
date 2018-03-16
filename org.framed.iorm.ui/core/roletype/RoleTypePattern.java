@@ -35,12 +35,15 @@ import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Segment;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.FRaMEDPropertyService;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;
+import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
 
 /**
@@ -67,12 +70,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
-	private final Literals literals = new Literals();
+	public final Literals literals = new Literals();
 	
 	/**
 	 * the object to call utility operations on
 	 */
-	private final Util util = new Util();
+	public final Util util = new Util();
 	
 	/**
 	 * a reference class which encapsulates the dependency to the attribute and operation features
@@ -100,14 +103,26 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
 	 * checks if pattern is applicable for a given business object
+	 * <p>
+	 * Note: At creation of a role type there is no container of the iorm shape assigned. Therefore the else-branch uses
+	 *       the {@link FRaMEDPropertyService} to get in which container a role type was created in. The property managed with the 
+	 *       {@link FRaMEDPropertyService} is deleted when adding the role type. After that point in the life cycle of a 
+	 *       role type the now set container is used to identify if this pattern is the right one to apply.
 	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#ROLE_TYPE}
 	 */
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == Type.ROLE_TYPE) return true;
-		}
+			if(shape.getType() == modelType) {
+				//Note
+				if(shape.getContainer() != null) {
+					return shape.getContainer().getParent().getType() == Type.COMPARTMENT_TYPE;
+				} else {	
+					FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+					if(framedPropertyService.getIormShapeProperty(shape) instanceof Diagram)
+						return true;
+		}	}	}
 		return false;
 	}
 
@@ -146,11 +161,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.ROLE_TYPE) {
-				ContainerShape containerShape = getDiagram();
-				if(containerShape instanceof Diagram) {
-					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
-		}	}	}	}
+				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+		}	}	}
 		return false;
 	}
 		
@@ -183,24 +196,38 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * </ul> 
 	 * <p>
 	 * It uses follows this steps:<br>
-	 * Step 1: It gets the new object, the diagram to create the role type in and calculates the height and width 
-	 * 		   of the role types representation.<br>
-	 * Step 2: It creates the structure shown above.<br>
-	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
-	 * Step 4: It links the created shapes of the role to its business objects.<br> 
-	 * Step 5: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
+	 * Step 1: It adds the role types business object to the correct model. This is not done in the create operation, since there
+	 * 		   is only one create operation handling the creation of role types in and outside of role groups. To ensure modularity
+	 * 		   the code that differs depending on where role types are created in has be outsourced to this operation.<br>
+	 * Step 2: It calculates the height and width of the role types representation.<br>
+	 * Step 3: It creates the structure shown above.<br>
+	 * Step 4: It sets the shape identifiers for the created graphics algorithms of the role type.<br>
+	 * Step 5: It links the created shapes of the role to its business objects.<br> 
+	 * Step 6: It enables direct editing, anchors and layouting of the role. It also updates the compartment type in which 
 	 * 		   its created, if any.
 	 */
 	@Override
 	public PictogramElement add(IAddContext addContext) {
 		//Step 1
+		org.framed.iorm.model.Shape newRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.deleteIormShapeProperty(newRoleType);
+		Model model = UIUtil.getLinkedModelForDiagram(getDiagram());
+		if(model == null) throw new NoModelFoundException();
+		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
+		model.getElements().add(newRoleType);
+		newRoleType.setContainer(model);
+		
+		//Step 2
 		org.framed.iorm.model.Shape addedRoleType = (org.framed.iorm.model.Shape) addContext.getNewObject();
-		ContainerShape targetDiagram = getDiagram();
-		int width = addContext.getWidth(), height = addContext.getHeight();
+		ContainerShape targetDiagram = getDiagram(); 
+		int x =  addContext.getX(),
+			y =  addContext.getY(),
+			width = addContext.getWidth(), height = addContext.getHeight();
 		if(addContext.getWidth() < literals.MIN_WIDTH) width = literals.MIN_WIDTH;
 		if(addContext.getHeight() < literals.MIN_HEIGHT) height = literals.MIN_HEIGHT;
 					
-		//Step 2
+		//Step 3
 		//container for body shape and shadow
 		ContainerShape containerShape = pictogramElementCreateService.createContainerShape(targetDiagram, false);
 								  
@@ -209,15 +236,15 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle dropShadowRectangle = graphicAlgorithmService.createRoundedRectangle(dropShadowShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
 		dropShadowRectangle.setForeground(manageColor(literals.COLOR_SHADOW));
 		dropShadowRectangle.setBackground(manageColor(literals.COLOR_SHADOW));
-		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, addContext.getX()+literals.SHADOW_SIZE, addContext.getY()+literals.SHADOW_SIZE, width, height);
+		graphicAlgorithmService.setLocationAndSize(dropShadowRectangle, x+literals.SHADOW_SIZE, y+literals.SHADOW_SIZE, width, height);
 			
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
 		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
-			addContext.getX()+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
-			addContext.getY()-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
+			x+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
+			y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
 			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
 			literals.HEIGHT_OCCURRENCE_CONSTRAINT);
 			
@@ -226,8 +253,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
 		typeBodyRectangle.setForeground(manageColor(literals.COLOR_LINES));
 		typeBodyRectangle.setBackground(manageColor(literals.COLOR_BACKGROUND));
-		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, addContext.getX(), addContext.getY(), width, height);
-
+		graphicAlgorithmService.setLocationAndSize(typeBodyRectangle, x, y, width, height);
+		
+		
 		//name
 		Shape nameShape = pictogramElementCreateService.createShape(typeBodyShape, false);
 		Text text = graphicAlgorithmService.createText(nameShape, addedRoleType.getName());	
@@ -262,7 +290,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter+literals.PUFFER_BETWEEN_ELEMENTS, 
 			width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalCenter-literals.ROLE_CORNER_RADIUS/2);
 					
-		//Step 3
+		//Step 4
 		UIUtil.setShape_IdValue(containerShape, literals.SHAPE_ID_ROLETYPE_CONTAINER);
 		UIUtil.setShape_IdValue(cardinalityShape, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT);
 		UIUtil.setShape_IdValue(typeBodyShape, literals.SHAPE_ID_ROLETYPE_TYPEBODY);
@@ -273,7 +301,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		UIUtil.setShape_IdValue(secondLineShape, literals.SHAPE_ID_ROLETYPE_SECONDLINE);
 		UIUtil.setShape_IdValue(operationContainer, literals.SHAPE_ID_ROLETYPE_OPERATIONCONTAINER);
 					
-		//Step 4
+		//Step 5
 		link(containerShape, addedRoleType);
 		link(cardinalityShape, addedRoleType);
 		link(typeBodyShape, addedRoleType);
@@ -284,7 +312,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		link(secondLineShape, addedRoleType);
 		link(operationContainer, addedRoleType);
 					
-		//Step 5
+		//Step 6
 		getFeatureProvider().getDirectEditingInfo().setActive(true);
 		IDirectEditingInfo directEditingInfo = getFeatureProvider().getDirectEditingInfo();
 		directEditingInfo.setMainPictogramElement(typeBodyShape);
@@ -328,8 +356,8 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	 * <p>
 	 * It follows this steps:<br>
 	 * Step 1: It creates the structure shown above.<br>
-	 * Step 2: It adds the new role type to the elements of the model of the diagram in which its created.<br>
-	 * Step 3: It call the add function to add the pictogram elements of the role type.
+	 * Step 2: It sets uses the {@link FRaMEDPropertyService} to make the business objects target container available to the 
+	 * 		   patterns that work with role groups. It also call the add function to add the pictogram elements of the role group.
 	 * @return the created business object of the role type
 	 */
 	@Override
@@ -343,23 +371,16 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//create segments
 		Segment attributeSegment = OrmFactory.eINSTANCE.createSegment(),
 				operationSegment = OrmFactory.eINSTANCE.createSegment();
-		getDiagram().eResource().getContents().add(attributeSegment);
-		getDiagram().eResource().getContents().add(operationSegment);
 		newRoleType.setFirstSegment(attributeSegment);
 		newRoleType.setSecondSegment(operationSegment);
 		//occurence constraint
 		NamedElement occurenceConstraint = OrmFactory.eINSTANCE.createNamedElement();
 		occurenceConstraint.setName(literals.STANDARD_CARDINALITY);
-		getDiagram().eResource().getContents().add(occurenceConstraint);
 		newRoleType.setDescription(occurenceConstraint);
 			
 		//Step 2
-		Model model = UIUtil.getLinkedModelForDiagram((Diagram) getDiagram());
-		if(newRoleType.eResource() != null) getDiagram().eResource().getContents().add(newRoleType);
-		model.getElements().add(newRoleType);
-		newRoleType.setContainer(model);
-		
-		//Step 3
+		FRaMEDPropertyService framedPropertyService = ((FeatureProvider) getFeatureProvider()).getFRaMEDPropertyService();
+		framedPropertyService.setIormShapeProperty(newRoleType, createContext.getTargetContainer());
 		addGraphicalRepresentation(createContext, newRoleType);
 		return new Object[] { newRoleType };
 	}	
@@ -499,7 +520,12 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(!(UIUtil.isShape_IdValue(container, literals.SHAPE_ID_ROLETYPE_TYPEBODY))) return false;
 		else {	
 			RoundedRectangle typeBodyRectangle = (RoundedRectangle) container.getGraphicsAlgorithm(); 
-			RoundedRectangle dropShadowRectangle = (RoundedRectangle) container.getContainer().getChildren().get(0).getGraphicsAlgorithm();
+			RoundedRectangle dropShadowRectangle = null;
+			for(Shape shape : container.getContainer().getChildren()) {
+				if(UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ROLETYPE_SHADOW))
+					dropShadowRectangle = (RoundedRectangle) shape.getGraphicsAlgorithm();
+			}
+			if(dropShadowRectangle == null) { System.err.println("No shape for shadow found in role type"); return false;}
 		    //Step 2
 		    if(typeBodyRectangle.getWidth() < literals.MIN_WIDTH) typeBodyRectangle.setWidth(literals.MIN_WIDTH);
 			if(typeBodyRectangle.getHeight() < literals.MIN_HEIGHT) typeBodyRectangle.setHeight(literals.MIN_HEIGHT);
@@ -741,12 +767,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			return false;
 		}
 		if(UIUtil.isShape_IdValue((Shape) moveContext.getPictogramElement(), literals.SHAPE_ID_ROLETYPE_TYPEBODY)) {
-			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement();
-			ContainerShape dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0);
-			return moveContext.getSourceContainer() != null && 
-				  (moveContext.getSourceContainer().equals(moveContext.getTargetContainer()) ||
-				   moveContext.getTargetContainer().equals(dropShadowShape)) && 
-				   isPatternRoot(moveContext.getPictogramElement());
+			ContainerShape typeBodyShape = (ContainerShape) moveContext.getPictogramElement(),
+						   dropShadowShape = (ContainerShape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(0),
+						   sourcon = moveContext.getSourceContainer(),
+						   tarcon = moveContext.getTargetContainer();
+			return sourcon != null && 
+				(sourcon.equals(tarcon) ||
+				 tarcon.equals(dropShadowShape)) &&
+				 isPatternRoot(moveContext.getPictogramElement());
 		}
 		return super.canMoveShape(moveContext);
 	}
@@ -764,15 +792,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 			Shape OCShape = (Shape) ((ContainerShape) typeBodyShape).getContainer().getChildren().get(1);
 			Text OCText = (Text) OCShape.getGraphicsAlgorithm();
 				
-			
-			
 			if(moveContext.getSourceContainer().equals(moveContext.getTargetContainer())) {
 				dropShadowRectangle.setX(moveContext.getX()+literals.SHADOW_SIZE);
 				dropShadowRectangle.setY(moveContext.getY()+literals.SHADOW_SIZE);
 				OCText.setX(OCText.getX() + moveContext.getDeltaX());
 				OCText.setY(OCText.getY() + moveContext.getDeltaY());
 				super.moveShape(moveContext);
-			} else {
+			}
+			if(moveContext.getTargetContainer().equals(dropShadowShape)) {
 				//targetContainer of moveContext is dropShadowShape
 				//set targetContainer to diagram and use special calculation for the new position of type body and drop shadow 
 				dropShadowRectangle.setX(typeBodyRectangle.getX()+moveContext.getX()+2*literals.SHADOW_SIZE);
@@ -785,14 +812,22 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 				changedMoveContextForTypeBody.setY(typeBodyRectangle.getY()+moveContext.getY()+literals.SHADOW_SIZE);
 				super.moveShape(changedMoveContextForTypeBody);
 			}	
-		this.layoutPictogramElement(typeBodyShape);
+		layoutPictogramElement(typeBodyShape);
 		}
+	}
+	
+	/**
+	 * publishes the moveShape operation of the super class
+	 * @param moveContext the context containing information about the movement
+	 */
+	public void superMoveShape(MoveShapeContext moveContext) {
+		super.moveShape(moveContext);
 	}
 		
 	//resize feature
 	//~~~~~~~~~~~~~~
 	/**
-	 * disables that the user can resize the drop shadow and the cardinality manually
+	 * disables that the user can resize the drop shadow and the occurrence constraint manually
 	 */
 	@Override
 	public boolean canResizeShape(IResizeShapeContext resizeContext) {

@@ -67,7 +67,7 @@ public class Literals {
 	/**
 	 * messages used as direct editing tips
 	 */
-	public final String DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty and cant contains spaces. Numbers are allowed but not as first symbol.",
+	public final String DIRECTEDITING_COMPARTMENTTYPE = "A compartment types name cant be empty or contain spaces. Numbers are allowed but not as first symbol.",
 						NAME_ALREADY_USED_COMPARTMENTTYPE = "Another compartment type already has the same name!";
 	
 	/**

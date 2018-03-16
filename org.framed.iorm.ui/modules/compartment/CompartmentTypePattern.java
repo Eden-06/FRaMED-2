@@ -110,7 +110,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
-					case TOPLEVEL_VIEW: return framedFeatureNames.contains("Compartment_Types");
+					case NON_COMPARTMENT_VIEW: return framedFeatureNames.contains("Compartment_Types");
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Contains_Compartments");
 					default: return false;
 		}	}	};
@@ -146,7 +146,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == Type.COMPARTMENT_TYPE) return true;
+			if(shape.getType() == Type.COMPARTMENT_TYPE &&
+			   shape.getFirstSegment() != null &&
+			   shape.getSecondSegment() != null) return true;
 		}
 		return false;
 	}
@@ -228,7 +230,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * It uses follows this steps:<br>
 	 * Step 1: It gets the new object, the diagram to create the compartment type in and calculates the height and width 
-	 * 		   of the natural types representation.<br>
+	 * 		   of the compartment type's representation.<br>
 	 * Step 2: It creates the structure shown above.<br>
 	 * Step 3: It sets the shape identifiers for the created graphics algorithms of the compartment type.<br>
 	 * Step 4: It links the created shapes of the group to its business objects.<br> 
@@ -309,7 +311,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		graphicAlgorithmService.setLocationAndSize(modelRectangle, literals.PUFFER_BETWEEN_ELEMENTS, horizontalSecondThird+literals.PUFFER_BETWEEN_ELEMENTS, 
 												   width-2*literals.PUFFER_BETWEEN_ELEMENTS, horizontalFirstThird-literals.HEIGHT_NAME_SHAPE-2*literals.PUFFER_BETWEEN_ELEMENTS);	
 		
-		//groups diagram
+		//compartments diagram
 		Diagram contentDiagram = pictogramElementCreateService.createDiagram(UILiterals.DIAGRAM_TYPE_ID, addedCompartmentType.getName(), 10, true);
 		UIUtil.setDiagram_KindValue(contentDiagram, literals.DIAGRAM_KIND);
 		AddCompartmentTypeContext agctc = (AddCompartmentTypeContext) addContext;
@@ -375,7 +377,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * <p>
 	 * It creates the following structure:<br>
 	 * <ul>
-	 *   <li>(org.framed.iorm.model.Shape) natural type</li>
+	 *   <li>(org.framed.iorm.model.Shape) compartment type</li>
 	 * 	   <ul>
 	 * 	     <li>(Segment) first segment (for attributes)</li> 
 	 *  	 <li>(Segment) second segment (for operations)</li> 
@@ -387,8 +389,8 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * Step 1: It creates the structure shown above.<br>
 	 * Step 2: It adds the new compartment type to the elements of the model of the diagram in which its created.<br>
 	 * Step 3: It call the add function to add the pictogram elements of the compartment type using a 
-	 * 		   {@link AddGroupOrCompartmentTypeContext}.
-	 * @return the created business object of the group
+	 * 		   {@link AddCompartmentTypeContext}.
+	 * @return the created business object of the compartment type
 	 */
 	@Override
 	public Object[] create(ICreateContext createContext) {
@@ -417,11 +419,11 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		newCompartmentType.setContainer(model);
 	
 		//Step 3
-		AddCompartmentTypeContext agctc = new AddCompartmentTypeContext();
-		UIUtil.getAddContextForCreateShapeContext(agctc, createContext);
-		agctc.setNewObject(newCompartmentType);
-		agctc.setModelToLink(compartmentsModel);
-		if(canAdd(agctc)) add(agctc);
+		AddCompartmentTypeContext actc = new AddCompartmentTypeContext();
+		UIUtil.getAddContextForCreateShapeContext(actc, createContext);
+		actc.setNewObject(newCompartmentType);
+		actc.setModelToLink(compartmentsModel);
+		if(canAdd(actc)) add(actc);
 		return new Object[] { newCompartmentType };
 	}
 	
@@ -436,7 +438,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	}
 		
 	/**
-	 * calculates if a pictogram element of a natural type can be direct edited
+	 * calculates if a pictogram element of a compartment type can be direct edited
 	 * <p>
 	 * returns true if:<br>
 	 * (1) the business object of the pictogram element is a {@link org.framed.iorm.model.Shape} 
@@ -468,8 +470,8 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	/**
 	 * calculates if a chosen value for the compartment types name is valid
 	 * <p>
-	 * A valid value is in a specific form checked by {@link NameUtil#matchesIdentifier} and is not already
-	 * chosen for another compartment type. This is checked by {@link NameUtil#nameAlreadyUsedForClassOrRole}.
+	 * A valid value is in a specific form checked by {@link UIUtil#matchesIdentifier} and is not already
+	 * chosen for another compartment type. This is checked by {@link UIUtil#nameAlreadyUsedRoleModelWide}.
 	 * @return if a chosen value for the compartment types name is valid
 	 */
 	@Override
@@ -524,7 +526,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	 * Step 1: Its fetches the type body shape and drop shadow shape<br>
 	 * Step 2: It calculates the new height, width and horizontal center. It also uses this data to set
 	 * 		   the size of the type body and drop shadow shape.<br>
-	 * Step 3: It now iterates over all shapes of the natural type:<br>
+	 * Step 3: It now iterates over all shapes of the compartment type:<br>
 	 * (a) It sets the width of the names shape.<br>
 	 * (b) It sets the points of the line that separates the name, attribute, operations and content preview container.<br>
 	 * (c) It layouts the visualization of the attributes in the attribute container shape.<br>
@@ -724,7 +726,9 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		Object businessObject =  getBusinessObjectForPictogramElement(pictogramElement);
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == Type.COMPARTMENT_TYPE) {
+			if(shape.getType() == Type.COMPARTMENT_TYPE &&
+			   shape.getFirstSegment() != null	&&
+			   shape.getSecondSegment() != null) {
 				return true;
 		}	}
 		return false;

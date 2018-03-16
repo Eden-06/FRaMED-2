@@ -23,6 +23,7 @@ import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
+import org.framed.iorm.ui.palette.PaletteView;
 import org.framed.iorm.ui.palette.ViewVisibility;
 import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
 
@@ -36,51 +37,58 @@ import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
  * (3) deleting attributes and operations from a class or role<br>
  * (4) disabling the move feature for attributes and operations<br>
  * (5) disabling the resize feature for attributes and operations
+ * <p>
+ * This is the abstract super class managing all common attributes and behavior for its sub classes of the 
+ * attribute and the operation pattern.
  * @author Kevin Kassin
  */
-public class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
+public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern implements IPattern {
 	
 	/**
 	 * the object to get names, id and so on for this feature
 	 */
-	private final Literals literals = new Literals();
+	protected final Literals literals = new Literals();
 	
 	/**
 	 * the object to call utility operations on
 	 */
-	private final Util util = new Util();
-		
-	/**
-	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
-	 */
-	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-			PaletteCategory.NONE,
-			ViewVisibility.NO_VIEW);
-	
+	protected final Util util = new Util();
+			
 	/**
 	 * the list of reference classes which save in which other module feature's shapes a attribute or
 	 * operation can be added with specific informations for these.
 	 * @see AbstractUsedInReference
 	 */
-	private List<AbstractHasAttsAndOpsReference> usedInReferences; 
+	protected List<AbstractHasAttsAndOpsReference> usedInReferences;
+	
+	/**
+	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
+	 */
+	protected final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+		PaletteCategory.PROPERTIES_CATEGORY,
+		ViewVisibility.ALL_VIEWS) {
+			@Override
+			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
+				switch(paletteView) {
+				case NON_COMPARTMENT_VIEW: return true;
+				case COMPARTMENT_VIEW: 
+					return (framedFeatureNames.contains("Role_Properties") ||
+							framedFeatureNames.contains("Compartment_Properties"));
+				default: return false;
+		}	}	};
 	
 	/**
 	 * class constructor
 	 * <p>	
 	 * Note: It gets the references which save in which other module feature's shapes a attribute or
-	 * operations can be added here and saves them it into {@link #usedInReferences}.	
+	 * operations can be added here and saves them it into {@link #usedInReferences}.		
 	 */
 	public AttributeOperationCommonPattern() {
-		super();
-		FEATURE_NAME = literals.COM_FEATURE_NAME;
-		ICON_IMG_ID = literals.COM_ICON_IMG_ID;
-		ICON_IMG_PATH = literals.COM_ICON_IMG_PATH;
-		modelType = null;
 		FPD = spec_FPD;
 		//Note
 		List<Class<?>> classes = UIUtil.findModuleJavaClasses();
 		usedInReferences = util.getHasAttsAndOpsReferences(classes);
-	}	
+	}
 	
 	/**
 	 * checks if pattern is applicable for a given business object
@@ -101,12 +109,7 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	@Override
 	protected boolean isPatternControlled(PictogramElement pictogramElement) {
 		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
-		if(isMainBusinessObjectApplicable(businessObject)) {
-			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
-			   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_OPERATION_TEXT))
-				return true;
-		}
-		return false;  
+		return isMainBusinessObjectApplicable(businessObject);
 	}
 
 	/**
@@ -116,15 +119,10 @@ public class AttributeOperationCommonPattern extends FRaMEDShapePattern implemen
 	 */
 	@Override
 	protected boolean isPatternRoot(PictogramElement pictogramElement) {
-		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);	
-		if(isMainBusinessObjectApplicable(businessObject)) {
-			if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
-			   UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_OPERATION_TEXT))
-				return true;
-		}	
-		return false; 
+		Object businessObject = getBusinessObjectForPictogramElement(pictogramElement);
+		return isMainBusinessObjectApplicable(businessObject);
 	}
-	
+		
 	//add feature
 	//~~~~~~~~~~~
 	/**

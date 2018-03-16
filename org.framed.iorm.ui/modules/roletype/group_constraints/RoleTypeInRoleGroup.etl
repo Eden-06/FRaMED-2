@@ -1,0 +1,69 @@
+/*
+ * The abstract rule for role types executes all actions done for all role types with and without 
+ * attributes/operations.
+ */
+@abstract
+rule RoleTypeInRG
+	transform s : source!Shape
+	to t : target!RoleType {
+		guard : s.getType==(source!Type#RoleType) and 
+				s.getContainer().getParent().getType()==(source!Type#RoleGroup)	
+		
+		//set the transformed target element to ensure the subrule work on the same target and only transform once
+ 		if(s.~transformed == null) {
+	 		s.~transformed = t;
+			//set name 
+			s.~transformed.name = s.name;
+		}
+		if(not(s.~transformed == t)) { delete(t); }			
+}
+
+/*
+ * transforms a role type when attributes and operation are not enabled
+ */
+@lazy 
+rule RoleTypeWithoutAttsAndOpsInRG
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleTypeInRG {
+		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)
+		guard : s.getType==(source!Type#RoleType) and not(s.~features.get("Role_Behavior"))
+		
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) { delete(t); }	
+}
+
+//creates a set used for iorm shapes later in the post rule
+pre RoleTypeWithAttsAndOpsInRG {
+	var roleTypesInRG : OrderedSet(source!Shape);
+}
+
+/*
+ * transforms a role type when attributes and operation are enabled
+ */
+@lazy 
+rule RoleTypeWithAttsAndOpsInRG
+	transform s : source!Shape
+	to t : target!RoleType 
+	extends RoleTypeInRG {
+		//feature Role_Behavior implies feature Role_Properties and Role_Structure (not to check)	
+		guard : s.~features.get("Role_Behavior")
+		
+		roleTypesInRG.add(s);
+		//deletes the own transformed shaped if its not the same as the one of the super rule
+		if(not(s.~transformed == t)) delete(t);
+}
+
+/**
+ * Add operations and attributes in the post processing step.
+ *
+ * This separation is necessary as the type references in attributes and operations may form cycles between
+ * types/shapes. The post block ensures that these cycles can be resolved.
+ */
+post RoleTypeWithAttsAndOpsInRG {
+	for (s : source!Shape in roleTypesInRG) {
+		if (s.isDefined()) {
+			s.addAttributes(s.~transformed);
+		    s.addOperations(s.~transformed);
+	}	}	
+}

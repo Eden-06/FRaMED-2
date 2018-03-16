@@ -1,5 +1,7 @@
 package org.framed.iorm.ui.subeditors;
 
+import java.util.EventObject;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -69,5 +71,13 @@ public class FRaMEDDiagramEditor extends DiagramEditor  {
 	@Override
 	public CommandStack getCommandStack() {
 		return super.getCommandStack();
+	}
+	
+	/**
+	 * refresh the diagram when do, undo or redo an action
+	 */
+	@Override
+	public void commandStackChanged(EventObject event) {
+		this.getDiagramBehavior().refresh();
 	}
 }

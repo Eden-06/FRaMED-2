@@ -1,0 +1,111 @@
+import "../CardinalityParser.eol";
+
+/*
+ * The abstract rule for role groups executes all actions done for all role groups with and without 
+ * occurrence constraints when the feature Group_Constraints is chosen
+ */
+@abstract 
+rule RoleGroup
+	transform s : source!Shape
+	to t : target!RoleGroup {	
+		guard : s.getType==(source!Type#RoleGroup) and
+				s.~features.get("Group_Constraints") //feature Group_Constraints implies feature Role_Constraints (not to check)
+		
+		//set the transformed target element to ensure the subrule work on the same target and only transform once
+ 		if(s.~transformed == null) {
+	 		s.~transformed = t;
+			//set name 
+			if(s.name.indexOf("(")>-1) {
+				s.~transformed.name = s.name.substring(0,s.name.indexOf("(")).trim();
+			} else {
+				s.~transformed.name = s.name;
+			}
+			//group constraint
+			var desc = s.name;
+			if (not (desc == null)) {
+				var cards = parseCardinality(desc);
+				if(cards.size()>0) {
+					t.lower = cards[0];
+				}
+				if(cards.size()>1) {
+					t.upper = cards[1];
+				}
+			} 
+			//transform children
+			var children = s.`model`;
+			if (not (children == null)) {
+				for (elem : source!ModelElement in children.elements) {
+					//propagate the features list to all children 
+					elem.~features = s.~features;
+					//transform the role groups elements
+					var e = elem.equivalent();
+					var compTypeTransformed = getCompType(s);
+					if (e.instanceOf(target!RoleGroupElement)) {
+						s.~transformed.getElements().add(e);				
+					} else {
+						addRelsAndCons(compTypeTransformed, e, elem, s);
+}		}	}	}	}
+
+/*
+ * The abstract rule for role groups executes all actions done for all role groups with and without 
+ * occurrence constraints when the feature Group_Constraints is not chosen
+ *
+ * the role group is not transformed, but its roles and relationships will be transformed into the compartment type containing
+ * the role group
+ */
+@lazy 
+rule RoleGroupNotTransformed
+	transform s : source!Shape
+	to t : target!RoleGroup {	
+		guard : s.getType==(source!Type#RoleGroup) and
+				not(s.~features.get("Group_Constraints")) //feature Group_Constraints implies feature Role_Constraints (not to check)
+	
+		//transform children
+		var children = s.`model`;
+		if (not (children == null)) {
+			for (elem : source!ModelElement in children.elements) {
+				//propagate the features list to all children 
+				elem.~features = s.~features;
+				//transform the role groups elements
+				var e = elem.equivalent();
+				var compTypeTransformed = getCompType(s);
+				if (e.instanceOf(target!RoleGroupElement)) {
+					if(e.instanceOf(target!RoleType)) {
+						//create a new part with the role
+						var part = new target!Part;
+						part.role = e;
+						part.whole = compTypeTransformed;
+						//add the part to the compartment type the role type 
+						compTypeTransformed.getParts().add(part);	
+					}
+					if(e.instanceOf(target!RoleGroup)) {
+						delete(e);
+					}		
+				} else {
+					addRelsAndCons(compTypeTransformed, e, elem, s);
+		}	}	}	
+		delete(t);
+}	
+
+operation getCompType(s:source!ModelElement):target!CompartmentType {
+	var compTypeFound = false;
+	var compType = s;
+	while(not(compTypeFound)) {
+		compType = compType.eContainer();
+		compTypeFound = not(compType.instanceOf(source!Model)) and compType.getType==(source!Type#CompartmentType);
+	}
+	return compType.equivalent();
+}	
+
+operation addRelsAndCons(compTypeTransformed:target!CompartmentType, e:target!Relation, elem:source!ModelElement, s:source!ModelElement)	{
+	if(e.instanceOf(target!Relation)) {
+		if(e.instanceOf(target!Constraint)) {
+			compTypeTransformed.getConstraints().add(e);
+		} else {
+			compTypeTransformed.getRelationships().add(e);
+		}
+	} else {
+		fail("The element " + elem.getName() + " could not be transformed in the role group " + s.getName() + "!");
+	}	
+}
+				

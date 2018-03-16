@@ -14,6 +14,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
 import org.framed.iorm.model.Relation;
@@ -21,6 +22,7 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDConnectionPattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.PaletteView;
@@ -57,7 +59,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
-					case TOPLEVEL_VIEW: return true;
+					case NON_COMPARTMENT_VIEW: return true;
 					case COMPARTMENT_VIEW: 
 						return (framedFeatureNames.contains("Role_Inheritance") ||
 							    (framedFeatureNames.contains("Compartment_Inheritance") &&
@@ -86,13 +88,18 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor oldAnchor = context.getOldAnchor();
 	    Anchor newAnchor = context.getNewAnchor();
-	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
-	    org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
-	    if(oldShape != null && newShape != null) {
-	    	if(oldShape.getContainer() == newShape.getContainer()) {
-	    		if(newShape.getType() == oldShape.getType()) {
-	    			return true;
-	    }	}	}
+	    org.framed.iorm.model.ModelElement old = UIUtil.getModelElementForAnchor(oldAnchor);
+	    org.framed.iorm.model.ModelElement _new = UIUtil.getModelElementForAnchor(newAnchor);
+	    if(old instanceof org.framed.iorm.model.Shape && _new instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape oldShape = (org.framed.iorm.model.Shape) old;
+			org.framed.iorm.model.Shape newShape = (org.framed.iorm.model.Shape) _new;
+			if(oldShape.getFirstSegment() != null && oldShape.getSecondSegment() !=null &&
+			   newShape.getFirstSegment() != null && newShape.getSecondSegment() !=null) {
+			    if(oldShape != null && newShape != null) {
+			    	if(oldShape.getContainer() == newShape.getContainer()) {
+			    		if(newShape.getType() == oldShape.getType()) {
+			    			return true;
+		}	}  	}	}	}
 	    return false;
 	}
 	
@@ -166,15 +173,20 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	public boolean canCreate(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
-	    ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
-	    ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
-	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
-	    	   !(sourceShape.equals(targetShape))) {
-	    		if(types.contains(sourceShape.getType()))
-	    			if(targetShape.getType() == sourceShape.getType())
-						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
-	    }	}
+	    ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+	    ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
+	    if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
+			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
+			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null &&
+			   targetShape.getFirstSegment() != null && targetShape.getSecondSegment() !=null) {
+			    if(sourceShape != null && targetShape != null) {
+			    	if(sourceShape.getContainer() == targetShape.getContainer() &&
+			    	   !(sourceShape.equals(targetShape))) {
+			    		if(types.contains(sourceShape.getType()))
+			    			if(targetShape.getType() == sourceShape.getType())
+								return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
+		}	} 	}	}
 	    return false;
 	}
 	 
@@ -189,11 +201,14 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext createContext) {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
-		ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
-		if(sourceShape != null){	
-			if(types.contains(sourceShape.getType()))
-				return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
-		}	
+		ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+		if(source instanceof org.framed.iorm.model.Shape) {
+			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
+			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
+				if(sourceShape != null){	
+					if(types.contains(sourceShape.getType()))
+						return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
+		}	}	}			
 		return false;
 	}
 	  
@@ -214,11 +229,11 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		//Step 2
 		Relation newInheritance = OrmFactory.eINSTANCE.createRelation();
-	    newInheritance.setType(Type.INHERITANCE); 
-	    if(newInheritance.eResource() != null) getDiagram().eResource().getContents().add(newInheritance);
+	    newInheritance.setType(Type.INHERITANCE);
 	    //Step 3
-	    newInheritance.setContainer(sourceShape.getContainer());
-	    sourceShape.getContainer().getElements().add(newInheritance);
+	    Model model = getModelToCreateIn(sourceShape);
+	    newInheritance.setContainer(model);
+	    model.getElements().add(newInheritance);
 	    newInheritance.setSource(sourceShape);
 	    newInheritance.setTarget(targetShape);
 	    //Step 4
@@ -227,5 +242,19 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Connection newConnection = null;
 	    if(canAdd(addContext)) newConnection = (Connection) add(addContext); 	        
 	    return newConnection;
+	}
+	
+	/**
+	 * searches for the main or group model the inheritance should be added to
+	 */
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
+		while(sourceShape.getContainer() != null) {
+			if(sourceShape.getContainer().getParent() == null ||
+			   (sourceShape.getContainer().getParent() != null &&
+			   sourceShape.getContainer().getParent().getType() == Type.GROUP))
+				return sourceShape.getContainer();
+			else sourceShape = sourceShape.getContainer().getParent();
+		}
+		throw new NoModelFoundException();
 	}
 }
