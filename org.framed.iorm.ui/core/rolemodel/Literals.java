@@ -20,9 +20,9 @@ public class Literals {
 	/**
 	 * the ids or the paths for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.roleModel",
-						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.modules.roleModelElements",
-						ICON_IMG_PATH = "modules/rolemodel/icon_rolemodel.png";
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.roleModel",
+						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.core.roleModelElements",
+						ICON_IMG_PATH = "core/rolemodel/icon_rolemodel.png";
 	
 	/**
 	 * the kind of diagram this module's pattern creates
