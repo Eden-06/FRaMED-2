@@ -6,16 +6,16 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/emf/2003/XMLType" as type
 import "http://www.eclipse.org/emf/2002/GenModel" as genmodel
 
+import "http://framed/editpolicymodel" 
 import "http://iorm/1.0"  as iorm
 import "http://iorm.featuremodel/1.0" as featuremodel
-import "http://framed/editpolicymodel"
 
 
 Model returns Model:
 	(policies+=Policy (policies+=Policy)*)?;
 	
 Policy returns Policy:
-	override?='override' action=ActionEnum actionType=ActionTypeEnum
+	override?='override' action=ActionEnum /*actionType=ActionTypeEnum*/
 	'{'
 		featureRule=FeatureExpression '=>' constraintRule=ConstraintExpression 
 	'}';
@@ -40,71 +40,67 @@ enum FeatureNameEnum returns featuremodel::FeatureName:
 	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance | 
 	Role_Prohibition | Role_Properties | Role_Structure | Role_Types | Roles;
 
-ConstraintRule returns AbstractRule:
-	StepInRule | TrueRule;
+ConstraintRule returns ConstraintRule:
+	StepInRule | TrueConstraintRule;
 
-FeatureRule returns AbstractRule:
-	IsFeatureRule | TrueRule;	
-
-IsFeatureRule returns Rule:
-	{Rule}  rule=(IsFeature);
+FeatureRule returns FeatureRule:
+	IsFeature | TrueFeatureRule;	
 
 IsFeature returns IsFeature:
-	'isFeature' featureName=FeatureNameEnum;
+	'isFeature'; //featureName=FeatureNameEnum;
+	
+TrueFeatureRule returns TrueFeatureRule:
+	{TrueFeatureRule}
+	'true';
+
+TrueConstraintRule returns TrueConstraintRule:
+	{TrueConstraintRule}
+	'true';		
 	
 EString returns ecore::EString:
 	STRING|ID;
 
-StepInRule returns Rule:
-	{Rule} rule=StepIn;
-	
-StepIn returns IsStepIn:
-	{IsStepIn}
-	'StepIn';
-	
-TrueRule returns TrueRule:
-	{TrueRule}
-	'true';
+StepInRule returns ConstraintRule:
+	{IsStepIn} 'stepIn';
 
-FalseRule returns FalseRule:
-	{FalseRule}
-	'false';
-	
+
+
 //expression support for Features
-FeatureExpression returns AbstractRule:
+FeatureExpression returns FeatureRule:
 	OrFeature;
 
-ImplicationFeature returns AbstractRule:
-	OrFeature ({ImplicationRule.leftRule=current} '=>' rightRule=OrFeature)?;
+ImplicationFeature returns FeatureRule:
+	OrFeature ({ImplicationFeatureRule.leftRule=current} '=>' rightRule=OrFeature)?;
 
-OrFeature returns AbstractRule: 
-	AndFeature ({OrRule.rules+=current} '||' rules+=AndFeature)*;
+OrFeature returns FeatureRule: 
+	AndFeature ({OrFeatureRule.rules+=current} '||' rules+=AndFeature)*;
 
-AndFeature returns AbstractRule:
-	NotFeatureExpression ({AndRule.rules+=current} '&&' rules+=NotFeatureExpression)*;
+AndFeature returns FeatureRule:
+	NotFeatureExpression ({AndFeatureRule.rules+=current} '&&' rules+=NotFeatureExpression)*;
 
-NotFeatureExpression returns AbstractRule:
-	PrimaryFeature | '!' {NotRule} rule=PrimaryFeature;
+NotFeatureExpression returns FeatureRule:
+	PrimaryFeature | '!' {NotFeatureRule} rule=PrimaryFeature;
   
-PrimaryFeature returns AbstractRule:
+PrimaryFeature returns FeatureRule:
 	FeatureRule | '(' FeatureExpression ')';
 	
+	
 //expression support for Constraints
-ConstraintExpression returns AbstractRule:
+ConstraintExpression returns ConstraintRule:
 	ImplicationConstraint;
 
-ImplicationConstraint returns AbstractRule:
-	OrConstraint ({ImplicationRule.leftRule=current} '=>' rightRule=OrConstraint)?;
+ImplicationConstraint returns ConstraintRule:
+	OrConstraint ({ImplicationConstraintRule.leftRule=current} '=>' rightRule=OrConstraint)?;
 
-OrConstraint returns AbstractRule:
-	AndConstraint ({OrRule.rules+=current} '||' rules+=AndConstraint)*;
+OrConstraint returns ConstraintRule:
+	AndConstraint ({OrConstraintRule.rules+=current} '||' rules+=AndConstraint)*;
 
-AndConstraint returns AbstractRule:
-	NotConstraintExpression ({AndRule.rules+=current} '&&' rules+=NotConstraintExpression)*;
+AndConstraint returns ConstraintRule:
+	NotConstraintExpression ({AndConstraintRule.rules+=current} '&&' rules+=NotConstraintExpression)*;
 
-NotConstraintExpression returns AbstractRule:
-	PrimaryConstraint | '!' {NotRule} rule=PrimaryConstraint;
+NotConstraintExpression returns ConstraintRule:
+	PrimaryConstraint | '!' {NotConstraintRule} rule=PrimaryConstraint;
   
-PrimaryConstraint returns AbstractRule:
+PrimaryConstraint returns ConstraintRule:
 	ConstraintRule | '(' ConstraintExpression ')';
 	

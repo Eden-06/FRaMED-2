@@ -67,7 +67,7 @@ public class EditFulfillmentFeature extends FRaMEDCustomFeature {
 	 */
 	@Override
 	public boolean canExecute(ICustomContext customContext) {
-		return EditPolicyService.getHandler(this.getDiagram()).canExecute(customContext);
+		return EditPolicyService.getHandler(this.getDiagram()).canExecute(customContext, Type.FULFILLMENT);
 	}
 
 	/**

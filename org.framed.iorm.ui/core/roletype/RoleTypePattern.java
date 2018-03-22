@@ -408,7 +408,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		if(pictogramElement instanceof Shape) {
 		   if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_NAME) ||
 			  UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLETYPE_OCCURRENCE_CONSTRAINT))
-			  return true;
+				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, Type.ROLE_TYPE);
 		}   
 		return false;
 	}

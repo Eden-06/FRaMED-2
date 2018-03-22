@@ -123,12 +123,12 @@ public interface Policy extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Feature Rule</em>' containment reference.
-	 * @see #setFeatureRule(AbstractRule)
+	 * @see #setFeatureRule(FeatureRule)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_FeatureRule()
 	 * @model containment="true"
 	 * @generated
 	 */
-	AbstractRule<FeatureRule> getFeatureRule();
+	FeatureRule getFeatureRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.Policy#getFeatureRule <em>Feature Rule</em>}' containment reference.
@@ -138,7 +138,7 @@ public interface Policy extends EObject {
 	 * @see #getFeatureRule()
 	 * @generated
 	 */
-	void setFeatureRule(AbstractRule<FeatureRule> value);
+	void setFeatureRule(FeatureRule value);
 
 	/**
 	 * Returns the value of the '<em><b>Constraint Rule</b></em>' containment reference.
@@ -149,12 +149,12 @@ public interface Policy extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Constraint Rule</em>' containment reference.
-	 * @see #setConstraintRule(AbstractRule)
+	 * @see #setConstraintRule(ConstraintRule)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_ConstraintRule()
 	 * @model containment="true"
 	 * @generated
 	 */
-	AbstractRule<ConstraintRule> getConstraintRule();
+	ConstraintRule getConstraintRule();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.Policy#getConstraintRule <em>Constraint Rule</em>}' containment reference.
@@ -164,6 +164,6 @@ public interface Policy extends EObject {
 	 * @see #getConstraintRule()
 	 * @generated
 	 */
-	void setConstraintRule(AbstractRule<ConstraintRule> value);
+	void setConstraintRule(ConstraintRule value);
 
 } // Policy

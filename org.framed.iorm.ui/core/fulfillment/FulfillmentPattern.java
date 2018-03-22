@@ -92,9 +92,9 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {	
 			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
-				return sourceTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context);
+				return sourceTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, Type.FULFILLMENT);
 			else
-				return targetTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context);
+				return targetTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, Type.FULFILLMENT);
 		}
 		return false;
 	}
@@ -234,7 +234,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
 			if(sourceTypes.contains(sourceShape.getType()))
-				   return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
+				   return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.FULFILLMENT);
 		}
 		return false;
 	}

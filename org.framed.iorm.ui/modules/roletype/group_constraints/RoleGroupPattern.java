@@ -371,7 +371,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(pictogramElement instanceof Shape) {
 		   if(UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_NAME) ||
 			  UIUtil.isShape_IdValue((Shape) pictogramElement, literals.SHAPE_ID_ROLEGROUP_OCCURRENCE_CONSTRAINT))
-			  return true;
+				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, Type.ROLE_GROUP);
 		}   
 		return false;
 	}

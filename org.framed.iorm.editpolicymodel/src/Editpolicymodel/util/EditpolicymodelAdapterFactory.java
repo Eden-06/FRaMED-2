@@ -96,14 +96,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createIsParentAdapter();
 			}
 			@Override
-			public <T> Adapter caseAbstractRule(AbstractRule<T> object) {
-				return createAbstractRuleAdapter();
-			}
-			@Override
-			public <T> Adapter caseRule(Rule<T> object) {
-				return createRuleAdapter();
-			}
-			@Override
 			public Adapter caseFeatureRule(FeatureRule object) {
 				return createFeatureRuleAdapter();
 			}
@@ -120,36 +112,36 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createIsTargetTypeAdapter();
 			}
 			@Override
-			public <T> Adapter caseUnaryRule(UnaryRule<T> object) {
-				return createUnaryRuleAdapter();
+			public Adapter caseUnaryConstraintRule(UnaryConstraintRule object) {
+				return createUnaryConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseNotRule(NotRule<T> object) {
-				return createNotRuleAdapter();
+			public Adapter caseNotConstraintRule(NotConstraintRule object) {
+				return createNotConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseAndRule(AndRule<T> object) {
-				return createAndRuleAdapter();
+			public Adapter caseAndConstraintRule(AndConstraintRule object) {
+				return createAndConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseBinaryRule(BinaryRule<T> object) {
-				return createBinaryRuleAdapter();
+			public Adapter caseBinaryConstraintRule(BinaryConstraintRule object) {
+				return createBinaryConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseTrueRule(TrueRule<T> object) {
-				return createTrueRuleAdapter();
+			public Adapter caseTrueConstraintRule(TrueConstraintRule object) {
+				return createTrueConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseFalseRule(FalseRule<T> object) {
-				return createFalseRuleAdapter();
+			public Adapter caseFalseConstraintRule(FalseConstraintRule object) {
+				return createFalseConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseOrRule(OrRule<T> object) {
-				return createOrRuleAdapter();
+			public Adapter caseOrConstraintRule(OrConstraintRule object) {
+				return createOrConstraintRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseImplicationRule(ImplicationRule<T> object) {
-				return createImplicationRuleAdapter();
+			public Adapter caseImplicationConstraintRule(ImplicationConstraintRule object) {
+				return createImplicationConstraintRuleAdapter();
 			}
 			@Override
 			public Adapter caseIsSourceType(IsSourceType object) {
@@ -160,8 +152,52 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createTypeArgumentRuleAdapter();
 			}
 			@Override
-			public <T> Adapter caseNaryRule(NaryRule<T> object) {
-				return createNaryRuleAdapter();
+			public Adapter caseNaryConstraintRule(NaryConstraintRule object) {
+				return createNaryConstraintRuleAdapter();
+			}
+			@Override
+			public Adapter caseLogicalConstraintRule(LogicalConstraintRule object) {
+				return createLogicalConstraintRuleAdapter();
+			}
+			@Override
+			public Adapter caseTrueFeatureRule(TrueFeatureRule object) {
+				return createTrueFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseNotFeatureRule(NotFeatureRule object) {
+				return createNotFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseFalseFeatureRule(FalseFeatureRule object) {
+				return createFalseFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseNaryFeatureRule(NaryFeatureRule object) {
+				return createNaryFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseBinaryFeatureRule(BinaryFeatureRule object) {
+				return createBinaryFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseLogicalFeatureRule(LogicalFeatureRule object) {
+				return createLogicalFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseImplicationFeatureRule(ImplicationFeatureRule object) {
+				return createImplicationFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseUnaryFeatureRule(UnaryFeatureRule object) {
+				return createUnaryFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseOrFeatureRule(OrFeatureRule object) {
+				return createOrFeatureRuleAdapter();
+			}
+			@Override
+			public Adapter caseAndFeatureRule(AndFeatureRule object) {
+				return createAndFeatureRuleAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -282,34 +318,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AbstractRule <em>Abstract Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.AbstractRule
-	 * @generated
-	 */
-	public Adapter createAbstractRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.Rule <em>Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.Rule
-	 * @generated
-	 */
-	public Adapter createRuleAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FeatureRule <em>Feature Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -366,114 +374,114 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.UnaryRule <em>Unary Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.UnaryConstraintRule <em>Unary Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.UnaryRule
+	 * @see Editpolicymodel.UnaryConstraintRule
 	 * @generated
 	 */
-	public Adapter createUnaryRuleAdapter() {
+	public Adapter createUnaryConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NotRule <em>Not Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NotConstraintRule <em>Not Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.NotRule
+	 * @see Editpolicymodel.NotConstraintRule
 	 * @generated
 	 */
-	public Adapter createNotRuleAdapter() {
+	public Adapter createNotConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AndRule <em>And Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AndConstraintRule <em>And Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.AndRule
+	 * @see Editpolicymodel.AndConstraintRule
 	 * @generated
 	 */
-	public Adapter createAndRuleAdapter() {
+	public Adapter createAndConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.BinaryRule <em>Binary Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.BinaryConstraintRule <em>Binary Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.BinaryRule
+	 * @see Editpolicymodel.BinaryConstraintRule
 	 * @generated
 	 */
-	public Adapter createBinaryRuleAdapter() {
+	public Adapter createBinaryConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueRule <em>True Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueConstraintRule <em>True Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.TrueRule
+	 * @see Editpolicymodel.TrueConstraintRule
 	 * @generated
 	 */
-	public Adapter createTrueRuleAdapter() {
+	public Adapter createTrueConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseRule <em>False Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseConstraintRule <em>False Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.FalseRule
+	 * @see Editpolicymodel.FalseConstraintRule
 	 * @generated
 	 */
-	public Adapter createFalseRuleAdapter() {
+	public Adapter createFalseConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.OrRule <em>Or Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.OrConstraintRule <em>Or Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.OrRule
+	 * @see Editpolicymodel.OrConstraintRule
 	 * @generated
 	 */
-	public Adapter createOrRuleAdapter() {
+	public Adapter createOrConstraintRuleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ImplicationRule <em>Implication Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ImplicationConstraintRule <em>Implication Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.ImplicationRule
+	 * @see Editpolicymodel.ImplicationConstraintRule
 	 * @generated
 	 */
-	public Adapter createImplicationRuleAdapter() {
+	public Adapter createImplicationConstraintRuleAdapter() {
 		return null;
 	}
 
@@ -506,16 +514,170 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NaryRule <em>Nary Rule</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NaryConstraintRule <em>Nary Constraint Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.NaryRule
+	 * @see Editpolicymodel.NaryConstraintRule
 	 * @generated
 	 */
-	public Adapter createNaryRuleAdapter() {
+	public Adapter createNaryConstraintRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.LogicalConstraintRule <em>Logical Constraint Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.LogicalConstraintRule
+	 * @generated
+	 */
+	public Adapter createLogicalConstraintRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.TrueFeatureRule <em>True Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.TrueFeatureRule
+	 * @generated
+	 */
+	public Adapter createTrueFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NotFeatureRule <em>Not Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.NotFeatureRule
+	 * @generated
+	 */
+	public Adapter createNotFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.FalseFeatureRule <em>False Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.FalseFeatureRule
+	 * @generated
+	 */
+	public Adapter createFalseFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.NaryFeatureRule <em>Nary Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.NaryFeatureRule
+	 * @generated
+	 */
+	public Adapter createNaryFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.BinaryFeatureRule <em>Binary Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.BinaryFeatureRule
+	 * @generated
+	 */
+	public Adapter createBinaryFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.LogicalFeatureRule <em>Logical Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.LogicalFeatureRule
+	 * @generated
+	 */
+	public Adapter createLogicalFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ImplicationFeatureRule <em>Implication Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.ImplicationFeatureRule
+	 * @generated
+	 */
+	public Adapter createImplicationFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.UnaryFeatureRule <em>Unary Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.UnaryFeatureRule
+	 * @generated
+	 */
+	public Adapter createUnaryFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.OrFeatureRule <em>Or Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.OrFeatureRule
+	 * @generated
+	 */
+	public Adapter createOrFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.AndFeatureRule <em>And Feature Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.AndFeatureRule
+	 * @generated
+	 */
+	public Adapter createAndFeatureRuleAdapter() {
 		return null;
 	}
 

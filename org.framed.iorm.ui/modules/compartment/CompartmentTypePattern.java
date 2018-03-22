@@ -453,7 +453,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == Type.COMPARTMENT_TYPE) {
-				return true;
+				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, Type.COMPARTMENT_TYPE);
 		}	}
 		return false;
 	}
@@ -938,7 +938,6 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	@Override
 	public void delete(IDeleteContext deleteContext) {
 		List<ContainerShape> innerGroupsOrCompartmentTypesToDelete = new ArrayList<ContainerShape>();
-		//Step 1
 		deleteAttachedConnections(deleteContext);
 		//Step 2
 		Diagram compartmentDiagram = util.getCompartmentTypeDiagramForItsShape((Shape) deleteContext.getPictogramElement(), getDiagram());

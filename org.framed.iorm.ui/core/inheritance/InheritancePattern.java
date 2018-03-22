@@ -207,7 +207,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
 				if(sourceShape != null){	
 					if(types.contains(sourceShape.getType()))
-						return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext);
+						return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.INHERITANCE);
 		}	}	}			
 		return false;
 	}

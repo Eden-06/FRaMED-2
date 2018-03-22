@@ -64,16 +64,23 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.IS_TARGET: return createIsTarget();
 			case EditpolicymodelPackage.IS_SOURCE: return createIsSource();
 			case EditpolicymodelPackage.IS_PARENT: return createIsParent();
-			case EditpolicymodelPackage.RULE: return createRule();
 			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
 			case EditpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
-			case EditpolicymodelPackage.NOT_RULE: return createNotRule();
-			case EditpolicymodelPackage.AND_RULE: return createAndRule();
-			case EditpolicymodelPackage.TRUE_RULE: return createTrueRule();
-			case EditpolicymodelPackage.FALSE_RULE: return createFalseRule();
-			case EditpolicymodelPackage.OR_RULE: return createOrRule();
-			case EditpolicymodelPackage.IMPLICATION_RULE: return createImplicationRule();
+			case EditpolicymodelPackage.NOT_CONSTRAINT_RULE: return createNotConstraintRule();
+			case EditpolicymodelPackage.AND_CONSTRAINT_RULE: return createAndConstraintRule();
+			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE: return createTrueConstraintRule();
+			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE: return createFalseConstraintRule();
+			case EditpolicymodelPackage.OR_CONSTRAINT_RULE: return createOrConstraintRule();
+			case EditpolicymodelPackage.IMPLICATION_CONSTRAINT_RULE: return createImplicationConstraintRule();
 			case EditpolicymodelPackage.IS_SOURCE_TYPE: return createIsSourceType();
+			case EditpolicymodelPackage.LOGICAL_CONSTRAINT_RULE: return createLogicalConstraintRule();
+			case EditpolicymodelPackage.TRUE_FEATURE_RULE: return createTrueFeatureRule();
+			case EditpolicymodelPackage.NOT_FEATURE_RULE: return createNotFeatureRule();
+			case EditpolicymodelPackage.FALSE_FEATURE_RULE: return createFalseFeatureRule();
+			case EditpolicymodelPackage.LOGICAL_FEATURE_RULE: return createLogicalFeatureRule();
+			case EditpolicymodelPackage.IMPLICATION_FEATURE_RULE: return createImplicationFeatureRule();
+			case EditpolicymodelPackage.OR_FEATURE_RULE: return createOrFeatureRule();
+			case EditpolicymodelPackage.AND_FEATURE_RULE: return createAndFeatureRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -184,16 +191,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> Rule<T> createRule() {
-		RuleImpl<T> rule = new RuleImpl<T>();
-		return rule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public IsFeature createIsFeature() {
 		IsFeatureImpl isFeature = new IsFeatureImpl();
 		return isFeature;
@@ -214,9 +211,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> NotRule<T> createNotRule() {
-		NotRuleImpl<T> notRule = new NotRuleImpl<T>();
-		return notRule;
+	public NotConstraintRule createNotConstraintRule() {
+		NotConstraintRuleImpl notConstraintRule = new NotConstraintRuleImpl();
+		return notConstraintRule;
 	}
 
 	/**
@@ -224,9 +221,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> AndRule<T> createAndRule() {
-		AndRuleImpl<T> andRule = new AndRuleImpl<T>();
-		return andRule;
+	public AndConstraintRule createAndConstraintRule() {
+		AndConstraintRuleImpl andConstraintRule = new AndConstraintRuleImpl();
+		return andConstraintRule;
 	}
 
 	/**
@@ -234,9 +231,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> TrueRule<T> createTrueRule() {
-		TrueRuleImpl<T> trueRule = new TrueRuleImpl<T>();
-		return trueRule;
+	public TrueConstraintRule createTrueConstraintRule() {
+		TrueConstraintRuleImpl trueConstraintRule = new TrueConstraintRuleImpl();
+		return trueConstraintRule;
 	}
 
 	/**
@@ -244,9 +241,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> FalseRule<T> createFalseRule() {
-		FalseRuleImpl<T> falseRule = new FalseRuleImpl<T>();
-		return falseRule;
+	public FalseConstraintRule createFalseConstraintRule() {
+		FalseConstraintRuleImpl falseConstraintRule = new FalseConstraintRuleImpl();
+		return falseConstraintRule;
 	}
 
 	/**
@@ -254,9 +251,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> OrRule<T> createOrRule() {
-		OrRuleImpl<T> orRule = new OrRuleImpl<T>();
-		return orRule;
+	public OrConstraintRule createOrConstraintRule() {
+		OrConstraintRuleImpl orConstraintRule = new OrConstraintRuleImpl();
+		return orConstraintRule;
 	}
 
 	/**
@@ -264,9 +261,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public <T> ImplicationRule<T> createImplicationRule() {
-		ImplicationRuleImpl<T> implicationRule = new ImplicationRuleImpl<T>();
-		return implicationRule;
+	public ImplicationConstraintRule createImplicationConstraintRule() {
+		ImplicationConstraintRuleImpl implicationConstraintRule = new ImplicationConstraintRuleImpl();
+		return implicationConstraintRule;
 	}
 
 	/**
@@ -277,6 +274,86 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public IsSourceType createIsSourceType() {
 		IsSourceTypeImpl isSourceType = new IsSourceTypeImpl();
 		return isSourceType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LogicalConstraintRule createLogicalConstraintRule() {
+		LogicalConstraintRuleImpl logicalConstraintRule = new LogicalConstraintRuleImpl();
+		return logicalConstraintRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrueFeatureRule createTrueFeatureRule() {
+		TrueFeatureRuleImpl trueFeatureRule = new TrueFeatureRuleImpl();
+		return trueFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotFeatureRule createNotFeatureRule() {
+		NotFeatureRuleImpl notFeatureRule = new NotFeatureRuleImpl();
+		return notFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FalseFeatureRule createFalseFeatureRule() {
+		FalseFeatureRuleImpl falseFeatureRule = new FalseFeatureRuleImpl();
+		return falseFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LogicalFeatureRule createLogicalFeatureRule() {
+		LogicalFeatureRuleImpl logicalFeatureRule = new LogicalFeatureRuleImpl();
+		return logicalFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImplicationFeatureRule createImplicationFeatureRule() {
+		ImplicationFeatureRuleImpl implicationFeatureRule = new ImplicationFeatureRuleImpl();
+		return implicationFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrFeatureRule createOrFeatureRule() {
+		OrFeatureRuleImpl orFeatureRule = new OrFeatureRuleImpl();
+		return orFeatureRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AndFeatureRule createAndFeatureRule() {
+		AndFeatureRuleImpl andFeatureRule = new AndFeatureRuleImpl();
+		return andFeatureRule;
 	}
 
 	/**

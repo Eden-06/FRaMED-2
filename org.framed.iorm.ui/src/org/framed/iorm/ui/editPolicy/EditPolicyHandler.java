@@ -81,32 +81,69 @@ public class EditPolicyHandler {
 		return true;
 	}
 
-	public boolean canStart(ICreateConnectionContext context) {
-		// System.out.println("---can create check----");
+	public boolean canStart(ICreateConnectionContext context, Type type) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.START, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 
-	public boolean canExecute(ICustomContext context) {
-		// System.out.println("---can create check----");
+	public boolean canExecute(ICustomContext context, Type type) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.EXECUTE, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 
-	public boolean canReconnect(IReconnectionContext context) {
-		// System.out.println("---can reconnect check----");
+	public boolean canReconnect(IReconnectionContext context, Type type) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.RECONNECT, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 
-	public boolean canAdd(IAddConnectionContext context) {
-		// System.out.println("---can reconnect check----");
-		return true;
+	public boolean canAdd(IAddConnectionContext context) { 
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
+		return true;	
 	}
 	
-	public boolean canDirectEdit(IDirectEditingContext editingContext) {
+	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 	
 	public boolean canAdd(IAddContext context) {
-		// System.out.println("---can add check----");
+		//new Object is either relation or shape
+		Relation relation = (Relation) context.getNewObject();
+		Type type = relation.getType();
+		return this.canAdd(context, type);
+	}
+	public boolean canAdd(IAddContext context, Type type) {
+		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 	

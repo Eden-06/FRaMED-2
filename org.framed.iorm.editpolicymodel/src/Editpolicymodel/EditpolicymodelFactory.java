@@ -85,15 +85,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	IsParent createIsParent();
 
 	/**
-	 * Returns a new object of class '<em>Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rule</em>'.
-	 * @generated
-	 */
-	<T> Rule<T> createRule();
-
-	/**
 	 * Returns a new object of class '<em>Is Feature</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,58 +103,58 @@ public interface EditpolicymodelFactory extends EFactory {
 	IsTargetType createIsTargetType();
 
 	/**
-	 * Returns a new object of class '<em>Not Rule</em>'.
+	 * Returns a new object of class '<em>Not Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Not Rule</em>'.
+	 * @return a new object of class '<em>Not Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> NotRule<T> createNotRule();
+	NotConstraintRule createNotConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>And Rule</em>'.
+	 * Returns a new object of class '<em>And Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>And Rule</em>'.
+	 * @return a new object of class '<em>And Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> AndRule<T> createAndRule();
+	AndConstraintRule createAndConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>True Rule</em>'.
+	 * Returns a new object of class '<em>True Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>True Rule</em>'.
+	 * @return a new object of class '<em>True Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> TrueRule<T> createTrueRule();
+	TrueConstraintRule createTrueConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>False Rule</em>'.
+	 * Returns a new object of class '<em>False Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>False Rule</em>'.
+	 * @return a new object of class '<em>False Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> FalseRule<T> createFalseRule();
+	FalseConstraintRule createFalseConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>Or Rule</em>'.
+	 * Returns a new object of class '<em>Or Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Or Rule</em>'.
+	 * @return a new object of class '<em>Or Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> OrRule<T> createOrRule();
+	OrConstraintRule createOrConstraintRule();
 
 	/**
-	 * Returns a new object of class '<em>Implication Rule</em>'.
+	 * Returns a new object of class '<em>Implication Constraint Rule</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Implication Rule</em>'.
+	 * @return a new object of class '<em>Implication Constraint Rule</em>'.
 	 * @generated
 	 */
-	<T> ImplicationRule<T> createImplicationRule();
+	ImplicationConstraintRule createImplicationConstraintRule();
 
 	/**
 	 * Returns a new object of class '<em>Is Source Type</em>'.
@@ -173,6 +164,78 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	IsSourceType createIsSourceType();
+
+	/**
+	 * Returns a new object of class '<em>Logical Constraint Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Logical Constraint Rule</em>'.
+	 * @generated
+	 */
+	LogicalConstraintRule createLogicalConstraintRule();
+
+	/**
+	 * Returns a new object of class '<em>True Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>True Feature Rule</em>'.
+	 * @generated
+	 */
+	TrueFeatureRule createTrueFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>Not Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Not Feature Rule</em>'.
+	 * @generated
+	 */
+	NotFeatureRule createNotFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>False Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>False Feature Rule</em>'.
+	 * @generated
+	 */
+	FalseFeatureRule createFalseFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>Logical Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Logical Feature Rule</em>'.
+	 * @generated
+	 */
+	LogicalFeatureRule createLogicalFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>Implication Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Implication Feature Rule</em>'.
+	 * @generated
+	 */
+	ImplicationFeatureRule createImplicationFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>Or Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Or Feature Rule</em>'.
+	 * @generated
+	 */
+	OrFeatureRule createOrFeatureRule();
+
+	/**
+	 * Returns a new object of class '<em>And Feature Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>And Feature Rule</em>'.
+	 * @generated
+	 */
+	AndFeatureRule createAndFeatureRule();
 
 	/**
 	 * Returns the package supported by this factory.

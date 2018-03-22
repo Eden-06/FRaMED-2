@@ -390,7 +390,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 			if(shape.getType() == Type.GROUP) {
-				return true;
+				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, Type.GROUP);
 		}	}
 		return false;
 	}

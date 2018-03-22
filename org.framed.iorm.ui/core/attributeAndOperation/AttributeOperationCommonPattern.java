@@ -18,6 +18,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
@@ -145,7 +146,7 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 				if(businessObject instanceof org.framed.iorm.model.Shape) {
 					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
 					if(util.usedInModelTypes(usedInReferences).contains(shape.getType()))
-					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, shape.getType());
 		}	}	}	
 		return false;
 	}
@@ -243,8 +244,9 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
 		if(businessObject instanceof NamedElement && graphicsAlgorithm instanceof Text) {
 			Shape shape = (Shape) editingContext.getPictogramElement();
-			return (UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
-					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT));
+			if( (UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
+					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT)))
+				EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext);
 		}		
 		return false;
 	}
