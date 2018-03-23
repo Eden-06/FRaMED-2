@@ -2,6 +2,7 @@
  */
 package Editpolicymodel;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Type Argument Rule</b></em>'.

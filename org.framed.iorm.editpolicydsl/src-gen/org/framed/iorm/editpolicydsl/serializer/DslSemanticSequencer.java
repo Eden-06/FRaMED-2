@@ -309,7 +309,7 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.IS_FEATURE__FEATURE_NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_2_0(), semanticObject.getFeatureName());
+		feeder.accept(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_3_0(), semanticObject.getFeatureName());
 		feeder.finish();
 	}
 	
@@ -563,28 +563,10 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Policy returns Policy
 	 *
 	 * Constraint:
-	 *     (override?='override' action=ActionEnum actionType=FeatureTypeEnum featureRule=FeatureExpression constraintRule=ConstraintExpression)
+	 *     (override?='override'? action=ActionEnum actionType=FeatureTypeEnum featureRule=FeatureExpression constraintRule=ConstraintExpression)
 	 */
 	protected void sequence_Policy(ISerializationContext context, Policy semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.POLICY__OVERRIDE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.POLICY__OVERRIDE));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.POLICY__ACTION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.POLICY__ACTION));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.POLICY__ACTION_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.POLICY__ACTION_TYPE));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.POLICY__FEATURE_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.POLICY__FEATURE_RULE));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPolicyAccess().getOverrideOverrideKeyword_0_0(), semanticObject.getOverride());
-		feeder.accept(grammarAccess.getPolicyAccess().getActionActionEnumEnumRuleCall_1_0(), semanticObject.getAction());
-		feeder.accept(grammarAccess.getPolicyAccess().getActionTypeFeatureTypeEnumEnumRuleCall_2_0(), semanticObject.getActionType());
-		feeder.accept(grammarAccess.getPolicyAccess().getFeatureRuleFeatureExpressionParserRuleCall_4_0(), semanticObject.getFeatureRule());
-		feeder.accept(grammarAccess.getPolicyAccess().getConstraintRuleConstraintExpressionParserRuleCall_6_0(), semanticObject.getConstraintRule());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

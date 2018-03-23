@@ -6,10 +6,15 @@ package org.framed.iorm.editpolicydsl.formatting2
 import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.framed.iorm.editpolicydsl.services.DslGrammarAccess
+import org.eclipse.xtext.formatting2.IFormattableDocument
 
 class DslFormatter extends AbstractFormatter2 {
 	
 	@Inject extension DslGrammarAccess
+	
+	override format(Object obj, IFormattableDocument document) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
 	
 	// TODO: implement for 
 }

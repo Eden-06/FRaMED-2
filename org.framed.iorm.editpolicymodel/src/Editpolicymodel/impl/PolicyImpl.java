@@ -7,8 +7,8 @@ import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.FeatureRule;
 import Editpolicymodel.Policy;
-
 import Editpolicymodel.TypeEnum;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 

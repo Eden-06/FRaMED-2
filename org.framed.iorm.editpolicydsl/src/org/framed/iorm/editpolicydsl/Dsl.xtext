@@ -13,7 +13,7 @@ Model returns Model:
 	(policies+=Policy (policies+=Policy)*)?;
 	
 Policy returns Policy:
-	override?='override' action=ActionEnum actionType=FeatureTypeEnum
+	(override?='override')? action=ActionEnum actionType=FeatureTypeEnum
 	'{'
 	featureRule=FeatureExpression '=>' constraintRule=ConstraintExpression 
 	'}';

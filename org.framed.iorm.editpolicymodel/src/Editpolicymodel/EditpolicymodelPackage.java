@@ -1279,7 +1279,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	 */
 	int ACTION_ENUM = 33;
 
-
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
@@ -1299,6 +1298,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	int FEATURE_NAME_ENUM = 35;
+
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.Model <em>Model</em>}'.

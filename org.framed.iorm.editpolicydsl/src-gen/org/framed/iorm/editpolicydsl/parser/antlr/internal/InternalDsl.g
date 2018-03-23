@@ -147,7 +147,7 @@ rulePolicy returns [EObject current=null]
 					setWithLastConsumed($current, "override", true, "override");
 				}
 			)
-		)
+		)?
 		(
 			(
 				{
@@ -786,16 +786,20 @@ ruleIsFeature returns [EObject current=null]
 					$current);
 			}
 		)
-		otherlv_1='isFeature'
+		otherlv_1='IsFeature'
 		{
 			newLeafNode(otherlv_1, grammarAccess.getIsFeatureAccess().getIsFeatureKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsFeatureAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_2_0());
+					newCompositeNode(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_3_0());
 				}
-				lv_featureName_2_0=ruleFeatureNameEnum
+				lv_featureName_3_0=ruleFeatureNameEnum
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIsFeatureRule());
@@ -803,12 +807,16 @@ ruleIsFeature returns [EObject current=null]
 					set(
 						$current,
 						"featureName",
-						lv_featureName_2_0,
+						lv_featureName_3_0,
 						"org.framed.iorm.editpolicydsl.Dsl.FeatureNameEnum");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsFeatureAccess().getRightParenthesisKeyword_4());
+		}
 	)
 ;
 

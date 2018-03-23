@@ -26,7 +26,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLES(0, "Roles", "Roles"), /**
+	ROLES(0, "Roles", "Roles"),
+
+	/**
 	 * The '<em><b>Role Types</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -34,7 +36,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_TYPES(1, "Role_Types", "Role_Types"), /**
+	ROLE_TYPES(1, "Role_Types", "Role_Types"),
+
+	/**
 	 * The '<em><b>Role Structure</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -42,7 +46,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_STRUCTURE(2, "Role_Structure", "LITERAL2"), /**
+	ROLE_STRUCTURE(2, "Role_Structure", "LITERAL2"),
+
+	/**
 	 * The '<em><b>Role Properties</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -50,7 +56,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_PROPERTIES(3, "Role_Properties", "Role_Properties"), /**
+	ROLE_PROPERTIES(3, "Role_Properties", "Role_Properties"),
+
+	/**
 	 * The '<em><b>Role Prohibition</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -58,7 +66,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_PROHIBITION(4, "Role_Prohibition", "Role_Prohibition"), /**
+	ROLE_PROHIBITION(4, "Role_Prohibition", "Role_Prohibition"),
+
+	/**
 	 * The '<em><b>Role Inheritance</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,7 +76,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_INHERITANCE(5, "Role_Inheritance", "Role_Inheritance"), /**
+	ROLE_INHERITANCE(5, "Role_Inheritance", "Role_Inheritance"),
+
+	/**
 	 * The '<em><b>Role Implication</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,7 +86,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_IMPLICATION(6, "Role_Implication", "Role_Implication"), /**
+	ROLE_IMPLICATION(6, "Role_Implication", "Role_Implication"),
+
+	/**
 	 * The '<em><b>Role Equivalence</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,7 +96,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_EQUIVALENCE(7, "Role_Equivalence", "Role_Equivalence"), /**
+	ROLE_EQUIVALENCE(7, "Role_Equivalence", "Role_Equivalence"),
+
+	/**
 	 * The '<em><b>Role Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,7 +106,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_CONSTRAINTS(8, "Role_Constraints", "Role_Constraints"), /**
+	ROLE_CONSTRAINTS(8, "Role_Constraints", "Role_Constraints"),
+
+	/**
 	 * The '<em><b>Role Behavior</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,7 +116,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_BEHAVIOR(9, "Role_Behavior", "Role_Behavior"), /**
+	ROLE_BEHAVIOR(9, "Role_Behavior", "Role_Behavior"),
+
+	/**
 	 * The '<em><b>RML Feature Model</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -106,7 +126,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RML_FEATURE_MODEL(10, "RML_Feature_Model", "RML_Feature_Model"), /**
+	RML_FEATURE_MODEL(10, "RML_Feature_Model", "RML_Feature_Model"),
+
+	/**
 	 * The '<em><b>Relationships</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -114,7 +136,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELATIONSHIPS(11, "Relationships", "Relationships"), /**
+	RELATIONSHIPS(11, "Relationships", "Relationships"),
+
+	/**
 	 * The '<em><b>Relationship Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -122,7 +146,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELATIONSHIP_CONSTRAINTS(12, "Relationship_Constraints", "Relationship_Constraints"), /**
+	RELATIONSHIP_CONSTRAINTS(12, "Relationship_Constraints", "Relationship_Constraints"),
+
+	/**
 	 * The '<em><b>Relationship Cardinality</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,7 +156,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELATIONSHIP_CARDINALITY(13, "Relationship_Cardinality", "Relationship_Cardinality"), /**
+	RELATIONSHIP_CARDINALITY(13, "Relationship_Cardinality", "Relationship_Cardinality"),
+
+	/**
 	 * The '<em><b>Players</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,7 +166,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PLAYERS(14, "Players", "Players"), /**
+	PLAYERS(14, "Players", "Players"),
+
+	/**
 	 * The '<em><b>Playable by Defining Compartment</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -146,7 +176,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PLAYABLE_BY_DEFINING_COMPARTMENT(15, "Playable_by_Defining_Compartment", "Playable_by_Defining_Compartment"), /**
+	PLAYABLE_BY_DEFINING_COMPARTMENT(15, "Playable_by_Defining_Compartment", "Playable_by_Defining_Compartment"),
+
+	/**
 	 * The '<em><b>Playable</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -154,7 +186,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PLAYABLE(16, "Playable", "Playable"), /**
+	PLAYABLE(16, "Playable", "Playable"),
+
+	/**
 	 * The '<em><b>Parthood Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -162,7 +196,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PARTHOOD_CONSTRAINTS(17, "Parthood_Constraints", "Parthood_Constraints"), /**
+	PARTHOOD_CONSTRAINTS(17, "Parthood_Constraints", "Parthood_Constraints"),
+
+	/**
 	 * The '<em><b>On Relationships</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -170,7 +206,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ON_RELATIONSHIPS(18, "On_Relationships", "On_Relationships"), /**
+	ON_RELATIONSHIPS(18, "On_Relationships", "On_Relationships"),
+
+	/**
 	 * The '<em><b>On Compartments</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -178,7 +216,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ON_COMPARTMENTS(19, "On_Compartments", "On_Compartments"), /**
+	ON_COMPARTMENTS(19, "On_Compartments", "On_Compartments"),
+
+	/**
 	 * The '<em><b>Occurrence Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,7 +226,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OCCURRENCE_CONSTRAINTS(20, "Occurrence_Constraints", "Occurrence_Constraints"), /**
+	OCCURRENCE_CONSTRAINTS(20, "Occurrence_Constraints", "Occurrence_Constraints"),
+
+	/**
 	 * The '<em><b>Naturals</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -194,7 +236,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NATURALS(21, "Naturals", "Naturals"), /**
+	NATURALS(21, "Naturals", "Naturals"),
+
+	/**
 	 * The '<em><b>Intra Relationship Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -202,7 +246,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTRA_RELATIONSHIP_CONSTRAINTS(22, "Intra_Relationship_Constraints", "Intra_Relationship_Constraints"), /**
+	INTRA_RELATIONSHIP_CONSTRAINTS(22, "Intra_Relationship_Constraints", "Intra_Relationship_Constraints"),
+
+	/**
 	 * The '<em><b>Inter Relationship Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -210,7 +256,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTER_RELATIONSHIP_CONSTRAINTS(23, "Inter_Relationship_Constraints", "Inter_Relationship_Constraints"), /**
+	INTER_RELATIONSHIP_CONSTRAINTS(23, "Inter_Relationship_Constraints", "Inter_Relationship_Constraints"),
+
+	/**
 	 * The '<em><b>Group Constraints</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -218,7 +266,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GROUP_CONSTRAINTS(24, "Group_Constraints", "Group_Constraints"), /**
+	GROUP_CONSTRAINTS(24, "Group_Constraints", "Group_Constraints"),
+
+	/**
 	 * The '<em><b>Dependent</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -226,7 +276,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DEPENDENT(25, "Dependent", "Dependent"), /**
+	DEPENDENT(25, "Dependent", "Dependent"),
+
+	/**
 	 * The '<em><b>Dates</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -234,7 +286,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DATES(26, "Dates", "Dates"), /**
+	DATES(26, "Dates", "Dates"),
+
+	/**
 	 * The '<em><b>Data Types</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -242,7 +296,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DATA_TYPES(27, "Data_Types", "Data_Types"), /**
+	DATA_TYPES(27, "Data_Types", "Data_Types"),
+
+	/**
 	 * The '<em><b>Compartments</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,7 +306,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENTS(28, "Compartments", "Compartments"), /**
+	COMPARTMENTS(28, "Compartments", "Compartments"),
+
+	/**
 	 * The '<em><b>Contains Compartments</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -258,7 +316,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CONTAINS_COMPARTMENTS(29, "Contains_Compartments", "Contains_Compartments"), /**
+	CONTAINS_COMPARTMENTS(29, "Contains_Compartments", "Contains_Compartments"),
+
+	/**
 	 * The '<em><b>Compartment Types</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -266,7 +326,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_TYPES(30, "Compartment_Types", "Compartment_Types"), /**
+	COMPARTMENT_TYPES(30, "Compartment_Types", "Compartment_Types"),
+
+	/**
 	 * The '<em><b>Compartment Structure</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -274,7 +336,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_STRUCTURE(31, "Compartment_Structure", "Compartment_Structure"), /**
+	COMPARTMENT_STRUCTURE(31, "Compartment_Structure", "Compartment_Structure"),
+
+	/**
 	 * The '<em><b>Compartment Properties</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -282,7 +346,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_PROPERTIES(32, "Compartment_Properties", "Compartment_Properties"), /**
+	COMPARTMENT_PROPERTIES(32, "Compartment_Properties", "Compartment_Properties"),
+
+	/**
 	 * The '<em><b>Compartment Inheritance</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -290,7 +356,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_INHERITANCE(33, "Compartment_Inheritance", "LITERAL33"), /**
+	COMPARTMENT_INHERITANCE(33, "Compartment_Inheritance", "LITERAL33"),
+
+	/**
 	 * The '<em><b>Compartment Behavior</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -298,7 +366,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_BEHAVIOR(34, "Compartment_Behavior", "Compartment_Behavior"), /**
+	COMPARTMENT_BEHAVIOR(34, "Compartment_Behavior", "Compartment_Behavior"),
+
+	/**
 	 * The '<em><b>Participants</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -306,7 +376,9 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PARTICIPANTS(35, "Participants", "Participants"), /**
+	PARTICIPANTS(35, "Participants", "Participants"),
+
+	/**
 	 * The '<em><b>Data Type Inheritance</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -331,7 +403,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLES_VALUE = 0;
 
-/**
+	/**
 	 * The '<em><b>Role Types</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -346,7 +418,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_TYPES_VALUE = 1;
 
-/**
+	/**
 	 * The '<em><b>Role Structure</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -361,7 +433,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_STRUCTURE_VALUE = 2;
 
-/**
+	/**
 	 * The '<em><b>Role Properties</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -376,7 +448,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_PROPERTIES_VALUE = 3;
 
-/**
+	/**
 	 * The '<em><b>Role Prohibition</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -391,7 +463,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_PROHIBITION_VALUE = 4;
 
-/**
+	/**
 	 * The '<em><b>Role Inheritance</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -406,7 +478,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_INHERITANCE_VALUE = 5;
 
-/**
+	/**
 	 * The '<em><b>Role Implication</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -421,7 +493,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_IMPLICATION_VALUE = 6;
 
-/**
+	/**
 	 * The '<em><b>Role Equivalence</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -436,7 +508,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_EQUIVALENCE_VALUE = 7;
 
-/**
+	/**
 	 * The '<em><b>Role Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -451,7 +523,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_CONSTRAINTS_VALUE = 8;
 
-/**
+	/**
 	 * The '<em><b>Role Behavior</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -466,7 +538,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ROLE_BEHAVIOR_VALUE = 9;
 
-/**
+	/**
 	 * The '<em><b>RML Feature Model</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -481,7 +553,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int RML_FEATURE_MODEL_VALUE = 10;
 
-/**
+	/**
 	 * The '<em><b>Relationships</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -496,7 +568,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int RELATIONSHIPS_VALUE = 11;
 
-/**
+	/**
 	 * The '<em><b>Relationship Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -511,7 +583,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int RELATIONSHIP_CONSTRAINTS_VALUE = 12;
 
-/**
+	/**
 	 * The '<em><b>Relationship Cardinality</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -526,7 +598,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int RELATIONSHIP_CARDINALITY_VALUE = 13;
 
-/**
+	/**
 	 * The '<em><b>Players</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -541,7 +613,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int PLAYERS_VALUE = 14;
 
-/**
+	/**
 	 * The '<em><b>Playable by Defining Compartment</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -556,7 +628,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int PLAYABLE_BY_DEFINING_COMPARTMENT_VALUE = 15;
 
-/**
+	/**
 	 * The '<em><b>Playable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -571,7 +643,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int PLAYABLE_VALUE = 16;
 
-/**
+	/**
 	 * The '<em><b>Parthood Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -586,7 +658,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int PARTHOOD_CONSTRAINTS_VALUE = 17;
 
-/**
+	/**
 	 * The '<em><b>On Relationships</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -601,7 +673,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ON_RELATIONSHIPS_VALUE = 18;
 
-/**
+	/**
 	 * The '<em><b>On Compartments</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -616,7 +688,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int ON_COMPARTMENTS_VALUE = 19;
 
-/**
+	/**
 	 * The '<em><b>Occurrence Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -631,7 +703,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int OCCURRENCE_CONSTRAINTS_VALUE = 20;
 
-/**
+	/**
 	 * The '<em><b>Naturals</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -646,7 +718,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int NATURALS_VALUE = 21;
 
-/**
+	/**
 	 * The '<em><b>Intra Relationship Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -661,7 +733,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int INTRA_RELATIONSHIP_CONSTRAINTS_VALUE = 22;
 
-/**
+	/**
 	 * The '<em><b>Inter Relationship Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -676,7 +748,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int INTER_RELATIONSHIP_CONSTRAINTS_VALUE = 23;
 
-/**
+	/**
 	 * The '<em><b>Group Constraints</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -691,7 +763,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int GROUP_CONSTRAINTS_VALUE = 24;
 
-/**
+	/**
 	 * The '<em><b>Dependent</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -706,7 +778,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int DEPENDENT_VALUE = 25;
 
-/**
+	/**
 	 * The '<em><b>Dates</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -721,7 +793,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int DATES_VALUE = 26;
 
-/**
+	/**
 	 * The '<em><b>Data Types</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -736,7 +808,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int DATA_TYPES_VALUE = 27;
 
-/**
+	/**
 	 * The '<em><b>Compartments</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -751,7 +823,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENTS_VALUE = 28;
 
-/**
+	/**
 	 * The '<em><b>Contains Compartments</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -766,7 +838,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int CONTAINS_COMPARTMENTS_VALUE = 29;
 
-/**
+	/**
 	 * The '<em><b>Compartment Types</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -781,7 +853,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENT_TYPES_VALUE = 30;
 
-/**
+	/**
 	 * The '<em><b>Compartment Structure</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -796,7 +868,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENT_STRUCTURE_VALUE = 31;
 
-/**
+	/**
 	 * The '<em><b>Compartment Properties</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -811,7 +883,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENT_PROPERTIES_VALUE = 32;
 
-/**
+	/**
 	 * The '<em><b>Compartment Inheritance</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -826,7 +898,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENT_INHERITANCE_VALUE = 33;
 
-/**
+	/**
 	 * The '<em><b>Compartment Behavior</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -841,7 +913,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int COMPARTMENT_BEHAVIOR_VALUE = 34;
 
-/**
+	/**
 	 * The '<em><b>Participants</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -856,7 +928,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 */
 	public static final int PARTICIPANTS_VALUE = 35;
 
-/**
+	/**
 	 * The '<em><b>Data Type Inheritance</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>

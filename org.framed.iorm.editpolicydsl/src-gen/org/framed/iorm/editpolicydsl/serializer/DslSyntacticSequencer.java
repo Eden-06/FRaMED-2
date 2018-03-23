@@ -101,8 +101,8 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryFeature
+	 *     (rule start) (ambiguity) 'IsFeature' '(' featureName=FeatureNameEnum
 	 *     (rule start) (ambiguity) 'false' (rule start)
-	 *     (rule start) (ambiguity) 'isFeature' featureName=FeatureNameEnum
 	 *     (rule start) (ambiguity) 'true' (rule start)
 	 *     (rule start) (ambiguity) {AndFeatureRule.rules+=}
 	 *     (rule start) (ambiguity) {OrFeatureRule.rules+=}

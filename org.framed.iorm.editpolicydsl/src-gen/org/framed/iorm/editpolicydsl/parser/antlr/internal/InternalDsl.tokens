@@ -26,6 +26,7 @@
 'Inter_Relationship_Constraints'=63
 'Intra_Relationship_Constraints'=64
 'Irreflexive'=50
+'IsFeature'=24
 'IsParent'=19
 'IsSource'=22
 'IsSourceType'=20
@@ -69,7 +70,6 @@
 'Start'=33
 'and'=28
 'false'=26
-'isFeature'=24
 'or'=27
 'override'=11
 'true'=25

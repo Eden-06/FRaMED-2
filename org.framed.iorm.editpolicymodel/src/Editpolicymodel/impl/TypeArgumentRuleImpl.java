@@ -4,8 +4,8 @@ package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.TypeArgumentRule;
-
 import Editpolicymodel.TypeEnum;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
