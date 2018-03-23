@@ -37,8 +37,7 @@ class DslGenerator extends AbstractGenerator {
 		
 		val outBuffer = new ByteArrayOutputStream
 		outResource.save(outBuffer, Collections.EMPTY_MAP)
-		fsa.generateFile(xmiUri.lastSegment, outBuffer.toString)	
-		
+		fsa.generateFile(xmiUri.lastSegment, outBuffer.toString)
 	}
 
 }

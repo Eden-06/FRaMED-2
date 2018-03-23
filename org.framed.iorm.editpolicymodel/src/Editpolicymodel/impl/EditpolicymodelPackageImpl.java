@@ -1106,6 +1106,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.START);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.RECONNECT);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.EXECUTE);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.DIRECT_EDIT);
 
 		initEEnum(typeEnumEEnum, TypeEnum.class, "TypeEnum");
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.ACYCLIC);
@@ -1125,6 +1126,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.FULFILLMENT);
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.DATA_TYPE);
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.CYCLIC);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.NATURAL_TYPE);
 
 		initEEnum(featureNameEnumEEnum, FeatureNameEnum.class, "FeatureNameEnum");
 		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLES);

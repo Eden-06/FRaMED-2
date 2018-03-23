@@ -1016,17 +1016,19 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRoleProhibitionLITERAL3Keyword_15_0 = (Keyword)cRoleProhibitionEnumLiteralDeclaration_15.eContents().get(0);
 		private final EnumLiteralDeclaration cIrreflexiveEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
 		private final Keyword cIrreflexiveIrreflexiveKeyword_16_0 = (Keyword)cIrreflexiveEnumLiteralDeclaration_16.eContents().get(0);
+		private final EnumLiteralDeclaration cNaturalTypeEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
+		private final Keyword cNaturalTypeNaturalTypeKeyword_17_0 = (Keyword)cNaturalTypeEnumLiteralDeclaration_17.eContents().get(0);
 		
 		//enum FeatureTypeEnum returns TypeEnum:
 		//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 		//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
 		//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
-		//	Irreflexive;
+		//	Irreflexive | NaturalType;
 		public EnumRule getRule() { return rule; }
 		
 		//Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance | Group | Reflexive | Relationship |
 		//RelationshipExclusion | RelationshipImplication | RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" |
-		//RoleProhibition="LITERAL3" | Irreflexive
+		//RoleProhibition="LITERAL3" | Irreflexive | NaturalType
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Acyclic
@@ -1130,6 +1132,12 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//"Irreflexive"
 		public Keyword getIrreflexiveIrreflexiveKeyword_16_0() { return cIrreflexiveIrreflexiveKeyword_16_0; }
+		
+		//NaturalType
+		public EnumLiteralDeclaration getNaturalTypeEnumLiteralDeclaration_17() { return cNaturalTypeEnumLiteralDeclaration_17; }
+		
+		//"NaturalType"
+		public Keyword getNaturalTypeNaturalTypeKeyword_17_0() { return cNaturalTypeNaturalTypeKeyword_17_0; }
 	}
 	public class FeatureNameEnumElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FeatureNameEnum");
@@ -1595,7 +1603,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 	//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
 	//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
-	//	Irreflexive;
+	//	Irreflexive | NaturalType;
 	public FeatureTypeEnumElements getFeatureTypeEnumAccess() {
 		return eFeatureTypeEnum;
 	}

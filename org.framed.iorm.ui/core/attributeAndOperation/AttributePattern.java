@@ -7,6 +7,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
+import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;
@@ -56,8 +57,12 @@ public class AttributePattern extends AttributeOperationCommonPattern implements
 						if(UIUtil.isShape_IdValue((Shape) pictogramElement, haaor.getShadowShapeID()))
 							isShadowShape = true;
 					}
-					if(!isShadowShape)
-						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
+					if(!isShadowShape) {
+						System.out.println("modelType: ");
+						System.out.println(shape.getType());
+						System.out.println(createContext.getPropertyKeys());
+						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, shape.getType());
+					}
 		}	}	}
 		return false;
 	}

@@ -72,56 +72,36 @@ public class EditPolicyHandler {
 	public boolean canCreate(ICreateConnectionContext context, Type type) 
 	{
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
 
 	public boolean canStart(ICreateConnectionContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.START, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
 
 	public boolean canExecute(ICustomContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.EXECUTE, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
 
 	public boolean canReconnect(IReconnectionContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.RECONNECT, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
 
 	public boolean canAdd(IAddConnectionContext context, Type type) { 
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;	
+		return this.checkConstraints(constraints, context);
 	}
 	
 	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
-		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
+		return this.checkConstraints(constraints, context);
+	}
+	
+	private boolean checkConstraints(List<ConstraintRule> constraints, Object context)
+	{
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
 		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
@@ -146,18 +126,13 @@ public class EditPolicyHandler {
 		return true;
 	}
 	
-	public boolean canCreate(ICreateContext context) {
-		// System.out.println("---can create check----");
-
-		/*
-		 * EditPolicyRuleVisitor editPolicyRuleVisitor = new
-		 * EditPolicyRuleVisitor(context, false); for (Policy policy :
-		 * getPolicies(diagram)) { if
-		 * (!editPolicyRuleVisitor.abstractRuleVisitor(policy.getRule())) {
-		 * System.out.println("Not Allowed because of: " + policy.getName()); return
-		 * false; } }
-		 */
-		// System.out.println("-------------------------------");
+	public boolean canCreate(ICreateContext context, Type type) {
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		for(ConstraintRule constraintRule: constraints) {
+			if(!constraintVisitor.checkRule(constraintRule))
+				return false;
+		}
 		return true;
 	}
 }

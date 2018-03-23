@@ -19,13 +19,13 @@ Policy returns Policy:
 	'}';
 	
 enum ActionEnum returns ActionEnum:
-	Add | Reconnect | Create | Start;
+	Add | Reconnect | Create | Start | Execute | Direct_Edit; 
 
 enum FeatureTypeEnum returns TypeEnum:
 	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance | 
 	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication | 
 	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition|
-	Irreflexive;
+	Irreflexive | NaturalType;
 
 enum FeatureNameEnum:
 	Compartment_Behavior | Compartment_Inheritance | Compartment_Properties | Compartment_Structure | 

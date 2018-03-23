@@ -1684,6 +1684,14 @@ ruleFeatureTypeEnum returns [Enumerator current=null]
 				newLeafNode(enumLiteral_16, grammarAccess.getFeatureTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16());
 			}
 		)
+		    |
+		(
+			enumLiteral_17='NaturalType'
+			{
+				$current = grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_17, grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17());
+			}
+		)
 	)
 ;
 

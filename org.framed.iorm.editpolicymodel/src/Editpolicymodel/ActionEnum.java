@@ -66,7 +66,15 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EXECUTE(4, "Execute", "Execute");
+	EXECUTE(4, "Execute", "Execute"), /**
+	 * The '<em><b>Direct Edit</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DIRECT_EDIT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DIRECT_EDIT(5, "Direct_Edit", "Direct_Edit");
 
 	/**
 	 * The '<em><b>Create</b></em>' literal value.
@@ -144,6 +152,21 @@ public enum ActionEnum implements Enumerator {
 	public static final int EXECUTE_VALUE = 4;
 
 	/**
+	 * The '<em><b>Direct Edit</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Direct Edit</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DIRECT_EDIT
+	 * @model name="Direct_Edit"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIRECT_EDIT_VALUE = 5;
+
+	/**
 	 * An array of all the '<em><b>Action Enum</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -156,6 +179,7 @@ public enum ActionEnum implements Enumerator {
 			START,
 			RECONNECT,
 			EXECUTE,
+			DIRECT_EDIT,
 		};
 
 	/**
@@ -217,6 +241,7 @@ public enum ActionEnum implements Enumerator {
 			case START_VALUE: return START;
 			case RECONNECT_VALUE: return RECONNECT;
 			case EXECUTE_VALUE: return EXECUTE;
+			case DIRECT_EDIT_VALUE: return DIRECT_EDIT;
 		}
 		return null;
 	}

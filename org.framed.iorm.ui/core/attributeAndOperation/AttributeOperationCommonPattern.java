@@ -18,7 +18,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
@@ -246,7 +245,7 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 			Shape shape = (Shape) editingContext.getPictogramElement();
 			if( (UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
 					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT)))
-				EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext);
+				EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, this.getModelType());
 		}		
 		return false;
 	}

@@ -25,7 +25,6 @@ public class FeatureRuleVisitor {
 	/**
 	 * current configuration of editor
 	 */
-	@SuppressWarnings("unused")
 	private FRaMEDConfiguration configuration;
 
 	public FeatureRuleVisitor(FRaMEDConfiguration framedConfiguration)

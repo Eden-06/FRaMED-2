@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'override'", "'{'", "'=>'", "'}'", "'Contains'", "'('", "')'", "'IsTargetType'", "'IsParent'", "'IsSourceType'", "'IsTarget'", "'IsSource'", "'IsStepIn'", "'IsFeature'", "'true'", "'false'", "'or'", "'and'", "'!'", "'Add'", "'Reconnect'", "'Create'", "'Start'", "'Acyclic'", "'CompartmentType'", "'Cyclic'", "'DataType'", "'Fulfillment'", "'Inheritance'", "'Group'", "'Reflexive'", "'Relationship'", "'RelationshipExclusion'", "'RelationshipImplication'", "'RoleType'", "'RoleEquivalence'", "'RoleGroup'", "'LITERAL4'", "'LITERAL3'", "'Irreflexive'", "'Compartment_Behavior'", "'LITERAL33'", "'Compartment_Properties'", "'Compartment_Structure'", "'Compartment_Types'", "'Contains_Compartments'", "'Compartments'", "'Data_Type_Inheritance'", "'Data_Types'", "'Dates'", "'Dependent'", "'Group_Constraints'", "'Inter_Relationship_Constraints'", "'Intra_Relationship_Constraints'", "'Naturals'", "'Occurrence_Constraints'", "'On_Compartments'", "'On_Relationships'", "'Parthood_Constraints'", "'Participants'", "'Playable'", "'Playable_by_Defining_Compartment'", "'Players'", "'Relationship_Cardinality'", "'Relationship_Constraints'", "'Relationships'", "'RML_Feature_Model'", "'Role_Behavior'", "'Role_Constraints'", "'Role_Equivalence'", "'Role_Implication'", "'Role_Inheritance'", "'Role_Prohibition'", "'Role_Properties'", "'LITERAL2'", "'Role_Types'", "'Roles'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'override'", "'{'", "'=>'", "'}'", "'Contains'", "'('", "')'", "'IsTargetType'", "'IsParent'", "'IsSourceType'", "'IsTarget'", "'IsSource'", "'IsStepIn'", "'IsFeature'", "'true'", "'false'", "'or'", "'and'", "'!'", "'Add'", "'Reconnect'", "'Create'", "'Start'", "'Acyclic'", "'CompartmentType'", "'Cyclic'", "'DataType'", "'Fulfillment'", "'Inheritance'", "'Group'", "'Reflexive'", "'Relationship'", "'RelationshipExclusion'", "'RelationshipImplication'", "'RoleType'", "'RoleEquivalence'", "'RoleGroup'", "'LITERAL4'", "'LITERAL3'", "'Irreflexive'", "'NaturalType'", "'Compartment_Behavior'", "'LITERAL33'", "'Compartment_Properties'", "'Compartment_Structure'", "'Compartment_Types'", "'Contains_Compartments'", "'Compartments'", "'Data_Type_Inheritance'", "'Data_Types'", "'Dates'", "'Dependent'", "'Group_Constraints'", "'Inter_Relationship_Constraints'", "'Intra_Relationship_Constraints'", "'Naturals'", "'Occurrence_Constraints'", "'On_Compartments'", "'On_Relationships'", "'Parthood_Constraints'", "'Participants'", "'Playable'", "'Playable_by_Defining_Compartment'", "'Players'", "'Relationship_Cardinality'", "'Relationship_Constraints'", "'Relationships'", "'RML_Feature_Model'", "'Role_Behavior'", "'Role_Constraints'", "'Role_Equivalence'", "'Role_Implication'", "'Role_Inheritance'", "'Role_Prohibition'", "'Role_Properties'", "'LITERAL2'", "'Role_Types'", "'Roles'"
     };
     public static final int T__50=50;
     public static final int T__19=19;
@@ -98,6 +98,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
+    public static final int T__88=88;
     public static final int T__45=45;
     public static final int T__46=46;
     public static final int T__47=47;
@@ -4155,7 +4156,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFeatureTypeEnum"
-    // InternalDsl.g:1544:1: ruleFeatureTypeEnum returns [Enumerator current=null] : ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) ) ;
+    // InternalDsl.g:1544:1: ruleFeatureTypeEnum returns [Enumerator current=null] : ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) | (enumLiteral_17= 'NaturalType' ) ) ;
     public final Enumerator ruleFeatureTypeEnum() throws RecognitionException {
         Enumerator current = null;
 
@@ -4176,16 +4177,17 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
         Token enumLiteral_14=null;
         Token enumLiteral_15=null;
         Token enumLiteral_16=null;
+        Token enumLiteral_17=null;
 
 
         	enterRule();
 
         try {
-            // InternalDsl.g:1550:2: ( ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) ) )
-            // InternalDsl.g:1551:2: ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) )
+            // InternalDsl.g:1550:2: ( ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) | (enumLiteral_17= 'NaturalType' ) ) )
+            // InternalDsl.g:1551:2: ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) | (enumLiteral_17= 'NaturalType' ) )
             {
-            // InternalDsl.g:1551:2: ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) )
-            int alt16=17;
+            // InternalDsl.g:1551:2: ( (enumLiteral_0= 'Acyclic' ) | (enumLiteral_1= 'CompartmentType' ) | (enumLiteral_2= 'Cyclic' ) | (enumLiteral_3= 'DataType' ) | (enumLiteral_4= 'Fulfillment' ) | (enumLiteral_5= 'Inheritance' ) | (enumLiteral_6= 'Group' ) | (enumLiteral_7= 'Reflexive' ) | (enumLiteral_8= 'Relationship' ) | (enumLiteral_9= 'RelationshipExclusion' ) | (enumLiteral_10= 'RelationshipImplication' ) | (enumLiteral_11= 'RoleType' ) | (enumLiteral_12= 'RoleEquivalence' ) | (enumLiteral_13= 'RoleGroup' ) | (enumLiteral_14= 'LITERAL4' ) | (enumLiteral_15= 'LITERAL3' ) | (enumLiteral_16= 'Irreflexive' ) | (enumLiteral_17= 'NaturalType' ) )
+            int alt16=18;
             switch ( input.LA(1) ) {
             case 34:
                 {
@@ -4270,6 +4272,11 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
             case 50:
                 {
                 alt16=17;
+                }
+                break;
+            case 51:
+                {
+                alt16=18;
                 }
                 break;
             default:
@@ -4569,6 +4576,23 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
+                case 18 :
+                    // InternalDsl.g:1688:3: (enumLiteral_17= 'NaturalType' )
+                    {
+                    // InternalDsl.g:1688:3: (enumLiteral_17= 'NaturalType' )
+                    // InternalDsl.g:1689:4: enumLiteral_17= 'NaturalType'
+                    {
+                    enumLiteral_17=(Token)match(input,51,FOLLOW_2); 
+
+                    				current = grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+                    				newLeafNode(enumLiteral_17, grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17());
+                    			
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
@@ -4592,7 +4616,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFeatureNameEnum"
-    // InternalDsl.g:1691:1: ruleFeatureNameEnum returns [Enumerator current=null] : ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) ) ;
+    // InternalDsl.g:1699:1: ruleFeatureNameEnum returns [Enumerator current=null] : ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) ) ;
     public final Enumerator ruleFeatureNameEnum() throws RecognitionException {
         Enumerator current = null;
 
@@ -4638,193 +4662,193 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalDsl.g:1697:2: ( ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) ) )
-            // InternalDsl.g:1698:2: ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) )
+            // InternalDsl.g:1705:2: ( ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) ) )
+            // InternalDsl.g:1706:2: ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) )
             {
-            // InternalDsl.g:1698:2: ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) )
+            // InternalDsl.g:1706:2: ( (enumLiteral_0= 'Compartment_Behavior' ) | (enumLiteral_1= 'LITERAL33' ) | (enumLiteral_2= 'Compartment_Properties' ) | (enumLiteral_3= 'Compartment_Structure' ) | (enumLiteral_4= 'Compartment_Types' ) | (enumLiteral_5= 'Contains_Compartments' ) | (enumLiteral_6= 'Compartments' ) | (enumLiteral_7= 'Data_Type_Inheritance' ) | (enumLiteral_8= 'Data_Types' ) | (enumLiteral_9= 'Dates' ) | (enumLiteral_10= 'Dependent' ) | (enumLiteral_11= 'Group_Constraints' ) | (enumLiteral_12= 'Inter_Relationship_Constraints' ) | (enumLiteral_13= 'Intra_Relationship_Constraints' ) | (enumLiteral_14= 'Naturals' ) | (enumLiteral_15= 'Occurrence_Constraints' ) | (enumLiteral_16= 'On_Compartments' ) | (enumLiteral_17= 'On_Relationships' ) | (enumLiteral_18= 'Parthood_Constraints' ) | (enumLiteral_19= 'Participants' ) | (enumLiteral_20= 'Playable' ) | (enumLiteral_21= 'Playable_by_Defining_Compartment' ) | (enumLiteral_22= 'Players' ) | (enumLiteral_23= 'Relationship_Cardinality' ) | (enumLiteral_24= 'Relationship_Constraints' ) | (enumLiteral_25= 'Relationships' ) | (enumLiteral_26= 'RML_Feature_Model' ) | (enumLiteral_27= 'Role_Behavior' ) | (enumLiteral_28= 'Role_Constraints' ) | (enumLiteral_29= 'Role_Equivalence' ) | (enumLiteral_30= 'Role_Implication' ) | (enumLiteral_31= 'Role_Inheritance' ) | (enumLiteral_32= 'Role_Prohibition' ) | (enumLiteral_33= 'Role_Properties' ) | (enumLiteral_34= 'LITERAL2' ) | (enumLiteral_35= 'Role_Types' ) | (enumLiteral_36= 'Roles' ) )
             int alt17=37;
             switch ( input.LA(1) ) {
-            case 51:
+            case 52:
                 {
                 alt17=1;
                 }
                 break;
-            case 52:
+            case 53:
                 {
                 alt17=2;
                 }
                 break;
-            case 53:
+            case 54:
                 {
                 alt17=3;
                 }
                 break;
-            case 54:
+            case 55:
                 {
                 alt17=4;
                 }
                 break;
-            case 55:
+            case 56:
                 {
                 alt17=5;
                 }
                 break;
-            case 56:
+            case 57:
                 {
                 alt17=6;
                 }
                 break;
-            case 57:
+            case 58:
                 {
                 alt17=7;
                 }
                 break;
-            case 58:
+            case 59:
                 {
                 alt17=8;
                 }
                 break;
-            case 59:
+            case 60:
                 {
                 alt17=9;
                 }
                 break;
-            case 60:
+            case 61:
                 {
                 alt17=10;
                 }
                 break;
-            case 61:
+            case 62:
                 {
                 alt17=11;
                 }
                 break;
-            case 62:
+            case 63:
                 {
                 alt17=12;
                 }
                 break;
-            case 63:
+            case 64:
                 {
                 alt17=13;
                 }
                 break;
-            case 64:
+            case 65:
                 {
                 alt17=14;
                 }
                 break;
-            case 65:
+            case 66:
                 {
                 alt17=15;
                 }
                 break;
-            case 66:
+            case 67:
                 {
                 alt17=16;
                 }
                 break;
-            case 67:
+            case 68:
                 {
                 alt17=17;
                 }
                 break;
-            case 68:
+            case 69:
                 {
                 alt17=18;
                 }
                 break;
-            case 69:
+            case 70:
                 {
                 alt17=19;
                 }
                 break;
-            case 70:
+            case 71:
                 {
                 alt17=20;
                 }
                 break;
-            case 71:
+            case 72:
                 {
                 alt17=21;
                 }
                 break;
-            case 72:
+            case 73:
                 {
                 alt17=22;
                 }
                 break;
-            case 73:
+            case 74:
                 {
                 alt17=23;
                 }
                 break;
-            case 74:
+            case 75:
                 {
                 alt17=24;
                 }
                 break;
-            case 75:
+            case 76:
                 {
                 alt17=25;
                 }
                 break;
-            case 76:
+            case 77:
                 {
                 alt17=26;
                 }
                 break;
-            case 77:
+            case 78:
                 {
                 alt17=27;
                 }
                 break;
-            case 78:
+            case 79:
                 {
                 alt17=28;
                 }
                 break;
-            case 79:
+            case 80:
                 {
                 alt17=29;
                 }
                 break;
-            case 80:
+            case 81:
                 {
                 alt17=30;
                 }
                 break;
-            case 81:
+            case 82:
                 {
                 alt17=31;
                 }
                 break;
-            case 82:
+            case 83:
                 {
                 alt17=32;
                 }
                 break;
-            case 83:
+            case 84:
                 {
                 alt17=33;
                 }
                 break;
-            case 84:
+            case 85:
                 {
                 alt17=34;
                 }
                 break;
-            case 85:
+            case 86:
                 {
                 alt17=35;
                 }
                 break;
-            case 86:
+            case 87:
                 {
                 alt17=36;
                 }
                 break;
-            case 87:
+            case 88:
                 {
                 alt17=37;
                 }
@@ -4838,12 +4862,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
 
             switch (alt17) {
                 case 1 :
-                    // InternalDsl.g:1699:3: (enumLiteral_0= 'Compartment_Behavior' )
+                    // InternalDsl.g:1707:3: (enumLiteral_0= 'Compartment_Behavior' )
                     {
-                    // InternalDsl.g:1699:3: (enumLiteral_0= 'Compartment_Behavior' )
-                    // InternalDsl.g:1700:4: enumLiteral_0= 'Compartment_Behavior'
+                    // InternalDsl.g:1707:3: (enumLiteral_0= 'Compartment_Behavior' )
+                    // InternalDsl.g:1708:4: enumLiteral_0= 'Compartment_Behavior'
                     {
-                    enumLiteral_0=(Token)match(input,51,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,52,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartment_BehaviorEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getFeatureNameEnumAccess().getCompartment_BehaviorEnumLiteralDeclaration_0());
@@ -4855,12 +4879,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDsl.g:1707:3: (enumLiteral_1= 'LITERAL33' )
+                    // InternalDsl.g:1715:3: (enumLiteral_1= 'LITERAL33' )
                     {
-                    // InternalDsl.g:1707:3: (enumLiteral_1= 'LITERAL33' )
-                    // InternalDsl.g:1708:4: enumLiteral_1= 'LITERAL33'
+                    // InternalDsl.g:1715:3: (enumLiteral_1= 'LITERAL33' )
+                    // InternalDsl.g:1716:4: enumLiteral_1= 'LITERAL33'
                     {
-                    enumLiteral_1=(Token)match(input,52,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,53,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1());
@@ -4872,12 +4896,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDsl.g:1715:3: (enumLiteral_2= 'Compartment_Properties' )
+                    // InternalDsl.g:1723:3: (enumLiteral_2= 'Compartment_Properties' )
                     {
-                    // InternalDsl.g:1715:3: (enumLiteral_2= 'Compartment_Properties' )
-                    // InternalDsl.g:1716:4: enumLiteral_2= 'Compartment_Properties'
+                    // InternalDsl.g:1723:3: (enumLiteral_2= 'Compartment_Properties' )
+                    // InternalDsl.g:1724:4: enumLiteral_2= 'Compartment_Properties'
                     {
-                    enumLiteral_2=(Token)match(input,53,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,54,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartment_PropertiesEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getFeatureNameEnumAccess().getCompartment_PropertiesEnumLiteralDeclaration_2());
@@ -4889,12 +4913,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalDsl.g:1723:3: (enumLiteral_3= 'Compartment_Structure' )
+                    // InternalDsl.g:1731:3: (enumLiteral_3= 'Compartment_Structure' )
                     {
-                    // InternalDsl.g:1723:3: (enumLiteral_3= 'Compartment_Structure' )
-                    // InternalDsl.g:1724:4: enumLiteral_3= 'Compartment_Structure'
+                    // InternalDsl.g:1731:3: (enumLiteral_3= 'Compartment_Structure' )
+                    // InternalDsl.g:1732:4: enumLiteral_3= 'Compartment_Structure'
                     {
-                    enumLiteral_3=(Token)match(input,54,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,55,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartment_StructureEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getFeatureNameEnumAccess().getCompartment_StructureEnumLiteralDeclaration_3());
@@ -4906,12 +4930,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalDsl.g:1731:3: (enumLiteral_4= 'Compartment_Types' )
+                    // InternalDsl.g:1739:3: (enumLiteral_4= 'Compartment_Types' )
                     {
-                    // InternalDsl.g:1731:3: (enumLiteral_4= 'Compartment_Types' )
-                    // InternalDsl.g:1732:4: enumLiteral_4= 'Compartment_Types'
+                    // InternalDsl.g:1739:3: (enumLiteral_4= 'Compartment_Types' )
+                    // InternalDsl.g:1740:4: enumLiteral_4= 'Compartment_Types'
                     {
-                    enumLiteral_4=(Token)match(input,55,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,56,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartment_TypesEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getFeatureNameEnumAccess().getCompartment_TypesEnumLiteralDeclaration_4());
@@ -4923,12 +4947,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalDsl.g:1739:3: (enumLiteral_5= 'Contains_Compartments' )
+                    // InternalDsl.g:1747:3: (enumLiteral_5= 'Contains_Compartments' )
                     {
-                    // InternalDsl.g:1739:3: (enumLiteral_5= 'Contains_Compartments' )
-                    // InternalDsl.g:1740:4: enumLiteral_5= 'Contains_Compartments'
+                    // InternalDsl.g:1747:3: (enumLiteral_5= 'Contains_Compartments' )
+                    // InternalDsl.g:1748:4: enumLiteral_5= 'Contains_Compartments'
                     {
-                    enumLiteral_5=(Token)match(input,56,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,57,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getContains_CompartmentsEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getFeatureNameEnumAccess().getContains_CompartmentsEnumLiteralDeclaration_5());
@@ -4940,12 +4964,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalDsl.g:1747:3: (enumLiteral_6= 'Compartments' )
+                    // InternalDsl.g:1755:3: (enumLiteral_6= 'Compartments' )
                     {
-                    // InternalDsl.g:1747:3: (enumLiteral_6= 'Compartments' )
-                    // InternalDsl.g:1748:4: enumLiteral_6= 'Compartments'
+                    // InternalDsl.g:1755:3: (enumLiteral_6= 'Compartments' )
+                    // InternalDsl.g:1756:4: enumLiteral_6= 'Compartments'
                     {
-                    enumLiteral_6=(Token)match(input,57,FOLLOW_2); 
+                    enumLiteral_6=(Token)match(input,58,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getCompartmentsEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_6, grammarAccess.getFeatureNameEnumAccess().getCompartmentsEnumLiteralDeclaration_6());
@@ -4957,12 +4981,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // InternalDsl.g:1755:3: (enumLiteral_7= 'Data_Type_Inheritance' )
+                    // InternalDsl.g:1763:3: (enumLiteral_7= 'Data_Type_Inheritance' )
                     {
-                    // InternalDsl.g:1755:3: (enumLiteral_7= 'Data_Type_Inheritance' )
-                    // InternalDsl.g:1756:4: enumLiteral_7= 'Data_Type_Inheritance'
+                    // InternalDsl.g:1763:3: (enumLiteral_7= 'Data_Type_Inheritance' )
+                    // InternalDsl.g:1764:4: enumLiteral_7= 'Data_Type_Inheritance'
                     {
-                    enumLiteral_7=(Token)match(input,58,FOLLOW_2); 
+                    enumLiteral_7=(Token)match(input,59,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getData_Type_InheritanceEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_7, grammarAccess.getFeatureNameEnumAccess().getData_Type_InheritanceEnumLiteralDeclaration_7());
@@ -4974,12 +4998,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // InternalDsl.g:1763:3: (enumLiteral_8= 'Data_Types' )
+                    // InternalDsl.g:1771:3: (enumLiteral_8= 'Data_Types' )
                     {
-                    // InternalDsl.g:1763:3: (enumLiteral_8= 'Data_Types' )
-                    // InternalDsl.g:1764:4: enumLiteral_8= 'Data_Types'
+                    // InternalDsl.g:1771:3: (enumLiteral_8= 'Data_Types' )
+                    // InternalDsl.g:1772:4: enumLiteral_8= 'Data_Types'
                     {
-                    enumLiteral_8=(Token)match(input,59,FOLLOW_2); 
+                    enumLiteral_8=(Token)match(input,60,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getData_TypesEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_8, grammarAccess.getFeatureNameEnumAccess().getData_TypesEnumLiteralDeclaration_8());
@@ -4991,12 +5015,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-                    // InternalDsl.g:1771:3: (enumLiteral_9= 'Dates' )
+                    // InternalDsl.g:1779:3: (enumLiteral_9= 'Dates' )
                     {
-                    // InternalDsl.g:1771:3: (enumLiteral_9= 'Dates' )
-                    // InternalDsl.g:1772:4: enumLiteral_9= 'Dates'
+                    // InternalDsl.g:1779:3: (enumLiteral_9= 'Dates' )
+                    // InternalDsl.g:1780:4: enumLiteral_9= 'Dates'
                     {
-                    enumLiteral_9=(Token)match(input,60,FOLLOW_2); 
+                    enumLiteral_9=(Token)match(input,61,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getDatesEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_9, grammarAccess.getFeatureNameEnumAccess().getDatesEnumLiteralDeclaration_9());
@@ -5008,12 +5032,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 11 :
-                    // InternalDsl.g:1779:3: (enumLiteral_10= 'Dependent' )
+                    // InternalDsl.g:1787:3: (enumLiteral_10= 'Dependent' )
                     {
-                    // InternalDsl.g:1779:3: (enumLiteral_10= 'Dependent' )
-                    // InternalDsl.g:1780:4: enumLiteral_10= 'Dependent'
+                    // InternalDsl.g:1787:3: (enumLiteral_10= 'Dependent' )
+                    // InternalDsl.g:1788:4: enumLiteral_10= 'Dependent'
                     {
-                    enumLiteral_10=(Token)match(input,61,FOLLOW_2); 
+                    enumLiteral_10=(Token)match(input,62,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getDependentEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_10, grammarAccess.getFeatureNameEnumAccess().getDependentEnumLiteralDeclaration_10());
@@ -5025,12 +5049,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 12 :
-                    // InternalDsl.g:1787:3: (enumLiteral_11= 'Group_Constraints' )
+                    // InternalDsl.g:1795:3: (enumLiteral_11= 'Group_Constraints' )
                     {
-                    // InternalDsl.g:1787:3: (enumLiteral_11= 'Group_Constraints' )
-                    // InternalDsl.g:1788:4: enumLiteral_11= 'Group_Constraints'
+                    // InternalDsl.g:1795:3: (enumLiteral_11= 'Group_Constraints' )
+                    // InternalDsl.g:1796:4: enumLiteral_11= 'Group_Constraints'
                     {
-                    enumLiteral_11=(Token)match(input,62,FOLLOW_2); 
+                    enumLiteral_11=(Token)match(input,63,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getGroup_ConstraintsEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_11, grammarAccess.getFeatureNameEnumAccess().getGroup_ConstraintsEnumLiteralDeclaration_11());
@@ -5042,12 +5066,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 13 :
-                    // InternalDsl.g:1795:3: (enumLiteral_12= 'Inter_Relationship_Constraints' )
+                    // InternalDsl.g:1803:3: (enumLiteral_12= 'Inter_Relationship_Constraints' )
                     {
-                    // InternalDsl.g:1795:3: (enumLiteral_12= 'Inter_Relationship_Constraints' )
-                    // InternalDsl.g:1796:4: enumLiteral_12= 'Inter_Relationship_Constraints'
+                    // InternalDsl.g:1803:3: (enumLiteral_12= 'Inter_Relationship_Constraints' )
+                    // InternalDsl.g:1804:4: enumLiteral_12= 'Inter_Relationship_Constraints'
                     {
-                    enumLiteral_12=(Token)match(input,63,FOLLOW_2); 
+                    enumLiteral_12=(Token)match(input,64,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getInter_Relationship_ConstraintsEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_12, grammarAccess.getFeatureNameEnumAccess().getInter_Relationship_ConstraintsEnumLiteralDeclaration_12());
@@ -5059,12 +5083,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 14 :
-                    // InternalDsl.g:1803:3: (enumLiteral_13= 'Intra_Relationship_Constraints' )
+                    // InternalDsl.g:1811:3: (enumLiteral_13= 'Intra_Relationship_Constraints' )
                     {
-                    // InternalDsl.g:1803:3: (enumLiteral_13= 'Intra_Relationship_Constraints' )
-                    // InternalDsl.g:1804:4: enumLiteral_13= 'Intra_Relationship_Constraints'
+                    // InternalDsl.g:1811:3: (enumLiteral_13= 'Intra_Relationship_Constraints' )
+                    // InternalDsl.g:1812:4: enumLiteral_13= 'Intra_Relationship_Constraints'
                     {
-                    enumLiteral_13=(Token)match(input,64,FOLLOW_2); 
+                    enumLiteral_13=(Token)match(input,65,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getIntra_Relationship_ConstraintsEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_13, grammarAccess.getFeatureNameEnumAccess().getIntra_Relationship_ConstraintsEnumLiteralDeclaration_13());
@@ -5076,12 +5100,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 15 :
-                    // InternalDsl.g:1811:3: (enumLiteral_14= 'Naturals' )
+                    // InternalDsl.g:1819:3: (enumLiteral_14= 'Naturals' )
                     {
-                    // InternalDsl.g:1811:3: (enumLiteral_14= 'Naturals' )
-                    // InternalDsl.g:1812:4: enumLiteral_14= 'Naturals'
+                    // InternalDsl.g:1819:3: (enumLiteral_14= 'Naturals' )
+                    // InternalDsl.g:1820:4: enumLiteral_14= 'Naturals'
                     {
-                    enumLiteral_14=(Token)match(input,65,FOLLOW_2); 
+                    enumLiteral_14=(Token)match(input,66,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getNaturalsEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_14, grammarAccess.getFeatureNameEnumAccess().getNaturalsEnumLiteralDeclaration_14());
@@ -5093,12 +5117,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 16 :
-                    // InternalDsl.g:1819:3: (enumLiteral_15= 'Occurrence_Constraints' )
+                    // InternalDsl.g:1827:3: (enumLiteral_15= 'Occurrence_Constraints' )
                     {
-                    // InternalDsl.g:1819:3: (enumLiteral_15= 'Occurrence_Constraints' )
-                    // InternalDsl.g:1820:4: enumLiteral_15= 'Occurrence_Constraints'
+                    // InternalDsl.g:1827:3: (enumLiteral_15= 'Occurrence_Constraints' )
+                    // InternalDsl.g:1828:4: enumLiteral_15= 'Occurrence_Constraints'
                     {
-                    enumLiteral_15=(Token)match(input,66,FOLLOW_2); 
+                    enumLiteral_15=(Token)match(input,67,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getOccurrence_ConstraintsEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_15, grammarAccess.getFeatureNameEnumAccess().getOccurrence_ConstraintsEnumLiteralDeclaration_15());
@@ -5110,12 +5134,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 17 :
-                    // InternalDsl.g:1827:3: (enumLiteral_16= 'On_Compartments' )
+                    // InternalDsl.g:1835:3: (enumLiteral_16= 'On_Compartments' )
                     {
-                    // InternalDsl.g:1827:3: (enumLiteral_16= 'On_Compartments' )
-                    // InternalDsl.g:1828:4: enumLiteral_16= 'On_Compartments'
+                    // InternalDsl.g:1835:3: (enumLiteral_16= 'On_Compartments' )
+                    // InternalDsl.g:1836:4: enumLiteral_16= 'On_Compartments'
                     {
-                    enumLiteral_16=(Token)match(input,67,FOLLOW_2); 
+                    enumLiteral_16=(Token)match(input,68,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getOn_CompartmentsEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_16, grammarAccess.getFeatureNameEnumAccess().getOn_CompartmentsEnumLiteralDeclaration_16());
@@ -5127,12 +5151,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 18 :
-                    // InternalDsl.g:1835:3: (enumLiteral_17= 'On_Relationships' )
+                    // InternalDsl.g:1843:3: (enumLiteral_17= 'On_Relationships' )
                     {
-                    // InternalDsl.g:1835:3: (enumLiteral_17= 'On_Relationships' )
-                    // InternalDsl.g:1836:4: enumLiteral_17= 'On_Relationships'
+                    // InternalDsl.g:1843:3: (enumLiteral_17= 'On_Relationships' )
+                    // InternalDsl.g:1844:4: enumLiteral_17= 'On_Relationships'
                     {
-                    enumLiteral_17=(Token)match(input,68,FOLLOW_2); 
+                    enumLiteral_17=(Token)match(input,69,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getOn_RelationshipsEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_17, grammarAccess.getFeatureNameEnumAccess().getOn_RelationshipsEnumLiteralDeclaration_17());
@@ -5144,12 +5168,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 19 :
-                    // InternalDsl.g:1843:3: (enumLiteral_18= 'Parthood_Constraints' )
+                    // InternalDsl.g:1851:3: (enumLiteral_18= 'Parthood_Constraints' )
                     {
-                    // InternalDsl.g:1843:3: (enumLiteral_18= 'Parthood_Constraints' )
-                    // InternalDsl.g:1844:4: enumLiteral_18= 'Parthood_Constraints'
+                    // InternalDsl.g:1851:3: (enumLiteral_18= 'Parthood_Constraints' )
+                    // InternalDsl.g:1852:4: enumLiteral_18= 'Parthood_Constraints'
                     {
-                    enumLiteral_18=(Token)match(input,69,FOLLOW_2); 
+                    enumLiteral_18=(Token)match(input,70,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getParthood_ConstraintsEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_18, grammarAccess.getFeatureNameEnumAccess().getParthood_ConstraintsEnumLiteralDeclaration_18());
@@ -5161,12 +5185,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 20 :
-                    // InternalDsl.g:1851:3: (enumLiteral_19= 'Participants' )
+                    // InternalDsl.g:1859:3: (enumLiteral_19= 'Participants' )
                     {
-                    // InternalDsl.g:1851:3: (enumLiteral_19= 'Participants' )
-                    // InternalDsl.g:1852:4: enumLiteral_19= 'Participants'
+                    // InternalDsl.g:1859:3: (enumLiteral_19= 'Participants' )
+                    // InternalDsl.g:1860:4: enumLiteral_19= 'Participants'
                     {
-                    enumLiteral_19=(Token)match(input,70,FOLLOW_2); 
+                    enumLiteral_19=(Token)match(input,71,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getParticipantsEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_19, grammarAccess.getFeatureNameEnumAccess().getParticipantsEnumLiteralDeclaration_19());
@@ -5178,12 +5202,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 21 :
-                    // InternalDsl.g:1859:3: (enumLiteral_20= 'Playable' )
+                    // InternalDsl.g:1867:3: (enumLiteral_20= 'Playable' )
                     {
-                    // InternalDsl.g:1859:3: (enumLiteral_20= 'Playable' )
-                    // InternalDsl.g:1860:4: enumLiteral_20= 'Playable'
+                    // InternalDsl.g:1867:3: (enumLiteral_20= 'Playable' )
+                    // InternalDsl.g:1868:4: enumLiteral_20= 'Playable'
                     {
-                    enumLiteral_20=(Token)match(input,71,FOLLOW_2); 
+                    enumLiteral_20=(Token)match(input,72,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getPlayableEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_20, grammarAccess.getFeatureNameEnumAccess().getPlayableEnumLiteralDeclaration_20());
@@ -5195,12 +5219,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 22 :
-                    // InternalDsl.g:1867:3: (enumLiteral_21= 'Playable_by_Defining_Compartment' )
+                    // InternalDsl.g:1875:3: (enumLiteral_21= 'Playable_by_Defining_Compartment' )
                     {
-                    // InternalDsl.g:1867:3: (enumLiteral_21= 'Playable_by_Defining_Compartment' )
-                    // InternalDsl.g:1868:4: enumLiteral_21= 'Playable_by_Defining_Compartment'
+                    // InternalDsl.g:1875:3: (enumLiteral_21= 'Playable_by_Defining_Compartment' )
+                    // InternalDsl.g:1876:4: enumLiteral_21= 'Playable_by_Defining_Compartment'
                     {
-                    enumLiteral_21=(Token)match(input,72,FOLLOW_2); 
+                    enumLiteral_21=(Token)match(input,73,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_21, grammarAccess.getFeatureNameEnumAccess().getPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21());
@@ -5212,12 +5236,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 23 :
-                    // InternalDsl.g:1875:3: (enumLiteral_22= 'Players' )
+                    // InternalDsl.g:1883:3: (enumLiteral_22= 'Players' )
                     {
-                    // InternalDsl.g:1875:3: (enumLiteral_22= 'Players' )
-                    // InternalDsl.g:1876:4: enumLiteral_22= 'Players'
+                    // InternalDsl.g:1883:3: (enumLiteral_22= 'Players' )
+                    // InternalDsl.g:1884:4: enumLiteral_22= 'Players'
                     {
-                    enumLiteral_22=(Token)match(input,73,FOLLOW_2); 
+                    enumLiteral_22=(Token)match(input,74,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getPlayersEnumLiteralDeclaration_22().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_22, grammarAccess.getFeatureNameEnumAccess().getPlayersEnumLiteralDeclaration_22());
@@ -5229,12 +5253,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 24 :
-                    // InternalDsl.g:1883:3: (enumLiteral_23= 'Relationship_Cardinality' )
+                    // InternalDsl.g:1891:3: (enumLiteral_23= 'Relationship_Cardinality' )
                     {
-                    // InternalDsl.g:1883:3: (enumLiteral_23= 'Relationship_Cardinality' )
-                    // InternalDsl.g:1884:4: enumLiteral_23= 'Relationship_Cardinality'
+                    // InternalDsl.g:1891:3: (enumLiteral_23= 'Relationship_Cardinality' )
+                    // InternalDsl.g:1892:4: enumLiteral_23= 'Relationship_Cardinality'
                     {
-                    enumLiteral_23=(Token)match(input,74,FOLLOW_2); 
+                    enumLiteral_23=(Token)match(input,75,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRelationship_CardinalityEnumLiteralDeclaration_23().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_23, grammarAccess.getFeatureNameEnumAccess().getRelationship_CardinalityEnumLiteralDeclaration_23());
@@ -5246,12 +5270,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 25 :
-                    // InternalDsl.g:1891:3: (enumLiteral_24= 'Relationship_Constraints' )
+                    // InternalDsl.g:1899:3: (enumLiteral_24= 'Relationship_Constraints' )
                     {
-                    // InternalDsl.g:1891:3: (enumLiteral_24= 'Relationship_Constraints' )
-                    // InternalDsl.g:1892:4: enumLiteral_24= 'Relationship_Constraints'
+                    // InternalDsl.g:1899:3: (enumLiteral_24= 'Relationship_Constraints' )
+                    // InternalDsl.g:1900:4: enumLiteral_24= 'Relationship_Constraints'
                     {
-                    enumLiteral_24=(Token)match(input,75,FOLLOW_2); 
+                    enumLiteral_24=(Token)match(input,76,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRelationship_ConstraintsEnumLiteralDeclaration_24().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_24, grammarAccess.getFeatureNameEnumAccess().getRelationship_ConstraintsEnumLiteralDeclaration_24());
@@ -5263,12 +5287,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 26 :
-                    // InternalDsl.g:1899:3: (enumLiteral_25= 'Relationships' )
+                    // InternalDsl.g:1907:3: (enumLiteral_25= 'Relationships' )
                     {
-                    // InternalDsl.g:1899:3: (enumLiteral_25= 'Relationships' )
-                    // InternalDsl.g:1900:4: enumLiteral_25= 'Relationships'
+                    // InternalDsl.g:1907:3: (enumLiteral_25= 'Relationships' )
+                    // InternalDsl.g:1908:4: enumLiteral_25= 'Relationships'
                     {
-                    enumLiteral_25=(Token)match(input,76,FOLLOW_2); 
+                    enumLiteral_25=(Token)match(input,77,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRelationshipsEnumLiteralDeclaration_25().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_25, grammarAccess.getFeatureNameEnumAccess().getRelationshipsEnumLiteralDeclaration_25());
@@ -5280,12 +5304,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 27 :
-                    // InternalDsl.g:1907:3: (enumLiteral_26= 'RML_Feature_Model' )
+                    // InternalDsl.g:1915:3: (enumLiteral_26= 'RML_Feature_Model' )
                     {
-                    // InternalDsl.g:1907:3: (enumLiteral_26= 'RML_Feature_Model' )
-                    // InternalDsl.g:1908:4: enumLiteral_26= 'RML_Feature_Model'
+                    // InternalDsl.g:1915:3: (enumLiteral_26= 'RML_Feature_Model' )
+                    // InternalDsl.g:1916:4: enumLiteral_26= 'RML_Feature_Model'
                     {
-                    enumLiteral_26=(Token)match(input,77,FOLLOW_2); 
+                    enumLiteral_26=(Token)match(input,78,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRML_Feature_ModelEnumLiteralDeclaration_26().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_26, grammarAccess.getFeatureNameEnumAccess().getRML_Feature_ModelEnumLiteralDeclaration_26());
@@ -5297,12 +5321,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 28 :
-                    // InternalDsl.g:1915:3: (enumLiteral_27= 'Role_Behavior' )
+                    // InternalDsl.g:1923:3: (enumLiteral_27= 'Role_Behavior' )
                     {
-                    // InternalDsl.g:1915:3: (enumLiteral_27= 'Role_Behavior' )
-                    // InternalDsl.g:1916:4: enumLiteral_27= 'Role_Behavior'
+                    // InternalDsl.g:1923:3: (enumLiteral_27= 'Role_Behavior' )
+                    // InternalDsl.g:1924:4: enumLiteral_27= 'Role_Behavior'
                     {
-                    enumLiteral_27=(Token)match(input,78,FOLLOW_2); 
+                    enumLiteral_27=(Token)match(input,79,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_BehaviorEnumLiteralDeclaration_27().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_27, grammarAccess.getFeatureNameEnumAccess().getRole_BehaviorEnumLiteralDeclaration_27());
@@ -5314,12 +5338,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 29 :
-                    // InternalDsl.g:1923:3: (enumLiteral_28= 'Role_Constraints' )
+                    // InternalDsl.g:1931:3: (enumLiteral_28= 'Role_Constraints' )
                     {
-                    // InternalDsl.g:1923:3: (enumLiteral_28= 'Role_Constraints' )
-                    // InternalDsl.g:1924:4: enumLiteral_28= 'Role_Constraints'
+                    // InternalDsl.g:1931:3: (enumLiteral_28= 'Role_Constraints' )
+                    // InternalDsl.g:1932:4: enumLiteral_28= 'Role_Constraints'
                     {
-                    enumLiteral_28=(Token)match(input,79,FOLLOW_2); 
+                    enumLiteral_28=(Token)match(input,80,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_ConstraintsEnumLiteralDeclaration_28().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_28, grammarAccess.getFeatureNameEnumAccess().getRole_ConstraintsEnumLiteralDeclaration_28());
@@ -5331,12 +5355,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 30 :
-                    // InternalDsl.g:1931:3: (enumLiteral_29= 'Role_Equivalence' )
+                    // InternalDsl.g:1939:3: (enumLiteral_29= 'Role_Equivalence' )
                     {
-                    // InternalDsl.g:1931:3: (enumLiteral_29= 'Role_Equivalence' )
-                    // InternalDsl.g:1932:4: enumLiteral_29= 'Role_Equivalence'
+                    // InternalDsl.g:1939:3: (enumLiteral_29= 'Role_Equivalence' )
+                    // InternalDsl.g:1940:4: enumLiteral_29= 'Role_Equivalence'
                     {
-                    enumLiteral_29=(Token)match(input,80,FOLLOW_2); 
+                    enumLiteral_29=(Token)match(input,81,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_EquivalenceEnumLiteralDeclaration_29().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_29, grammarAccess.getFeatureNameEnumAccess().getRole_EquivalenceEnumLiteralDeclaration_29());
@@ -5348,12 +5372,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 31 :
-                    // InternalDsl.g:1939:3: (enumLiteral_30= 'Role_Implication' )
+                    // InternalDsl.g:1947:3: (enumLiteral_30= 'Role_Implication' )
                     {
-                    // InternalDsl.g:1939:3: (enumLiteral_30= 'Role_Implication' )
-                    // InternalDsl.g:1940:4: enumLiteral_30= 'Role_Implication'
+                    // InternalDsl.g:1947:3: (enumLiteral_30= 'Role_Implication' )
+                    // InternalDsl.g:1948:4: enumLiteral_30= 'Role_Implication'
                     {
-                    enumLiteral_30=(Token)match(input,81,FOLLOW_2); 
+                    enumLiteral_30=(Token)match(input,82,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_ImplicationEnumLiteralDeclaration_30().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_30, grammarAccess.getFeatureNameEnumAccess().getRole_ImplicationEnumLiteralDeclaration_30());
@@ -5365,12 +5389,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 32 :
-                    // InternalDsl.g:1947:3: (enumLiteral_31= 'Role_Inheritance' )
+                    // InternalDsl.g:1955:3: (enumLiteral_31= 'Role_Inheritance' )
                     {
-                    // InternalDsl.g:1947:3: (enumLiteral_31= 'Role_Inheritance' )
-                    // InternalDsl.g:1948:4: enumLiteral_31= 'Role_Inheritance'
+                    // InternalDsl.g:1955:3: (enumLiteral_31= 'Role_Inheritance' )
+                    // InternalDsl.g:1956:4: enumLiteral_31= 'Role_Inheritance'
                     {
-                    enumLiteral_31=(Token)match(input,82,FOLLOW_2); 
+                    enumLiteral_31=(Token)match(input,83,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_InheritanceEnumLiteralDeclaration_31().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_31, grammarAccess.getFeatureNameEnumAccess().getRole_InheritanceEnumLiteralDeclaration_31());
@@ -5382,12 +5406,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 33 :
-                    // InternalDsl.g:1955:3: (enumLiteral_32= 'Role_Prohibition' )
+                    // InternalDsl.g:1963:3: (enumLiteral_32= 'Role_Prohibition' )
                     {
-                    // InternalDsl.g:1955:3: (enumLiteral_32= 'Role_Prohibition' )
-                    // InternalDsl.g:1956:4: enumLiteral_32= 'Role_Prohibition'
+                    // InternalDsl.g:1963:3: (enumLiteral_32= 'Role_Prohibition' )
+                    // InternalDsl.g:1964:4: enumLiteral_32= 'Role_Prohibition'
                     {
-                    enumLiteral_32=(Token)match(input,83,FOLLOW_2); 
+                    enumLiteral_32=(Token)match(input,84,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_ProhibitionEnumLiteralDeclaration_32().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_32, grammarAccess.getFeatureNameEnumAccess().getRole_ProhibitionEnumLiteralDeclaration_32());
@@ -5399,12 +5423,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 34 :
-                    // InternalDsl.g:1963:3: (enumLiteral_33= 'Role_Properties' )
+                    // InternalDsl.g:1971:3: (enumLiteral_33= 'Role_Properties' )
                     {
-                    // InternalDsl.g:1963:3: (enumLiteral_33= 'Role_Properties' )
-                    // InternalDsl.g:1964:4: enumLiteral_33= 'Role_Properties'
+                    // InternalDsl.g:1971:3: (enumLiteral_33= 'Role_Properties' )
+                    // InternalDsl.g:1972:4: enumLiteral_33= 'Role_Properties'
                     {
-                    enumLiteral_33=(Token)match(input,84,FOLLOW_2); 
+                    enumLiteral_33=(Token)match(input,85,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_PropertiesEnumLiteralDeclaration_33().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_33, grammarAccess.getFeatureNameEnumAccess().getRole_PropertiesEnumLiteralDeclaration_33());
@@ -5416,12 +5440,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 35 :
-                    // InternalDsl.g:1971:3: (enumLiteral_34= 'LITERAL2' )
+                    // InternalDsl.g:1979:3: (enumLiteral_34= 'LITERAL2' )
                     {
-                    // InternalDsl.g:1971:3: (enumLiteral_34= 'LITERAL2' )
-                    // InternalDsl.g:1972:4: enumLiteral_34= 'LITERAL2'
+                    // InternalDsl.g:1979:3: (enumLiteral_34= 'LITERAL2' )
+                    // InternalDsl.g:1980:4: enumLiteral_34= 'LITERAL2'
                     {
-                    enumLiteral_34=(Token)match(input,85,FOLLOW_2); 
+                    enumLiteral_34=(Token)match(input,86,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_34, grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34());
@@ -5433,12 +5457,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 36 :
-                    // InternalDsl.g:1979:3: (enumLiteral_35= 'Role_Types' )
+                    // InternalDsl.g:1987:3: (enumLiteral_35= 'Role_Types' )
                     {
-                    // InternalDsl.g:1979:3: (enumLiteral_35= 'Role_Types' )
-                    // InternalDsl.g:1980:4: enumLiteral_35= 'Role_Types'
+                    // InternalDsl.g:1987:3: (enumLiteral_35= 'Role_Types' )
+                    // InternalDsl.g:1988:4: enumLiteral_35= 'Role_Types'
                     {
-                    enumLiteral_35=(Token)match(input,86,FOLLOW_2); 
+                    enumLiteral_35=(Token)match(input,87,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRole_TypesEnumLiteralDeclaration_35().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_35, grammarAccess.getFeatureNameEnumAccess().getRole_TypesEnumLiteralDeclaration_35());
@@ -5450,12 +5474,12 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 37 :
-                    // InternalDsl.g:1987:3: (enumLiteral_36= 'Roles' )
+                    // InternalDsl.g:1995:3: (enumLiteral_36= 'Roles' )
                     {
-                    // InternalDsl.g:1987:3: (enumLiteral_36= 'Roles' )
-                    // InternalDsl.g:1988:4: enumLiteral_36= 'Roles'
+                    // InternalDsl.g:1995:3: (enumLiteral_36= 'Roles' )
+                    // InternalDsl.g:1996:4: enumLiteral_36= 'Roles'
                     {
-                    enumLiteral_36=(Token)match(input,87,FOLLOW_2); 
+                    enumLiteral_36=(Token)match(input,88,FOLLOW_2); 
 
                     				current = grammarAccess.getFeatureNameEnumAccess().getRolesEnumLiteralDeclaration_36().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_36, grammarAccess.getFeatureNameEnumAccess().getRolesEnumLiteralDeclaration_36());
@@ -5496,7 +5520,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x00000003C0000802L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x00000003C0000800L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0007FFFC00000000L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x000FFFFC00000000L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000027010000L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000002000L});
@@ -5504,7 +5528,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000010000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0xFFF8000000000000L,0x0000000000FFFFFFL});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0xFFF0000000000000L,0x0000000001FFFFFFL});
     public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000008000002L});
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000010000002L});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000007010000L});

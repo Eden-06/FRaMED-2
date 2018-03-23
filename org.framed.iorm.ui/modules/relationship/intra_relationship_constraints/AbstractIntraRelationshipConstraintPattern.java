@@ -159,7 +159,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		   getBusinessObjectForPictogramElement(targetConnection) instanceof Relation) {
 			Relation relation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
 			return relation.getType() == Type.RELATIONSHIP && 
-					EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
+					EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
 		}
 	    return false;
 	}

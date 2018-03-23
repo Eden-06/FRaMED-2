@@ -366,7 +366,7 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.COMPARTMENT_TYPE);
 		}   
 		return false;
 	}

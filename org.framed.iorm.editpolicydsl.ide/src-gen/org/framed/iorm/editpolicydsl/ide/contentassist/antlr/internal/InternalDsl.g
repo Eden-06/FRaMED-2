@@ -1085,6 +1085,12 @@ rule__FeatureTypeEnum__Alternatives
 		('Irreflexive')
 		{ after(grammarAccess.getFeatureTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16()); }
 	)
+	|
+	(
+		{ before(grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17()); }
+		('NaturalType')
+		{ after(grammarAccess.getFeatureTypeEnumAccess().getNaturalTypeEnumLiteralDeclaration_17()); }
+	)
 ;
 finally {
 	restoreStackSize(stackSize);

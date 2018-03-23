@@ -336,7 +336,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null)
-			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext);
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.ROLE_TYPE);
 		return false;
 	}
 		
