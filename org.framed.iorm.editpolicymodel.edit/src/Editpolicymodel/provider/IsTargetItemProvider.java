@@ -5,6 +5,7 @@ package Editpolicymodel.provider;
 
 import Editpolicymodel.IsTarget;
 
+import Editpolicymodel.TypeEnum;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,8 +13,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
-import org.framed.iorm.model.Type;
 
 /**
  * This is the item provider adapter for a {@link Editpolicymodel.IsTarget} object.
@@ -66,7 +65,7 @@ public class IsTargetItemProvider extends TypeArgumentRuleItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		Type labelValue = ((IsTarget)object).getType();
+		TypeEnum labelValue = ((IsTarget)object).getType();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_IsTarget_type") :

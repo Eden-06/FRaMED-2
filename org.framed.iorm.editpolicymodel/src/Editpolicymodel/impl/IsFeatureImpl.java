@@ -3,6 +3,7 @@
 package Editpolicymodel.impl;
 
 import Editpolicymodel.EditpolicymodelPackage;
+import Editpolicymodel.FeatureNameEnum;
 import Editpolicymodel.IsFeature;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -10,8 +11,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.framed.iorm.featuremodel.FeatureName;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +34,7 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final FeatureName FEATURE_NAME_EDEFAULT = FeatureName.RML_FEATURE_MODEL;
+	protected static final FeatureNameEnum FEATURE_NAME_EDEFAULT = FeatureNameEnum.ROLES;
 
 	/**
 	 * The cached value of the '{@link #getFeatureName() <em>Feature Name</em>}' attribute.
@@ -45,7 +44,7 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureName featureName = FEATURE_NAME_EDEFAULT;
+	protected FeatureNameEnum featureName = FEATURE_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +70,7 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureName getFeatureName() {
+	public FeatureNameEnum getFeatureName() {
 		return featureName;
 	}
 
@@ -80,8 +79,8 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeatureName(FeatureName newFeatureName) {
-		FeatureName oldFeatureName = featureName;
+	public void setFeatureName(FeatureNameEnum newFeatureName) {
+		FeatureNameEnum oldFeatureName = featureName;
 		featureName = newFeatureName == null ? FEATURE_NAME_EDEFAULT : newFeatureName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME, oldFeatureName, featureName));
@@ -110,7 +109,7 @@ public class IsFeatureImpl extends FeatureRuleImpl implements IsFeature {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.IS_FEATURE__FEATURE_NAME:
-				setFeatureName((FeatureName)newValue);
+				setFeatureName((FeatureNameEnum)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -170,9 +170,9 @@ rulePolicy returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPolicyAccess().getActionTypeActionTypeEnumEnumRuleCall_2_0());
+					newCompositeNode(grammarAccess.getPolicyAccess().getActionTypeFeatureTypeEnumEnumRuleCall_2_0());
 				}
-				lv_actionType_2_0=ruleActionTypeEnum
+				lv_actionType_2_0=ruleFeatureTypeEnum
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getPolicyRule());
@@ -181,7 +181,7 @@ rulePolicy returns [EObject current=null]
 						$current,
 						"actionType",
 						lv_actionType_2_0,
-						"org.framed.iorm.editpolicydsl.Dsl.ActionTypeEnum");
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -256,21 +256,464 @@ ruleConstraintRule returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getStepInRuleParserRuleCall_0());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getStepInConstraintRuleParserRuleCall_0());
 		}
-		this_StepInRule_0=ruleStepInRule
+		this_StepInConstraintRule_0=ruleStepInConstraintRule
 		{
-			$current = $this_StepInRule_0.current;
+			$current = $this_StepInConstraintRule_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getTrueRuleParserRuleCall_1());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getTrueConstraintRuleParserRuleCall_1());
 		}
-		this_TrueRule_1=ruleTrueRule
+		this_TrueConstraintRule_1=ruleTrueConstraintRule
 		{
-			$current = $this_TrueRule_1.current;
+			$current = $this_TrueConstraintRule_1.current;
 			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getFalseConstraintRuleParserRuleCall_2());
+		}
+		this_FalseConstraintRule_2=ruleFalseConstraintRule
+		{
+			$current = $this_FalseConstraintRule_2.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getContainsConstrainRuleParserRuleCall_3());
+		}
+		this_ContainsConstrainRule_3=ruleContainsConstrainRule
+		{
+			$current = $this_ContainsConstrainRule_3.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetConstraintRuleParserRuleCall_4());
+		}
+		this_IsTargetConstraintRule_4=ruleIsTargetConstraintRule
+		{
+			$current = $this_IsTargetConstraintRule_4.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetTypeConstraintRuleParserRuleCall_5());
+		}
+		this_IsTargetTypeConstraintRule_5=ruleIsTargetTypeConstraintRule
+		{
+			$current = $this_IsTargetTypeConstraintRule_5.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceConstraintRuleParserRuleCall_6());
+		}
+		this_IsSourceConstraintRule_6=ruleIsSourceConstraintRule
+		{
+			$current = $this_IsSourceConstraintRule_6.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceTypeConstraintRuleParserRuleCall_7());
+		}
+		this_IsSourceTypeConstraintRule_7=ruleIsSourceTypeConstraintRule
+		{
+			$current = $this_IsSourceTypeConstraintRule_7.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsParentConstraintRuleParserRuleCall_8());
+		}
+		this_IsParentConstraintRule_8=ruleIsParentConstraintRule
+		{
+			$current = $this_IsParentConstraintRule_8.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRuleContainsConstrainRule
+entryRuleContainsConstrainRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getContainsConstrainRuleRule()); }
+	iv_ruleContainsConstrainRule=ruleContainsConstrainRule
+	{ $current=$iv_ruleContainsConstrainRule.current; }
+	EOF;
+
+// Rule ContainsConstrainRule
+ruleContainsConstrainRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getContainsConstrainRuleAccess().getContainsAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='Contains'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getContainsConstrainRuleAccess().getContainsKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getContainsConstrainRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getContainsConstrainRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getContainsConstrainRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getContainsConstrainRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleIsTargetTypeConstraintRule
+entryRuleIsTargetTypeConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getIsTargetTypeConstraintRuleRule()); }
+	iv_ruleIsTargetTypeConstraintRule=ruleIsTargetTypeConstraintRule
+	{ $current=$iv_ruleIsTargetTypeConstraintRule.current; }
+	EOF;
+
+// Rule IsTargetTypeConstraintRule
+ruleIsTargetTypeConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getIsTargetTypeConstraintRuleAccess().getIsTargetTypeAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsTargetType'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getIsTargetTypeConstraintRuleAccess().getIsTargetTypeKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsTargetTypeConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIsTargetTypeConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIsTargetTypeConstraintRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsTargetTypeConstraintRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleIsParentConstraintRule
+entryRuleIsParentConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getIsParentConstraintRuleRule()); }
+	iv_ruleIsParentConstraintRule=ruleIsParentConstraintRule
+	{ $current=$iv_ruleIsParentConstraintRule.current; }
+	EOF;
+
+// Rule IsParentConstraintRule
+ruleIsParentConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getIsParentConstraintRuleAccess().getIsParentAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsParent'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getIsParentConstraintRuleAccess().getIsParentKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsParentConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIsParentConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIsParentConstraintRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsParentConstraintRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleIsSourceTypeConstraintRule
+entryRuleIsSourceTypeConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getIsSourceTypeConstraintRuleRule()); }
+	iv_ruleIsSourceTypeConstraintRule=ruleIsSourceTypeConstraintRule
+	{ $current=$iv_ruleIsSourceTypeConstraintRule.current; }
+	EOF;
+
+// Rule IsSourceTypeConstraintRule
+ruleIsSourceTypeConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getIsSourceTypeConstraintRuleAccess().getIsSourceTypeAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsSourceType'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getIsSourceTypeConstraintRuleAccess().getIsSourceTypeKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsSourceTypeConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIsSourceTypeConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIsSourceTypeConstraintRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsSourceTypeConstraintRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleIsTargetConstraintRule
+entryRuleIsTargetConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getIsTargetConstraintRuleRule()); }
+	iv_ruleIsTargetConstraintRule=ruleIsTargetConstraintRule
+	{ $current=$iv_ruleIsTargetConstraintRule.current; }
+	EOF;
+
+// Rule IsTargetConstraintRule
+ruleIsTargetConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getIsTargetConstraintRuleAccess().getIsTargetAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsTarget'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getIsTargetConstraintRuleAccess().getIsTargetKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsTargetConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIsTargetConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIsTargetConstraintRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsTargetConstraintRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleIsSourceConstraintRule
+entryRuleIsSourceConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getIsSourceConstraintRuleRule()); }
+	iv_ruleIsSourceConstraintRule=ruleIsSourceConstraintRule
+	{ $current=$iv_ruleIsSourceConstraintRule.current; }
+	EOF;
+
+// Rule IsSourceConstraintRule
+ruleIsSourceConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getIsSourceConstraintRuleAccess().getIsSourceAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsSource'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getIsSourceConstraintRuleAccess().getIsSourceKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getIsSourceConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIsSourceConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
+				}
+				lv_type_3_0=ruleFeatureTypeEnum
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIsSourceConstraintRuleRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_3_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getIsSourceConstraintRuleAccess().getRightParenthesisKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRuleStepInConstraintRule
+entryRuleStepInConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getStepInConstraintRuleRule()); }
+	iv_ruleStepInConstraintRule=ruleStepInConstraintRule
+	{ $current=$iv_ruleStepInConstraintRule.current; }
+	EOF;
+
+// Rule StepInConstraintRule
+ruleStepInConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getStepInConstraintRuleAccess().getIsStepInAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='IsStepIn'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getStepInConstraintRuleAccess().getIsStepInKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getStepInConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getStepInConstraintRuleAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;
@@ -292,67 +735,31 @@ ruleFeatureRule returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getFeatureRuleAccess().getIsFeatureRuleParserRuleCall_0());
+			newCompositeNode(grammarAccess.getFeatureRuleAccess().getIsFeatureParserRuleCall_0());
 		}
-		this_IsFeatureRule_0=ruleIsFeatureRule
+		this_IsFeature_0=ruleIsFeature
 		{
-			$current = $this_IsFeatureRule_0.current;
+			$current = $this_IsFeature_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getFeatureRuleAccess().getTrueRuleParserRuleCall_1());
+			newCompositeNode(grammarAccess.getFeatureRuleAccess().getTrueFeatureRuleParserRuleCall_1());
 		}
-		this_TrueRule_1=ruleTrueRule
+		this_TrueFeatureRule_1=ruleTrueFeatureRule
 		{
-			$current = $this_TrueRule_1.current;
+			$current = $this_TrueFeatureRule_1.current;
 			afterParserOrEnumRuleCall();
 		}
-	)
-;
-
-// Entry rule entryRuleIsFeatureRule
-entryRuleIsFeatureRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getIsFeatureRuleRule()); }
-	iv_ruleIsFeatureRule=ruleIsFeatureRule
-	{ $current=$iv_ruleIsFeatureRule.current; }
-	EOF;
-
-// Rule IsFeatureRule
-ruleIsFeatureRule returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getIsFeatureRuleAccess().getRuleAction_0(),
-					$current);
-			}
-		)
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getIsFeatureRuleAccess().getRuleIsFeatureParserRuleCall_1_0());
-				}
-				lv_rule_1_0=ruleIsFeature
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIsFeatureRuleRule());
-					}
-					set(
-						$current,
-						"rule",
-						lv_rule_1_0,
-						"org.framed.iorm.editpolicydsl.Dsl.IsFeature");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
+		    |
+		{
+			newCompositeNode(grammarAccess.getFeatureRuleAccess().getFalseFeatureRuleParserRuleCall_2());
+		}
+		this_FalseFeatureRule_2=ruleFalseFeatureRule
+		{
+			$current = $this_FalseFeatureRule_2.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -383,47 +790,21 @@ ruleIsFeature returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getIsFeatureAccess().getIsFeatureKeyword_1());
 		}
-	)
-;
-
-// Entry rule entryRuleStepInRule
-entryRuleStepInRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getStepInRuleRule()); }
-	iv_ruleStepInRule=ruleStepInRule
-	{ $current=$iv_ruleStepInRule.current; }
-	EOF;
-
-// Rule StepInRule
-ruleStepInRule returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getStepInRuleAccess().getRuleAction_0(),
-					$current);
-			}
-		)
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getStepInRuleAccess().getRuleStepInParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_2_0());
 				}
-				lv_rule_1_0=ruleStepIn
+				lv_featureName_2_0=ruleFeatureNameEnum
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getStepInRuleRule());
+						$current = createModelElementForParent(grammarAccess.getIsFeatureRule());
 					}
 					set(
 						$current,
-						"rule",
-						lv_rule_1_0,
-						"org.framed.iorm.editpolicydsl.Dsl.StepIn");
+						"featureName",
+						lv_featureName_2_0,
+						"org.framed.iorm.editpolicydsl.Dsl.FeatureNameEnum");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -431,15 +812,15 @@ ruleStepInRule returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleStepIn
-entryRuleStepIn returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getStepInRule()); }
-	iv_ruleStepIn=ruleStepIn
-	{ $current=$iv_ruleStepIn.current; }
+// Entry rule entryRuleTrueFeatureRule
+entryRuleTrueFeatureRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getTrueFeatureRuleRule()); }
+	iv_ruleTrueFeatureRule=ruleTrueFeatureRule
+	{ $current=$iv_ruleTrueFeatureRule.current; }
 	EOF;
 
-// Rule StepIn
-ruleStepIn returns [EObject current=null]
+// Rule TrueFeatureRule
+ruleTrueFeatureRule returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -450,43 +831,103 @@ ruleStepIn returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getStepInAccess().getIsStepInAction_0(),
-					$current);
-			}
-		)
-		otherlv_1='StepIn'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getStepInAccess().getStepInKeyword_1());
-		}
-	)
-;
-
-// Entry rule entryRuleTrueRule
-entryRuleTrueRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTrueRuleRule()); }
-	iv_ruleTrueRule=ruleTrueRule
-	{ $current=$iv_ruleTrueRule.current; }
-	EOF;
-
-// Rule TrueRule
-ruleTrueRule returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getTrueRuleAccess().getTrueRuleAction_0(),
+					grammarAccess.getTrueFeatureRuleAccess().getTrueFeatureRuleAction_0(),
 					$current);
 			}
 		)
 		otherlv_1='true'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getTrueRuleAccess().getTrueKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getTrueFeatureRuleAccess().getTrueKeyword_1());
+		}
+	)
+;
+
+// Entry rule entryRuleTrueConstraintRule
+entryRuleTrueConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getTrueConstraintRuleRule()); }
+	iv_ruleTrueConstraintRule=ruleTrueConstraintRule
+	{ $current=$iv_ruleTrueConstraintRule.current; }
+	EOF;
+
+// Rule TrueConstraintRule
+ruleTrueConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getTrueConstraintRuleAccess().getTrueConstraintRuleAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='true'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getTrueConstraintRuleAccess().getTrueKeyword_1());
+		}
+	)
+;
+
+// Entry rule entryRuleFalseFeatureRule
+entryRuleFalseFeatureRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFalseFeatureRuleRule()); }
+	iv_ruleFalseFeatureRule=ruleFalseFeatureRule
+	{ $current=$iv_ruleFalseFeatureRule.current; }
+	EOF;
+
+// Rule FalseFeatureRule
+ruleFalseFeatureRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getFalseFeatureRuleAccess().getFalseFeatureRuleAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='false'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getFalseFeatureRuleAccess().getFalseKeyword_1());
+		}
+	)
+;
+
+// Entry rule entryRuleFalseConstraintRule
+entryRuleFalseConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFalseConstraintRuleRule()); }
+	iv_ruleFalseConstraintRule=ruleFalseConstraintRule
+	{ $current=$iv_ruleFalseConstraintRule.current; }
+	EOF;
+
+// Rule FalseConstraintRule
+ruleFalseConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getFalseConstraintRuleAccess().getFalseConstraintRuleAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='false'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getFalseConstraintRuleAccess().getFalseKeyword_1());
 		}
 	)
 ;
@@ -544,13 +985,13 @@ ruleOrFeature returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndAdd(
-						grammarAccess.getOrFeatureAccess().getOrRuleRulesAction_1_0(),
+						grammarAccess.getOrFeatureAccess().getOrFeatureRuleRulesAction_1_0(),
 						$current);
 				}
 			)
-			otherlv_2='||'
+			otherlv_2='or'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getOrFeatureAccess().getVerticalLineVerticalLineKeyword_1_1());
+				newLeafNode(otherlv_2, grammarAccess.getOrFeatureAccess().getOrKeyword_1_1());
 			}
 			(
 				(
@@ -603,13 +1044,13 @@ ruleAndFeature returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndAdd(
-						grammarAccess.getAndFeatureAccess().getAndRuleRulesAction_1_0(),
+						grammarAccess.getAndFeatureAccess().getAndFeatureRuleRulesAction_1_0(),
 						$current);
 				}
 			)
-			otherlv_2='&&'
+			otherlv_2='and'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getAndFeatureAccess().getAmpersandAmpersandKeyword_1_1());
+				newLeafNode(otherlv_2, grammarAccess.getAndFeatureAccess().getAndKeyword_1_1());
 			}
 			(
 				(
@@ -667,7 +1108,7 @@ ruleNotFeatureExpression returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getNotFeatureExpressionAccess().getNotRuleAction_1_1(),
+						grammarAccess.getNotFeatureExpressionAccess().getNotFeatureRuleAction_1_1(),
 						$current);
 				}
 			)
@@ -793,7 +1234,7 @@ ruleImplicationConstraint returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndSet(
-						grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0(),
+						grammarAccess.getImplicationConstraintAccess().getImplicationConstraintRuleLeftRuleAction_1_0(),
 						$current);
 				}
 			)
@@ -852,13 +1293,13 @@ ruleOrConstraint returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndAdd(
-						grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0(),
+						grammarAccess.getOrConstraintAccess().getOrConstraintRuleRulesAction_1_0(),
 						$current);
 				}
 			)
-			otherlv_2='||'
+			otherlv_2='or'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getOrConstraintAccess().getVerticalLineVerticalLineKeyword_1_1());
+				newLeafNode(otherlv_2, grammarAccess.getOrConstraintAccess().getOrKeyword_1_1());
 			}
 			(
 				(
@@ -911,13 +1352,13 @@ ruleAndConstraint returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndAdd(
-						grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0(),
+						grammarAccess.getAndConstraintAccess().getAndConstraintRuleRulesAction_1_0(),
 						$current);
 				}
 			)
-			otherlv_2='&&'
+			otherlv_2='and'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getAndConstraintAccess().getAmpersandAmpersandKeyword_1_1());
+				newLeafNode(otherlv_2, grammarAccess.getAndConstraintAccess().getAndKeyword_1_1());
 			}
 			(
 				(
@@ -975,7 +1416,7 @@ ruleNotConstraintExpression returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getNotConstraintExpressionAccess().getNotRuleAction_1_1(),
+						grammarAccess.getNotConstraintExpressionAccess().getNotConstraintRuleAction_1_1(),
 						$current);
 				}
 			)
@@ -1091,8 +1532,8 @@ ruleActionEnum returns [Enumerator current=null]
 	)
 ;
 
-// Rule ActionTypeEnum
-ruleActionTypeEnum returns [Enumerator current=null]
+// Rule FeatureTypeEnum
+ruleFeatureTypeEnum returns [Enumerator current=null]
 @init {
 	enterRule();
 }
@@ -1103,136 +1544,443 @@ ruleActionTypeEnum returns [Enumerator current=null]
 		(
 			enumLiteral_0='Acyclic'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getAcyclicEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_0, grammarAccess.getActionTypeEnumAccess().getAcyclicEnumLiteralDeclaration_0());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getAcyclicEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getFeatureTypeEnumAccess().getAcyclicEnumLiteralDeclaration_0());
 			}
 		)
 		    |
 		(
 			enumLiteral_1='CompartmentType'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getCompartmentTypeEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_1, grammarAccess.getActionTypeEnumAccess().getCompartmentTypeEnumLiteralDeclaration_1());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getCompartmentTypeEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getFeatureTypeEnumAccess().getCompartmentTypeEnumLiteralDeclaration_1());
 			}
 		)
 		    |
 		(
 			enumLiteral_2='Cyclic'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getCyclicEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_2, grammarAccess.getActionTypeEnumAccess().getCyclicEnumLiteralDeclaration_2());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getCyclicEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getFeatureTypeEnumAccess().getCyclicEnumLiteralDeclaration_2());
 			}
 		)
 		    |
 		(
 			enumLiteral_3='DataType'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getDataTypeEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_3, grammarAccess.getActionTypeEnumAccess().getDataTypeEnumLiteralDeclaration_3());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getDataTypeEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getFeatureTypeEnumAccess().getDataTypeEnumLiteralDeclaration_3());
 			}
 		)
 		    |
 		(
 			enumLiteral_4='Fulfillment'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getFulfillmentEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_4, grammarAccess.getActionTypeEnumAccess().getFulfillmentEnumLiteralDeclaration_4());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getFulfillmentEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getFeatureTypeEnumAccess().getFulfillmentEnumLiteralDeclaration_4());
 			}
 		)
 		    |
 		(
 			enumLiteral_5='Inheritance'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getInheritanceEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_5, grammarAccess.getActionTypeEnumAccess().getInheritanceEnumLiteralDeclaration_5());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getInheritanceEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getFeatureTypeEnumAccess().getInheritanceEnumLiteralDeclaration_5());
 			}
 		)
 		    |
 		(
 			enumLiteral_6='Group'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getGroupEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_6, grammarAccess.getActionTypeEnumAccess().getGroupEnumLiteralDeclaration_6());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getGroupEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_6, grammarAccess.getFeatureTypeEnumAccess().getGroupEnumLiteralDeclaration_6());
 			}
 		)
 		    |
 		(
 			enumLiteral_7='Reflexive'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getReflexiveEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_7, grammarAccess.getActionTypeEnumAccess().getReflexiveEnumLiteralDeclaration_7());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getReflexiveEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_7, grammarAccess.getFeatureTypeEnumAccess().getReflexiveEnumLiteralDeclaration_7());
 			}
 		)
 		    |
 		(
 			enumLiteral_8='Relationship'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRelationshipEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_8, grammarAccess.getActionTypeEnumAccess().getRelationshipEnumLiteralDeclaration_8());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRelationshipEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_8, grammarAccess.getFeatureTypeEnumAccess().getRelationshipEnumLiteralDeclaration_8());
 			}
 		)
 		    |
 		(
 			enumLiteral_9='RelationshipExclusion'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRelationshipExclusionEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_9, grammarAccess.getActionTypeEnumAccess().getRelationshipExclusionEnumLiteralDeclaration_9());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRelationshipExclusionEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_9, grammarAccess.getFeatureTypeEnumAccess().getRelationshipExclusionEnumLiteralDeclaration_9());
 			}
 		)
 		    |
 		(
 			enumLiteral_10='RelationshipImplication'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRelationshipImplicationEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_10, grammarAccess.getActionTypeEnumAccess().getRelationshipImplicationEnumLiteralDeclaration_10());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRelationshipImplicationEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_10, grammarAccess.getFeatureTypeEnumAccess().getRelationshipImplicationEnumLiteralDeclaration_10());
 			}
 		)
 		    |
 		(
 			enumLiteral_11='RoleType'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRoleTypeEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_11, grammarAccess.getActionTypeEnumAccess().getRoleTypeEnumLiteralDeclaration_11());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleTypeEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_11, grammarAccess.getFeatureTypeEnumAccess().getRoleTypeEnumLiteralDeclaration_11());
 			}
 		)
 		    |
 		(
 			enumLiteral_12='RoleEquivalence'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRoleEquivalenceEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_12, grammarAccess.getActionTypeEnumAccess().getRoleEquivalenceEnumLiteralDeclaration_12());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleEquivalenceEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_12, grammarAccess.getFeatureTypeEnumAccess().getRoleEquivalenceEnumLiteralDeclaration_12());
 			}
 		)
 		    |
 		(
 			enumLiteral_13='RoleGroup'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRoleGroupEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_13, grammarAccess.getActionTypeEnumAccess().getRoleGroupEnumLiteralDeclaration_13());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleGroupEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_13, grammarAccess.getFeatureTypeEnumAccess().getRoleGroupEnumLiteralDeclaration_13());
 			}
 		)
 		    |
 		(
-			enumLiteral_14='RoleImplication'
+			enumLiteral_14='LITERAL4'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_14, grammarAccess.getActionTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_14, grammarAccess.getFeatureTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14());
 			}
 		)
 		    |
 		(
-			enumLiteral_15='RoleProhibition'
+			enumLiteral_15='LITERAL3'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_15, grammarAccess.getActionTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_15, grammarAccess.getFeatureTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15());
 			}
 		)
 		    |
 		(
 			enumLiteral_16='Irreflexive'
 			{
-				$current = grammarAccess.getActionTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
-				newLeafNode(enumLiteral_16, grammarAccess.getActionTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16());
+				$current = grammarAccess.getFeatureTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_16, grammarAccess.getFeatureTypeEnumAccess().getIrreflexiveEnumLiteralDeclaration_16());
+			}
+		)
+	)
+;
+
+// Rule FeatureNameEnum
+ruleFeatureNameEnum returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='Compartment_Behavior'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_BehaviorEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getFeatureNameEnumAccess().getCompartment_BehaviorEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='LITERAL33'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='Compartment_Properties'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_PropertiesEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getFeatureNameEnumAccess().getCompartment_PropertiesEnumLiteralDeclaration_2());
+			}
+		)
+		    |
+		(
+			enumLiteral_3='Compartment_Structure'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_StructureEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getFeatureNameEnumAccess().getCompartment_StructureEnumLiteralDeclaration_3());
+			}
+		)
+		    |
+		(
+			enumLiteral_4='Compartment_Types'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_TypesEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getFeatureNameEnumAccess().getCompartment_TypesEnumLiteralDeclaration_4());
+			}
+		)
+		    |
+		(
+			enumLiteral_5='Contains_Compartments'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getContains_CompartmentsEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getFeatureNameEnumAccess().getContains_CompartmentsEnumLiteralDeclaration_5());
+			}
+		)
+		    |
+		(
+			enumLiteral_6='Compartments'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getCompartmentsEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_6, grammarAccess.getFeatureNameEnumAccess().getCompartmentsEnumLiteralDeclaration_6());
+			}
+		)
+		    |
+		(
+			enumLiteral_7='Data_Type_Inheritance'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getData_Type_InheritanceEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_7, grammarAccess.getFeatureNameEnumAccess().getData_Type_InheritanceEnumLiteralDeclaration_7());
+			}
+		)
+		    |
+		(
+			enumLiteral_8='Data_Types'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getData_TypesEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_8, grammarAccess.getFeatureNameEnumAccess().getData_TypesEnumLiteralDeclaration_8());
+			}
+		)
+		    |
+		(
+			enumLiteral_9='Dates'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getDatesEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_9, grammarAccess.getFeatureNameEnumAccess().getDatesEnumLiteralDeclaration_9());
+			}
+		)
+		    |
+		(
+			enumLiteral_10='Dependent'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getDependentEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_10, grammarAccess.getFeatureNameEnumAccess().getDependentEnumLiteralDeclaration_10());
+			}
+		)
+		    |
+		(
+			enumLiteral_11='Group_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getGroup_ConstraintsEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_11, grammarAccess.getFeatureNameEnumAccess().getGroup_ConstraintsEnumLiteralDeclaration_11());
+			}
+		)
+		    |
+		(
+			enumLiteral_12='Inter_Relationship_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getInter_Relationship_ConstraintsEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_12, grammarAccess.getFeatureNameEnumAccess().getInter_Relationship_ConstraintsEnumLiteralDeclaration_12());
+			}
+		)
+		    |
+		(
+			enumLiteral_13='Intra_Relationship_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getIntra_Relationship_ConstraintsEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_13, grammarAccess.getFeatureNameEnumAccess().getIntra_Relationship_ConstraintsEnumLiteralDeclaration_13());
+			}
+		)
+		    |
+		(
+			enumLiteral_14='Naturals'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getNaturalsEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_14, grammarAccess.getFeatureNameEnumAccess().getNaturalsEnumLiteralDeclaration_14());
+			}
+		)
+		    |
+		(
+			enumLiteral_15='Occurrence_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getOccurrence_ConstraintsEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_15, grammarAccess.getFeatureNameEnumAccess().getOccurrence_ConstraintsEnumLiteralDeclaration_15());
+			}
+		)
+		    |
+		(
+			enumLiteral_16='On_Compartments'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getOn_CompartmentsEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_16, grammarAccess.getFeatureNameEnumAccess().getOn_CompartmentsEnumLiteralDeclaration_16());
+			}
+		)
+		    |
+		(
+			enumLiteral_17='On_Relationships'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getOn_RelationshipsEnumLiteralDeclaration_17().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_17, grammarAccess.getFeatureNameEnumAccess().getOn_RelationshipsEnumLiteralDeclaration_17());
+			}
+		)
+		    |
+		(
+			enumLiteral_18='Parthood_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getParthood_ConstraintsEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_18, grammarAccess.getFeatureNameEnumAccess().getParthood_ConstraintsEnumLiteralDeclaration_18());
+			}
+		)
+		    |
+		(
+			enumLiteral_19='Participants'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getParticipantsEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_19, grammarAccess.getFeatureNameEnumAccess().getParticipantsEnumLiteralDeclaration_19());
+			}
+		)
+		    |
+		(
+			enumLiteral_20='Playable'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getPlayableEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_20, grammarAccess.getFeatureNameEnumAccess().getPlayableEnumLiteralDeclaration_20());
+			}
+		)
+		    |
+		(
+			enumLiteral_21='Playable_by_Defining_Compartment'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_21, grammarAccess.getFeatureNameEnumAccess().getPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21());
+			}
+		)
+		    |
+		(
+			enumLiteral_22='Players'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getPlayersEnumLiteralDeclaration_22().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_22, grammarAccess.getFeatureNameEnumAccess().getPlayersEnumLiteralDeclaration_22());
+			}
+		)
+		    |
+		(
+			enumLiteral_23='Relationship_Cardinality'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRelationship_CardinalityEnumLiteralDeclaration_23().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_23, grammarAccess.getFeatureNameEnumAccess().getRelationship_CardinalityEnumLiteralDeclaration_23());
+			}
+		)
+		    |
+		(
+			enumLiteral_24='Relationship_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRelationship_ConstraintsEnumLiteralDeclaration_24().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_24, grammarAccess.getFeatureNameEnumAccess().getRelationship_ConstraintsEnumLiteralDeclaration_24());
+			}
+		)
+		    |
+		(
+			enumLiteral_25='Relationships'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRelationshipsEnumLiteralDeclaration_25().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_25, grammarAccess.getFeatureNameEnumAccess().getRelationshipsEnumLiteralDeclaration_25());
+			}
+		)
+		    |
+		(
+			enumLiteral_26='RML_Feature_Model'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRML_Feature_ModelEnumLiteralDeclaration_26().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_26, grammarAccess.getFeatureNameEnumAccess().getRML_Feature_ModelEnumLiteralDeclaration_26());
+			}
+		)
+		    |
+		(
+			enumLiteral_27='Role_Behavior'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_BehaviorEnumLiteralDeclaration_27().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_27, grammarAccess.getFeatureNameEnumAccess().getRole_BehaviorEnumLiteralDeclaration_27());
+			}
+		)
+		    |
+		(
+			enumLiteral_28='Role_Constraints'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_ConstraintsEnumLiteralDeclaration_28().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_28, grammarAccess.getFeatureNameEnumAccess().getRole_ConstraintsEnumLiteralDeclaration_28());
+			}
+		)
+		    |
+		(
+			enumLiteral_29='Role_Equivalence'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_EquivalenceEnumLiteralDeclaration_29().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_29, grammarAccess.getFeatureNameEnumAccess().getRole_EquivalenceEnumLiteralDeclaration_29());
+			}
+		)
+		    |
+		(
+			enumLiteral_30='Role_Implication'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_ImplicationEnumLiteralDeclaration_30().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_30, grammarAccess.getFeatureNameEnumAccess().getRole_ImplicationEnumLiteralDeclaration_30());
+			}
+		)
+		    |
+		(
+			enumLiteral_31='Role_Inheritance'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_InheritanceEnumLiteralDeclaration_31().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_31, grammarAccess.getFeatureNameEnumAccess().getRole_InheritanceEnumLiteralDeclaration_31());
+			}
+		)
+		    |
+		(
+			enumLiteral_32='Role_Prohibition'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_ProhibitionEnumLiteralDeclaration_32().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_32, grammarAccess.getFeatureNameEnumAccess().getRole_ProhibitionEnumLiteralDeclaration_32());
+			}
+		)
+		    |
+		(
+			enumLiteral_33='Role_Properties'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_PropertiesEnumLiteralDeclaration_33().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_33, grammarAccess.getFeatureNameEnumAccess().getRole_PropertiesEnumLiteralDeclaration_33());
+			}
+		)
+		    |
+		(
+			enumLiteral_34='LITERAL2'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_34, grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34());
+			}
+		)
+		    |
+		(
+			enumLiteral_35='Role_Types'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRole_TypesEnumLiteralDeclaration_35().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_35, grammarAccess.getFeatureNameEnumAccess().getRole_TypesEnumLiteralDeclaration_35());
+			}
+		)
+		    |
+		(
+			enumLiteral_36='Roles'
+			{
+				$current = grammarAccess.getFeatureNameEnumAccess().getRolesEnumLiteralDeclaration_36().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_36, grammarAccess.getFeatureNameEnumAccess().getRolesEnumLiteralDeclaration_36());
 			}
 		)
 	)

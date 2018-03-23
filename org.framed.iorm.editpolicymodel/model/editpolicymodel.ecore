@@ -10,8 +10,8 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="#//ActionEnum"
         defaultValueLiteral="Create"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionType" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"
-        defaultValueLiteral="CompartmentType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionType" lowerBound="1"
+        eType="#//TypeEnum"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureRule" eType="#//FeatureRule"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" eType="#//ConstraintRule"
@@ -27,10 +27,12 @@
     <eLiterals name="Add" value="1"/>
     <eLiterals name="Start" value="2"/>
     <eLiterals name="Reconnect" value="3"/>
+    <eLiterals name="Execute" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsFeature" eSuperTypes="#//FeatureRule">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//featuremodel/FeatureName"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureName" lowerBound="1"
+        eType="#//FeatureNameEnum"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstraintRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTargetType" eSuperTypes="#//TypeArgumentRule"/>
@@ -54,7 +56,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ImplicationConstraintRule" eSuperTypes="#//BinaryConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsSourceType" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeArgumentRule" abstract="true" eSuperTypes="#//ConstraintRule">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum ../../org.framed.iorm.model/model/IORM.ecore#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//TypeEnum"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NaryConstraintRule" abstract="true"
       eSuperTypes="#//LogicalConstraintRule">
@@ -83,4 +85,62 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrFeatureRule" eSuperTypes="#//NaryFeatureRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="AndFeatureRule" eSuperTypes="#//NaryFeatureRule"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypeEnum">
+    <eLiterals name="Acyclic"/>
+    <eLiterals name="CompartmentType" value="1"/>
+    <eLiterals name="Irreflexive" value="2"/>
+    <eLiterals name="RoleProhibition" value="3" literal="LITERAL3"/>
+    <eLiterals name="RoleImplication" value="4" literal="LITERAL4"/>
+    <eLiterals name="RoleGroup" value="5"/>
+    <eLiterals name="RoleEquivalence" value="6"/>
+    <eLiterals name="RoleType" value="7"/>
+    <eLiterals name="RelationshipImplication" value="8"/>
+    <eLiterals name="RelationshipExclusion" value="9"/>
+    <eLiterals name="Relationship" value="10"/>
+    <eLiterals name="Reflexive" value="11"/>
+    <eLiterals name="Group" value="12"/>
+    <eLiterals name="Inheritance" value="13"/>
+    <eLiterals name="Fulfillment" value="14"/>
+    <eLiterals name="DataType" value="15"/>
+    <eLiterals name="Cyclic" value="16"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FeatureNameEnum">
+    <eLiterals name="Roles"/>
+    <eLiterals name="Role_Types" value="1"/>
+    <eLiterals name="Role_Structure" value="2" literal="LITERAL2"/>
+    <eLiterals name="Role_Properties" value="3"/>
+    <eLiterals name="Role_Prohibition" value="4"/>
+    <eLiterals name="Role_Inheritance" value="5"/>
+    <eLiterals name="Role_Implication" value="6"/>
+    <eLiterals name="Role_Equivalence" value="7"/>
+    <eLiterals name="Role_Constraints" value="8"/>
+    <eLiterals name="Role_Behavior" value="9"/>
+    <eLiterals name="RML_Feature_Model" value="10"/>
+    <eLiterals name="Relationships" value="11"/>
+    <eLiterals name="Relationship_Constraints" value="12"/>
+    <eLiterals name="Relationship_Cardinality" value="13"/>
+    <eLiterals name="Players" value="14"/>
+    <eLiterals name="Playable_by_Defining_Compartment" value="15"/>
+    <eLiterals name="Playable" value="16"/>
+    <eLiterals name="Parthood_Constraints" value="17"/>
+    <eLiterals name="On_Relationships" value="18"/>
+    <eLiterals name="On_Compartments" value="19"/>
+    <eLiterals name="Occurrence_Constraints" value="20"/>
+    <eLiterals name="Naturals" value="21"/>
+    <eLiterals name="Intra_Relationship_Constraints" value="22"/>
+    <eLiterals name="Inter_Relationship_Constraints" value="23"/>
+    <eLiterals name="Group_Constraints" value="24"/>
+    <eLiterals name="Dependent" value="25"/>
+    <eLiterals name="Dates" value="26"/>
+    <eLiterals name="Data_Types" value="27"/>
+    <eLiterals name="Compartments" value="28"/>
+    <eLiterals name="Contains_Compartments" value="29"/>
+    <eLiterals name="Compartment_Types" value="30"/>
+    <eLiterals name="Compartment_Structure" value="31"/>
+    <eLiterals name="Compartment_Properties" value="32"/>
+    <eLiterals name="Compartment_Inheritance" value="33" literal="LITERAL33"/>
+    <eLiterals name="Compartment_Behavior" value="34"/>
+    <eLiterals name="Participants" value="35"/>
+    <eLiterals name="Data_Type_Inheritance" value="36"/>
+  </eClassifiers>
 </ecore:EPackage>

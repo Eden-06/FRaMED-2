@@ -4,6 +4,7 @@ package Editpolicymodel.provider;
 
 
 import Editpolicymodel.EditpolicymodelPackage;
+import Editpolicymodel.FeatureNameEnum;
 import Editpolicymodel.IsFeature;
 
 import java.util.Collection;
@@ -16,8 +17,6 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import org.framed.iorm.featuremodel.FeatureName;
 
 /**
  * This is the item provider adapter for a {@link Editpolicymodel.IsFeature} object.
@@ -93,7 +92,7 @@ public class IsFeatureItemProvider extends FeatureRuleItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		FeatureName labelValue = ((IsFeature)object).getFeatureName();
+		FeatureNameEnum labelValue = ((IsFeature)object).getFeatureName();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_IsFeature_type") :

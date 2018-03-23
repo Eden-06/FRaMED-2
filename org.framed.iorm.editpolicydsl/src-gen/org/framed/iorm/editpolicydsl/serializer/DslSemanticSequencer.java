@@ -3,18 +3,29 @@
  */
 package org.framed.iorm.editpolicydsl.serializer;
 
-import Editpolicymodel.AndRule;
+import Editpolicymodel.AndConstraintRule;
+import Editpolicymodel.AndFeatureRule;
+import Editpolicymodel.Contains;
 import Editpolicymodel.EditpolicymodelPackage;
-import Editpolicymodel.FalseRule;
-import Editpolicymodel.ImplicationRule;
+import Editpolicymodel.FalseConstraintRule;
+import Editpolicymodel.FalseFeatureRule;
+import Editpolicymodel.ImplicationConstraintRule;
+import Editpolicymodel.ImplicationFeatureRule;
 import Editpolicymodel.IsFeature;
+import Editpolicymodel.IsParent;
+import Editpolicymodel.IsSource;
+import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepIn;
+import Editpolicymodel.IsTarget;
+import Editpolicymodel.IsTargetType;
 import Editpolicymodel.Model;
-import Editpolicymodel.NotRule;
-import Editpolicymodel.OrRule;
+import Editpolicymodel.NotConstraintRule;
+import Editpolicymodel.NotFeatureRule;
+import Editpolicymodel.OrConstraintRule;
+import Editpolicymodel.OrFeatureRule;
 import Editpolicymodel.Policy;
-import Editpolicymodel.Rule;
-import Editpolicymodel.TrueRule;
+import Editpolicymodel.TrueConstraintRule;
+import Editpolicymodel.TrueFeatureRule;
 import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
@@ -42,149 +53,71 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == EditpolicymodelPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-			case EditpolicymodelPackage.AND_RULE:
-				if (rule == grammarAccess.getConstraintExpressionRule()
-						|| rule == grammarAccess.getImplicationConstraintRule()
-						|| action == grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrConstraintRule()
-						|| action == grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndConstraintRule()
-						|| action == grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotConstraintExpressionRule()
-						|| rule == grammarAccess.getPrimaryConstraintRule()) {
-					sequence_AndConstraint(context, (AndRule) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getFeatureExpressionRule()
-						|| rule == grammarAccess.getImplicationFeatureRule()
-						|| action == grammarAccess.getImplicationFeatureAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrFeatureRule()
-						|| action == grammarAccess.getOrFeatureAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndFeatureRule()
-						|| action == grammarAccess.getAndFeatureAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotFeatureExpressionRule()
-						|| rule == grammarAccess.getPrimaryFeatureRule()) {
-					sequence_AndFeature(context, (AndRule) semanticObject); 
-					return; 
-				}
-				else break;
-			case EditpolicymodelPackage.FALSE_RULE:
-				sequence_FalseRule(context, (FalseRule) semanticObject); 
+			case EditpolicymodelPackage.AND_CONSTRAINT_RULE:
+				sequence_AndConstraint(context, (AndConstraintRule) semanticObject); 
 				return; 
-			case EditpolicymodelPackage.IMPLICATION_RULE:
-				if (rule == grammarAccess.getConstraintExpressionRule()
-						|| rule == grammarAccess.getImplicationConstraintRule()
-						|| action == grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrConstraintRule()
-						|| action == grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndConstraintRule()
-						|| action == grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotConstraintExpressionRule()
-						|| rule == grammarAccess.getPrimaryConstraintRule()) {
-					sequence_ImplicationConstraint(context, (ImplicationRule) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getImplicationFeatureRule()) {
-					sequence_ImplicationFeature(context, (ImplicationRule) semanticObject); 
-					return; 
-				}
-				else break;
+			case EditpolicymodelPackage.AND_FEATURE_RULE:
+				sequence_AndFeature(context, (AndFeatureRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.CONTAINS:
+				sequence_ContainsConstrainRule(context, (Contains) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE:
+				sequence_FalseConstraintRule(context, (FalseConstraintRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.FALSE_FEATURE_RULE:
+				sequence_FalseFeatureRule(context, (FalseFeatureRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IMPLICATION_CONSTRAINT_RULE:
+				sequence_ImplicationConstraint(context, (ImplicationConstraintRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IMPLICATION_FEATURE_RULE:
+				sequence_ImplicationFeature(context, (ImplicationFeatureRule) semanticObject); 
+				return; 
 			case EditpolicymodelPackage.IS_FEATURE:
 				sequence_IsFeature(context, (IsFeature) semanticObject); 
 				return; 
+			case EditpolicymodelPackage.IS_PARENT:
+				sequence_IsParentConstraintRule(context, (IsParent) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IS_SOURCE:
+				sequence_IsSourceConstraintRule(context, (IsSource) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IS_SOURCE_TYPE:
+				sequence_IsSourceTypeConstraintRule(context, (IsSourceType) semanticObject); 
+				return; 
 			case EditpolicymodelPackage.IS_STEP_IN:
-				sequence_StepIn(context, (IsStepIn) semanticObject); 
+				sequence_StepInConstraintRule(context, (IsStepIn) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IS_TARGET:
+				sequence_IsTargetConstraintRule(context, (IsTarget) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IS_TARGET_TYPE:
+				sequence_IsTargetTypeConstraintRule(context, (IsTargetType) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
 				return; 
-			case EditpolicymodelPackage.NOT_RULE:
-				if (rule == grammarAccess.getConstraintExpressionRule()
-						|| rule == grammarAccess.getImplicationConstraintRule()
-						|| action == grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrConstraintRule()
-						|| action == grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndConstraintRule()
-						|| action == grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotConstraintExpressionRule()
-						|| rule == grammarAccess.getPrimaryConstraintRule()) {
-					sequence_NotConstraintExpression(context, (NotRule) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getFeatureExpressionRule()
-						|| rule == grammarAccess.getImplicationFeatureRule()
-						|| action == grammarAccess.getImplicationFeatureAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrFeatureRule()
-						|| action == grammarAccess.getOrFeatureAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndFeatureRule()
-						|| action == grammarAccess.getAndFeatureAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotFeatureExpressionRule()
-						|| rule == grammarAccess.getPrimaryFeatureRule()) {
-					sequence_NotFeatureExpression(context, (NotRule) semanticObject); 
-					return; 
-				}
-				else break;
-			case EditpolicymodelPackage.OR_RULE:
-				if (rule == grammarAccess.getConstraintExpressionRule()
-						|| rule == grammarAccess.getImplicationConstraintRule()
-						|| action == grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrConstraintRule()
-						|| action == grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndConstraintRule()
-						|| action == grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotConstraintExpressionRule()
-						|| rule == grammarAccess.getPrimaryConstraintRule()) {
-					sequence_OrConstraint(context, (OrRule) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getFeatureExpressionRule()
-						|| rule == grammarAccess.getImplicationFeatureRule()
-						|| action == grammarAccess.getImplicationFeatureAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrFeatureRule()
-						|| action == grammarAccess.getOrFeatureAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndFeatureRule()
-						|| action == grammarAccess.getAndFeatureAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotFeatureExpressionRule()
-						|| rule == grammarAccess.getPrimaryFeatureRule()) {
-					sequence_OrFeature(context, (OrRule) semanticObject); 
-					return; 
-				}
-				else break;
+			case EditpolicymodelPackage.NOT_CONSTRAINT_RULE:
+				sequence_NotConstraintExpression(context, (NotConstraintRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.NOT_FEATURE_RULE:
+				sequence_NotFeatureExpression(context, (NotFeatureRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.OR_CONSTRAINT_RULE:
+				sequence_OrConstraint(context, (OrConstraintRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.OR_FEATURE_RULE:
+				sequence_OrFeature(context, (OrFeatureRule) semanticObject); 
+				return; 
 			case EditpolicymodelPackage.POLICY:
 				sequence_Policy(context, (Policy) semanticObject); 
 				return; 
-			case EditpolicymodelPackage.RULE:
-				if (rule == grammarAccess.getFeatureRuleRule()
-						|| rule == grammarAccess.getIsFeatureRuleRule()
-						|| rule == grammarAccess.getFeatureExpressionRule()
-						|| rule == grammarAccess.getImplicationFeatureRule()
-						|| action == grammarAccess.getImplicationFeatureAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrFeatureRule()
-						|| action == grammarAccess.getOrFeatureAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndFeatureRule()
-						|| action == grammarAccess.getAndFeatureAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotFeatureExpressionRule()
-						|| rule == grammarAccess.getPrimaryFeatureRule()) {
-					sequence_IsFeatureRule(context, (Rule) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getConstraintRuleRule()
-						|| rule == grammarAccess.getStepInRuleRule()
-						|| rule == grammarAccess.getConstraintExpressionRule()
-						|| rule == grammarAccess.getImplicationConstraintRule()
-						|| action == grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0()
-						|| rule == grammarAccess.getOrConstraintRule()
-						|| action == grammarAccess.getOrConstraintAccess().getOrRuleRulesAction_1_0()
-						|| rule == grammarAccess.getAndConstraintRule()
-						|| action == grammarAccess.getAndConstraintAccess().getAndRuleRulesAction_1_0()
-						|| rule == grammarAccess.getNotConstraintExpressionRule()
-						|| rule == grammarAccess.getPrimaryConstraintRule()) {
-					sequence_StepInRule(context, (Rule) semanticObject); 
-					return; 
-				}
-				else break;
-			case EditpolicymodelPackage.TRUE_RULE:
-				sequence_TrueRule(context, (TrueRule) semanticObject); 
+			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE:
+				sequence_TrueConstraintRule(context, (TrueConstraintRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.TRUE_FEATURE_RULE:
+				sequence_TrueFeatureRule(context, (TrueFeatureRule) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -193,80 +126,140 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ConstraintExpression returns AndRule
-	 *     ImplicationConstraint returns AndRule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns AndRule
-	 *     OrConstraint returns AndRule
-	 *     OrConstraint.OrRule_1_0 returns AndRule
-	 *     AndConstraint returns AndRule
-	 *     AndConstraint.AndRule_1_0 returns AndRule
-	 *     NotConstraintExpression returns AndRule
-	 *     PrimaryConstraint returns AndRule
+	 *     ConstraintExpression returns AndConstraintRule
+	 *     ImplicationConstraint returns AndConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns AndConstraintRule
+	 *     OrConstraint returns AndConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns AndConstraintRule
+	 *     AndConstraint returns AndConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns AndConstraintRule
+	 *     NotConstraintExpression returns AndConstraintRule
+	 *     PrimaryConstraint returns AndConstraintRule
 	 *
 	 * Constraint:
-	 *     (rules+=AndConstraint_AndRule_1_0 rules+=NotConstraintExpression)
+	 *     (rules+=AndConstraint_AndConstraintRule_1_0 rules+=NotConstraintExpression)
 	 */
-	protected void sequence_AndConstraint(ISerializationContext context, AndRule semanticObject) {
+	protected void sequence_AndConstraint(ISerializationContext context, AndConstraintRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     FeatureExpression returns AndRule
-	 *     ImplicationFeature returns AndRule
-	 *     ImplicationFeature.ImplicationRule_1_0 returns AndRule
-	 *     OrFeature returns AndRule
-	 *     OrFeature.OrRule_1_0 returns AndRule
-	 *     AndFeature returns AndRule
-	 *     AndFeature.AndRule_1_0 returns AndRule
-	 *     NotFeatureExpression returns AndRule
-	 *     PrimaryFeature returns AndRule
+	 *     FeatureExpression returns AndFeatureRule
+	 *     ImplicationFeature returns AndFeatureRule
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns AndFeatureRule
+	 *     OrFeature returns AndFeatureRule
+	 *     OrFeature.OrFeatureRule_1_0 returns AndFeatureRule
+	 *     AndFeature returns AndFeatureRule
+	 *     AndFeature.AndFeatureRule_1_0 returns AndFeatureRule
+	 *     NotFeatureExpression returns AndFeatureRule
+	 *     PrimaryFeature returns AndFeatureRule
 	 *
 	 * Constraint:
-	 *     (rules+=AndFeature_AndRule_1_0 rules+=NotFeatureExpression)
+	 *     (rules+=AndFeature_AndFeatureRule_1_0 rules+=NotFeatureExpression)
 	 */
-	protected void sequence_AndFeature(ISerializationContext context, AndRule semanticObject) {
+	protected void sequence_AndFeature(ISerializationContext context, AndFeatureRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     FalseRule returns FalseRule
+	 *     ConstraintRule returns Contains
+	 *     ContainsConstrainRule returns Contains
+	 *     ConstraintExpression returns Contains
+	 *     ImplicationConstraint returns Contains
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns Contains
+	 *     OrConstraint returns Contains
+	 *     OrConstraint.OrConstraintRule_1_0 returns Contains
+	 *     AndConstraint returns Contains
+	 *     AndConstraint.AndConstraintRule_1_0 returns Contains
+	 *     NotConstraintExpression returns Contains
+	 *     PrimaryConstraint returns Contains
 	 *
 	 * Constraint:
-	 *     {FalseRule}
+	 *     type=FeatureTypeEnum
 	 */
-	protected void sequence_FalseRule(ISerializationContext context, FalseRule semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ConstraintExpression returns ImplicationRule
-	 *     ImplicationConstraint returns ImplicationRule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns ImplicationRule
-	 *     OrConstraint returns ImplicationRule
-	 *     OrConstraint.OrRule_1_0 returns ImplicationRule
-	 *     AndConstraint returns ImplicationRule
-	 *     AndConstraint.AndRule_1_0 returns ImplicationRule
-	 *     NotConstraintExpression returns ImplicationRule
-	 *     PrimaryConstraint returns ImplicationRule
-	 *
-	 * Constraint:
-	 *     (leftRule=ImplicationConstraint_ImplicationRule_1_0 rightRule=OrConstraint)
-	 */
-	protected void sequence_ImplicationConstraint(ISerializationContext context, ImplicationRule semanticObject) {
+	protected void sequence_ContainsConstrainRule(ISerializationContext context, Contains semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__LEFT_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__LEFT_RULE));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__RIGHT_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__RIGHT_RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getImplicationConstraintAccess().getImplicationRuleLeftRuleAction_1_0(), semanticObject.getLeftRule());
+		feeder.accept(grammarAccess.getContainsConstrainRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns FalseConstraintRule
+	 *     FalseConstraintRule returns FalseConstraintRule
+	 *     ConstraintExpression returns FalseConstraintRule
+	 *     ImplicationConstraint returns FalseConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns FalseConstraintRule
+	 *     OrConstraint returns FalseConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns FalseConstraintRule
+	 *     AndConstraint returns FalseConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns FalseConstraintRule
+	 *     NotConstraintExpression returns FalseConstraintRule
+	 *     PrimaryConstraint returns FalseConstraintRule
+	 *
+	 * Constraint:
+	 *     {FalseConstraintRule}
+	 */
+	protected void sequence_FalseConstraintRule(ISerializationContext context, FalseConstraintRule semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FeatureRule returns FalseFeatureRule
+	 *     FalseFeatureRule returns FalseFeatureRule
+	 *     FeatureExpression returns FalseFeatureRule
+	 *     ImplicationFeature returns FalseFeatureRule
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns FalseFeatureRule
+	 *     OrFeature returns FalseFeatureRule
+	 *     OrFeature.OrFeatureRule_1_0 returns FalseFeatureRule
+	 *     AndFeature returns FalseFeatureRule
+	 *     AndFeature.AndFeatureRule_1_0 returns FalseFeatureRule
+	 *     NotFeatureExpression returns FalseFeatureRule
+	 *     PrimaryFeature returns FalseFeatureRule
+	 *
+	 * Constraint:
+	 *     {FalseFeatureRule}
+	 */
+	protected void sequence_FalseFeatureRule(ISerializationContext context, FalseFeatureRule semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintExpression returns ImplicationConstraintRule
+	 *     ImplicationConstraint returns ImplicationConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns ImplicationConstraintRule
+	 *     OrConstraint returns ImplicationConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns ImplicationConstraintRule
+	 *     AndConstraint returns ImplicationConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns ImplicationConstraintRule
+	 *     NotConstraintExpression returns ImplicationConstraintRule
+	 *     PrimaryConstraint returns ImplicationConstraintRule
+	 *
+	 * Constraint:
+	 *     (leftRule=ImplicationConstraint_ImplicationConstraintRule_1_0 rightRule=OrConstraint)
+	 */
+	protected void sequence_ImplicationConstraint(ISerializationContext context, ImplicationConstraintRule semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__LEFT_RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__LEFT_RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__RIGHT_RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__RIGHT_RULE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getImplicationConstraintAccess().getImplicationConstraintRuleLeftRuleAction_1_0(), semanticObject.getLeftRule());
 		feeder.accept(grammarAccess.getImplicationConstraintAccess().getRightRuleOrConstraintParserRuleCall_1_2_0(), semanticObject.getRightRule());
 		feeder.finish();
 	}
@@ -274,20 +267,20 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ImplicationFeature returns ImplicationRule
+	 *     ImplicationFeature returns ImplicationFeatureRule
 	 *
 	 * Constraint:
-	 *     (leftRule=ImplicationFeature_ImplicationRule_1_0 rightRule=OrFeature)
+	 *     (leftRule=ImplicationFeature_ImplicationFeatureRule_1_0 rightRule=OrFeature)
 	 */
-	protected void sequence_ImplicationFeature(ISerializationContext context, ImplicationRule semanticObject) {
+	protected void sequence_ImplicationFeature(ISerializationContext context, ImplicationFeatureRule semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__LEFT_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__LEFT_RULE));
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__RIGHT_RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_RULE__RIGHT_RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_FEATURE_RULE__LEFT_RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_FEATURE_RULE__LEFT_RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.BINARY_FEATURE_RULE__RIGHT_RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.BINARY_FEATURE_RULE__RIGHT_RULE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getImplicationFeatureAccess().getImplicationRuleLeftRuleAction_1_0(), semanticObject.getLeftRule());
+		feeder.accept(grammarAccess.getImplicationFeatureAccess().getImplicationFeatureRuleLeftRuleAction_1_0(), semanticObject.getLeftRule());
 		feeder.accept(grammarAccess.getImplicationFeatureAccess().getRightRuleOrFeatureParserRuleCall_1_2_0(), semanticObject.getRightRule());
 		feeder.finish();
 	}
@@ -295,41 +288,169 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     FeatureRule returns Rule
-	 *     IsFeatureRule returns Rule
-	 *     FeatureExpression returns Rule
-	 *     ImplicationFeature returns Rule
-	 *     ImplicationFeature.ImplicationRule_1_0 returns Rule
-	 *     OrFeature returns Rule
-	 *     OrFeature.OrRule_1_0 returns Rule
-	 *     AndFeature returns Rule
-	 *     AndFeature.AndRule_1_0 returns Rule
-	 *     NotFeatureExpression returns Rule
-	 *     PrimaryFeature returns Rule
+	 *     FeatureRule returns IsFeature
+	 *     IsFeature returns IsFeature
+	 *     FeatureExpression returns IsFeature
+	 *     ImplicationFeature returns IsFeature
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns IsFeature
+	 *     OrFeature returns IsFeature
+	 *     OrFeature.OrFeatureRule_1_0 returns IsFeature
+	 *     AndFeature returns IsFeature
+	 *     AndFeature.AndFeatureRule_1_0 returns IsFeature
+	 *     NotFeatureExpression returns IsFeature
+	 *     PrimaryFeature returns IsFeature
 	 *
 	 * Constraint:
-	 *     rule=IsFeature
+	 *     featureName=FeatureNameEnum
 	 */
-	protected void sequence_IsFeatureRule(ISerializationContext context, Rule semanticObject) {
+	protected void sequence_IsFeature(ISerializationContext context, IsFeature semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.RULE__RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.RULE__RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.IS_FEATURE__FEATURE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.IS_FEATURE__FEATURE_NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getIsFeatureRuleAccess().getRuleIsFeatureParserRuleCall_1_0(), semanticObject.getRule());
+		feeder.accept(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_2_0(), semanticObject.getFeatureName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     IsFeature returns IsFeature
+	 *     ConstraintRule returns IsParent
+	 *     IsParentConstraintRule returns IsParent
+	 *     ConstraintExpression returns IsParent
+	 *     ImplicationConstraint returns IsParent
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsParent
+	 *     OrConstraint returns IsParent
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsParent
+	 *     AndConstraint returns IsParent
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsParent
+	 *     NotConstraintExpression returns IsParent
+	 *     PrimaryConstraint returns IsParent
 	 *
 	 * Constraint:
-	 *     {IsFeature}
+	 *     type=FeatureTypeEnum
 	 */
-	protected void sequence_IsFeature(ISerializationContext context, IsFeature semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_IsParentConstraintRule(ISerializationContext context, IsParent semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getIsParentConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns IsSource
+	 *     IsSourceConstraintRule returns IsSource
+	 *     ConstraintExpression returns IsSource
+	 *     ImplicationConstraint returns IsSource
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsSource
+	 *     OrConstraint returns IsSource
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsSource
+	 *     AndConstraint returns IsSource
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsSource
+	 *     NotConstraintExpression returns IsSource
+	 *     PrimaryConstraint returns IsSource
+	 *
+	 * Constraint:
+	 *     type=FeatureTypeEnum
+	 */
+	protected void sequence_IsSourceConstraintRule(ISerializationContext context, IsSource semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getIsSourceConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns IsSourceType
+	 *     IsSourceTypeConstraintRule returns IsSourceType
+	 *     ConstraintExpression returns IsSourceType
+	 *     ImplicationConstraint returns IsSourceType
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsSourceType
+	 *     OrConstraint returns IsSourceType
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsSourceType
+	 *     AndConstraint returns IsSourceType
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsSourceType
+	 *     NotConstraintExpression returns IsSourceType
+	 *     PrimaryConstraint returns IsSourceType
+	 *
+	 * Constraint:
+	 *     type=FeatureTypeEnum
+	 */
+	protected void sequence_IsSourceTypeConstraintRule(ISerializationContext context, IsSourceType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getIsSourceTypeConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns IsTarget
+	 *     IsTargetConstraintRule returns IsTarget
+	 *     ConstraintExpression returns IsTarget
+	 *     ImplicationConstraint returns IsTarget
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsTarget
+	 *     OrConstraint returns IsTarget
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsTarget
+	 *     AndConstraint returns IsTarget
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsTarget
+	 *     NotConstraintExpression returns IsTarget
+	 *     PrimaryConstraint returns IsTarget
+	 *
+	 * Constraint:
+	 *     type=FeatureTypeEnum
+	 */
+	protected void sequence_IsTargetConstraintRule(ISerializationContext context, IsTarget semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getIsTargetConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns IsTargetType
+	 *     IsTargetTypeConstraintRule returns IsTargetType
+	 *     ConstraintExpression returns IsTargetType
+	 *     ImplicationConstraint returns IsTargetType
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsTargetType
+	 *     OrConstraint returns IsTargetType
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsTargetType
+	 *     AndConstraint returns IsTargetType
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsTargetType
+	 *     NotConstraintExpression returns IsTargetType
+	 *     PrimaryConstraint returns IsTargetType
+	 *
+	 * Constraint:
+	 *     type=FeatureTypeEnum
+	 */
+	protected void sequence_IsTargetTypeConstraintRule(ISerializationContext context, IsTargetType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getIsTargetTypeConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
 	}
 	
 	
@@ -347,23 +468,23 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ConstraintExpression returns NotRule
-	 *     ImplicationConstraint returns NotRule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns NotRule
-	 *     OrConstraint returns NotRule
-	 *     OrConstraint.OrRule_1_0 returns NotRule
-	 *     AndConstraint returns NotRule
-	 *     AndConstraint.AndRule_1_0 returns NotRule
-	 *     NotConstraintExpression returns NotRule
-	 *     PrimaryConstraint returns NotRule
+	 *     ConstraintExpression returns NotConstraintRule
+	 *     ImplicationConstraint returns NotConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns NotConstraintRule
+	 *     OrConstraint returns NotConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns NotConstraintRule
+	 *     AndConstraint returns NotConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns NotConstraintRule
+	 *     NotConstraintExpression returns NotConstraintRule
+	 *     PrimaryConstraint returns NotConstraintRule
 	 *
 	 * Constraint:
 	 *     rule=PrimaryConstraint
 	 */
-	protected void sequence_NotConstraintExpression(ISerializationContext context, NotRule semanticObject) {
+	protected void sequence_NotConstraintExpression(ISerializationContext context, NotConstraintRule semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.UNARY_RULE__RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.UNARY_RULE__RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNotConstraintExpressionAccess().getRulePrimaryConstraintParserRuleCall_1_2_0(), semanticObject.getRule());
@@ -373,23 +494,23 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     FeatureExpression returns NotRule
-	 *     ImplicationFeature returns NotRule
-	 *     ImplicationFeature.ImplicationRule_1_0 returns NotRule
-	 *     OrFeature returns NotRule
-	 *     OrFeature.OrRule_1_0 returns NotRule
-	 *     AndFeature returns NotRule
-	 *     AndFeature.AndRule_1_0 returns NotRule
-	 *     NotFeatureExpression returns NotRule
-	 *     PrimaryFeature returns NotRule
+	 *     FeatureExpression returns NotFeatureRule
+	 *     ImplicationFeature returns NotFeatureRule
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns NotFeatureRule
+	 *     OrFeature returns NotFeatureRule
+	 *     OrFeature.OrFeatureRule_1_0 returns NotFeatureRule
+	 *     AndFeature returns NotFeatureRule
+	 *     AndFeature.AndFeatureRule_1_0 returns NotFeatureRule
+	 *     NotFeatureExpression returns NotFeatureRule
+	 *     PrimaryFeature returns NotFeatureRule
 	 *
 	 * Constraint:
 	 *     rule=PrimaryFeature
 	 */
-	protected void sequence_NotFeatureExpression(ISerializationContext context, NotRule semanticObject) {
+	protected void sequence_NotFeatureExpression(ISerializationContext context, NotFeatureRule semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.UNARY_RULE__RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.UNARY_RULE__RULE));
+			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.UNARY_FEATURE_RULE__RULE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.UNARY_FEATURE_RULE__RULE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNotFeatureExpressionAccess().getRulePrimaryFeatureParserRuleCall_1_2_0(), semanticObject.getRule());
@@ -399,40 +520,40 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ConstraintExpression returns OrRule
-	 *     ImplicationConstraint returns OrRule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns OrRule
-	 *     OrConstraint returns OrRule
-	 *     OrConstraint.OrRule_1_0 returns OrRule
-	 *     AndConstraint returns OrRule
-	 *     AndConstraint.AndRule_1_0 returns OrRule
-	 *     NotConstraintExpression returns OrRule
-	 *     PrimaryConstraint returns OrRule
+	 *     ConstraintExpression returns OrConstraintRule
+	 *     ImplicationConstraint returns OrConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns OrConstraintRule
+	 *     OrConstraint returns OrConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns OrConstraintRule
+	 *     AndConstraint returns OrConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns OrConstraintRule
+	 *     NotConstraintExpression returns OrConstraintRule
+	 *     PrimaryConstraint returns OrConstraintRule
 	 *
 	 * Constraint:
-	 *     (rules+=OrConstraint_OrRule_1_0 rules+=AndConstraint)
+	 *     (rules+=OrConstraint_OrConstraintRule_1_0 rules+=AndConstraint)
 	 */
-	protected void sequence_OrConstraint(ISerializationContext context, OrRule semanticObject) {
+	protected void sequence_OrConstraint(ISerializationContext context, OrConstraintRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     FeatureExpression returns OrRule
-	 *     ImplicationFeature returns OrRule
-	 *     ImplicationFeature.ImplicationRule_1_0 returns OrRule
-	 *     OrFeature returns OrRule
-	 *     OrFeature.OrRule_1_0 returns OrRule
-	 *     AndFeature returns OrRule
-	 *     AndFeature.AndRule_1_0 returns OrRule
-	 *     NotFeatureExpression returns OrRule
-	 *     PrimaryFeature returns OrRule
+	 *     FeatureExpression returns OrFeatureRule
+	 *     ImplicationFeature returns OrFeatureRule
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns OrFeatureRule
+	 *     OrFeature returns OrFeatureRule
+	 *     OrFeature.OrFeatureRule_1_0 returns OrFeatureRule
+	 *     AndFeature returns OrFeatureRule
+	 *     AndFeature.AndFeatureRule_1_0 returns OrFeatureRule
+	 *     NotFeatureExpression returns OrFeatureRule
+	 *     PrimaryFeature returns OrFeatureRule
 	 *
 	 * Constraint:
-	 *     (rules+=OrFeature_OrRule_1_0 rules+=AndFeature)
+	 *     (rules+=OrFeature_OrFeatureRule_1_0 rules+=AndFeature)
 	 */
-	protected void sequence_OrFeature(ISerializationContext context, OrRule semanticObject) {
+	protected void sequence_OrFeature(ISerializationContext context, OrFeatureRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -442,7 +563,7 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Policy returns Policy
 	 *
 	 * Constraint:
-	 *     (override?='override' action=ActionEnum actionType=ActionTypeEnum featureRule=FeatureExpression constraintRule=ConstraintExpression)
+	 *     (override?='override' action=ActionEnum actionType=FeatureTypeEnum featureRule=FeatureExpression constraintRule=ConstraintExpression)
 	 */
 	protected void sequence_Policy(ISerializationContext context, Policy semanticObject) {
 		if (errorAcceptor != null) {
@@ -460,7 +581,7 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getPolicyAccess().getOverrideOverrideKeyword_0_0(), semanticObject.getOverride());
 		feeder.accept(grammarAccess.getPolicyAccess().getActionActionEnumEnumRuleCall_1_0(), semanticObject.getAction());
-		feeder.accept(grammarAccess.getPolicyAccess().getActionTypeActionTypeEnumEnumRuleCall_2_0(), semanticObject.getActionType());
+		feeder.accept(grammarAccess.getPolicyAccess().getActionTypeFeatureTypeEnumEnumRuleCall_2_0(), semanticObject.getActionType());
 		feeder.accept(grammarAccess.getPolicyAccess().getFeatureRuleFeatureExpressionParserRuleCall_4_0(), semanticObject.getFeatureRule());
 		feeder.accept(grammarAccess.getPolicyAccess().getConstraintRuleConstraintExpressionParserRuleCall_6_0(), semanticObject.getConstraintRule());
 		feeder.finish();
@@ -469,72 +590,66 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ConstraintRule returns Rule
-	 *     StepInRule returns Rule
-	 *     ConstraintExpression returns Rule
-	 *     ImplicationConstraint returns Rule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns Rule
-	 *     OrConstraint returns Rule
-	 *     OrConstraint.OrRule_1_0 returns Rule
-	 *     AndConstraint returns Rule
-	 *     AndConstraint.AndRule_1_0 returns Rule
-	 *     NotConstraintExpression returns Rule
-	 *     PrimaryConstraint returns Rule
-	 *
-	 * Constraint:
-	 *     rule=StepIn
-	 */
-	protected void sequence_StepInRule(ISerializationContext context, Rule semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.RULE__RULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.RULE__RULE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getStepInRuleAccess().getRuleStepInParserRuleCall_1_0(), semanticObject.getRule());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     StepIn returns IsStepIn
+	 *     ConstraintRule returns IsStepIn
+	 *     StepInConstraintRule returns IsStepIn
+	 *     ConstraintExpression returns IsStepIn
+	 *     ImplicationConstraint returns IsStepIn
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsStepIn
+	 *     OrConstraint returns IsStepIn
+	 *     OrConstraint.OrConstraintRule_1_0 returns IsStepIn
+	 *     AndConstraint returns IsStepIn
+	 *     AndConstraint.AndConstraintRule_1_0 returns IsStepIn
+	 *     NotConstraintExpression returns IsStepIn
+	 *     PrimaryConstraint returns IsStepIn
 	 *
 	 * Constraint:
 	 *     {IsStepIn}
 	 */
-	protected void sequence_StepIn(ISerializationContext context, IsStepIn semanticObject) {
+	protected void sequence_StepInConstraintRule(ISerializationContext context, IsStepIn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     ConstraintRule returns TrueRule
-	 *     FeatureRule returns TrueRule
-	 *     TrueRule returns TrueRule
-	 *     FeatureExpression returns TrueRule
-	 *     ImplicationFeature returns TrueRule
-	 *     ImplicationFeature.ImplicationRule_1_0 returns TrueRule
-	 *     OrFeature returns TrueRule
-	 *     OrFeature.OrRule_1_0 returns TrueRule
-	 *     AndFeature returns TrueRule
-	 *     AndFeature.AndRule_1_0 returns TrueRule
-	 *     NotFeatureExpression returns TrueRule
-	 *     PrimaryFeature returns TrueRule
-	 *     ConstraintExpression returns TrueRule
-	 *     ImplicationConstraint returns TrueRule
-	 *     ImplicationConstraint.ImplicationRule_1_0 returns TrueRule
-	 *     OrConstraint returns TrueRule
-	 *     OrConstraint.OrRule_1_0 returns TrueRule
-	 *     AndConstraint returns TrueRule
-	 *     AndConstraint.AndRule_1_0 returns TrueRule
-	 *     NotConstraintExpression returns TrueRule
-	 *     PrimaryConstraint returns TrueRule
+	 *     ConstraintRule returns TrueConstraintRule
+	 *     TrueConstraintRule returns TrueConstraintRule
+	 *     ConstraintExpression returns TrueConstraintRule
+	 *     ImplicationConstraint returns TrueConstraintRule
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns TrueConstraintRule
+	 *     OrConstraint returns TrueConstraintRule
+	 *     OrConstraint.OrConstraintRule_1_0 returns TrueConstraintRule
+	 *     AndConstraint returns TrueConstraintRule
+	 *     AndConstraint.AndConstraintRule_1_0 returns TrueConstraintRule
+	 *     NotConstraintExpression returns TrueConstraintRule
+	 *     PrimaryConstraint returns TrueConstraintRule
 	 *
 	 * Constraint:
-	 *     {TrueRule}
+	 *     {TrueConstraintRule}
 	 */
-	protected void sequence_TrueRule(ISerializationContext context, TrueRule semanticObject) {
+	protected void sequence_TrueConstraintRule(ISerializationContext context, TrueConstraintRule semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FeatureRule returns TrueFeatureRule
+	 *     TrueFeatureRule returns TrueFeatureRule
+	 *     FeatureExpression returns TrueFeatureRule
+	 *     ImplicationFeature returns TrueFeatureRule
+	 *     ImplicationFeature.ImplicationFeatureRule_1_0 returns TrueFeatureRule
+	 *     OrFeature returns TrueFeatureRule
+	 *     OrFeature.OrFeatureRule_1_0 returns TrueFeatureRule
+	 *     AndFeature returns TrueFeatureRule
+	 *     AndFeature.AndFeatureRule_1_0 returns TrueFeatureRule
+	 *     NotFeatureExpression returns TrueFeatureRule
+	 *     PrimaryFeature returns TrueFeatureRule
+	 *
+	 * Constraint:
+	 *     {TrueFeatureRule}
+	 */
+	protected void sequence_TrueFeatureRule(ISerializationContext context, TrueFeatureRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

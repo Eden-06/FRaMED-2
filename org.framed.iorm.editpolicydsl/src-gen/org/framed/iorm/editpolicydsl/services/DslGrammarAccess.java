@@ -34,6 +34,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPoliciesAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cPoliciesPolicyParserRuleCall_1_0 = (RuleCall)cPoliciesAssignment_1.eContents().get(0);
 		
+		////import "http://iorm/1.0"  as iorm
+		////import "http://iorm.featuremodel/1.0" as featuremodel
 		//Model:
 		//	(policies+=Policy policies+=Policy*)?;
 		@Override public ParserRule getRule() { return rule; }
@@ -61,7 +63,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cActionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cActionActionEnumEnumRuleCall_1_0 = (RuleCall)cActionAssignment_1.eContents().get(0);
 		private final Assignment cActionTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cActionTypeActionTypeEnumEnumRuleCall_2_0 = (RuleCall)cActionTypeAssignment_2.eContents().get(0);
+		private final RuleCall cActionTypeFeatureTypeEnumEnumRuleCall_2_0 = (RuleCall)cActionTypeAssignment_2.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cFeatureRuleAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cFeatureRuleFeatureExpressionParserRuleCall_4_0 = (RuleCall)cFeatureRuleAssignment_4.eContents().get(0);
@@ -71,13 +73,13 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//Policy:
-		//	override?='override' action=ActionEnum actionType=ActionTypeEnum
+		//	override?='override' action=ActionEnum actionType=FeatureTypeEnum
 		//	'{'
 		//	featureRule=FeatureExpression '=>' constraintRule=ConstraintExpression
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//override?='override' action=ActionEnum actionType=ActionTypeEnum '{' featureRule=FeatureExpression '=>'
+		//override?='override' action=ActionEnum actionType=FeatureTypeEnum '{' featureRule=FeatureExpression '=>'
 		//constraintRule=ConstraintExpression '}'
 		public Group getGroup() { return cGroup; }
 		
@@ -93,11 +95,11 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//ActionEnum
 		public RuleCall getActionActionEnumEnumRuleCall_1_0() { return cActionActionEnumEnumRuleCall_1_0; }
 		
-		//actionType=ActionTypeEnum
+		//actionType=FeatureTypeEnum
 		public Assignment getActionTypeAssignment_2() { return cActionTypeAssignment_2; }
 		
-		//ActionTypeEnum
-		public RuleCall getActionTypeActionTypeEnumEnumRuleCall_2_0() { return cActionTypeActionTypeEnumEnumRuleCall_2_0; }
+		//FeatureTypeEnum
+		public RuleCall getActionTypeFeatureTypeEnumEnumRuleCall_2_0() { return cActionTypeFeatureTypeEnumEnumRuleCall_2_0; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
@@ -123,76 +125,328 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class ConstraintRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ConstraintRule");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cStepInRuleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTrueRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cStepInConstraintRuleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cTrueConstraintRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFalseConstraintRuleParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cContainsConstrainRuleParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cIsTargetConstraintRuleParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cIsTargetTypeConstraintRuleParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cIsSourceConstraintRuleParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cIsSourceTypeConstraintRuleParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cIsParentConstraintRuleParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		
-		//ConstraintRule AbstractRule:
-		//	StepInRule | TrueRule;
+		//// ----------------- Constraint Rules ------------------------------//
+		//ConstraintRule:
+		//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
+		//	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//StepInRule | TrueRule
+		//StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
+		//IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//StepInRule
-		public RuleCall getStepInRuleParserRuleCall_0() { return cStepInRuleParserRuleCall_0; }
+		//StepInConstraintRule
+		public RuleCall getStepInConstraintRuleParserRuleCall_0() { return cStepInConstraintRuleParserRuleCall_0; }
 		
-		//TrueRule
-		public RuleCall getTrueRuleParserRuleCall_1() { return cTrueRuleParserRuleCall_1; }
+		//TrueConstraintRule
+		public RuleCall getTrueConstraintRuleParserRuleCall_1() { return cTrueConstraintRuleParserRuleCall_1; }
+		
+		//FalseConstraintRule
+		public RuleCall getFalseConstraintRuleParserRuleCall_2() { return cFalseConstraintRuleParserRuleCall_2; }
+		
+		//ContainsConstrainRule
+		public RuleCall getContainsConstrainRuleParserRuleCall_3() { return cContainsConstrainRuleParserRuleCall_3; }
+		
+		//IsTargetConstraintRule
+		public RuleCall getIsTargetConstraintRuleParserRuleCall_4() { return cIsTargetConstraintRuleParserRuleCall_4; }
+		
+		//IsTargetTypeConstraintRule
+		public RuleCall getIsTargetTypeConstraintRuleParserRuleCall_5() { return cIsTargetTypeConstraintRuleParserRuleCall_5; }
+		
+		//IsSourceConstraintRule
+		public RuleCall getIsSourceConstraintRuleParserRuleCall_6() { return cIsSourceConstraintRuleParserRuleCall_6; }
+		
+		//IsSourceTypeConstraintRule
+		public RuleCall getIsSourceTypeConstraintRuleParserRuleCall_7() { return cIsSourceTypeConstraintRuleParserRuleCall_7; }
+		
+		//IsParentConstraintRule
+		public RuleCall getIsParentConstraintRuleParserRuleCall_8() { return cIsParentConstraintRuleParserRuleCall_8; }
+	}
+	public class ContainsConstrainRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ContainsConstrainRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cContainsAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cContainsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//ContainsConstrainRule Contains:
+		//	{Contains} 'Contains' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{Contains} 'Contains' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{Contains}
+		public Action getContainsAction_0() { return cContainsAction_0; }
+		
+		//'Contains'
+		public Keyword getContainsKeyword_1() { return cContainsKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class IsTargetTypeConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsTargetTypeConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsTargetTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsTargetTypeKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IsTargetTypeConstraintRule IsTargetType:
+		//	{IsTargetType} 'IsTargetType' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsTargetType} 'IsTargetType' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsTargetType}
+		public Action getIsTargetTypeAction_0() { return cIsTargetTypeAction_0; }
+		
+		//'IsTargetType'
+		public Keyword getIsTargetTypeKeyword_1() { return cIsTargetTypeKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class IsParentConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsParentConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsParentAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsParentKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IsParentConstraintRule IsParent:
+		//	{IsParent} 'IsParent' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsParent} 'IsParent' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsParent}
+		public Action getIsParentAction_0() { return cIsParentAction_0; }
+		
+		//'IsParent'
+		public Keyword getIsParentKeyword_1() { return cIsParentKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class IsSourceTypeConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsSourceTypeConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsSourceTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsSourceTypeKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IsSourceTypeConstraintRule IsSourceType:
+		//	{IsSourceType} 'IsSourceType' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsSourceType} 'IsSourceType' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsSourceType}
+		public Action getIsSourceTypeAction_0() { return cIsSourceTypeAction_0; }
+		
+		//'IsSourceType'
+		public Keyword getIsSourceTypeKeyword_1() { return cIsSourceTypeKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class IsTargetConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsTargetConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsTargetAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsTargetKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IsTargetConstraintRule IsTarget:
+		//	{IsTarget} 'IsTarget' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsTarget} 'IsTarget' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsTarget}
+		public Action getIsTargetAction_0() { return cIsTargetAction_0; }
+		
+		//'IsTarget'
+		public Keyword getIsTargetKeyword_1() { return cIsTargetKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class IsSourceConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsSourceConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsSourceAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsSourceKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//IsSourceConstraintRule IsSource:
+		//	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsSource}
+		public Action getIsSourceAction_0() { return cIsSourceAction_0; }
+		
+		//'IsSource'
+		public Keyword getIsSourceKeyword_1() { return cIsSourceKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//type=FeatureTypeEnum
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
+		
+		//FeatureTypeEnum
+		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+	public class StepInConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.StepInConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsStepInAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cIsStepInKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//StepInConstraintRule ConstraintRule:
+		//	{IsStepIn} 'IsStepIn' '(' ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{IsStepIn} 'IsStepIn' '(' ')'
+		public Group getGroup() { return cGroup; }
+		
+		//{IsStepIn}
+		public Action getIsStepInAction_0() { return cIsStepInAction_0; }
+		
+		//'IsStepIn'
+		public Keyword getIsStepInKeyword_1() { return cIsStepInKeyword_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 	public class FeatureRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FeatureRule");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cIsFeatureRuleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTrueRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cIsFeatureParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cTrueFeatureRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFalseFeatureRuleParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//FeatureRule AbstractRule:
-		//	IsFeatureRule | TrueRule;
+		//// ----------------- Feature Rules ------------------------------//
+		//FeatureRule:
+		//	IsFeature | TrueFeatureRule | FalseFeatureRule;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//IsFeatureRule | TrueRule
+		//IsFeature | TrueFeatureRule | FalseFeatureRule
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//IsFeatureRule
-		public RuleCall getIsFeatureRuleParserRuleCall_0() { return cIsFeatureRuleParserRuleCall_0; }
-		
-		//TrueRule
-		public RuleCall getTrueRuleParserRuleCall_1() { return cTrueRuleParserRuleCall_1; }
-	}
-	public class IsFeatureRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsFeatureRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cRuleAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cRuleAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cRuleIsFeatureParserRuleCall_1_0 = (RuleCall)cRuleAssignment_1.eContents().get(0);
-		
-		//IsFeatureRule Rule:
-		//	{Rule} rule=IsFeature;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{Rule} rule=IsFeature
-		public Group getGroup() { return cGroup; }
-		
-		//{Rule}
-		public Action getRuleAction_0() { return cRuleAction_0; }
-		
-		//rule=IsFeature
-		public Assignment getRuleAssignment_1() { return cRuleAssignment_1; }
-		
 		//IsFeature
-		public RuleCall getRuleIsFeatureParserRuleCall_1_0() { return cRuleIsFeatureParserRuleCall_1_0; }
+		public RuleCall getIsFeatureParserRuleCall_0() { return cIsFeatureParserRuleCall_0; }
+		
+		//TrueFeatureRule
+		public RuleCall getTrueFeatureRuleParserRuleCall_1() { return cTrueFeatureRuleParserRuleCall_1; }
+		
+		//FalseFeatureRule
+		public RuleCall getFalseFeatureRuleParserRuleCall_2() { return cFalseFeatureRuleParserRuleCall_2; }
 	}
 	public class IsFeatureElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsFeature");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cIsFeatureAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cIsFeatureKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cFeatureNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cFeatureNameFeatureNameEnumEnumRuleCall_2_0 = (RuleCall)cFeatureNameAssignment_2.eContents().get(0);
 		
 		//IsFeature:
 		//	{IsFeature}
-		//	'isFeature';
+		//	'isFeature' featureName=FeatureNameEnum;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{IsFeature} 'isFeature'
+		//{IsFeature} 'isFeature' featureName=FeatureNameEnum
 		public Group getGroup() { return cGroup; }
 		
 		//{IsFeature}
@@ -200,6 +454,93 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'isFeature'
 		public Keyword getIsFeatureKeyword_1() { return cIsFeatureKeyword_1; }
+		
+		//featureName=FeatureNameEnum
+		public Assignment getFeatureNameAssignment_2() { return cFeatureNameAssignment_2; }
+		
+		//FeatureNameEnum
+		public RuleCall getFeatureNameFeatureNameEnumEnumRuleCall_2_0() { return cFeatureNameFeatureNameEnumEnumRuleCall_2_0; }
+	}
+	public class TrueFeatureRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.TrueFeatureRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTrueFeatureRuleAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cTrueKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//// ----------------- Logical Rules ------------------------------//
+		//TrueFeatureRule:
+		//	{TrueFeatureRule}
+		//	'true';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{TrueFeatureRule} 'true'
+		public Group getGroup() { return cGroup; }
+		
+		//{TrueFeatureRule}
+		public Action getTrueFeatureRuleAction_0() { return cTrueFeatureRuleAction_0; }
+		
+		//'true'
+		public Keyword getTrueKeyword_1() { return cTrueKeyword_1; }
+	}
+	public class TrueConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.TrueConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTrueConstraintRuleAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cTrueKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//TrueConstraintRule:
+		//	{TrueConstraintRule}
+		//	'true';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{TrueConstraintRule} 'true'
+		public Group getGroup() { return cGroup; }
+		
+		//{TrueConstraintRule}
+		public Action getTrueConstraintRuleAction_0() { return cTrueConstraintRuleAction_0; }
+		
+		//'true'
+		public Keyword getTrueKeyword_1() { return cTrueKeyword_1; }
+	}
+	public class FalseFeatureRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FalseFeatureRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cFalseFeatureRuleAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cFalseKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//FalseFeatureRule:
+		//	{FalseFeatureRule}
+		//	'false';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{FalseFeatureRule} 'false'
+		public Group getGroup() { return cGroup; }
+		
+		//{FalseFeatureRule}
+		public Action getFalseFeatureRuleAction_0() { return cFalseFeatureRuleAction_0; }
+		
+		//'false'
+		public Keyword getFalseKeyword_1() { return cFalseKeyword_1; }
+	}
+	public class FalseConstraintRuleElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FalseConstraintRule");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cFalseConstraintRuleAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cFalseKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//FalseConstraintRule:
+		//	{FalseConstraintRule}
+		//	'false';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{FalseConstraintRule} 'false'
+		public Group getGroup() { return cGroup; }
+		
+		//{FalseConstraintRule}
+		public Action getFalseConstraintRuleAction_0() { return cFalseConstraintRuleAction_0; }
+		
+		//'false'
+		public Keyword getFalseKeyword_1() { return cFalseKeyword_1; }
 	}
 	public class EStringElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.EString");
@@ -207,7 +548,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSTRINGTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		////(IsFeature.name=>FeatureName);
 		//EString:
 		//	STRING | ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -221,95 +561,12 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 	}
-	public class StepInRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.StepInRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cRuleAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cRuleAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cRuleStepInParserRuleCall_1_0 = (RuleCall)cRuleAssignment_1.eContents().get(0);
-		
-		//StepInRule Rule:
-		//	{Rule} rule=StepIn;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{Rule} rule=StepIn
-		public Group getGroup() { return cGroup; }
-		
-		//{Rule}
-		public Action getRuleAction_0() { return cRuleAction_0; }
-		
-		//rule=StepIn
-		public Assignment getRuleAssignment_1() { return cRuleAssignment_1; }
-		
-		//StepIn
-		public RuleCall getRuleStepInParserRuleCall_1_0() { return cRuleStepInParserRuleCall_1_0; }
-	}
-	public class StepInElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.StepIn");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cIsStepInAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cStepInKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//StepIn IsStepIn:
-		//	{IsStepIn}
-		//	'StepIn';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{IsStepIn} 'StepIn'
-		public Group getGroup() { return cGroup; }
-		
-		//{IsStepIn}
-		public Action getIsStepInAction_0() { return cIsStepInAction_0; }
-		
-		//'StepIn'
-		public Keyword getStepInKeyword_1() { return cStepInKeyword_1; }
-	}
-	public class TrueRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.TrueRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cTrueRuleAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cTrueKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//TrueRule:
-		//	{TrueRule}
-		//	'true';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{TrueRule} 'true'
-		public Group getGroup() { return cGroup; }
-		
-		//{TrueRule}
-		public Action getTrueRuleAction_0() { return cTrueRuleAction_0; }
-		
-		//'true'
-		public Keyword getTrueKeyword_1() { return cTrueKeyword_1; }
-	}
-	public class FalseRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FalseRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cFalseRuleAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cFalseKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		
-		//FalseRule:
-		//	{FalseRule}
-		//	'false';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{FalseRule} 'false'
-		public Group getGroup() { return cGroup; }
-		
-		//{FalseRule}
-		public Action getFalseRuleAction_0() { return cFalseRuleAction_0; }
-		
-		//'false'
-		public Keyword getFalseKeyword_1() { return cFalseKeyword_1; }
-	}
 	public class FeatureExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FeatureExpression");
 		private final RuleCall cOrFeatureParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		////expression support for Features
-		//FeatureExpression AbstractRule:
+		//FeatureExpression FeatureRule:
 		//	OrFeature;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -321,26 +578,26 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cOrFeatureParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cImplicationRuleLeftRuleAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cImplicationFeatureRuleLeftRuleAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRightRuleAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightRuleOrFeatureParserRuleCall_1_2_0 = (RuleCall)cRightRuleAssignment_1_2.eContents().get(0);
 		
-		//ImplicationFeature AbstractRule:
-		//	OrFeature ({ImplicationRule.leftRule=current} '=>' rightRule=OrFeature)?;
+		//ImplicationFeature FeatureRule:
+		//	OrFeature ({ImplicationFeatureRule.leftRule=current} '=>' rightRule=OrFeature)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//OrFeature ({ImplicationRule.leftRule=current} '=>' rightRule=OrFeature)?
+		//OrFeature ({ImplicationFeatureRule.leftRule=current} '=>' rightRule=OrFeature)?
 		public Group getGroup() { return cGroup; }
 		
 		//OrFeature
 		public RuleCall getOrFeatureParserRuleCall_0() { return cOrFeatureParserRuleCall_0; }
 		
-		//({ImplicationRule.leftRule=current} '=>' rightRule=OrFeature)?
+		//({ImplicationFeatureRule.leftRule=current} '=>' rightRule=OrFeature)?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{ImplicationRule.leftRule=current}
-		public Action getImplicationRuleLeftRuleAction_1_0() { return cImplicationRuleLeftRuleAction_1_0; }
+		//{ImplicationFeatureRule.leftRule=current}
+		public Action getImplicationFeatureRuleLeftRuleAction_1_0() { return cImplicationFeatureRuleLeftRuleAction_1_0; }
 		
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_1_1() { return cEqualsSignGreaterThanSignKeyword_1_1; }
@@ -356,29 +613,29 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cAndFeatureParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cOrRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cVerticalLineVerticalLineKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cOrFeatureRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cOrKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRulesAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulesAndFeatureParserRuleCall_1_2_0 = (RuleCall)cRulesAssignment_1_2.eContents().get(0);
 		
-		//OrFeature AbstractRule:
-		//	AndFeature ({OrRule.rules+=current} '||' rules+=AndFeature)*;
+		//OrFeature FeatureRule:
+		//	AndFeature ({OrFeatureRule.rules+=current} 'or' rules+=AndFeature)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//AndFeature ({OrRule.rules+=current} '||' rules+=AndFeature)*
+		//AndFeature ({OrFeatureRule.rules+=current} 'or' rules+=AndFeature)*
 		public Group getGroup() { return cGroup; }
 		
 		//AndFeature
 		public RuleCall getAndFeatureParserRuleCall_0() { return cAndFeatureParserRuleCall_0; }
 		
-		//({OrRule.rules+=current} '||' rules+=AndFeature)*
+		//({OrFeatureRule.rules+=current} 'or' rules+=AndFeature)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{OrRule.rules+=current}
-		public Action getOrRuleRulesAction_1_0() { return cOrRuleRulesAction_1_0; }
+		//{OrFeatureRule.rules+=current}
+		public Action getOrFeatureRuleRulesAction_1_0() { return cOrFeatureRuleRulesAction_1_0; }
 		
-		//'||'
-		public Keyword getVerticalLineVerticalLineKeyword_1_1() { return cVerticalLineVerticalLineKeyword_1_1; }
+		//'or'
+		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 		
 		//rules+=AndFeature
 		public Assignment getRulesAssignment_1_2() { return cRulesAssignment_1_2; }
@@ -391,29 +648,29 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cNotFeatureExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAndRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cAmpersandAmpersandKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cAndFeatureRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cAndKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRulesAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulesNotFeatureExpressionParserRuleCall_1_2_0 = (RuleCall)cRulesAssignment_1_2.eContents().get(0);
 		
-		//AndFeature AbstractRule:
-		//	NotFeatureExpression ({AndRule.rules+=current} '&&' rules+=NotFeatureExpression)*;
+		//AndFeature FeatureRule:
+		//	NotFeatureExpression ({AndFeatureRule.rules+=current} 'and' rules+=NotFeatureExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//NotFeatureExpression ({AndRule.rules+=current} '&&' rules+=NotFeatureExpression)*
+		//NotFeatureExpression ({AndFeatureRule.rules+=current} 'and' rules+=NotFeatureExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//NotFeatureExpression
 		public RuleCall getNotFeatureExpressionParserRuleCall_0() { return cNotFeatureExpressionParserRuleCall_0; }
 		
-		//({AndRule.rules+=current} '&&' rules+=NotFeatureExpression)*
+		//({AndFeatureRule.rules+=current} 'and' rules+=NotFeatureExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{AndRule.rules+=current}
-		public Action getAndRuleRulesAction_1_0() { return cAndRuleRulesAction_1_0; }
+		//{AndFeatureRule.rules+=current}
+		public Action getAndFeatureRuleRulesAction_1_0() { return cAndFeatureRuleRulesAction_1_0; }
 		
-		//'&&'
-		public Keyword getAmpersandAmpersandKeyword_1_1() { return cAmpersandAmpersandKeyword_1_1; }
+		//'and'
+		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 		
 		//rules+=NotFeatureExpression
 		public Assignment getRulesAssignment_1_2() { return cRulesAssignment_1_2; }
@@ -427,28 +684,28 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPrimaryFeatureParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cExclamationMarkKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Action cNotRuleAction_1_1 = (Action)cGroup_1.eContents().get(1);
+		private final Action cNotFeatureRuleAction_1_1 = (Action)cGroup_1.eContents().get(1);
 		private final Assignment cRuleAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulePrimaryFeatureParserRuleCall_1_2_0 = (RuleCall)cRuleAssignment_1_2.eContents().get(0);
 		
-		//NotFeatureExpression AbstractRule:
-		//	PrimaryFeature | '!' {NotRule} rule=PrimaryFeature;
+		//NotFeatureExpression FeatureRule:
+		//	PrimaryFeature | '!' {NotFeatureRule} rule=PrimaryFeature;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PrimaryFeature | '!' {NotRule} rule=PrimaryFeature
+		//PrimaryFeature | '!' {NotFeatureRule} rule=PrimaryFeature
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//PrimaryFeature
 		public RuleCall getPrimaryFeatureParserRuleCall_0() { return cPrimaryFeatureParserRuleCall_0; }
 		
-		//'!' {NotRule} rule=PrimaryFeature
+		//'!' {NotFeatureRule} rule=PrimaryFeature
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//'!'
 		public Keyword getExclamationMarkKeyword_1_0() { return cExclamationMarkKeyword_1_0; }
 		
-		//{NotRule}
-		public Action getNotRuleAction_1_1() { return cNotRuleAction_1_1; }
+		//{NotFeatureRule}
+		public Action getNotFeatureRuleAction_1_1() { return cNotFeatureRuleAction_1_1; }
 		
 		//rule=PrimaryFeature
 		public Assignment getRuleAssignment_1_2() { return cRuleAssignment_1_2; }
@@ -465,7 +722,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFeatureExpressionParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		//PrimaryFeature AbstractRule:
+		//PrimaryFeature FeatureRule:
 		//	FeatureRule | '(' FeatureExpression ')';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -492,7 +749,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImplicationConstraintParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		////expression support for Constraints
-		//ConstraintExpression AbstractRule:
+		//ConstraintExpression ConstraintRule:
 		//	ImplicationConstraint;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -504,26 +761,26 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cOrConstraintParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cImplicationRuleLeftRuleAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Action cImplicationConstraintRuleLeftRuleAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRightRuleAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRightRuleOrConstraintParserRuleCall_1_2_0 = (RuleCall)cRightRuleAssignment_1_2.eContents().get(0);
 		
-		//ImplicationConstraint AbstractRule:
-		//	OrConstraint ({ImplicationRule.leftRule=current} '=>' rightRule=OrConstraint)?;
+		//ImplicationConstraint ConstraintRule:
+		//	OrConstraint ({ImplicationConstraintRule.leftRule=current} '=>' rightRule=OrConstraint)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//OrConstraint ({ImplicationRule.leftRule=current} '=>' rightRule=OrConstraint)?
+		//OrConstraint ({ImplicationConstraintRule.leftRule=current} '=>' rightRule=OrConstraint)?
 		public Group getGroup() { return cGroup; }
 		
 		//OrConstraint
 		public RuleCall getOrConstraintParserRuleCall_0() { return cOrConstraintParserRuleCall_0; }
 		
-		//({ImplicationRule.leftRule=current} '=>' rightRule=OrConstraint)?
+		//({ImplicationConstraintRule.leftRule=current} '=>' rightRule=OrConstraint)?
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{ImplicationRule.leftRule=current}
-		public Action getImplicationRuleLeftRuleAction_1_0() { return cImplicationRuleLeftRuleAction_1_0; }
+		//{ImplicationConstraintRule.leftRule=current}
+		public Action getImplicationConstraintRuleLeftRuleAction_1_0() { return cImplicationConstraintRuleLeftRuleAction_1_0; }
 		
 		//'=>'
 		public Keyword getEqualsSignGreaterThanSignKeyword_1_1() { return cEqualsSignGreaterThanSignKeyword_1_1; }
@@ -539,29 +796,29 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cAndConstraintParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cOrRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cVerticalLineVerticalLineKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cOrConstraintRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cOrKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRulesAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulesAndConstraintParserRuleCall_1_2_0 = (RuleCall)cRulesAssignment_1_2.eContents().get(0);
 		
-		//OrConstraint AbstractRule:
-		//	AndConstraint ({OrRule.rules+=current} '||' rules+=AndConstraint)*;
+		//OrConstraint ConstraintRule:
+		//	AndConstraint ({OrConstraintRule.rules+=current} 'or' rules+=AndConstraint)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//AndConstraint ({OrRule.rules+=current} '||' rules+=AndConstraint)*
+		//AndConstraint ({OrConstraintRule.rules+=current} 'or' rules+=AndConstraint)*
 		public Group getGroup() { return cGroup; }
 		
 		//AndConstraint
 		public RuleCall getAndConstraintParserRuleCall_0() { return cAndConstraintParserRuleCall_0; }
 		
-		//({OrRule.rules+=current} '||' rules+=AndConstraint)*
+		//({OrConstraintRule.rules+=current} 'or' rules+=AndConstraint)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{OrRule.rules+=current}
-		public Action getOrRuleRulesAction_1_0() { return cOrRuleRulesAction_1_0; }
+		//{OrConstraintRule.rules+=current}
+		public Action getOrConstraintRuleRulesAction_1_0() { return cOrConstraintRuleRulesAction_1_0; }
 		
-		//'||'
-		public Keyword getVerticalLineVerticalLineKeyword_1_1() { return cVerticalLineVerticalLineKeyword_1_1; }
+		//'or'
+		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 		
 		//rules+=AndConstraint
 		public Assignment getRulesAssignment_1_2() { return cRulesAssignment_1_2; }
@@ -574,29 +831,29 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cNotConstraintExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cAndRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cAmpersandAmpersandKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Action cAndConstraintRuleRulesAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cAndKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cRulesAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulesNotConstraintExpressionParserRuleCall_1_2_0 = (RuleCall)cRulesAssignment_1_2.eContents().get(0);
 		
-		//AndConstraint AbstractRule:
-		//	NotConstraintExpression ({AndRule.rules+=current} '&&' rules+=NotConstraintExpression)*;
+		//AndConstraint ConstraintRule:
+		//	NotConstraintExpression ({AndConstraintRule.rules+=current} 'and' rules+=NotConstraintExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//NotConstraintExpression ({AndRule.rules+=current} '&&' rules+=NotConstraintExpression)*
+		//NotConstraintExpression ({AndConstraintRule.rules+=current} 'and' rules+=NotConstraintExpression)*
 		public Group getGroup() { return cGroup; }
 		
 		//NotConstraintExpression
 		public RuleCall getNotConstraintExpressionParserRuleCall_0() { return cNotConstraintExpressionParserRuleCall_0; }
 		
-		//({AndRule.rules+=current} '&&' rules+=NotConstraintExpression)*
+		//({AndConstraintRule.rules+=current} 'and' rules+=NotConstraintExpression)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//{AndRule.rules+=current}
-		public Action getAndRuleRulesAction_1_0() { return cAndRuleRulesAction_1_0; }
+		//{AndConstraintRule.rules+=current}
+		public Action getAndConstraintRuleRulesAction_1_0() { return cAndConstraintRuleRulesAction_1_0; }
 		
-		//'&&'
-		public Keyword getAmpersandAmpersandKeyword_1_1() { return cAmpersandAmpersandKeyword_1_1; }
+		//'and'
+		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 		
 		//rules+=NotConstraintExpression
 		public Assignment getRulesAssignment_1_2() { return cRulesAssignment_1_2; }
@@ -610,28 +867,28 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPrimaryConstraintParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cExclamationMarkKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Action cNotRuleAction_1_1 = (Action)cGroup_1.eContents().get(1);
+		private final Action cNotConstraintRuleAction_1_1 = (Action)cGroup_1.eContents().get(1);
 		private final Assignment cRuleAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cRulePrimaryConstraintParserRuleCall_1_2_0 = (RuleCall)cRuleAssignment_1_2.eContents().get(0);
 		
-		//NotConstraintExpression AbstractRule:
-		//	PrimaryConstraint | '!' {NotRule} rule=PrimaryConstraint;
+		//NotConstraintExpression ConstraintRule:
+		//	PrimaryConstraint | '!' {NotConstraintRule} rule=PrimaryConstraint;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PrimaryConstraint | '!' {NotRule} rule=PrimaryConstraint
+		//PrimaryConstraint | '!' {NotConstraintRule} rule=PrimaryConstraint
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//PrimaryConstraint
 		public RuleCall getPrimaryConstraintParserRuleCall_0() { return cPrimaryConstraintParserRuleCall_0; }
 		
-		//'!' {NotRule} rule=PrimaryConstraint
+		//'!' {NotConstraintRule} rule=PrimaryConstraint
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//'!'
 		public Keyword getExclamationMarkKeyword_1_0() { return cExclamationMarkKeyword_1_0; }
 		
-		//{NotRule}
-		public Action getNotRuleAction_1_1() { return cNotRuleAction_1_1; }
+		//{NotConstraintRule}
+		public Action getNotConstraintRuleAction_1_1() { return cNotConstraintRuleAction_1_1; }
 		
 		//rule=PrimaryConstraint
 		public Assignment getRuleAssignment_1_2() { return cRuleAssignment_1_2; }
@@ -648,7 +905,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstraintExpressionParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		//PrimaryConstraint AbstractRule:
+		//PrimaryConstraint ConstraintRule:
 		//	ConstraintRule | '(' ConstraintExpression ')';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -714,8 +971,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"Start"
 		public Keyword getStartStartKeyword_3_0() { return cStartStartKeyword_3_0; }
 	}
-	public class ActionTypeEnumElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ActionTypeEnum");
+	public class FeatureTypeEnumElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cAcyclicEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cAcyclicAcyclicKeyword_0_0 = (Keyword)cAcyclicEnumLiteralDeclaration_0.eContents().get(0);
@@ -746,22 +1003,22 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cRoleGroupEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
 		private final Keyword cRoleGroupRoleGroupKeyword_13_0 = (Keyword)cRoleGroupEnumLiteralDeclaration_13.eContents().get(0);
 		private final EnumLiteralDeclaration cRoleImplicationEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
-		private final Keyword cRoleImplicationRoleImplicationKeyword_14_0 = (Keyword)cRoleImplicationEnumLiteralDeclaration_14.eContents().get(0);
+		private final Keyword cRoleImplicationLITERAL4Keyword_14_0 = (Keyword)cRoleImplicationEnumLiteralDeclaration_14.eContents().get(0);
 		private final EnumLiteralDeclaration cRoleProhibitionEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
-		private final Keyword cRoleProhibitionRoleProhibitionKeyword_15_0 = (Keyword)cRoleProhibitionEnumLiteralDeclaration_15.eContents().get(0);
+		private final Keyword cRoleProhibitionLITERAL3Keyword_15_0 = (Keyword)cRoleProhibitionEnumLiteralDeclaration_15.eContents().get(0);
 		private final EnumLiteralDeclaration cIrreflexiveEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
 		private final Keyword cIrreflexiveIrreflexiveKeyword_16_0 = (Keyword)cIrreflexiveEnumLiteralDeclaration_16.eContents().get(0);
 		
-		//enum ActionTypeEnum returns iorm::Type:
+		//enum FeatureTypeEnum returns TypeEnum:
 		//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 		//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
-		//	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition |
+		//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
 		//	Irreflexive;
 		public EnumRule getRule() { return rule; }
 		
 		//Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance | Group | Reflexive | Relationship |
-		//RelationshipExclusion | RelationshipImplication | RoleType | RoleEquivalence | RoleGroup | RoleImplication |
-		//RoleProhibition | Irreflexive
+		//RelationshipExclusion | RelationshipImplication | RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" |
+		//RoleProhibition="LITERAL3" | Irreflexive
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Acyclic
@@ -848,17 +1105,17 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"RoleGroup"
 		public Keyword getRoleGroupRoleGroupKeyword_13_0() { return cRoleGroupRoleGroupKeyword_13_0; }
 		
-		//RoleImplication
+		//RoleImplication="LITERAL4"
 		public EnumLiteralDeclaration getRoleImplicationEnumLiteralDeclaration_14() { return cRoleImplicationEnumLiteralDeclaration_14; }
 		
-		//"RoleImplication"
-		public Keyword getRoleImplicationRoleImplicationKeyword_14_0() { return cRoleImplicationRoleImplicationKeyword_14_0; }
+		//"LITERAL4"
+		public Keyword getRoleImplicationLITERAL4Keyword_14_0() { return cRoleImplicationLITERAL4Keyword_14_0; }
 		
-		//RoleProhibition
+		//RoleProhibition="LITERAL3"
 		public EnumLiteralDeclaration getRoleProhibitionEnumLiteralDeclaration_15() { return cRoleProhibitionEnumLiteralDeclaration_15; }
 		
-		//"RoleProhibition"
-		public Keyword getRoleProhibitionRoleProhibitionKeyword_15_0() { return cRoleProhibitionRoleProhibitionKeyword_15_0; }
+		//"LITERAL3"
+		public Keyword getRoleProhibitionLITERAL3Keyword_15_0() { return cRoleProhibitionLITERAL3Keyword_15_0; }
 		
 		//Irreflexive
 		public EnumLiteralDeclaration getIrreflexiveEnumLiteralDeclaration_16() { return cIrreflexiveEnumLiteralDeclaration_16; }
@@ -866,20 +1123,348 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"Irreflexive"
 		public Keyword getIrreflexiveIrreflexiveKeyword_16_0() { return cIrreflexiveIrreflexiveKeyword_16_0; }
 	}
+	public class FeatureNameEnumElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.FeatureNameEnum");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cCompartment_BehaviorEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cCompartment_BehaviorCompartment_BehaviorKeyword_0_0 = (Keyword)cCompartment_BehaviorEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cCompartment_InheritanceEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cCompartment_InheritanceLITERAL33Keyword_1_0 = (Keyword)cCompartment_InheritanceEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cCompartment_PropertiesEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cCompartment_PropertiesCompartment_PropertiesKeyword_2_0 = (Keyword)cCompartment_PropertiesEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cCompartment_StructureEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cCompartment_StructureCompartment_StructureKeyword_3_0 = (Keyword)cCompartment_StructureEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cCompartment_TypesEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cCompartment_TypesCompartment_TypesKeyword_4_0 = (Keyword)cCompartment_TypesEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cContains_CompartmentsEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cContains_CompartmentsContains_CompartmentsKeyword_5_0 = (Keyword)cContains_CompartmentsEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cCompartmentsEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cCompartmentsCompartmentsKeyword_6_0 = (Keyword)cCompartmentsEnumLiteralDeclaration_6.eContents().get(0);
+		private final EnumLiteralDeclaration cData_Type_InheritanceEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
+		private final Keyword cData_Type_InheritanceData_Type_InheritanceKeyword_7_0 = (Keyword)cData_Type_InheritanceEnumLiteralDeclaration_7.eContents().get(0);
+		private final EnumLiteralDeclaration cData_TypesEnumLiteralDeclaration_8 = (EnumLiteralDeclaration)cAlternatives.eContents().get(8);
+		private final Keyword cData_TypesData_TypesKeyword_8_0 = (Keyword)cData_TypesEnumLiteralDeclaration_8.eContents().get(0);
+		private final EnumLiteralDeclaration cDatesEnumLiteralDeclaration_9 = (EnumLiteralDeclaration)cAlternatives.eContents().get(9);
+		private final Keyword cDatesDatesKeyword_9_0 = (Keyword)cDatesEnumLiteralDeclaration_9.eContents().get(0);
+		private final EnumLiteralDeclaration cDependentEnumLiteralDeclaration_10 = (EnumLiteralDeclaration)cAlternatives.eContents().get(10);
+		private final Keyword cDependentDependentKeyword_10_0 = (Keyword)cDependentEnumLiteralDeclaration_10.eContents().get(0);
+		private final EnumLiteralDeclaration cGroup_ConstraintsEnumLiteralDeclaration_11 = (EnumLiteralDeclaration)cAlternatives.eContents().get(11);
+		private final Keyword cGroup_ConstraintsGroup_ConstraintsKeyword_11_0 = (Keyword)cGroup_ConstraintsEnumLiteralDeclaration_11.eContents().get(0);
+		private final EnumLiteralDeclaration cInter_Relationship_ConstraintsEnumLiteralDeclaration_12 = (EnumLiteralDeclaration)cAlternatives.eContents().get(12);
+		private final Keyword cInter_Relationship_ConstraintsInter_Relationship_ConstraintsKeyword_12_0 = (Keyword)cInter_Relationship_ConstraintsEnumLiteralDeclaration_12.eContents().get(0);
+		private final EnumLiteralDeclaration cIntra_Relationship_ConstraintsEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
+		private final Keyword cIntra_Relationship_ConstraintsIntra_Relationship_ConstraintsKeyword_13_0 = (Keyword)cIntra_Relationship_ConstraintsEnumLiteralDeclaration_13.eContents().get(0);
+		private final EnumLiteralDeclaration cNaturalsEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
+		private final Keyword cNaturalsNaturalsKeyword_14_0 = (Keyword)cNaturalsEnumLiteralDeclaration_14.eContents().get(0);
+		private final EnumLiteralDeclaration cOccurrence_ConstraintsEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
+		private final Keyword cOccurrence_ConstraintsOccurrence_ConstraintsKeyword_15_0 = (Keyword)cOccurrence_ConstraintsEnumLiteralDeclaration_15.eContents().get(0);
+		private final EnumLiteralDeclaration cOn_CompartmentsEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
+		private final Keyword cOn_CompartmentsOn_CompartmentsKeyword_16_0 = (Keyword)cOn_CompartmentsEnumLiteralDeclaration_16.eContents().get(0);
+		private final EnumLiteralDeclaration cOn_RelationshipsEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
+		private final Keyword cOn_RelationshipsOn_RelationshipsKeyword_17_0 = (Keyword)cOn_RelationshipsEnumLiteralDeclaration_17.eContents().get(0);
+		private final EnumLiteralDeclaration cParthood_ConstraintsEnumLiteralDeclaration_18 = (EnumLiteralDeclaration)cAlternatives.eContents().get(18);
+		private final Keyword cParthood_ConstraintsParthood_ConstraintsKeyword_18_0 = (Keyword)cParthood_ConstraintsEnumLiteralDeclaration_18.eContents().get(0);
+		private final EnumLiteralDeclaration cParticipantsEnumLiteralDeclaration_19 = (EnumLiteralDeclaration)cAlternatives.eContents().get(19);
+		private final Keyword cParticipantsParticipantsKeyword_19_0 = (Keyword)cParticipantsEnumLiteralDeclaration_19.eContents().get(0);
+		private final EnumLiteralDeclaration cPlayableEnumLiteralDeclaration_20 = (EnumLiteralDeclaration)cAlternatives.eContents().get(20);
+		private final Keyword cPlayablePlayableKeyword_20_0 = (Keyword)cPlayableEnumLiteralDeclaration_20.eContents().get(0);
+		private final EnumLiteralDeclaration cPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21 = (EnumLiteralDeclaration)cAlternatives.eContents().get(21);
+		private final Keyword cPlayable_by_Defining_CompartmentPlayable_by_Defining_CompartmentKeyword_21_0 = (Keyword)cPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21.eContents().get(0);
+		private final EnumLiteralDeclaration cPlayersEnumLiteralDeclaration_22 = (EnumLiteralDeclaration)cAlternatives.eContents().get(22);
+		private final Keyword cPlayersPlayersKeyword_22_0 = (Keyword)cPlayersEnumLiteralDeclaration_22.eContents().get(0);
+		private final EnumLiteralDeclaration cRelationship_CardinalityEnumLiteralDeclaration_23 = (EnumLiteralDeclaration)cAlternatives.eContents().get(23);
+		private final Keyword cRelationship_CardinalityRelationship_CardinalityKeyword_23_0 = (Keyword)cRelationship_CardinalityEnumLiteralDeclaration_23.eContents().get(0);
+		private final EnumLiteralDeclaration cRelationship_ConstraintsEnumLiteralDeclaration_24 = (EnumLiteralDeclaration)cAlternatives.eContents().get(24);
+		private final Keyword cRelationship_ConstraintsRelationship_ConstraintsKeyword_24_0 = (Keyword)cRelationship_ConstraintsEnumLiteralDeclaration_24.eContents().get(0);
+		private final EnumLiteralDeclaration cRelationshipsEnumLiteralDeclaration_25 = (EnumLiteralDeclaration)cAlternatives.eContents().get(25);
+		private final Keyword cRelationshipsRelationshipsKeyword_25_0 = (Keyword)cRelationshipsEnumLiteralDeclaration_25.eContents().get(0);
+		private final EnumLiteralDeclaration cRML_Feature_ModelEnumLiteralDeclaration_26 = (EnumLiteralDeclaration)cAlternatives.eContents().get(26);
+		private final Keyword cRML_Feature_ModelRML_Feature_ModelKeyword_26_0 = (Keyword)cRML_Feature_ModelEnumLiteralDeclaration_26.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_BehaviorEnumLiteralDeclaration_27 = (EnumLiteralDeclaration)cAlternatives.eContents().get(27);
+		private final Keyword cRole_BehaviorRole_BehaviorKeyword_27_0 = (Keyword)cRole_BehaviorEnumLiteralDeclaration_27.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_ConstraintsEnumLiteralDeclaration_28 = (EnumLiteralDeclaration)cAlternatives.eContents().get(28);
+		private final Keyword cRole_ConstraintsRole_ConstraintsKeyword_28_0 = (Keyword)cRole_ConstraintsEnumLiteralDeclaration_28.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_EquivalenceEnumLiteralDeclaration_29 = (EnumLiteralDeclaration)cAlternatives.eContents().get(29);
+		private final Keyword cRole_EquivalenceRole_EquivalenceKeyword_29_0 = (Keyword)cRole_EquivalenceEnumLiteralDeclaration_29.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_ImplicationEnumLiteralDeclaration_30 = (EnumLiteralDeclaration)cAlternatives.eContents().get(30);
+		private final Keyword cRole_ImplicationRole_ImplicationKeyword_30_0 = (Keyword)cRole_ImplicationEnumLiteralDeclaration_30.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_InheritanceEnumLiteralDeclaration_31 = (EnumLiteralDeclaration)cAlternatives.eContents().get(31);
+		private final Keyword cRole_InheritanceRole_InheritanceKeyword_31_0 = (Keyword)cRole_InheritanceEnumLiteralDeclaration_31.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_ProhibitionEnumLiteralDeclaration_32 = (EnumLiteralDeclaration)cAlternatives.eContents().get(32);
+		private final Keyword cRole_ProhibitionRole_ProhibitionKeyword_32_0 = (Keyword)cRole_ProhibitionEnumLiteralDeclaration_32.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_PropertiesEnumLiteralDeclaration_33 = (EnumLiteralDeclaration)cAlternatives.eContents().get(33);
+		private final Keyword cRole_PropertiesRole_PropertiesKeyword_33_0 = (Keyword)cRole_PropertiesEnumLiteralDeclaration_33.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_StructureEnumLiteralDeclaration_34 = (EnumLiteralDeclaration)cAlternatives.eContents().get(34);
+		private final Keyword cRole_StructureLITERAL2Keyword_34_0 = (Keyword)cRole_StructureEnumLiteralDeclaration_34.eContents().get(0);
+		private final EnumLiteralDeclaration cRole_TypesEnumLiteralDeclaration_35 = (EnumLiteralDeclaration)cAlternatives.eContents().get(35);
+		private final Keyword cRole_TypesRole_TypesKeyword_35_0 = (Keyword)cRole_TypesEnumLiteralDeclaration_35.eContents().get(0);
+		private final EnumLiteralDeclaration cRolesEnumLiteralDeclaration_36 = (EnumLiteralDeclaration)cAlternatives.eContents().get(36);
+		private final Keyword cRolesRolesKeyword_36_0 = (Keyword)cRolesEnumLiteralDeclaration_36.eContents().get(0);
+		
+		//enum FeatureNameEnum:
+		//	Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
+		//	Compartment_Types | Contains_Compartments | Compartments |
+		//	Data_Type_Inheritance | Data_Types | Dates | Dependent |
+		//	Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints |
+		//	Naturals | Occurrence_Constraints | On_Compartments | On_Relationships |
+		//	Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
+		//	Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model |
+		//	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
+		//	Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles;
+		public EnumRule getRule() { return rule; }
+		
+		//Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
+		//Compartment_Types | Contains_Compartments | Compartments | Data_Type_Inheritance | Data_Types | Dates | Dependent |
+		//Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints | Naturals | Occurrence_Constraints
+		//| On_Compartments | On_Relationships | Parthood_Constraints | Participants | Playable |
+		//Playable_by_Defining_Compartment | Players | Relationship_Cardinality | Relationship_Constraints | Relationships |
+		//RML_Feature_Model | Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
+		//Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Compartment_Behavior
+		public EnumLiteralDeclaration getCompartment_BehaviorEnumLiteralDeclaration_0() { return cCompartment_BehaviorEnumLiteralDeclaration_0; }
+		
+		//"Compartment_Behavior"
+		public Keyword getCompartment_BehaviorCompartment_BehaviorKeyword_0_0() { return cCompartment_BehaviorCompartment_BehaviorKeyword_0_0; }
+		
+		//Compartment_Inheritance="LITERAL33"
+		public EnumLiteralDeclaration getCompartment_InheritanceEnumLiteralDeclaration_1() { return cCompartment_InheritanceEnumLiteralDeclaration_1; }
+		
+		//"LITERAL33"
+		public Keyword getCompartment_InheritanceLITERAL33Keyword_1_0() { return cCompartment_InheritanceLITERAL33Keyword_1_0; }
+		
+		//Compartment_Properties
+		public EnumLiteralDeclaration getCompartment_PropertiesEnumLiteralDeclaration_2() { return cCompartment_PropertiesEnumLiteralDeclaration_2; }
+		
+		//"Compartment_Properties"
+		public Keyword getCompartment_PropertiesCompartment_PropertiesKeyword_2_0() { return cCompartment_PropertiesCompartment_PropertiesKeyword_2_0; }
+		
+		//Compartment_Structure
+		public EnumLiteralDeclaration getCompartment_StructureEnumLiteralDeclaration_3() { return cCompartment_StructureEnumLiteralDeclaration_3; }
+		
+		//"Compartment_Structure"
+		public Keyword getCompartment_StructureCompartment_StructureKeyword_3_0() { return cCompartment_StructureCompartment_StructureKeyword_3_0; }
+		
+		//Compartment_Types
+		public EnumLiteralDeclaration getCompartment_TypesEnumLiteralDeclaration_4() { return cCompartment_TypesEnumLiteralDeclaration_4; }
+		
+		//"Compartment_Types"
+		public Keyword getCompartment_TypesCompartment_TypesKeyword_4_0() { return cCompartment_TypesCompartment_TypesKeyword_4_0; }
+		
+		//Contains_Compartments
+		public EnumLiteralDeclaration getContains_CompartmentsEnumLiteralDeclaration_5() { return cContains_CompartmentsEnumLiteralDeclaration_5; }
+		
+		//"Contains_Compartments"
+		public Keyword getContains_CompartmentsContains_CompartmentsKeyword_5_0() { return cContains_CompartmentsContains_CompartmentsKeyword_5_0; }
+		
+		//Compartments
+		public EnumLiteralDeclaration getCompartmentsEnumLiteralDeclaration_6() { return cCompartmentsEnumLiteralDeclaration_6; }
+		
+		//"Compartments"
+		public Keyword getCompartmentsCompartmentsKeyword_6_0() { return cCompartmentsCompartmentsKeyword_6_0; }
+		
+		//Data_Type_Inheritance
+		public EnumLiteralDeclaration getData_Type_InheritanceEnumLiteralDeclaration_7() { return cData_Type_InheritanceEnumLiteralDeclaration_7; }
+		
+		//"Data_Type_Inheritance"
+		public Keyword getData_Type_InheritanceData_Type_InheritanceKeyword_7_0() { return cData_Type_InheritanceData_Type_InheritanceKeyword_7_0; }
+		
+		//Data_Types
+		public EnumLiteralDeclaration getData_TypesEnumLiteralDeclaration_8() { return cData_TypesEnumLiteralDeclaration_8; }
+		
+		//"Data_Types"
+		public Keyword getData_TypesData_TypesKeyword_8_0() { return cData_TypesData_TypesKeyword_8_0; }
+		
+		//Dates
+		public EnumLiteralDeclaration getDatesEnumLiteralDeclaration_9() { return cDatesEnumLiteralDeclaration_9; }
+		
+		//"Dates"
+		public Keyword getDatesDatesKeyword_9_0() { return cDatesDatesKeyword_9_0; }
+		
+		//Dependent
+		public EnumLiteralDeclaration getDependentEnumLiteralDeclaration_10() { return cDependentEnumLiteralDeclaration_10; }
+		
+		//"Dependent"
+		public Keyword getDependentDependentKeyword_10_0() { return cDependentDependentKeyword_10_0; }
+		
+		//Group_Constraints
+		public EnumLiteralDeclaration getGroup_ConstraintsEnumLiteralDeclaration_11() { return cGroup_ConstraintsEnumLiteralDeclaration_11; }
+		
+		//"Group_Constraints"
+		public Keyword getGroup_ConstraintsGroup_ConstraintsKeyword_11_0() { return cGroup_ConstraintsGroup_ConstraintsKeyword_11_0; }
+		
+		//Inter_Relationship_Constraints
+		public EnumLiteralDeclaration getInter_Relationship_ConstraintsEnumLiteralDeclaration_12() { return cInter_Relationship_ConstraintsEnumLiteralDeclaration_12; }
+		
+		//"Inter_Relationship_Constraints"
+		public Keyword getInter_Relationship_ConstraintsInter_Relationship_ConstraintsKeyword_12_0() { return cInter_Relationship_ConstraintsInter_Relationship_ConstraintsKeyword_12_0; }
+		
+		//Intra_Relationship_Constraints
+		public EnumLiteralDeclaration getIntra_Relationship_ConstraintsEnumLiteralDeclaration_13() { return cIntra_Relationship_ConstraintsEnumLiteralDeclaration_13; }
+		
+		//"Intra_Relationship_Constraints"
+		public Keyword getIntra_Relationship_ConstraintsIntra_Relationship_ConstraintsKeyword_13_0() { return cIntra_Relationship_ConstraintsIntra_Relationship_ConstraintsKeyword_13_0; }
+		
+		//Naturals
+		public EnumLiteralDeclaration getNaturalsEnumLiteralDeclaration_14() { return cNaturalsEnumLiteralDeclaration_14; }
+		
+		//"Naturals"
+		public Keyword getNaturalsNaturalsKeyword_14_0() { return cNaturalsNaturalsKeyword_14_0; }
+		
+		//Occurrence_Constraints
+		public EnumLiteralDeclaration getOccurrence_ConstraintsEnumLiteralDeclaration_15() { return cOccurrence_ConstraintsEnumLiteralDeclaration_15; }
+		
+		//"Occurrence_Constraints"
+		public Keyword getOccurrence_ConstraintsOccurrence_ConstraintsKeyword_15_0() { return cOccurrence_ConstraintsOccurrence_ConstraintsKeyword_15_0; }
+		
+		//On_Compartments
+		public EnumLiteralDeclaration getOn_CompartmentsEnumLiteralDeclaration_16() { return cOn_CompartmentsEnumLiteralDeclaration_16; }
+		
+		//"On_Compartments"
+		public Keyword getOn_CompartmentsOn_CompartmentsKeyword_16_0() { return cOn_CompartmentsOn_CompartmentsKeyword_16_0; }
+		
+		//On_Relationships
+		public EnumLiteralDeclaration getOn_RelationshipsEnumLiteralDeclaration_17() { return cOn_RelationshipsEnumLiteralDeclaration_17; }
+		
+		//"On_Relationships"
+		public Keyword getOn_RelationshipsOn_RelationshipsKeyword_17_0() { return cOn_RelationshipsOn_RelationshipsKeyword_17_0; }
+		
+		//Parthood_Constraints
+		public EnumLiteralDeclaration getParthood_ConstraintsEnumLiteralDeclaration_18() { return cParthood_ConstraintsEnumLiteralDeclaration_18; }
+		
+		//"Parthood_Constraints"
+		public Keyword getParthood_ConstraintsParthood_ConstraintsKeyword_18_0() { return cParthood_ConstraintsParthood_ConstraintsKeyword_18_0; }
+		
+		//Participants
+		public EnumLiteralDeclaration getParticipantsEnumLiteralDeclaration_19() { return cParticipantsEnumLiteralDeclaration_19; }
+		
+		//"Participants"
+		public Keyword getParticipantsParticipantsKeyword_19_0() { return cParticipantsParticipantsKeyword_19_0; }
+		
+		//Playable
+		public EnumLiteralDeclaration getPlayableEnumLiteralDeclaration_20() { return cPlayableEnumLiteralDeclaration_20; }
+		
+		//"Playable"
+		public Keyword getPlayablePlayableKeyword_20_0() { return cPlayablePlayableKeyword_20_0; }
+		
+		//Playable_by_Defining_Compartment
+		public EnumLiteralDeclaration getPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21() { return cPlayable_by_Defining_CompartmentEnumLiteralDeclaration_21; }
+		
+		//"Playable_by_Defining_Compartment"
+		public Keyword getPlayable_by_Defining_CompartmentPlayable_by_Defining_CompartmentKeyword_21_0() { return cPlayable_by_Defining_CompartmentPlayable_by_Defining_CompartmentKeyword_21_0; }
+		
+		//Players
+		public EnumLiteralDeclaration getPlayersEnumLiteralDeclaration_22() { return cPlayersEnumLiteralDeclaration_22; }
+		
+		//"Players"
+		public Keyword getPlayersPlayersKeyword_22_0() { return cPlayersPlayersKeyword_22_0; }
+		
+		//Relationship_Cardinality
+		public EnumLiteralDeclaration getRelationship_CardinalityEnumLiteralDeclaration_23() { return cRelationship_CardinalityEnumLiteralDeclaration_23; }
+		
+		//"Relationship_Cardinality"
+		public Keyword getRelationship_CardinalityRelationship_CardinalityKeyword_23_0() { return cRelationship_CardinalityRelationship_CardinalityKeyword_23_0; }
+		
+		//Relationship_Constraints
+		public EnumLiteralDeclaration getRelationship_ConstraintsEnumLiteralDeclaration_24() { return cRelationship_ConstraintsEnumLiteralDeclaration_24; }
+		
+		//"Relationship_Constraints"
+		public Keyword getRelationship_ConstraintsRelationship_ConstraintsKeyword_24_0() { return cRelationship_ConstraintsRelationship_ConstraintsKeyword_24_0; }
+		
+		//Relationships
+		public EnumLiteralDeclaration getRelationshipsEnumLiteralDeclaration_25() { return cRelationshipsEnumLiteralDeclaration_25; }
+		
+		//"Relationships"
+		public Keyword getRelationshipsRelationshipsKeyword_25_0() { return cRelationshipsRelationshipsKeyword_25_0; }
+		
+		//RML_Feature_Model
+		public EnumLiteralDeclaration getRML_Feature_ModelEnumLiteralDeclaration_26() { return cRML_Feature_ModelEnumLiteralDeclaration_26; }
+		
+		//"RML_Feature_Model"
+		public Keyword getRML_Feature_ModelRML_Feature_ModelKeyword_26_0() { return cRML_Feature_ModelRML_Feature_ModelKeyword_26_0; }
+		
+		//Role_Behavior
+		public EnumLiteralDeclaration getRole_BehaviorEnumLiteralDeclaration_27() { return cRole_BehaviorEnumLiteralDeclaration_27; }
+		
+		//"Role_Behavior"
+		public Keyword getRole_BehaviorRole_BehaviorKeyword_27_0() { return cRole_BehaviorRole_BehaviorKeyword_27_0; }
+		
+		//Role_Constraints
+		public EnumLiteralDeclaration getRole_ConstraintsEnumLiteralDeclaration_28() { return cRole_ConstraintsEnumLiteralDeclaration_28; }
+		
+		//"Role_Constraints"
+		public Keyword getRole_ConstraintsRole_ConstraintsKeyword_28_0() { return cRole_ConstraintsRole_ConstraintsKeyword_28_0; }
+		
+		//Role_Equivalence
+		public EnumLiteralDeclaration getRole_EquivalenceEnumLiteralDeclaration_29() { return cRole_EquivalenceEnumLiteralDeclaration_29; }
+		
+		//"Role_Equivalence"
+		public Keyword getRole_EquivalenceRole_EquivalenceKeyword_29_0() { return cRole_EquivalenceRole_EquivalenceKeyword_29_0; }
+		
+		//Role_Implication
+		public EnumLiteralDeclaration getRole_ImplicationEnumLiteralDeclaration_30() { return cRole_ImplicationEnumLiteralDeclaration_30; }
+		
+		//"Role_Implication"
+		public Keyword getRole_ImplicationRole_ImplicationKeyword_30_0() { return cRole_ImplicationRole_ImplicationKeyword_30_0; }
+		
+		//Role_Inheritance
+		public EnumLiteralDeclaration getRole_InheritanceEnumLiteralDeclaration_31() { return cRole_InheritanceEnumLiteralDeclaration_31; }
+		
+		//"Role_Inheritance"
+		public Keyword getRole_InheritanceRole_InheritanceKeyword_31_0() { return cRole_InheritanceRole_InheritanceKeyword_31_0; }
+		
+		//Role_Prohibition
+		public EnumLiteralDeclaration getRole_ProhibitionEnumLiteralDeclaration_32() { return cRole_ProhibitionEnumLiteralDeclaration_32; }
+		
+		//"Role_Prohibition"
+		public Keyword getRole_ProhibitionRole_ProhibitionKeyword_32_0() { return cRole_ProhibitionRole_ProhibitionKeyword_32_0; }
+		
+		//Role_Properties
+		public EnumLiteralDeclaration getRole_PropertiesEnumLiteralDeclaration_33() { return cRole_PropertiesEnumLiteralDeclaration_33; }
+		
+		//"Role_Properties"
+		public Keyword getRole_PropertiesRole_PropertiesKeyword_33_0() { return cRole_PropertiesRole_PropertiesKeyword_33_0; }
+		
+		//Role_Structure="LITERAL2"
+		public EnumLiteralDeclaration getRole_StructureEnumLiteralDeclaration_34() { return cRole_StructureEnumLiteralDeclaration_34; }
+		
+		//"LITERAL2"
+		public Keyword getRole_StructureLITERAL2Keyword_34_0() { return cRole_StructureLITERAL2Keyword_34_0; }
+		
+		//Role_Types
+		public EnumLiteralDeclaration getRole_TypesEnumLiteralDeclaration_35() { return cRole_TypesEnumLiteralDeclaration_35; }
+		
+		//"Role_Types"
+		public Keyword getRole_TypesRole_TypesKeyword_35_0() { return cRole_TypesRole_TypesKeyword_35_0; }
+		
+		//Roles
+		public EnumLiteralDeclaration getRolesEnumLiteralDeclaration_36() { return cRolesEnumLiteralDeclaration_36; }
+		
+		//"Roles"
+		public Keyword getRolesRolesKeyword_36_0() { return cRolesRolesKeyword_36_0; }
+	}
 	
 	private final ModelElements pModel;
 	private final PolicyElements pPolicy;
 	private final ActionEnumElements eActionEnum;
-	private final ActionTypeEnumElements eActionTypeEnum;
+	private final FeatureTypeEnumElements eFeatureTypeEnum;
+	private final FeatureNameEnumElements eFeatureNameEnum;
 	private final ConstraintRuleElements pConstraintRule;
+	private final ContainsConstrainRuleElements pContainsConstrainRule;
+	private final IsTargetTypeConstraintRuleElements pIsTargetTypeConstraintRule;
+	private final IsParentConstraintRuleElements pIsParentConstraintRule;
+	private final IsSourceTypeConstraintRuleElements pIsSourceTypeConstraintRule;
+	private final IsTargetConstraintRuleElements pIsTargetConstraintRule;
+	private final IsSourceConstraintRuleElements pIsSourceConstraintRule;
+	private final StepInConstraintRuleElements pStepInConstraintRule;
 	private final FeatureRuleElements pFeatureRule;
-	private final IsFeatureRuleElements pIsFeatureRule;
 	private final IsFeatureElements pIsFeature;
+	private final TrueFeatureRuleElements pTrueFeatureRule;
+	private final TrueConstraintRuleElements pTrueConstraintRule;
+	private final FalseFeatureRuleElements pFalseFeatureRule;
+	private final FalseConstraintRuleElements pFalseConstraintRule;
 	private final EStringElements pEString;
-	private final StepInRuleElements pStepInRule;
-	private final StepInElements pStepIn;
-	private final TrueRuleElements pTrueRule;
-	private final FalseRuleElements pFalseRule;
 	private final FeatureExpressionElements pFeatureExpression;
 	private final ImplicationFeatureElements pImplicationFeature;
 	private final OrFeatureElements pOrFeature;
@@ -905,16 +1490,23 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pModel = new ModelElements();
 		this.pPolicy = new PolicyElements();
 		this.eActionEnum = new ActionEnumElements();
-		this.eActionTypeEnum = new ActionTypeEnumElements();
+		this.eFeatureTypeEnum = new FeatureTypeEnumElements();
+		this.eFeatureNameEnum = new FeatureNameEnumElements();
 		this.pConstraintRule = new ConstraintRuleElements();
+		this.pContainsConstrainRule = new ContainsConstrainRuleElements();
+		this.pIsTargetTypeConstraintRule = new IsTargetTypeConstraintRuleElements();
+		this.pIsParentConstraintRule = new IsParentConstraintRuleElements();
+		this.pIsSourceTypeConstraintRule = new IsSourceTypeConstraintRuleElements();
+		this.pIsTargetConstraintRule = new IsTargetConstraintRuleElements();
+		this.pIsSourceConstraintRule = new IsSourceConstraintRuleElements();
+		this.pStepInConstraintRule = new StepInConstraintRuleElements();
 		this.pFeatureRule = new FeatureRuleElements();
-		this.pIsFeatureRule = new IsFeatureRuleElements();
 		this.pIsFeature = new IsFeatureElements();
+		this.pTrueFeatureRule = new TrueFeatureRuleElements();
+		this.pTrueConstraintRule = new TrueConstraintRuleElements();
+		this.pFalseFeatureRule = new FalseFeatureRuleElements();
+		this.pFalseConstraintRule = new FalseConstraintRuleElements();
 		this.pEString = new EStringElements();
-		this.pStepInRule = new StepInRuleElements();
-		this.pStepIn = new StepInElements();
-		this.pTrueRule = new TrueRuleElements();
-		this.pFalseRule = new FalseRuleElements();
 		this.pFeatureExpression = new FeatureExpressionElements();
 		this.pImplicationFeature = new ImplicationFeatureElements();
 		this.pOrFeature = new OrFeatureElements();
@@ -956,6 +1548,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	////import "http://iorm/1.0"  as iorm
+	////import "http://iorm.featuremodel/1.0" as featuremodel
 	//Model:
 	//	(policies+=Policy policies+=Policy*)?;
 	public ModelElements getModelAccess() {
@@ -967,7 +1561,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Policy:
-	//	override?='override' action=ActionEnum actionType=ActionTypeEnum
+	//	override?='override' action=ActionEnum actionType=FeatureTypeEnum
 	//	'{'
 	//	featureRule=FeatureExpression '=>' constraintRule=ConstraintExpression
 	//	'}';
@@ -989,21 +1583,41 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getActionEnumAccess().getRule();
 	}
 	
-	//enum ActionTypeEnum returns iorm::Type:
+	//enum FeatureTypeEnum returns TypeEnum:
 	//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 	//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
-	//	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition |
+	//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
 	//	Irreflexive;
-	public ActionTypeEnumElements getActionTypeEnumAccess() {
-		return eActionTypeEnum;
+	public FeatureTypeEnumElements getFeatureTypeEnumAccess() {
+		return eFeatureTypeEnum;
 	}
 	
-	public EnumRule getActionTypeEnumRule() {
-		return getActionTypeEnumAccess().getRule();
+	public EnumRule getFeatureTypeEnumRule() {
+		return getFeatureTypeEnumAccess().getRule();
 	}
 	
-	//ConstraintRule AbstractRule:
-	//	StepInRule | TrueRule;
+	//enum FeatureNameEnum:
+	//	Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
+	//	Compartment_Types | Contains_Compartments | Compartments |
+	//	Data_Type_Inheritance | Data_Types | Dates | Dependent |
+	//	Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints |
+	//	Naturals | Occurrence_Constraints | On_Compartments | On_Relationships |
+	//	Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
+	//	Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model |
+	//	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
+	//	Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles;
+	public FeatureNameEnumElements getFeatureNameEnumAccess() {
+		return eFeatureNameEnum;
+	}
+	
+	public EnumRule getFeatureNameEnumRule() {
+		return getFeatureNameEnumAccess().getRule();
+	}
+	
+	//// ----------------- Constraint Rules ------------------------------//
+	//ConstraintRule:
+	//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
+	//	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule;
 	public ConstraintRuleElements getConstraintRuleAccess() {
 		return pConstraintRule;
 	}
@@ -1012,8 +1626,79 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getConstraintRuleAccess().getRule();
 	}
 	
-	//FeatureRule AbstractRule:
-	//	IsFeatureRule | TrueRule;
+	//ContainsConstrainRule Contains:
+	//	{Contains} 'Contains' '(' type=FeatureTypeEnum ')';
+	public ContainsConstrainRuleElements getContainsConstrainRuleAccess() {
+		return pContainsConstrainRule;
+	}
+	
+	public ParserRule getContainsConstrainRuleRule() {
+		return getContainsConstrainRuleAccess().getRule();
+	}
+	
+	//IsTargetTypeConstraintRule IsTargetType:
+	//	{IsTargetType} 'IsTargetType' '(' type=FeatureTypeEnum ')';
+	public IsTargetTypeConstraintRuleElements getIsTargetTypeConstraintRuleAccess() {
+		return pIsTargetTypeConstraintRule;
+	}
+	
+	public ParserRule getIsTargetTypeConstraintRuleRule() {
+		return getIsTargetTypeConstraintRuleAccess().getRule();
+	}
+	
+	//IsParentConstraintRule IsParent:
+	//	{IsParent} 'IsParent' '(' type=FeatureTypeEnum ')';
+	public IsParentConstraintRuleElements getIsParentConstraintRuleAccess() {
+		return pIsParentConstraintRule;
+	}
+	
+	public ParserRule getIsParentConstraintRuleRule() {
+		return getIsParentConstraintRuleAccess().getRule();
+	}
+	
+	//IsSourceTypeConstraintRule IsSourceType:
+	//	{IsSourceType} 'IsSourceType' '(' type=FeatureTypeEnum ')';
+	public IsSourceTypeConstraintRuleElements getIsSourceTypeConstraintRuleAccess() {
+		return pIsSourceTypeConstraintRule;
+	}
+	
+	public ParserRule getIsSourceTypeConstraintRuleRule() {
+		return getIsSourceTypeConstraintRuleAccess().getRule();
+	}
+	
+	//IsTargetConstraintRule IsTarget:
+	//	{IsTarget} 'IsTarget' '(' type=FeatureTypeEnum ')';
+	public IsTargetConstraintRuleElements getIsTargetConstraintRuleAccess() {
+		return pIsTargetConstraintRule;
+	}
+	
+	public ParserRule getIsTargetConstraintRuleRule() {
+		return getIsTargetConstraintRuleAccess().getRule();
+	}
+	
+	//IsSourceConstraintRule IsSource:
+	//	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
+	public IsSourceConstraintRuleElements getIsSourceConstraintRuleAccess() {
+		return pIsSourceConstraintRule;
+	}
+	
+	public ParserRule getIsSourceConstraintRuleRule() {
+		return getIsSourceConstraintRuleAccess().getRule();
+	}
+	
+	//StepInConstraintRule ConstraintRule:
+	//	{IsStepIn} 'IsStepIn' '(' ')';
+	public StepInConstraintRuleElements getStepInConstraintRuleAccess() {
+		return pStepInConstraintRule;
+	}
+	
+	public ParserRule getStepInConstraintRuleRule() {
+		return getStepInConstraintRuleAccess().getRule();
+	}
+	
+	//// ----------------- Feature Rules ------------------------------//
+	//FeatureRule:
+	//	IsFeature | TrueFeatureRule | FalseFeatureRule;
 	public FeatureRuleElements getFeatureRuleAccess() {
 		return pFeatureRule;
 	}
@@ -1022,19 +1707,9 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureRuleAccess().getRule();
 	}
 	
-	//IsFeatureRule Rule:
-	//	{Rule} rule=IsFeature;
-	public IsFeatureRuleElements getIsFeatureRuleAccess() {
-		return pIsFeatureRule;
-	}
-	
-	public ParserRule getIsFeatureRuleRule() {
-		return getIsFeatureRuleAccess().getRule();
-	}
-	
 	//IsFeature:
 	//	{IsFeature}
-	//	'isFeature';
+	//	'isFeature' featureName=FeatureNameEnum;
 	public IsFeatureElements getIsFeatureAccess() {
 		return pIsFeature;
 	}
@@ -1043,7 +1718,51 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getIsFeatureAccess().getRule();
 	}
 	
-	////(IsFeature.name=>FeatureName);
+	//// ----------------- Logical Rules ------------------------------//
+	//TrueFeatureRule:
+	//	{TrueFeatureRule}
+	//	'true';
+	public TrueFeatureRuleElements getTrueFeatureRuleAccess() {
+		return pTrueFeatureRule;
+	}
+	
+	public ParserRule getTrueFeatureRuleRule() {
+		return getTrueFeatureRuleAccess().getRule();
+	}
+	
+	//TrueConstraintRule:
+	//	{TrueConstraintRule}
+	//	'true';
+	public TrueConstraintRuleElements getTrueConstraintRuleAccess() {
+		return pTrueConstraintRule;
+	}
+	
+	public ParserRule getTrueConstraintRuleRule() {
+		return getTrueConstraintRuleAccess().getRule();
+	}
+	
+	//FalseFeatureRule:
+	//	{FalseFeatureRule}
+	//	'false';
+	public FalseFeatureRuleElements getFalseFeatureRuleAccess() {
+		return pFalseFeatureRule;
+	}
+	
+	public ParserRule getFalseFeatureRuleRule() {
+		return getFalseFeatureRuleAccess().getRule();
+	}
+	
+	//FalseConstraintRule:
+	//	{FalseConstraintRule}
+	//	'false';
+	public FalseConstraintRuleElements getFalseConstraintRuleAccess() {
+		return pFalseConstraintRule;
+	}
+	
+	public ParserRule getFalseConstraintRuleRule() {
+		return getFalseConstraintRuleAccess().getRule();
+	}
+	
 	//EString:
 	//	STRING | ID;
 	public EStringElements getEStringAccess() {
@@ -1054,51 +1773,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getEStringAccess().getRule();
 	}
 	
-	//StepInRule Rule:
-	//	{Rule} rule=StepIn;
-	public StepInRuleElements getStepInRuleAccess() {
-		return pStepInRule;
-	}
-	
-	public ParserRule getStepInRuleRule() {
-		return getStepInRuleAccess().getRule();
-	}
-	
-	//StepIn IsStepIn:
-	//	{IsStepIn}
-	//	'StepIn';
-	public StepInElements getStepInAccess() {
-		return pStepIn;
-	}
-	
-	public ParserRule getStepInRule() {
-		return getStepInAccess().getRule();
-	}
-	
-	//TrueRule:
-	//	{TrueRule}
-	//	'true';
-	public TrueRuleElements getTrueRuleAccess() {
-		return pTrueRule;
-	}
-	
-	public ParserRule getTrueRuleRule() {
-		return getTrueRuleAccess().getRule();
-	}
-	
-	//FalseRule:
-	//	{FalseRule}
-	//	'false';
-	public FalseRuleElements getFalseRuleAccess() {
-		return pFalseRule;
-	}
-	
-	public ParserRule getFalseRuleRule() {
-		return getFalseRuleAccess().getRule();
-	}
-	
 	////expression support for Features
-	//FeatureExpression AbstractRule:
+	//FeatureExpression FeatureRule:
 	//	OrFeature;
 	public FeatureExpressionElements getFeatureExpressionAccess() {
 		return pFeatureExpression;
@@ -1108,8 +1784,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureExpressionAccess().getRule();
 	}
 	
-	//ImplicationFeature AbstractRule:
-	//	OrFeature ({ImplicationRule.leftRule=current} '=>' rightRule=OrFeature)?;
+	//ImplicationFeature FeatureRule:
+	//	OrFeature ({ImplicationFeatureRule.leftRule=current} '=>' rightRule=OrFeature)?;
 	public ImplicationFeatureElements getImplicationFeatureAccess() {
 		return pImplicationFeature;
 	}
@@ -1118,8 +1794,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getImplicationFeatureAccess().getRule();
 	}
 	
-	//OrFeature AbstractRule:
-	//	AndFeature ({OrRule.rules+=current} '||' rules+=AndFeature)*;
+	//OrFeature FeatureRule:
+	//	AndFeature ({OrFeatureRule.rules+=current} 'or' rules+=AndFeature)*;
 	public OrFeatureElements getOrFeatureAccess() {
 		return pOrFeature;
 	}
@@ -1128,8 +1804,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrFeatureAccess().getRule();
 	}
 	
-	//AndFeature AbstractRule:
-	//	NotFeatureExpression ({AndRule.rules+=current} '&&' rules+=NotFeatureExpression)*;
+	//AndFeature FeatureRule:
+	//	NotFeatureExpression ({AndFeatureRule.rules+=current} 'and' rules+=NotFeatureExpression)*;
 	public AndFeatureElements getAndFeatureAccess() {
 		return pAndFeature;
 	}
@@ -1138,8 +1814,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndFeatureAccess().getRule();
 	}
 	
-	//NotFeatureExpression AbstractRule:
-	//	PrimaryFeature | '!' {NotRule} rule=PrimaryFeature;
+	//NotFeatureExpression FeatureRule:
+	//	PrimaryFeature | '!' {NotFeatureRule} rule=PrimaryFeature;
 	public NotFeatureExpressionElements getNotFeatureExpressionAccess() {
 		return pNotFeatureExpression;
 	}
@@ -1148,7 +1824,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getNotFeatureExpressionAccess().getRule();
 	}
 	
-	//PrimaryFeature AbstractRule:
+	//PrimaryFeature FeatureRule:
 	//	FeatureRule | '(' FeatureExpression ')';
 	public PrimaryFeatureElements getPrimaryFeatureAccess() {
 		return pPrimaryFeature;
@@ -1159,7 +1835,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	////expression support for Constraints
-	//ConstraintExpression AbstractRule:
+	//ConstraintExpression ConstraintRule:
 	//	ImplicationConstraint;
 	public ConstraintExpressionElements getConstraintExpressionAccess() {
 		return pConstraintExpression;
@@ -1169,8 +1845,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getConstraintExpressionAccess().getRule();
 	}
 	
-	//ImplicationConstraint AbstractRule:
-	//	OrConstraint ({ImplicationRule.leftRule=current} '=>' rightRule=OrConstraint)?;
+	//ImplicationConstraint ConstraintRule:
+	//	OrConstraint ({ImplicationConstraintRule.leftRule=current} '=>' rightRule=OrConstraint)?;
 	public ImplicationConstraintElements getImplicationConstraintAccess() {
 		return pImplicationConstraint;
 	}
@@ -1179,8 +1855,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getImplicationConstraintAccess().getRule();
 	}
 	
-	//OrConstraint AbstractRule:
-	//	AndConstraint ({OrRule.rules+=current} '||' rules+=AndConstraint)*;
+	//OrConstraint ConstraintRule:
+	//	AndConstraint ({OrConstraintRule.rules+=current} 'or' rules+=AndConstraint)*;
 	public OrConstraintElements getOrConstraintAccess() {
 		return pOrConstraint;
 	}
@@ -1189,8 +1865,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrConstraintAccess().getRule();
 	}
 	
-	//AndConstraint AbstractRule:
-	//	NotConstraintExpression ({AndRule.rules+=current} '&&' rules+=NotConstraintExpression)*;
+	//AndConstraint ConstraintRule:
+	//	NotConstraintExpression ({AndConstraintRule.rules+=current} 'and' rules+=NotConstraintExpression)*;
 	public AndConstraintElements getAndConstraintAccess() {
 		return pAndConstraint;
 	}
@@ -1199,8 +1875,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndConstraintAccess().getRule();
 	}
 	
-	//NotConstraintExpression AbstractRule:
-	//	PrimaryConstraint | '!' {NotRule} rule=PrimaryConstraint;
+	//NotConstraintExpression ConstraintRule:
+	//	PrimaryConstraint | '!' {NotConstraintRule} rule=PrimaryConstraint;
 	public NotConstraintExpressionElements getNotConstraintExpressionAccess() {
 		return pNotConstraintExpression;
 	}
@@ -1209,7 +1885,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getNotConstraintExpressionAccess().getRule();
 	}
 	
-	//PrimaryConstraint AbstractRule:
+	//PrimaryConstraint ConstraintRule:
 	//	ConstraintRule | '(' ConstraintExpression ')';
 	public PrimaryConstraintElements getPrimaryConstraintAccess() {
 		return pPrimaryConstraint;

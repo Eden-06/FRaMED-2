@@ -6,10 +6,13 @@ import java.util.List;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 
-import Editpolicymodel.AbstractRule;
+import Editpolicymodel.AndFeatureRule;
+import Editpolicymodel.FalseFeatureRule;
 import Editpolicymodel.FeatureRule;
 import Editpolicymodel.IsFeature;
-import Editpolicymodel.Rule;
+import Editpolicymodel.NotFeatureRule;
+import Editpolicymodel.OrFeatureRule;
+import Editpolicymodel.TrueFeatureRule;
 
 /**
  * This class provides the rule-parse for the editPolicy-Mapping-configuration. Using VisitorPattern
@@ -17,7 +20,7 @@ import Editpolicymodel.Rule;
  * @author Christian Deussen
  *
  */
-public class FeatureRuleVisitor extends AbstractRuleVisitor<FeatureRule> {
+public class FeatureRuleVisitor {
 
 	/**
 	 * current configuration of editor
@@ -27,7 +30,6 @@ public class FeatureRuleVisitor extends AbstractRuleVisitor<FeatureRule> {
 
 	public FeatureRuleVisitor(FRaMEDConfiguration framedConfiguration)
 	{
-		super(framedConfiguration);
 		this.configuration = framedConfiguration;
 	}
 	
@@ -40,15 +42,28 @@ public class FeatureRuleVisitor extends AbstractRuleVisitor<FeatureRule> {
 	 * @return Boolean
 	 */
 	
-	public boolean checkRule(AbstractRule<FeatureRule> rule) 
+	public boolean checkRule(FeatureRule rule) 
 	{
-		if (rule instanceof Rule) {
-			FeatureRule feature = ((Rule<FeatureRule>) rule).getRule();
-			if(feature instanceof IsFeature) {
-				return featureNameVisitor((IsFeature)feature);
+			if(rule instanceof IsFeature) {
+				return featureNameVisitor((IsFeature)rule);
 			}
-		} 
-		return super.checkRule(rule);
+			if (rule instanceof AndFeatureRule)
+				return andRuleVisitor((AndFeatureRule)rule);
+			
+			if (rule instanceof OrFeatureRule)
+				return orRuleVisitor((OrFeatureRule)rule);
+			
+			if (rule instanceof NotFeatureRule)
+				return notRuleVisitor((NotFeatureRule)rule);
+			
+			if (rule instanceof TrueFeatureRule)
+				return true;		
+			
+			if (rule instanceof FalseFeatureRule)
+				return false;
+
+			System.out.println("checkRule for " + rule.getClass().toString() + " not implemented");
+			return true;
 	}
 
 	private boolean featureNameVisitor(IsFeature rule)
@@ -66,4 +81,24 @@ public class FeatureRuleVisitor extends AbstractRuleVisitor<FeatureRule> {
 		return false;
 	}
 	
+	
+	private boolean andRuleVisitor(AndFeatureRule rule) {
+		for(FeatureRule abstractRule : rule.getRules()) {
+			if(!checkRule(abstractRule))
+				return false;
+		}
+		return true;
+	}
+	
+	private boolean orRuleVisitor(OrFeatureRule rule) {
+		for(FeatureRule abstractRule : rule.getRules()) {
+			if(checkRule(abstractRule))
+				return true;
+		}
+		return false;
+	}
+		
+	private boolean notRuleVisitor(NotFeatureRule rule) {
+		return !checkRule(rule.getRule());
+	}		
 }

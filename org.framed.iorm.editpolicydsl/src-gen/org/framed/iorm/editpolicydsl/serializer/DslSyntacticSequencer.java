@@ -64,11 +64,18 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryConstraint
+	 *     (rule start) (ambiguity) 'Contains' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'IsParent' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'IsSource' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'IsSourceType' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'IsStepIn' '(' ')' (rule start)
+	 *     (rule start) (ambiguity) 'IsTarget' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'IsTargetType' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'true' (rule start)
-	 *     (rule start) (ambiguity) rule=StepIn
-	 *     (rule start) (ambiguity) {AndRule.rules+=}
-	 *     (rule start) (ambiguity) {ImplicationRule.leftRule=}
-	 *     (rule start) (ambiguity) {OrRule.rules+=}
+	 *     (rule start) (ambiguity) {AndConstraintRule.rules+=}
+	 *     (rule start) (ambiguity) {ImplicationConstraintRule.leftRule=}
+	 *     (rule start) (ambiguity) {OrConstraintRule.rules+=}
 	 */
 	protected void emit_PrimaryConstraint_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -80,9 +87,9 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryConstraint
-	 *     (rule start) (ambiguity) {AndRule.rules+=}
-	 *     (rule start) (ambiguity) {ImplicationRule.leftRule=}
-	 *     (rule start) (ambiguity) {OrRule.rules+=}
+	 *     (rule start) (ambiguity) {AndConstraintRule.rules+=}
+	 *     (rule start) (ambiguity) {ImplicationConstraintRule.leftRule=}
+	 *     (rule start) (ambiguity) {OrConstraintRule.rules+=}
 	 */
 	protected void emit_PrimaryConstraint_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -94,10 +101,11 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryFeature
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'isFeature' featureName=FeatureNameEnum
 	 *     (rule start) (ambiguity) 'true' (rule start)
-	 *     (rule start) (ambiguity) rule=IsFeature
-	 *     (rule start) (ambiguity) {AndRule.rules+=}
-	 *     (rule start) (ambiguity) {OrRule.rules+=}
+	 *     (rule start) (ambiguity) {AndFeatureRule.rules+=}
+	 *     (rule start) (ambiguity) {OrFeatureRule.rules+=}
 	 */
 	protected void emit_PrimaryFeature_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -109,8 +117,8 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryFeature
-	 *     (rule start) (ambiguity) {AndRule.rules+=}
-	 *     (rule start) (ambiguity) {OrRule.rules+=}
+	 *     (rule start) (ambiguity) {AndFeatureRule.rules+=}
+	 *     (rule start) (ambiguity) {OrFeatureRule.rules+=}
 	 */
 	protected void emit_PrimaryFeature_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

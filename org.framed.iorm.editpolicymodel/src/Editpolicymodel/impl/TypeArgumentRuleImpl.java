@@ -5,13 +5,12 @@ package Editpolicymodel.impl;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.TypeArgumentRule;
 
+import Editpolicymodel.TypeEnum;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.framed.iorm.model.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +34,7 @@ public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Type TYPE_EDEFAULT = Type.COMPARTMENT_TYPE;
+	protected static final TypeEnum TYPE_EDEFAULT = TypeEnum.ACYCLIC;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -45,7 +44,7 @@ public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected Type type = TYPE_EDEFAULT;
+	protected TypeEnum type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +70,7 @@ public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Type getType() {
+	public TypeEnum getType() {
 		return type;
 	}
 
@@ -80,8 +79,8 @@ public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(Type newType) {
-		Type oldType = type;
+	public void setType(TypeEnum newType) {
+		TypeEnum oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE, oldType, type));
@@ -110,7 +109,7 @@ public abstract class TypeArgumentRuleImpl extends ConstraintRuleImpl implements
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EditpolicymodelPackage.TYPE_ARGUMENT_RULE__TYPE:
-				setType((Type)newValue);
+				setType((TypeEnum)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

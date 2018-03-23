@@ -13,6 +13,7 @@ import Editpolicymodel.EditpolicymodelFactory;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.FalseConstraintRule;
 import Editpolicymodel.FalseFeatureRule;
+import Editpolicymodel.FeatureNameEnum;
 import Editpolicymodel.FeatureRule;
 import Editpolicymodel.ImplicationConstraintRule;
 import Editpolicymodel.ImplicationFeatureRule;
@@ -36,6 +37,7 @@ import Editpolicymodel.Policy;
 import Editpolicymodel.TrueConstraintRule;
 import Editpolicymodel.TrueFeatureRule;
 import Editpolicymodel.TypeArgumentRule;
+import Editpolicymodel.TypeEnum;
 import Editpolicymodel.UnaryConstraintRule;
 import Editpolicymodel.UnaryFeatureRule;
 
@@ -46,9 +48,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.framed.iorm.featuremodel.FeaturemodelPackage;
-
 import org.framed.iorm.model.OrmPackage;
 
 /**
@@ -295,6 +294,20 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EEnum actionEnumEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum typeEnumEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum featureNameEnumEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -815,6 +828,24 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTypeEnum() {
+		return typeEnumEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getFeatureNameEnum() {
+		return featureNameEnumEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EditpolicymodelFactory getEditpolicymodelFactory() {
 		return (EditpolicymodelFactory)getEFactoryInstance();
 	}
@@ -922,6 +953,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
+		typeEnumEEnum = createEEnum(TYPE_ENUM);
+		featureNameEnumEEnum = createEEnum(FEATURE_NAME_ENUM);
 	}
 
 	/**
@@ -946,10 +979,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		setName(eNAME);
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
-
-		// Obtain other dependent packages
-		OrmPackage theOrmPackage = (OrmPackage)EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI);
-		FeaturemodelPackage theFeaturemodelPackage = (FeaturemodelPackage)EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -993,7 +1022,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(policyEClass, Policy.class, "Policy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPolicy_Override(), ecorePackage.getEBooleanObject(), "override", "false", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPolicy_Action(), this.getActionEnum(), "action", "Create", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPolicy_ActionType(), theOrmPackage.getType(), "actionType", "CompartmentType", 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPolicy_ActionType(), this.getTypeEnum(), "actionType", null, 1, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPolicy_FeatureRule(), this.getFeatureRule(), null, "featureRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPolicy_ConstraintRule(), this.getConstraintRule(), null, "constraintRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1010,7 +1039,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(featureRuleEClass, FeatureRule.class, "FeatureRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isFeatureEClass, IsFeature.class, "IsFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIsFeature_FeatureName(), theFeaturemodelPackage.getFeatureName(), "featureName", null, 0, 1, IsFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIsFeature_FeatureName(), this.getFeatureNameEnum(), "featureName", null, 1, 1, IsFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintRuleEClass, ConstraintRule.class, "ConstraintRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1038,7 +1067,7 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(isSourceTypeEClass, IsSourceType.class, "IsSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typeArgumentRuleEClass, TypeArgumentRule.class, "TypeArgumentRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTypeArgumentRule_Type(), theOrmPackage.getType(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeArgumentRule_Type(), this.getTypeEnum(), "type", null, 0, 1, TypeArgumentRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(naryConstraintRuleEClass, NaryConstraintRule.class, "NaryConstraintRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNaryConstraintRule_Rules(), this.getConstraintRule(), null, "rules", null, 1, -1, NaryConstraintRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1075,6 +1104,65 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.ADD);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.START);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.RECONNECT);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.EXECUTE);
+
+		initEEnum(typeEnumEEnum, TypeEnum.class, "TypeEnum");
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ACYCLIC);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.COMPARTMENT_TYPE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.IRREFLEXIVE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ROLE_PROHIBITION);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ROLE_IMPLICATION);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ROLE_GROUP);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ROLE_EQUIVALENCE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.ROLE_TYPE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.RELATIONSHIP_IMPLICATION);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.RELATIONSHIP_EXCLUSION);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.RELATIONSHIP);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.REFLEXIVE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.GROUP);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.INHERITANCE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.FULFILLMENT);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.DATA_TYPE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.CYCLIC);
+
+		initEEnum(featureNameEnumEEnum, FeatureNameEnum.class, "FeatureNameEnum");
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_TYPES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_STRUCTURE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_PROPERTIES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_PROHIBITION);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_INHERITANCE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_IMPLICATION);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_EQUIVALENCE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLE_BEHAVIOR);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.RML_FEATURE_MODEL);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.RELATIONSHIPS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.RELATIONSHIP_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.RELATIONSHIP_CARDINALITY);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.PLAYERS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.PLAYABLE_BY_DEFINING_COMPARTMENT);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.PLAYABLE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.PARTHOOD_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ON_RELATIONSHIPS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ON_COMPARTMENTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.OCCURRENCE_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.NATURALS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.INTRA_RELATIONSHIP_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.INTER_RELATIONSHIP_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.GROUP_CONSTRAINTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.DEPENDENT);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.DATES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.DATA_TYPES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.CONTAINS_COMPARTMENTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENT_TYPES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENT_STRUCTURE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENT_PROPERTIES);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENT_INHERITANCE);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.COMPARTMENT_BEHAVIOR);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.PARTICIPANTS);
+		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.DATA_TYPE_INHERITANCE);
 
 		// Create resource
 		createResource(eNS_URI);

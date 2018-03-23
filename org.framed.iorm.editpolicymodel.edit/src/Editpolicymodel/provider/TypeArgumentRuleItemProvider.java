@@ -6,6 +6,7 @@ package Editpolicymodel.provider;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.TypeArgumentRule;
 
+import Editpolicymodel.TypeEnum;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,8 +17,6 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import org.framed.iorm.model.Type;
 
 /**
  * This is the item provider adapter for a {@link Editpolicymodel.TypeArgumentRule} object.
@@ -82,7 +81,7 @@ public class TypeArgumentRuleItemProvider extends ConstraintRuleItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		Type labelValue = ((TypeArgumentRule)object).getType();
+		TypeEnum labelValue = ((TypeArgumentRule)object).getType();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_TypeArgumentRule_type") :

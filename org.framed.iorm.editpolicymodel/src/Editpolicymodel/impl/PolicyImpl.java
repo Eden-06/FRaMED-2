@@ -8,6 +8,7 @@ import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.FeatureRule;
 import Editpolicymodel.Policy;
 
+import Editpolicymodel.TypeEnum;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -16,8 +17,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.framed.iorm.model.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -85,7 +84,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Type ACTION_TYPE_EDEFAULT = Type.COMPARTMENT_TYPE;
+	protected static final TypeEnum ACTION_TYPE_EDEFAULT = TypeEnum.ACYCLIC;
 
 	/**
 	 * The cached value of the '{@link #getActionType() <em>Action Type</em>}' attribute.
@@ -95,7 +94,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * @generated
 	 * @ordered
 	 */
-	protected Type actionType = ACTION_TYPE_EDEFAULT;
+	protected TypeEnum actionType = ACTION_TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFeatureRule() <em>Feature Rule</em>}' containment reference.
@@ -183,7 +182,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Type getActionType() {
+	public TypeEnum getActionType() {
 		return actionType;
 	}
 
@@ -192,8 +191,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setActionType(Type newActionType) {
-		Type oldActionType = actionType;
+	public void setActionType(TypeEnum newActionType) {
+		TypeEnum oldActionType = actionType;
 		actionType = newActionType == null ? ACTION_TYPE_EDEFAULT : newActionType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EditpolicymodelPackage.POLICY__ACTION_TYPE, oldActionType, actionType));
@@ -338,7 +337,7 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy {
 				setAction((ActionEnum)newValue);
 				return;
 			case EditpolicymodelPackage.POLICY__ACTION_TYPE:
-				setActionType((Type)newValue);
+				setActionType((TypeEnum)newValue);
 				return;
 			case EditpolicymodelPackage.POLICY__FEATURE_RULE:
 				setFeatureRule((FeatureRule)newValue);

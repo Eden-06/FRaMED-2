@@ -4,8 +4,6 @@ package Editpolicymodel;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.framed.iorm.model.Type;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Policy</b></em>'.
@@ -86,8 +84,7 @@ public interface Policy extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Action Type</b></em>' attribute.
-	 * The default value is <code>"CompartmentType"</code>.
-	 * The literals are from the enumeration {@link org.framed.iorm.model.Type}.
+	 * The literals are from the enumeration {@link Editpolicymodel.TypeEnum}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Action Type</em>' attribute isn't clear,
@@ -95,24 +92,24 @@ public interface Policy extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Action Type</em>' attribute.
-	 * @see org.framed.iorm.model.Type
-	 * @see #setActionType(Type)
+	 * @see Editpolicymodel.TypeEnum
+	 * @see #setActionType(TypeEnum)
 	 * @see Editpolicymodel.EditpolicymodelPackage#getPolicy_ActionType()
-	 * @model default="CompartmentType"
+	 * @model required="true"
 	 * @generated
 	 */
-	Type getActionType();
+	TypeEnum getActionType();
 
 	/**
 	 * Sets the value of the '{@link Editpolicymodel.Policy#getActionType <em>Action Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Action Type</em>' attribute.
-	 * @see org.framed.iorm.model.Type
+	 * @see Editpolicymodel.TypeEnum
 	 * @see #getActionType()
 	 * @generated
 	 */
-	void setActionType(Type value);
+	void setActionType(TypeEnum value);
 
 	/**
 	 * Returns the value of the '<em><b>Feature Rule</b></em>' containment reference.

@@ -1281,6 +1281,26 @@ public interface EditpolicymodelPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.TypeEnum
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTypeEnum()
+	 * @generated
+	 */
+	int TYPE_ENUM = 34;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.FeatureNameEnum
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeatureNameEnum()
+	 * @generated
+	 */
+	int FEATURE_NAME_ENUM = 35;
+
+	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.Model <em>Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1797,6 +1817,26 @@ public interface EditpolicymodelPackage extends EPackage {
 	EEnum getActionEnum();
 
 	/**
+	 * Returns the meta object for enum '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Type Enum</em>'.
+	 * @see Editpolicymodel.TypeEnum
+	 * @generated
+	 */
+	EEnum getTypeEnum();
+
+	/**
+	 * Returns the meta object for enum '{@link Editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Feature Name Enum</em>'.
+	 * @see Editpolicymodel.FeatureNameEnum
+	 * @generated
+	 */
+	EEnum getFeatureNameEnum();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2286,6 +2326,26 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ACTION_ENUM = eINSTANCE.getActionEnum();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.TypeEnum
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTypeEnum()
+		 * @generated
+		 */
+		EEnum TYPE_ENUM = eINSTANCE.getTypeEnum();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.FeatureNameEnum
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeatureNameEnum()
+		 * @generated
+		 */
+		EEnum FEATURE_NAME_ENUM = eINSTANCE.getFeatureNameEnum();
 
 	}
 

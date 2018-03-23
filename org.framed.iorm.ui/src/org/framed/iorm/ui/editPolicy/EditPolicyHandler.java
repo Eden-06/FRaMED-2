@@ -11,7 +11,6 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 
-import Editpolicymodel.AbstractRule;
 import Editpolicymodel.ActionEnum;
 import Editpolicymodel.ConstraintRule;
 import Editpolicymodel.Policy;
@@ -56,8 +55,8 @@ public class EditPolicyHandler {
 	 * @param type
 	 * @return
 	 */
-	private List<Editpolicymodel.AbstractRule<ConstraintRule>> getConstraints(ActionEnum action, Type type) {
-		List<AbstractRule<ConstraintRule>> rules = new LinkedList<>();
+	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
+		List<ConstraintRule> rules = new LinkedList<>();
 		
 		for(Policy policy: this.activatedPolicies) {
 			System.out.println("Action: " + policy.getAction().toString());
@@ -72,9 +71,9 @@ public class EditPolicyHandler {
 
 	public boolean canCreate(ICreateConnectionContext context, Type type) 
 	{
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.CREATE, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -82,9 +81,9 @@ public class EditPolicyHandler {
 	}
 
 	public boolean canStart(ICreateConnectionContext context, Type type) {
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.START, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.START, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -92,9 +91,9 @@ public class EditPolicyHandler {
 	}
 
 	public boolean canExecute(ICustomContext context, Type type) {
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.EXECUTE, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.EXECUTE, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -102,19 +101,19 @@ public class EditPolicyHandler {
 	}
 
 	public boolean canReconnect(IReconnectionContext context, Type type) {
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.RECONNECT, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.RECONNECT, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
 		return true;
 	}
 
-	public boolean canAdd(IAddConnectionContext context) { 
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+	public boolean canAdd(IAddConnectionContext context, Type type) { 
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -122,9 +121,9 @@ public class EditPolicyHandler {
 	}
 	
 	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}
@@ -138,9 +137,9 @@ public class EditPolicyHandler {
 		return this.canAdd(context, type);
 	}
 	public boolean canAdd(IAddContext context, Type type) {
-		List<Editpolicymodel.AbstractRule<ConstraintRule>> constraints = this.getConstraints(ActionEnum.ADD, type);
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
 		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(AbstractRule<ConstraintRule> constraintRule: constraints) {
+		for(ConstraintRule constraintRule: constraints) {
 			if(!constraintVisitor.checkRule(constraintRule))
 				return false;
 		}

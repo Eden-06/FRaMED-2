@@ -96,6 +96,10 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eDataType.getClassifierID()) {
 			case EditpolicymodelPackage.ACTION_ENUM:
 				return createActionEnumFromString(eDataType, initialValue);
+			case EditpolicymodelPackage.TYPE_ENUM:
+				return createTypeEnumFromString(eDataType, initialValue);
+			case EditpolicymodelPackage.FEATURE_NAME_ENUM:
+				return createFeatureNameEnumFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -111,6 +115,10 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eDataType.getClassifierID()) {
 			case EditpolicymodelPackage.ACTION_ENUM:
 				return convertActionEnumToString(eDataType, instanceValue);
+			case EditpolicymodelPackage.TYPE_ENUM:
+				return convertTypeEnumToString(eDataType, instanceValue);
+			case EditpolicymodelPackage.FEATURE_NAME_ENUM:
+				return convertFeatureNameEnumToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -373,6 +381,46 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * @generated
 	 */
 	public String convertActionEnumToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeEnum createTypeEnumFromString(EDataType eDataType, String initialValue) {
+		TypeEnum result = TypeEnum.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTypeEnumToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureNameEnum createFeatureNameEnumFromString(EDataType eDataType, String initialValue) {
+		FeatureNameEnum result = FeatureNameEnum.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFeatureNameEnumToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

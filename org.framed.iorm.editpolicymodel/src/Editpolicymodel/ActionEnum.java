@@ -56,7 +56,17 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RECONNECT(3, "Reconnect", "Reconnect");
+	RECONNECT(3, "Reconnect", "Reconnect"),
+
+	/**
+	 * The '<em><b>Execute</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EXECUTE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EXECUTE(4, "Execute", "Execute");
 
 	/**
 	 * The '<em><b>Create</b></em>' literal value.
@@ -119,6 +129,21 @@ public enum ActionEnum implements Enumerator {
 	public static final int RECONNECT_VALUE = 3;
 
 	/**
+	 * The '<em><b>Execute</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Execute</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #EXECUTE
+	 * @model name="Execute"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EXECUTE_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>Action Enum</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,6 +155,7 @@ public enum ActionEnum implements Enumerator {
 			ADD,
 			START,
 			RECONNECT,
+			EXECUTE,
 		};
 
 	/**
@@ -190,6 +216,7 @@ public enum ActionEnum implements Enumerator {
 			case ADD_VALUE: return ADD;
 			case START_VALUE: return START;
 			case RECONNECT_VALUE: return RECONNECT;
+			case EXECUTE_VALUE: return EXECUTE;
 		}
 		return null;
 	}
