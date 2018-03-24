@@ -30,7 +30,7 @@ class DslGenerator extends AbstractGenerator {
 		val extensionToFactoryMap = registry.extensionToFactoryMap
 		extensionToFactoryMap.put("editpolicy", new XMIResourceFactoryImpl)
 		
-		val xmiUri = resource.URI.trimFileExtension.appendFileExtension("editpolicyXmi")
+		val xmiUri = resource.URI.trimFileExtension.appendFileExtension("editpolicy")
 		val outResourceSet = new ResourceSetImpl
 		val outResource = outResourceSet.createResource(xmiUri)
 		outResource.contents.addAll(resource.contents)

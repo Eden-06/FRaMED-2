@@ -1107,6 +1107,10 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.RECONNECT);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.EXECUTE);
 		addEEnumLiteral(actionEnumEEnum, ActionEnum.DIRECT_EDIT);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.CREATE_PROPERTY);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.CREATE_ATTRIBUTE);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.ADD_PROPERTY);
+		addEEnumLiteral(actionEnumEEnum, ActionEnum.CREATE_OPERATION);
 
 		initEEnum(typeEnumEEnum, TypeEnum.class, "TypeEnum");
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.ACYCLIC);

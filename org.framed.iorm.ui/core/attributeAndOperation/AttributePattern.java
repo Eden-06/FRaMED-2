@@ -58,10 +58,7 @@ public class AttributePattern extends AttributeOperationCommonPattern implements
 							isShadowShape = true;
 					}
 					if(!isShadowShape) {
-						System.out.println("modelType: ");
-						System.out.println(shape.getType());
-						System.out.println(createContext.getPropertyKeys());
-						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, shape.getType());
+						return EditPolicyService.getHandler(this.getDiagram()).canCreateAttribute(createContext, shape.getType());
 					}
 		}	}	}
 		return false;

@@ -29,7 +29,7 @@ public class DslGenerator extends AbstractGenerator {
       final Map<String, Object> extensionToFactoryMap = registry.getExtensionToFactoryMap();
       XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
       extensionToFactoryMap.put("editpolicy", _xMIResourceFactoryImpl);
-      final URI xmiUri = resource.getURI().trimFileExtension().appendFileExtension("editpolicyXmi");
+      final URI xmiUri = resource.getURI().trimFileExtension().appendFileExtension("editpolicy");
       final ResourceSetImpl outResourceSet = new ResourceSetImpl();
       final Resource outResource = outResourceSet.createResource(xmiUri);
       outResource.getContents().addAll(resource.getContents());

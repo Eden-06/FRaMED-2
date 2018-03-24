@@ -118,21 +118,32 @@ public class EditPolicyHandler {
 	}
 	public boolean canAdd(IAddContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
 	
 	public boolean canCreate(ICreateContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
-		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
-		}
-		return true;
+		return this.checkConstraints(constraints, context);
 	}
+	
+	public boolean canAddProperty(IAddContext context, Type type) {
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD_PROPERTY, type);
+		return this.checkConstraints(constraints, context);
+	}
+
+	public boolean canCreateProperty(ICreateContext context, Type type) {
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_PROPERTY, type);
+		return this.checkConstraints(constraints, context);
+	}
+
+	public boolean canCreateAttribute(ICreateContext context, Type type) {
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_ATTRIBUTE, type);
+		return this.checkConstraints(constraints, context);
+	}
+
+	public boolean canCreateOperation(ICreateContext context, Type type) {
+		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_OPERATION, type);
+		return this.checkConstraints(constraints, context);
+	}
+
 }

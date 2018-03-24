@@ -29,6 +29,10 @@
     <eLiterals name="Reconnect" value="3"/>
     <eLiterals name="Execute" value="4"/>
     <eLiterals name="Direct_Edit" value="5"/>
+    <eLiterals name="Create_Property" value="6"/>
+    <eLiterals name="Create_Attribute" value="7"/>
+    <eLiterals name="Add_Property" value="9"/>
+    <eLiterals name="Create_Operation" value="10"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureRule" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsFeature" eSuperTypes="#//FeatureRule">

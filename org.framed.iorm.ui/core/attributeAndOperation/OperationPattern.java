@@ -57,7 +57,7 @@ public class OperationPattern extends AttributeOperationCommonPattern implements
 							isShadowShape = true;
 					}
 					if(!isShadowShape)
-						return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, shape.getType());					
+						return EditPolicyService.getHandler(this.getDiagram()).canCreateOperation(createContext, shape.getType());					
 		}	}	}
 		return false;
 	}

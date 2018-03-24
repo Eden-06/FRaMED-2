@@ -74,7 +74,39 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DIRECT_EDIT(5, "Direct_Edit", "Direct_Edit");
+	DIRECT_EDIT(5, "Direct_Edit", "Direct_Edit"), /**
+	 * The '<em><b>Create Property</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_PROPERTY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CREATE_PROPERTY(6, "Create_Property", "Create_Property"), /**
+	 * The '<em><b>Create Attribute</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_ATTRIBUTE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CREATE_ATTRIBUTE(7, "Create_Attribute", "Create_Attribute"), /**
+	 * The '<em><b>Add Property</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ADD_PROPERTY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ADD_PROPERTY(9, "Add_Property", "Add_Property"), /**
+	 * The '<em><b>Create Operation</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_OPERATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CREATE_OPERATION(10, "Create_Operation", "Create_Operation");
 
 	/**
 	 * The '<em><b>Create</b></em>' literal value.
@@ -167,6 +199,66 @@ public enum ActionEnum implements Enumerator {
 	public static final int DIRECT_EDIT_VALUE = 5;
 
 	/**
+	 * The '<em><b>Create Property</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Create Property</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_PROPERTY
+	 * @model name="Create_Property"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CREATE_PROPERTY_VALUE = 6;
+
+	/**
+	 * The '<em><b>Create Attribute</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Create Attribute</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_ATTRIBUTE
+	 * @model name="Create_Attribute"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CREATE_ATTRIBUTE_VALUE = 7;
+
+	/**
+	 * The '<em><b>Add Property</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Add Property</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ADD_PROPERTY
+	 * @model name="Add_Property"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ADD_PROPERTY_VALUE = 9;
+
+	/**
+	 * The '<em><b>Create Operation</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Create Operation</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CREATE_OPERATION
+	 * @model name="Create_Operation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CREATE_OPERATION_VALUE = 10;
+
+	/**
 	 * An array of all the '<em><b>Action Enum</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,6 +272,10 @@ public enum ActionEnum implements Enumerator {
 			RECONNECT,
 			EXECUTE,
 			DIRECT_EDIT,
+			CREATE_PROPERTY,
+			CREATE_ATTRIBUTE,
+			ADD_PROPERTY,
+			CREATE_OPERATION,
 		};
 
 	/**
@@ -242,6 +338,10 @@ public enum ActionEnum implements Enumerator {
 			case RECONNECT_VALUE: return RECONNECT;
 			case EXECUTE_VALUE: return EXECUTE;
 			case DIRECT_EDIT_VALUE: return DIRECT_EDIT;
+			case CREATE_PROPERTY_VALUE: return CREATE_PROPERTY;
+			case CREATE_ATTRIBUTE_VALUE: return CREATE_ATTRIBUTE;
+			case ADD_PROPERTY_VALUE: return ADD_PROPERTY;
+			case CREATE_OPERATION_VALUE: return CREATE_OPERATION;
 		}
 		return null;
 	}

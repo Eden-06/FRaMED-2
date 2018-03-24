@@ -19,7 +19,7 @@ Policy returns Policy:
 	'}';
 	
 enum ActionEnum returns ActionEnum:
-	Add | Reconnect | Create | Start | Execute | Direct_Edit; 
+	Add | Reconnect | Create | Start | Execute | Direct_Edit | Add_Property | Create_Attribute | Create_Operation | Create_Property; 
 
 enum FeatureTypeEnum returns TypeEnum:
 	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance | 
