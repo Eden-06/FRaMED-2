@@ -270,11 +270,10 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
-	    		if(types.contains(sourceShape.getType()))
-		    		if(targetShape.getType() == sourceShape.getType())
-						   return EditPolicyService.canCreate(createContext, this.getDiagram());
-		}	}
+	    	if(types.contains(sourceShape.getType()))
+		   		if(targetShape.getType() == sourceShape.getType())
+		   			return EditPolicyService.canCreate(createContext, this.getDiagram());
+		}
 		return false;
 	}
 		 
