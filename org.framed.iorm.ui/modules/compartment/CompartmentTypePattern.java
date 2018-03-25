@@ -38,6 +38,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
@@ -140,15 +141,21 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	
 	/**
 	 * checks if pattern is applicable for a given business object
-	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#COMPARTMENT_TYPE}
+	 * @return true, if business object is a {@link org.framed.iorm.model.Shape} of type {@link Type#COMPARTMENT_TYPE} and the
+	 * compartment type feature is chosen
 	 */
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object businessObject) {
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
+			Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());
+			Model mainModel = (Model) getBusinessObjectForPictogramElement(mainDiagram);
+			List<String> framedFeatureNames = new ArrayList<String>();
+			for(FRaMEDFeature framedFeature : mainModel.getFramedConfiguration().getFeatures()) {
+				framedFeatureNames.add(framedFeature.getName().getLiteral());
+			}
 			if(shape.getType() == Type.COMPARTMENT_TYPE &&
-			   shape.getFirstSegment() != null &&
-			   shape.getSecondSegment() != null) return true;
+			   framedFeatureNames.contains("Compartment_Types")) return true;
 		}
 		return false;
 	}

@@ -4,13 +4,18 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.palette.PaletteView;
 
+/**
+ * The literals of role models are mostly the same as the ones of a compartment type, since a created role model is handled like
+ * a compartment type if the corresponding feature is chosen. 
+ * @author Kevin Kassin
+ */
 public class Literals {
 	
 	/**
 	 * the features names used for the palette entry of this feature
 	 */
 	public final String FEATURE_NAME = "Role Model",
-						ELEMENTS_FEATURE_NAME = "RoleModelPattern";
+						ELEMENTS_FEATURE_NAME = "RoleModelElementPattern";
 	
 	/**
 	 * the standard name for a pictogramm element and business object created by the feature
@@ -20,7 +25,7 @@ public class Literals {
 	/**
 	 * the ids or the paths for icon used for palette entry of this feature
 	 */		
-	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.roleModel",
+	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.rolemodel",
 						ELEMENTS_ICON_IMG_ID = "org.framed.iorm.ui.core.roleModelElements",
 						ICON_IMG_PATH = "core/rolemodel/icon_rolemodel.png";
 	
@@ -35,7 +40,7 @@ public class Literals {
 	public final PaletteView paletteView = PaletteView.COMPARTMENT_VIEW; 
 	
 	/**
-	 * identifiers used for role models: most are the same as a compartment types identifier
+	 * identifiers used for role models
 	 * <p>
 	 * can be for:<br>
 	 * (1) the container shape or<br>
@@ -51,23 +56,31 @@ public class Literals {
 	 * (11) the elements in the content preview segment or<br>
 	 * (12) the dot elements that indicate some elements are not shown in the preview
 	 */
-	public final String SHAPE_ID_COMPARTMENTTYPE_CONTAINER = "shape_ct_container",
-						SHAPE_ID_COMPARTMENTTYPE_TYPEBODY = "shape_ct_typebody",
-						SHAPE_ID_COMPARTMENTTYPE_SHADOW = "shape_ct_shadow",
-						SHAPE_ID_COMPARTMENTTYPE_NAME = "shape_ct_name", 
-						SHAPE_ID_COMPARTMENTTYPE_FIRSTLINE = "shape_ct_firstline",
-						SHAPE_ID_COMPARTMENTTYPE_SECONDLINE = "shape_ct_secondline", 
-						SHAPE_ID_COMPARTMENTTYPE_THIRDLINE = "shape_ct_thirdline", 
-						SHAPE_ID_COMPARTMENTTYPE_ATTRIBUTECONTAINER = "shape_ct_attcontainer",
-						SHAPE_ID_COMPARTMENTTYPE_OPERATIONCONTAINER = "shape_ct_opcontainer",
-						SHAPE_ID_COMPARTMENTTYPE_CONTENT_PREVIEW = "shape_ct_contentpreview",
-						SHAPE_ID_ROLEMODEL_ELEMENT = "shape_rm_element",
-						SHAPE_ID_ROLEMODEL_INDICATOR_DOTS = "shape_rm_indicator_dots";
+	public final String SHAPE_ID_ROLEMODEL_CONTAINER = "shape_ct_container",
+						SHAPE_ID_ROLEMODEL_TYPEBODY = "shape_ct_typebody",
+						SHAPE_ID_ROLEMODEL_SHADOW = "shape_ct_shadow",
+						SHAPE_ID_ROLEMODEL_NAME = "shape_ct_name", 
+						SHAPE_ID_ROLEMODEL_FIRSTLINE = "shape_ct_firstline",
+						SHAPE_ID_ROLEMODEL_SECONDLINE = "shape_ct_secondline", 
+						SHAPE_ID_ROLEMODEL_THIRDLINE = "shape_ct_thirdline", 
+						SHAPE_ID_ROLEMODEL_ATTRIBUTECONTAINER = "shape_ct_attcontainer",
+						SHAPE_ID_ROLEMODEL_OPERATIONCONTAINER = "shape_ct_opcontainer",
+						SHAPE_ID_ROLEMODEL_CONTENT_PREVIEW = "shape_ct_contentpreview",
+						SHAPE_ID_ROLEMODEL_ELEMENT = "shape_ct_element",
+						SHAPE_ID_ROLEMODEL_INDICATOR_DOTS = "shape_ct_indicator_dots";
+	
+	/**
+	 * messages used as direct editing tips
+	 */
+	public final String DIRECTEDITING_ROLEMODEL = "A compartment types name cant be empty or contain spaces. Numbers are allowed but not as first symbol.",
+						NAME_ALREADY_USED_ROLEMODEL = "Another compartment type already has the same name!";
 	
 	/**
 	 * reason messages used in the <em>updateNeeded</em> operations of the shape pattern
 	 */
-	public final String REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
+	public final String REASON_NAME_NULL = "Name is null.",
+						REASON_NAME_OUT_OF_DATE = "Name is out of date.",
+						REASON_AMOUNT_ELEMENTS = "Different amount of elements.",
 						REASON_NAMES_ELEMENTS = "Different names of elements.";	
 	
 	/**
@@ -89,8 +102,8 @@ public class Literals {
 	 * (3) the color of backgrounds or<br>
 	 * (4) the color of graphiti shapes shadows
 	 */
-	public final IColorConstant COLOR_TEXT = IColorConstant.GRAY,
-			   					COLOR_LINES = IColorConstant.GRAY,
+	public final IColorConstant COLOR_TEXT = UILiterals.COLOR_TEXT,
+			   					COLOR_LINES = UILiterals.COLOR_LINES,
 			   					COLOR_BACKGROUND = UILiterals.COLOR_BACKGROUND,
-			   					COLOR_SHADOW = IColorConstant.LIGHT_GRAY;
+			   					COLOR_SHADOW = UILiterals.COLOR_SHADOW;
 }

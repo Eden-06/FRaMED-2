@@ -177,7 +177,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	@Override 
 	public void dispose() {
 		MultipageEditorSynchronizationService.deregisterEditor(this);
-		super.dispose();
+		super.dispose(); 
 	}
 	
 	/**

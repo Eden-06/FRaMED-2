@@ -20,9 +20,9 @@ public class RoleModelGroupingFeatureReference extends AbstractGroupingFeatureRe
 	public RoleModelGroupingFeatureReference() {
 		modelType = Type.COMPARTMENT_TYPE;
 		DIAGRAM_KIND = literals.DIAGRAM_KIND;
-		SHAPE_ID_CONTAINER = literals.SHAPE_ID_COMPARTMENTTYPE_CONTAINER;
-		SHAPE_ID_NAME = literals.SHAPE_ID_COMPARTMENTTYPE_NAME;
-		SHAPE_ID_TYPEBODY = literals.SHAPE_ID_COMPARTMENTTYPE_TYPEBODY;
+		SHAPE_ID_CONTAINER = literals.SHAPE_ID_ROLEMODEL_CONTAINER;
+		SHAPE_ID_NAME = literals.SHAPE_ID_ROLEMODEL_NAME;
+		SHAPE_ID_TYPEBODY = literals.SHAPE_ID_ROLEMODEL_TYPEBODY;
 		paletteView = literals.paletteView;
 	}
 }

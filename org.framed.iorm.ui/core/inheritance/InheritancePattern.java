@@ -178,15 +178,13 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
-			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null &&
-			   targetShape.getFirstSegment() != null && targetShape.getSecondSegment() !=null) {
-			    if(sourceShape != null && targetShape != null) {
-			    	if(sourceShape.getContainer() == targetShape.getContainer() &&
-			    	   !(sourceShape.equals(targetShape))) {
-			    		if(types.contains(sourceShape.getType()))
-			    			if(targetShape.getType() == sourceShape.getType())
-								   return EditPolicyService.canCreate(createContext, this.getDiagram());
-		}	} 	}	}
+			if(sourceShape != null && targetShape != null) {
+				if(sourceShape.getContainer() == targetShape.getContainer() &&
+			       !(sourceShape.equals(targetShape))) {
+			    	if(types.contains(sourceShape.getType()))
+			    		if(targetShape.getType() == sourceShape.getType())
+							   return EditPolicyService.canCreate(createContext, this.getDiagram());
+		}	} 	}
 	    return false;
 	}
 	 
