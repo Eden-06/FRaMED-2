@@ -14,9 +14,8 @@ Model returns Model:
 	
 Policy returns Policy:
 	(override?='override')? action=ActionEnum actionType=FeatureTypeEnum
-	'{'
-	featureRule=FeatureExpression '=>' constraintRule=ConstraintExpression 
-	'}';
+	'(' featureRule=FeatureExpression ')' 'when' constraintRule=ConstraintExpression ';'
+	;
 	
 enum ActionEnum returns ActionEnum:
 	Add | Reconnect | Create | Start | Execute | Direct_Edit | Add_Property | Create_Attribute | Create_Operation | Create_Property; 
@@ -41,7 +40,8 @@ enum FeatureNameEnum:
 // ----------------- Constraint Rules ------------------------------//
 ConstraintRule returns ConstraintRule:
 	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
-	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule;
+	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | 
+	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule;
 
 ContainsConstrainRule returns Contains:
 	{Contains} 'Contains' '(' type=FeatureTypeEnum ')';
@@ -61,9 +61,14 @@ IsTargetConstraintRule returns IsTarget:
 IsSourceConstraintRule returns IsSource:
 	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
 
-StepInConstraintRule returns ConstraintRule:
+StepInConstraintRule returns IsStepIn:
 	{IsStepIn} 'IsStepIn' '(' ')';	
 
+SourceEqualsTargetConstraintRule returns SourceEqualsTarget:
+	{SourceEqualsTarget} 'SourceEqualsTarget' '(' ')';
+
+SourceEqualsTargetTypeConstraintRule returns SourceEqualsTargetType:
+	{SourceEqualsTargetType} 'SourceEqualsTargetType' '(' ')';
 
 // ----------------- Feature Rules ------------------------------//
 FeatureRule returns FeatureRule:
@@ -71,7 +76,7 @@ FeatureRule returns FeatureRule:
 
 IsFeature returns IsFeature:
 	{IsFeature}
-	'IsFeature' '(' featureName=FeatureNameEnum ')';
+	featureName=FeatureNameEnum;
 	
 // ----------------- Logical Rules ------------------------------//
 	

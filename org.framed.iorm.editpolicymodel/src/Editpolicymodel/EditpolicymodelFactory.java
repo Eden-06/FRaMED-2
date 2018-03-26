@@ -238,6 +238,24 @@ public interface EditpolicymodelFactory extends EFactory {
 	AndFeatureRule createAndFeatureRule();
 
 	/**
+	 * Returns a new object of class '<em>Source Equals Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Source Equals Target</em>'.
+	 * @generated
+	 */
+	SourceEqualsTarget createSourceEqualsTarget();
+
+	/**
+	 * Returns a new object of class '<em>Source Equals Target Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Source Equals Target Type</em>'.
+	 * @generated
+	 */
+	SourceEqualsTargetType createSourceEqualsTargetType();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

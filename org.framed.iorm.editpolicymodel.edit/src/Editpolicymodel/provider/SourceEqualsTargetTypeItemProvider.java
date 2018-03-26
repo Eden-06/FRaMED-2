@@ -9,37 +9,22 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link Editpolicymodel.TrueRule} object.
+ * This is the item provider adapter for a {@link Editpolicymodel.SourceEqualsTargetType} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TrueRuleItemProvider 
-	extends ItemProviderAdapter
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+public class SourceEqualsTargetTypeItemProvider extends ConstraintRuleItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TrueRuleItemProvider(AdapterFactory adapterFactory) {
+	public SourceEqualsTargetTypeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,14 +44,14 @@ public class TrueRuleItemProvider
 	}
 
 	/**
-	 * This returns TrueRule.gif.
+	 * This returns SourceEqualsTargetType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TrueRule"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SourceEqualsTargetType"));
 	}
 
 	/**
@@ -77,7 +62,7 @@ public class TrueRuleItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_TrueRule_type");
+		return getString("_UI_SourceEqualsTargetType_type");
 	}
 	
 
@@ -104,17 +89,6 @@ public class TrueRuleItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return EditpolicymodelEditPlugin.INSTANCE;
 	}
 
 }

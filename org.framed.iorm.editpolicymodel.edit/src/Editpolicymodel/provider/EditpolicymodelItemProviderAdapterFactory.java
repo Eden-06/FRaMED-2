@@ -624,6 +624,52 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Editpolicymodel.SourceEqualsTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SourceEqualsTargetItemProvider sourceEqualsTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Editpolicymodel.SourceEqualsTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSourceEqualsTargetAdapter() {
+		if (sourceEqualsTargetItemProvider == null) {
+			sourceEqualsTargetItemProvider = new SourceEqualsTargetItemProvider(this);
+		}
+
+		return sourceEqualsTargetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link Editpolicymodel.SourceEqualsTargetType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SourceEqualsTargetTypeItemProvider sourceEqualsTargetTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Editpolicymodel.SourceEqualsTargetType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSourceEqualsTargetTypeAdapter() {
+		if (sourceEqualsTargetTypeItemProvider == null) {
+			sourceEqualsTargetTypeItemProvider = new SourceEqualsTargetTypeItemProvider(this);
+		}
+
+		return sourceEqualsTargetTypeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -746,6 +792,8 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 		if (implicationFeatureRuleItemProvider != null) implicationFeatureRuleItemProvider.dispose();
 		if (orFeatureRuleItemProvider != null) orFeatureRuleItemProvider.dispose();
 		if (andFeatureRuleItemProvider != null) andFeatureRuleItemProvider.dispose();
+		if (sourceEqualsTargetItemProvider != null) sourceEqualsTargetItemProvider.dispose();
+		if (sourceEqualsTargetTypeItemProvider != null) sourceEqualsTargetTypeItemProvider.dispose();
 	}
 
 }

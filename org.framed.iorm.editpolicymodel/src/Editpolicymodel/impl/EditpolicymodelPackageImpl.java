@@ -34,6 +34,8 @@ import Editpolicymodel.NotFeatureRule;
 import Editpolicymodel.OrConstraintRule;
 import Editpolicymodel.OrFeatureRule;
 import Editpolicymodel.Policy;
+import Editpolicymodel.SourceEqualsTarget;
+import Editpolicymodel.SourceEqualsTargetType;
 import Editpolicymodel.TrueConstraintRule;
 import Editpolicymodel.TrueFeatureRule;
 import Editpolicymodel.TypeArgumentRule;
@@ -288,6 +290,20 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass andFeatureRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sourceEqualsTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sourceEqualsTargetTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -820,6 +836,24 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSourceEqualsTarget() {
+		return sourceEqualsTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSourceEqualsTargetType() {
+		return sourceEqualsTargetTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -952,6 +986,10 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		andFeatureRuleEClass = createEClass(AND_FEATURE_RULE);
 
+		sourceEqualsTargetEClass = createEClass(SOURCE_EQUALS_TARGET);
+
+		sourceEqualsTargetTypeEClass = createEClass(SOURCE_EQUALS_TARGET_TYPE);
+
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
 		typeEnumEEnum = createEEnum(TYPE_ENUM);
@@ -1015,6 +1053,8 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		unaryFeatureRuleEClass.getESuperTypes().add(this.getLogicalFeatureRule());
 		orFeatureRuleEClass.getESuperTypes().add(this.getNaryFeatureRule());
 		andFeatureRuleEClass.getESuperTypes().add(this.getNaryFeatureRule());
+		sourceEqualsTargetEClass.getESuperTypes().add(this.getConstraintRule());
+		sourceEqualsTargetTypeEClass.getESuperTypes().add(this.getConstraintRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1098,6 +1138,10 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(orFeatureRuleEClass, OrFeatureRule.class, "OrFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(andFeatureRuleEClass, AndFeatureRule.class, "AndFeatureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sourceEqualsTargetEClass, SourceEqualsTarget.class, "SourceEqualsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sourceEqualsTargetTypeEClass, SourceEqualsTargetType.class, "SourceEqualsTargetType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

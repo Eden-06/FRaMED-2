@@ -186,9 +186,9 @@ rulePolicy returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3='{'
+		otherlv_3='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getPolicyAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_3, grammarAccess.getPolicyAccess().getLeftParenthesisKeyword_3());
 		}
 		(
 			(
@@ -209,16 +209,20 @@ rulePolicy returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_5='=>'
+		otherlv_5=')'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getPolicyAccess().getEqualsSignGreaterThanSignKeyword_5());
+			newLeafNode(otherlv_5, grammarAccess.getPolicyAccess().getRightParenthesisKeyword_5());
+		}
+		otherlv_6='when'
+		{
+			newLeafNode(otherlv_6, grammarAccess.getPolicyAccess().getWhenKeyword_6());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPolicyAccess().getConstraintRuleConstraintExpressionParserRuleCall_6_0());
+					newCompositeNode(grammarAccess.getPolicyAccess().getConstraintRuleConstraintExpressionParserRuleCall_7_0());
 				}
-				lv_constraintRule_6_0=ruleConstraintExpression
+				lv_constraintRule_7_0=ruleConstraintExpression
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getPolicyRule());
@@ -226,15 +230,15 @@ rulePolicy returns [EObject current=null]
 					set(
 						$current,
 						"constraintRule",
-						lv_constraintRule_6_0,
+						lv_constraintRule_7_0,
 						"org.framed.iorm.editpolicydsl.Dsl.ConstraintExpression");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_7='}'
+		otherlv_8=';'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getPolicyAccess().getRightCurlyBracketKeyword_7());
+			newLeafNode(otherlv_8, grammarAccess.getPolicyAccess().getSemicolonKeyword_8());
 		}
 	)
 ;
@@ -333,6 +337,24 @@ ruleConstraintRule returns [EObject current=null]
 		this_IsParentConstraintRule_8=ruleIsParentConstraintRule
 		{
 			$current = $this_IsParentConstraintRule_8.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetConstraintRuleParserRuleCall_9());
+		}
+		this_SourceEqualsTargetConstraintRule_9=ruleSourceEqualsTargetConstraintRule
+		{
+			$current = $this_SourceEqualsTargetConstraintRule_9.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetTypeConstraintRuleParserRuleCall_10());
+		}
+		this_SourceEqualsTargetTypeConstraintRule_10=ruleSourceEqualsTargetTypeConstraintRule
+		{
+			$current = $this_SourceEqualsTargetTypeConstraintRule_10.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -718,6 +740,82 @@ ruleStepInConstraintRule returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleSourceEqualsTargetConstraintRule
+entryRuleSourceEqualsTargetConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSourceEqualsTargetConstraintRuleRule()); }
+	iv_ruleSourceEqualsTargetConstraintRule=ruleSourceEqualsTargetConstraintRule
+	{ $current=$iv_ruleSourceEqualsTargetConstraintRule.current; }
+	EOF;
+
+// Rule SourceEqualsTargetConstraintRule
+ruleSourceEqualsTargetConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getSourceEqualsTargetAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='SourceEqualsTarget'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getSourceEqualsTargetKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getRightParenthesisKeyword_3());
+		}
+	)
+;
+
+// Entry rule entryRuleSourceEqualsTargetTypeConstraintRule
+entryRuleSourceEqualsTargetTypeConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getSourceEqualsTargetTypeConstraintRuleRule()); }
+	iv_ruleSourceEqualsTargetTypeConstraintRule=ruleSourceEqualsTargetTypeConstraintRule
+	{ $current=$iv_ruleSourceEqualsTargetTypeConstraintRule.current; }
+	EOF;
+
+// Rule SourceEqualsTargetTypeConstraintRule
+ruleSourceEqualsTargetTypeConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getSourceEqualsTargetTypeAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='SourceEqualsTargetType'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getSourceEqualsTargetTypeKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getRightParenthesisKeyword_3());
+		}
+	)
+;
+
 // Entry rule entryRuleFeatureRule
 entryRuleFeatureRule returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getFeatureRuleRule()); }
@@ -786,20 +884,12 @@ ruleIsFeature returns [EObject current=null]
 					$current);
 			}
 		)
-		otherlv_1='IsFeature'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getIsFeatureAccess().getIsFeatureKeyword_1());
-		}
-		otherlv_2='('
-		{
-			newLeafNode(otherlv_2, grammarAccess.getIsFeatureAccess().getLeftParenthesisKeyword_2());
-		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_3_0());
+					newCompositeNode(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_1_0());
 				}
-				lv_featureName_3_0=ruleFeatureNameEnum
+				lv_featureName_1_0=ruleFeatureNameEnum
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIsFeatureRule());
@@ -807,16 +897,12 @@ ruleIsFeature returns [EObject current=null]
 					set(
 						$current,
 						"featureName",
-						lv_featureName_3_0,
+						lv_featureName_1_0,
 						"org.framed.iorm.editpolicydsl.Dsl.FeatureNameEnum");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_4=')'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getIsFeatureAccess().getRightParenthesisKeyword_4());
-		}
 	)
 ;
 
@@ -1535,6 +1621,54 @@ ruleActionEnum returns [Enumerator current=null]
 			{
 				$current = grammarAccess.getActionEnumAccess().getStartEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_3, grammarAccess.getActionEnumAccess().getStartEnumLiteralDeclaration_3());
+			}
+		)
+		    |
+		(
+			enumLiteral_4='Execute'
+			{
+				$current = grammarAccess.getActionEnumAccess().getExecuteEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getActionEnumAccess().getExecuteEnumLiteralDeclaration_4());
+			}
+		)
+		    |
+		(
+			enumLiteral_5='Direct_Edit'
+			{
+				$current = grammarAccess.getActionEnumAccess().getDirect_EditEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_5, grammarAccess.getActionEnumAccess().getDirect_EditEnumLiteralDeclaration_5());
+			}
+		)
+		    |
+		(
+			enumLiteral_6='Add_Property'
+			{
+				$current = grammarAccess.getActionEnumAccess().getAdd_PropertyEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_6, grammarAccess.getActionEnumAccess().getAdd_PropertyEnumLiteralDeclaration_6());
+			}
+		)
+		    |
+		(
+			enumLiteral_7='Create_Attribute'
+			{
+				$current = grammarAccess.getActionEnumAccess().getCreate_AttributeEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_7, grammarAccess.getActionEnumAccess().getCreate_AttributeEnumLiteralDeclaration_7());
+			}
+		)
+		    |
+		(
+			enumLiteral_8='Create_Operation'
+			{
+				$current = grammarAccess.getActionEnumAccess().getCreate_OperationEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_8, grammarAccess.getActionEnumAccess().getCreate_OperationEnumLiteralDeclaration_8());
+			}
+		)
+		    |
+		(
+			enumLiteral_9='Create_Property'
+			{
+				$current = grammarAccess.getActionEnumAccess().getCreate_PropertyEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_9, grammarAccess.getActionEnumAccess().getCreate_PropertyEnumLiteralDeclaration_9());
 			}
 		)
 	)

@@ -149,4 +149,6 @@
     <eLiterals name="Participants" value="35"/>
     <eLiterals name="Data_Type_Inheritance" value="36"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTarget" eSuperTypes="#//ConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTargetType" eSuperTypes="#//ConstraintRule"/>
 </ecore:EPackage>

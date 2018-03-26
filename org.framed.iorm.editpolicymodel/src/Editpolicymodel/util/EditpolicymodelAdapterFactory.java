@@ -200,6 +200,14 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createAndFeatureRuleAdapter();
 			}
 			@Override
+			public Adapter caseSourceEqualsTarget(SourceEqualsTarget object) {
+				return createSourceEqualsTargetAdapter();
+			}
+			@Override
+			public Adapter caseSourceEqualsTargetType(SourceEqualsTargetType object) {
+				return createSourceEqualsTargetTypeAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -678,6 +686,34 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAndFeatureRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.SourceEqualsTarget <em>Source Equals Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.SourceEqualsTarget
+	 * @generated
+	 */
+	public Adapter createSourceEqualsTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.SourceEqualsTargetType <em>Source Equals Target Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.SourceEqualsTargetType
+	 * @generated
+	 */
+	public Adapter createSourceEqualsTargetTypeAdapter() {
 		return null;
 	}
 

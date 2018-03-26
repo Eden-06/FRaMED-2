@@ -50,6 +50,8 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIsTargetConstraintRuleAccess().getGroup(), "rule__IsTargetConstraintRule__Group__0");
 					put(grammarAccess.getIsSourceConstraintRuleAccess().getGroup(), "rule__IsSourceConstraintRule__Group__0");
 					put(grammarAccess.getStepInConstraintRuleAccess().getGroup(), "rule__StepInConstraintRule__Group__0");
+					put(grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetConstraintRule__Group__0");
+					put(grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetTypeConstraintRule__Group__0");
 					put(grammarAccess.getIsFeatureAccess().getGroup(), "rule__IsFeature__Group__0");
 					put(grammarAccess.getTrueFeatureRuleAccess().getGroup(), "rule__TrueFeatureRule__Group__0");
 					put(grammarAccess.getTrueConstraintRuleAccess().getGroup(), "rule__TrueConstraintRule__Group__0");
@@ -77,14 +79,14 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPolicyAccess().getActionAssignment_1(), "rule__Policy__ActionAssignment_1");
 					put(grammarAccess.getPolicyAccess().getActionTypeAssignment_2(), "rule__Policy__ActionTypeAssignment_2");
 					put(grammarAccess.getPolicyAccess().getFeatureRuleAssignment_4(), "rule__Policy__FeatureRuleAssignment_4");
-					put(grammarAccess.getPolicyAccess().getConstraintRuleAssignment_6(), "rule__Policy__ConstraintRuleAssignment_6");
+					put(grammarAccess.getPolicyAccess().getConstraintRuleAssignment_7(), "rule__Policy__ConstraintRuleAssignment_7");
 					put(grammarAccess.getContainsConstrainRuleAccess().getTypeAssignment_3(), "rule__ContainsConstrainRule__TypeAssignment_3");
 					put(grammarAccess.getIsTargetTypeConstraintRuleAccess().getTypeAssignment_3(), "rule__IsTargetTypeConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsParentConstraintRuleAccess().getTypeAssignment_3(), "rule__IsParentConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsSourceTypeConstraintRuleAccess().getTypeAssignment_3(), "rule__IsSourceTypeConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsTargetConstraintRuleAccess().getTypeAssignment_3(), "rule__IsTargetConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsSourceConstraintRuleAccess().getTypeAssignment_3(), "rule__IsSourceConstraintRule__TypeAssignment_3");
-					put(grammarAccess.getIsFeatureAccess().getFeatureNameAssignment_3(), "rule__IsFeature__FeatureNameAssignment_3");
+					put(grammarAccess.getIsFeatureAccess().getFeatureNameAssignment_1(), "rule__IsFeature__FeatureNameAssignment_1");
 					put(grammarAccess.getImplicationFeatureAccess().getRightRuleAssignment_1_2(), "rule__ImplicationFeature__RightRuleAssignment_1_2");
 					put(grammarAccess.getOrFeatureAccess().getRulesAssignment_1_2(), "rule__OrFeature__RulesAssignment_1_2");
 					put(grammarAccess.getAndFeatureAccess().getRulesAssignment_1_2(), "rule__AndFeature__RulesAssignment_1_2");

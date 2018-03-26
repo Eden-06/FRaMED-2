@@ -325,6 +325,20 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET: {
+				SourceEqualsTarget sourceEqualsTarget = (SourceEqualsTarget)theEObject;
+				T result = caseSourceEqualsTarget(sourceEqualsTarget);
+				if (result == null) result = caseConstraintRule(sourceEqualsTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET_TYPE: {
+				SourceEqualsTargetType sourceEqualsTargetType = (SourceEqualsTargetType)theEObject;
+				T result = caseSourceEqualsTargetType(sourceEqualsTargetType);
+				if (result == null) result = caseConstraintRule(sourceEqualsTargetType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -821,6 +835,36 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAndFeatureRule(AndFeatureRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Source Equals Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Source Equals Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSourceEqualsTarget(SourceEqualsTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Source Equals Target Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Source Equals Target Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSourceEqualsTargetType(SourceEqualsTargetType object) {
 		return null;
 	}
 

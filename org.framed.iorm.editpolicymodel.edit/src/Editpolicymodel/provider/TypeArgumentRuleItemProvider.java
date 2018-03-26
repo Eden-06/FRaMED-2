@@ -5,8 +5,8 @@ package Editpolicymodel.provider;
 
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.TypeArgumentRule;
-
 import Editpolicymodel.TypeEnum;
+
 import java.util.Collection;
 import java.util.List;
 

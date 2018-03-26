@@ -191,6 +191,16 @@ public class UnaryConstraintRuleItemProvider extends LogicalConstraintRuleItemPr
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE,
 				 EditpolicymodelFactory.eINSTANCE.createIsSourceType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE,
+				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE,
+				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTargetType()));
 	}
 
 }

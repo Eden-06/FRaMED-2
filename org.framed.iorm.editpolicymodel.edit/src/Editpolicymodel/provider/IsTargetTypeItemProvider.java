@@ -4,8 +4,8 @@ package Editpolicymodel.provider;
 
 
 import Editpolicymodel.IsTargetType;
-
 import Editpolicymodel.TypeEnum;
+
 import java.util.Collection;
 import java.util.List;
 

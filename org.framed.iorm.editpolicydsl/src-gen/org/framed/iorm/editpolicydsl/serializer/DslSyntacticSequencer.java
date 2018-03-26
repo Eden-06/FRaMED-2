@@ -71,6 +71,8 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'IsStepIn' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'IsTarget' '(' type=FeatureTypeEnum
 	 *     (rule start) (ambiguity) 'IsTargetType' '(' type=FeatureTypeEnum
+	 *     (rule start) (ambiguity) 'SourceEqualsTarget' '(' ')' (rule start)
+	 *     (rule start) (ambiguity) 'SourceEqualsTargetType' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'true' (rule start)
 	 *     (rule start) (ambiguity) {AndConstraintRule.rules+=}
@@ -101,9 +103,9 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' rule=PrimaryFeature
-	 *     (rule start) (ambiguity) 'IsFeature' '(' featureName=FeatureNameEnum
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'true' (rule start)
+	 *     (rule start) (ambiguity) featureName=FeatureNameEnum
 	 *     (rule start) (ambiguity) {AndFeatureRule.rules+=}
 	 *     (rule start) (ambiguity) {OrFeatureRule.rules+=}
 	 */

@@ -39,5 +39,4 @@ class DslGenerator extends AbstractGenerator {
 		outResource.save(outBuffer, Collections.EMPTY_MAP)
 		fsa.generateFile(xmiUri.lastSegment, outBuffer.toString)
 	}
-
 }

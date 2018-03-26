@@ -339,6 +339,16 @@ public class PolicyItemProvider
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
 				 EditpolicymodelFactory.eINSTANCE.createIsSourceType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
+				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
+				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTargetType()));
 	}
 
 	/**

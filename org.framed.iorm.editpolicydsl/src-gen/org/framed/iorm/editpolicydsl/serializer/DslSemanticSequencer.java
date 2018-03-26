@@ -24,6 +24,8 @@ import Editpolicymodel.NotFeatureRule;
 import Editpolicymodel.OrConstraintRule;
 import Editpolicymodel.OrFeatureRule;
 import Editpolicymodel.Policy;
+import Editpolicymodel.SourceEqualsTarget;
+import Editpolicymodel.SourceEqualsTargetType;
 import Editpolicymodel.TrueConstraintRule;
 import Editpolicymodel.TrueFeatureRule;
 import com.google.inject.Inject;
@@ -112,6 +114,12 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EditpolicymodelPackage.POLICY:
 				sequence_Policy(context, (Policy) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET:
+				sequence_SourceEqualsTargetConstraintRule(context, (SourceEqualsTarget) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET_TYPE:
+				sequence_SourceEqualsTargetTypeConstraintRule(context, (SourceEqualsTargetType) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.TRUE_CONSTRAINT_RULE:
 				sequence_TrueConstraintRule(context, (TrueConstraintRule) semanticObject); 
@@ -309,7 +317,7 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.IS_FEATURE__FEATURE_NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_3_0(), semanticObject.getFeatureName());
+		feeder.accept(grammarAccess.getIsFeatureAccess().getFeatureNameFeatureNameEnumEnumRuleCall_1_0(), semanticObject.getFeatureName());
 		feeder.finish();
 	}
 	
@@ -566,6 +574,50 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (override?='override'? action=ActionEnum actionType=FeatureTypeEnum featureRule=FeatureExpression constraintRule=ConstraintExpression)
 	 */
 	protected void sequence_Policy(ISerializationContext context, Policy semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns SourceEqualsTarget
+	 *     SourceEqualsTargetConstraintRule returns SourceEqualsTarget
+	 *     ConstraintExpression returns SourceEqualsTarget
+	 *     ImplicationConstraint returns SourceEqualsTarget
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns SourceEqualsTarget
+	 *     OrConstraint returns SourceEqualsTarget
+	 *     OrConstraint.OrConstraintRule_1_0 returns SourceEqualsTarget
+	 *     AndConstraint returns SourceEqualsTarget
+	 *     AndConstraint.AndConstraintRule_1_0 returns SourceEqualsTarget
+	 *     NotConstraintExpression returns SourceEqualsTarget
+	 *     PrimaryConstraint returns SourceEqualsTarget
+	 *
+	 * Constraint:
+	 *     {SourceEqualsTarget}
+	 */
+	protected void sequence_SourceEqualsTargetConstraintRule(ISerializationContext context, SourceEqualsTarget semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns SourceEqualsTargetType
+	 *     SourceEqualsTargetTypeConstraintRule returns SourceEqualsTargetType
+	 *     ConstraintExpression returns SourceEqualsTargetType
+	 *     ImplicationConstraint returns SourceEqualsTargetType
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns SourceEqualsTargetType
+	 *     OrConstraint returns SourceEqualsTargetType
+	 *     OrConstraint.OrConstraintRule_1_0 returns SourceEqualsTargetType
+	 *     AndConstraint returns SourceEqualsTargetType
+	 *     AndConstraint.AndConstraintRule_1_0 returns SourceEqualsTargetType
+	 *     NotConstraintExpression returns SourceEqualsTargetType
+	 *     PrimaryConstraint returns SourceEqualsTargetType
+	 *
+	 * Constraint:
+	 *     {SourceEqualsTargetType}
+	 */
+	protected void sequence_SourceEqualsTargetTypeConstraintRule(ISerializationContext context, SourceEqualsTargetType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

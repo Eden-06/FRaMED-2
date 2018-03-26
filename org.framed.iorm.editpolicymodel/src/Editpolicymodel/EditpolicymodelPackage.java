@@ -1270,6 +1270,62 @@ public interface EditpolicymodelPackage extends EPackage {
 	int AND_FEATURE_RULE_OPERATION_COUNT = NARY_FEATURE_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.SourceEqualsTargetImpl <em>Source Equals Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.SourceEqualsTargetImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getSourceEqualsTarget()
+	 * @generated
+	 */
+	int SOURCE_EQUALS_TARGET = 33;
+
+	/**
+	 * The number of structural features of the '<em>Source Equals Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_EQUALS_TARGET_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Source Equals Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_EQUALS_TARGET_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.SourceEqualsTargetTypeImpl <em>Source Equals Target Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.SourceEqualsTargetTypeImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getSourceEqualsTargetType()
+	 * @generated
+	 */
+	int SOURCE_EQUALS_TARGET_TYPE = 34;
+
+	/**
+	 * The number of structural features of the '<em>Source Equals Target Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_EQUALS_TARGET_TYPE_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Source Equals Target Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_EQUALS_TARGET_TYPE_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1277,7 +1333,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 33;
+	int ACTION_ENUM = 35;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
@@ -1287,7 +1343,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTypeEnum()
 	 * @generated
 	 */
-	int TYPE_ENUM = 34;
+	int TYPE_ENUM = 36;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}' enum.
@@ -1297,7 +1353,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeatureNameEnum()
 	 * @generated
 	 */
-	int FEATURE_NAME_ENUM = 35;
+	int FEATURE_NAME_ENUM = 37;
 
 
 	/**
@@ -1805,6 +1861,26 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAndFeatureRule();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.SourceEqualsTarget <em>Source Equals Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Source Equals Target</em>'.
+	 * @see Editpolicymodel.SourceEqualsTarget
+	 * @generated
+	 */
+	EClass getSourceEqualsTarget();
+
+	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.SourceEqualsTargetType <em>Source Equals Target Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Source Equals Target Type</em>'.
+	 * @see Editpolicymodel.SourceEqualsTargetType
+	 * @generated
+	 */
+	EClass getSourceEqualsTargetType();
 
 	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -2316,6 +2392,26 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass AND_FEATURE_RULE = eINSTANCE.getAndFeatureRule();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.SourceEqualsTargetImpl <em>Source Equals Target</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.SourceEqualsTargetImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getSourceEqualsTarget()
+		 * @generated
+		 */
+		EClass SOURCE_EQUALS_TARGET = eINSTANCE.getSourceEqualsTarget();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.SourceEqualsTargetTypeImpl <em>Source Equals Target Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.SourceEqualsTargetTypeImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getSourceEqualsTargetType()
+		 * @generated
+		 */
+		EClass SOURCE_EQUALS_TARGET_TYPE = eINSTANCE.getSourceEqualsTargetType();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
