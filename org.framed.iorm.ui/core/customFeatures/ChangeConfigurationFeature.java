@@ -61,10 +61,10 @@ public class ChangeConfigurationFeature extends FRaMEDCustomFeature  {
 			for(IPattern ipattern : framedFeatureProvider.getPatterns()) {
 				if(ipattern instanceof ChangeConfigurationListener) {
 					registerListener((ChangeConfigurationListener) ipattern);
-				}
-			}
-		}
+		}	}	}
 	}
+	
+	
 	
 	/**
 	 * operation to add a pattern to the list of listeners
@@ -92,7 +92,7 @@ public class ChangeConfigurationFeature extends FRaMEDCustomFeature  {
 			listener.configurationChanged(newFramedFeatureNames, oldFramedFeatureNames);
 		}
 	}
-	
+		
 	/**
 	 * this operation encapsulates when the custom feature should be visible in the context menu
 	 * @return false, since the feature is never visible in the context menu

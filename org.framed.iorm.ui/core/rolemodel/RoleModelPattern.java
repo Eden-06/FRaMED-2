@@ -113,7 +113,7 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				return !(framedFeatureNames.contains("Compartment_Types"));
 		}	};
-		
+			
 	/**
 	 * class constructor		
 	 */

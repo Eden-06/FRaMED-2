@@ -30,6 +30,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.NamedElement;
@@ -90,7 +92,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Group_Constraints");
 					default: return false;
 		}	}	};
-	
+				
 	/**
 	 * class constructor		
 	 */
@@ -226,7 +228,8 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleGroup.getDescription().getName());
-		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
+		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));	
+		cardinalityShape.setVisible(occurrenceConstraintChosen());
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
 			x+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
 			y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
@@ -283,6 +286,24 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 		layoutPictogramElement(containerShape);
 		updateContainingGroupingFeaturesObject();
 		return containerShape;
+	}
+	
+	/**
+	 * calculates if the occurrence constraint feature is chosen when creating a role group
+	 * <p>
+	 * TODO: This should be modularized in a later stage of the development by separating the occurence constraint concern
+	 * from this pattern.
+	 * @return if the occurrence constraint feature is chosen when creating a role group
+	 */
+	private boolean occurrenceConstraintChosen() {
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
+		Model mainModel = UIUtil.getLinkedModelForDiagram(mainDiagram);
+		FRaMEDConfiguration framedConfiguration = mainModel.getFramedConfiguration();
+		List<String> framedFeatureNames = new ArrayList<String>();
+		for(FRaMEDFeature framedFeature : framedConfiguration.getFeatures()) {
+			framedFeatureNames.add(framedFeature.getName().getLiteral());
+		}
+		return framedFeatureNames.contains("Occurrence_Constraints");
 	}
 	
 	//create feature
@@ -462,7 +483,6 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	 * 		   the size of the type body and drop shadow shape.<br>
 	 * Step 3: It now iterates over all shapes of the role group:<br>
 	 * (a) It sets the width of the names shape.<br>
-	 * TODO: occurence set
 	 * <p>
 	 * If its not clear what the different shapes means, see {@link #add} for reference.
 	 */
