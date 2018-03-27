@@ -12,7 +12,8 @@ public class Literals {
 	/**
 	 * the features name used for the palette entry of this feature
 	 */
-	public final String FEATURE_NAME = "Relationship";
+	public final String FEATURE_NAME = "Relationship",
+						CARDINALITY_FEATURE_NAME = "Relationship Cardinality";
 	
 	/**
 	 * the standard name for a pictogramm element and business object created by the feature or<br>
@@ -25,6 +26,7 @@ public class Literals {
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.relationship",
+						CARDINALITIY_ICON_IMG_ID = "org.framed.iorm.ui.modules.rel_cardinality",
 						ICON_IMG_PATH = "modules/relationship/icon_relationship.png";
 	
 	/**

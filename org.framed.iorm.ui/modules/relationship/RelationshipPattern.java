@@ -21,7 +21,10 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
@@ -214,11 +217,13 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    Text sourceLabel = graphicAlgorithmService.createText(connectionDecoratorForSourceLabel, addedRelationship.getSourceLabel().getName());
 	    graphicAlgorithmService.setLocation(sourceLabel, literals.DISTANCE_FROM_CONNECTION_LINE, -1*literals.DISTANCE_FROM_CONNECTION_LINE);
 	    sourceLabel.setForeground(manageColor(literals.COLOR_TEXT));
+	    connectionDecoratorForSourceLabel.setVisible(occurrenceConstraintChosen());
 	    ConnectionDecorator connectionDecoratorForTargetLabel = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.9, true);
 	    Text targetLabel = graphicAlgorithmService.createText(connectionDecoratorForTargetLabel, addedRelationship.getTargetLabel().getName());
 	    graphicAlgorithmService.setLocation(targetLabel, literals.DISTANCE_FROM_CONNECTION_LINE, -1*literals.DISTANCE_FROM_CONNECTION_LINE);
 	    targetLabel.setForeground(manageColor(literals.COLOR_TEXT));
+	    connectionDecoratorForTargetLabel.setVisible(occurrenceConstraintChosen());
 	    //Step 4
 	    ConnectionDecorator connectionDecoratorForAnchor = 
 	    	pictogramElementCreateService.createConnectionDecorator(connection, true, 0.5, true);
@@ -249,6 +254,24 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		if(editRelationshipFeature.canExecute(customContext))
 			editRelationshipFeature.execute(customContext);
 		return connection;
+	}
+	
+	/**
+	 * calculates if the cardinality feature is chosen when creating a relationship
+	 * <p>
+	 * TODO: This should be modularized in a later stage of the development by separating the cardinality concern
+	 * from this pattern.
+	 * @return if the cardinality feature is chosen when creating a role group
+	 */
+	private boolean occurrenceConstraintChosen() {
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
+		Model mainModel = UIUtil.getLinkedModelForDiagram(mainDiagram);
+		FRaMEDConfiguration framedConfiguration = mainModel.getFramedConfiguration();
+		List<String> framedFeatureNames = new ArrayList<String>();
+		for(FRaMEDFeature framedFeature : framedConfiguration.getFeatures()) {
+			framedFeatureNames.add(framedFeature.getName().getLiteral());
+		}
+		return framedFeatureNames.contains("Occurrence_Constraints");
 	}
 		
 	//create feature
