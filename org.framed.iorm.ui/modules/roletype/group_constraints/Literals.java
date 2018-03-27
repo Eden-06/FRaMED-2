@@ -12,7 +12,8 @@ public class Literals {
 	/**
 	 * the features names used for the palette entry of this feature
 	 */
-	public final String FEATURE_NAME = "Role Group";
+	public final String FEATURE_NAME = "Role Group",
+						OC_FEATURE_NAME = "RG Occurrence Constraints";
 	
 	/**
 	 * name of the custom feature
@@ -29,6 +30,7 @@ public class Literals {
 	 * the ids or the paths for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.modules.rolegroup",
+						OC_ICON_IMG_ID = "org.framed.ior.ui.modules.rolegroupe.oc",
 						ICON_IMG_PATH = "modules/roletype/group_constraints/icon_rolegroup.png";
 	
 	/**

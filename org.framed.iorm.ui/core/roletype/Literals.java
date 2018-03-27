@@ -12,7 +12,8 @@ public class Literals {
 	/**
 	 * the features name used for the palette entry of this feature
 	 */
-	public final String FEATURE_NAME = "Role Type";
+	public final String FEATURE_NAME = "Role Type",
+						OC_FEATURE_NAME = "RT Occurrence Constraints";
 	
 	/**
 	 * name of the custom feature
@@ -30,6 +31,7 @@ public class Literals {
 	 * the id or the path for icon used for palette entry of this feature
 	 */		
 	public final String	ICON_IMG_ID = "org.framed.iorm.ui.core.roletype",
+						OC_ICON_IMG_ID = "org.framed.iorm.ui.modules.rt_oc",
 						ICON_IMG_PATH = "core/roletype/icon_roletype.png";
 	
 	/**

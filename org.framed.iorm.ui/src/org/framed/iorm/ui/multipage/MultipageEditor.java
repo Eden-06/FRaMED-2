@@ -58,7 +58,7 @@ import org.framed.iorm.ui.wizards.RoleModelWizard; //*import for javadoc link
  * @see FRaMEDTextViewer
  * @author Kevin Kassin
  */
-public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener  {
+public class MultipageEditor extends FormEditor implements ISelectionListener, IWorkbenchListener {
 	/**
 	 * the reference to the model feature
 	 */
@@ -116,7 +116,7 @@ public class MultipageEditor extends FormEditor implements ISelectionListener, I
 	 * the editor with the diagram
 	 */
 	private FRaMEDDiagramEditor editorDiagram;
-	
+		
 	/**
 	 * the subeditors of the multipage editor of type {@link FRaMEDTextViewer}
 	 * <p>

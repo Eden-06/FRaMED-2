@@ -113,7 +113,7 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				return !(framedFeatureNames.contains("Compartment_Types"));
 		}	};
-	
+		
 	/**
 	 * class constructor		
 	 */
@@ -519,8 +519,7 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 			           	polyline.getPoints().set(0, graphicAlgorithmService.createPoint(0, horizontalSecondThird));
 			           	polyline.getPoints().set(1, graphicAlgorithmService.createPoint(width, horizontalSecondThird));
 			           	layoutChanged=true;
-			    }	}    
-		        //TODO delete when edit policies work: attribute and operation container + elements
+			    }	}
 		        if (graphicsAlgorithm instanceof Rectangle) {
 		        	Rectangle rectangle = (Rectangle) graphicsAlgorithm;  
 		        	//(c) attribute container shape
