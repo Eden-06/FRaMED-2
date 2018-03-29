@@ -56,7 +56,7 @@ public enum TypeEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_PROHIBITION(3, "RoleProhibition", "LITERAL3"),
+	ROLE_PROHIBITION(3, "RoleProhibition", "RoleProhibition"),
 
 	/**
 	 * The '<em><b>Role Implication</b></em>' literal object.
@@ -66,7 +66,7 @@ public enum TypeEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_IMPLICATION(4, "RoleImplication", "LITERAL4"),
+	ROLE_IMPLICATION(4, "RoleImplication", "RoleImplication"),
 
 	/**
 	 * The '<em><b>Role Group</b></em>' literal object.
@@ -186,7 +186,9 @@ public enum TypeEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CYCLIC(16, "Cyclic", "Cyclic"), /**
+	CYCLIC(16, "Cyclic", "Cyclic"),
+
+	/**
 	 * The '<em><b>Natural Type</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,7 +252,7 @@ public enum TypeEnum implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ROLE_PROHIBITION
-	 * @model name="RoleProhibition" literal="LITERAL3"
+	 * @model name="RoleProhibition"
 	 * @generated
 	 * @ordered
 	 */
@@ -265,7 +267,7 @@ public enum TypeEnum implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ROLE_IMPLICATION
-	 * @model name="RoleImplication" literal="LITERAL4"
+	 * @model name="RoleImplication"
 	 * @generated
 	 * @ordered
 	 */

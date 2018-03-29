@@ -8,14 +8,12 @@ import "http://framed/editpolicymodel"
 //import "http://iorm/1.0"  as iorm
 //import "http://iorm.featuremodel/1.0" as featuremodel
 
-
 Model returns Model:
 	(policies+=Policy (policies+=Policy)*)?;
 	
 Policy returns Policy:
 	(override?='override')? action=ActionEnum actionType=FeatureTypeEnum
-	'(' featureRule=FeatureExpression ')' 'when' constraintRule=ConstraintExpression ';'
-	;
+	'(' featureRule=FeatureExpression ')' 'when' constraintRule=ConstraintExpression ';';
 	
 enum ActionEnum returns ActionEnum:
 	Add | Reconnect | Create | Start | Execute | Direct_Edit | Add_Property | Create_Attribute | Create_Operation | Create_Property; 
@@ -40,7 +38,7 @@ enum FeatureNameEnum:
 // ----------------- Constraint Rules ------------------------------//
 ConstraintRule returns ConstraintRule:
 	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
-	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | 
+	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | 
 	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule;
 
 ContainsConstrainRule returns Contains:
@@ -58,9 +56,6 @@ IsSourceTypeConstraintRule returns IsSourceType:
 IsTargetConstraintRule returns IsTarget:
 	{IsTarget} 'IsTarget' '(' type=FeatureTypeEnum ')';
 	
-IsSourceConstraintRule returns IsSource:
-	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
-
 StepInConstraintRule returns IsStepIn:
 	{IsStepIn} 'IsStepIn' '(' ')';	
 
@@ -117,7 +112,6 @@ NotFeatureExpression returns FeatureRule:
   
 PrimaryFeature returns FeatureRule:
 	FeatureRule | '(' FeatureExpression ')';
-	
 	
 //expression support for Constraints
 ConstraintExpression returns ConstraintRule:

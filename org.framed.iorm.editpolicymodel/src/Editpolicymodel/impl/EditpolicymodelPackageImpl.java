@@ -19,7 +19,6 @@ import Editpolicymodel.ImplicationConstraintRule;
 import Editpolicymodel.ImplicationFeatureRule;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
-import Editpolicymodel.IsSource;
 import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTarget;
@@ -94,13 +93,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass isTargetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass isSourceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -487,15 +479,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 */
 	public EClass getIsTarget() {
 		return isTargetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIsSource() {
-		return isSourceEClass;
 	}
 
 	/**
@@ -920,8 +903,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		isTargetEClass = createEClass(IS_TARGET);
 
-		isSourceEClass = createEClass(IS_SOURCE);
-
 		isParentEClass = createEClass(IS_PARENT);
 
 		featureRuleEClass = createEClass(FEATURE_RULE);
@@ -1027,7 +1008,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		containsEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isStepInEClass.getESuperTypes().add(this.getConstraintRule());
 		isTargetEClass.getESuperTypes().add(this.getTypeArgumentRule());
-		isSourceEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isParentEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isFeatureEClass.getESuperTypes().add(this.getFeatureRule());
 		isTargetTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
@@ -1072,8 +1052,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEClass(isStepInEClass, IsStepIn.class, "IsStepIn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isTargetEClass, IsTarget.class, "IsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(isSourceEClass, IsSource.class, "IsSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isParentEClass, IsParent.class, "IsParent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

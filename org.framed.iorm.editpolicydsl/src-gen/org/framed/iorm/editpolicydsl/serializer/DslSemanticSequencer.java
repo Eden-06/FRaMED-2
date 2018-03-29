@@ -13,7 +13,6 @@ import Editpolicymodel.ImplicationConstraintRule;
 import Editpolicymodel.ImplicationFeatureRule;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
-import Editpolicymodel.IsSource;
 import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTarget;
@@ -81,9 +80,6 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EditpolicymodelPackage.IS_PARENT:
 				sequence_IsParentConstraintRule(context, (IsParent) semanticObject); 
-				return; 
-			case EditpolicymodelPackage.IS_SOURCE:
-				sequence_IsSourceConstraintRule(context, (IsSource) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.IS_SOURCE_TYPE:
 				sequence_IsSourceTypeConstraintRule(context, (IsSourceType) semanticObject); 
@@ -346,34 +342,6 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIsParentConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ConstraintRule returns IsSource
-	 *     IsSourceConstraintRule returns IsSource
-	 *     ConstraintExpression returns IsSource
-	 *     ImplicationConstraint returns IsSource
-	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsSource
-	 *     OrConstraint returns IsSource
-	 *     OrConstraint.OrConstraintRule_1_0 returns IsSource
-	 *     AndConstraint returns IsSource
-	 *     AndConstraint.AndConstraintRule_1_0 returns IsSource
-	 *     NotConstraintExpression returns IsSource
-	 *     PrimaryConstraint returns IsSource
-	 *
-	 * Constraint:
-	 *     type=FeatureTypeEnum
-	 */
-	protected void sequence_IsSourceConstraintRule(ISerializationContext context, IsSource semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getIsSourceConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	

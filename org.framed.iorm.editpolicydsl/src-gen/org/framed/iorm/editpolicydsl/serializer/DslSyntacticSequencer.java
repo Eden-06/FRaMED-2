@@ -66,7 +66,6 @@ public class DslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '!' rule=PrimaryConstraint
 	 *     (rule start) (ambiguity) 'Contains' '(' type=FeatureTypeEnum
 	 *     (rule start) (ambiguity) 'IsParent' '(' type=FeatureTypeEnum
-	 *     (rule start) (ambiguity) 'IsSource' '(' type=FeatureTypeEnum
 	 *     (rule start) (ambiguity) 'IsSourceType' '(' type=FeatureTypeEnum
 	 *     (rule start) (ambiguity) 'IsStepIn' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'IsTarget' '(' type=FeatureTypeEnum

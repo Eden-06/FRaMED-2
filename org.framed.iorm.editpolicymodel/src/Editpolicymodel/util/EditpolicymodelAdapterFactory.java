@@ -88,10 +88,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createIsTargetAdapter();
 			}
 			@Override
-			public Adapter caseIsSource(IsSource object) {
-				return createIsSourceAdapter();
-			}
-			@Override
 			public Adapter caseIsParent(IsParent object) {
 				return createIsParentAdapter();
 			}
@@ -294,20 +290,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIsTargetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsSource <em>Is Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.IsSource
-	 * @generated
-	 */
-	public Adapter createIsSourceAdapter() {
 		return null;
 	}
 

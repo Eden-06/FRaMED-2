@@ -314,47 +314,38 @@ ruleConstraintRule returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceConstraintRuleParserRuleCall_6());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceTypeConstraintRuleParserRuleCall_6());
 		}
-		this_IsSourceConstraintRule_6=ruleIsSourceConstraintRule
+		this_IsSourceTypeConstraintRule_6=ruleIsSourceTypeConstraintRule
 		{
-			$current = $this_IsSourceConstraintRule_6.current;
+			$current = $this_IsSourceTypeConstraintRule_6.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceTypeConstraintRuleParserRuleCall_7());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsParentConstraintRuleParserRuleCall_7());
 		}
-		this_IsSourceTypeConstraintRule_7=ruleIsSourceTypeConstraintRule
+		this_IsParentConstraintRule_7=ruleIsParentConstraintRule
 		{
-			$current = $this_IsSourceTypeConstraintRule_7.current;
+			$current = $this_IsParentConstraintRule_7.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsParentConstraintRuleParserRuleCall_8());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetConstraintRuleParserRuleCall_8());
 		}
-		this_IsParentConstraintRule_8=ruleIsParentConstraintRule
+		this_SourceEqualsTargetConstraintRule_8=ruleSourceEqualsTargetConstraintRule
 		{
-			$current = $this_IsParentConstraintRule_8.current;
+			$current = $this_SourceEqualsTargetConstraintRule_8.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetConstraintRuleParserRuleCall_9());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetTypeConstraintRuleParserRuleCall_9());
 		}
-		this_SourceEqualsTargetConstraintRule_9=ruleSourceEqualsTargetConstraintRule
+		this_SourceEqualsTargetTypeConstraintRule_9=ruleSourceEqualsTargetTypeConstraintRule
 		{
-			$current = $this_SourceEqualsTargetConstraintRule_9.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetTypeConstraintRuleParserRuleCall_10());
-		}
-		this_SourceEqualsTargetTypeConstraintRule_10=ruleSourceEqualsTargetTypeConstraintRule
-		{
-			$current = $this_SourceEqualsTargetTypeConstraintRule_10.current;
+			$current = $this_SourceEqualsTargetTypeConstraintRule_9.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -641,63 +632,6 @@ ruleIsTargetConstraintRule returns [EObject current=null]
 		otherlv_4=')'
 		{
 			newLeafNode(otherlv_4, grammarAccess.getIsTargetConstraintRuleAccess().getRightParenthesisKeyword_4());
-		}
-	)
-;
-
-// Entry rule entryRuleIsSourceConstraintRule
-entryRuleIsSourceConstraintRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getIsSourceConstraintRuleRule()); }
-	iv_ruleIsSourceConstraintRule=ruleIsSourceConstraintRule
-	{ $current=$iv_ruleIsSourceConstraintRule.current; }
-	EOF;
-
-// Rule IsSourceConstraintRule
-ruleIsSourceConstraintRule returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getIsSourceConstraintRuleAccess().getIsSourceAction_0(),
-					$current);
-			}
-		)
-		otherlv_1='IsSource'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getIsSourceConstraintRuleAccess().getIsSourceKeyword_1());
-		}
-		otherlv_2='('
-		{
-			newLeafNode(otherlv_2, grammarAccess.getIsSourceConstraintRuleAccess().getLeftParenthesisKeyword_2());
-		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getIsSourceConstraintRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
-				}
-				lv_type_3_0=ruleFeatureTypeEnum
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIsSourceConstraintRuleRule());
-					}
-					set(
-						$current,
-						"type",
-						lv_type_3_0,
-						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		otherlv_4=')'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getIsSourceConstraintRuleAccess().getRightParenthesisKeyword_4());
 		}
 	)
 ;
@@ -1796,7 +1730,7 @@ ruleFeatureTypeEnum returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_14='LITERAL4'
+			enumLiteral_14='RoleImplication'
 			{
 				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_14, grammarAccess.getFeatureTypeEnumAccess().getRoleImplicationEnumLiteralDeclaration_14());
@@ -1804,7 +1738,7 @@ ruleFeatureTypeEnum returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_15='LITERAL3'
+			enumLiteral_15='RoleProhibition'
 			{
 				$current = grammarAccess.getFeatureTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_15, grammarAccess.getFeatureTypeEnumAccess().getRoleProhibitionEnumLiteralDeclaration_15());
@@ -1847,7 +1781,7 @@ ruleFeatureNameEnum returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_1='LITERAL33'
+			enumLiteral_1='Compartment_Inheritance'
 			{
 				$current = grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_1, grammarAccess.getFeatureNameEnumAccess().getCompartment_InheritanceEnumLiteralDeclaration_1());
@@ -2111,7 +2045,7 @@ ruleFeatureNameEnum returns [Enumerator current=null]
 		)
 		    |
 		(
-			enumLiteral_34='LITERAL2'
+			enumLiteral_34='Role_Structure'
 			{
 				$current = grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_34, grammarAccess.getFeatureNameEnumAccess().getRole_StructureEnumLiteralDeclaration_34());

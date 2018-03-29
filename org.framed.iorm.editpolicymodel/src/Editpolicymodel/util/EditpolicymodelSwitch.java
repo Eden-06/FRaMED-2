@@ -101,14 +101,6 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_SOURCE: {
-				IsSource isSource = (IsSource)theEObject;
-				T result = caseIsSource(isSource);
-				if (result == null) result = caseTypeArgumentRule(isSource);
-				if (result == null) result = caseConstraintRule(isSource);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case EditpolicymodelPackage.IS_PARENT: {
 				IsParent isParent = (IsParent)theEObject;
 				T result = caseIsParent(isParent);
@@ -415,21 +407,6 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIsTarget(IsTarget object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Source</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Source</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIsSource(IsSource object) {
 		return null;
 	}
 

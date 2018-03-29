@@ -140,11 +140,6 @@ public class NaryConstraintRuleItemProvider extends LogicalConstraintRuleItemPro
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.NARY_CONSTRAINT_RULE__RULES,
-				 EditpolicymodelFactory.eINSTANCE.createIsSource()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EditpolicymodelPackage.Literals.NARY_CONSTRAINT_RULE__RULES,
 				 EditpolicymodelFactory.eINSTANCE.createIsParent()));
 
 		newChildDescriptors.add

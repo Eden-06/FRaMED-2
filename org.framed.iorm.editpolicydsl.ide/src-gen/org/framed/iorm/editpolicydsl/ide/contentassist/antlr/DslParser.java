@@ -48,7 +48,6 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIsParentConstraintRuleAccess().getGroup(), "rule__IsParentConstraintRule__Group__0");
 					put(grammarAccess.getIsSourceTypeConstraintRuleAccess().getGroup(), "rule__IsSourceTypeConstraintRule__Group__0");
 					put(grammarAccess.getIsTargetConstraintRuleAccess().getGroup(), "rule__IsTargetConstraintRule__Group__0");
-					put(grammarAccess.getIsSourceConstraintRuleAccess().getGroup(), "rule__IsSourceConstraintRule__Group__0");
 					put(grammarAccess.getStepInConstraintRuleAccess().getGroup(), "rule__StepInConstraintRule__Group__0");
 					put(grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetConstraintRule__Group__0");
 					put(grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetTypeConstraintRule__Group__0");
@@ -85,7 +84,6 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIsParentConstraintRuleAccess().getTypeAssignment_3(), "rule__IsParentConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsSourceTypeConstraintRuleAccess().getTypeAssignment_3(), "rule__IsSourceTypeConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsTargetConstraintRuleAccess().getTypeAssignment_3(), "rule__IsTargetConstraintRule__TypeAssignment_3");
-					put(grammarAccess.getIsSourceConstraintRuleAccess().getTypeAssignment_3(), "rule__IsSourceConstraintRule__TypeAssignment_3");
 					put(grammarAccess.getIsFeatureAccess().getFeatureNameAssignment_1(), "rule__IsFeature__FeatureNameAssignment_1");
 					put(grammarAccess.getImplicationFeatureAccess().getRightRuleAssignment_1_2(), "rule__ImplicationFeature__RightRuleAssignment_1_2");
 					put(grammarAccess.getOrFeatureAccess().getRulesAssignment_1_2(), "rule__OrFeature__RulesAssignment_1_2");

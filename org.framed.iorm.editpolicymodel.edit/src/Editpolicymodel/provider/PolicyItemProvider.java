@@ -288,11 +288,6 @@ public class PolicyItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
-				 EditpolicymodelFactory.eINSTANCE.createIsSource()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
 				 EditpolicymodelFactory.eINSTANCE.createIsParent()));
 
 		newChildDescriptors.add

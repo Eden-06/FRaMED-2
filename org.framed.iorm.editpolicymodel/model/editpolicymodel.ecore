@@ -20,7 +20,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Contains" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsStepIn" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTarget" eSuperTypes="#//TypeArgumentRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsSource" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsParent" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ActionEnum">
     <eLiterals name="Create"/>
@@ -94,8 +93,8 @@
     <eLiterals name="Acyclic"/>
     <eLiterals name="CompartmentType" value="1"/>
     <eLiterals name="Irreflexive" value="2"/>
-    <eLiterals name="RoleProhibition" value="3" literal="LITERAL3"/>
-    <eLiterals name="RoleImplication" value="4" literal="LITERAL4"/>
+    <eLiterals name="RoleProhibition" value="3" literal="RoleProhibition"/>
+    <eLiterals name="RoleImplication" value="4" literal="RoleImplication"/>
     <eLiterals name="RoleGroup" value="5"/>
     <eLiterals name="RoleEquivalence" value="6"/>
     <eLiterals name="RoleType" value="7"/>
@@ -113,7 +112,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="FeatureNameEnum">
     <eLiterals name="Roles"/>
     <eLiterals name="Role_Types" value="1"/>
-    <eLiterals name="Role_Structure" value="2" literal="LITERAL2"/>
+    <eLiterals name="Role_Structure" value="2" literal="Role_Structure"/>
     <eLiterals name="Role_Properties" value="3"/>
     <eLiterals name="Role_Prohibition" value="4"/>
     <eLiterals name="Role_Inheritance" value="5"/>
@@ -144,7 +143,7 @@
     <eLiterals name="Compartment_Types" value="30"/>
     <eLiterals name="Compartment_Structure" value="31"/>
     <eLiterals name="Compartment_Properties" value="32"/>
-    <eLiterals name="Compartment_Inheritance" value="33" literal="LITERAL33"/>
+    <eLiterals name="Compartment_Inheritance" value="33" literal="Compartment_Inheritance"/>
     <eLiterals name="Compartment_Behavior" value="34"/>
     <eLiterals name="Participants" value="35"/>
     <eLiterals name="Data_Type_Inheritance" value="36"/>

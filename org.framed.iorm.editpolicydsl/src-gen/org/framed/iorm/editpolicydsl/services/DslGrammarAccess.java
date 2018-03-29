@@ -133,22 +133,21 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContainsConstrainRuleParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cIsTargetConstraintRuleParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cIsTargetTypeConstraintRuleParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cIsSourceConstraintRuleParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cIsSourceTypeConstraintRuleParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cIsParentConstraintRuleParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cSourceEqualsTargetConstraintRuleParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cSourceEqualsTargetTypeConstraintRuleParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cIsSourceTypeConstraintRuleParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cIsParentConstraintRuleParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cSourceEqualsTargetConstraintRuleParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cSourceEqualsTargetTypeConstraintRuleParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		
 		//// ----------------- Constraint Rules ------------------------------//
 		//ConstraintRule:
 		//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
-		//	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-		//	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule;
+		//	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+		//	SourceEqualsTargetTypeConstraintRule;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
-		//IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-		//SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule
+		//IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+		//SourceEqualsTargetTypeConstraintRule
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//StepInConstraintRule
@@ -169,20 +168,17 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//IsTargetTypeConstraintRule
 		public RuleCall getIsTargetTypeConstraintRuleParserRuleCall_5() { return cIsTargetTypeConstraintRuleParserRuleCall_5; }
 		
-		//IsSourceConstraintRule
-		public RuleCall getIsSourceConstraintRuleParserRuleCall_6() { return cIsSourceConstraintRuleParserRuleCall_6; }
-		
 		//IsSourceTypeConstraintRule
-		public RuleCall getIsSourceTypeConstraintRuleParserRuleCall_7() { return cIsSourceTypeConstraintRuleParserRuleCall_7; }
+		public RuleCall getIsSourceTypeConstraintRuleParserRuleCall_6() { return cIsSourceTypeConstraintRuleParserRuleCall_6; }
 		
 		//IsParentConstraintRule
-		public RuleCall getIsParentConstraintRuleParserRuleCall_8() { return cIsParentConstraintRuleParserRuleCall_8; }
+		public RuleCall getIsParentConstraintRuleParserRuleCall_7() { return cIsParentConstraintRuleParserRuleCall_7; }
 		
 		//SourceEqualsTargetConstraintRule
-		public RuleCall getSourceEqualsTargetConstraintRuleParserRuleCall_9() { return cSourceEqualsTargetConstraintRuleParserRuleCall_9; }
+		public RuleCall getSourceEqualsTargetConstraintRuleParserRuleCall_8() { return cSourceEqualsTargetConstraintRuleParserRuleCall_8; }
 		
 		//SourceEqualsTargetTypeConstraintRule
-		public RuleCall getSourceEqualsTargetTypeConstraintRuleParserRuleCall_10() { return cSourceEqualsTargetTypeConstraintRuleParserRuleCall_10; }
+		public RuleCall getSourceEqualsTargetTypeConstraintRuleParserRuleCall_9() { return cSourceEqualsTargetTypeConstraintRuleParserRuleCall_9; }
 	}
 	public class ContainsConstrainRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ContainsConstrainRule");
@@ -346,41 +342,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'IsTarget'
 		public Keyword getIsTargetKeyword_1() { return cIsTargetKeyword_1; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
-		
-		//type=FeatureTypeEnum
-		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
-		
-		//FeatureTypeEnum
-		public RuleCall getTypeFeatureTypeEnumEnumRuleCall_3_0() { return cTypeFeatureTypeEnumEnumRuleCall_3_0; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
-	}
-	public class IsSourceConstraintRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.IsSourceConstraintRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cIsSourceAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cIsSourceKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cTypeFeatureTypeEnumEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//IsSourceConstraintRule IsSource:
-		//	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')'
-		public Group getGroup() { return cGroup; }
-		
-		//{IsSource}
-		public Action getIsSourceAction_0() { return cIsSourceAction_0; }
-		
-		//'IsSource'
-		public Keyword getIsSourceKeyword_1() { return cIsSourceKeyword_1; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
@@ -1114,9 +1075,9 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cRoleGroupEnumLiteralDeclaration_13 = (EnumLiteralDeclaration)cAlternatives.eContents().get(13);
 		private final Keyword cRoleGroupRoleGroupKeyword_13_0 = (Keyword)cRoleGroupEnumLiteralDeclaration_13.eContents().get(0);
 		private final EnumLiteralDeclaration cRoleImplicationEnumLiteralDeclaration_14 = (EnumLiteralDeclaration)cAlternatives.eContents().get(14);
-		private final Keyword cRoleImplicationLITERAL4Keyword_14_0 = (Keyword)cRoleImplicationEnumLiteralDeclaration_14.eContents().get(0);
+		private final Keyword cRoleImplicationRoleImplicationKeyword_14_0 = (Keyword)cRoleImplicationEnumLiteralDeclaration_14.eContents().get(0);
 		private final EnumLiteralDeclaration cRoleProhibitionEnumLiteralDeclaration_15 = (EnumLiteralDeclaration)cAlternatives.eContents().get(15);
-		private final Keyword cRoleProhibitionLITERAL3Keyword_15_0 = (Keyword)cRoleProhibitionEnumLiteralDeclaration_15.eContents().get(0);
+		private final Keyword cRoleProhibitionRoleProhibitionKeyword_15_0 = (Keyword)cRoleProhibitionEnumLiteralDeclaration_15.eContents().get(0);
 		private final EnumLiteralDeclaration cIrreflexiveEnumLiteralDeclaration_16 = (EnumLiteralDeclaration)cAlternatives.eContents().get(16);
 		private final Keyword cIrreflexiveIrreflexiveKeyword_16_0 = (Keyword)cIrreflexiveEnumLiteralDeclaration_16.eContents().get(0);
 		private final EnumLiteralDeclaration cNaturalTypeEnumLiteralDeclaration_17 = (EnumLiteralDeclaration)cAlternatives.eContents().get(17);
@@ -1125,13 +1086,13 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//enum FeatureTypeEnum returns TypeEnum:
 		//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 		//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
-		//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
+		//	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition |
 		//	Irreflexive | NaturalType;
 		public EnumRule getRule() { return rule; }
 		
 		//Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance | Group | Reflexive | Relationship |
-		//RelationshipExclusion | RelationshipImplication | RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" |
-		//RoleProhibition="LITERAL3" | Irreflexive | NaturalType
+		//RelationshipExclusion | RelationshipImplication | RoleType | RoleEquivalence | RoleGroup | RoleImplication |
+		//RoleProhibition | Irreflexive | NaturalType
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Acyclic
@@ -1218,17 +1179,17 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"RoleGroup"
 		public Keyword getRoleGroupRoleGroupKeyword_13_0() { return cRoleGroupRoleGroupKeyword_13_0; }
 		
-		//RoleImplication="LITERAL4"
+		//RoleImplication
 		public EnumLiteralDeclaration getRoleImplicationEnumLiteralDeclaration_14() { return cRoleImplicationEnumLiteralDeclaration_14; }
 		
-		//"LITERAL4"
-		public Keyword getRoleImplicationLITERAL4Keyword_14_0() { return cRoleImplicationLITERAL4Keyword_14_0; }
+		//"RoleImplication"
+		public Keyword getRoleImplicationRoleImplicationKeyword_14_0() { return cRoleImplicationRoleImplicationKeyword_14_0; }
 		
-		//RoleProhibition="LITERAL3"
+		//RoleProhibition
 		public EnumLiteralDeclaration getRoleProhibitionEnumLiteralDeclaration_15() { return cRoleProhibitionEnumLiteralDeclaration_15; }
 		
-		//"LITERAL3"
-		public Keyword getRoleProhibitionLITERAL3Keyword_15_0() { return cRoleProhibitionLITERAL3Keyword_15_0; }
+		//"RoleProhibition"
+		public Keyword getRoleProhibitionRoleProhibitionKeyword_15_0() { return cRoleProhibitionRoleProhibitionKeyword_15_0; }
 		
 		//Irreflexive
 		public EnumLiteralDeclaration getIrreflexiveEnumLiteralDeclaration_16() { return cIrreflexiveEnumLiteralDeclaration_16; }
@@ -1248,7 +1209,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cCompartment_BehaviorEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cCompartment_BehaviorCompartment_BehaviorKeyword_0_0 = (Keyword)cCompartment_BehaviorEnumLiteralDeclaration_0.eContents().get(0);
 		private final EnumLiteralDeclaration cCompartment_InheritanceEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cCompartment_InheritanceLITERAL33Keyword_1_0 = (Keyword)cCompartment_InheritanceEnumLiteralDeclaration_1.eContents().get(0);
+		private final Keyword cCompartment_InheritanceCompartment_InheritanceKeyword_1_0 = (Keyword)cCompartment_InheritanceEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cCompartment_PropertiesEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cCompartment_PropertiesCompartment_PropertiesKeyword_2_0 = (Keyword)cCompartment_PropertiesEnumLiteralDeclaration_2.eContents().get(0);
 		private final EnumLiteralDeclaration cCompartment_StructureEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
@@ -1314,14 +1275,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cRole_PropertiesEnumLiteralDeclaration_33 = (EnumLiteralDeclaration)cAlternatives.eContents().get(33);
 		private final Keyword cRole_PropertiesRole_PropertiesKeyword_33_0 = (Keyword)cRole_PropertiesEnumLiteralDeclaration_33.eContents().get(0);
 		private final EnumLiteralDeclaration cRole_StructureEnumLiteralDeclaration_34 = (EnumLiteralDeclaration)cAlternatives.eContents().get(34);
-		private final Keyword cRole_StructureLITERAL2Keyword_34_0 = (Keyword)cRole_StructureEnumLiteralDeclaration_34.eContents().get(0);
+		private final Keyword cRole_StructureRole_StructureKeyword_34_0 = (Keyword)cRole_StructureEnumLiteralDeclaration_34.eContents().get(0);
 		private final EnumLiteralDeclaration cRole_TypesEnumLiteralDeclaration_35 = (EnumLiteralDeclaration)cAlternatives.eContents().get(35);
 		private final Keyword cRole_TypesRole_TypesKeyword_35_0 = (Keyword)cRole_TypesEnumLiteralDeclaration_35.eContents().get(0);
 		private final EnumLiteralDeclaration cRolesEnumLiteralDeclaration_36 = (EnumLiteralDeclaration)cAlternatives.eContents().get(36);
 		private final Keyword cRolesRolesKeyword_36_0 = (Keyword)cRolesEnumLiteralDeclaration_36.eContents().get(0);
 		
 		//enum FeatureNameEnum:
-		//	Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
+		//	Compartment_Behavior | Compartment_Inheritance | Compartment_Properties | Compartment_Structure |
 		//	Compartment_Types | Contains_Compartments | Compartments |
 		//	Data_Type_Inheritance | Data_Types | Dates | Dependent |
 		//	Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints |
@@ -1329,16 +1290,16 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//	Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
 		//	Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model |
 		//	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
-		//	Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles;
+		//	Role_Prohibition | Role_Properties | Role_Structure | Role_Types | Roles;
 		public EnumRule getRule() { return rule; }
 		
-		//Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
-		//Compartment_Types | Contains_Compartments | Compartments | Data_Type_Inheritance | Data_Types | Dates | Dependent |
-		//Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints | Naturals | Occurrence_Constraints
-		//| On_Compartments | On_Relationships | Parthood_Constraints | Participants | Playable |
-		//Playable_by_Defining_Compartment | Players | Relationship_Cardinality | Relationship_Constraints | Relationships |
-		//RML_Feature_Model | Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
-		//Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles
+		//Compartment_Behavior | Compartment_Inheritance | Compartment_Properties | Compartment_Structure | Compartment_Types |
+		//Contains_Compartments | Compartments | Data_Type_Inheritance | Data_Types | Dates | Dependent | Group_Constraints |
+		//Inter_Relationship_Constraints | Intra_Relationship_Constraints | Naturals | Occurrence_Constraints | On_Compartments |
+		//On_Relationships | Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
+		//Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model | Role_Behavior |
+		//Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance | Role_Prohibition | Role_Properties |
+		//Role_Structure | Role_Types | Roles
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//Compartment_Behavior
@@ -1347,11 +1308,11 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"Compartment_Behavior"
 		public Keyword getCompartment_BehaviorCompartment_BehaviorKeyword_0_0() { return cCompartment_BehaviorCompartment_BehaviorKeyword_0_0; }
 		
-		//Compartment_Inheritance="LITERAL33"
+		//Compartment_Inheritance
 		public EnumLiteralDeclaration getCompartment_InheritanceEnumLiteralDeclaration_1() { return cCompartment_InheritanceEnumLiteralDeclaration_1; }
 		
-		//"LITERAL33"
-		public Keyword getCompartment_InheritanceLITERAL33Keyword_1_0() { return cCompartment_InheritanceLITERAL33Keyword_1_0; }
+		//"Compartment_Inheritance"
+		public Keyword getCompartment_InheritanceCompartment_InheritanceKeyword_1_0() { return cCompartment_InheritanceCompartment_InheritanceKeyword_1_0; }
 		
 		//Compartment_Properties
 		public EnumLiteralDeclaration getCompartment_PropertiesEnumLiteralDeclaration_2() { return cCompartment_PropertiesEnumLiteralDeclaration_2; }
@@ -1545,11 +1506,11 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"Role_Properties"
 		public Keyword getRole_PropertiesRole_PropertiesKeyword_33_0() { return cRole_PropertiesRole_PropertiesKeyword_33_0; }
 		
-		//Role_Structure="LITERAL2"
+		//Role_Structure
 		public EnumLiteralDeclaration getRole_StructureEnumLiteralDeclaration_34() { return cRole_StructureEnumLiteralDeclaration_34; }
 		
-		//"LITERAL2"
-		public Keyword getRole_StructureLITERAL2Keyword_34_0() { return cRole_StructureLITERAL2Keyword_34_0; }
+		//"Role_Structure"
+		public Keyword getRole_StructureRole_StructureKeyword_34_0() { return cRole_StructureRole_StructureKeyword_34_0; }
 		
 		//Role_Types
 		public EnumLiteralDeclaration getRole_TypesEnumLiteralDeclaration_35() { return cRole_TypesEnumLiteralDeclaration_35; }
@@ -1575,7 +1536,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	private final IsParentConstraintRuleElements pIsParentConstraintRule;
 	private final IsSourceTypeConstraintRuleElements pIsSourceTypeConstraintRule;
 	private final IsTargetConstraintRuleElements pIsTargetConstraintRule;
-	private final IsSourceConstraintRuleElements pIsSourceConstraintRule;
 	private final StepInConstraintRuleElements pStepInConstraintRule;
 	private final SourceEqualsTargetConstraintRuleElements pSourceEqualsTargetConstraintRule;
 	private final SourceEqualsTargetTypeConstraintRuleElements pSourceEqualsTargetTypeConstraintRule;
@@ -1619,7 +1579,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIsParentConstraintRule = new IsParentConstraintRuleElements();
 		this.pIsSourceTypeConstraintRule = new IsSourceTypeConstraintRuleElements();
 		this.pIsTargetConstraintRule = new IsTargetConstraintRuleElements();
-		this.pIsSourceConstraintRule = new IsSourceConstraintRuleElements();
 		this.pStepInConstraintRule = new StepInConstraintRuleElements();
 		this.pSourceEqualsTargetConstraintRule = new SourceEqualsTargetConstraintRuleElements();
 		this.pSourceEqualsTargetTypeConstraintRule = new SourceEqualsTargetTypeConstraintRuleElements();
@@ -1708,7 +1667,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	//enum FeatureTypeEnum returns TypeEnum:
 	//	Acyclic | CompartmentType | Cyclic | DataType | Fulfillment | Inheritance |
 	//	Group | Reflexive | Relationship | RelationshipExclusion | RelationshipImplication |
-	//	RoleType | RoleEquivalence | RoleGroup | RoleImplication="LITERAL4" | RoleProhibition="LITERAL3" |
+	//	RoleType | RoleEquivalence | RoleGroup | RoleImplication | RoleProhibition |
 	//	Irreflexive | NaturalType;
 	public FeatureTypeEnumElements getFeatureTypeEnumAccess() {
 		return eFeatureTypeEnum;
@@ -1719,7 +1678,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum FeatureNameEnum:
-	//	Compartment_Behavior | Compartment_Inheritance="LITERAL33" | Compartment_Properties | Compartment_Structure |
+	//	Compartment_Behavior | Compartment_Inheritance | Compartment_Properties | Compartment_Structure |
 	//	Compartment_Types | Contains_Compartments | Compartments |
 	//	Data_Type_Inheritance | Data_Types | Dates | Dependent |
 	//	Group_Constraints | Inter_Relationship_Constraints | Intra_Relationship_Constraints |
@@ -1727,7 +1686,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	//	Parthood_Constraints | Participants | Playable | Playable_by_Defining_Compartment | Players |
 	//	Relationship_Cardinality | Relationship_Constraints | Relationships | RML_Feature_Model |
 	//	Role_Behavior | Role_Constraints | Role_Equivalence | Role_Implication | Role_Inheritance |
-	//	Role_Prohibition | Role_Properties | Role_Structure="LITERAL2" | Role_Types | Roles;
+	//	Role_Prohibition | Role_Properties | Role_Structure | Role_Types | Roles;
 	public FeatureNameEnumElements getFeatureNameEnumAccess() {
 		return eFeatureNameEnum;
 	}
@@ -1739,8 +1698,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	//// ----------------- Constraint Rules ------------------------------//
 	//ConstraintRule:
 	//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
-	//	IsTargetTypeConstraintRule | IsSourceConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-	//	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule;
+	//	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+	//	SourceEqualsTargetTypeConstraintRule;
 	public ConstraintRuleElements getConstraintRuleAccess() {
 		return pConstraintRule;
 	}
@@ -1797,16 +1756,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getIsTargetConstraintRuleRule() {
 		return getIsTargetConstraintRuleAccess().getRule();
-	}
-	
-	//IsSourceConstraintRule IsSource:
-	//	{IsSource} 'IsSource' '(' type=FeatureTypeEnum ')';
-	public IsSourceConstraintRuleElements getIsSourceConstraintRuleAccess() {
-		return pIsSourceConstraintRule;
-	}
-	
-	public ParserRule getIsSourceConstraintRuleRule() {
-		return getIsSourceConstraintRuleAccess().getRule();
 	}
 	
 	//StepInConstraintRule IsStepIn:

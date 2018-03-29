@@ -62,7 +62,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.CONTAINS: return createContains();
 			case EditpolicymodelPackage.IS_STEP_IN: return createIsStepIn();
 			case EditpolicymodelPackage.IS_TARGET: return createIsTarget();
-			case EditpolicymodelPackage.IS_SOURCE: return createIsSource();
 			case EditpolicymodelPackage.IS_PARENT: return createIsParent();
 			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
 			case EditpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
@@ -174,16 +173,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public IsTarget createIsTarget() {
 		IsTargetImpl isTarget = new IsTargetImpl();
 		return isTarget;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IsSource createIsSource() {
-		IsSourceImpl isSource = new IsSourceImpl();
-		return isSource;
 	}
 
 	/**

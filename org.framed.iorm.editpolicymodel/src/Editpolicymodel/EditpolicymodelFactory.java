@@ -67,15 +67,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	IsTarget createIsTarget();
 
 	/**
-	 * Returns a new object of class '<em>Is Source</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Source</em>'.
-	 * @generated
-	 */
-	IsSource createIsSource();
-
-	/**
 	 * Returns a new object of class '<em>Is Parent</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

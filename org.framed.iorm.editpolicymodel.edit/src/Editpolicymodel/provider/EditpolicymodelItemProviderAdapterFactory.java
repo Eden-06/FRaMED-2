@@ -187,29 +187,6 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link Editpolicymodel.IsSource} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IsSourceItemProvider isSourceItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Editpolicymodel.IsSource}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createIsSourceAdapter() {
-		if (isSourceItemProvider == null) {
-			isSourceItemProvider = new IsSourceItemProvider(this);
-		}
-
-		return isSourceItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link Editpolicymodel.IsParent} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -773,7 +750,6 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 		if (containsItemProvider != null) containsItemProvider.dispose();
 		if (isStepInItemProvider != null) isStepInItemProvider.dispose();
 		if (isTargetItemProvider != null) isTargetItemProvider.dispose();
-		if (isSourceItemProvider != null) isSourceItemProvider.dispose();
 		if (isParentItemProvider != null) isParentItemProvider.dispose();
 		if (isFeatureItemProvider != null) isFeatureItemProvider.dispose();
 		if (isTargetTypeItemProvider != null) isTargetTypeItemProvider.dispose();

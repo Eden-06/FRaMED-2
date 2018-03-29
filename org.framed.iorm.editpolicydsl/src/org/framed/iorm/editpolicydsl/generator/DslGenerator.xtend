@@ -19,7 +19,7 @@ import java.util.Collections
  */
 class DslGenerator extends AbstractGenerator {
 
-	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {		
+	override doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {	
 				/*
 				fsa.generateFile('greetings.txt', 'People to greet: ' + resource.allContents
 				.filter(typeof(Policy))
@@ -37,6 +37,7 @@ class DslGenerator extends AbstractGenerator {
 		
 		val outBuffer = new ByteArrayOutputStream
 		outResource.save(outBuffer, Collections.EMPTY_MAP)
-		fsa.generateFile(xmiUri.lastSegment, outBuffer.toString)
+		fsa.generateFile(xmiUri.lastSegment, outBuffer.toString)	
 	}
+	
 }

@@ -66,7 +66,9 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EXECUTE(4, "Execute", "Execute"), /**
+	EXECUTE(4, "Execute", "Execute"),
+
+	/**
 	 * The '<em><b>Direct Edit</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,7 +76,9 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DIRECT_EDIT(5, "Direct_Edit", "Direct_Edit"), /**
+	DIRECT_EDIT(5, "Direct_Edit", "Direct_Edit"),
+
+	/**
 	 * The '<em><b>Create Property</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,7 +86,9 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CREATE_PROPERTY(6, "Create_Property", "Create_Property"), /**
+	CREATE_PROPERTY(6, "Create_Property", "Create_Property"),
+
+	/**
 	 * The '<em><b>Create Attribute</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,7 +96,9 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CREATE_ATTRIBUTE(7, "Create_Attribute", "Create_Attribute"), /**
+	CREATE_ATTRIBUTE(7, "Create_Attribute", "Create_Attribute"),
+
+	/**
 	 * The '<em><b>Add Property</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,7 +106,9 @@ public enum ActionEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADD_PROPERTY(9, "Add_Property", "Add_Property"), /**
+	ADD_PROPERTY(9, "Add_Property", "Add_Property"),
+
+	/**
 	 * The '<em><b>Create Operation</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

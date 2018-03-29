@@ -46,7 +46,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROLE_STRUCTURE(2, "Role_Structure", "LITERAL2"),
+	ROLE_STRUCTURE(2, "Role_Structure", "Role_Structure"),
 
 	/**
 	 * The '<em><b>Role Properties</b></em>' literal object.
@@ -356,7 +356,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPARTMENT_INHERITANCE(33, "Compartment_Inheritance", "LITERAL33"),
+	COMPARTMENT_INHERITANCE(33, "Compartment_Inheritance", "Compartment_Inheritance"),
 
 	/**
 	 * The '<em><b>Compartment Behavior</b></em>' literal object.
@@ -427,7 +427,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ROLE_STRUCTURE
-	 * @model name="Role_Structure" literal="LITERAL2"
+	 * @model name="Role_Structure"
 	 * @generated
 	 * @ordered
 	 */
@@ -892,7 +892,7 @@ public enum FeatureNameEnum implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #COMPARTMENT_INHERITANCE
-	 * @model name="Compartment_Inheritance" literal="LITERAL33"
+	 * @model name="Compartment_Inheritance"
 	 * @generated
 	 * @ordered
 	 */
