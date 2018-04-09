@@ -11,6 +11,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.framed.iorm.featuremodel.provider,
  org.framed.iorm.model.provider
 Require-Bundle: org.eclipse.core.runtime,
- org.framed.iorm.model;visibility:=reexport,
+ org.framed.iorm.model;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport
 Bundle-ActivationPolicy: lazy
