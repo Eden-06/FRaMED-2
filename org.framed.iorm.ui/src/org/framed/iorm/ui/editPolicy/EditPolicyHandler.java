@@ -58,13 +58,12 @@ public class EditPolicyHandler {
 	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
 		List<ConstraintRule> rules = new LinkedList<>();
 		
+		System.out.println("getting Constraints for action: " + action.toString() + " and type: " + type.toString());
 		for(Policy policy: this.activatedPolicies) {
-			System.out.println("Action: " + policy.getAction().toString());
-			System.out.println("Type: " + policy.getActionType().toString());
-
-			if(policy.getAction().getValue() == action.getValue() && policy.getActionType().getValue() == type.getValue())
+			if(policy.getAction().getValue() == action.getValue() && policy.getActionType().getLiteral().equals(type.getLiteral()))
 				rules.add(policy.getConstraintRule());
 		}
+		System.out.println("constraints: " + rules.toString());
 
 		return rules;
 	}
@@ -72,42 +71,43 @@ public class EditPolicyHandler {
 	public boolean canCreate(ICreateConnectionContext context, Type type) 
 	{
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canStart(ICreateConnectionContext context, Type type) {
+		System.out.println("properties: " + context.getPropertyKeys());
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.START, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canExecute(ICustomContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.EXECUTE, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canReconnect(IReconnectionContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.RECONNECT, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canAdd(IAddConnectionContext context, Type type) { 
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 	
 	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 	
-	private boolean checkConstraints(List<ConstraintRule> constraints, Object context)
+	private boolean checkConstraints(List<ConstraintRule> constraints, Object context, Type type)
 	{
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, false);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, type, false);
 		for(ConstraintRule constraintRule: constraints) {
-			if(!constraintVisitor.checkRule(constraintRule))
-				return false;
+			if(constraintVisitor.checkRule(constraintRule))
+				return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean canAdd(IAddContext context) {
@@ -116,34 +116,36 @@ public class EditPolicyHandler {
 		Type type = relation.getType();
 		return this.canAdd(context, type);
 	}
+	
 	public boolean canAdd(IAddContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
-		return this.checkConstraints(constraints, context);
+		
+		return this.checkConstraints(constraints, context, type);
 	}
 	
 	public boolean canCreate(ICreateContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 	
 	public boolean canAddProperty(IAddContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD_PROPERTY, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canCreateProperty(ICreateContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_PROPERTY, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canCreateAttribute(ICreateContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_ATTRIBUTE, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 	public boolean canCreateOperation(ICreateContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_OPERATION, type);
-		return this.checkConstraints(constraints, context);
+		return this.checkConstraints(constraints, context, type);
 	}
 
 }

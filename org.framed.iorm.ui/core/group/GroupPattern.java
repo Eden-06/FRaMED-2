@@ -178,7 +178,7 @@ public class GroupPattern extends FRaMEDShapePattern implements IPattern {
 				ContainerShape containerShape = getDiagram();
 				if(containerShape instanceof Diagram) {
 					if(UIUtil.getLinkedModelForDiagram((Diagram) containerShape) != null) {
-						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.GROUP);
 		}	}	}	}
 		return false;
 	}

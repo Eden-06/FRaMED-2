@@ -161,9 +161,9 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
-			if(shape.getType()==modelType) {
+			if(shape.getType() == modelType) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					return EditPolicyService.getHandler(getDiagram()).canAdd(addContext);
+					return EditPolicyService.getHandler(getDiagram()).canAdd(addContext, modelType);
 		}	}	}
 		return false;
 	}

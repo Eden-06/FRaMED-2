@@ -145,7 +145,7 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
 			if(shape.getType()==Type.NATURAL_TYPE) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.NATURAL_TYPE);
 		}	}	}
 		return false;
 	}

@@ -97,12 +97,9 @@ public class EditPolicyService {
 	 *            the source folder in which the class is located in
 	 * @return if the package part of a class url starts and ends with an _
 	 */
-	private static boolean isPackageMarkedAsNotUsed(String url, String sourceFolder) {
-		url = url.substring(url.indexOf(sourceFolder) + sourceFolder.length());
-		url = url.substring(0, url.indexOf("/"));
-		if (url.startsWith("_") && url.endsWith("_"))
-			return true;
-		return false;
+	private static boolean isPackageMarkedAsNotUsed(String url) {
+		url = url.substring(url.lastIndexOf('/')+1, url.length());
+		return url.startsWith("_") && url.endsWith("_");
 	}
 
 	private static void loadAllFiles() {
@@ -118,14 +115,14 @@ public class EditPolicyService {
 
 		if (moduleFileURLs != null) {
 			for (URL url : moduleFileURLs) {
-				if (!isPackageMarkedAsNotUsed(url.toString(), "modules/")) {
+				if (!isPackageMarkedAsNotUsed(url.toString())) {
 					loadEditPolicyFile(url.toString());
 				}
 			}
 		}
 		if (coreFileURLs != null) {
 			for (URL url : coreFileURLs) {
-				if (!isPackageMarkedAsNotUsed(url.toString(), "core/")) {
+				if (!isPackageMarkedAsNotUsed(url.toString())) {
 					loadEditPolicyFile(url.toString());
 				}
 			}
@@ -136,6 +133,7 @@ public class EditPolicyService {
 	 * do SAT checking whether policies can be used together
 	 */
 	private static void checkEditpolicyConsistency() {
+		//System.out.println("checking editpolicy consistency");
 		return;
 	}
 

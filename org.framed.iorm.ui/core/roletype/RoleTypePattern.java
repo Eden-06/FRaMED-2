@@ -160,9 +160,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
-			if(shape.getType()==Type.ROLE_TYPE) {
+			if(shape.getType() == Type.ROLE_TYPE) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.ROLE_TYPE);
 		}	}	}
 		return false;
 	}
