@@ -76,8 +76,8 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createPolicyAdapter();
 			}
 			@Override
-			public Adapter caseContains(Contains object) {
-				return createContainsAdapter();
+			public Adapter caseContainsCompartment(ContainsCompartment object) {
+				return createContainsCompartmentAdapter();
 			}
 			@Override
 			public Adapter caseIsStepIn(IsStepIn object) {
@@ -204,6 +204,10 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createSourceEqualsTargetTypeAdapter();
 			}
 			@Override
+			public Adapter caseInCompartment(InCompartment object) {
+				return createInCompartmentAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -252,16 +256,16 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.Contains <em>Contains</em>}'.
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.ContainsCompartment <em>Contains Compartment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see Editpolicymodel.Contains
+	 * @see Editpolicymodel.ContainsCompartment
 	 * @generated
 	 */
-	public Adapter createContainsAdapter() {
+	public Adapter createContainsCompartmentAdapter() {
 		return null;
 	}
 
@@ -696,6 +700,20 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSourceEqualsTargetTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link Editpolicymodel.InCompartment <em>In Compartment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see Editpolicymodel.InCompartment
+	 * @generated
+	 */
+	public Adapter createInCompartmentAdapter() {
 		return null;
 	}
 

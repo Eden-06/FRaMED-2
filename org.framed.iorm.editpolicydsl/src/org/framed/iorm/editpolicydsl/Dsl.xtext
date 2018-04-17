@@ -37,12 +37,12 @@ enum FeatureNameEnum:
 
 // ----------------- Constraint Rules ------------------------------//
 ConstraintRule returns ConstraintRule:
-	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsConstrainRule | IsTargetConstraintRule |
+	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule | IsTargetConstraintRule |
 	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | 
-	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule;
+	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule;
 
-ContainsConstrainRule returns Contains:
-	{Contains} 'Contains' '(' type=FeatureTypeEnum ')';
+ContainsCompartmentConstrainRule returns ContainsCompartment:
+	{ContainsCompartment} 'ContainsCompartment' '(' ')';
 	
 IsTargetTypeConstraintRule returns IsTargetType:
 	{IsTargetType} 'IsTargetType' '(' type=FeatureTypeEnum ')';
@@ -58,6 +58,9 @@ IsTargetConstraintRule returns IsTarget:
 	
 StepInConstraintRule returns IsStepIn:
 	{IsStepIn} 'IsStepIn' '(' ')';	
+	
+InCompartmentConstraintRule returns InCompartment:
+	{InCompartment} 'InCompartment' '(' ')';	
 
 SourceEqualsTargetConstraintRule returns SourceEqualsTarget:
 	{SourceEqualsTarget} 'SourceEqualsTarget' '(' ')';

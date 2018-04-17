@@ -2,18 +2,18 @@
  */
 package Editpolicymodel.tests;
 
-import Editpolicymodel.Contains;
+import Editpolicymodel.ContainsCompartment;
 import Editpolicymodel.EditpolicymodelFactory;
 
 import junit.textui.TestRunner;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Contains</b></em>'.
+ * A test case for the model object '<em><b>Contains Compartment</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class ContainsTest extends TypeArgumentRuleTest {
+public class ContainsCompartmentTest extends ConstraintRuleTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -21,28 +21,28 @@ public class ContainsTest extends TypeArgumentRuleTest {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(ContainsTest.class);
+		TestRunner.run(ContainsCompartmentTest.class);
 	}
 
 	/**
-	 * Constructs a new Contains test case with the given name.
+	 * Constructs a new Contains Compartment test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainsTest(String name) {
+	public ContainsCompartmentTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Returns the fixture for this Contains test case.
+	 * Returns the fixture for this Contains Compartment test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected Contains getFixture() {
-		return (Contains)fixture;
+	protected ContainsCompartment getFixture() {
+		return (ContainsCompartment)fixture;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ContainsTest extends TypeArgumentRuleTest {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(EditpolicymodelFactory.eINSTANCE.createContains());
+		setFixture(EditpolicymodelFactory.eINSTANCE.createContainsCompartment());
 	}
 
 	/**
@@ -67,4 +67,4 @@ public class ContainsTest extends TypeArgumentRuleTest {
 		setFixture(null);
 	}
 
-} //ContainsTest
+} //ContainsCompartmentTest

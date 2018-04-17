@@ -118,26 +118,26 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link Editpolicymodel.Contains} instances.
+	 * This keeps track of the one adapter used for all {@link Editpolicymodel.ContainsCompartment} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ContainsItemProvider containsItemProvider;
+	protected ContainsCompartmentItemProvider containsCompartmentItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link Editpolicymodel.Contains}.
+	 * This creates an adapter for a {@link Editpolicymodel.ContainsCompartment}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createContainsAdapter() {
-		if (containsItemProvider == null) {
-			containsItemProvider = new ContainsItemProvider(this);
+	public Adapter createContainsCompartmentAdapter() {
+		if (containsCompartmentItemProvider == null) {
+			containsCompartmentItemProvider = new ContainsCompartmentItemProvider(this);
 		}
 
-		return containsItemProvider;
+		return containsCompartmentItemProvider;
 	}
 
 	/**
@@ -647,6 +647,29 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link Editpolicymodel.InCompartment} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InCompartmentItemProvider inCompartmentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link Editpolicymodel.InCompartment}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInCompartmentAdapter() {
+		if (inCompartmentItemProvider == null) {
+			inCompartmentItemProvider = new InCompartmentItemProvider(this);
+		}
+
+		return inCompartmentItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -747,7 +770,7 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	public void dispose() {
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (policyItemProvider != null) policyItemProvider.dispose();
-		if (containsItemProvider != null) containsItemProvider.dispose();
+		if (containsCompartmentItemProvider != null) containsCompartmentItemProvider.dispose();
 		if (isStepInItemProvider != null) isStepInItemProvider.dispose();
 		if (isTargetItemProvider != null) isTargetItemProvider.dispose();
 		if (isParentItemProvider != null) isParentItemProvider.dispose();
@@ -770,6 +793,7 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 		if (andFeatureRuleItemProvider != null) andFeatureRuleItemProvider.dispose();
 		if (sourceEqualsTargetItemProvider != null) sourceEqualsTargetItemProvider.dispose();
 		if (sourceEqualsTargetTypeItemProvider != null) sourceEqualsTargetTypeItemProvider.dispose();
+		if (inCompartmentItemProvider != null) inCompartmentItemProvider.dispose();
 	}
 
 }

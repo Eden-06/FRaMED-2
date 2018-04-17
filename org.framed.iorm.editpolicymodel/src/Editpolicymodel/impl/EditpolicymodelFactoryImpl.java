@@ -59,7 +59,7 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 		switch (eClass.getClassifierID()) {
 			case EditpolicymodelPackage.MODEL: return createModel();
 			case EditpolicymodelPackage.POLICY: return createPolicy();
-			case EditpolicymodelPackage.CONTAINS: return createContains();
+			case EditpolicymodelPackage.CONTAINS_COMPARTMENT: return createContainsCompartment();
 			case EditpolicymodelPackage.IS_STEP_IN: return createIsStepIn();
 			case EditpolicymodelPackage.IS_TARGET: return createIsTarget();
 			case EditpolicymodelPackage.IS_PARENT: return createIsParent();
@@ -82,6 +82,7 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.AND_FEATURE_RULE: return createAndFeatureRule();
 			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET: return createSourceEqualsTarget();
 			case EditpolicymodelPackage.SOURCE_EQUALS_TARGET_TYPE: return createSourceEqualsTargetType();
+			case EditpolicymodelPackage.IN_COMPARTMENT: return createInCompartment();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -150,9 +151,9 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Contains createContains() {
-		ContainsImpl contains = new ContainsImpl();
-		return contains;
+	public ContainsCompartment createContainsCompartment() {
+		ContainsCompartmentImpl containsCompartment = new ContainsCompartmentImpl();
+		return containsCompartment;
 	}
 
 	/**
@@ -373,6 +374,16 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public SourceEqualsTargetType createSourceEqualsTargetType() {
 		SourceEqualsTargetTypeImpl sourceEqualsTargetType = new SourceEqualsTargetTypeImpl();
 		return sourceEqualsTargetType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InCompartment createInCompartment() {
+		InCompartmentImpl inCompartment = new InCompartmentImpl();
+		return inCompartment;
 	}
 
 	/**

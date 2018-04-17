@@ -40,13 +40,13 @@ public interface EditpolicymodelFactory extends EFactory {
 	Policy createPolicy();
 
 	/**
-	 * Returns a new object of class '<em>Contains</em>'.
+	 * Returns a new object of class '<em>Contains Compartment</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Contains</em>'.
+	 * @return a new object of class '<em>Contains Compartment</em>'.
 	 * @generated
 	 */
-	Contains createContains();
+	ContainsCompartment createContainsCompartment();
 
 	/**
 	 * Returns a new object of class '<em>Is Step In</em>'.
@@ -245,6 +245,15 @@ public interface EditpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	SourceEqualsTargetType createSourceEqualsTargetType();
+
+	/**
+	 * Returns a new object of class '<em>In Compartment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>In Compartment</em>'.
+	 * @generated
+	 */
+	InCompartment createInCompartment();
 
 	/**
 	 * Returns the package supported by this factory.

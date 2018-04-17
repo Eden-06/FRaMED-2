@@ -78,11 +78,10 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.CONTAINS: {
-				Contains contains = (Contains)theEObject;
-				T result = caseContains(contains);
-				if (result == null) result = caseTypeArgumentRule(contains);
-				if (result == null) result = caseConstraintRule(contains);
+			case EditpolicymodelPackage.CONTAINS_COMPARTMENT: {
+				ContainsCompartment containsCompartment = (ContainsCompartment)theEObject;
+				T result = caseContainsCompartment(containsCompartment);
+				if (result == null) result = caseConstraintRule(containsCompartment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -331,6 +330,13 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EditpolicymodelPackage.IN_COMPARTMENT: {
+				InCompartment inCompartment = (InCompartment)theEObject;
+				T result = caseInCompartment(inCompartment);
+				if (result == null) result = caseConstraintRule(inCompartment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -366,17 +372,17 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Contains</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Contains Compartment</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Contains</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Contains Compartment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseContains(Contains object) {
+	public T caseContainsCompartment(ContainsCompartment object) {
 		return null;
 	}
 
@@ -842,6 +848,21 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSourceEqualsTargetType(SourceEqualsTargetType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>In Compartment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>In Compartment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInCompartment(InCompartment object) {
 		return null;
 	}
 

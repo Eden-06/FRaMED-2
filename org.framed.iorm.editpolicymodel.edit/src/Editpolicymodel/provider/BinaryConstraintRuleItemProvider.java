@@ -127,7 +127,7 @@ public class BinaryConstraintRuleItemProvider extends LogicalConstraintRuleItemP
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__LEFT_RULE,
-				 EditpolicymodelFactory.eINSTANCE.createContains()));
+				 EditpolicymodelFactory.eINSTANCE.createContainsCompartment()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -201,8 +201,13 @@ public class BinaryConstraintRuleItemProvider extends LogicalConstraintRuleItemP
 
 		newChildDescriptors.add
 			(createChildParameter
+				(EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__LEFT_RULE,
+				 EditpolicymodelFactory.eINSTANCE.createInCompartment()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__RIGHT_RULE,
-				 EditpolicymodelFactory.eINSTANCE.createContains()));
+				 EditpolicymodelFactory.eINSTANCE.createContainsCompartment()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -273,6 +278,11 @@ public class BinaryConstraintRuleItemProvider extends LogicalConstraintRuleItemP
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__RIGHT_RULE,
 				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTargetType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.BINARY_CONSTRAINT_RULE__RIGHT_RULE,
+				 EditpolicymodelFactory.eINSTANCE.createInCompartment()));
 	}
 
 	/**

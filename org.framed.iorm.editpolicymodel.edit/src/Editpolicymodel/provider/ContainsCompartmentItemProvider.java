@@ -3,9 +3,6 @@
 package Editpolicymodel.provider;
 
 
-import Editpolicymodel.Contains;
-import Editpolicymodel.TypeEnum;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -15,19 +12,19 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
 /**
- * This is the item provider adapter for a {@link Editpolicymodel.Contains} object.
+ * This is the item provider adapter for a {@link Editpolicymodel.ContainsCompartment} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ContainsItemProvider extends TypeArgumentRuleItemProvider {
+public class ContainsCompartmentItemProvider extends ConstraintRuleItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainsItemProvider(AdapterFactory adapterFactory) {
+	public ContainsCompartmentItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -47,14 +44,14 @@ public class ContainsItemProvider extends TypeArgumentRuleItemProvider {
 	}
 
 	/**
-	 * This returns Contains.gif.
+	 * This returns ContainsCompartment.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Contains"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ContainsCompartment"));
 	}
 
 	/**
@@ -65,11 +62,7 @@ public class ContainsItemProvider extends TypeArgumentRuleItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		TypeEnum labelValue = ((Contains)object).getType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Contains_type") :
-			getString("_UI_Contains_type") + " " + label;
+		return getString("_UI_ContainsCompartment_type");
 	}
 	
 

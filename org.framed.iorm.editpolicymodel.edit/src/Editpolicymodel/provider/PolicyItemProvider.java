@@ -273,7 +273,7 @@ public class PolicyItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
-				 EditpolicymodelFactory.eINSTANCE.createContains()));
+				 EditpolicymodelFactory.eINSTANCE.createContainsCompartment()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -344,6 +344,11 @@ public class PolicyItemProvider
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
 				 EditpolicymodelFactory.eINSTANCE.createSourceEqualsTargetType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
+				 EditpolicymodelFactory.eINSTANCE.createInCompartment()));
 	}
 
 	/**

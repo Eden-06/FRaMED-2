@@ -287,11 +287,11 @@ ruleConstraintRule returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getContainsConstrainRuleParserRuleCall_3());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getContainsCompartmentConstrainRuleParserRuleCall_3());
 		}
-		this_ContainsConstrainRule_3=ruleContainsConstrainRule
+		this_ContainsCompartmentConstrainRule_3=ruleContainsCompartmentConstrainRule
 		{
-			$current = $this_ContainsConstrainRule_3.current;
+			$current = $this_ContainsCompartmentConstrainRule_3.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -348,18 +348,27 @@ ruleConstraintRule returns [EObject current=null]
 			$current = $this_SourceEqualsTargetTypeConstraintRule_9.current;
 			afterParserOrEnumRuleCall();
 		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getInCompartmentConstraintRuleParserRuleCall_10());
+		}
+		this_InCompartmentConstraintRule_10=ruleInCompartmentConstraintRule
+		{
+			$current = $this_InCompartmentConstraintRule_10.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
-// Entry rule entryRuleContainsConstrainRule
-entryRuleContainsConstrainRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getContainsConstrainRuleRule()); }
-	iv_ruleContainsConstrainRule=ruleContainsConstrainRule
-	{ $current=$iv_ruleContainsConstrainRule.current; }
+// Entry rule entryRuleContainsCompartmentConstrainRule
+entryRuleContainsCompartmentConstrainRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getContainsCompartmentConstrainRuleRule()); }
+	iv_ruleContainsCompartmentConstrainRule=ruleContainsCompartmentConstrainRule
+	{ $current=$iv_ruleContainsCompartmentConstrainRule.current; }
 	EOF;
 
-// Rule ContainsConstrainRule
-ruleContainsConstrainRule returns [EObject current=null]
+// Rule ContainsCompartmentConstrainRule
+ruleContainsCompartmentConstrainRule returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -370,40 +379,21 @@ ruleContainsConstrainRule returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getContainsConstrainRuleAccess().getContainsAction_0(),
+					grammarAccess.getContainsCompartmentConstrainRuleAccess().getContainsCompartmentAction_0(),
 					$current);
 			}
 		)
-		otherlv_1='Contains'
+		otherlv_1='ContainsCompartment'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getContainsConstrainRuleAccess().getContainsKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getContainsCompartmentConstrainRuleAccess().getContainsCompartmentKeyword_1());
 		}
 		otherlv_2='('
 		{
-			newLeafNode(otherlv_2, grammarAccess.getContainsConstrainRuleAccess().getLeftParenthesisKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getContainsCompartmentConstrainRuleAccess().getLeftParenthesisKeyword_2());
 		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getContainsConstrainRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0());
-				}
-				lv_type_3_0=ruleFeatureTypeEnum
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContainsConstrainRuleRule());
-					}
-					set(
-						$current,
-						"type",
-						lv_type_3_0,
-						"org.framed.iorm.editpolicydsl.Dsl.FeatureTypeEnum");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		otherlv_4=')'
+		otherlv_3=')'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getContainsConstrainRuleAccess().getRightParenthesisKeyword_4());
+			newLeafNode(otherlv_3, grammarAccess.getContainsCompartmentConstrainRuleAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;
@@ -670,6 +660,44 @@ ruleStepInConstraintRule returns [EObject current=null]
 		otherlv_3=')'
 		{
 			newLeafNode(otherlv_3, grammarAccess.getStepInConstraintRuleAccess().getRightParenthesisKeyword_3());
+		}
+	)
+;
+
+// Entry rule entryRuleInCompartmentConstraintRule
+entryRuleInCompartmentConstraintRule returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInCompartmentConstraintRuleRule()); }
+	iv_ruleInCompartmentConstraintRule=ruleInCompartmentConstraintRule
+	{ $current=$iv_ruleInCompartmentConstraintRule.current; }
+	EOF;
+
+// Rule InCompartmentConstraintRule
+ruleInCompartmentConstraintRule returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getInCompartmentConstraintRuleAccess().getInCompartmentAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='InCompartment'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getInCompartmentConstraintRuleAccess().getInCompartmentKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getInCompartmentConstraintRuleAccess().getLeftParenthesisKeyword_2());
+		}
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getInCompartmentConstraintRuleAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;

@@ -3,9 +3,6 @@
 package Editpolicymodel.provider;
 
 
-import Editpolicymodel.IsSource;
-import Editpolicymodel.TypeEnum;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -15,19 +12,19 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
 /**
- * This is the item provider adapter for a {@link Editpolicymodel.IsSource} object.
+ * This is the item provider adapter for a {@link Editpolicymodel.InCompartment} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class IsSourceItemProvider extends TypeArgumentRuleItemProvider {
+public class InCompartmentItemProvider extends ConstraintRuleItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsSourceItemProvider(AdapterFactory adapterFactory) {
+	public InCompartmentItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -47,14 +44,14 @@ public class IsSourceItemProvider extends TypeArgumentRuleItemProvider {
 	}
 
 	/**
-	 * This returns IsSource.gif.
+	 * This returns InCompartment.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/IsSource"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/InCompartment"));
 	}
 
 	/**
@@ -65,11 +62,7 @@ public class IsSourceItemProvider extends TypeArgumentRuleItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		TypeEnum labelValue = ((IsSource)object).getType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_IsSource_type") :
-			getString("_UI_IsSource_type") + " " + label;
+		return getString("_UI_InCompartment_type");
 	}
 	
 

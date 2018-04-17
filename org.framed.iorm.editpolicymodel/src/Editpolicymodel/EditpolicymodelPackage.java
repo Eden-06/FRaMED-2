@@ -196,6 +196,62 @@ public interface EditpolicymodelPackage extends EPackage {
 	int CONSTRAINT_RULE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.ContainsCompartmentImpl <em>Contains Compartment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.ContainsCompartmentImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getContainsCompartment()
+	 * @generated
+	 */
+	int CONTAINS_COMPARTMENT = 2;
+
+	/**
+	 * The number of structural features of the '<em>Contains Compartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINS_COMPARTMENT_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Contains Compartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINS_COMPARTMENT_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.IsStepInImpl <em>Is Step In</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.IsStepInImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepIn()
+	 * @generated
+	 */
+	int IS_STEP_IN = 3;
+
+	/**
+	 * The number of structural features of the '<em>Is Step In</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_STEP_IN_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Is Step In</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_STEP_IN_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.TypeArgumentRuleImpl <em>Type Argument Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -231,71 +287,6 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_ARGUMENT_RULE_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.ContainsImpl <em>Contains</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.ContainsImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getContains()
-	 * @generated
-	 */
-	int CONTAINS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINS__TYPE = TYPE_ARGUMENT_RULE__TYPE;
-
-	/**
-	 * The number of structural features of the '<em>Contains</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINS_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Contains</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINS_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link Editpolicymodel.impl.IsStepInImpl <em>Is Step In</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see Editpolicymodel.impl.IsStepInImpl
-	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getIsStepIn()
-	 * @generated
-	 */
-	int IS_STEP_IN = 3;
-
-	/**
-	 * The number of structural features of the '<em>Is Step In</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IS_STEP_IN_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Is Step In</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IS_STEP_IN_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.impl.IsTargetImpl <em>Is Target</em>}' class.
@@ -1289,6 +1280,34 @@ public interface EditpolicymodelPackage extends EPackage {
 	int SOURCE_EQUALS_TARGET_TYPE_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link Editpolicymodel.impl.InCompartmentImpl <em>In Compartment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see Editpolicymodel.impl.InCompartmentImpl
+	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getInCompartment()
+	 * @generated
+	 */
+	int IN_COMPARTMENT = 34;
+
+	/**
+	 * The number of structural features of the '<em>In Compartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IN_COMPARTMENT_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>In Compartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IN_COMPARTMENT_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1296,7 +1315,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 34;
+	int ACTION_ENUM = 35;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
@@ -1306,7 +1325,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getTypeEnum()
 	 * @generated
 	 */
-	int TYPE_ENUM = 35;
+	int TYPE_ENUM = 36;
 
 	/**
 	 * The meta object id for the '{@link Editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}' enum.
@@ -1316,7 +1335,7 @@ public interface EditpolicymodelPackage extends EPackage {
 	 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getFeatureNameEnum()
 	 * @generated
 	 */
-	int FEATURE_NAME_ENUM = 36;
+	int FEATURE_NAME_ENUM = 37;
 
 
 	/**
@@ -1406,14 +1425,14 @@ public interface EditpolicymodelPackage extends EPackage {
 	EReference getPolicy_ConstraintRule();
 
 	/**
-	 * Returns the meta object for class '{@link Editpolicymodel.Contains <em>Contains</em>}'.
+	 * Returns the meta object for class '{@link Editpolicymodel.ContainsCompartment <em>Contains Compartment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Contains</em>'.
-	 * @see Editpolicymodel.Contains
+	 * @return the meta object for class '<em>Contains Compartment</em>'.
+	 * @see Editpolicymodel.ContainsCompartment
 	 * @generated
 	 */
-	EClass getContains();
+	EClass getContainsCompartment();
 
 	/**
 	 * Returns the meta object for class '{@link Editpolicymodel.IsStepIn <em>Is Step In</em>}'.
@@ -1836,6 +1855,16 @@ public interface EditpolicymodelPackage extends EPackage {
 	EClass getSourceEqualsTargetType();
 
 	/**
+	 * Returns the meta object for class '{@link Editpolicymodel.InCompartment <em>In Compartment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>In Compartment</em>'.
+	 * @see Editpolicymodel.InCompartment
+	 * @generated
+	 */
+	EClass getInCompartment();
+
+	/**
 	 * Returns the meta object for enum '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1957,14 +1986,14 @@ public interface EditpolicymodelPackage extends EPackage {
 		EReference POLICY__CONSTRAINT_RULE = eINSTANCE.getPolicy_ConstraintRule();
 
 		/**
-		 * The meta object literal for the '{@link Editpolicymodel.impl.ContainsImpl <em>Contains</em>}' class.
+		 * The meta object literal for the '{@link Editpolicymodel.impl.ContainsCompartmentImpl <em>Contains Compartment</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see Editpolicymodel.impl.ContainsImpl
-		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getContains()
+		 * @see Editpolicymodel.impl.ContainsCompartmentImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getContainsCompartment()
 		 * @generated
 		 */
-		EClass CONTAINS = eINSTANCE.getContains();
+		EClass CONTAINS_COMPARTMENT = eINSTANCE.getContainsCompartment();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.impl.IsStepInImpl <em>Is Step In</em>}' class.
@@ -2355,6 +2384,16 @@ public interface EditpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SOURCE_EQUALS_TARGET_TYPE = eINSTANCE.getSourceEqualsTargetType();
+
+		/**
+		 * The meta object literal for the '{@link Editpolicymodel.impl.InCompartmentImpl <em>In Compartment</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see Editpolicymodel.impl.InCompartmentImpl
+		 * @see Editpolicymodel.impl.EditpolicymodelPackageImpl#getInCompartment()
+		 * @generated
+		 */
+		EClass IN_COMPARTMENT = eINSTANCE.getInCompartment();
 
 		/**
 		 * The meta object literal for the '{@link Editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

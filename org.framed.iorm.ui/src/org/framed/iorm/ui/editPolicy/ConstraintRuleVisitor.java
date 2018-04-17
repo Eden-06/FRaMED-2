@@ -1,15 +1,17 @@
 package org.framed.iorm.ui.editPolicy;
 
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 
 import Editpolicymodel.AndConstraintRule;
 import Editpolicymodel.ConstraintRule;
+import Editpolicymodel.ContainsCompartment;
 import Editpolicymodel.FalseConstraintRule;
+import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepIn;
 import Editpolicymodel.NotConstraintRule;
@@ -17,8 +19,7 @@ import Editpolicymodel.OrConstraintRule;
 import Editpolicymodel.SourceEqualsTarget;
 import Editpolicymodel.SourceEqualsTargetType;
 import Editpolicymodel.TrueConstraintRule;
-import Editpolicymodel.TypeEnum;
-import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.anchors.TargetAnchor;
+import compartment.AddCompartmentTypeContext;
 
 /**
  * This class provides the rule-parse for the command-rules. Using VisitorPattern
@@ -58,10 +59,18 @@ public class ConstraintRuleVisitor {
 	
 	public boolean checkRule(ConstraintRule rule) 
 	{
-			if(rule instanceof IsStepIn) {
-				System.out.println("isStepOutRule");
-				return this.isStepOut;
-			}
+		if(rule instanceof IsStepIn) {
+			System.out.println("isStepInRule");
+			return !this.isStepOut;
+		}
+		if(rule instanceof InCompartment) {
+			//UIUtil.isDiagram_KindValue(, value)
+
+			//AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
+			//System.out.println("InCompartmentRUle: " + 			ctx.getPropertyKeys());
+			//System.out.println("I am: " + ctx.getModelToLink().getParent().getContainer());
+					return false;
+		}
 		
 		if (rule instanceof AndConstraintRule)
 			return andRuleVisitor((AndConstraintRule)rule);
@@ -86,6 +95,10 @@ public class ConstraintRuleVisitor {
 		
 		if(rule instanceof IsSourceType) {
 			return isSourceTypeVisitor((IsSourceType)rule);
+		}
+		
+		if(rule instanceof ContainsCompartment) {
+			return containsCompartmentVisitor((ContainsCompartment)rule);
 		}
 		
 		if (rule instanceof TrueConstraintRule) {
@@ -119,6 +132,11 @@ public class ConstraintRuleVisitor {
 			System.out.println("failed isSourceType: " + e.getMessage());
 		}
 		
+		return false;
+	}
+	
+	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
+		System.out.println("containsCompartmentVisitor: TODO, implement! ");
 		return false;
 	}
 	

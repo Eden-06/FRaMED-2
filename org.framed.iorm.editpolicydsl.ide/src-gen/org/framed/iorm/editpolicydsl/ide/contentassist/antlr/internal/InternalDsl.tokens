@@ -1,8 +1,8 @@
-'!'=92
+'!'=93
 '('=76
 ')'=77
 ';'=79
-'=>'=93
+'=>'=94
 'Acyclic'=21
 'Add'=11
 'Add_Property'=17
@@ -13,7 +13,7 @@
 'Compartment_Structure'=42
 'Compartment_Types'=43
 'Compartments'=45
-'Contains'=80
+'ContainsCompartment'=80
 'Contains_Compartments'=44
 'Create'=13
 'Create_Attribute'=18
@@ -30,6 +30,7 @@
 'Fulfillment'=25
 'Group'=27
 'Group_Constraints'=50
+'InCompartment'=86
 'Inheritance'=26
 'Inter_Relationship_Constraints'=51
 'Intra_Relationship_Constraints'=52
@@ -73,14 +74,14 @@
 'Role_Structure'=73
 'Role_Types'=74
 'Roles'=75
-'SourceEqualsTarget'=86
-'SourceEqualsTargetType'=87
+'SourceEqualsTarget'=87
+'SourceEqualsTargetType'=88
 'Start'=14
-'and'=91
-'false'=89
-'or'=90
-'override'=94
-'true'=88
+'and'=92
+'false'=90
+'or'=91
+'override'=95
+'true'=89
 'when'=78
 RULE_ANY_OTHER=10
 RULE_ID=4
@@ -173,3 +174,4 @@ T__91=91
 T__92=92
 T__93=93
 T__94=94
+T__95=95

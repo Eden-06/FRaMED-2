@@ -5,12 +5,13 @@ package org.framed.iorm.editpolicydsl.serializer;
 
 import Editpolicymodel.AndConstraintRule;
 import Editpolicymodel.AndFeatureRule;
-import Editpolicymodel.Contains;
+import Editpolicymodel.ContainsCompartment;
 import Editpolicymodel.EditpolicymodelPackage;
 import Editpolicymodel.FalseConstraintRule;
 import Editpolicymodel.FalseFeatureRule;
 import Editpolicymodel.ImplicationConstraintRule;
 import Editpolicymodel.ImplicationFeatureRule;
+import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
 import Editpolicymodel.IsSourceType;
@@ -60,8 +61,8 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EditpolicymodelPackage.AND_FEATURE_RULE:
 				sequence_AndFeature(context, (AndFeatureRule) semanticObject); 
 				return; 
-			case EditpolicymodelPackage.CONTAINS:
-				sequence_ContainsConstrainRule(context, (Contains) semanticObject); 
+			case EditpolicymodelPackage.CONTAINS_COMPARTMENT:
+				sequence_ContainsCompartmentConstrainRule(context, (ContainsCompartment) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.FALSE_CONSTRAINT_RULE:
 				sequence_FalseConstraintRule(context, (FalseConstraintRule) semanticObject); 
@@ -74,6 +75,9 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EditpolicymodelPackage.IMPLICATION_FEATURE_RULE:
 				sequence_ImplicationFeature(context, (ImplicationFeatureRule) semanticObject); 
+				return; 
+			case EditpolicymodelPackage.IN_COMPARTMENT:
+				sequence_InCompartmentConstraintRule(context, (InCompartment) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.IS_FEATURE:
 				sequence_IsFeature(context, (IsFeature) semanticObject); 
@@ -170,29 +174,23 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ConstraintRule returns Contains
-	 *     ContainsConstrainRule returns Contains
-	 *     ConstraintExpression returns Contains
-	 *     ImplicationConstraint returns Contains
-	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns Contains
-	 *     OrConstraint returns Contains
-	 *     OrConstraint.OrConstraintRule_1_0 returns Contains
-	 *     AndConstraint returns Contains
-	 *     AndConstraint.AndConstraintRule_1_0 returns Contains
-	 *     NotConstraintExpression returns Contains
-	 *     PrimaryConstraint returns Contains
+	 *     ConstraintRule returns ContainsCompartment
+	 *     ContainsCompartmentConstrainRule returns ContainsCompartment
+	 *     ConstraintExpression returns ContainsCompartment
+	 *     ImplicationConstraint returns ContainsCompartment
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns ContainsCompartment
+	 *     OrConstraint returns ContainsCompartment
+	 *     OrConstraint.OrConstraintRule_1_0 returns ContainsCompartment
+	 *     AndConstraint returns ContainsCompartment
+	 *     AndConstraint.AndConstraintRule_1_0 returns ContainsCompartment
+	 *     NotConstraintExpression returns ContainsCompartment
+	 *     PrimaryConstraint returns ContainsCompartment
 	 *
 	 * Constraint:
-	 *     type=FeatureTypeEnum
+	 *     {ContainsCompartment}
 	 */
-	protected void sequence_ContainsConstrainRule(ISerializationContext context, Contains semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EditpolicymodelPackage.Literals.TYPE_ARGUMENT_RULE__TYPE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getContainsConstrainRuleAccess().getTypeFeatureTypeEnumEnumRuleCall_3_0(), semanticObject.getType());
-		feeder.finish();
+	protected void sequence_ContainsCompartmentConstrainRule(ISerializationContext context, ContainsCompartment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -287,6 +285,28 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getImplicationFeatureAccess().getImplicationFeatureRuleLeftRuleAction_1_0(), semanticObject.getLeftRule());
 		feeder.accept(grammarAccess.getImplicationFeatureAccess().getRightRuleOrFeatureParserRuleCall_1_2_0(), semanticObject.getRightRule());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ConstraintRule returns InCompartment
+	 *     InCompartmentConstraintRule returns InCompartment
+	 *     ConstraintExpression returns InCompartment
+	 *     ImplicationConstraint returns InCompartment
+	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns InCompartment
+	 *     OrConstraint returns InCompartment
+	 *     OrConstraint.OrConstraintRule_1_0 returns InCompartment
+	 *     AndConstraint returns InCompartment
+	 *     AndConstraint.AndConstraintRule_1_0 returns InCompartment
+	 *     NotConstraintExpression returns InCompartment
+	 *     PrimaryConstraint returns InCompartment
+	 *
+	 * Constraint:
+	 *     {InCompartment}
+	 */
+	protected void sequence_InCompartmentConstraintRule(ISerializationContext context, InCompartment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

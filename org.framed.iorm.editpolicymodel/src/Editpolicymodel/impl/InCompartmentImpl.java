@@ -2,25 +2,25 @@
  */
 package Editpolicymodel.impl;
 
-import Editpolicymodel.Contains;
 import Editpolicymodel.EditpolicymodelPackage;
+import Editpolicymodel.InCompartment;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Contains</b></em>'.
+ * An implementation of the model object '<em><b>In Compartment</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class ContainsImpl extends TypeArgumentRuleImpl implements Contains {
+public class InCompartmentImpl extends ConstraintRuleImpl implements InCompartment {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ContainsImpl() {
+	protected InCompartmentImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class ContainsImpl extends TypeArgumentRuleImpl implements Contains {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EditpolicymodelPackage.Literals.CONTAINS;
+		return EditpolicymodelPackage.Literals.IN_COMPARTMENT;
 	}
 
-} //ContainsImpl
+} //InCompartmentImpl
