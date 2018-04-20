@@ -10,6 +10,7 @@ import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 
 import Editpolicymodel.ActionEnum;
 import Editpolicymodel.ConstraintRule;
@@ -30,8 +31,11 @@ public class EditPolicyHandler {
 	 */
 	private List<Editpolicymodel.Policy> activatedPolicies;
 	
-	public EditPolicyHandler() {
+	private Diagram diagram;
+	
+	public EditPolicyHandler(Diagram diagram) {
 		this.activatedPolicies = new LinkedList<>();
+		this.diagram = diagram;
 	}
 	
 	public void updateConfig(List<Editpolicymodel.Model> models, FRaMEDConfiguration config) {
@@ -102,7 +106,7 @@ public class EditPolicyHandler {
 	
 	private boolean checkConstraints(List<ConstraintRule> constraints, Object context, Type type)
 	{
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, type, false);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, type, false, this.diagram);
 		for(ConstraintRule constraintRule: constraints) {
 			if(constraintVisitor.checkRule(constraintRule))
 				return true;

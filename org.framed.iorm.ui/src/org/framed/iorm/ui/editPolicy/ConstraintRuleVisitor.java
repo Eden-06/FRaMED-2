@@ -2,10 +2,14 @@ package org.framed.iorm.ui.editPolicy;
 
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
+import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
+import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
 import Editpolicymodel.AndConstraintRule;
 import Editpolicymodel.ConstraintRule;
@@ -42,12 +46,28 @@ public class ConstraintRuleVisitor {
 	
 	private Type type;
 
-	public ConstraintRuleVisitor(Object context, Type type, boolean isStepOut) {
+	private Diagram diagram;
+	
+	public ConstraintRuleVisitor(Object context, Type type, boolean isStepOut, Diagram diagram) {
 		this.context = context;
 		this.isStepOut = isStepOut;
 		this.type = type;
+		this.diagram = diagram;
 	}
-
+	
+	public Diagram getDiagramWithName(String name, Diagram rootDiagram)
+	{
+		Diagram containerDiagram = UIUtil.getContainerDiagramForAnyDiagram(rootDiagram);
+		if(containerDiagram == null) throw new NoDiagramFoundException();
+		for(Shape shape : containerDiagram.getChildren()) {
+			if(shape instanceof Diagram) {
+				System.out.println("Name diagram is: " + ((Diagram) shape).getName());
+					if(((Diagram) shape).getName().equals(name))
+						return ((Diagram) shape);
+			}
+		}
+		return null;
+	}
 	/**
 	 * dispatch abstract rule
 	 *
@@ -56,7 +76,6 @@ public class ConstraintRuleVisitor {
 	 * @param rule
 	 * @return Boolean
 	 */
-	
 	public boolean checkRule(ConstraintRule rule) 
 	{
 		if(rule instanceof IsStepIn) {
@@ -64,12 +83,22 @@ public class ConstraintRuleVisitor {
 			return !this.isStepOut;
 		}
 		if(rule instanceof InCompartment) {
-			//UIUtil.isDiagram_KindValue(, value)
+			AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
+			ctx.getModelToLink().getParent();
 
-			//AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
-			//System.out.println("InCompartmentRUle: " + 			ctx.getPropertyKeys());
-			//System.out.println("I am: " + ctx.getModelToLink().getParent().getContainer());
-					return false;
+			String parentDiagramName = null;
+			try {
+				parentDiagramName = ctx.getModelToLink().getParent().getContainer().getParent().getName();
+			} catch (Exception e) {}
+			Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
+			if(myDiagram == null)
+				return false;
+			System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + ctx.getModelToLink().getParent().getName() +", " + ctx.getModelToLink().getParent().getName());
+
+			if(myDiagram.getName().equals("compartmentType"))
+				return true;
+
+			return false;
 		}
 		
 		if (rule instanceof AndConstraintRule)
@@ -136,7 +165,7 @@ public class ConstraintRuleVisitor {
 	}
 	
 	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
-		System.out.println("containsCompartmentVisitor: TODO, implement! ");
+		System.out.println("containsCompartmentVisitor: TODO, implement!: " + this.diagram.getChildren().toString());
 		return false;
 	}
 	

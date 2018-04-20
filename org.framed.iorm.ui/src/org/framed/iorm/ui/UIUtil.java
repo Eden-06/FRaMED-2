@@ -489,7 +489,7 @@ public class UIUtil {
 	 * Step 2: It searches in the list of children of the container diagram for a fitting diagram with the name
 	 * 		   found in step 1. If no such diagram can be found, throw a {@link NoDiagramFoundException}.
 	 * @param groupingShape the shape of the grouping feature to search the diagram for
-	 * @param diagram the the diagram the grouping feature's shape is located in
+	 * @param diagram the diagram the grouping feature's shape is located in
 	 * @param SHAPE_ID_TYPEBODY the shape id of the typebody of the grouping feature
 	 * @param SHAPE_ID_NAME the shape id of the name shape of the grouping feature
 	 * @param DIAGRAM_KIND the diagram kind the grouping feature creates

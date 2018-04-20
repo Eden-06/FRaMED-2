@@ -45,11 +45,14 @@ public class EditPolicyService {
 		checkEditpolicyConsistency();
 	}
 	
-	public static EditPolicyHandler getHandler(Diagram diagram) 
+	public static EditPolicyHandler getHandler(Diagram diagram0) 
 	{
-		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
+		
+		Diagram diagram = UIUtil.getMainDiagramForAnyDiagram(diagram0);
+		System.out.println("Diagrams: " + diagram.getName() + ", " + diagram0.getName());
+
 		if(!EditPolicyService.editPolicyHandlers.containsKey(diagram.getName())) { 
-			EditPolicyHandler handler = new EditPolicyHandler();
+			EditPolicyHandler handler = new EditPolicyHandler(diagram);
 			editPolicyHandlers.put(diagram.getName(), handler);
 			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
 			handler.updateConfig(editpolicymodels, config);
