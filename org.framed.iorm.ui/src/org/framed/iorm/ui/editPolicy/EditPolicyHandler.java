@@ -62,12 +62,11 @@ public class EditPolicyHandler {
 	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
 		List<ConstraintRule> rules = new LinkedList<>();
 		
-		System.out.println("getting Constraints for action: " + action.toString() + " and type: " + type.toString());
 		for(Policy policy: this.activatedPolicies) {
 			if(policy.getAction().getValue() == action.getValue() && policy.getActionType().getLiteral().equals(type.getLiteral()))
 				rules.add(policy.getConstraintRule());
 		}
-		System.out.println("constraints: " + rules.toString());
+		System.out.println("Action: " + action.toString() + ", Type: " + type.toString() + ", constraints: " + rules.toString());
 
 		return rules;
 	}
@@ -79,7 +78,7 @@ public class EditPolicyHandler {
 	}
 
 	public boolean canStart(ICreateConnectionContext context, Type type) {
-		System.out.println("properties: " + context.getPropertyKeys());
+		//System.out.println("properties: " + context.getPropertyKeys());
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.START, type);
 		return this.checkConstraints(constraints, context, type);
 	}
@@ -123,7 +122,6 @@ public class EditPolicyHandler {
 	
 	public boolean canAdd(IAddContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
-		
 		return this.checkConstraints(constraints, context, type);
 	}
 	
@@ -151,5 +149,4 @@ public class EditPolicyHandler {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.CREATE_OPERATION, type);
 		return this.checkConstraints(constraints, context, type);
 	}
-
 }

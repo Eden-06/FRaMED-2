@@ -71,7 +71,7 @@ public class FeatureRuleVisitor {
 
  		for (FRaMEDFeature feature : this.configuration.getFeatures()) {
  			features.add(feature.getName().getName());
- 			System.out.println("EditPolicyHandler featureEnabled: " + feature.getName().getName());
+ 			//System.out.println("EditPolicyHandler featureEnabled: " + feature.getName().getName());
  		}
 
  		if(features.contains(rule.getFeatureName().getName())) {

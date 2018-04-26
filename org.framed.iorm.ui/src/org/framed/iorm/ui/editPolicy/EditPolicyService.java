@@ -48,8 +48,12 @@ public class EditPolicyService {
 	public static EditPolicyHandler getHandler(Diagram diagram0) 
 	{
 		
+		if(diagram0 == null) {
+			System.out.println("diagram in getHandler is null!");
+			return null;
+		}
 		Diagram diagram = UIUtil.getMainDiagramForAnyDiagram(diagram0);
-		System.out.println("Diagrams: " + diagram.getName() + ", " + diagram0.getName());
+		//System.out.println("Diagrams: " + diagram.getName() + ", " + diagram0.getName());
 
 		if(!EditPolicyService.editPolicyHandlers.containsKey(diagram.getName())) { 
 			EditPolicyHandler handler = new EditPolicyHandler(diagram);
@@ -57,13 +61,13 @@ public class EditPolicyService {
 			FRaMEDConfiguration config = UIUtil.getRootModelForAnyDiagram(diagram).getFramedConfiguration();
 			handler.updateConfig(editpolicymodels, config);
 		}
+		
 		return EditPolicyService.editPolicyHandlers.get(diagram.getName());
 	}
 
 	public static void setConfiguration(Diagram diagram, FRaMEDConfiguration config) 
 	{ 
-		System.out.println("updating config for " + diagram.getName());
-		
+		//System.out.println("updating config for " + diagram.getName());
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
 		editPolicyHandlers.get(diagram.getName()).updateConfig(editpolicymodels, config);
 	}

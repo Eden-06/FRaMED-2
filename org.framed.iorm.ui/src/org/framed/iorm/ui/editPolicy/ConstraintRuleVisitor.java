@@ -36,7 +36,6 @@ public class ConstraintRuleVisitor {
 	/**
 	 * command to check rules against
 	 */
-	@SuppressWarnings("unused")
 	private Object context;
 
 	/**
@@ -61,7 +60,6 @@ public class ConstraintRuleVisitor {
 		if(containerDiagram == null) throw new NoDiagramFoundException();
 		for(Shape shape : containerDiagram.getChildren()) {
 			if(shape instanceof Diagram) {
-				System.out.println("Name diagram is: " + ((Diagram) shape).getName());
 					if(((Diagram) shape).getName().equals(name))
 						return ((Diagram) shape);
 			}
@@ -93,7 +91,7 @@ public class ConstraintRuleVisitor {
 			Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
 			if(myDiagram == null)
 				return false;
-			System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + ctx.getModelToLink().getParent().getName() +", " + ctx.getModelToLink().getParent().getName());
+			//System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + ctx.getModelToLink().getParent().getName() +", " + ctx.getModelToLink().getParent().getName());
 
 			if(myDiagram.getName().equals("compartmentType"))
 				return true;
@@ -215,5 +213,4 @@ public class ConstraintRuleVisitor {
 	private boolean notRuleVisitor(NotConstraintRule rule) {
 		return !checkRule(rule.getRule());
 	}	
-
 }

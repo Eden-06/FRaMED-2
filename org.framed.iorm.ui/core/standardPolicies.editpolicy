@@ -133,8 +133,13 @@
     <featureRule xsi:type="Editpolicymodel:NotFeatureRule">
       <rule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     </featureRule>
-    <constraintRule xsi:type="Editpolicymodel:NotConstraintRule">
-      <rule xsi:type="Editpolicymodel:ContainsCompartment"/>
+    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
+      <rules xsi:type="Editpolicymodel:NotConstraintRule">
+        <rule xsi:type="Editpolicymodel:ContainsCompartment"/>
+      </rules>
+      <rules xsi:type="Editpolicymodel:NotConstraintRule">
+        <rule xsi:type="Editpolicymodel:InCompartment"/>
+      </rules>
     </constraintRule>
   </policies>
   <policies action="Add" actionType="Relationship">
