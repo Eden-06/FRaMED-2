@@ -233,8 +233,8 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
-			if(sourceTypes.contains(sourceShape.getType()))
-				   return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.FULFILLMENT);
+	//		if(sourceTypes.contains(sourceShape.getType()))
+				  return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.FULFILLMENT);
 		}
 		return false;
 	}

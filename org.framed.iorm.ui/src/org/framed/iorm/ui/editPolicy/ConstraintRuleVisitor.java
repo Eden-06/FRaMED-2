@@ -2,12 +2,10 @@ package org.framed.iorm.ui.editPolicy;
 
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
-import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
@@ -43,6 +41,7 @@ public class ConstraintRuleVisitor {
 	 */
 	private boolean isStepOut;
 	
+	@SuppressWarnings("unused")
 	private Type type;
 
 	private Diagram diagram;
@@ -200,7 +199,6 @@ public class ConstraintRuleVisitor {
 		
 		return false;
 	}
-
 	
 	private boolean orRuleVisitor(OrConstraintRule rule) {
 		for(ConstraintRule abstractRule : rule.getRules()) {

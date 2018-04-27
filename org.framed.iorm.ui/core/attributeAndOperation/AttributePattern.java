@@ -7,7 +7,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.references.AbstractHasAttsAndOpsReference;

@@ -221,7 +221,11 @@
   </policies>
   <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="NaturalType"/>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
   <policies action="Start" actionType="Relationship">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
