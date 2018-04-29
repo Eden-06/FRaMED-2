@@ -82,6 +82,7 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
+	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
 			ViewVisibility.TOPLEVEL_VIEW) {
@@ -89,6 +90,12 @@ public class DataTypePattern extends FRaMEDShapePattern implements IPattern {
 				public boolean featureExpression(List<String> featureNames, PaletteView paletteView) {
 					return featureNames.contains("Data_Types");		
 			}	};
+			
+			*/
+			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+					PaletteCategory.ENTITIES_CATEGORY,
+					ViewVisibility.ALL_VIEWS) {
+						};
 			
 	/**
 	 * class constructor		

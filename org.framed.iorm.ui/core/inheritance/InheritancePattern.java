@@ -56,6 +56,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.RELATIONS_CATEGORY,
 		ViewVisibility.ALL_VIEWS) {
+		/*
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
@@ -65,7 +66,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 							    (framedFeatureNames.contains("Compartment_Inheritance") &&
 							     framedFeatureNames.contains("Contains_Compartments")));
 					default: return false;
-			}	}	};
+			}	}
+			*/
+				};
 	
 	/**
 	 * class constructor		

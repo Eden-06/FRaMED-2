@@ -80,6 +80,7 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */	
+	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.ENTITIES_CATEGORY,
 		ViewVisibility.ALL_VIEWS) {
@@ -90,7 +91,13 @@ public class RoleGroupPattern extends FRaMEDShapePattern implements IPattern {
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Group_Constraints");
 					default: return false;
 		}	}	};
-	
+		*/
+		private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+				PaletteCategory.ENTITIES_CATEGORY,
+				ViewVisibility.ALL_VIEWS) {
+			
+		};
+		
 	/**
 	 * class constructor		
 	 */

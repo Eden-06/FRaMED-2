@@ -107,13 +107,16 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.ENTITIES_CATEGORY,
 		ViewVisibility.ALL_VIEWS) {
+		/*
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
 					case NON_COMPARTMENT_VIEW: return framedFeatureNames.contains("Compartment_Types");
 					case COMPARTMENT_VIEW: return framedFeatureNames.contains("Contains_Compartments");
 					default: return false;
-		}	}	};
+		}	}
+		*/
+			};
 	
 	/**
 	 * class constructor		

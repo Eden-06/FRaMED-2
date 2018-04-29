@@ -41,13 +41,18 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
+	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.CONSTRAINTS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
 				@Override
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Role_Equivalence");
-			}	};
+			}	};*/
+			
+			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+					PaletteCategory.CONSTRAINTS_CATEGORY,
+					ViewVisibility.ALL_VIEWS) {};
 			
 		
 	/**

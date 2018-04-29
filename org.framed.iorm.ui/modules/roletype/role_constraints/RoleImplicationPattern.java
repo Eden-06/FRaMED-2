@@ -41,6 +41,7 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
+	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.CONSTRAINTS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
@@ -48,6 +49,10 @@ public class RoleImplicationPattern extends AbstractRoleConstraintPattern {
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Role_Implication");
 			}	};
+			*/
+			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
+					PaletteCategory.CONSTRAINTS_CATEGORY,
+					ViewVisibility.ALL_VIEWS) {};
 	
 	/**
 	 * Class constructor
