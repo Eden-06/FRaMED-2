@@ -69,7 +69,7 @@ public class EditPolicyService {
 	{ 
 		//System.out.println("updating config for " + diagram.getName());
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
-		editPolicyHandlers.get(diagram.getName()).updateConfig(editpolicymodels, config);
+		EditPolicyService.getHandler(diagram).updateConfig(editpolicymodels, config);
 	}
 
 	/*
