@@ -73,7 +73,7 @@ public class FRaMEDDeleteConnectionFeature extends DefaultDeleteFeature {
 		//Step 1
 		Relation relation = (Relation) getBusinessObjectForPictogramElement(deleteContext.getPictogramElement());
 		for(FRaMEDConnectionPattern framedConnectionPattern :  connectionPatterns) {
-			if(relation.getType() == framedConnectionPattern.getModelType())
+			if(relation != null && framedConnectionPattern  != null && relation.getType() == framedConnectionPattern.getModelType())
 				framedConnectionPattern.delete(this, deleteContext);
 		}	
 		//Step 2

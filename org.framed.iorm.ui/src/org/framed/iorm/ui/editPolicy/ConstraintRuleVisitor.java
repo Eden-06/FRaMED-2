@@ -1,6 +1,9 @@
 package org.framed.iorm.ui.editPolicy;
 
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
+import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -16,6 +19,7 @@ import Editpolicymodel.FalseConstraintRule;
 import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsSourceType;
 import Editpolicymodel.IsStepIn;
+import Editpolicymodel.IsTargetType;
 import Editpolicymodel.NotConstraintRule;
 import Editpolicymodel.OrConstraintRule;
 import Editpolicymodel.SourceEqualsTarget;
@@ -80,19 +84,39 @@ public class ConstraintRuleVisitor {
 			return !this.isStepOut;
 		}
 		if(rule instanceof InCompartment) {
-			AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
-			ctx.getModelToLink().getParent();
+			org.framed.iorm.model.Shape parent = null;
+			if(this.context instanceof AddCompartmentTypeContext) {
+				AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
+				parent = ctx.getModelToLink().getParent();
+			} else if(this.context instanceof AddContext) {
+				AddContext  ctx = (AddContext) context;
+				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
+				if(contextDiagram.getName().startsWith("compartmentType"))
+					return true;
+				System.out.println("wrong diagram InCompartment(): " + contextDiagram.getName());
+				return false;
+			} else if(this.context instanceof CreateContext) {
+				CreateContext  ctx = (CreateContext) context;
+				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
+				if(contextDiagram.getName().startsWith("compartmentType"))
+					return true;
+				System.out.println("wrong diagram InCompartment(): " + contextDiagram.getName());
+				return false;
+			} else {
+				System.out.println("wrong context InCompartment(): " + this.context.getClass());
+				return false;
+			}
 
 			String parentDiagramName = null;
 			try {
-				parentDiagramName = ctx.getModelToLink().getParent().getContainer().getParent().getName();
+				parentDiagramName = parent.getContainer().getParent().getName();
 			} catch (Exception e) {}
 			Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
 			if(myDiagram == null)
 				return false;
-			//System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + ctx.getModelToLink().getParent().getName() +", " + ctx.getModelToLink().getParent().getName());
+			//System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + parent.getName() +", " + parent.getName());
 
-			if(myDiagram.getName().equals("compartmentType"))
+			if(myDiagram.getName().startsWith("compartmentType"))
 				return true;
 
 			return false;
@@ -119,8 +143,8 @@ public class ConstraintRuleVisitor {
 			return sourceEqualsTargetVisitor((SourceEqualsTarget)rule);
 		}
 		
-		if(rule instanceof IsSourceType) {
-			return isSourceTypeVisitor((IsSourceType)rule);
+		if(rule instanceof IsTargetType) {
+			return isTargetTypeVisitor((IsTargetType)rule);
 		}
 		
 		if(rule instanceof ContainsCompartment) {
@@ -138,7 +162,7 @@ public class ConstraintRuleVisitor {
 		System.out.println("checkRule for " + rule.getClass().toString() + " not implemented");
 		return true;
 	}
-	
+		
 	private boolean andRuleVisitor(AndConstraintRule rule) {
 		for(ConstraintRule abstractRule : rule.getRules()) {
 			if(!checkRule(abstractRule))
@@ -148,17 +172,23 @@ public class ConstraintRuleVisitor {
 	}
 	
 	private boolean isSourceTypeVisitor(IsSourceType rule) {
-		//System.out.println("class is: " + this.context.getClass());
-		try {
-			AddConnectionContext ctx = (AddConnectionContext) this.context;
-			Anchor sourceAnchor = ctx.getSourceAnchor();
-			ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
-			return rule.getType().getLiteral().equals(source.getType().getLiteral());
-		} catch(Exception e) {
-			System.out.println("failed isSourceType: " + e.getMessage());
+		Anchor sourceAnchor = this.getSourceAnchorFromContext(this.context);
+		if(sourceAnchor == null) {
+			System.out.println("failed isSourceType() sourceAnchor== null,  this.context: " + this.context.toString());
+			return false;
 		}
-		
-		return false;
+		ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+		return rule.getType().getLiteral().equals(source.getType().getLiteral());
+	}
+	
+	private boolean isTargetTypeVisitor(IsTargetType rule) {
+		Anchor anchor = this.getTargetAnchorFromContext(this.context);
+		if(anchor == null) {
+			System.out.println("failed isTargetType() anchor== null,  this.context: " + this.context.toString());
+			return false;
+		}
+		ModelElement source = UIUtil.getModelElementForAnchor(anchor);
+		return rule.getType().getLiteral().equals(source.getType().getLiteral());
 	}
 	
 	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
@@ -168,26 +198,51 @@ public class ConstraintRuleVisitor {
 	
 	private boolean sourceEqualsTargetVisitor(SourceEqualsTarget rule) {
 		//System.out.println("class is: " + this.context.getClass());
-		AddConnectionContext ctx = (AddConnectionContext) this.context;
-			Anchor sourceAnchor = ctx.getSourceAnchor();
-			ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
+		Anchor sourceAnchor = this.getSourceAnchorFromContext(this.context);
+		ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
 			
-			Anchor targetAnchor = ctx.getTargetAnchor();
-			ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
+		Anchor targetAnchor = this.getTargetAnchorFromContext(this.context);
+		ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
+		
+		if(targetAnchor == null || sourceAnchor == null)
+			return false;
 
-			System.out.println("sourceEqualsTargetVisitor comparison: " + source.hashCode()  + " == " + target.hashCode());
+		System.out.println("sourceEqualsTargetVisitor comparison: " + source.hashCode()  + " == " + target.hashCode());
 
-			return source.hashCode() == target.hashCode();		
+		return source.hashCode() == target.hashCode();		
 	}
 
+	private Anchor getSourceAnchorFromContext(Object context) {
+		Anchor sourceAnchor = null;
+		if(this.context instanceof AddConnectionContext) {
+			AddConnectionContext ctx = (AddConnectionContext) this.context;
+			sourceAnchor = ctx.getSourceAnchor();
+		} else if(this.context instanceof CreateConnectionContext) {
+			CreateConnectionContext ctx = (CreateConnectionContext) this.context;
+			sourceAnchor = ctx.getSourceAnchor();
+		}
+		return sourceAnchor;
+	}
+
+	private Anchor getTargetAnchorFromContext(Object context) {
+		Anchor anchor = null;
+		if(this.context instanceof AddConnectionContext) {
+			AddConnectionContext ctx = (AddConnectionContext) this.context;
+			anchor = ctx.getTargetAnchor();
+		} else if(this.context instanceof CreateConnectionContext) {
+			CreateConnectionContext ctx = (CreateConnectionContext) this.context;
+			anchor = ctx.getTargetAnchor();
+		}
+		return anchor;
+	}
+	
 	private boolean sourceEqualsTargetTypeVisitor(SourceEqualsTargetType rule) {
 		//System.out.println("class is: " + this.context.getClass());
 		try {
-			AddConnectionContext ctx = (AddConnectionContext) this.context;
-			Anchor sourceAnchor = ctx.getSourceAnchor();
+			Anchor sourceAnchor = this.getSourceAnchorFromContext(this.context);
 			ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
 			
-			Anchor targetAnchor = ctx.getTargetAnchor();
+			Anchor targetAnchor = this.getTargetAnchorFromContext(this.context);
 			ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
 
 			System.out.println("sourceEqualsTargetTypeVisitor comparison: " + source.getType().getLiteral()  + " == " + target.getType().getLiteral());

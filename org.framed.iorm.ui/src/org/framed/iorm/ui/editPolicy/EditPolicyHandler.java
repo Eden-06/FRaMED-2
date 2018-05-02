@@ -39,8 +39,9 @@ public class EditPolicyHandler {
 	}
 	
 	public void updateConfig(List<Editpolicymodel.Model> models, FRaMEDConfiguration config) {
+		System.out.println("updating Config: ");
 		//parse all editpolicies to create list with activated policies
-		//load all rules which are activated by current configuration
+		//load all constraints which are activated by current configuration
 		activatedPolicies = new LinkedList<>();
 
 		FeatureRuleVisitor featureRuleVisitor = new FeatureRuleVisitor(config); 
@@ -48,9 +49,12 @@ public class EditPolicyHandler {
 			for(Editpolicymodel.Policy policy : model.getPolicies()) {
 				if(featureRuleVisitor.checkRule(policy.getFeatureRule())) {
 					activatedPolicies.add(policy); 
+					System.out.println("policyAdded: " + policy.getFeatureRule().toString());
+
 				}
 			}
 		}
+		
 	}
 	
 	/**
@@ -61,6 +65,9 @@ public class EditPolicyHandler {
 	 */
 	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
 		List<ConstraintRule> rules = new LinkedList<>();
+		
+		if(type == null)
+			return rules;
 		
 		for(Policy policy: this.activatedPolicies) {
 			if(policy.getAction().getValue() == action.getValue() && policy.getActionType().getLiteral().equals(type.getLiteral()))
