@@ -27,10 +27,9 @@ Require-Bundle: org.framed.iorm.featuremodel;bundle-version="1.0.0",
  org.eclipse.core.resources;bundle-version="3.11.1";visibility:=reexport,
  org.eclipse.ui.workbench,
  org.eclipse.emf.ecore,
- org.framed.iorm.editpolicymodel;bundle-version="0.1.0"
+ org.framed.iorm.editpolicymodel;bundle-version="0.1.0",
+ org.eclipse.osgi
 Import-Package: org.eclipse.graphiti.features;version="0.13.2",
- org.framed.iorm.model,
- org.framed.iorm.model.provider,
  org.framed.iorm.transformation
 Bundle-ClassPath: src/,
  .

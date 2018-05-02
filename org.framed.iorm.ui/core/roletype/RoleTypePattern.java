@@ -1,5 +1,6 @@
 package roletype;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -30,6 +31,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.framed.iorm.featuremodel.FRaMEDConfiguration;
+import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.NamedElement;
 import org.framed.iorm.model.OrmFactory;
@@ -101,7 +104,7 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		ICON_IMG_ID = literals.ICON_IMG_ID;
 		ICON_IMG_PATH = literals.ICON_IMG_PATH;
 		modelType = Type.ROLE_TYPE;
-		FPD = spec_FPD;
+		FPD = spec_FPD;	
 	}
 	
 	/**
@@ -244,13 +247,14 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		//occurence costraint
 		Shape cardinalityShape = pictogramElementCreateService.createShape(containerShape, true);
 		Text cardinalityText = graphicAlgorithmService.createText(cardinalityShape, addedRoleType.getDescription().getName());
-		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));													
+		cardinalityText.setForeground(manageColor(literals.COLOR_TEXT));	
+		cardinalityShape.setVisible(occurrenceConstraintChosen());
 		graphicAlgorithmService.setLocationAndSize(cardinalityText, 
 			x+width/2-literals.HEIGHT_OCCURRENCE_CONSTRAINT/2, 
 			y-literals.HEIGHT_OCCURRENCE_CONSTRAINT-literals.PUFFER_BETWEEN_ELEMENTS, 
 			literals.WIDTH_OCCURRENCE_CONSTRAINT, 
 			literals.HEIGHT_OCCURRENCE_CONSTRAINT);
-			
+		
 		//body shape of type
 		ContainerShape typeBodyShape = pictogramElementCreateService.createContainerShape(containerShape, true);		
 		RoundedRectangle typeBodyRectangle = graphicAlgorithmService.createRoundedRectangle(typeBodyShape, literals.ROLE_CORNER_RADIUS, literals.ROLE_CORNER_RADIUS);
@@ -325,7 +329,25 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 		layoutPictogramElement(typeBodyShape);
 		updateContainingGroupingFeaturesObject();
 		return containerShape;
-	}	
+	}
+	
+	/**
+	 * calculates if the occurrence constraint feature is chosen when creating a role group
+	 * <p>
+	 * TODO: This should be modularized in a later stage of the development by separating the occurence constraint concern
+	 * from this pattern.
+	 * @return if the occurrence constraint feature is chosen when creating a role group
+	 */
+	private boolean occurrenceConstraintChosen() {
+		Diagram mainDiagram = UIUtil.getMainDiagramForAnyDiagram(getDiagram());    
+		Model mainModel = UIUtil.getLinkedModelForDiagram(mainDiagram);
+		FRaMEDConfiguration framedConfiguration = mainModel.getFramedConfiguration();
+		List<String> framedFeatureNames = new ArrayList<String>();
+		for(FRaMEDFeature framedFeature : framedConfiguration.getFeatures()) {
+			framedFeatureNames.add(framedFeature.getName().getLiteral());
+		}
+		return framedFeatureNames.contains("Occurrence_Constraints");
+	}
 	
 	//create feature
 	//~~~~~~~~~~~~~~

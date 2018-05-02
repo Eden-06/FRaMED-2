@@ -49,17 +49,15 @@ public class AttributePattern extends AttributeOperationCommonPattern implements
 		Object businessObject =  getBusinessObjectForPictogramElement(pictogramElement);
 		if(businessObject instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject; 
-			if(shape.getFirstSegment() != null && shape.getSecondSegment() !=null) {
-				if(util.usedInModelTypes(usedInReferences).contains(shape.getType())) {
-					boolean isShadowShape = false;
-					for(AbstractHasAttsAndOpsReference haaor : usedInReferences) {
-						if(UIUtil.isShape_IdValue((Shape) pictogramElement, haaor.getShadowShapeID()))
-							isShadowShape = true;
-					}
-					if(!isShadowShape) {
-						return EditPolicyService.getHandler(this.getDiagram()).canCreateAttribute(createContext, shape.getType());
-					}
-		}	}	}
+			if(util.usedInModelTypes(usedInReferences).contains(shape.getType())) {
+				boolean isShadowShape = false;
+				for(AbstractHasAttsAndOpsReference haaor : usedInReferences) {
+					if(UIUtil.isShape_IdValue((Shape) pictogramElement, haaor.getShadowShapeID()))
+						isShadowShape = true;
+				}
+				if(!isShadowShape)
+					return EditPolicyService.getHandler(this.getDiagram()).canCreateAttribute(createContext, shape.getType());
+		}	}
 		return false;
 	}
 
