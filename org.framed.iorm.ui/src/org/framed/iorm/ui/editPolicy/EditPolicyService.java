@@ -51,7 +51,6 @@ public class EditPolicyService {
 			return null;
 		}
 		Diagram diagram = UIUtil.getMainDiagramForAnyDiagram(diagram0);
-		//System.out.println("Diagrams: " + diagram.getName() + ", " + diagram0.getName());
 
 		if(!EditPolicyService.editPolicyHandlers.containsKey(diagram.getName())) { 
 			EditPolicyHandler handler = new EditPolicyHandler(diagram);
@@ -65,7 +64,6 @@ public class EditPolicyService {
 
 	public static void setConfiguration(Diagram diagram, FRaMEDConfiguration config) 
 	{ 
-		//System.out.println("updating config for " + diagram.getName());
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
 		EditPolicyService.getHandler(diagram).updateConfig(editpolicymodels, config);
 	}

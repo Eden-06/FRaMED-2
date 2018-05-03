@@ -47,6 +47,10 @@
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Start" actionType="Relationship">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Relationships"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies action="Add" actionType="Relationship">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Relationships"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
@@ -58,12 +62,9 @@
       <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
     </constraintRule>
   </policies>
-  <policies actionType="Fulfillment">
+  <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Naturals"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="NaturalType"/>
-      <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
-    </constraintRule>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="NaturalType"/>
   </policies>
   <policies action="Add" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature"/>
@@ -72,12 +73,9 @@
       <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
     </constraintRule>
   </policies>
-  <policies actionType="Fulfillment">
+  <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
-      <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
-    </constraintRule>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartments"/>
@@ -91,23 +89,15 @@
       </rules>
     </constraintRule>
   </policies>
-  <policies actionType="Fulfillment">
+  <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartments"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:AndConstraintRule">
-        <rules xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
-        <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
-      </rules>
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:SourceEqualsTarget"/>
-      </rules>
-    </constraintRule>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
   </policies>
   <policies action="Add" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
     <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
-  <policies actionType="Fulfillment">
+  <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
     <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
@@ -119,19 +109,11 @@
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies actionType="RelationshipExclusion">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
-  </policies>
   <policies action="Add" actionType="RelationshipImplication">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Start" actionType="RelationshipImplication">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies actionType="RelationshipImplication">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
@@ -151,6 +133,10 @@
       <rules xsi:type="Editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies action="Start" actionType="Inheritance">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
+  </policies>
   <policies action="Add" actionType="Inheritance">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
     <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
@@ -162,6 +148,10 @@
       </rules>
       <rules xsi:type="Editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Inheritance">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
   </policies>
   <policies action="Add" actionType="Inheritance">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
@@ -201,6 +191,10 @@
     <constraintRule xsi:type="Editpolicymodel:NotConstraintRule">
       <rule xsi:type="Editpolicymodel:InCompartment"/>
     </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Relationship">
+    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="Relationship">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
@@ -261,6 +255,10 @@
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies actionType="Fulfillment">
+    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartments"/>
     <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
@@ -276,9 +274,5 @@
   <policies action="Start" actionType="Fulfillment">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
     <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
-  </policies>
-  <policies action="Start" actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
 </Editpolicymodel:Model>

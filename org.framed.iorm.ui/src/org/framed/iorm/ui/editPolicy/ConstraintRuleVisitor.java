@@ -73,42 +73,7 @@ public class ConstraintRuleVisitor {
 	public boolean checkRule(ConstraintRule rule) 
 	{
 		if(rule instanceof InCompartment) {
-			org.framed.iorm.model.Shape parent = null;
-			if(this.context instanceof AddCompartmentTypeContext) {
-				AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
-				parent = ctx.getModelToLink().getParent();
-			} else if(this.context instanceof AddContext) {
-				AddContext  ctx = (AddContext) context;
-				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
-				if(contextDiagram.getName().startsWith("compartmentType"))
-					return true;
-				System.out.println("wrong diagram InCompartment(): " + contextDiagram.getName());
-				return false;
-			} else if(this.context instanceof CreateContext) {
-				CreateContext  ctx = (CreateContext) context;
-				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
-				if(contextDiagram.getName().startsWith("compartmentType"))
-					return true;
-				System.out.println("wrong diagram InCompartment(): " + contextDiagram.getName());
-				return false;
-			} else {
-				System.out.println("wrong context InCompartment(): " + this.context.getClass());
-				return false;
-			}
-
-			String parentDiagramName = null;
-			try {
-				parentDiagramName = parent.getContainer().getParent().getName();
-			} catch (Exception e) {}
-			Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
-			if(myDiagram == null)
-				return false;
-			//System.out.println("MYDIAGRAM: " + myDiagram.getName() + ", " + parent.getName() +", " + parent.getName());
-
-			if(myDiagram.getName().startsWith("compartmentType"))
-				return true;
-
-			return false;
+			return isInCompartmentRuleVisitor((InCompartment)rule);
 		}
 		
 		if (rule instanceof AndConstraintRule)
@@ -152,6 +117,40 @@ public class ConstraintRuleVisitor {
 		return true;
 	}
 		
+	private boolean isInCompartmentRuleVisitor(InCompartment rule) {
+		org.framed.iorm.model.Shape parent = null;
+		if(this.context instanceof AddCompartmentTypeContext) {
+			AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
+			parent = ctx.getModelToLink().getParent();
+		} else if(this.context instanceof AddContext) {
+			AddContext  ctx = (AddContext) context;
+			Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
+			if(contextDiagram.getName().startsWith("compartmentType"))
+				return true;
+		} else if(this.context instanceof CreateContext) {
+			CreateContext  ctx = (CreateContext) context;
+			Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
+			if(contextDiagram.getName().startsWith("compartmentType"))
+				return true;
+		}
+		if(parent == null) {
+			System.out.println("Parent null. Wrong context InCompartment(): " + this.context.getClass());
+			return false;
+		}
+
+		String parentDiagramName = null;
+		try {
+			parentDiagramName = parent.getContainer().getParent().getName();
+		} catch (Exception e) {}
+		Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
+		if(myDiagram == null)
+			return false;
+		if(myDiagram.getName().startsWith("compartmentType"))
+			return true;
+
+		return false;
+	}
+	
 	private boolean andRuleVisitor(AndConstraintRule rule) {
 		for(ConstraintRule abstractRule : rule.getRules()) {
 			if(!checkRule(abstractRule))
@@ -195,8 +194,6 @@ public class ConstraintRuleVisitor {
 		
 		if(targetAnchor == null || sourceAnchor == null)
 			return false;
-
-		System.out.println("sourceEqualsTargetVisitor comparison: " + source.hashCode()  + " == " + target.hashCode());
 
 		return source.hashCode() == target.hashCode();		
 	}

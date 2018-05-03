@@ -33,9 +33,7 @@ public class FeatureRuleVisitor {
 	}
 	
 	/**
-	 * dispatch abstract rule
-	 *
-	 * returns whether this.cmd is allowed according to @param rule
+	 * returns whether feature rule is active 
 	 *
 	 * @param rule
 	 * @return Boolean
@@ -79,7 +77,6 @@ public class FeatureRuleVisitor {
 		}
 		return false;
 	}
-	
 	
 	private boolean andRuleVisitor(AndFeatureRule rule) {
 		for(FeatureRule abstractRule : rule.getRules()) {
