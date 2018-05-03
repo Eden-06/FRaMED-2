@@ -115,6 +115,10 @@
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Start" actionType="RelationshipExclusion">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies actionType="RelationshipExclusion">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
@@ -123,9 +127,17 @@
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Start" actionType="RelationshipImplication">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies actionType="RelationshipImplication">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Inheritance">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
+    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="Inheritance">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
@@ -233,10 +245,6 @@
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
-  </policies>
   <policies actionType="NaturalType">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
@@ -245,11 +253,11 @@
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies actionType="RoleGroup">
+  <policies actionType="Inheritance">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies action="Start" actionType="Inheritance">
+  <policies actionType="RoleGroup">
     <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>

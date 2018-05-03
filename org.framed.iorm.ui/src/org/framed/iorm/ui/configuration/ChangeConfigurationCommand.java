@@ -4,6 +4,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.swt.widgets.TreeItem;
 import org.framed.iorm.ui.UILiterals;
+import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.subeditors.FRaMEDDiagramEditor;
 import org.framed.iorm.ui.subeditors.FRaMEDFeatureEditor;
 
@@ -74,6 +75,8 @@ public class ChangeConfigurationCommand extends Command {
 			ChangeConfigurationContext changeConfigurationContext = new ChangeConfigurationContext();
 			changeConfigurationContext.setBehaviorEditor(behaviorDiagramEditor);
 			changeConfigurationContext.setConfiguration(featureEditor.getConfiguration());
+			EditPolicyService.setDirty();
+
 			if(changeConfigurationFeature.canExecute(changeConfigurationContext)) {
 				//Step 4
 				changeConfigurationFeature.execute(changeConfigurationContext);

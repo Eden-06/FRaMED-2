@@ -28,7 +28,6 @@ import org.framed.iorm.ui.UIUtil;
  */
 public class EditPolicyService {
 
-
 	private static List<Editpolicymodel.Model> editpolicymodels;
 
 	/**
@@ -47,7 +46,6 @@ public class EditPolicyService {
 	
 	public static EditPolicyHandler getHandler(Diagram diagram0) 
 	{
-		
 		if(diagram0 == null) {
 			System.out.println("diagram in getHandler is null!");
 			return null;
@@ -136,6 +134,11 @@ public class EditPolicyService {
 		}
 	}
 
+	public static void setDirty() {
+		//empty handlers to reload config
+		EditPolicyService.editPolicyHandlers = new HashMap<>();
+	}
+	
 	/**
 	 * do SAT checking whether policies can be used together
 	 */
