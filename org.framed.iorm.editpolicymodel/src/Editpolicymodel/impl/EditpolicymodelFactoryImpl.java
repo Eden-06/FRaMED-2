@@ -60,7 +60,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 			case EditpolicymodelPackage.MODEL: return createModel();
 			case EditpolicymodelPackage.POLICY: return createPolicy();
 			case EditpolicymodelPackage.CONTAINS_COMPARTMENT: return createContainsCompartment();
-			case EditpolicymodelPackage.IS_STEP_IN: return createIsStepIn();
 			case EditpolicymodelPackage.IS_TARGET: return createIsTarget();
 			case EditpolicymodelPackage.IS_PARENT: return createIsParent();
 			case EditpolicymodelPackage.IS_FEATURE: return createIsFeature();
@@ -154,16 +153,6 @@ public class EditpolicymodelFactoryImpl extends EFactoryImpl implements Editpoli
 	public ContainsCompartment createContainsCompartment() {
 		ContainsCompartmentImpl containsCompartment = new ContainsCompartmentImpl();
 		return containsCompartment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IsStepIn createIsStepIn() {
-		IsStepInImpl isStepIn = new IsStepInImpl();
-		return isStepIn;
 	}
 
 	/**

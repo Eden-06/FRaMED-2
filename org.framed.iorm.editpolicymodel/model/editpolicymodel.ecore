@@ -18,7 +18,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContainsCompartment" eSuperTypes="#//ConstraintRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsStepIn" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsTarget" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="IsParent" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ActionEnum">

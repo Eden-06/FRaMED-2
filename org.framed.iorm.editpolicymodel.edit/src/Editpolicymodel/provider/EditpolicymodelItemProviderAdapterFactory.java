@@ -141,29 +141,6 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link Editpolicymodel.IsStepIn} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IsStepInItemProvider isStepInItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link Editpolicymodel.IsStepIn}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createIsStepInAdapter() {
-		if (isStepInItemProvider == null) {
-			isStepInItemProvider = new IsStepInItemProvider(this);
-		}
-
-		return isStepInItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link Editpolicymodel.IsTarget} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -771,7 +748,6 @@ public class EditpolicymodelItemProviderAdapterFactory extends EditpolicymodelAd
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (policyItemProvider != null) policyItemProvider.dispose();
 		if (containsCompartmentItemProvider != null) containsCompartmentItemProvider.dispose();
-		if (isStepInItemProvider != null) isStepInItemProvider.dispose();
 		if (isTargetItemProvider != null) isTargetItemProvider.dispose();
 		if (isParentItemProvider != null) isParentItemProvider.dispose();
 		if (isFeatureItemProvider != null) isFeatureItemProvider.dispose();

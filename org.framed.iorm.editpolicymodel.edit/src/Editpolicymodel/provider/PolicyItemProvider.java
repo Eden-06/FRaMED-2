@@ -278,11 +278,6 @@ public class PolicyItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
-				 EditpolicymodelFactory.eINSTANCE.createIsStepIn()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EditpolicymodelPackage.Literals.POLICY__CONSTRAINT_RULE,
 				 EditpolicymodelFactory.eINSTANCE.createIsTarget()));
 
 		newChildDescriptors.add

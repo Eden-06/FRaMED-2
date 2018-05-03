@@ -115,7 +115,15 @@
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies actionType="RelationshipExclusion">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies action="Add" actionType="RelationshipImplication">
+    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies actionType="RelationshipImplication">
     <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
   </policies>

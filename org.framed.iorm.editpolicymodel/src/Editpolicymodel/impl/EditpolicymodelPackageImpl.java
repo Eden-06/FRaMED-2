@@ -21,7 +21,6 @@ import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
 import Editpolicymodel.IsSourceType;
-import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTarget;
 import Editpolicymodel.IsTargetType;
 import Editpolicymodel.LogicalConstraintRule;
@@ -80,13 +79,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 * @generated
 	 */
 	private EClass containsCompartmentEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass isStepInEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -469,15 +461,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 	 */
 	public EClass getContainsCompartment() {
 		return containsCompartmentEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIsStepIn() {
-		return isStepInEClass;
 	}
 
 	/**
@@ -916,8 +899,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		containsCompartmentEClass = createEClass(CONTAINS_COMPARTMENT);
 
-		isStepInEClass = createEClass(IS_STEP_IN);
-
 		isTargetEClass = createEClass(IS_TARGET);
 
 		isParentEClass = createEClass(IS_PARENT);
@@ -1025,7 +1006,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 
 		// Add supertypes to classes
 		containsCompartmentEClass.getESuperTypes().add(this.getConstraintRule());
-		isStepInEClass.getESuperTypes().add(this.getConstraintRule());
 		isTargetEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isParentEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isFeatureEClass.getESuperTypes().add(this.getFeatureRule());
@@ -1068,8 +1048,6 @@ public class EditpolicymodelPackageImpl extends EPackageImpl implements Editpoli
 		initEReference(getPolicy_ConstraintRule(), this.getConstraintRule(), null, "constraintRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(containsCompartmentEClass, ContainsCompartment.class, "ContainsCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(isStepInEClass, IsStepIn.class, "IsStepIn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(isTargetEClass, IsTarget.class, "IsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

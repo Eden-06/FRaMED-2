@@ -127,62 +127,58 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class ConstraintRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ConstraintRule");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cStepInConstraintRuleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTrueConstraintRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cFalseConstraintRuleParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cContainsCompartmentConstrainRuleParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cIsTargetConstraintRuleParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cIsTargetTypeConstraintRuleParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cIsSourceTypeConstraintRuleParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cIsParentConstraintRuleParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cSourceEqualsTargetConstraintRuleParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cSourceEqualsTargetTypeConstraintRuleParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cInCompartmentConstraintRuleParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cTrueConstraintRuleParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cFalseConstraintRuleParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cContainsCompartmentConstrainRuleParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cIsTargetConstraintRuleParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cIsTargetTypeConstraintRuleParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cIsSourceTypeConstraintRuleParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cIsParentConstraintRuleParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cSourceEqualsTargetConstraintRuleParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cSourceEqualsTargetTypeConstraintRuleParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cInCompartmentConstraintRuleParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		
 		//// ----------------- Constraint Rules ------------------------------//
 		//ConstraintRule:
-		//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule |
-		//	IsTargetConstraintRule | IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-		//	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule;
+		//	TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule | IsTargetConstraintRule |
+		//	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+		//	SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule |
-		//IsTargetConstraintRule | IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-		//SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule
+		//TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule | IsTargetConstraintRule |
+		//IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+		//SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//StepInConstraintRule
-		public RuleCall getStepInConstraintRuleParserRuleCall_0() { return cStepInConstraintRuleParserRuleCall_0; }
-		
 		//TrueConstraintRule
-		public RuleCall getTrueConstraintRuleParserRuleCall_1() { return cTrueConstraintRuleParserRuleCall_1; }
+		public RuleCall getTrueConstraintRuleParserRuleCall_0() { return cTrueConstraintRuleParserRuleCall_0; }
 		
 		//FalseConstraintRule
-		public RuleCall getFalseConstraintRuleParserRuleCall_2() { return cFalseConstraintRuleParserRuleCall_2; }
+		public RuleCall getFalseConstraintRuleParserRuleCall_1() { return cFalseConstraintRuleParserRuleCall_1; }
 		
 		//ContainsCompartmentConstrainRule
-		public RuleCall getContainsCompartmentConstrainRuleParserRuleCall_3() { return cContainsCompartmentConstrainRuleParserRuleCall_3; }
+		public RuleCall getContainsCompartmentConstrainRuleParserRuleCall_2() { return cContainsCompartmentConstrainRuleParserRuleCall_2; }
 		
 		//IsTargetConstraintRule
-		public RuleCall getIsTargetConstraintRuleParserRuleCall_4() { return cIsTargetConstraintRuleParserRuleCall_4; }
+		public RuleCall getIsTargetConstraintRuleParserRuleCall_3() { return cIsTargetConstraintRuleParserRuleCall_3; }
 		
 		//IsTargetTypeConstraintRule
-		public RuleCall getIsTargetTypeConstraintRuleParserRuleCall_5() { return cIsTargetTypeConstraintRuleParserRuleCall_5; }
+		public RuleCall getIsTargetTypeConstraintRuleParserRuleCall_4() { return cIsTargetTypeConstraintRuleParserRuleCall_4; }
 		
 		//IsSourceTypeConstraintRule
-		public RuleCall getIsSourceTypeConstraintRuleParserRuleCall_6() { return cIsSourceTypeConstraintRuleParserRuleCall_6; }
+		public RuleCall getIsSourceTypeConstraintRuleParserRuleCall_5() { return cIsSourceTypeConstraintRuleParserRuleCall_5; }
 		
 		//IsParentConstraintRule
-		public RuleCall getIsParentConstraintRuleParserRuleCall_7() { return cIsParentConstraintRuleParserRuleCall_7; }
+		public RuleCall getIsParentConstraintRuleParserRuleCall_6() { return cIsParentConstraintRuleParserRuleCall_6; }
 		
 		//SourceEqualsTargetConstraintRule
-		public RuleCall getSourceEqualsTargetConstraintRuleParserRuleCall_8() { return cSourceEqualsTargetConstraintRuleParserRuleCall_8; }
+		public RuleCall getSourceEqualsTargetConstraintRuleParserRuleCall_7() { return cSourceEqualsTargetConstraintRuleParserRuleCall_7; }
 		
 		//SourceEqualsTargetTypeConstraintRule
-		public RuleCall getSourceEqualsTargetTypeConstraintRuleParserRuleCall_9() { return cSourceEqualsTargetTypeConstraintRuleParserRuleCall_9; }
+		public RuleCall getSourceEqualsTargetTypeConstraintRuleParserRuleCall_8() { return cSourceEqualsTargetTypeConstraintRuleParserRuleCall_8; }
 		
 		//InCompartmentConstraintRule
-		public RuleCall getInCompartmentConstraintRuleParserRuleCall_10() { return cInCompartmentConstraintRuleParserRuleCall_10; }
+		public RuleCall getInCompartmentConstraintRuleParserRuleCall_9() { return cInCompartmentConstraintRuleParserRuleCall_9; }
 	}
 	public class ContainsCompartmentConstrainRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.ContainsCompartmentConstrainRule");
@@ -350,33 +346,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
-	}
-	public class StepInConstraintRuleElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.StepInConstraintRule");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cIsStepInAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cIsStepInKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//StepInConstraintRule IsStepIn:
-		//	{IsStepIn} 'IsStepIn' '(' ')';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{IsStepIn} 'IsStepIn' '(' ')'
-		public Group getGroup() { return cGroup; }
-		
-		//{IsStepIn}
-		public Action getIsStepInAction_0() { return cIsStepInAction_0; }
-		
-		//'IsStepIn'
-		public Keyword getIsStepInKeyword_1() { return cIsStepInKeyword_1; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 	public class InCompartmentConstraintRuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.framed.iorm.editpolicydsl.Dsl.InCompartmentConstraintRule");
@@ -1559,7 +1528,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	private final IsParentConstraintRuleElements pIsParentConstraintRule;
 	private final IsSourceTypeConstraintRuleElements pIsSourceTypeConstraintRule;
 	private final IsTargetConstraintRuleElements pIsTargetConstraintRule;
-	private final StepInConstraintRuleElements pStepInConstraintRule;
 	private final InCompartmentConstraintRuleElements pInCompartmentConstraintRule;
 	private final SourceEqualsTargetConstraintRuleElements pSourceEqualsTargetConstraintRule;
 	private final SourceEqualsTargetTypeConstraintRuleElements pSourceEqualsTargetTypeConstraintRule;
@@ -1603,7 +1571,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIsParentConstraintRule = new IsParentConstraintRuleElements();
 		this.pIsSourceTypeConstraintRule = new IsSourceTypeConstraintRuleElements();
 		this.pIsTargetConstraintRule = new IsTargetConstraintRuleElements();
-		this.pStepInConstraintRule = new StepInConstraintRuleElements();
 		this.pInCompartmentConstraintRule = new InCompartmentConstraintRuleElements();
 		this.pSourceEqualsTargetConstraintRule = new SourceEqualsTargetConstraintRuleElements();
 		this.pSourceEqualsTargetTypeConstraintRule = new SourceEqualsTargetTypeConstraintRuleElements();
@@ -1722,9 +1689,9 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// ----------------- Constraint Rules ------------------------------//
 	//ConstraintRule:
-	//	StepInConstraintRule | TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule |
-	//	IsTargetConstraintRule | IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule |
-	//	SourceEqualsTargetConstraintRule | SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule;
+	//	TrueConstraintRule | FalseConstraintRule | ContainsCompartmentConstrainRule | IsTargetConstraintRule |
+	//	IsTargetTypeConstraintRule | IsSourceTypeConstraintRule | IsParentConstraintRule | SourceEqualsTargetConstraintRule |
+	//	SourceEqualsTargetTypeConstraintRule | InCompartmentConstraintRule;
 	public ConstraintRuleElements getConstraintRuleAccess() {
 		return pConstraintRule;
 	}
@@ -1781,16 +1748,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getIsTargetConstraintRuleRule() {
 		return getIsTargetConstraintRuleAccess().getRule();
-	}
-	
-	//StepInConstraintRule IsStepIn:
-	//	{IsStepIn} 'IsStepIn' '(' ')';
-	public StepInConstraintRuleElements getStepInConstraintRuleAccess() {
-		return pStepInConstraintRule;
-	}
-	
-	public ParserRule getStepInConstraintRuleRule() {
-		return getStepInConstraintRuleAccess().getRule();
 	}
 	
 	//InCompartmentConstraintRule InCompartment:

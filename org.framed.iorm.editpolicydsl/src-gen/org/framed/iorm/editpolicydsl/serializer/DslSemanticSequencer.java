@@ -15,7 +15,6 @@ import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsFeature;
 import Editpolicymodel.IsParent;
 import Editpolicymodel.IsSourceType;
-import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTarget;
 import Editpolicymodel.IsTargetType;
 import Editpolicymodel.Model;
@@ -87,9 +86,6 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EditpolicymodelPackage.IS_SOURCE_TYPE:
 				sequence_IsSourceTypeConstraintRule(context, (IsSourceType) semanticObject); 
-				return; 
-			case EditpolicymodelPackage.IS_STEP_IN:
-				sequence_StepInConstraintRule(context, (IsStepIn) semanticObject); 
 				return; 
 			case EditpolicymodelPackage.IS_TARGET:
 				sequence_IsTargetConstraintRule(context, (IsTarget) semanticObject); 
@@ -606,28 +602,6 @@ public class DslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     {SourceEqualsTargetType}
 	 */
 	protected void sequence_SourceEqualsTargetTypeConstraintRule(ISerializationContext context, SourceEqualsTargetType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ConstraintRule returns IsStepIn
-	 *     StepInConstraintRule returns IsStepIn
-	 *     ConstraintExpression returns IsStepIn
-	 *     ImplicationConstraint returns IsStepIn
-	 *     ImplicationConstraint.ImplicationConstraintRule_1_0 returns IsStepIn
-	 *     OrConstraint returns IsStepIn
-	 *     OrConstraint.OrConstraintRule_1_0 returns IsStepIn
-	 *     AndConstraint returns IsStepIn
-	 *     AndConstraint.AndConstraintRule_1_0 returns IsStepIn
-	 *     NotConstraintExpression returns IsStepIn
-	 *     PrimaryConstraint returns IsStepIn
-	 *
-	 * Constraint:
-	 *     {IsStepIn}
-	 */
-	protected void sequence_StepInConstraintRule(ISerializationContext context, IsStepIn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

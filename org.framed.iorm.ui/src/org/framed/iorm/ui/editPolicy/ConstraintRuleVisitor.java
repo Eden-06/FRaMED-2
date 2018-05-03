@@ -18,7 +18,6 @@ import Editpolicymodel.ContainsCompartment;
 import Editpolicymodel.FalseConstraintRule;
 import Editpolicymodel.InCompartment;
 import Editpolicymodel.IsSourceType;
-import Editpolicymodel.IsStepIn;
 import Editpolicymodel.IsTargetType;
 import Editpolicymodel.NotConstraintRule;
 import Editpolicymodel.OrConstraintRule;
@@ -39,20 +38,14 @@ public class ConstraintRuleVisitor {
 	 * command to check rules against
 	 */
 	private Object context;
-
-	/**
-	 * whether editor is in StepIn/StepOut-View
-	 */
-	private boolean isStepOut;
 	
 	@SuppressWarnings("unused")
 	private Type type;
 
 	private Diagram diagram;
 	
-	public ConstraintRuleVisitor(Object context, Type type, boolean isStepOut, Diagram diagram) {
+	public ConstraintRuleVisitor(Object context, Type type, Diagram diagram) {
 		this.context = context;
-		this.isStepOut = isStepOut;
 		this.type = type;
 		this.diagram = diagram;
 	}
@@ -79,10 +72,6 @@ public class ConstraintRuleVisitor {
 	 */
 	public boolean checkRule(ConstraintRule rule) 
 	{
-		if(rule instanceof IsStepIn) {
-			System.out.println("isStepInRule");
-			return !this.isStepOut;
-		}
 		if(rule instanceof InCompartment) {
 			org.framed.iorm.model.Shape parent = null;
 			if(this.context instanceof AddCompartmentTypeContext) {

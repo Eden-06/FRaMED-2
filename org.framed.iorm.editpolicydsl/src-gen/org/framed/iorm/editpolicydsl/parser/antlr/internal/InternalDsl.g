@@ -260,101 +260,92 @@ ruleConstraintRule returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getStepInConstraintRuleParserRuleCall_0());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getTrueConstraintRuleParserRuleCall_0());
 		}
-		this_StepInConstraintRule_0=ruleStepInConstraintRule
+		this_TrueConstraintRule_0=ruleTrueConstraintRule
 		{
-			$current = $this_StepInConstraintRule_0.current;
+			$current = $this_TrueConstraintRule_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getTrueConstraintRuleParserRuleCall_1());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getFalseConstraintRuleParserRuleCall_1());
 		}
-		this_TrueConstraintRule_1=ruleTrueConstraintRule
+		this_FalseConstraintRule_1=ruleFalseConstraintRule
 		{
-			$current = $this_TrueConstraintRule_1.current;
+			$current = $this_FalseConstraintRule_1.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getFalseConstraintRuleParserRuleCall_2());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getContainsCompartmentConstrainRuleParserRuleCall_2());
 		}
-		this_FalseConstraintRule_2=ruleFalseConstraintRule
+		this_ContainsCompartmentConstrainRule_2=ruleContainsCompartmentConstrainRule
 		{
-			$current = $this_FalseConstraintRule_2.current;
+			$current = $this_ContainsCompartmentConstrainRule_2.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getContainsCompartmentConstrainRuleParserRuleCall_3());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetConstraintRuleParserRuleCall_3());
 		}
-		this_ContainsCompartmentConstrainRule_3=ruleContainsCompartmentConstrainRule
+		this_IsTargetConstraintRule_3=ruleIsTargetConstraintRule
 		{
-			$current = $this_ContainsCompartmentConstrainRule_3.current;
+			$current = $this_IsTargetConstraintRule_3.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetConstraintRuleParserRuleCall_4());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetTypeConstraintRuleParserRuleCall_4());
 		}
-		this_IsTargetConstraintRule_4=ruleIsTargetConstraintRule
+		this_IsTargetTypeConstraintRule_4=ruleIsTargetTypeConstraintRule
 		{
-			$current = $this_IsTargetConstraintRule_4.current;
+			$current = $this_IsTargetTypeConstraintRule_4.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsTargetTypeConstraintRuleParserRuleCall_5());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceTypeConstraintRuleParserRuleCall_5());
 		}
-		this_IsTargetTypeConstraintRule_5=ruleIsTargetTypeConstraintRule
+		this_IsSourceTypeConstraintRule_5=ruleIsSourceTypeConstraintRule
 		{
-			$current = $this_IsTargetTypeConstraintRule_5.current;
+			$current = $this_IsSourceTypeConstraintRule_5.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsSourceTypeConstraintRuleParserRuleCall_6());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsParentConstraintRuleParserRuleCall_6());
 		}
-		this_IsSourceTypeConstraintRule_6=ruleIsSourceTypeConstraintRule
+		this_IsParentConstraintRule_6=ruleIsParentConstraintRule
 		{
-			$current = $this_IsSourceTypeConstraintRule_6.current;
+			$current = $this_IsParentConstraintRule_6.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getIsParentConstraintRuleParserRuleCall_7());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetConstraintRuleParserRuleCall_7());
 		}
-		this_IsParentConstraintRule_7=ruleIsParentConstraintRule
+		this_SourceEqualsTargetConstraintRule_7=ruleSourceEqualsTargetConstraintRule
 		{
-			$current = $this_IsParentConstraintRule_7.current;
+			$current = $this_SourceEqualsTargetConstraintRule_7.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetConstraintRuleParserRuleCall_8());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetTypeConstraintRuleParserRuleCall_8());
 		}
-		this_SourceEqualsTargetConstraintRule_8=ruleSourceEqualsTargetConstraintRule
+		this_SourceEqualsTargetTypeConstraintRule_8=ruleSourceEqualsTargetTypeConstraintRule
 		{
-			$current = $this_SourceEqualsTargetConstraintRule_8.current;
+			$current = $this_SourceEqualsTargetTypeConstraintRule_8.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getSourceEqualsTargetTypeConstraintRuleParserRuleCall_9());
+			newCompositeNode(grammarAccess.getConstraintRuleAccess().getInCompartmentConstraintRuleParserRuleCall_9());
 		}
-		this_SourceEqualsTargetTypeConstraintRule_9=ruleSourceEqualsTargetTypeConstraintRule
+		this_InCompartmentConstraintRule_9=ruleInCompartmentConstraintRule
 		{
-			$current = $this_SourceEqualsTargetTypeConstraintRule_9.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getConstraintRuleAccess().getInCompartmentConstraintRuleParserRuleCall_10());
-		}
-		this_InCompartmentConstraintRule_10=ruleInCompartmentConstraintRule
-		{
-			$current = $this_InCompartmentConstraintRule_10.current;
+			$current = $this_InCompartmentConstraintRule_9.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -622,44 +613,6 @@ ruleIsTargetConstraintRule returns [EObject current=null]
 		otherlv_4=')'
 		{
 			newLeafNode(otherlv_4, grammarAccess.getIsTargetConstraintRuleAccess().getRightParenthesisKeyword_4());
-		}
-	)
-;
-
-// Entry rule entryRuleStepInConstraintRule
-entryRuleStepInConstraintRule returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getStepInConstraintRuleRule()); }
-	iv_ruleStepInConstraintRule=ruleStepInConstraintRule
-	{ $current=$iv_ruleStepInConstraintRule.current; }
-	EOF;
-
-// Rule StepInConstraintRule
-ruleStepInConstraintRule returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getStepInConstraintRuleAccess().getIsStepInAction_0(),
-					$current);
-			}
-		)
-		otherlv_1='IsStepIn'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getStepInConstraintRuleAccess().getIsStepInKeyword_1());
-		}
-		otherlv_2='('
-		{
-			newLeafNode(otherlv_2, grammarAccess.getStepInConstraintRuleAccess().getLeftParenthesisKeyword_2());
-		}
-		otherlv_3=')'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getStepInConstraintRuleAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;

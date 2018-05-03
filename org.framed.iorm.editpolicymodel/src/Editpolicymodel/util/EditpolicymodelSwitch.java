@@ -85,13 +85,6 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EditpolicymodelPackage.IS_STEP_IN: {
-				IsStepIn isStepIn = (IsStepIn)theEObject;
-				T result = caseIsStepIn(isStepIn);
-				if (result == null) result = caseConstraintRule(isStepIn);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case EditpolicymodelPackage.IS_TARGET: {
 				IsTarget isTarget = (IsTarget)theEObject;
 				T result = caseIsTarget(isTarget);
@@ -383,21 +376,6 @@ public class EditpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseContainsCompartment(ContainsCompartment object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Step In</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Step In</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIsStepIn(IsStepIn object) {
 		return null;
 	}
 

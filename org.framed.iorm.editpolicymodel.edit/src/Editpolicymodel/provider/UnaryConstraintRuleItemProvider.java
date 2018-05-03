@@ -130,11 +130,6 @@ public class UnaryConstraintRuleItemProvider extends LogicalConstraintRuleItemPr
 		newChildDescriptors.add
 			(createChildParameter
 				(EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE,
-				 EditpolicymodelFactory.eINSTANCE.createIsStepIn()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EditpolicymodelPackage.Literals.UNARY_CONSTRAINT_RULE__RULE,
 				 EditpolicymodelFactory.eINSTANCE.createIsTarget()));
 
 		newChildDescriptors.add

@@ -49,15 +49,6 @@ public interface EditpolicymodelFactory extends EFactory {
 	ContainsCompartment createContainsCompartment();
 
 	/**
-	 * Returns a new object of class '<em>Is Step In</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Step In</em>'.
-	 * @generated
-	 */
-	IsStepIn createIsStepIn();
-
-	/**
 	 * Returns a new object of class '<em>Is Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

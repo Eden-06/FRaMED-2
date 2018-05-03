@@ -80,10 +80,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createContainsCompartmentAdapter();
 			}
 			@Override
-			public Adapter caseIsStepIn(IsStepIn object) {
-				return createIsStepInAdapter();
-			}
-			@Override
 			public Adapter caseIsTarget(IsTarget object) {
 				return createIsTargetAdapter();
 			}
@@ -266,20 +262,6 @@ public class EditpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createContainsCompartmentAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link Editpolicymodel.IsStepIn <em>Is Step In</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see Editpolicymodel.IsStepIn
-	 * @generated
-	 */
-	public Adapter createIsStepInAdapter() {
 		return null;
 	}
 

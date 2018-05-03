@@ -48,7 +48,6 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIsParentConstraintRuleAccess().getGroup(), "rule__IsParentConstraintRule__Group__0");
 					put(grammarAccess.getIsSourceTypeConstraintRuleAccess().getGroup(), "rule__IsSourceTypeConstraintRule__Group__0");
 					put(grammarAccess.getIsTargetConstraintRuleAccess().getGroup(), "rule__IsTargetConstraintRule__Group__0");
-					put(grammarAccess.getStepInConstraintRuleAccess().getGroup(), "rule__StepInConstraintRule__Group__0");
 					put(grammarAccess.getInCompartmentConstraintRuleAccess().getGroup(), "rule__InCompartmentConstraintRule__Group__0");
 					put(grammarAccess.getSourceEqualsTargetConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetConstraintRule__Group__0");
 					put(grammarAccess.getSourceEqualsTargetTypeConstraintRuleAccess().getGroup(), "rule__SourceEqualsTargetTypeConstraintRule__Group__0");

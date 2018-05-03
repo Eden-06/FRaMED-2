@@ -112,7 +112,7 @@ public class EditPolicyHandler {
 	
 	private boolean checkConstraints(List<ConstraintRule> constraints, Object context, Type type)
 	{
-		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, type, false, this.diagram);
+		ConstraintRuleVisitor constraintVisitor = new ConstraintRuleVisitor(context, type, this.diagram);
 		for(ConstraintRule constraintRule: constraints) {
 			if(constraintVisitor.checkRule(constraintRule))
 				return true;
