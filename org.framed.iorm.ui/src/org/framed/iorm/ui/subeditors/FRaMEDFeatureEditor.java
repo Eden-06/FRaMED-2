@@ -176,9 +176,6 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * @param featureModel the feature model to instantiate the configuration with
 	 */
 	private void loadConfiguration(Model rootModel, IFeatureModel featureModel) {
-		if(rootModel == null) {
-			return;
-		}
 	    FRaMEDConfiguration framedConfiguration = rootModel.getFramedConfiguration();
 	    configuration = new Configuration(featureModel);
 	    configuration.getPropagator().update();
@@ -280,8 +277,6 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * updates the labels text and color if the configuration is valid or not
 	 */
 	 private void updateInfoLabel() {
-		 if(configuration == null)
-			 return;
 		 Boolean valid = configuration.isValid();
 		 infoLabel.setText(valid ? "VALID Configuration" : "INVALID Configuration");
 		 infoLabel.setForeground(valid ? COLOR_VALID_CONFIGURATION : COLOR_INVALID_CONFIGURATION);
@@ -293,8 +288,6 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	private void updateTree() {
 	    tree.removeAll();
 	    final TreeItem root = new TreeItem(tree, 0);
-	    if(configuration == null)
-	    	return;
 	    final SelectableFeature rootFeature = configuration.getRoot();
 		root.setText(configuration.getRoot().getName());
 	    root.setData(configuration.getRoot());
