@@ -34,7 +34,6 @@ public class EditPolicyService {
 	 * For every diagram one editpolicyHandler
 	 */
 	private static Map<String, EditPolicyHandler> editPolicyHandlers;
-
 	
 	public static void initEditPolicyService() {
 		EditPolicyService.editpolicymodels = new LinkedList<>();

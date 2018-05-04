@@ -60,6 +60,8 @@ public class EditPolicyHandler {
 	 * @return
 	 */
 	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
+		System.out.println("Action: " + action.toString() + ", Type: " + type.toString());
+
 		List<ConstraintRule> rules = new LinkedList<>();
 		
 		if(type == null)
