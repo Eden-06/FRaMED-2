@@ -134,7 +134,7 @@ public class ConstraintRuleVisitor {
 				return true;
 		}
 		if(parent == null) {
-			System.out.println("Parent null. Wrong context InCompartment(): " + this.context.getClass());
+			//System.out.println("Parent null. Wrong context InCompartment(): " + this.context.getClass());
 			return false;
 		}
 
