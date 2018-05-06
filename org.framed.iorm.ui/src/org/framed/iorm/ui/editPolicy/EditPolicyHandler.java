@@ -64,9 +64,6 @@ public class EditPolicyHandler {
 
 		List<ConstraintRule> rules = new LinkedList<>();
 		
-		if(type == null)
-			return rules;
-		
 		for(Policy policy: this.activatedPolicies) {
 			if(policy.getAction().getValue() == action.getValue() && policy.getActionType().getLiteral().equals(type.getLiteral()))
 				rules.add(policy.getConstraintRule());
