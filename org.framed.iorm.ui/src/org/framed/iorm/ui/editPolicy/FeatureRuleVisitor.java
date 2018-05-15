@@ -6,13 +6,13 @@ import java.util.List;
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.featuremodel.FRaMEDFeature;
 
-import Editpolicymodel.AndFeatureRule;
-import Editpolicymodel.FalseFeatureRule;
-import Editpolicymodel.FeatureRule;
-import Editpolicymodel.IsFeature;
-import Editpolicymodel.NotFeatureRule;
-import Editpolicymodel.OrFeatureRule;
-import Editpolicymodel.TrueFeatureRule;
+import editpolicymodel.AndFeatureRule;
+import editpolicymodel.FalseFeatureRule;
+import editpolicymodel.FeatureRule;
+import editpolicymodel.IsFeature;
+import editpolicymodel.NotFeatureRule;
+import editpolicymodel.OrFeatureRule;
+import editpolicymodel.TrueFeatureRule;
 
 /**
  * This class provides the rule-parse for the editPolicy-Mapping-configuration. Using VisitorPattern

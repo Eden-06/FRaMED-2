@@ -13,12 +13,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.framed.iorm.featuremodel;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: Editpolicymodel;
+Export-Package: editpolicymodel;
   uses:="org.eclipse.emf.ecore,
    iorm,
    iorm.featuremodel,
    org.eclipse.emf.common.util",
- Editpolicymodel.impl;
+ editpolicymodel.impl;
   uses:="org.eclipse.emf.ecore,
    org.eclipse.emf.ecore.impl,
    iorm,
@@ -26,11 +26,14 @@ Export-Package: Editpolicymodel;
    org.eclipse.emf.common.util,
    Editpolicymodel,
    org.eclipse.emf.common.notify",
- Editpolicymodel.util;
+ editpolicymodel.util;
   uses:="org.eclipse.emf.ecore,
-   Editpolicymodel,
+   editpolicymodel,
    org.eclipse.emf.common.notify,
    org.eclipse.emf.common.notify.impl,
-   org.eclipse.emf.ecore.util"
+   org.eclipse.emf.ecore.util",
+ editpolicymodel,
+ editpolicymodel.impl,
+ editpolicymodel.util
 Import-Package: org.framed.iorm.model
 
