@@ -101,8 +101,9 @@ public class EditPolicyHandler {
 	}
 	
 	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
-		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
-		return this.checkConstraints(constraints, context, type);
+		return true;
+		//List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
+		//return this.checkConstraints(constraints, context, type);
 	}
 	
 	private boolean checkConstraints(List<ConstraintRule> constraints, Object context, Type type)
