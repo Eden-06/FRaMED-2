@@ -12,9 +12,9 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
-import Editpolicymodel.ActionEnum;
-import Editpolicymodel.ConstraintRule;
-import Editpolicymodel.Policy;
+import editpolicymodel.ActionEnum;
+import editpolicymodel.ConstraintRule;
+import editpolicymodel.Policy;
 
 import org.framed.iorm.featuremodel.FRaMEDConfiguration;
 import org.framed.iorm.model.*;
@@ -29,7 +29,7 @@ public class EditPolicyHandler {
 	/**
 	 *  a list with activated policies
 	 */
-	private List<Editpolicymodel.Policy> activatedPolicies;
+	private List<editpolicymodel.Policy> activatedPolicies;
 	
 	private Diagram diagram;
 	
@@ -38,14 +38,14 @@ public class EditPolicyHandler {
 		this.diagram = diagram;
 	}
 	
-	public void updateConfig(List<Editpolicymodel.Model> models, FRaMEDConfiguration config) {
+	public void updateConfig(List<editpolicymodel.Model> models, FRaMEDConfiguration config) {
 		//parse all editpolicies to create list with activated policies
 		//load all constraints which are activated by current configuration
 		activatedPolicies = new LinkedList<>();
 
 		FeatureRuleVisitor featureRuleVisitor = new FeatureRuleVisitor(config); 
-		for(Editpolicymodel.Model model : models) {
-			for(Editpolicymodel.Policy policy : model.getPolicies()) {
+		for(editpolicymodel.Model model : models) {
+			for(editpolicymodel.Policy policy : model.getPolicies()) {
 				if(featureRuleVisitor.checkRule(policy.getFeatureRule())) {
 					activatedPolicies.add(policy); 
 				}
@@ -101,8 +101,9 @@ public class EditPolicyHandler {
 	}
 	
 	public boolean canDirectEdit(IDirectEditingContext context, Type type) {
-		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
-		return this.checkConstraints(constraints, context, type);
+		return true;
+		//List<ConstraintRule> constraints = this.getConstraints(ActionEnum.DIRECT_EDIT, type);
+		//return this.checkConstraints(constraints, context, type);
 	}
 	
 	private boolean checkConstraints(List<ConstraintRule> constraints, Object context, Type type)

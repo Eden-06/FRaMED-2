@@ -12,18 +12,18 @@ import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
-import Editpolicymodel.AndConstraintRule;
-import Editpolicymodel.ConstraintRule;
-import Editpolicymodel.ContainsCompartment;
-import Editpolicymodel.FalseConstraintRule;
-import Editpolicymodel.InCompartment;
-import Editpolicymodel.IsSourceType;
-import Editpolicymodel.IsTargetType;
-import Editpolicymodel.NotConstraintRule;
-import Editpolicymodel.OrConstraintRule;
-import Editpolicymodel.SourceEqualsTarget;
-import Editpolicymodel.SourceEqualsTargetType;
-import Editpolicymodel.TrueConstraintRule;
+import editpolicymodel.AndConstraintRule;
+import editpolicymodel.ConstraintRule;
+import editpolicymodel.ContainsCompartment;
+import editpolicymodel.FalseConstraintRule;
+import editpolicymodel.InCompartment;
+import editpolicymodel.IsSourceType;
+import editpolicymodel.IsTargetType;
+import editpolicymodel.NotConstraintRule;
+import editpolicymodel.OrConstraintRule;
+import editpolicymodel.SourceEqualsTarget;
+import editpolicymodel.SourceEqualsTargetType;
+import editpolicymodel.TrueConstraintRule;
 import compartment.AddCompartmentTypeContext;
 
 /**
@@ -129,9 +129,11 @@ public class ConstraintRuleVisitor {
 				return true;
 		} else if(this.context instanceof CreateContext) {
 			CreateContext  ctx = (CreateContext) context;
-			Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
-			if(contextDiagram.getName().startsWith("compartmentType"))
-				return true;
+			if(ctx.getTargetContainer() instanceof Diagram) {
+				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
+				if(contextDiagram.getName().startsWith("compartmentType"))
+					return true;
+			}	
 		}
 		if(parent == null) {
 			//System.out.println("Parent null. Wrong context InCompartment(): " + this.context.getClass());

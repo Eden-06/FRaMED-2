@@ -1,281 +1,297 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Editpolicymodel="http://framed/editpolicymodel">
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
   <policies action="Start" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
   </policies>
   <policies action="Add" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
-      <rules xsi:type="Editpolicymodel:SourceEqualsTarget"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTarget"/>
     </constraintRule>
   </policies>
   <policies action="Add" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
   </policies>
   <policies actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
   </policies>
   <policies action="Create_Property" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Properties"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Create_Attribute" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Properties"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Create_Operation" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Behavior"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Behavior"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add_Property" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Create_Property" actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Properties"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Create_Attribute" actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Properties"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Create_Operation" actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Behavior"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Behavior"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add_Property" actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Start" actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Relationships"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Relationships"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add" actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Relationships"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Relationships"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies action="Add" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Naturals"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="NaturalType"/>
-      <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
+  <policies action="Start" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+  </policies>
+  <policies action="Add" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
     </constraintRule>
-  </policies>
-  <policies action="Start" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Naturals"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="NaturalType"/>
-  </policies>
-  <policies action="Add" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
-      <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
-    </constraintRule>
-  </policies>
-  <policies action="Start" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
-  </policies>
-  <policies action="Add" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartments"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:AndConstraintRule">
-        <rules xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
-        <rules xsi:type="Editpolicymodel:IsTargetType" type="CompartmentType"/>
-      </rules>
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:SourceEqualsTarget"/>
-      </rules>
-    </constraintRule>
-  </policies>
-  <policies action="Start" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartments"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
-  </policies>
-  <policies action="Add" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
-  </policies>
-  <policies action="Start" actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
   <policies action="Add" actionType="RelationshipExclusion">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Start" actionType="RelationshipExclusion">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add" actionType="RelationshipImplication">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Start" actionType="RelationshipImplication">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+      <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Dates"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Dates"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
   <policies action="Start" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:AndConstraintRule">
-        <rules xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
-        <rules xsi:type="Editpolicymodel:NotConstraintRule">
-          <rule xsi:type="Editpolicymodel:SourceEqualsTarget"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
         </rules>
       </rules>
-      <rules xsi:type="Editpolicymodel:SourceEqualsTargetType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
   <policies action="Start" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
   <policies action="Add" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:AndConstraintRule">
-        <rules xsi:type="Editpolicymodel:IsSourceType" type="DataType"/>
-        <rules xsi:type="Editpolicymodel:NotConstraintRule">
-          <rule xsi:type="Editpolicymodel:SourceEqualsTarget"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
         </rules>
       </rules>
-      <rules xsi:type="Editpolicymodel:SourceEqualsTargetType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
   <policies action="Start" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
   </policies>
   <policies action="Add" actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:AndConstraintRule">
-        <rules xsi:type="Editpolicymodel:IsSourceType" type="CompartmentType"/>
-        <rules xsi:type="Editpolicymodel:NotConstraintRule">
-          <rule xsi:type="Editpolicymodel:SourceEqualsTarget"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
         </rules>
       </rules>
-      <rules xsi:type="Editpolicymodel:SourceEqualsTargetType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
-  </policies>
-  <policies action="Add" actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
-  </policies>
-  <policies actionType="RoleType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
   </policies>
   <policies action="Add" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:NotFeatureRule">
-      <rule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    <featureRule xsi:type="editpolicymodel:NotFeatureRule">
+      <rule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     </featureRule>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:InCompartment"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:InCompartment"/>
       </rules>
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:ContainsCompartment"/>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:ContainsCompartment"/>
       </rules>
     </constraintRule>
   </policies>
   <policies actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:NotFeatureRule">
-      <rule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    <featureRule xsi:type="editpolicymodel:NotFeatureRule">
+      <rule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     </featureRule>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:InCompartment"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:InCompartment"/>
       </rules>
-      <rules xsi:type="Editpolicymodel:NotConstraintRule">
-        <rule xsi:type="Editpolicymodel:ContainsCompartment"/>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:ContainsCompartment"/>
       </rules>
     </constraintRule>
   </policies>
   <policies action="Add" actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Types"/>
-    <constraintRule xsi:type="Editpolicymodel:NotConstraintRule">
-      <rule xsi:type="Editpolicymodel:InCompartment"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    <constraintRule xsi:type="editpolicymodel:NotConstraintRule">
+      <rule xsi:type="editpolicymodel:InCompartment"/>
     </constraintRule>
   </policies>
   <policies actionType="CompartmentType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Compartment_Types"/>
-    <constraintRule xsi:type="Editpolicymodel:NotConstraintRule">
-      <rule xsi:type="Editpolicymodel:InCompartment"/>
-    </constraintRule>
-  </policies>
-  <policies action="Start" actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
-  </policies>
-  <policies action="Add" actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:AndConstraintRule">
-      <rules xsi:type="Editpolicymodel:IsTargetType" type="RoleType"/>
-      <rules xsi:type="Editpolicymodel:IsSourceType" type="RoleType"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    <constraintRule xsi:type="editpolicymodel:NotConstraintRule">
+      <rule xsi:type="editpolicymodel:InCompartment"/>
     </constraintRule>
   </policies>
   <policies action="Add" actionType="DataType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Types"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="DataType">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Dates"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Types"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add" actionType="RoleGroup">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Group_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
   </policies>
   <policies actionType="RoleGroup">
-    <featureRule xsi:type="Editpolicymodel:IsFeature" featureName="Group_Constraints"/>
-    <constraintRule xsi:type="Editpolicymodel:InCompartment"/>
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
+  </policies>
+  <policies action="Add" actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
+  </policies>
+  <policies actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:InCompartment"/>
   </policies>
   <policies action="Add" actionType="NaturalType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies action="Add" actionType="Group">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="NaturalType">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="Group">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="RelationshipExclusion">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="RelationshipImplication">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="Inheritance">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="Fulfillment">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
   <policies actionType="Relationship">
-    <featureRule xsi:type="Editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="Editpolicymodel:TrueConstraintRule"/>
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
-</Editpolicymodel:Model>
+  <policies action="Execute" actionType="CompartmentType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Execute" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Execute" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Execute" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+</editpolicymodel:Model>

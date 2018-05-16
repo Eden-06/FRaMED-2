@@ -10,7 +10,7 @@
       <!-- @generated editpolicymodel -->
       <package
             uri="http://framed/editpolicymodel"
-            class="Editpolicymodel.EditpolicymodelPackage"
+            class="editpolicymodel.editpolicymodelPackage"
             genModel="model/editpolicymodel.genmodel"/>
    </extension>
 

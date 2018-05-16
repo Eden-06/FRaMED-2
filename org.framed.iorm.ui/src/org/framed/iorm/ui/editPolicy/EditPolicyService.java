@@ -28,7 +28,7 @@ import org.framed.iorm.ui.UIUtil;
  */
 public class EditPolicyService {
 
-	private static List<Editpolicymodel.Model> editpolicymodels;
+	private static List<editpolicymodel.Model> editpolicymodels;
 
 	/**
 	 * For every diagram one editpolicyHandler
@@ -77,9 +77,9 @@ public class EditPolicyService {
 			ResourceSet set = new ResourceSetImpl();
 			Resource res = set.createResource(URI.createURI(filename));
 			res.load(Collections.EMPTY_MAP);
-			if (res.getContents().size() > 0 && res.getContents().get(0) instanceof Editpolicymodel.Model) {
+			if (res.getContents().size() > 0 && res.getContents().get(0) instanceof editpolicymodel.Model) {
 
-				EditPolicyService.editpolicymodels.add((Editpolicymodel.Model) res.getContents().get(0));
+				EditPolicyService.editpolicymodels.add((editpolicymodel.Model) res.getContents().get(0));
 			} else {
 				System.err.println("Was not able to load xmi: \"" + filename + "\" due : null");
 			}
