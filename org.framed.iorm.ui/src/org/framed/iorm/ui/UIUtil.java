@@ -693,8 +693,9 @@ public class UIUtil {
 	 */
 	public static boolean packageMarkedAsNotUsed(String classURL, String sourceFolder) {
 		classURL = classURL.substring(classURL.indexOf(sourceFolder) + sourceFolder.length()); 
-		classURL = classURL.substring(0, classURL.indexOf("/"));
-		if(classURL.startsWith("_") && classURL.endsWith("_")) return true;
+		if (classURL.indexOf("/")>-1)
+			classURL = classURL.substring(0, classURL.indexOf("/"));
+		if(classURL.startsWith("_")) return true;
 		return false;
 	}
 	

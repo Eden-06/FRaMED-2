@@ -90,20 +90,6 @@ public class EditPolicyService {
 		}
 	}
 
-	/**
-	 * checks if the package part of a file url starts and ends with an _
-	 * 
-	 * @param url
-	 *            the string url to check against
-	 * @param sourceFolder
-	 *            the source folder in which the class is located in
-	 * @return if the package part of a class url starts and ends with an _
-	 */
-	private static boolean isPackageMarkedAsNotUsed(String url) {
-		url = url.substring(url.lastIndexOf('/')+1, url.length());
-		return url.startsWith("_") && url.endsWith("_");
-	}
-
 	private static void loadAllFiles() {
 		Bundle UIBundle = Platform.getBundle("org.framed.iorm.ui");
 
@@ -117,14 +103,14 @@ public class EditPolicyService {
 
 		if (moduleFileURLs != null) {
 			for (URL url : moduleFileURLs) {
-				if (!isPackageMarkedAsNotUsed(url.toString())) {
+				if (!UIUtil.packageMarkedAsNotUsed(url.toString(), "modules/")) {
 					loadEditPolicyFile(url.toString());
 				}
 			}
 		}
 		if (coreFileURLs != null) {
 			for (URL url : coreFileURLs) {
-				if (!isPackageMarkedAsNotUsed(url.toString())) {
+				if (!UIUtil.packageMarkedAsNotUsed(url.toString(), "core/")) {
 					loadEditPolicyFile(url.toString());
 				}
 			}

@@ -154,7 +154,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 	public boolean packageMarkedAsNotUsed(String url, String sourceFolder) {
 		url = url.substring(url.indexOf(sourceFolder) + sourceFolder.length()); 
 		url = url.substring(0, url.indexOf("/"));
-		if(url.startsWith("_") && url.endsWith("_")) return true;
+		if(url.startsWith("_")) return true;
 		return false;
 	}
 	
@@ -167,7 +167,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 	public boolean packageETLFilesMarkedAsNotUsed(String url, String sourceFolder) {
 		url = url.substring(url.indexOf(sourceFolder) + sourceFolder.length()); 
 		url = url.substring(url.indexOf("/")+1, url.indexOf(".etl"));
-		if(url.startsWith("_") && url.endsWith("_")) return true;
+		if(url.startsWith("_")) return true;
 		return false;
 	}
 	
