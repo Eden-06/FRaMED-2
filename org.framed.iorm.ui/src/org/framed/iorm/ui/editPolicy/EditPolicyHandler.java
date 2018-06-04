@@ -47,6 +47,9 @@ public class EditPolicyHandler {
 		for(editpolicymodel.Model model : models) {
 			for(editpolicymodel.Policy policy : model.getPolicies()) {
 				if(featureRuleVisitor.checkRule(policy.getFeatureRule())) {
+					if(policy.getOverride()) {
+						throw new RuntimeException("Override is not supported");
+					}
 					activatedPolicies.add(policy); 
 				}
 			}

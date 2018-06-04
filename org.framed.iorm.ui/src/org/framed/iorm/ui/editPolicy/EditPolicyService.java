@@ -61,7 +61,7 @@ public class EditPolicyService {
 		return EditPolicyService.editPolicyHandlers.get(diagram.getName());
 	}
 
-	public static void setConfiguration(Diagram diagram, FRaMEDConfiguration config) 
+	public static void setConfiguration(Diagram diagram, FRaMEDConfiguration config)
 	{ 
 		diagram = UIUtil.getMainDiagramForAnyDiagram(diagram);
 		EditPolicyService.getHandler(diagram).updateConfig(editpolicymodels, config);
