@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
@@ -83,7 +84,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 		URL epsilonFolderURL = TransformationBundle.getEntry("epsilon");
 		File epsilonFolder = null;
 		try {
-			epsilonFolder = new File(FileLocator.resolve(epsilonFolderURL).toURI());
+			epsilonFolder = new File(resolveURL(FileLocator.resolve(epsilonFolderURL)));
 		} catch (URISyntaxException | IOException e1) { e1.printStackTrace(); };
 		if(epsilonFolder == null) {
 			System.err.println("No folder 'epsilon' found");
@@ -104,7 +105,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 			       !packageETLFilesMarkedAsNotUsed(url.toString(), "modules/")) {
 					//(a)
 					try {
-						etlFile = new File(FileLocator.resolve(url).toURI());
+						etlFile = new File(resolveURL(FileLocator.resolve(url)));
 					} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
 					try {
 						try {
@@ -125,7 +126,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 				   !packageETLFilesMarkedAsNotUsed(url.toString(), "core/")) {
 					//(a)
 					try {
-						etlFile = new File(FileLocator.resolve(url).toURI());
+						etlFile = new File(resolveURL(FileLocator.resolve(url)));
 					} catch (URISyntaxException | IOException e) { e.printStackTrace(); }
 					try {
 						try {
@@ -194,7 +195,7 @@ public class TransformationExecutor extends EpsilonStandalone {
 		} else {
 			//Step 2
 			try {
-				File ORM2CROMUrl = new File(FileLocator.resolve(ORM2CROMUrls.get(0)).toURI());
+				File ORM2CROMUrl = new File(resolveURL(FileLocator.resolve(ORM2CROMUrls.get(0))));
 				BufferedReader buff = new BufferedReader(new FileReader(ORM2CROMUrl.getPath()));
 				String str = "";
 				while ((str = buff.readLine()) != null) {
@@ -318,5 +319,9 @@ public class TransformationExecutor extends EpsilonStandalone {
 	    models.add(emfModel);
 
 	    return models;
+	}
+	
+	private URI resolveURL(URL url) throws URISyntaxException {
+		return new URI(url.getProtocol(), url.getPath(), null); 
 	}
 }
