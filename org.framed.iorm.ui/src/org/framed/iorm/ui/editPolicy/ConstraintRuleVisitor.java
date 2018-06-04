@@ -116,7 +116,8 @@ public class ConstraintRuleVisitor {
 		System.out.println("checkRule for " + rule.getClass().toString() + " not implemented");
 		return true;
 	}
-		
+	
+	//TODO: Fix this!
 	private boolean isInCompartmentRuleVisitor(InCompartment rule) {
 		org.framed.iorm.model.Shape parent = null;
 		if(this.context instanceof AddCompartmentTypeContext) {
