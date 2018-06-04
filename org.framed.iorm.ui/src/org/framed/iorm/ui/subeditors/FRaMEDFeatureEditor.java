@@ -186,6 +186,14 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	    }
 	}
 	
+	/**
+	 * Translator from URLs to URIs that creates correct URIs, in contrast to URL.toURI().
+	 * (cf. https://stackoverflow.com/questions/14676966/escape-result-of-filelocator-resolveurl/14677157)
+	 * 
+	 * @param url the given URL
+	 * @return a new correctly initialized URI object
+	 * @throws URISyntaxException
+	 */
 	private static URI resolveURL(URL url) throws URISyntaxException {
 		return new URI(url.getProtocol(), url.getPath(), null); 
 	}
