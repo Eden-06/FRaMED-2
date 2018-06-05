@@ -1,16 +1,24 @@
 package org.framed.iorm.ui.editPolicy;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
+import org.framed.iorm.ui.exceptions.NoModelFoundException;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
 
 import editpolicymodel.AndConstraintRule;
 import editpolicymodel.ConstraintRule;
@@ -33,6 +41,8 @@ import compartment.AddCompartmentTypeContext;
  *
  */
 public class ConstraintRuleVisitor {
+	
+	public Map<Type,String> groupingFeatureCache=new HashMap<Type,String>();
 
 	/**
 	 * command to check rules against
@@ -116,42 +126,58 @@ public class ConstraintRuleVisitor {
 		System.out.println("checkRule for " + rule.getClass().toString() + " not implemented");
 		return true;
 	}
+
 	
-	//TODO: Fix this!
 	private boolean isInCompartmentRuleVisitor(InCompartment rule) {
-		org.framed.iorm.model.Shape parent = null;
-		if(this.context instanceof AddCompartmentTypeContext) {
-			AddCompartmentTypeContext  ctx = (AddCompartmentTypeContext) context;
-			parent = ctx.getModelToLink().getParent();
-		} else if(this.context instanceof AddContext) {
-			AddContext  ctx = (AddContext) context;
-			Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
-			if(contextDiagram.getName().startsWith("compartmentType"))
-				return true;
-		} else if(this.context instanceof CreateContext) {
-			CreateContext  ctx = (CreateContext) context;
-			if(ctx.getTargetContainer() instanceof Diagram) {
-				Diagram contextDiagram = (Diagram)ctx.getTargetContainer();
-				if(contextDiagram.getName().startsWith("compartmentType"))
-					return true;
-			}	
+		ContainerShape container =null;
+		if (this.context instanceof AddContext) {
+			container = ((AddContext) this.context).getTargetContainer();
+		}else if (this.context instanceof CreateContext) {
+			container = ((CreateContext) this.context).getTargetContainer();
 		}
-		if(parent == null) {
-			//System.out.println("Parent null. Wrong context InCompartment(): " + this.context.getClass());
-			return false;
+		if (container==null) return false;
+		//travers Containers to find the compartment type. 
+		Diagram compartmentDiagram=findContainerDiagramOfType(container,Type.COMPARTMENT_TYPE);		
+		return compartmentDiagram!=null;
+	}
+	
+	/**
+	 * Returns the grouping reference (diagram kind) of the given container type, if it exists.
+	 * Note: this method is cached for better performance.
+	 * 
+	 * @param type the IORM::Type of the container element
+	 * @return the string reference of the diagram kind of the given container type
+	 */
+	private String getGroupingReference(Type type) {
+		if (groupingFeatureCache.containsKey(type)) return groupingFeatureCache.get(type);
+		Optional<String> result= UIUtil.getGroupingFeatureReferences().stream()
+				.filter(a -> a.getModelType()==type) // rule.getType();
+				.map(a -> a.getDiagramKind())
+				.findFirst();
+		if (!result.isPresent()) return null;
+		groupingFeatureCache.put(type, result.get());
+		return result.get();
+	}
+	
+	/**
+	 * This method checks if the given container shape is a Diagram of the Diagram Kind of the given type.
+	 * Otherwise, the method traverses the containers to find a suitable candidate, if any exists.
+	 * 
+	 * @param sourceShape the ContainerShape to investigate 
+	 * @param type the IORM::Type of the container to look for 
+	 * @return the diagram of the correct diagram kind or null if no corresponding diagram was not found.
+	 */
+	public Diagram findContainerDiagramOfType(ContainerShape sourceShape, Type type) {
+		String groupingReference=getGroupingReference(type);
+		while ((sourceShape!=null) &&
+				!((sourceShape instanceof Diagram) && (UIUtil.isDiagram_KindValue((Diagram) sourceShape, groupingReference)))) {
+			sourceShape=sourceShape.getContainer();
 		}
-
-		String parentDiagramName = null;
-		try {
-			parentDiagramName = parent.getContainer().getParent().getName();
-		} catch (Exception e) {}
-		Diagram myDiagram = this.getDiagramWithName(parentDiagramName, this.diagram);
-		if(myDiagram == null)
-			return false;
-		if(myDiagram.getName().startsWith("compartmentType"))
-			return true;
-
-		return false;
+		if (sourceShape==null)
+			return null;
+		if (sourceShape instanceof Diagram)
+			return (Diagram) sourceShape;
+		throw new IllegalStateException("Invariant violated! findDiagramOfType found a sourceShape that was not a Diagram.");
 	}
 	
 	private boolean andRuleVisitor(AndConstraintRule rule) {
