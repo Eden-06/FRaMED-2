@@ -78,7 +78,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		org.framed.iorm.model.ModelElement newRelation = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newRelation != null) 
 			return (newRelation.getType() == Type.RELATIONSHIP);
-		return false;
+		return false; //TODO: Call EditPolicyHandler
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		if(addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if(relation.getType() == type) {
-				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext); //Type use actual Type
 			}   
 		}
 		return false;
@@ -167,7 +167,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    	   !(sourceConnection.equals(targetConnection))) {
 	    		if(sourceConnection.getType() == Type.RELATIONSHIP)
 	    			if(targetConnection.getType() == sourceConnection.getType())
-						   return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
+						   return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP); //Use actual Type to check
 		}	}
 	    return false;
 	}
@@ -186,7 +186,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		org.framed.iorm.model.ModelElement sourceConnection = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceConnection != null){	
 			if(sourceConnection.getType() == Type.RELATIONSHIP)
-				return true;
+				return true; //TODO: Call EditPolicyHandler
 		}	
 		return false;
 	}

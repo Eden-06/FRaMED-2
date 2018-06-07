@@ -133,7 +133,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if (relation.getType() == Type.FULFILLMENT)
-				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext); //TODO: Add actual Type
 		}
 		return false;
 	}

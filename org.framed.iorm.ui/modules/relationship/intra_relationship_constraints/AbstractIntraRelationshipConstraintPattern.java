@@ -165,7 +165,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		   getBusinessObjectForPictogramElement(targetConnection) instanceof Relation) {
 			Relation relation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
 			return relation.getType() == Type.RELATIONSHIP && 
-					EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
+					EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP); //TODO: Check actual type of Relationship Constraint
 		}
 	    return false;
 	}
@@ -177,7 +177,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 * @param aircp the sub class calling this operation
 	 * @return the created business object
 	 */
-	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type, AbstractIntraRelationshipConstraintPattern aircp) {
+	public Object[] createIntraRelationshipConstraint(ICreateContext createContext, Type type, AbstractIntraRelationshipConstraintPattern aircp) { //TODO: Ask Kevin why this fails
 		Connection targetConnection = createContext.getTargetConnection();
 		Relation targetRelation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
 		Anchor sourceAnchor = targetConnection.getStart(),
@@ -194,7 +194,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	    addContext.setNewObject(newIntraRelCon);
 	    addContext.setTargetConnection(targetConnection);
 	    if(aircp.canAdd(addContext)) aircp.add(addContext);
-		return new Object[] { newIntraRelCon };
+		return new Object[] { newIntraRelCon }; 
 	}
 	
 	//delete feature

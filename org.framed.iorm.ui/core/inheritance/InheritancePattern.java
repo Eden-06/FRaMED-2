@@ -101,7 +101,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			    if(oldShape != null && newShape != null) {
 			    	if(oldShape.getContainer() == newShape.getContainer()) {
 			    		if(newShape.getType() == oldShape.getType()) {
-			    			return true;
+			    			return true; //TODO: Handle by the EditPolicyHandler
 		}	}  	}	}	}
 	    return false;
 	}
@@ -119,7 +119,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.INHERITANCE)
-			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext); //Why is the Type not given ,Type.INHERITANCE
 		}
 		return false;
 	}
@@ -178,13 +178,16 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Anchor targetAnchor = createContext.getTargetAnchor();
 	    ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
+	    //TODO: Check whether both elements have the same Model to Create In
+	    Model sM=getModelToCreateIn(source);
+	    Model tM=getModelToCreateIn(target);
 	    if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
 			if(sourceShape != null && targetShape != null) {
-				if(sourceShape.getContainer() == targetShape.getContainer() &&
-			       !(sourceShape.equals(targetShape))) {
-			    	if(types.contains(sourceShape.getType()))
+				if(sourceShape.getContainer() == targetShape.getContainer() && //TODO: Fix this Check using sM == tM
+			       !(sourceShape.equals(targetShape))) { //TODO: Move this check to EditPolicy
+			    	if(types.contains(sourceShape.getType())) //TODO: Remove these tests and defer them to the EditPolicyHandler
 			    		if(targetShape.getType() == sourceShape.getType())
 							return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
 		}	} 	}
@@ -207,7 +210,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
 				if(sourceShape != null){	
-					if(types.contains(sourceShape.getType()))
+					if(types.contains(sourceShape.getType()))  //TODO: Remove this tests and defer them to the EditPolicyHandler
 						return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.INHERITANCE);
 		}	}	}			
 		return false;

@@ -121,6 +121,7 @@ public class EditPolicyHandler {
 	
 	public boolean canAdd(IAddContext context) {
 		//new Object is either relation or shape
+		//TODO: if there are both options, then account for both or remove this method and use the concrete Type
 		Relation relation = (Relation) context.getNewObject();
 		Type type = relation.getType();
 		return this.canAdd(context, type);

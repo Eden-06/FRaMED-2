@@ -55,7 +55,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    	   !(newShape.equals(oldShape))) {
 	    		if(newShape.getType() == Type.ROLE_TYPE)
 	    			if(oldShape.getType() == newShape.getType())
-	    				return true;
+	    				return true; //TODO: call EditPolicyHandler
 		}	}
 	    return false;
 	}
@@ -72,7 +72,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == type)
-				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext,type); //TODO:added Type
 		}
 		return false;
 	}
@@ -91,7 +91,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	 * @return if the role constraint can be added
 	 */
 	@Override
-	public boolean canCreate(ICreateConnectionContext createContext) {
+	public boolean canCreate(ICreateConnectionContext createContext) { //TODO: Better make this Abstract similar to canAddRoleConstraint
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 	    Anchor targetAnchor = createContext.getTargetAnchor();
 	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
@@ -100,8 +100,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    	if(sourceShape.getContainer() == targetShape.getContainer() &&
 	    	   !(sourceShape.equals(targetShape))) {
 	    		if(types.contains(sourceShape.getType()) &&
-	    		   types.contains(targetShape.getType()))
-    				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.ROLE_TYPE);
+	    		   types.contains(targetShape.getType())) //TODO: remove types test, as this is handled by EditPolicyHandler
+    				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.ROLE_TYPE); //TODO: fix this call to actually refere to the Role Constraint
 		}	}
 	    return false;
 	}
@@ -119,8 +119,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(types.contains(sourceShape.getType()))
-				return true;
+			if(types.contains(sourceShape.getType())) //TODO: Remove this check
+				return true; //TODO: Call EditPolicyHandler
 		}	
 		return false;
 	}
