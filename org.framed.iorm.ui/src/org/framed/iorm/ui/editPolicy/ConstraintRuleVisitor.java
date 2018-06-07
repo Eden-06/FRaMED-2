@@ -183,7 +183,17 @@ public class ConstraintRuleVisitor {
 	}
 	
 	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
-		System.out.println("containsCompartmentVisitor: TODO, implement!: " + this.diagram.getChildren().toString());
+		System.out.println("containsCompartmentVisitor: TODO: " + this.diagram.getChildren().toString());
+		if(this.context instanceof CreateContext) {
+			CreateContext ctx = (CreateContext)this.context;
+			System.out.println(ctx.getTargetContainer().eContents().toString());
+			for(Shape action : ctx.getTargetContainer().getChildren()) {
+				System.out.println(action.toString());
+				System.out.println(action.eResource());
+				System.out.println(action.getClass());
+
+			}
+		}
 		return false;
 	}
 	
