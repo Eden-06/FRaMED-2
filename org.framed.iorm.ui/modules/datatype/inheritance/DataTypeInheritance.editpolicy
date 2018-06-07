@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Start" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+  </policies>
+  <policies action="Add" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Type_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
+</editpolicymodel:Model>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+      <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="CompartmentType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartments"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+  </policies>
+  <policies action="Add" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Dates"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+  </policies>
+  <policies action="Start" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Dates"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
+  </policies>
+</editpolicymodel:Model>

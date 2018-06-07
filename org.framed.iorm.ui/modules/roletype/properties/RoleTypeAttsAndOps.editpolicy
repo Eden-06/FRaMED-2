@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Create_Property" actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Create_Attribute" actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Properties"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Create_Operation" actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Behavior"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add_Property" actionType="RoleType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+</editpolicymodel:Model>
