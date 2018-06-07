@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<featureModel chosenLayoutAlgorithm="4">
+	<featureModel>
+		<properties/>
 		<struct>
 			<and abstract="true" mandatory="true" name="RML_Feature_Model">
 				<and abstract="true" mandatory="true" name="Role_Types">
-					<description>
-						
-					</description>
 					<or abstract="true" name="Role_Structure">
-						<feature mandatory="true" name="Role_Properties"/>
-						<feature mandatory="true" name="Role_Behavior"/>
-						<feature mandatory="true" name="Role_Inheritance"/>
+						<feature name="Role_Properties"/>
+						<feature name="Role_Behavior"/>
+						<feature name="Role_Inheritance"/>
 					</or>
 					<and abstract="true" mandatory="true" name="Playable">
 						<and abstract="true" mandatory="true" name="Players">
@@ -20,31 +18,31 @@
 						</and>
 					</and>
 					<or abstract="true" name="Dependent">
-						<feature mandatory="true" name="On_Compartments"/>
-						<feature mandatory="true" name="On_Relationships"/>
+						<feature name="On_Compartments"/>
+						<feature name="On_Relationships"/>
 					</or>
 					<or abstract="true" name="Role_Constraints">
-						<feature mandatory="true" name="Role_Implication"/>
-						<feature mandatory="true" name="Role_Prohibition"/>
-						<feature mandatory="true" name="Role_Equivalence"/>
-						<feature mandatory="true" name="Group_Constraints"/>
-						<feature mandatory="true" name="Occurrence_Constraints"/>
+						<feature name="Role_Implication"/>
+						<feature name="Role_Prohibition"/>
+						<feature name="Role_Equivalence"/>
+						<feature name="Group_Constraints"/>
+						<feature name="Occurrence_Constraints"/>
 					</or>
 				</and>
 				<and name="Relationships">
 					<or abstract="true" name="Relationship_Constraints">
-						<feature mandatory="true" name="Relationship_Cardinality"/>
-						<and mandatory="true" name="Intra_Relationship_Constraints">
+						<feature name="Relationship_Cardinality"/>
+						<and name="Intra_Relationship_Constraints">
 							<feature name="Parthood_Constraints"/>
 						</and>
-						<feature mandatory="true" name="Inter_Relationship_Constraints"/>
+						<feature name="Inter_Relationship_Constraints"/>
 					</or>
 				</and>
 				<and name="Compartment_Types">
 					<or abstract="true" name="Compartment_Structure">
-						<feature mandatory="true" name="Compartment_Properties"/>
-						<feature mandatory="true" name="Compartment_Behavior"/>
-						<feature mandatory="true" name="Compartment_Inheritance"/>
+						<feature name="Compartment_Properties"/>
+						<feature name="Compartment_Behavior"/>
+						<feature name="Compartment_Inheritance"/>
 					</or>
 					<and abstract="true" mandatory="true" name="Participants">
 						<feature name="Contains_Compartments"/>
@@ -104,6 +102,12 @@
 					<var>Contains_Compartments</var>
 					<var>Roles</var>
 				</eq>
+			</rule>
+			<rule>
+				<imp>
+					<var>Playable_by_Defining_Compartment</var>
+					<var>Compartments</var>
+				</imp>
 			</rule>
 		</constraints>
 		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>

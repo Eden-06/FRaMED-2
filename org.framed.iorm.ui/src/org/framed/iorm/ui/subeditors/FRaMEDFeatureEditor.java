@@ -2,6 +2,7 @@ package org.framed.iorm.ui.subeditors;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
@@ -160,7 +161,7 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	private IFeatureModel readFeatureModel() {
 		File featureModelFile = null;
 	  	try {
-	    	featureModelFile = new File(FileLocator.resolve(URL_TO_FEATUREMODEL).toURI());
+	    	featureModelFile = new File(resolveURL(FileLocator.resolve(URL_TO_FEATUREMODEL)));
 	    } catch (URISyntaxException | IOException e) { e.printStackTrace(); }
 	  	FeatureModelManager featureModelManager = FeatureModelManager.getInstance(featureModelFile.toPath());
 	  	if(featureModelManager.getLastProblems().containsError()) {
@@ -183,6 +184,18 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	    	for (FRaMEDFeature f : framedConfiguration.getFeatures())
 	    		configuration.setManual(f.getName().getLiteral(), Selection.SELECTED);
 	    }
+	}
+	
+	/**
+	 * Translator from URLs to URIs that creates correct URIs, in contrast to URL.toURI().
+	 * (cf. https://stackoverflow.com/questions/14676966/escape-result-of-filelocator-resolveurl/14677157)
+	 * 
+	 * @param url the given URL
+	 * @return a new correctly initialized URI object
+	 * @throws URISyntaxException
+	 */
+	private static URI resolveURL(URL url) throws URISyntaxException {
+		return new URI(url.getProtocol(), url.getPath(), null); 
 	}
 	
 	//tree related operation

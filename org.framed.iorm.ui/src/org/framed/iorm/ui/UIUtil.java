@@ -28,6 +28,7 @@ import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.features.context.impl.ReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -55,7 +56,14 @@ import org.framed.iorm.ui.exceptions.NoLinkedModelYet;
 import org.framed.iorm.ui.exceptions.NoModelFoundException;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 import org.framed.iorm.ui.providers.ToolBehaviorProvider;
-import org.framed.iorm.ui.references.*;
+import org.framed.iorm.ui.references.AbstractAttributeAndOperationReference;
+import org.framed.iorm.ui.references.AbstractGroupingFeatureReference;
+import org.framed.iorm.ui.references.AbstractIntraRelationshipConstraintReference;
+import org.framed.iorm.ui.references.AbstractModelFeatureReference;
+import org.framed.iorm.ui.references.AbstractRelationshipFeatureReference;
+import org.framed.iorm.ui.references.AbstractStepInReference;
+import org.framed.iorm.ui.references.MoreThanOneFeatureReferenceFoundException;
+import org.framed.iorm.ui.references.NotExactlyOneFeatureReferenceFoundException;
 import org.framed.iorm.ui.wizards.RoleModelWizard;
 import org.osgi.framework.Bundle;
 
@@ -693,8 +701,9 @@ public class UIUtil {
 	 */
 	public static boolean packageMarkedAsNotUsed(String classURL, String sourceFolder) {
 		classURL = classURL.substring(classURL.indexOf(sourceFolder) + sourceFolder.length()); 
-		classURL = classURL.substring(0, classURL.indexOf("/"));
-		if(classURL.startsWith("_") && classURL.endsWith("_")) return true;
+		if (classURL.indexOf("/")>-1)
+			classURL = classURL.substring(0, classURL.indexOf("/"));
+		if(classURL.startsWith("_")) return true;
 		return false;
 	}
 	
@@ -1152,4 +1161,5 @@ public class UIUtil {
 	public static String getGroupingFeaturesElementText(ModelElement modelElement) {
 		return modelElement.getType().toString() + " " + modelElement.getName();
 	}
+	
 }

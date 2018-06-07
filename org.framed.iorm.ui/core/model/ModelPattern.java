@@ -2,6 +2,8 @@ package model;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
+
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -154,7 +156,7 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 	private void setStandartConfiguration(Model model) throws URISyntaxException, IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resourceStandartConfiguration =
-			resourceSet.createResource(URI.createURI(FileLocator.resolve(UILiterals.URL_TO_STANDARD_CONFIGURATION).toURI().toString()));
+			resourceSet.createResource(URI.createFileURI(FileLocator.resolve(UILiterals.URL_TO_STANDARD_CONFIGURATION).getFile()));
 		try {
 			resourceStandartConfiguration.load(null);
 		} catch (IOException e) { 
@@ -164,4 +166,5 @@ public class ModelPattern extends FRaMEDShapePattern implements IPattern {
 		Model standardConfigurationModel = (Model) resourceStandartConfiguration.getContents().get(0);
 		model.setFramedConfiguration(standardConfigurationModel.getFramedConfiguration());
 	}
+	
 }
