@@ -2,25 +2,25 @@
  */
 package editpolicymodel.impl;
 
-import editpolicymodel.InCompartment;
+import editpolicymodel.InType;
 import editpolicymodel.editpolicymodelPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>In Compartment</b></em>'.
+ * An implementation of the model object '<em><b>In Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class InCompartmentImpl extends ConstraintRuleImpl implements InCompartment {
+public class InTypeImpl extends TypeArgumentRuleImpl implements InType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InCompartmentImpl() {
+	protected InTypeImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class InCompartmentImpl extends ConstraintRuleImpl implements InCompartme
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return editpolicymodelPackage.Literals.IN_COMPARTMENT;
+		return editpolicymodelPackage.Literals.IN_TYPE;
 	}
 
-} //InCompartmentImpl
+} //InTypeImpl

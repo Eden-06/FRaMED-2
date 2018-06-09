@@ -200,8 +200,8 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createSourceEqualsTargetTypeAdapter();
 			}
 			@Override
-			public Adapter caseInCompartment(InCompartment object) {
-				return createInCompartmentAdapter();
+			public Adapter caseInType(InType object) {
+				return createInTypeAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -686,16 +686,16 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link editpolicymodel.InCompartment <em>In Compartment</em>}'.
+	 * Creates a new adapter for an object of class '{@link editpolicymodel.InType <em>In Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see editpolicymodel.InCompartment
+	 * @see editpolicymodel.InType
 	 * @generated
 	 */
-	public Adapter createInCompartmentAdapter() {
+	public Adapter createInTypeAdapter() {
 		return null;
 	}
 

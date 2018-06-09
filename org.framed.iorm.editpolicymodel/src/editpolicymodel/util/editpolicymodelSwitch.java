@@ -323,10 +323,11 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case editpolicymodelPackage.IN_COMPARTMENT: {
-				InCompartment inCompartment = (InCompartment)theEObject;
-				T result = caseInCompartment(inCompartment);
-				if (result == null) result = caseConstraintRule(inCompartment);
+			case editpolicymodelPackage.IN_TYPE: {
+				InType inType = (InType)theEObject;
+				T result = caseInType(inType);
+				if (result == null) result = caseTypeArgumentRule(inType);
+				if (result == null) result = caseConstraintRule(inType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -830,17 +831,17 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>In Compartment</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>In Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>In Compartment</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>In Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseInCompartment(InCompartment object) {
+	public T caseInType(InType object) {
 		return null;
 	}
 

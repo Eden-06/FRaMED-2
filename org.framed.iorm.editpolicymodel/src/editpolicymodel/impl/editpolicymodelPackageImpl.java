@@ -15,7 +15,7 @@ import editpolicymodel.FeatureNameEnum;
 import editpolicymodel.FeatureRule;
 import editpolicymodel.ImplicationConstraintRule;
 import editpolicymodel.ImplicationFeatureRule;
-import editpolicymodel.InCompartment;
+import editpolicymodel.InType;
 import editpolicymodel.IsFeature;
 import editpolicymodel.IsParent;
 import editpolicymodel.IsSourceType;
@@ -295,7 +295,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass inCompartmentEClass = null;
+	private EClass inTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -828,8 +828,8 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getInCompartment() {
-		return inCompartmentEClass;
+	public EClass getInType() {
+		return inTypeEClass;
 	}
 
 	/**
@@ -969,7 +969,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 
 		sourceEqualsTargetTypeEClass = createEClass(SOURCE_EQUALS_TARGET_TYPE);
 
-		inCompartmentEClass = createEClass(IN_COMPARTMENT);
+		inTypeEClass = createEClass(IN_TYPE);
 
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
@@ -1034,7 +1034,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		andFeatureRuleEClass.getESuperTypes().add(this.getNaryFeatureRule());
 		sourceEqualsTargetEClass.getESuperTypes().add(this.getConstraintRule());
 		sourceEqualsTargetTypeEClass.getESuperTypes().add(this.getConstraintRule());
-		inCompartmentEClass.getESuperTypes().add(this.getConstraintRule());
+		inTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1119,7 +1119,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 
 		initEClass(sourceEqualsTargetTypeEClass, SourceEqualsTargetType.class, "SourceEqualsTargetType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(inCompartmentEClass, InCompartment.class, "InCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(inTypeEClass, InType.class, "InType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

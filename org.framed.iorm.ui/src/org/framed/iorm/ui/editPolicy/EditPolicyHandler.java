@@ -63,8 +63,6 @@ public class EditPolicyHandler {
 	 * @return
 	 */
 	private List<ConstraintRule> getConstraints(ActionEnum action, Type type) {
-		System.out.println("Action: " + action.toString() + ", Type: " + type.toString());
-
 		List<ConstraintRule> rules = new LinkedList<>();
 		
 		for(Policy policy: this.activatedPolicies) {
@@ -118,15 +116,7 @@ public class EditPolicyHandler {
 		}
 		return false;
 	}
-	
-	public boolean canAdd(IAddContext context) {
-		//new Object is either relation or shape
-		//TODO: if there are both options, then account for both or remove this method and use the concrete Type
-		Relation relation = (Relation) context.getNewObject();
-		Type type = relation.getType();
-		return this.canAdd(context, type);
-	}
-	
+
 	public boolean canAdd(IAddContext context, Type type) {
 		List<ConstraintRule> constraints = this.getConstraints(ActionEnum.ADD, type);
 		return this.checkConstraints(constraints, context, type);

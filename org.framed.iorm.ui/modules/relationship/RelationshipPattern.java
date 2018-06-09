@@ -160,9 +160,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 			DeleteContext deleteContextForInterRelCon = new DeleteContext(connectionToDeleteAlso);
 			deleteConnectionFeature.delete(deleteContextForInterRelCon);
 	}	}
-	
-	//add feature
-	//~~~~~~~~~~~
+
 	/**
 	 * calculates if a relationship can be added to the pictogram diagram
 	 * <p>
@@ -174,7 +172,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.RELATIONSHIP) {
-			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext);
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
 		}	}
 		return false;
 	}

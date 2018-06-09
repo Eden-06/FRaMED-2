@@ -149,5 +149,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTarget" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTargetType" eSuperTypes="#//ConstraintRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InCompartment" eSuperTypes="#//ConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InType" eSuperTypes="#//TypeArgumentRule"/>
 </ecore:EPackage>

@@ -15,13 +15,14 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
+import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
 import editpolicymodel.AndConstraintRule;
 import editpolicymodel.ConstraintRule;
 import editpolicymodel.ContainsCompartment;
 import editpolicymodel.FalseConstraintRule;
-import editpolicymodel.InCompartment;
+import editpolicymodel.InType;
 import editpolicymodel.IsSourceType;
 import editpolicymodel.IsTargetType;
 import editpolicymodel.NotConstraintRule;
@@ -79,8 +80,8 @@ public class ConstraintRuleVisitor {
 	 * @return Boolean
 	 */
 	public boolean checkRule(ConstraintRule rule) {
-		if (rule instanceof InCompartment) {
-			return isInCompartmentRuleVisitor((InCompartment) rule);
+		if (rule instanceof InType) {
+			return isInTypeRuleVisitor((InType) rule);
 		}
 
 		if (rule instanceof AndConstraintRule)
@@ -124,7 +125,7 @@ public class ConstraintRuleVisitor {
 		return true;
 	}
 
-	private boolean isInCompartmentRuleVisitor(InCompartment rule) {
+	private boolean isInTypeRuleVisitor(InType rule) {
 		ContainerShape container = null;
 		if (this.context instanceof AddContext) {
 			container = ((AddContext) this.context).getTargetContainer();
@@ -134,10 +135,19 @@ public class ConstraintRuleVisitor {
 		if (container == null)
 			return false;
 		// travers Containers to find the compartment type.
-		Diagram compartmentDiagram = findContainerDiagramOfType(container, Type.COMPARTMENT_TYPE);
+		Diagram compartmentDiagram = findContainerDiagramOfType(container, this.getTypeByLiteral(rule.getType().getLiteral()));
 		return compartmentDiagram != null;
 	}
 
+	private Type getTypeByLiteral(String typeString) {
+		for (Type type : Type.VALUES ) {
+			if(type.getLiteral().equals(typeString)) {
+				return type;
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Returns the grouping reference (diagram kind) of the given container type, if
 	 * it exists. Note: this method is cached for better performance.
@@ -179,8 +189,7 @@ public class ConstraintRuleVisitor {
 			return null;
 		if (sourceShape instanceof Diagram)
 			return (Diagram) sourceShape;
-		throw new IllegalStateException(
-				"Invariant violated! findDiagramOfType found a sourceShape that was not a Diagram.");
+		throw new IllegalStateException("Invariant violated! findDiagramOfType found a sourceShape that was not a Diagram.");
 	}
 
 	private boolean andRuleVisitor(AndConstraintRule rule) {
@@ -212,22 +221,21 @@ public class ConstraintRuleVisitor {
 	}
 
 	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
-		System.out.println("containsCompartmentVisitor: TODO: " + this.diagram.getChildren().toString());
-		if(this.context instanceof CreateContext) {
-			CreateContext ctx = (CreateContext)this.context;
-			System.out.println(ctx.getTargetContainer().eContents().toString());
-			for(Shape action : ctx.getTargetContainer().getChildren()) {
-				System.out.println(action.toString());
-				System.out.println(action.eResource());
-				System.out.println(action.getClass());
-
-			}
+		ContainerShape container = null;
+		if (this.context instanceof AddContext) {
+			container = ((AddContext) this.context).getTargetContainer();
+		} else if (this.context instanceof CreateContext) {
+			container = ((CreateContext) this.context).getTargetContainer();
 		}
-		return false;
+		if (container == null)
+			return false;
+		// travers Containers to find the compartment type.
+		Diagram compartmentDiagram = findContainerDiagramOfType(container, Type.COMPARTMENT_TYPE);
+		System.out.println("containsCompartmentVisitor: TODO: " + compartmentDiagram != null);
+		return compartmentDiagram != null;
 	}
 
 	private boolean sourceEqualsTargetVisitor(SourceEqualsTarget rule) {
-		// System.out.println("class is: " + this.context.getClass());
 		Anchor sourceAnchor = this.getSourceAnchorFromContext(this.context);
 		ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
 

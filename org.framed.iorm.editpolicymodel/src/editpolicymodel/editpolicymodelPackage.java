@@ -1252,32 +1252,41 @@ public interface editpolicymodelPackage extends EPackage {
 	int SOURCE_EQUALS_TARGET_TYPE_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link editpolicymodel.impl.InCompartmentImpl <em>In Compartment</em>}' class.
+	 * The meta object id for the '{@link editpolicymodel.impl.InTypeImpl <em>In Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see editpolicymodel.impl.InCompartmentImpl
-	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getInCompartment()
+	 * @see editpolicymodel.impl.InTypeImpl
+	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getInType()
 	 * @generated
 	 */
-	int IN_COMPARTMENT = 33;
+	int IN_TYPE = 33;
 
 	/**
-	 * The number of structural features of the '<em>In Compartment</em>' class.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IN_COMPARTMENT_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
+	int IN_TYPE__TYPE = TYPE_ARGUMENT_RULE__TYPE;
 
 	/**
-	 * The number of operations of the '<em>In Compartment</em>' class.
+	 * The number of structural features of the '<em>In Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IN_COMPARTMENT_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
+	int IN_TYPE_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>In Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IN_TYPE_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
@@ -1817,14 +1826,14 @@ public interface editpolicymodelPackage extends EPackage {
 	EClass getSourceEqualsTargetType();
 
 	/**
-	 * Returns the meta object for class '{@link editpolicymodel.InCompartment <em>In Compartment</em>}'.
+	 * Returns the meta object for class '{@link editpolicymodel.InType <em>In Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>In Compartment</em>'.
-	 * @see editpolicymodel.InCompartment
+	 * @return the meta object for class '<em>In Type</em>'.
+	 * @see editpolicymodel.InType
 	 * @generated
 	 */
-	EClass getInCompartment();
+	EClass getInType();
 
 	/**
 	 * Returns the meta object for enum '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}'.
@@ -2338,14 +2347,14 @@ public interface editpolicymodelPackage extends EPackage {
 		EClass SOURCE_EQUALS_TARGET_TYPE = eINSTANCE.getSourceEqualsTargetType();
 
 		/**
-		 * The meta object literal for the '{@link editpolicymodel.impl.InCompartmentImpl <em>In Compartment</em>}' class.
+		 * The meta object literal for the '{@link editpolicymodel.impl.InTypeImpl <em>In Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see editpolicymodel.impl.InCompartmentImpl
-		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getInCompartment()
+		 * @see editpolicymodel.impl.InTypeImpl
+		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getInType()
 		 * @generated
 		 */
-		EClass IN_COMPARTMENT = eINSTANCE.getInCompartment();
+		EClass IN_TYPE = eINSTANCE.getInType();
 
 		/**
 		 * The meta object literal for the '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

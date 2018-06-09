@@ -16,4 +16,20 @@
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Add" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>

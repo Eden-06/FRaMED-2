@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Add" actionType="RoleGroup">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:InType"/>
+  </policies>
+  <policies actionType="RoleGroup">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:InType"/>
+  </policies>
+</editpolicymodel:Model>

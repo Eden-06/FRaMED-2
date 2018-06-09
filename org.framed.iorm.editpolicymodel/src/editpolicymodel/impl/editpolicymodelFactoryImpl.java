@@ -81,7 +81,7 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 			case editpolicymodelPackage.AND_FEATURE_RULE: return createAndFeatureRule();
 			case editpolicymodelPackage.SOURCE_EQUALS_TARGET: return createSourceEqualsTarget();
 			case editpolicymodelPackage.SOURCE_EQUALS_TARGET_TYPE: return createSourceEqualsTargetType();
-			case editpolicymodelPackage.IN_COMPARTMENT: return createInCompartment();
+			case editpolicymodelPackage.IN_TYPE: return createInType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -370,9 +370,9 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InCompartment createInCompartment() {
-		InCompartmentImpl inCompartment = new InCompartmentImpl();
-		return inCompartment;
+	public InType createInType() {
+		InTypeImpl inType = new InTypeImpl();
+		return inType;
 	}
 
 	/**

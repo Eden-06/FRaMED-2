@@ -119,8 +119,6 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 				editFulfillmentFeature.execute(customContext);
 	}	}
 	
-	// add feature
-	// ~~~~~~~~~~~
 	/**
 	 * calculates if a fulfillment can be added to the pictogram diagram
 	 * <p>
@@ -133,7 +131,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if (relation.getType() == Type.FULFILLMENT)
-				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext); //TODO: Add actual Type
+				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
 		}
 		return false;
 	}

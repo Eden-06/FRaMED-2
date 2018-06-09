@@ -238,13 +238,13 @@ public interface editpolicymodelFactory extends EFactory {
 	SourceEqualsTargetType createSourceEqualsTargetType();
 
 	/**
-	 * Returns a new object of class '<em>In Compartment</em>'.
+	 * Returns a new object of class '<em>In Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>In Compartment</em>'.
+	 * @return a new object of class '<em>In Type</em>'.
 	 * @generated
 	 */
-	InCompartment createInCompartment();
+	InType createInType();
 
 	/**
 	 * Returns the package supported by this factory.
