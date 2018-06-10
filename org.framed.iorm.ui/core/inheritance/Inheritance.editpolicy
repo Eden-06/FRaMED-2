@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Start" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+  </policies>
+  <policies action="Add" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
+</editpolicymodel:Model>

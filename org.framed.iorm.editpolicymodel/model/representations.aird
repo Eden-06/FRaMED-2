@@ -476,6 +476,10 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_GA6vYS5_Eeiwr8bZ0uTz8g" fontName="Cantarell" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_GA6vYi5_Eeiwr8bZ0uTz8g"/>
             </children>
+            <children xmi:type="notation:Node" xmi:id="_m9RgMGyPEei7QNUjVddctQ" type="3010" element="_m7-fsGyPEei7QNUjVddctQ">
+              <styles xmi:type="notation:FontStyle" xmi:id="_m9RgMWyPEei7QNUjVddctQ" fontName="Cantarell" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_m9RgMmyPEei7QNUjVddctQ"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_wnkmgS5uEeiwr8bZ0uTz8g"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_wnkmgi5uEeiwr8bZ0uTz8g"/>
           </children>
@@ -2397,6 +2401,14 @@
         <target xmi:type="ecore:EEnumLiteral" href="editpolicymodel.ecore#//TypeEnum/NaturalType"/>
         <semanticElements xmi:type="ecore:EEnumLiteral" href="editpolicymodel.ecore#//TypeEnum/NaturalType"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_GAf4oC5_Eeiwr8bZ0uTz8g" labelAlignment="LEFT">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_m7-fsGyPEei7QNUjVddctQ" name="Total" tooltipText="">
+        <target xmi:type="ecore:EEnumLiteral" href="editpolicymodel.ecore#//TypeEnum/Total"/>
+        <semanticElements xmi:type="ecore:EEnumLiteral" href="editpolicymodel.ecore#//TypeEnum/Total"/>
+        <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_m7_GwGyPEei7QNUjVddctQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>

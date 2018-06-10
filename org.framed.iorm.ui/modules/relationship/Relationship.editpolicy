@@ -8,11 +8,22 @@
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Relationships"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Reconnect" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Relationships"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies action="Start" actionType="Relationship">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="Relationship">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
       <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>

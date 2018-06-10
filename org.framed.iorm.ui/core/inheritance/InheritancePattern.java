@@ -37,14 +37,7 @@ import org.framed.iorm.ui.palette.ViewVisibility;
  * (2) adding inheritances to the diagram, especially their pictogram elements<br>
  * @author Kevin Kassin
  */
-public class InheritancePattern extends FRaMEDConnectionPattern {
-	
-	//TODO To be delete when the type checks are done by the edit policies
-	/**
-	 * the lists of types for which a inheritance is applicable
-	 */
-	List<Type> types = Arrays.asList(Type.NATURAL_TYPE, Type.DATA_TYPE, Type.COMPARTMENT_TYPE, Type.ROLE_TYPE);
-	
+public class InheritancePattern extends FRaMEDConnectionPattern {	
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
@@ -184,9 +177,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
 			if(sourceShape != null && targetShape != null && sM == tM) {
-			    if(types.contains(sourceShape.getType())) //TODO: Remove these tests and defer them to the EditPolicyHandler
-					return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
-		}	}
+				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
+				}
+		}
 	    return false;
 	}
 	 
@@ -205,9 +198,8 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		if(source instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
-				if(sourceShape != null){	
-					if(types.contains(sourceShape.getType()))  //TODO: Remove this tests and defer them to the EditPolicyHandler
-						return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.INHERITANCE);
+				if(sourceShape != null){
+					return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.INHERITANCE);
 		}	}	}			
 		return false;
 	}

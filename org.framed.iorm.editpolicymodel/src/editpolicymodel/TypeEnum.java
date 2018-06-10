@@ -196,7 +196,15 @@ public enum TypeEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NATURAL_TYPE(17, "NaturalType", "NaturalType");
+	NATURAL_TYPE(17, "NaturalType", "NaturalType"), /**
+	 * The '<em><b>Total</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TOTAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TOTAL(18, "Total", "Total");
 
 	/**
 	 * The '<em><b>Acyclic</b></em>' literal value.
@@ -469,6 +477,21 @@ public enum TypeEnum implements Enumerator {
 	public static final int NATURAL_TYPE_VALUE = 17;
 
 	/**
+	 * The '<em><b>Total</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Total</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #TOTAL
+	 * @model name="Total"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TOTAL_VALUE = 18;
+
+	/**
 	 * An array of all the '<em><b>Type Enum</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -494,6 +517,7 @@ public enum TypeEnum implements Enumerator {
 			DATA_TYPE,
 			CYCLIC,
 			NATURAL_TYPE,
+			TOTAL,
 		};
 
 	/**
@@ -568,6 +592,7 @@ public enum TypeEnum implements Enumerator {
 			case DATA_TYPE_VALUE: return DATA_TYPE;
 			case CYCLIC_VALUE: return CYCLIC;
 			case NATURAL_TYPE_VALUE: return NATURAL_TYPE;
+			case TOTAL_VALUE: return TOTAL;
 		}
 		return null;
 	}

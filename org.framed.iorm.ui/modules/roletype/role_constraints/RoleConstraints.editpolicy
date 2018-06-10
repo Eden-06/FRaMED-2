@@ -16,6 +16,18 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies action="Reconnect" actionType="RoleImplication">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Implication"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
   <policies action="Start" actionType="RoleEquivalence">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
     <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
@@ -32,11 +44,35 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies action="Reconnect" actionType="RoleEquivalence">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
   <policies action="Start" actionType="RoleProhibition">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
     <constraintRule xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
   </policies>
   <policies action="Add" actionType="RoleProhibition">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="RoleProhibition">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
       <rules xsi:type="editpolicymodel:AndConstraintRule">

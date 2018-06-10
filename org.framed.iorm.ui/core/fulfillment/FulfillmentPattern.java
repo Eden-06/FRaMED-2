@@ -42,13 +42,6 @@ import org.framed.iorm.ui.palette.ViewVisibility;
  */
 public class FulfillmentPattern extends FRaMEDConnectionPattern {
 
-	//TODO To be delete when the type checks are done by the edit policies
-	/**
-	 * the lists of types for which a fulfillment is applicable
-	 */
-	List<Type> sourceTypes = Arrays.asList(Type.NATURAL_TYPE, Type.DATA_TYPE, Type.COMPARTMENT_TYPE, Type.ROLE_TYPE),
-			   targetTypes = Arrays.asList(Type.COMPARTMENT_TYPE);
-
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
@@ -91,10 +84,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {	
-			if(context.getReconnectType() == ReconnectionContext.RECONNECT_SOURCE)
-				return sourceTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, Type.FULFILLMENT);
-			else
-				return targetTypes.contains(newShape.getType()) && EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, Type.FULFILLMENT);
+			return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, newShape.getType());
 		}
 		return false;
 	}
@@ -130,8 +120,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
-			if (relation.getType() == Type.FULFILLMENT)
-				   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
+		    return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
 		}
 		return false;
 	}
@@ -210,8 +199,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 		if (sourceShape != null && targetShape != null) {
 			if (sourceShape.getContainer() == targetShape.getContainer()) {
-				if (targetTypes.contains(targetShape.getType()))
-					return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
+				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
 			}
 		}
 		return false;
@@ -231,8 +219,7 @@ public class FulfillmentPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if (sourceShape != null) {
-	//		if(sourceTypes.contains(sourceShape.getType()))
-				  return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.FULFILLMENT);
+			return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.FULFILLMENT);
 		}
 		return false;
 	}

@@ -76,9 +76,9 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newRelation = UIUtil.getModelElementForAnchor(newAnchor);
-		if(newRelation != null) 
-			//return (newRelation.getType() == Type.RELATIONSHIP);
+		if(newRelation != null) {
 			return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, newRelation.getType());
+		}
 		return false;
 	}
 	

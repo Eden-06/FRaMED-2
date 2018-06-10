@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Add" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Irreflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add" actionType="Cyclic">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Cyclic">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add" actionType="Reflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Reflexive">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Add" actionType="Total">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies action="Start" actionType="Total">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Intra_Relationship_Constraints"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+</editpolicymodel:Model>

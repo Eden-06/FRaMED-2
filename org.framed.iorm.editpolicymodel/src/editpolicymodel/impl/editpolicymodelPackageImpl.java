@@ -1153,6 +1153,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.DATA_TYPE);
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.CYCLIC);
 		addEEnumLiteral(typeEnumEEnum, TypeEnum.NATURAL_TYPE);
+		addEEnumLiteral(typeEnumEEnum, TypeEnum.TOTAL);
 
 		initEEnum(featureNameEnumEEnum, FeatureNameEnum.class, "FeatureNameEnum");
 		addEEnumLiteral(featureNameEnumEEnum, FeatureNameEnum.ROLES);

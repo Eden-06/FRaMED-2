@@ -231,7 +231,7 @@ public class ConstraintRuleVisitor {
 			return false;
 		// travers Containers to find the compartment type.
 		Diagram compartmentDiagram = findContainerDiagramOfType(container, Type.COMPARTMENT_TYPE);
-		System.out.println("containsCompartmentVisitor: TODO: " + compartmentDiagram != null);
+		System.out.println("containsCompartmentVisitor: TEST: " + compartmentDiagram != null);
 		return compartmentDiagram != null;
 	}
 

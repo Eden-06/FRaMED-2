@@ -38,9 +38,14 @@ public class EditPolicyHandler {
 		this.diagram = diagram;
 	}
 	
+	/**
+	 * parses all editpolicies to create a list with activated policies
+	 * All constraints of activated policies are then loaded.
+	 * 
+	 * @param models
+	 * @param config
+	 */
 	public void updateConfig(List<editpolicymodel.Model> models, FRaMEDConfiguration config) {
-		//parse all editpolicies to create list with activated policies
-		//load all constraints which are activated by current configuration
 		activatedPolicies = new LinkedList<>();
 
 		FeatureRuleVisitor featureRuleVisitor = new FeatureRuleVisitor(config); 

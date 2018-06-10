@@ -107,6 +107,7 @@
     <eLiterals name="DataType" value="15"/>
     <eLiterals name="Cyclic" value="16"/>
     <eLiterals name="NaturalType" value="17"/>
+    <eLiterals name="Total" value="18"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FeatureNameEnum">
     <eLiterals name="Roles"/>

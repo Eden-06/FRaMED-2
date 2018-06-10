@@ -51,12 +51,6 @@ import org.framed.iorm.ui.palette.ViewVisibility;
  */
 public class RelationshipPattern extends FRaMEDConnectionPattern {
 	
-	//TODO To be delete when the type checks are done by the edit policies
-	/**
-	 * the list of types for which a realtionship is applicable
-	 */
-	List<Type> types = Arrays.asList(Type.ROLE_TYPE);
-	
 	/**
 	 * the object to get names, ids and so on for this feature
 	 */
@@ -107,8 +101,9 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canReconnect(IReconnectionContext context) {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
-		if(newShape != null) 
-			return types.contains(newShape.getType());
+		if(newShape != null) {
+			return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, newShape.getType());
+		}
 		return false;
 	}
 	
@@ -171,9 +166,8 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation.getType() == Type.RELATIONSHIP) {
 			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
-		}	}
+		}
 		return false;
 	}
 		
@@ -296,9 +290,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
-	    	if(types.contains(sourceShape.getType()))
-		   		if(targetShape.getType() == sourceShape.getType())
-					return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.RELATIONSHIP);
 		}
 		return false;
 	}
@@ -316,8 +308,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			if(types.contains(sourceShape.getType()))
-				return true;
+			return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, sourceShape.getType());
 		}	
 		return false;
 	}
