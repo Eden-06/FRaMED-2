@@ -96,7 +96,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		Anchor newAnchor = context.getNewAnchor();
 		org.framed.iorm.model.ModelElement newShape = UIUtil.getModelElementForAnchor(newAnchor);
 		if(newShape != null) {
-			return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, newShape.getType());
+			return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, this.modelType);
 		}
 		return false;
 	}
@@ -302,7 +302,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-			return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, sourceShape.getType());
+			return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.modelType);
 		}	
 		return false;
 	}

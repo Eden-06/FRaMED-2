@@ -42,7 +42,7 @@ import org.framed.iorm.featuremodel.FRaMEDFeature;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.model.Segment;
+import org.framed.iorm.model.Segment; 
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UILiterals;

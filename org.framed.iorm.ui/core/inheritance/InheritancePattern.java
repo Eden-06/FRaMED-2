@@ -92,7 +92,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			    if(oldShape != null && newShape != null) {
 			    	if(oldShape.getContainer() == newShape.getContainer()) {
 			    		if(newShape.getType() == oldShape.getType()) {
-			    			return true; //TODO: Handle by the EditPolicyHandler
+			 			   return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, this.modelType);
 		}	}  	}	}	}
 	    return false;
 	}

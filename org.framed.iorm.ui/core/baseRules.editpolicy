@@ -32,6 +32,10 @@
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Execute" actionType="CompartmentType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
   <policies action="Execute" actionType="Relationship">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
