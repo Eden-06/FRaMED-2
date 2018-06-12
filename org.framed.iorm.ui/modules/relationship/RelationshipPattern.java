@@ -1,7 +1,6 @@
 package relationship;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.graphiti.features.IFeature;
@@ -59,7 +58,6 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.RELATIONS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
@@ -67,11 +65,7 @@ public class RelationshipPattern extends FRaMEDConnectionPattern {
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Relationships");
 			}	};
-			*/
-			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-					PaletteCategory.RELATIONS_CATEGORY,
-					ViewVisibility.ALL_VIEWS) {
-			};	
+
 	/**
 	 * class constructor		
 	 */

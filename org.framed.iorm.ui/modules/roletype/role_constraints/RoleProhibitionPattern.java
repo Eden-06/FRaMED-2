@@ -40,7 +40,6 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.CONSTRAINTS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
@@ -48,10 +47,6 @@ public class RoleProhibitionPattern extends AbstractRoleConstraintPattern {
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Role_Prohibition");
 			}	};
-			*/
-			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-					PaletteCategory.CONSTRAINTS_CATEGORY,
-					ViewVisibility.ALL_VIEWS) {};
 	
 	/**
 	 * Class constructor

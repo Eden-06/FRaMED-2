@@ -88,12 +88,9 @@ public class RoleTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-//	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-//			PaletteCategory.ENTITIES_CATEGORY,
-//			ViewVisibility.COMPARTMENT_VIEW);
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
-			ViewVisibility.ALL_VIEWS);
+			ViewVisibility.COMPARTMENT_VIEW);
 	
 	/**
 	 * class constructor		

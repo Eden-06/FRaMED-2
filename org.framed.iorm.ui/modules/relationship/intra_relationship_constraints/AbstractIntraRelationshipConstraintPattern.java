@@ -48,7 +48,6 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.CONSTRAINTS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
@@ -56,11 +55,6 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Intra_Relationship_Constraints");
 			}	};
-			*/
-			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-					PaletteCategory.CONSTRAINTS_CATEGORY,
-					ViewVisibility.ALL_VIEWS) {
-					};
 			
 	/**
 	 * Class constructor
@@ -192,7 +186,9 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		AddContext addContext = new AddContext();
 	    addContext.setNewObject(newIntraRelCon);
 	    addContext.setTargetConnection(targetConnection);
-	    if(aircp.canAdd(addContext)) aircp.add(addContext);
+	    if(aircp.canAdd(addContext)) {
+	    	aircp.add(addContext); //FIXME: ?
+	    }
 		return new Object[] { newIntraRelCon }; 
 	}
 	

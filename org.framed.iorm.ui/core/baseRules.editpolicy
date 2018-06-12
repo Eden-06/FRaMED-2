@@ -24,19 +24,7 @@
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies actionType="RelationshipExclusion">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies actionType="RelationshipImplication">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
   <policies actionType="Inheritance">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies actionType="Fulfillment">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
@@ -44,19 +32,7 @@
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies action="Execute" actionType="CompartmentType">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
   <policies action="Execute" actionType="Relationship">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies action="Execute" actionType="Fulfillment">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies action="Execute" actionType="Inheritance">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>

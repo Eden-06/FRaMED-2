@@ -1,6 +1,5 @@
 package inheritance;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -49,7 +48,6 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.RELATIONS_CATEGORY,
 		ViewVisibility.ALL_VIEWS) {
-		/*
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
@@ -59,9 +57,9 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 							    (framedFeatureNames.contains("Compartment_Inheritance") &&
 							     framedFeatureNames.contains("Contains_Compartments")));
 					default: return false;
-			}	}
-			*/
-				};
+			}	
+		}
+	};
 	
 	/**
 	 * class constructor		
@@ -178,7 +176,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
 			if(sourceShape != null && targetShape != null && sM == tM) {
 				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
-				}
+			}
 		}
 	    return false;
 	}
@@ -239,7 +237,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	/**
 	 * searches for the main or group model the inheritance should be added to
 	 */
-	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) { //FIXME
 		while(sourceShape.getContainer() != null) {
 			if(sourceShape.getContainer().getParent() == null ||
 			   (sourceShape.getContainer().getParent() != null &&

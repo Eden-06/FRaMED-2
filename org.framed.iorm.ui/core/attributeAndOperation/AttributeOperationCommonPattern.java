@@ -67,7 +67,6 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 	protected final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.PROPERTIES_CATEGORY,
 		ViewVisibility.ALL_VIEWS) {
-		/*
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				switch(paletteView) {
@@ -76,10 +75,9 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 					return (framedFeatureNames.contains("Role_Properties") ||
 							framedFeatureNames.contains("Compartment_Properties"));
 				default: return false;
-		}
+				}
 		}	
-				*/
-		};
+	};
 	
 	/**
 	 * class constructor

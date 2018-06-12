@@ -80,9 +80,6 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-//	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-//			PaletteCategory.ENTITIES_CATEGORY,
-//			ViewVisibility.TOPLEVEL_VIEW);
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.ENTITIES_CATEGORY,
 			ViewVisibility.TOPLEVEL_VIEW);

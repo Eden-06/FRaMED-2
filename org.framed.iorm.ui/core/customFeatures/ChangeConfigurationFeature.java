@@ -23,7 +23,6 @@ import de.ovgu.featureide.fm.core.configuration.Configuration;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor; //*import for javadoc link
 import org.framed.iorm.ui.providers.FeatureProvider;
 import org.framed.iorm.ui.configuration.ChangeConfigurationContext; //*import for javadoc link
-import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.configuration.ChangeConfigurationCommand; //*import for javadoc link
 
 

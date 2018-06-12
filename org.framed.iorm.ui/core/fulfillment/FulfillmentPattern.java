@@ -1,8 +1,5 @@
 package fulfillment;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;

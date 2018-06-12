@@ -1,3 +1,3 @@
 //ContainsCompartments
-Add CompartmentType (Contains_Compartments) when InCompartment();
-Create CompartmentType (Contains_Compartments) when InCompartment(); 
+Add CompartmentType (Contains_Compartments) when InType(CompartmentType);
+Create CompartmentType (Contains_Compartments) when InType(CompartmentType); 

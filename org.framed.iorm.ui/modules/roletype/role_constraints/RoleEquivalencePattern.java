@@ -5,7 +5,6 @@ import java.util.List;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
-import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -42,19 +41,13 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */
-	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 			PaletteCategory.CONSTRAINTS_CATEGORY,
 			ViewVisibility.COMPARTMENT_VIEW) {
 				@Override
 				public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 					return framedFeatureNames.contains("Role_Equivalence");
-			}	};*/
-			
-			private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-					PaletteCategory.CONSTRAINTS_CATEGORY,
-					ViewVisibility.ALL_VIEWS) {};
-			
+			}	};			
 		
 	/**
 	 * Class constructor

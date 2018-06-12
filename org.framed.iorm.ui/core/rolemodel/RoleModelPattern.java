@@ -106,18 +106,13 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 	/**
 	 * the feature palette descriptor manages the palette visibility, see {@link FeaturePaletteDescriptor}
 	 */	
-	/*
 	private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
 		PaletteCategory.ENTITIES_CATEGORY,
 		ViewVisibility.TOPLEVEL_VIEW) {
 			@Override
 			public boolean featureExpression(List<String> framedFeatureNames, PaletteView paletteView) {
 				return !(framedFeatureNames.contains("Compartment_Types"));
-		}	};*/
-		private final FeaturePaletteDescriptor spec_FPD = new FeaturePaletteDescriptor(
-				PaletteCategory.ENTITIES_CATEGORY,
-				ViewVisibility.ALL_VIEWS) {
-				};
+		}	};
 		
 	/**
 	 * class constructor		

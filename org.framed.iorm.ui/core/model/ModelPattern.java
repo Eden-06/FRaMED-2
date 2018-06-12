@@ -2,7 +2,6 @@ package model;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.common.util.URI;
@@ -15,11 +14,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.framed.iorm.model.Model;
 import org.framed.iorm.model.OrmFactory;
-import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.FRaMEDShapePattern;
 import org.framed.iorm.ui.UILiterals;
 import org.framed.iorm.ui.UIUtil;
-import org.framed.iorm.ui.editPolicy.EditPolicyService;
 import org.framed.iorm.ui.palette.FeaturePaletteDescriptor;
 import org.framed.iorm.ui.palette.PaletteCategory;
 import org.framed.iorm.ui.palette.ViewVisibility;

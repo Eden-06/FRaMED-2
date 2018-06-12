@@ -15,7 +15,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.ModelElement;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
-import org.framed.iorm.ui.exceptions.InvalidTypeOfEditorInputException;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
 import editpolicymodel.AndConstraintRule;
@@ -50,12 +49,9 @@ public class ConstraintRuleVisitor {
 	@SuppressWarnings("unused")
 	private Type type;
 
-	private Diagram diagram;
-
 	public ConstraintRuleVisitor(Object context, Type type, Diagram diagram) {
 		this.context = context;
 		this.type = type;
-		this.diagram = diagram;
 	}
 
 	public Diagram getDiagramWithName(String name, Diagram rootDiagram) {

@@ -1,8 +1,5 @@
 package roletype.role_constraints;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
