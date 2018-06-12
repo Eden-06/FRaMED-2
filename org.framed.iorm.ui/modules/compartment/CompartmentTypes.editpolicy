@@ -6,7 +6,7 @@
     </featureRule>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
       <rules xsi:type="editpolicymodel:NotConstraintRule">
-        <rule xsi:type="editpolicymodel:InType"/>
+        <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
       </rules>
       <rules xsi:type="editpolicymodel:NotConstraintRule">
         <rule xsi:type="editpolicymodel:ContainsCompartment"/>
@@ -19,7 +19,7 @@
     </featureRule>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
       <rules xsi:type="editpolicymodel:NotConstraintRule">
-        <rule xsi:type="editpolicymodel:InType"/>
+        <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
       </rules>
       <rules xsi:type="editpolicymodel:NotConstraintRule">
         <rule xsi:type="editpolicymodel:ContainsCompartment"/>
@@ -29,13 +29,13 @@
   <policies action="Add" actionType="CompartmentType">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     <constraintRule xsi:type="editpolicymodel:NotConstraintRule">
-      <rule xsi:type="editpolicymodel:InType"/>
+      <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
     </constraintRule>
   </policies>
   <policies actionType="CompartmentType">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     <constraintRule xsi:type="editpolicymodel:NotConstraintRule">
-      <rule xsi:type="editpolicymodel:InType"/>
+      <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
     </constraintRule>
   </policies>
 </editpolicymodel:Model>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
@@ -67,8 +68,6 @@ public class RoleEquivalencePattern extends AbstractRoleConstraintPattern {
 		FPD = spec_FPD;
 	}
 	
-	//add feature
-	//~~~~~~~~~~~
 	/**
 	 * uses the operation {@link AbstractRoleConstraintPattern#canAddRoleConstraint} of the super type to calculate if
 	 * the role equivalences can be added

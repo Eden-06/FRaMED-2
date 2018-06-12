@@ -146,9 +146,9 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
-			if(shape.getType()==Type.NATURAL_TYPE) {
+			if(shape.getType() == Type.NATURAL_TYPE) {
 				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.NATURAL_TYPE);
+					return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, shape.getType());
 		}	}	}
 		return false;
 	}
@@ -368,9 +368,8 @@ public class NaturalTypePattern extends FRaMEDShapePattern implements IPattern {
 		GraphicsAlgorithm graphicsAlgorithm = editingContext.getGraphicsAlgorithm();
 		if(businessObject instanceof org.framed.iorm.model.Shape && graphicsAlgorithm instanceof Text) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObject;
-			if(shape.getType() == Type.NATURAL_TYPE) {
-				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, Type.NATURAL_TYPE);
-		}	}
+				return EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, shape.getType());
+		}
 		return false;
 	}
 

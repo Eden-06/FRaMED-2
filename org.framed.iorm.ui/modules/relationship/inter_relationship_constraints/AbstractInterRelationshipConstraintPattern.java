@@ -165,7 +165,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    org.framed.iorm.model.ModelElement targetConnection = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceConnection != null && targetConnection != null) {
 	    	if(sourceConnection.getContainer() == targetConnection.getContainer()) {
-				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, sourceConnection.getType() );
+				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
 	    	}	
 	    }
 	    return false;

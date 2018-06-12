@@ -2,10 +2,10 @@
 <editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
   <policies action="Add" actionType="CompartmentType">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
-    <constraintRule xsi:type="editpolicymodel:InType"/>
+    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
   <policies actionType="CompartmentType">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Contains_Compartments"/>
-    <constraintRule xsi:type="editpolicymodel:InType"/>
+    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
 </editpolicymodel:Model>

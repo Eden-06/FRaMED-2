@@ -25,7 +25,7 @@ import org.framed.iorm.ui.exceptions.NoModelFoundException;
  * @author Kevin Kassin
  */
 public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPattern{
-		
+			
 	/**
 	 * Class constructor
 	 */
@@ -46,7 +46,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
 	    if(newShape != null && oldShape != null) {
 	    	if(newShape.getContainer() == oldShape.getContainer()) {
-	    		return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, newShape.getType());
+	    		return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, this.modelType);
 		}	}
 	    return false;
 	}
@@ -60,8 +60,9 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	public boolean canAddRoleConstraint(IAddContext addContext, Type type) {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation != null && relation.getType() != null)
-				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
+		   if(relation != null && relation.getType() != null) {
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, this.modelType);
+		   }
 		}
 		return false;
 	}
@@ -84,9 +85,8 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
-	    	if(sourceShape.getContainer() == targetShape.getContainer()) {
-	    		return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, sourceShape.getType());
-		}	}
+	    		return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
+		}	
 	    return false;
 	}
 	
@@ -103,11 +103,10 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-	    	return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, sourceShape.getType());
+	    	return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.modelType);
 		}	
 		return false;
 	}
-	
  
 	/**
 	 * creates the business object of a role constraint of the given type using the following steps:
