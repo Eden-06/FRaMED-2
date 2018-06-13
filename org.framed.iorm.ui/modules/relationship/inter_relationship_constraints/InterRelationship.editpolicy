@@ -2,34 +2,82 @@
 <editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
   <policies action="Start" actionType="RelationshipExclusion">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
   </policies>
   <policies action="Add" actionType="RelationshipExclusion">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
   <policies action="Reconnect" actionType="RelationshipExclusion">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
   <policies actionType="RelationshipExclusion">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
   <policies action="Start" actionType="RelationshipImplication">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
   </policies>
   <policies action="Add" actionType="RelationshipImplication">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
   <policies action="Reconnect" actionType="RelationshipImplication">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
   <policies actionType="RelationshipImplication">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Inter_Relationship_Constraints"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="Relationship"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
   </policies>
 </editpolicymodel:Model>

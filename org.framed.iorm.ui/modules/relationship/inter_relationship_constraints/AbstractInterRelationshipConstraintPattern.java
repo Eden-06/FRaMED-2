@@ -159,7 +159,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 	    org.framed.iorm.model.ModelElement targetConnection = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceConnection != null && targetConnection != null) {
 	    	if(sourceConnection.getContainer() == targetConnection.getContainer()) {
-				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
+				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
 	    	}	
 	    }
 	    return false;
@@ -179,7 +179,7 @@ public abstract class AbstractInterRelationshipConstraintPattern extends FRaMEDC
 		org.framed.iorm.model.ModelElement sourceConnection = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceConnection != null){	
 			if(sourceConnection.getType() == Type.RELATIONSHIP)
-				return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, sourceConnection.getType() );
+				return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.getModelType() );
 		}	
 		return false;
 	}
