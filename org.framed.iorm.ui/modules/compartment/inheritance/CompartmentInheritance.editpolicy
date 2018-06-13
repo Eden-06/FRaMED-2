@@ -16,4 +16,16 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
 </editpolicymodel:Model>

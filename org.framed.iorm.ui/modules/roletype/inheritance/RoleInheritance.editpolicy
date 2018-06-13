@@ -28,4 +28,16 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Role_Inheritance"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
 </editpolicymodel:Model>

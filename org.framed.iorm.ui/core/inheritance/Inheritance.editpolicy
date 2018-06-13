@@ -7,22 +7,40 @@
   <policies action="Add" actionType="Inheritance">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
-      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
-      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
     </constraintRule>
   </policies>
   <policies action="Reconnect" actionType="Inheritance">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
-      <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
-      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Naturals"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:IsSourceType" type="NaturalType"/>
+        <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+      </rules>
     </constraintRule>
   </policies>
   <policies action="Execute" actionType="Inheritance">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
-  </policies>
-  <policies actionType="Inheritance">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
