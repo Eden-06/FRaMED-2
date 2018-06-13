@@ -195,10 +195,10 @@ public class CompartmentTypePattern extends FRaMEDShapePattern implements IPatte
 	public boolean canAdd(IAddContext addContext) {
 		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
-			if(shape.getType()==Type.COMPARTMENT_TYPE) {
-				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.COMPARTMENT_TYPE);
-		}	}	}
+			if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, shape.getType());
+			}
+		}
 		return false;
 	}
 	
