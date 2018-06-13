@@ -8,4 +8,8 @@
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
     <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
+  <policies action="Direct_Edit" actionType="RoleGroup">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>
