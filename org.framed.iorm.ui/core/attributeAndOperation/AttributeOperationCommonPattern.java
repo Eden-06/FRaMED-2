@@ -246,8 +246,11 @@ public abstract class AttributeOperationCommonPattern extends FRaMEDShapePattern
 		if(businessObject instanceof NamedElement && graphicsAlgorithm instanceof Text) {
 			Shape shape = (Shape) editingContext.getPictogramElement();
 			if( (UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_ATTRIBUTE_TEXT) ||
-					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT)))
-				EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, this.getModelType());
+					UIUtil.isShape_IdValue(shape, literals.SHAPE_ID_OPERATION_TEXT))) {
+				return true; //Always Permit DirectEditing of Attributes and Operations
+				//TODO: Change call to canDirectEditProperty
+				//EditPolicyService.getHandler(getDiagram()).canDirectEdit(editingContext, this.getModelType());
+			}				
 		}		
 		return false;
 	}
