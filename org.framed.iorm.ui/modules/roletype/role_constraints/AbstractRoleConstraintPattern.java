@@ -43,7 +43,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    org.framed.iorm.model.ModelElement oldShape = UIUtil.getModelElementForAnchor(oldAnchor);
 	    if(newShape != null && oldShape != null) {
 	    	if(newShape.getContainer() == oldShape.getContainer()) {
-	    		return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, this.modelType);
+	    		return EditPolicyService.getHandler(this.getDiagram()).canReconnect(context, this.getModelType());
 		}	}
 	    return false;
 	}
@@ -58,7 +58,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation != null && relation.getType() != null) {
-				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, this.modelType);
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, this.getModelType());
 		   }
 		}
 		return false;
@@ -82,7 +82,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 	    org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    org.framed.iorm.model.ModelElement targetShape = UIUtil.getModelElementForAnchor(targetAnchor);
 	    if(sourceShape != null && targetShape != null) {
-	    		return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
+	    		return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
 		}	
 	    return false;
 	}
@@ -100,7 +100,7 @@ public abstract class AbstractRoleConstraintPattern extends FRaMEDConnectionPatt
 		Anchor sourceAnchor = createContext.getSourceAnchor();
 		org.framed.iorm.model.ModelElement sourceShape = UIUtil.getModelElementForAnchor(sourceAnchor);
 		if(sourceShape != null){	
-	    	return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.modelType);
+	    	return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.getModelType());
 		}	
 		return false;
 	}

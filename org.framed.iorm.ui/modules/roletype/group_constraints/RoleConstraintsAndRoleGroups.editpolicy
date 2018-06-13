@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Start" actionType="RoleImplication">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Implication"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:OrConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+    </constraintRule>
+  </policies>
+  <policies action="Add" actionType="RoleImplication">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Implication"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="RoleImplication">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Implication"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies actionType="RoleImplication">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Implication"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="RoleEquivalence">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:OrConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+    </constraintRule>
+  </policies>
+  <policies action="Add" actionType="RoleEquivalence">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="RoleEquivalence">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies actionType="RoleEquivalence">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Equivalence"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Start" actionType="RoleProhibition">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:OrConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+      <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+    </constraintRule>
+  </policies>
+  <policies action="Add" actionType="RoleProhibition">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Reconnect" actionType="RoleProhibition">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies actionType="RoleProhibition">
+    <featureRule xsi:type="editpolicymodel:AndFeatureRule">
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Role_Prohibition"/>
+      <rules xsi:type="editpolicymodel:IsFeature" featureName="Group_Constraints"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:AndConstraintRule">
+        <rules xsi:type="editpolicymodel:OrConstraintRule">
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
+          <rules xsi:type="editpolicymodel:IsSourceType" type="RoleGroup"/>
+        </rules>
+        <rules xsi:type="editpolicymodel:NotConstraintRule">
+          <rule xsi:type="editpolicymodel:SourceEqualsTarget"/>
+        </rules>
+      </rules>
+      <rules xsi:type="editpolicymodel:OrConstraintRule">
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleType"/>
+        <rules xsi:type="editpolicymodel:IsTargetType" type="RoleGroup"/>
+      </rules>
+    </constraintRule>
+  </policies>
+</editpolicymodel:Model>
