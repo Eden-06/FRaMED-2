@@ -110,7 +110,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 		if(addContext.getNewObject() instanceof Relation) {
 		   Relation relation = (Relation) addContext.getNewObject();
 		   if(relation.getType() == Type.INHERITANCE)
-			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, relation.getType());
+			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, this.modelType);
 		}
 		return false;
 	}
@@ -169,15 +169,17 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	    Anchor targetAnchor = createContext.getTargetAnchor();
 	    ModelElement source = UIUtil.getModelElementForAnchor(sourceAnchor);
 	    ModelElement target = UIUtil.getModelElementForAnchor(targetAnchor);
-	    Model sM=getModelToCreateIn(source);
-	    Model tM=getModelToCreateIn(target);
-	    if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
-			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
-			org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
-			if(sourceShape != null && targetShape != null && sM == tM) {
-				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, Type.INHERITANCE);
-			}
-		}
+	    if(source != null && target != null) {
+	    	Model sM = getModelToCreateIn(source);
+	    	Model tM = getModelToCreateIn(target);
+	    	if(source instanceof org.framed.iorm.model.Shape && target instanceof org.framed.iorm.model.Shape) {
+	    		org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
+	    		org.framed.iorm.model.Shape targetShape = (org.framed.iorm.model.Shape) target;
+	    		if(sourceShape != null && targetShape != null && sM == tM) {
+	    			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.modelType);
+	    		}
+	    	}
+	    }
 	    return false;
 	}
 	 
@@ -197,7 +199,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 			org.framed.iorm.model.Shape sourceShape = (org.framed.iorm.model.Shape) source;
 			if(sourceShape.getFirstSegment() != null && sourceShape.getSecondSegment() !=null) {
 				if(sourceShape != null){
-					return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, Type.INHERITANCE);
+					return EditPolicyService.getHandler(this.getDiagram()).canStart(createContext, this.modelType);
 		}	}	}			
 		return false;
 	}
@@ -237,7 +239,7 @@ public class InheritancePattern extends FRaMEDConnectionPattern {
 	/**
 	 * searches for the main or group model the inheritance should be added to
 	 */
-	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) { //FIXME
+	public Model getModelToCreateIn(org.framed.iorm.model.ModelElement sourceShape) {
 		while(sourceShape.getContainer() != null) {
 			if(sourceShape.getContainer().getParent() == null ||
 			   (sourceShape.getContainer().getParent() != null &&
