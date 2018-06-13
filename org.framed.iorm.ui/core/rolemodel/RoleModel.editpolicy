@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Add" actionType="CompartmentType">
+    <featureRule xsi:type="editpolicymodel:NotFeatureRule">
+      <rule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:ContainsCompartment"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies actionType="CompartmentType">
+    <featureRule xsi:type="editpolicymodel:NotFeatureRule">
+      <rule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
+    </featureRule>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
+      </rules>
+      <rules xsi:type="editpolicymodel:NotConstraintRule">
+        <rule xsi:type="editpolicymodel:ContainsCompartment"/>
+      </rules>
+    </constraintRule>
+  </policies>
+  <policies action="Direct_Edit" actionType="CompartmentType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+</editpolicymodel:Model>

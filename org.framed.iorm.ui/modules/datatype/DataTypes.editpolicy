@@ -8,4 +8,8 @@
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Data_Types"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
+  <policies action="Direct_Edit" actionType="DataType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>

@@ -111,11 +111,19 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	 * @return if the intra relationship constraint can be added
 	 */
 	public boolean canAddIntraRelationshipConstraint(IAddContext addContext, Type type) {
-		if(addContext.getNewObject() instanceof Relation) {
-		   Relation relation = (Relation) addContext.getNewObject();
-		   if(relation.getType() == type) {
-			   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, type);
-		}	}
+		if (addContext.getNewObject() instanceof Relation) {
+			Relation relation = (Relation) addContext.getNewObject();
+			if (relation.getType() == type) {
+				Connection targetConnection = addContext.getTargetConnection();
+				if (targetConnection != null) {
+					Object m = getBusinessObjectForPictogramElement(targetConnection);
+					if (m instanceof Relation && ((Relation) m).getType() == Type.RELATIONSHIP) { 
+						// TODO: Create EditPolicy rule for this case
+						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, type);
+					}
+				}
+			}
+		}
 		return false;
 	}
 	

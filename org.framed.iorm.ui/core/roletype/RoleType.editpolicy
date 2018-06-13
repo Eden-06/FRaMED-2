@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
-  <policies action="Add" actionType="NaturalType">
+  <policies action="Add" actionType="RoleType">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
-  <policies actionType="NaturalType">
+  <policies actionType="RoleType">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
-  <policies action="Direct_Edit" actionType="NaturalType">
+  <policies action="Direct_Edit" actionType="RoleType">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
   </policies>
 </editpolicymodel:Model>
