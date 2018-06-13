@@ -155,10 +155,11 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		Connection targetConnection = createContext.getTargetConnection();
-		if(targetConnection != null &&
-		   getBusinessObjectForPictogramElement(targetConnection) instanceof Relation) {
-			Relation relation = (Relation) getBusinessObjectForPictogramElement(targetConnection);
-			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
+		if(targetConnection != null) {
+			Object m = getBusinessObjectForPictogramElement(targetConnection);
+			if(m instanceof Relation && ((Relation) m).getType() == Type.RELATIONSHIP) { //TODO: Create EditPolicy rule for this case
+				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
+			}
 		}
 	    return false;
 	}
