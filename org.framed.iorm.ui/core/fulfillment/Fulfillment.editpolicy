@@ -106,4 +106,8 @@
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Dates"/>
     <constraintRule xsi:type="editpolicymodel:IsSourceType" type="DataType"/>
   </policies>
+  <policies action="Execute" actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>

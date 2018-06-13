@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<editpolicymodel:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editpolicymodel="http://framed/editpolicymodel">
+  <policies action="Add" actionType="NaturalType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies actionType="NaturalType">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+</editpolicymodel:Model>

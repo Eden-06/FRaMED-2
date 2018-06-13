@@ -1,4 +1,4 @@
-//Fullfillment or Players?? 
+//Fullfillment or Players??  
 Start Fulfillment (Naturals) when IsSourceType(NaturalType);  
 Add Fulfillment (Naturals) when IsSourceType(NaturalType) and IsTargetType(CompartmentType);
 Create Fulfillment (Naturals) when IsSourceType(NaturalType) and IsTargetType(CompartmentType);
@@ -18,3 +18,5 @@ Start Fulfillment (Dates) when IsSourceType(DataType);
 Add Fulfillment (Dates) when IsSourceType(DataType);
 Create Fulfillment (Dates) when IsSourceType(DataType);
 Reconnect Fulfillment (Dates) when IsSourceType(DataType);
+
+Execute Fulfillment (true) when true;

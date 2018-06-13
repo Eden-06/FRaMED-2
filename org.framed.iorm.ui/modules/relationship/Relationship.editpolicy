@@ -30,4 +30,12 @@
       <rules xsi:type="editpolicymodel:IsSourceType" type="RoleType"/>
     </constraintRule>
   </policies>
+  <policies action="Execute" actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies actionType="Relationship">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>

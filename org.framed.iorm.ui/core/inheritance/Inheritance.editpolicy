@@ -18,4 +18,12 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies action="Execute" actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
+  <policies actionType="Inheritance">
+    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
+  </policies>
 </editpolicymodel:Model>

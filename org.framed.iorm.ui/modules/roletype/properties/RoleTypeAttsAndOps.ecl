@@ -2,4 +2,7 @@
 Create_Property RoleType (Role_Properties) when true;
 Create_Attribute RoleType (Role_Properties) when true; 
 Create_Operation RoleType (Role_Behavior) when true;
-Add_Property RoleType (true) when true;
+Add_Property RoleType (true) when true; 
+
+Add RoleType (true) when InType(CompartmentType);   
+Create RoleType (true) when InType(CompartmentType); 

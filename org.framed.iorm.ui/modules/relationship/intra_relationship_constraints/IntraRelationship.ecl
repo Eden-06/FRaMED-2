@@ -1,4 +1,4 @@
-//IntraRelationshipConstraint
+//IntraRelationshipConstraint 
 Add Irreflexive (Intra_Relationship_Constraints) when true; 
 Start Irreflexive (Intra_Relationship_Constraints) when true;
 Create Irreflexive (Intra_Relationship_Constraints) when true;

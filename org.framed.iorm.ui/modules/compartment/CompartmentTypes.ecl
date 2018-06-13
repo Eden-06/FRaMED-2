@@ -5,4 +5,4 @@ Add CompartmentType (!Compartment_Types) when !InType(CompartmentType) and !Cont
 Create CompartmentType (!Compartment_Types) when !InType(CompartmentType) and !ContainsCompartment();
 Add CompartmentType (Compartment_Types) when !InType(CompartmentType);
 Create CompartmentType (Compartment_Types) when !InType(CompartmentType);
- 
+  

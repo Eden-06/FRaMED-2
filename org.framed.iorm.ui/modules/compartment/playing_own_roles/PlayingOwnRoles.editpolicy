@@ -11,6 +11,13 @@
       <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
     </constraintRule>
   </policies>
+  <policies actionType="Fulfillment">
+    <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
+    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
+      <rules xsi:type="editpolicymodel:IsSourceType" type="CompartmentType"/>
+      <rules xsi:type="editpolicymodel:SourceEqualsTargetType"/>
+    </constraintRule>
+  </policies>
   <policies action="Reconnect" actionType="Fulfillment">
     <featureRule xsi:type="editpolicymodel:IsFeature" featureName="Playable_by_Defining_Compartment"/>
     <constraintRule xsi:type="editpolicymodel:AndConstraintRule">

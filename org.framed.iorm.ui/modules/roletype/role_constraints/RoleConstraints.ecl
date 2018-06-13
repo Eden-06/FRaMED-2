@@ -1,4 +1,4 @@
-//RoleConstraints 
+//RoleConstraints  
 Start RoleImplication (Role_Implication) when IsSourceType(RoleType); 
 Add RoleImplication (Role_Implication) when IsSourceType(RoleType) and !SourceEqualsTarget() and SourceEqualsTargetType(); 
 Reconnect RoleImplication (Role_Implication) when IsSourceType(RoleType) and !SourceEqualsTarget() and SourceEqualsTargetType(); 
