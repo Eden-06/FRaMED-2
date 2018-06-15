@@ -10,6 +10,6 @@
   </policies>
   <policies action="Direct_Edit" actionType="RoleType">
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
+    <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
 </editpolicymodel:Model>
