@@ -225,6 +225,7 @@ public class ConstraintRuleVisitor {
 		}
 		if (container == null)
 			return false;
+		//TODO: this does not work, it only finds the enclosing compartment type if it exists, and is semantically equivalent to In(CompartmentType).
 		// travers Containers to find the compartment type.
 		Diagram compartmentDiagram = findContainerDiagramOfType(container, Type.COMPARTMENT_TYPE);
 		System.out.println("containsCompartmentVisitor: TEST: " + compartmentDiagram != null);
