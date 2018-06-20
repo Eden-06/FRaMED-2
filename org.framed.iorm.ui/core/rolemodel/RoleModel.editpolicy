@@ -4,13 +4,8 @@
     <featureRule xsi:type="editpolicymodel:NotFeatureRule">
       <rule xsi:type="editpolicymodel:IsFeature" featureName="Compartment_Types"/>
     </featureRule>
-    <constraintRule xsi:type="editpolicymodel:AndConstraintRule">
-      <rules xsi:type="editpolicymodel:NotConstraintRule">
-        <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
-      </rules>
-      <rules xsi:type="editpolicymodel:NotConstraintRule">
-        <rule xsi:type="editpolicymodel:ContainsCompartment"/>
-      </rules>
+    <constraintRule xsi:type="editpolicymodel:NotConstraintRule">
+      <rule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
     </constraintRule>
   </policies>
   <policies actionType="CompartmentType">

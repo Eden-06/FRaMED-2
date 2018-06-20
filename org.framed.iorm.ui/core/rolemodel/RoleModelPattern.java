@@ -190,12 +190,16 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 	 */
 	@Override
 	public boolean canAdd(IAddContext addContext) {
-		if(addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
+		if (addContext.getNewObject() instanceof org.framed.iorm.model.Shape) {
 			org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) addContext.getNewObject();
-			if(shape.getType()==Type.COMPARTMENT_TYPE) {
-				if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-					   return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.COMPARTMENT_TYPE);
-		}	}	}
+			if (shape.getType() == Type.COMPARTMENT_TYPE) {
+				if (UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
+					System.out.println("getContainer():" + addContext.getTargetContainer()+".");
+					if (addContext.getTargetContainer() instanceof Diagram)
+						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, Type.COMPARTMENT_TYPE);
+				}
+			}
+		}
 		return false;
 	}
 	
@@ -371,7 +375,9 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
 	@Override
 	public boolean canCreate(ICreateContext createContext) {
 		if(UIUtil.getLinkedModelForDiagram(getDiagram()) != null) {
-			return EditPolicyService.getHandler(getDiagram()).canCreate(createContext, this.modelType);
+			System.out.println("getContainer():" + createContext.getTargetContainer()+".");
+			if (createContext.getTargetContainer() instanceof Diagram)
+				return EditPolicyService.getHandler(getDiagram()).canCreate(createContext, this.modelType);
 		}   
 		return false;
 	}
@@ -446,12 +452,13 @@ public class RoleModelPattern extends FRaMEDShapePattern implements IPattern {
     @Override
 	public boolean canLayout(ILayoutContext layoutContext) {
 		PictogramElement element = layoutContext.getPictogramElement();
-		if(element instanceof ContainerShape) {
+		if (element instanceof ContainerShape) {
 			EList<EObject> businessObjects = element.getLink().getBusinessObjects();
-			if(businessObjects.size()==1) {
-				if(businessObjects.get(0) instanceof org.framed.iorm.model.Shape) {
+			if (businessObjects.size() == 1) {
+				if (businessObjects.get(0) instanceof org.framed.iorm.model.Shape) {
 					org.framed.iorm.model.Shape shape = (org.framed.iorm.model.Shape) businessObjects.get(0);
-					if(shape.getType() == Type.COMPARTMENT_TYPE) return true;
+					if (shape.getType() == Type.COMPARTMENT_TYPE)
+						return true;
 				}
 			}
 		}

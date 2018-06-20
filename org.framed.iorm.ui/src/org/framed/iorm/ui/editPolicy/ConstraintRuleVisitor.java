@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
@@ -225,11 +226,24 @@ public class ConstraintRuleVisitor {
 		}
 		if (container == null)
 			return false;
-		//TODO: this does not work, it only finds the enclosing compartment type if it exists, and is semantically equivalent to In(CompartmentType).
+		// Check if immediate container element contains another compartment type
+		EObject o = UIUtil.getBusinessObjectForPictogramElement(container);
+		if (!(o instanceof org.framed.iorm.model.Model))
+			return false;
+		org.framed.iorm.model.Model model = (org.framed.iorm.model.Model) o;
+		System.out.println("containsCompartmentVisitor: size()=" + model.getElements().size());
+		for (ModelElement e : model.getElements())
+			if (e.getType().equals(Type.COMPARTMENT_TYPE))
+				return true;
+		return false;
+		// TODO: this does not work, it only finds the enclosing compartment type if it
+		// exists, and is semantically equivalent to In(CompartmentType).
 		// travers Containers to find the compartment type.
-		Diagram compartmentDiagram = findContainerDiagramOfType(container, Type.COMPARTMENT_TYPE);
-		System.out.println("containsCompartmentVisitor: TEST: " + compartmentDiagram != null);
-		return compartmentDiagram != null;
+		// Diagram compartmentDiagram = findContainerDiagramOfType(container,
+		// Type.COMPARTMENT_TYPE);
+		// System.out.println("containsCompartmentVisitor: TEST: " + compartmentDiagram
+		// != null);
+		// return compartmentDiagram != null;
 	}
 
 	private boolean sourceEqualsTargetVisitor(SourceEqualsTarget rule) {
