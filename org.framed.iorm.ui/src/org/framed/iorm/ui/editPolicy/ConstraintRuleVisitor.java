@@ -10,10 +10,12 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.CreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.framed.iorm.model.ModelElement;
+import org.framed.iorm.model.Relation;
 import org.framed.iorm.model.Type;
 import org.framed.iorm.ui.UIUtil;
 import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
@@ -223,16 +225,14 @@ public class ConstraintRuleVisitor {
 	}
 	
 	private boolean isTargetConnectionTypeVisitor(IsTargetConnectionType rule) {
-		throw new IllegalStateException("TODO");
-		/*
-		Anchor anchor = this.getTargetAnchorFromContext(this.context);
-		if (anchor == null) {
-			System.out.println("failed isTargetType() anchor== null,  this.context: " + this.context.toString());
-			return false;
+		Connection targetConnection = this.getTargetConnectionFromContext(this.context);
+		if (targetConnection != null) {
+			Object m = UIUtil.getBusinessObjectForPictogramElement(targetConnection);
+			if (m instanceof Relation && ((Relation) m).getType().getLiteral().equals(rule.getType().getLiteral())) { 
+				return true;
+			}
 		}
-		ModelElement source = UIUtil.getModelElementForAnchor(anchor);
-		return rule.getType().getLiteral().equals(source.getType().getLiteral());
-		*/
+		return false;
 	}
 
 	private boolean containsTypeVisitor(ContainsType rule) {
@@ -291,6 +291,19 @@ public class ConstraintRuleVisitor {
 			anchor = ctx.getTargetAnchor();
 		}
 		return anchor;
+	}
+	
+
+	private Connection getTargetConnectionFromContext(Object context) {
+		Connection targetConnection = null;
+		if (this.context instanceof AddContext) {
+			AddContext addContext = (AddContext)this.context;
+			targetConnection = addContext.getTargetConnection();
+		} else if (this.context instanceof CreateContext) {
+			CreateContext createContext = (CreateContext)this.context;
+			targetConnection = createContext.getTargetConnection();
+		}
+		return targetConnection;
 	}
 
 	private boolean sourceEqualsTargetTypeVisitor(SourceEqualsTargetType rule) {

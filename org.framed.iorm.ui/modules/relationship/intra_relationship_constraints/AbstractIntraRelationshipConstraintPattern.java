@@ -114,14 +114,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 		if (addContext.getNewObject() instanceof Relation) {
 			Relation relation = (Relation) addContext.getNewObject();
 			if (relation.getType() == type) {
-				Connection targetConnection = addContext.getTargetConnection();
-				if (targetConnection != null) {
-					Object m = getBusinessObjectForPictogramElement(targetConnection);
-					if (m instanceof Relation && ((Relation) m).getType() == Type.RELATIONSHIP) { 
-						// TODO: Create EditPolicy rule for this case
-						return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, type);
-					}
-				}
+				return EditPolicyService.getHandler(this.getDiagram()).canAdd(addContext, type);
 			}
 		}
 		return false;
@@ -164,10 +157,7 @@ public abstract class AbstractIntraRelationshipConstraintPattern extends FRaMEDS
 	public boolean canCreate(ICreateContext createContext) {
 		Connection targetConnection = createContext.getTargetConnection();
 		if(targetConnection != null) {
-			Object m = getBusinessObjectForPictogramElement(targetConnection);
-			if(m instanceof Relation && ((Relation) m).getType() == Type.RELATIONSHIP) { //TODO: Create EditPolicy rule for this case
-				return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
-			}
+			return EditPolicyService.getHandler(this.getDiagram()).canCreate(createContext, this.getModelType());
 		}
 	    return false;
 	}
