@@ -40,31 +40,13 @@ public interface editpolicymodelFactory extends EFactory {
 	Policy createPolicy();
 
 	/**
-	 * Returns a new object of class '<em>Contains Compartment</em>'.
+	 * Returns a new object of class '<em>Contains Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Contains Compartment</em>'.
+	 * @return a new object of class '<em>Contains Type</em>'.
 	 * @generated
 	 */
-	ContainsCompartment createContainsCompartment();
-
-	/**
-	 * Returns a new object of class '<em>Is Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Target</em>'.
-	 * @generated
-	 */
-	IsTarget createIsTarget();
-
-	/**
-	 * Returns a new object of class '<em>Is Parent</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Is Parent</em>'.
-	 * @generated
-	 */
-	IsParent createIsParent();
+	ContainsType createContainsType();
 
 	/**
 	 * Returns a new object of class '<em>Is Feature</em>'.
@@ -245,6 +227,15 @@ public interface editpolicymodelFactory extends EFactory {
 	 * @generated
 	 */
 	InType createInType();
+
+	/**
+	 * Returns a new object of class '<em>Is Target Connection Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Is Target Connection Type</em>'.
+	 * @generated
+	 */
+	IsTargetConnectionType createIsTargetConnectionType();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -2,18 +2,18 @@
  */
 package editpolicymodel.tests;
 
-import editpolicymodel.IsTarget;
+import editpolicymodel.ContainsType;
 import editpolicymodel.editpolicymodelFactory;
 
 import junit.textui.TestRunner;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Is Target</b></em>'.
+ * A test case for the model object '<em><b>Contains Type</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class IsTargetTest extends TypeArgumentRuleTest {
+public class ContainsTypeTest extends TypeArgumentRuleTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -21,28 +21,28 @@ public class IsTargetTest extends TypeArgumentRuleTest {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(IsTargetTest.class);
+		TestRunner.run(ContainsTypeTest.class);
 	}
 
 	/**
-	 * Constructs a new Is Target test case with the given name.
+	 * Constructs a new Contains Type test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsTargetTest(String name) {
+	public ContainsTypeTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Returns the fixture for this Is Target test case.
+	 * Returns the fixture for this Contains Type test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected IsTarget getFixture() {
-		return (IsTarget)fixture;
+	protected ContainsType getFixture() {
+		return (ContainsType)fixture;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class IsTargetTest extends TypeArgumentRuleTest {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(editpolicymodelFactory.eINSTANCE.createIsTarget());
+		setFixture(editpolicymodelFactory.eINSTANCE.createContainsType());
 	}
 
 	/**
@@ -67,4 +67,4 @@ public class IsTargetTest extends TypeArgumentRuleTest {
 		setFixture(null);
 	}
 
-} //IsTargetTest
+} //ContainsTypeTest

@@ -175,7 +175,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getConstraintRule()
 	 * @generated
 	 */
-	int CONSTRAINT_RULE = 7;
+	int CONSTRAINT_RULE = 5;
 
 	/**
 	 * The number of structural features of the '<em>Constraint Rule</em>' class.
@@ -196,34 +196,6 @@ public interface editpolicymodelPackage extends EPackage {
 	int CONSTRAINT_RULE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link editpolicymodel.impl.ContainsCompartmentImpl <em>Contains Compartment</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see editpolicymodel.impl.ContainsCompartmentImpl
-	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getContainsCompartment()
-	 * @generated
-	 */
-	int CONTAINS_COMPARTMENT = 2;
-
-	/**
-	 * The number of structural features of the '<em>Contains Compartment</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINS_COMPARTMENT_FEATURE_COUNT = CONSTRAINT_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Contains Compartment</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTAINS_COMPARTMENT_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link editpolicymodel.impl.TypeArgumentRuleImpl <em>Type Argument Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -231,7 +203,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getTypeArgumentRule()
 	 * @generated
 	 */
-	int TYPE_ARGUMENT_RULE = 18;
+	int TYPE_ARGUMENT_RULE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -261,14 +233,14 @@ public interface editpolicymodelPackage extends EPackage {
 	int TYPE_ARGUMENT_RULE_OPERATION_COUNT = CONSTRAINT_RULE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link editpolicymodel.impl.IsTargetImpl <em>Is Target</em>}' class.
+	 * The meta object id for the '{@link editpolicymodel.impl.ContainsTypeImpl <em>Contains Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see editpolicymodel.impl.IsTargetImpl
-	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsTarget()
+	 * @see editpolicymodel.impl.ContainsTypeImpl
+	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getContainsType()
 	 * @generated
 	 */
-	int IS_TARGET = 3;
+	int CONTAINS_TYPE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -277,62 +249,25 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IS_TARGET__TYPE = TYPE_ARGUMENT_RULE__TYPE;
+	int CONTAINS_TYPE__TYPE = TYPE_ARGUMENT_RULE__TYPE;
 
 	/**
-	 * The number of structural features of the '<em>Is Target</em>' class.
+	 * The number of structural features of the '<em>Contains Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IS_TARGET_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
+	int CONTAINS_TYPE_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Is Target</em>' class.
+	 * The number of operations of the '<em>Contains Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IS_TARGET_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link editpolicymodel.impl.IsParentImpl <em>Is Parent</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see editpolicymodel.impl.IsParentImpl
-	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsParent()
-	 * @generated
-	 */
-	int IS_PARENT = 4;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IS_PARENT__TYPE = TYPE_ARGUMENT_RULE__TYPE;
-
-	/**
-	 * The number of structural features of the '<em>Is Parent</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IS_PARENT_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>Is Parent</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IS_PARENT_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
+	int CONTAINS_TYPE_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link editpolicymodel.impl.FeatureRuleImpl <em>Feature Rule</em>}' class.
@@ -342,7 +277,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getFeatureRule()
 	 * @generated
 	 */
-	int FEATURE_RULE = 5;
+	int FEATURE_RULE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Feature Rule</em>' class.
@@ -370,7 +305,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsFeature()
 	 * @generated
 	 */
-	int IS_FEATURE = 6;
+	int IS_FEATURE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Feature Name</b></em>' attribute.
@@ -407,7 +342,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsTargetType()
 	 * @generated
 	 */
-	int IS_TARGET_TYPE = 8;
+	int IS_TARGET_TYPE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -444,7 +379,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getLogicalConstraintRule()
 	 * @generated
 	 */
-	int LOGICAL_CONSTRAINT_RULE = 20;
+	int LOGICAL_CONSTRAINT_RULE = 18;
 
 	/**
 	 * The number of structural features of the '<em>Logical Constraint Rule</em>' class.
@@ -472,7 +407,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getUnaryConstraintRule()
 	 * @generated
 	 */
-	int UNARY_CONSTRAINT_RULE = 9;
+	int UNARY_CONSTRAINT_RULE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
@@ -509,7 +444,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getNotConstraintRule()
 	 * @generated
 	 */
-	int NOT_CONSTRAINT_RULE = 10;
+	int NOT_CONSTRAINT_RULE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
@@ -546,7 +481,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getNaryConstraintRule()
 	 * @generated
 	 */
-	int NARY_CONSTRAINT_RULE = 19;
+	int NARY_CONSTRAINT_RULE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -583,7 +518,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getAndConstraintRule()
 	 * @generated
 	 */
-	int AND_CONSTRAINT_RULE = 11;
+	int AND_CONSTRAINT_RULE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -620,7 +555,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getBinaryConstraintRule()
 	 * @generated
 	 */
-	int BINARY_CONSTRAINT_RULE = 12;
+	int BINARY_CONSTRAINT_RULE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
@@ -666,7 +601,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getTrueConstraintRule()
 	 * @generated
 	 */
-	int TRUE_CONSTRAINT_RULE = 13;
+	int TRUE_CONSTRAINT_RULE = 11;
 
 	/**
 	 * The number of structural features of the '<em>True Constraint Rule</em>' class.
@@ -694,7 +629,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getFalseConstraintRule()
 	 * @generated
 	 */
-	int FALSE_CONSTRAINT_RULE = 14;
+	int FALSE_CONSTRAINT_RULE = 12;
 
 	/**
 	 * The number of structural features of the '<em>False Constraint Rule</em>' class.
@@ -722,7 +657,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getOrConstraintRule()
 	 * @generated
 	 */
-	int OR_CONSTRAINT_RULE = 15;
+	int OR_CONSTRAINT_RULE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -759,7 +694,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getImplicationConstraintRule()
 	 * @generated
 	 */
-	int IMPLICATION_CONSTRAINT_RULE = 16;
+	int IMPLICATION_CONSTRAINT_RULE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Left Rule</b></em>' containment reference.
@@ -805,7 +740,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsSourceType()
 	 * @generated
 	 */
-	int IS_SOURCE_TYPE = 17;
+	int IS_SOURCE_TYPE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -842,7 +777,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getLogicalFeatureRule()
 	 * @generated
 	 */
-	int LOGICAL_FEATURE_RULE = 26;
+	int LOGICAL_FEATURE_RULE = 24;
 
 	/**
 	 * The number of structural features of the '<em>Logical Feature Rule</em>' class.
@@ -870,7 +805,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getTrueFeatureRule()
 	 * @generated
 	 */
-	int TRUE_FEATURE_RULE = 21;
+	int TRUE_FEATURE_RULE = 19;
 
 	/**
 	 * The number of structural features of the '<em>True Feature Rule</em>' class.
@@ -898,7 +833,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getUnaryFeatureRule()
 	 * @generated
 	 */
-	int UNARY_FEATURE_RULE = 28;
+	int UNARY_FEATURE_RULE = 26;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
@@ -935,7 +870,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getNotFeatureRule()
 	 * @generated
 	 */
-	int NOT_FEATURE_RULE = 22;
+	int NOT_FEATURE_RULE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
@@ -972,7 +907,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getFalseFeatureRule()
 	 * @generated
 	 */
-	int FALSE_FEATURE_RULE = 23;
+	int FALSE_FEATURE_RULE = 21;
 
 	/**
 	 * The number of structural features of the '<em>False Feature Rule</em>' class.
@@ -1000,7 +935,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getNaryFeatureRule()
 	 * @generated
 	 */
-	int NARY_FEATURE_RULE = 24;
+	int NARY_FEATURE_RULE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -1037,7 +972,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getBinaryFeatureRule()
 	 * @generated
 	 */
-	int BINARY_FEATURE_RULE = 25;
+	int BINARY_FEATURE_RULE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
@@ -1083,7 +1018,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getImplicationFeatureRule()
 	 * @generated
 	 */
-	int IMPLICATION_FEATURE_RULE = 27;
+	int IMPLICATION_FEATURE_RULE = 25;
 
 	/**
 	 * The feature id for the '<em><b>Right Rule</b></em>' containment reference.
@@ -1129,7 +1064,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getOrFeatureRule()
 	 * @generated
 	 */
-	int OR_FEATURE_RULE = 29;
+	int OR_FEATURE_RULE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -1166,7 +1101,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getAndFeatureRule()
 	 * @generated
 	 */
-	int AND_FEATURE_RULE = 30;
+	int AND_FEATURE_RULE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -1203,7 +1138,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getSourceEqualsTarget()
 	 * @generated
 	 */
-	int SOURCE_EQUALS_TARGET = 31;
+	int SOURCE_EQUALS_TARGET = 29;
 
 	/**
 	 * The number of structural features of the '<em>Source Equals Target</em>' class.
@@ -1231,7 +1166,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getSourceEqualsTargetType()
 	 * @generated
 	 */
-	int SOURCE_EQUALS_TARGET_TYPE = 32;
+	int SOURCE_EQUALS_TARGET_TYPE = 30;
 
 	/**
 	 * The number of structural features of the '<em>Source Equals Target Type</em>' class.
@@ -1259,7 +1194,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getInType()
 	 * @generated
 	 */
-	int IN_TYPE = 33;
+	int IN_TYPE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1289,6 +1224,43 @@ public interface editpolicymodelPackage extends EPackage {
 	int IN_TYPE_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link editpolicymodel.impl.IsTargetConnectionTypeImpl <em>Is Target Connection Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see editpolicymodel.impl.IsTargetConnectionTypeImpl
+	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsTargetConnectionType()
+	 * @generated
+	 */
+	int IS_TARGET_CONNECTION_TYPE = 32;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_TARGET_CONNECTION_TYPE__TYPE = TYPE_ARGUMENT_RULE__TYPE;
+
+	/**
+	 * The number of structural features of the '<em>Is Target Connection Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_TARGET_CONNECTION_TYPE_FEATURE_COUNT = TYPE_ARGUMENT_RULE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Is Target Connection Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_TARGET_CONNECTION_TYPE_OPERATION_COUNT = TYPE_ARGUMENT_RULE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1296,7 +1268,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getActionEnum()
 	 * @generated
 	 */
-	int ACTION_ENUM = 34;
+	int ACTION_ENUM = 33;
 
 	/**
 	 * The meta object id for the '{@link editpolicymodel.TypeEnum <em>Type Enum</em>}' enum.
@@ -1306,7 +1278,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getTypeEnum()
 	 * @generated
 	 */
-	int TYPE_ENUM = 35;
+	int TYPE_ENUM = 34;
 
 	/**
 	 * The meta object id for the '{@link editpolicymodel.FeatureNameEnum <em>Feature Name Enum</em>}' enum.
@@ -1316,7 +1288,7 @@ public interface editpolicymodelPackage extends EPackage {
 	 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getFeatureNameEnum()
 	 * @generated
 	 */
-	int FEATURE_NAME_ENUM = 36;
+	int FEATURE_NAME_ENUM = 35;
 
 
 	/**
@@ -1406,34 +1378,14 @@ public interface editpolicymodelPackage extends EPackage {
 	EReference getPolicy_ConstraintRule();
 
 	/**
-	 * Returns the meta object for class '{@link editpolicymodel.ContainsCompartment <em>Contains Compartment</em>}'.
+	 * Returns the meta object for class '{@link editpolicymodel.ContainsType <em>Contains Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Contains Compartment</em>'.
-	 * @see editpolicymodel.ContainsCompartment
+	 * @return the meta object for class '<em>Contains Type</em>'.
+	 * @see editpolicymodel.ContainsType
 	 * @generated
 	 */
-	EClass getContainsCompartment();
-
-	/**
-	 * Returns the meta object for class '{@link editpolicymodel.IsTarget <em>Is Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Is Target</em>'.
-	 * @see editpolicymodel.IsTarget
-	 * @generated
-	 */
-	EClass getIsTarget();
-
-	/**
-	 * Returns the meta object for class '{@link editpolicymodel.IsParent <em>Is Parent</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Is Parent</em>'.
-	 * @see editpolicymodel.IsParent
-	 * @generated
-	 */
-	EClass getIsParent();
+	EClass getContainsType();
 
 	/**
 	 * Returns the meta object for class '{@link editpolicymodel.FeatureRule <em>Feature Rule</em>}'.
@@ -1836,6 +1788,16 @@ public interface editpolicymodelPackage extends EPackage {
 	EClass getInType();
 
 	/**
+	 * Returns the meta object for class '{@link editpolicymodel.IsTargetConnectionType <em>Is Target Connection Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Is Target Connection Type</em>'.
+	 * @see editpolicymodel.IsTargetConnectionType
+	 * @generated
+	 */
+	EClass getIsTargetConnectionType();
+
+	/**
 	 * Returns the meta object for enum '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1957,34 +1919,14 @@ public interface editpolicymodelPackage extends EPackage {
 		EReference POLICY__CONSTRAINT_RULE = eINSTANCE.getPolicy_ConstraintRule();
 
 		/**
-		 * The meta object literal for the '{@link editpolicymodel.impl.ContainsCompartmentImpl <em>Contains Compartment</em>}' class.
+		 * The meta object literal for the '{@link editpolicymodel.impl.ContainsTypeImpl <em>Contains Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see editpolicymodel.impl.ContainsCompartmentImpl
-		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getContainsCompartment()
+		 * @see editpolicymodel.impl.ContainsTypeImpl
+		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getContainsType()
 		 * @generated
 		 */
-		EClass CONTAINS_COMPARTMENT = eINSTANCE.getContainsCompartment();
-
-		/**
-		 * The meta object literal for the '{@link editpolicymodel.impl.IsTargetImpl <em>Is Target</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see editpolicymodel.impl.IsTargetImpl
-		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsTarget()
-		 * @generated
-		 */
-		EClass IS_TARGET = eINSTANCE.getIsTarget();
-
-		/**
-		 * The meta object literal for the '{@link editpolicymodel.impl.IsParentImpl <em>Is Parent</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see editpolicymodel.impl.IsParentImpl
-		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsParent()
-		 * @generated
-		 */
-		EClass IS_PARENT = eINSTANCE.getIsParent();
+		EClass CONTAINS_TYPE = eINSTANCE.getContainsType();
 
 		/**
 		 * The meta object literal for the '{@link editpolicymodel.impl.FeatureRuleImpl <em>Feature Rule</em>}' class.
@@ -2355,6 +2297,16 @@ public interface editpolicymodelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass IN_TYPE = eINSTANCE.getInType();
+
+		/**
+		 * The meta object literal for the '{@link editpolicymodel.impl.IsTargetConnectionTypeImpl <em>Is Target Connection Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see editpolicymodel.impl.IsTargetConnectionTypeImpl
+		 * @see editpolicymodel.impl.editpolicymodelPackageImpl#getIsTargetConnectionType()
+		 * @generated
+		 */
+		EClass IS_TARGET_CONNECTION_TYPE = eINSTANCE.getIsTargetConnectionType();
 
 		/**
 		 * The meta object literal for the '{@link editpolicymodel.ActionEnum <em>Action Enum</em>}' enum.

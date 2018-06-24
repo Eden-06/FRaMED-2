@@ -78,26 +78,11 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case editpolicymodelPackage.CONTAINS_COMPARTMENT: {
-				ContainsCompartment containsCompartment = (ContainsCompartment)theEObject;
-				T result = caseContainsCompartment(containsCompartment);
-				if (result == null) result = caseConstraintRule(containsCompartment);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case editpolicymodelPackage.IS_TARGET: {
-				IsTarget isTarget = (IsTarget)theEObject;
-				T result = caseIsTarget(isTarget);
-				if (result == null) result = caseTypeArgumentRule(isTarget);
-				if (result == null) result = caseConstraintRule(isTarget);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case editpolicymodelPackage.IS_PARENT: {
-				IsParent isParent = (IsParent)theEObject;
-				T result = caseIsParent(isParent);
-				if (result == null) result = caseTypeArgumentRule(isParent);
-				if (result == null) result = caseConstraintRule(isParent);
+			case editpolicymodelPackage.CONTAINS_TYPE: {
+				ContainsType containsType = (ContainsType)theEObject;
+				T result = caseContainsType(containsType);
+				if (result == null) result = caseTypeArgumentRule(containsType);
+				if (result == null) result = caseConstraintRule(containsType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -331,6 +316,14 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case editpolicymodelPackage.IS_TARGET_CONNECTION_TYPE: {
+				IsTargetConnectionType isTargetConnectionType = (IsTargetConnectionType)theEObject;
+				T result = caseIsTargetConnectionType(isTargetConnectionType);
+				if (result == null) result = caseTypeArgumentRule(isTargetConnectionType);
+				if (result == null) result = caseConstraintRule(isTargetConnectionType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -366,47 +359,17 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Contains Compartment</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Contains Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Contains Compartment</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Contains Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseContainsCompartment(ContainsCompartment object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIsTarget(IsTarget object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Is Parent</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Is Parent</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIsParent(IsParent object) {
+	public T caseContainsType(ContainsType object) {
 		return null;
 	}
 
@@ -842,6 +805,21 @@ public class editpolicymodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInType(InType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Is Target Connection Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Is Target Connection Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIsTargetConnectionType(IsTargetConnectionType object) {
 		return null;
 	}
 

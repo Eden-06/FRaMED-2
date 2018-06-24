@@ -20,10 +20,11 @@ import org.framed.iorm.ui.exceptions.NoDiagramFoundException;
 
 import editpolicymodel.AndConstraintRule;
 import editpolicymodel.ConstraintRule;
-import editpolicymodel.ContainsCompartment;
+import editpolicymodel.ContainsType;
 import editpolicymodel.FalseConstraintRule;
 import editpolicymodel.InType;
 import editpolicymodel.IsSourceType;
+import editpolicymodel.IsTargetConnectionType;
 import editpolicymodel.IsTargetType;
 import editpolicymodel.NotConstraintRule;
 import editpolicymodel.OrConstraintRule;
@@ -106,8 +107,12 @@ public class ConstraintRuleVisitor {
 			return isTargetTypeVisitor((IsTargetType) rule);
 		}
 
-		if (rule instanceof ContainsCompartment) {
-			return containsCompartmentVisitor((ContainsCompartment) rule);
+		if (rule instanceof ContainsType) {
+			return containsTypeVisitor((ContainsType) rule);
+		}
+		
+		if (rule instanceof IsTargetConnectionType) {
+			return isTargetConnectionTypeVisitor((IsTargetConnectionType) rule);
 		}
 
 		if (rule instanceof TrueConstraintRule) {
@@ -216,8 +221,21 @@ public class ConstraintRuleVisitor {
 		ModelElement source = UIUtil.getModelElementForAnchor(anchor);
 		return rule.getType().getLiteral().equals(source.getType().getLiteral());
 	}
+	
+	private boolean isTargetConnectionTypeVisitor(IsTargetConnectionType rule) {
+		throw new IllegalStateException("TODO");
+		/*
+		Anchor anchor = this.getTargetAnchorFromContext(this.context);
+		if (anchor == null) {
+			System.out.println("failed isTargetType() anchor== null,  this.context: " + this.context.toString());
+			return false;
+		}
+		ModelElement source = UIUtil.getModelElementForAnchor(anchor);
+		return rule.getType().getLiteral().equals(source.getType().getLiteral());
+		*/
+	}
 
-	private boolean containsCompartmentVisitor(ContainsCompartment rule) {
+	private boolean containsTypeVisitor(ContainsType rule) {
 		ContainerShape container = null;
 		if (this.context instanceof AddContext) {
 			container = ((AddContext) this.context).getTargetContainer();
@@ -233,17 +251,9 @@ public class ConstraintRuleVisitor {
 		org.framed.iorm.model.Model model = (org.framed.iorm.model.Model) o;
 		System.out.println("containsCompartmentVisitor: size()=" + model.getElements().size());
 		for (ModelElement e : model.getElements())
-			if (e.getType().equals(Type.COMPARTMENT_TYPE))
+			if (e.getType().getLiteral().equals(rule.getType().getLiteral()))
 				return true;
 		return false;
-		// TODO: this does not work, it only finds the enclosing compartment type if it
-		// exists, and is semantically equivalent to In(CompartmentType).
-		// travers Containers to find the compartment type.
-		// Diagram compartmentDiagram = findContainerDiagramOfType(container,
-		// Type.COMPARTMENT_TYPE);
-		// System.out.println("containsCompartmentVisitor: TEST: " + compartmentDiagram
-		// != null);
-		// return compartmentDiagram != null;
 	}
 
 	private boolean sourceEqualsTargetVisitor(SourceEqualsTarget rule) {

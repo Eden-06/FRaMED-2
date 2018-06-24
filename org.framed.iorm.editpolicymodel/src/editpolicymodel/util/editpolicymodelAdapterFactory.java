@@ -76,16 +76,8 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createPolicyAdapter();
 			}
 			@Override
-			public Adapter caseContainsCompartment(ContainsCompartment object) {
-				return createContainsCompartmentAdapter();
-			}
-			@Override
-			public Adapter caseIsTarget(IsTarget object) {
-				return createIsTargetAdapter();
-			}
-			@Override
-			public Adapter caseIsParent(IsParent object) {
-				return createIsParentAdapter();
+			public Adapter caseContainsType(ContainsType object) {
+				return createContainsTypeAdapter();
 			}
 			@Override
 			public Adapter caseFeatureRule(FeatureRule object) {
@@ -204,6 +196,10 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 				return createInTypeAdapter();
 			}
 			@Override
+			public Adapter caseIsTargetConnectionType(IsTargetConnectionType object) {
+				return createIsTargetConnectionTypeAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -252,44 +248,16 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link editpolicymodel.ContainsCompartment <em>Contains Compartment</em>}'.
+	 * Creates a new adapter for an object of class '{@link editpolicymodel.ContainsType <em>Contains Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see editpolicymodel.ContainsCompartment
+	 * @see editpolicymodel.ContainsType
 	 * @generated
 	 */
-	public Adapter createContainsCompartmentAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link editpolicymodel.IsTarget <em>Is Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see editpolicymodel.IsTarget
-	 * @generated
-	 */
-	public Adapter createIsTargetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link editpolicymodel.IsParent <em>Is Parent</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see editpolicymodel.IsParent
-	 * @generated
-	 */
-	public Adapter createIsParentAdapter() {
+	public Adapter createContainsTypeAdapter() {
 		return null;
 	}
 
@@ -696,6 +664,20 @@ public class editpolicymodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link editpolicymodel.IsTargetConnectionType <em>Is Target Connection Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see editpolicymodel.IsTargetConnectionType
+	 * @generated
+	 */
+	public Adapter createIsTargetConnectionTypeAdapter() {
 		return null;
 	}
 

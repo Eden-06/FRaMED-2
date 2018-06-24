@@ -2,25 +2,25 @@
  */
 package editpolicymodel.impl;
 
-import editpolicymodel.IsTarget;
+import editpolicymodel.ContainsType;
 import editpolicymodel.editpolicymodelPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Is Target</b></em>'.
+ * An implementation of the model object '<em><b>Contains Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IsTargetImpl extends TypeArgumentRuleImpl implements IsTarget {
+public class ContainsTypeImpl extends TypeArgumentRuleImpl implements ContainsType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IsTargetImpl() {
+	protected ContainsTypeImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class IsTargetImpl extends TypeArgumentRuleImpl implements IsTarget {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return editpolicymodelPackage.Literals.IS_TARGET;
+		return editpolicymodelPackage.Literals.CONTAINS_TYPE;
 	}
 
-} //IsTargetImpl
+} //ContainsTypeImpl

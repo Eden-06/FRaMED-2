@@ -17,9 +17,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintRule" eType="#//ConstraintRule"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ContainsCompartment" eSuperTypes="#//ConstraintRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsTarget" eSuperTypes="#//TypeArgumentRule"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IsParent" eSuperTypes="#//TypeArgumentRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainsType" eSuperTypes="#//TypeArgumentRule"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ActionEnum">
     <eLiterals name="Create"/>
     <eLiterals name="Add" value="1"/>
@@ -151,4 +149,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTarget" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="SourceEqualsTargetType" eSuperTypes="#//ConstraintRule"/>
   <eClassifiers xsi:type="ecore:EClass" name="InType" eSuperTypes="#//TypeArgumentRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IsTargetConnectionType" eSuperTypes="#//TypeArgumentRule"/>
 </ecore:EPackage>

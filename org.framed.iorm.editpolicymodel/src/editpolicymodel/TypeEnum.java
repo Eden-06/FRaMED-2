@@ -196,7 +196,9 @@ public enum TypeEnum implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NATURAL_TYPE(17, "NaturalType", "NaturalType"), /**
+	NATURAL_TYPE(17, "NaturalType", "NaturalType"),
+
+	/**
 	 * The '<em><b>Total</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

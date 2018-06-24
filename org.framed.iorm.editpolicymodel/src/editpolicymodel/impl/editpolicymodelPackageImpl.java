@@ -8,7 +8,7 @@ import editpolicymodel.AndFeatureRule;
 import editpolicymodel.BinaryConstraintRule;
 import editpolicymodel.BinaryFeatureRule;
 import editpolicymodel.ConstraintRule;
-import editpolicymodel.ContainsCompartment;
+import editpolicymodel.ContainsType;
 import editpolicymodel.FalseConstraintRule;
 import editpolicymodel.FalseFeatureRule;
 import editpolicymodel.FeatureNameEnum;
@@ -17,9 +17,8 @@ import editpolicymodel.ImplicationConstraintRule;
 import editpolicymodel.ImplicationFeatureRule;
 import editpolicymodel.InType;
 import editpolicymodel.IsFeature;
-import editpolicymodel.IsParent;
 import editpolicymodel.IsSourceType;
-import editpolicymodel.IsTarget;
+import editpolicymodel.IsTargetConnectionType;
 import editpolicymodel.IsTargetType;
 import editpolicymodel.LogicalConstraintRule;
 import editpolicymodel.LogicalFeatureRule;
@@ -78,21 +77,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass containsCompartmentEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass isTargetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass isParentEClass = null;
+	private EClass containsTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -302,6 +287,13 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass isTargetConnectionTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum actionEnumEEnum = null;
 
 	/**
@@ -459,26 +451,8 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getContainsCompartment() {
-		return containsCompartmentEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIsTarget() {
-		return isTargetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIsParent() {
-		return isParentEClass;
+	public EClass getContainsType() {
+		return containsTypeEClass;
 	}
 
 	/**
@@ -837,6 +811,15 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getIsTargetConnectionType() {
+		return isTargetConnectionTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getActionEnum() {
 		return actionEnumEEnum;
 	}
@@ -897,11 +880,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		createEReference(policyEClass, POLICY__FEATURE_RULE);
 		createEReference(policyEClass, POLICY__CONSTRAINT_RULE);
 
-		containsCompartmentEClass = createEClass(CONTAINS_COMPARTMENT);
-
-		isTargetEClass = createEClass(IS_TARGET);
-
-		isParentEClass = createEClass(IS_PARENT);
+		containsTypeEClass = createEClass(CONTAINS_TYPE);
 
 		featureRuleEClass = createEClass(FEATURE_RULE);
 
@@ -971,6 +950,8 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 
 		inTypeEClass = createEClass(IN_TYPE);
 
+		isTargetConnectionTypeEClass = createEClass(IS_TARGET_CONNECTION_TYPE);
+
 		// Create enums
 		actionEnumEEnum = createEEnum(ACTION_ENUM);
 		typeEnumEEnum = createEEnum(TYPE_ENUM);
@@ -1005,9 +986,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		containsCompartmentEClass.getESuperTypes().add(this.getConstraintRule());
-		isTargetEClass.getESuperTypes().add(this.getTypeArgumentRule());
-		isParentEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		containsTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		isFeatureEClass.getESuperTypes().add(this.getFeatureRule());
 		isTargetTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 		unaryConstraintRuleEClass.getESuperTypes().add(this.getLogicalConstraintRule());
@@ -1035,6 +1014,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		sourceEqualsTargetEClass.getESuperTypes().add(this.getConstraintRule());
 		sourceEqualsTargetTypeEClass.getESuperTypes().add(this.getConstraintRule());
 		inTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
+		isTargetConnectionTypeEClass.getESuperTypes().add(this.getTypeArgumentRule());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1047,11 +1027,7 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		initEReference(getPolicy_FeatureRule(), this.getFeatureRule(), null, "featureRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPolicy_ConstraintRule(), this.getConstraintRule(), null, "constraintRule", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(containsCompartmentEClass, ContainsCompartment.class, "ContainsCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(isTargetEClass, IsTarget.class, "IsTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(isParentEClass, IsParent.class, "IsParent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(containsTypeEClass, ContainsType.class, "ContainsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(featureRuleEClass, FeatureRule.class, "FeatureRule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1120,6 +1096,8 @@ public class editpolicymodelPackageImpl extends EPackageImpl implements editpoli
 		initEClass(sourceEqualsTargetTypeEClass, SourceEqualsTargetType.class, "SourceEqualsTargetType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(inTypeEClass, InType.class, "InType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(isTargetConnectionTypeEClass, IsTargetConnectionType.class, "IsTargetConnectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(actionEnumEEnum, ActionEnum.class, "ActionEnum");

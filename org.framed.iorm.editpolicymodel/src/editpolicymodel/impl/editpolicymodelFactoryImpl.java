@@ -59,9 +59,7 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 		switch (eClass.getClassifierID()) {
 			case editpolicymodelPackage.MODEL: return createModel();
 			case editpolicymodelPackage.POLICY: return createPolicy();
-			case editpolicymodelPackage.CONTAINS_COMPARTMENT: return createContainsCompartment();
-			case editpolicymodelPackage.IS_TARGET: return createIsTarget();
-			case editpolicymodelPackage.IS_PARENT: return createIsParent();
+			case editpolicymodelPackage.CONTAINS_TYPE: return createContainsType();
 			case editpolicymodelPackage.IS_FEATURE: return createIsFeature();
 			case editpolicymodelPackage.IS_TARGET_TYPE: return createIsTargetType();
 			case editpolicymodelPackage.NOT_CONSTRAINT_RULE: return createNotConstraintRule();
@@ -82,6 +80,7 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 			case editpolicymodelPackage.SOURCE_EQUALS_TARGET: return createSourceEqualsTarget();
 			case editpolicymodelPackage.SOURCE_EQUALS_TARGET_TYPE: return createSourceEqualsTargetType();
 			case editpolicymodelPackage.IN_TYPE: return createInType();
+			case editpolicymodelPackage.IS_TARGET_CONNECTION_TYPE: return createIsTargetConnectionType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -150,29 +149,9 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContainsCompartment createContainsCompartment() {
-		ContainsCompartmentImpl containsCompartment = new ContainsCompartmentImpl();
-		return containsCompartment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IsTarget createIsTarget() {
-		IsTargetImpl isTarget = new IsTargetImpl();
-		return isTarget;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IsParent createIsParent() {
-		IsParentImpl isParent = new IsParentImpl();
-		return isParent;
+	public ContainsType createContainsType() {
+		ContainsTypeImpl containsType = new ContainsTypeImpl();
+		return containsType;
 	}
 
 	/**
@@ -373,6 +352,16 @@ public class editpolicymodelFactoryImpl extends EFactoryImpl implements editpoli
 	public InType createInType() {
 		InTypeImpl inType = new InTypeImpl();
 		return inType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsTargetConnectionType createIsTargetConnectionType() {
+		IsTargetConnectionTypeImpl isTargetConnectionType = new IsTargetConnectionTypeImpl();
+		return isTargetConnectionType;
 	}
 
 	/**

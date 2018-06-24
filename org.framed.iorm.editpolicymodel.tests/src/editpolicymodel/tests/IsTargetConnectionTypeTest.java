@@ -2,18 +2,18 @@
  */
 package editpolicymodel.tests;
 
-import editpolicymodel.IsParent;
+import editpolicymodel.IsTargetConnectionType;
 import editpolicymodel.editpolicymodelFactory;
 
 import junit.textui.TestRunner;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Is Parent</b></em>'.
+ * A test case for the model object '<em><b>Is Target Connection Type</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class IsParentTest extends TypeArgumentRuleTest {
+public class IsTargetConnectionTypeTest extends TypeArgumentRuleTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -21,28 +21,28 @@ public class IsParentTest extends TypeArgumentRuleTest {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(IsParentTest.class);
+		TestRunner.run(IsTargetConnectionTypeTest.class);
 	}
 
 	/**
-	 * Constructs a new Is Parent test case with the given name.
+	 * Constructs a new Is Target Connection Type test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsParentTest(String name) {
+	public IsTargetConnectionTypeTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Returns the fixture for this Is Parent test case.
+	 * Returns the fixture for this Is Target Connection Type test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected IsParent getFixture() {
-		return (IsParent)fixture;
+	protected IsTargetConnectionType getFixture() {
+		return (IsTargetConnectionType)fixture;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class IsParentTest extends TypeArgumentRuleTest {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(editpolicymodelFactory.eINSTANCE.createIsParent());
+		setFixture(editpolicymodelFactory.eINSTANCE.createIsTargetConnectionType());
 	}
 
 	/**
@@ -67,4 +67,4 @@ public class IsParentTest extends TypeArgumentRuleTest {
 		setFixture(null);
 	}
 
-} //IsParentTest
+} //IsTargetConnectionTypeTest

@@ -2,25 +2,25 @@
  */
 package editpolicymodel.impl;
 
-import editpolicymodel.ContainsCompartment;
+import editpolicymodel.IsTargetConnectionType;
 import editpolicymodel.editpolicymodelPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Contains Compartment</b></em>'.
+ * An implementation of the model object '<em><b>Is Target Connection Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class ContainsCompartmentImpl extends ConstraintRuleImpl implements ContainsCompartment {
+public class IsTargetConnectionTypeImpl extends TypeArgumentRuleImpl implements IsTargetConnectionType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ContainsCompartmentImpl() {
+	protected IsTargetConnectionTypeImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class ContainsCompartmentImpl extends ConstraintRuleImpl implements Conta
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return editpolicymodelPackage.Literals.CONTAINS_COMPARTMENT;
+		return editpolicymodelPackage.Literals.IS_TARGET_CONNECTION_TYPE;
 	}
 
-} //ContainsCompartmentImpl
+} //IsTargetConnectionTypeImpl
