@@ -16,12 +16,4 @@
     <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
     <constraintRule xsi:type="editpolicymodel:TrueConstraintRule"/>
   </policies>
-  <policies action="Add" actionType="RoleType">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
-  </policies>
-  <policies actionType="RoleType">
-    <featureRule xsi:type="editpolicymodel:TrueFeatureRule"/>
-    <constraintRule xsi:type="editpolicymodel:InType" type="CompartmentType"/>
-  </policies>
 </editpolicymodel:Model>
