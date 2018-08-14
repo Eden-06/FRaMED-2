@@ -9,7 +9,7 @@ rule RoleGroupInCompartmentType
 	to t : target!RoleGroup 
 	extends  RoleGroup {	
 		guard : not(s.getContainer().getParent() == null) and
-				s.getContainer().getParent().getType==(source!Type#CompartmentType)	
+				s.getContainer().getParent().getType==(source!Type#CompartmentType)
 				
 		//get the crom equivalent to compartment type the role group is in
 		var compartmentType = s.getContainer.getParent().equivalent();

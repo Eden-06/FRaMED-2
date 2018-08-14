@@ -34,12 +34,36 @@ rule FulfillmentNoRoleGroups
 				fulfillmentFillsRoleGroup(s) and
 				not(s.~features.get("Group_Constraints"))
 		
+		var fulfillmentsToDelete : OrderedSet(target!Fulfillment);
 		for(fulfillment : target!Fulfillment in s.~transformed) {
 			if(fulfillment.filled.instanceOf(target!RoleGroup))
-				delete(fulfillment);
-				s.~transformed.remove(fulfillment);
+				fulfillmentsToDelete.add(fulfillment); 
 		}	
+		for(fulfillment : target!Fulfillment in fulfillmentsToDelete) {
+			delete(fulfillment);
+			s.~transformed.remove(fulfillment);
+		}
 }
+
+@lazy
+rule FulfillmentWithOutFiller
+	transform s : source!Relation
+	to t : Sequence(target!Fulfillment)
+	extends Fulfillment {
+		guard : s.target.getType==(source!Type#CompartmentType)
+		
+		var fulfillmentsToDelete : OrderedSet(target!Fulfillment);
+		for(fulfillment : target!Fulfillment in s.~transformed) {
+			if(fulfillment.filled == null) {
+				fulfillment.filled.println();
+				fulfillmentsToDelete.add(fulfillment); }
+				
+		}	
+		for(fulfillment : target!Fulfillment in fulfillmentsToDelete) {
+			delete(fulfillment);
+			s.~transformed.remove(fulfillment);
+		}
+}			
 
 operation fulfillmentFillsRoleGroup(s: source!Relation):Boolean {
 	for(roles : source!Shape in s.getReferencedRoles) {

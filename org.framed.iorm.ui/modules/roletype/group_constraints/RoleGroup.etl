@@ -10,7 +10,8 @@ rule RoleGroup
 	to t : target!RoleGroup {	
 		guard : s.getType==(source!Type#RoleGroup) and
 				s.~features.get("Group_Constraints") //feature Group_Constraints implies feature Role_Constraints (not to check)
-		
+
+					
 		//set the transformed target element to ensure the subrule work on the same target and only transform once
  		if(s.~transformed == null) {
 	 		s.~transformed = t;
@@ -59,7 +60,7 @@ rule RoleGroupNotTransformed
 	to t : target!RoleGroup {	
 		guard : s.getType==(source!Type#RoleGroup) and
 				not(s.~features.get("Group_Constraints")) //feature Group_Constraints implies feature Role_Constraints (not to check)
-	
+		
 		//transform children
 		var children = s.`model`;
 		if (not (children == null)) {

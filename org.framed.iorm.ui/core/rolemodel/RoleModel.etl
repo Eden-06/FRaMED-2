@@ -1,12 +1,12 @@
 /**
  * The abstract rule for compartment type outside of compartment types
  */
-@abstract
-rule CompartmentType
+@lazy
+rule RoleModel
 	transform s : source!Shape
 	to t : target!CompartmentType {
 		guard : s.getType==(source!Type#CompartmentType) and
-				s.~features.get("Compartment_Types") and
+				not(s.~features.get("Compartment_Types")) and
 				(s.getContainer().getParent()==null or
 				 not(s.getContainer().getParent().getType()==(source!Type#CompartmentType)))
 		
