@@ -6,18 +6,18 @@ import java.net.URL;
 import java.util.List;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.epsilon.common.parse.problem.ParseProblem;
-import org.eclipse.epsilon.eol.IEolExecutableModule;
+import org.eclipse.epsilon.eol.IEolModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.models.IModel;
 import org.osgi.framework.Bundle;
 
 public abstract class EpsilonStandalone {
 
-	protected IEolExecutableModule module;
+	protected IEolModule module;
 
 	protected Object result;
 
-	public abstract IEolExecutableModule createModule();
+	public abstract IEolModule createModule();
 
 	public abstract String getSource();
 
@@ -38,7 +38,7 @@ public abstract class EpsilonStandalone {
 				System.err.println(problem.toString());
 			System.exit(-1);
 		}
-	  for (IModel model : getModels()) {
+	for (IModel model : getModels()) {
       module.getContext().getModelRepository().addModel(model);
     }
     preProcess();
@@ -47,7 +47,7 @@ public abstract class EpsilonStandalone {
     module.getContext().getModelRepository().dispose();
   }
   
-  protected Object execute(IEolExecutableModule module) throws EolRuntimeException {
+  protected Object execute(IEolModule module) throws EolRuntimeException {
     return module.execute();
   }
 
