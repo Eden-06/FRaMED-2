@@ -25,7 +25,7 @@ rule RoleGroupWithOccurenceConstraints
 		guard : not(s.getContainer().getParent() == null) and 
 				s.getContainer().getParent().getType==(source!Type#CompartmentType) and
 				s.~features.get("Occurrence_Constraints")
-			
+		
 		//parse the lower and upper bound from the role
 		var desc = s.description;
 		if (not (desc == null)) {
