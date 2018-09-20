@@ -76,7 +76,7 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link FeaturemodelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -91,17 +91,17 @@ public class FeaturemodelPackageImpl extends EPackageImpl implements Featuremode
 			return (FeaturemodelPackage) EPackage.Registry.INSTANCE.getEPackage(FeaturemodelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		FeaturemodelPackageImpl theFeaturemodelPackage = (FeaturemodelPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof FeaturemodelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-						: new FeaturemodelPackageImpl());
+		Object registeredFeaturemodelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		FeaturemodelPackageImpl theFeaturemodelPackage = registeredFeaturemodelPackage instanceof FeaturemodelPackageImpl
+				? (FeaturemodelPackageImpl) registeredFeaturemodelPackage
+				: new FeaturemodelPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		OrmPackageImpl theOrmPackage = (OrmPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(OrmPackage.eNS_URI) instanceof OrmPackageImpl
-						? EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI)
-						: OrmPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(OrmPackage.eNS_URI);
+		OrmPackageImpl theOrmPackage = (OrmPackageImpl) (registeredPackage instanceof OrmPackageImpl ? registeredPackage
+				: OrmPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theFeaturemodelPackage.createPackageContents();

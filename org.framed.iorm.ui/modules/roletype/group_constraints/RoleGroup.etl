@@ -31,7 +31,24 @@ rule RoleGroup
 				if(cards.size()>1) {
 					t.upper = cards[1];
 				}
-			} 
+			}
+			//only transform if the role type is in a compartment type
+			if(s.getContainer().getParent().getType==(source!Type#CompartmentType)) {
+				//get the crom equivalent to compartment type the role type is in
+				var compartmentType = s.getContainer.getParent().equivalent();
+				//check if a part with that role does not already is added to the compartment type
+				var partAlreadyAdded = false;
+				for(alreadyAddedPart : target!Part in compartmentType.getParts()) {
+					if(alreadyAddedPart.role == s.~transformed) partAlreadyAdded = true;
+				}
+				if(not(partAlreadyAdded)) {
+					//create a new part with the role
+					var part = new target!Part;
+					part.role = s.~transformed;
+					part.whole = compartmentType;
+					//add the part to the compartment type the role type 
+					compartmentType.getParts().add(part);
+			}	}		
 			//transform children
 			var children = s.`model`;
 			if (not (children == null)) {
