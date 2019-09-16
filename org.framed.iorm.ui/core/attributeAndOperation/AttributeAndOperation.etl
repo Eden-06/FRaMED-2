@@ -85,7 +85,7 @@ operation source!Shape addOperations(t : target!Type) {
 				parameter.name = paramName;
 
 				var pt = findTypeForName(paramType);			
-				if (not (pt == null)) {
+				if ((not (pt == null)) and (pt.isKindOf(target!RigidType))) {
 					parameter.type = pt;
 				}
 				op.params.add(parameter);					 
