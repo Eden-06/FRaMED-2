@@ -1,15 +1,21 @@
 package org.framed.iorm.ui.subeditors;
 
+import static de.ovgu.featureide.fm.core.localization.StringTable.UPDATING_FEATURE_MODEL_EDITS;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -37,12 +43,20 @@ import org.framed.iorm.ui.configuration.ChangeConfigurationCommand;
 import org.framed.iorm.ui.exceptions.FeatureModelNotReadableException;
 import org.framed.iorm.ui.multipage.MultipageEditor;
 
+import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
+import de.ovgu.featureide.fm.core.configuration.ConfigurationAnalyzer;
+import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
+import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator.UpdateMethod;
 import de.ovgu.featureide.fm.core.configuration.SelectableFeature;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.configuration.TreeElement;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
+import de.ovgu.featureide.fm.core.job.LongRunningJob;
+import de.ovgu.featureide.fm.core.job.monitor.IMonitor;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.operations.FeatureModelOperationWrapper;
+import de.ovgu.featureide.fm.ui.views.FeatureModelEditView;
 
 /**
  * the feature editor used by the {@link MultipageEditor}
@@ -97,7 +111,18 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * the item of the tree view {@link #tree}
 	 */
 	private final Map<SelectableFeature, TreeItem> itemMap = new HashMap<SelectableFeature, TreeItem>();
+
 	
+	private ConfigurationPropagator configurationPropagator;
+	
+	/**
+	 * returns the ConfigurationPropagator for the configuration.
+	 * @return
+	 */
+	public ConfigurationPropagator getConfigurationPropagator() {
+		return configurationPropagator;
+	}
+
 	/**
 	 * the get method the configuration of the feature editor
 	 * @return the class variable {@link #configuration}
@@ -178,12 +203,30 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 */
 	private void loadConfiguration(Model rootModel, IFeatureModel featureModel) {
 	    FRaMEDConfiguration framedConfiguration = rootModel.getFramedConfiguration();
-	    configuration = new Configuration(featureModel);
-	    configuration.getPropagator().update();
+	    //Code for new version
+	    FeatureModelFormula formula=new FeatureModelFormula(featureModel);
+	    configuration = new Configuration(new FeatureModelFormula(featureModel));
+	    configurationPropagator=new ConfigurationPropagator(formula,configuration);
+	    
+	    //configuration = new Configuration(featureModel);
+	    //configuration.getPropagator().update();
 	    if (framedConfiguration != null) {
 	    	for (FRaMEDFeature f : framedConfiguration.getFeatures())
 	    		configuration.setManual(f.getName().getLiteral(), Selection.SELECTED);
 	    }
+//	    final LongRunningJob<Collection<SelectableFeature>> job=new LongRunningJob<>("updateing configuration", configurationPropagator.update());
+//	    job.schedule();
+//	    try {
+//			job.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//	    if (job.getResults()!=null) {
+//	    	System.out.println("INFO : "+job.getResults());
+//	    	for (SelectableFeature sf:job.getResults()) {
+//	    		configuration.setAutomatic(sf, sf.getAutomatic());
+//	    	}
+//	    }
 	}
 	
 	/**
@@ -290,7 +333,18 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 * updates the labels text and color if the configuration is valid or not
 	 */
 	 private void updateInfoLabel() {
-		 Boolean valid = configuration.isValid();
+		 //Boolean valid = configuration.isValid();
+		 //Code for new version
+		 LongRunningJob<Boolean> job=new LongRunningJob<Boolean>("isValid check",configurationPropagator.isValid());
+		 job.schedule();
+		 Boolean valid=false;
+		 try {
+			job.join();
+			if (job.getResults()!=null)
+				valid=job.getResults();
+		 } catch (InterruptedException e) {
+			e.printStackTrace();
+		 }		 
 		 infoLabel.setText(valid ? "VALID Configuration" : "INVALID Configuration");
 		 infoLabel.setForeground(valid ? COLOR_VALID_CONFIGURATION : COLOR_INVALID_CONFIGURATION);
 	}
@@ -301,6 +355,23 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	private void updateTree() {
 	    tree.removeAll();
 	    final TreeItem root = new TreeItem(tree, 0);
+	    //New code
+//	    final LongRunningJob<Collection<SelectableFeature>> job=new LongRunningJob<>("updateing configuration", configurationPropagator.update());
+//	    job.setPriority(LongRunningJob.SHORT);
+//	    job.schedule();
+//		try {
+//			job.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//	    if (job.getResults()!=null) {
+//	    	System.out.println("INFO : "+job.getResults());
+//	    	for (SelectableFeature sf:job.getResults()) {
+//	    		configuration.setAutomatic(sf, sf.getAutomatic());
+//	    	}
+//	    }
+	    
+	    
 	    final SelectableFeature rootFeature = configuration.getRoot();
 		root.setText(configuration.getRoot().getName());
 	    root.setData(configuration.getRoot());
@@ -490,5 +561,7 @@ public class FRaMEDFeatureEditor extends EditorPart {
 	 */
 	@Override
 	public void doSaveAs() {}
+
+
 }
 
